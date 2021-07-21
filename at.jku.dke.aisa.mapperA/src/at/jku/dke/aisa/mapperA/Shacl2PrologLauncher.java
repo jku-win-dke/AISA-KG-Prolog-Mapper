@@ -28,6 +28,10 @@ public class Shacl2PrologLauncher {
 	
 	private final static String SHACL_SCHEMA = "input/donlon-shacl.ttl";
 	private final static String DATA_FILE = "input/donlon-data.ttl";
+	
+//	private final static String SHACL_SCHEMA = "input/plain-shacl.ttl";
+//	private final static String DATA_FILE = "input/plain-data.ttl";
+	
 	private final static String PREFIXES_FILE = "input/prefixes.ttl";
 	
 	private static final String DATA_GRAPH_NAME = "https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml";

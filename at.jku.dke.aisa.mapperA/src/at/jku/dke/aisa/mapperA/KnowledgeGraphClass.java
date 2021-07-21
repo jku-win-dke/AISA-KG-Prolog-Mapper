@@ -275,7 +275,8 @@ public class KnowledgeGraphClass {
 	 * @return
 	 */
 	private String getPrefixMapping(Node node, Shape rootShape) {
-		return node.toString(rootShape.getShapeGraph().getPrefixMapping());
+		String prefixMapping = node.toString(rootShape.getShapeGraph().getPrefixMapping());
+		return node.toString().equals(prefixMapping) ? "<" + node.toString() + ">" : prefixMapping;
 	}
 	
 	/**

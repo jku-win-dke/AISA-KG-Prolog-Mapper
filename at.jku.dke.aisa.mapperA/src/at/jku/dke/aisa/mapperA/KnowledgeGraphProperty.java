@@ -92,14 +92,14 @@ public class KnowledgeGraphProperty {
 					+ "        {" + '\n' //
 					+ "          {" + '\n' //
 					+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
-					+ "            FILTER ( NOT EXISTS {?_" + name + " aixm:uom ?" + name + "UoM})" + '\n' //
+					+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
 					+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
 					+ "          }" + '\n' //
 					+ "		     UNION" + '\n' //
 					+ "		     {" + '\n' //
 					+ "            ?_" + name + "\n" //
 					+ "              rdf:value ?" + name + "Value ;" + '\n' //
-					+ "              aixm:uom ?" + name + "UoM ." + '\n' //
+					+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
 					+ "              BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
 					+ "          }" + '\n' //
 					+ "          UNION" + '\n' //
@@ -113,14 +113,14 @@ public class KnowledgeGraphProperty {
 							+ "        {" + '\n' //
 							+ "          {" + '\n' //
 							+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
-							+ "            FILTER ( NOT EXISTS {?_" + name + " aixm:uom ?" + name + "UoM})" + '\n' //
+							+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
 							+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
 							+ "          }" + '\n' //
 							+ "            UNION" + '\n' //
 							+ "          {" + '\n' //
 							+ "            ?_" + name + "\n" //
 							+ "              rdf:value ?" + name + "Value ;" + '\n' //
-							+ "              aixm:uom ?" + name + "UoM ." + '\n' //
+							+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
 							+ "            BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
 							+ "          }" + '\n' //
 							+ "            UNION" + '\n' //
@@ -133,6 +133,10 @@ public class KnowledgeGraphProperty {
 
 		}
 	}
+	
+//	private String getUom() {
+//		ExtendedIterator<Triple> iterator = knowledgeGraphClass.rootShape.getShapeGraph().find(, null,);
+//	}
 	
 	/**
 	 * Returns the in the constructor created where fragment of the property.
@@ -211,6 +215,9 @@ public class KnowledgeGraphProperty {
 		} else if(path.toString().startsWith("<http://www.opengis.net/gml/3.2#")) {
 			String[] pathSplitted = path.toString().split("gml/3.2#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);
+		} else if(path.toString().startsWith("<http://www.aisa-project.eu/xquery/plain#")) {
+			String[] pathSplitted = path.toString().split("plain#");
+			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);			
 		}
 		String[] pathSplitted = path.toString().split("/");
 		return pathSplitted[pathSplitted.length-1].substring(0, pathSplitted[pathSplitted.length-1].length()-1);
@@ -257,6 +264,7 @@ public class KnowledgeGraphProperty {
 	 * @return
 	 */
 	private String getPrefixMapping(Node node, Shape rootShape) {
-		return node.toString(rootShape.getShapeGraph().getPrefixMapping());
+		String prefixMapping = node.toString(rootShape.getShapeGraph().getPrefixMapping());
+		return node.toString().equals(prefixMapping) ? "<" + node.toString() + ">" : prefixMapping;
 	}
 }
