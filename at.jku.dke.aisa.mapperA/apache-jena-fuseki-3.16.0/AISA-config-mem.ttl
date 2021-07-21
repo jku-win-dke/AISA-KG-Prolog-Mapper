@@ -1,0 +1,46 @@
+@prefix :       <http://www.aisa-project.eu/data#> .
+@prefix tdb1:   <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix tdb2:   <http://jena.apache.org/2016/tdb#> . 
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ja:     <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix fuseki: <http://jena.apache.org/fuseki#> .
+
+## in-memory dataset
+:dataset a ja:MemoryDataset .
+
+:service1 rdf:type fuseki:Service ;
+  fuseki:name "aisakg" ;   # http://<host>:<port>/aisakg
+  fuseki:dataset  :dataset ;
+  fuseki:endpoint [ 
+    # SPARQL query service at http://<host>:<port>/aisakg/sparql
+    # name must not be changed, because is used by web app 
+    fuseki:name "sparql" ;
+    fuseki:operation fuseki:query ; 
+  ] ;
+  fuseki:endpoint [ 
+    # SPARQL update service at http://<host>:<port>/aisakg/update
+    fuseki:name "update" ;
+    fuseki:operation fuseki:update ; 
+  ] ;
+  fuseki:endpoint [ 
+    # HTML file upload service http://<host>:<port>/aisakg/upload
+    fuseki:name "upload" ;
+    fuseki:operation fuseki:upload ; 
+  ] ;
+  fuseki:endpoint [ 
+    # SPARQL Graph Store Protocol (read) at http://<host>:<port>/aisakg/get
+    fuseki:name "get" ;
+    fuseki:operation fuseki:gsp_r ; 
+  ] ;
+  fuseki:endpoint [ 
+    # SPARQL Graph Store Protcol (read and write) at http://<host>:<port>/aisakg/data
+    fuseki:name "data" ;
+    fuseki:operation fuseki:gsp_rw ; 
+  ] ;
+  fuseki:endpoint [ 
+    # SHACL Validation at http://<host>:<port>/aisakg/data
+    fuseki:name "shacl" ;
+    fuseki:operation fuseki:shacl ; 
+  ] ;
+.

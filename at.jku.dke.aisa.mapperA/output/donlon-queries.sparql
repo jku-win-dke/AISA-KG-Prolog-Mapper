@@ -1,0 +1,3476 @@
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliportContamination
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportContamination rdf:type aixm:AirportHeliportContamination .
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?city ?name (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?city rdf:type aixm:City .
+      OPTIONAL { ?city aixm:name ?_name .
+        {
+          {
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name aixm:uom ?nameUoM})
+            BIND(concat('val:',?nameValue) AS ?name)
+          }
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              aixm:uom ?nameUoM .
+            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat('nil:',?nameNilReason) AS ?name)
+          }
+        }
+      }
+      OPTIONAL {?city aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?city ?name
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliportResponsibilityOrganisation ?role ?theOrganisationAuthority
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportResponsibilityOrganisation rdf:type aixm:AirportHeliportResponsibilityOrganisation .
+      OPTIONAL { ?airportHeliportResponsibilityOrganisation aixm:role ?_role .
+        {
+          {
+            ?_role rdf:value ?roleValue .
+            FILTER ( NOT EXISTS {?_role aixm:uom ?roleUoM})
+            BIND(concat('val:',?roleValue) AS ?role)
+          }
+            UNION
+          {
+            ?_role
+              rdf:value ?roleValue ;
+              aixm:uom ?roleUoM .
+            BIND(concat('xval:',STR(?roleValue),':',?roleUoM) AS ?role)
+          }
+            UNION
+          {
+           ?_role  aixm:nilReason ?roleNilReason .
+           BIND(concat('nil:',?roleNilReason) AS ?role)
+          }
+        }
+      }
+      ?airportHeliportResponsibilityOrganisation aixm:theOrganisationAuthority ?theOrganisationAuthority .
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?note ?propertyName ?purpose (GROUP_CONCAT(DISTINCT ?translatedNote;SEPARATOR=",") AS ?translatedNoteConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?note rdf:type aixm:Note .
+      OPTIONAL { ?note aixm:propertyName ?_propertyName .
+        {
+          {
+            ?_propertyName rdf:value ?propertyNameValue .
+            FILTER ( NOT EXISTS {?_propertyName aixm:uom ?propertyNameUoM})
+            BIND(concat('val:',?propertyNameValue) AS ?propertyName)
+          }
+            UNION
+          {
+            ?_propertyName
+              rdf:value ?propertyNameValue ;
+              aixm:uom ?propertyNameUoM .
+            BIND(concat('xval:',STR(?propertyNameValue),':',?propertyNameUoM) AS ?propertyName)
+          }
+            UNION
+          {
+           ?_propertyName  aixm:nilReason ?propertyNameNilReason .
+           BIND(concat('nil:',?propertyNameNilReason) AS ?propertyName)
+          }
+        }
+      }
+      OPTIONAL { ?note aixm:purpose ?_purpose .
+        {
+          {
+            ?_purpose rdf:value ?purposeValue .
+            FILTER ( NOT EXISTS {?_purpose aixm:uom ?purposeUoM})
+            BIND(concat('val:',?purposeValue) AS ?purpose)
+          }
+            UNION
+          {
+            ?_purpose
+              rdf:value ?purposeValue ;
+              aixm:uom ?purposeUoM .
+            BIND(concat('xval:',STR(?purposeValue),':',?purposeUoM) AS ?purpose)
+          }
+            UNION
+          {
+           ?_purpose  aixm:nilReason ?purposeNilReason .
+           BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+          }
+        }
+      }
+      OPTIONAL {?note aixm:translatedNote ?translatedNote .}
+    }
+  }
+GROUP BY ?graph ?note ?propertyName ?purpose
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?telephoneContact ?voice ?facsimile
+WHERE
+  { GRAPH ?graph
+    {
+      ?telephoneContact rdf:type aixm:TelephoneContact .
+      OPTIONAL { ?telephoneContact aixm:voice ?_voice .
+        {
+          {
+            ?_voice rdf:value ?voiceValue .
+            FILTER ( NOT EXISTS {?_voice aixm:uom ?voiceUoM})
+            BIND(concat('val:',?voiceValue) AS ?voice)
+          }
+            UNION
+          {
+            ?_voice
+              rdf:value ?voiceValue ;
+              aixm:uom ?voiceUoM .
+            BIND(concat('xval:',STR(?voiceValue),':',?voiceUoM) AS ?voice)
+          }
+            UNION
+          {
+           ?_voice  aixm:nilReason ?voiceNilReason .
+           BIND(concat('nil:',?voiceNilReason) AS ?voice)
+          }
+        }
+      }
+      OPTIONAL { ?telephoneContact aixm:facsimile ?_facsimile .
+        {
+          {
+            ?_facsimile rdf:value ?facsimileValue .
+            FILTER ( NOT EXISTS {?_facsimile aixm:uom ?facsimileUoM})
+            BIND(concat('val:',?facsimileValue) AS ?facsimile)
+          }
+            UNION
+          {
+            ?_facsimile
+              rdf:value ?facsimileValue ;
+              aixm:uom ?facsimileUoM .
+            BIND(concat('xval:',STR(?facsimileValue),':',?facsimileUoM) AS ?facsimile)
+          }
+            UNION
+          {
+           ?_facsimile  aixm:nilReason ?facsimileNilReason .
+           BIND(concat('nil:',?facsimileNilReason) AS ?facsimile)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?contactInformation ?name ?title (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?networkNode;SEPARATOR=",") AS ?networkNodeConcat) (GROUP_CONCAT(DISTINCT ?address;SEPARATOR=",") AS ?addressConcat) (GROUP_CONCAT(DISTINCT ?phoneFax;SEPARATOR=",") AS ?phoneFaxConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?contactInformation rdf:type aixm:ContactInformation .
+      OPTIONAL { ?contactInformation aixm:name ?_name .
+        {
+          {
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name aixm:uom ?nameUoM})
+            BIND(concat('val:',?nameValue) AS ?name)
+          }
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              aixm:uom ?nameUoM .
+            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat('nil:',?nameNilReason) AS ?name)
+          }
+        }
+      }
+      OPTIONAL { ?contactInformation aixm:title ?_title .
+        {
+          {
+            ?_title rdf:value ?titleValue .
+            FILTER ( NOT EXISTS {?_title aixm:uom ?titleUoM})
+            BIND(concat('val:',?titleValue) AS ?title)
+          }
+            UNION
+          {
+            ?_title
+              rdf:value ?titleValue ;
+              aixm:uom ?titleUoM .
+            BIND(concat('xval:',STR(?titleValue),':',?titleUoM) AS ?title)
+          }
+            UNION
+          {
+           ?_title  aixm:nilReason ?titleNilReason .
+           BIND(concat('nil:',?titleNilReason) AS ?title)
+          }
+        }
+      }
+      OPTIONAL {?contactInformation aixm:annotation ?annotation .}
+      OPTIONAL {?contactInformation aixm:networkNode ?networkNode .}
+      OPTIONAL {?contactInformation aixm:address ?address .}
+      OPTIONAL {?contactInformation aixm:phoneFax ?phoneFax .}
+    }
+  }
+GROUP BY ?graph ?contactInformation ?name ?title
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?onlineContact ?network ?linkage ?protocol ?eMail
+WHERE
+  { GRAPH ?graph
+    {
+      ?onlineContact rdf:type aixm:OnlineContact .
+      OPTIONAL { ?onlineContact aixm:network ?_network .
+        {
+          {
+            ?_network rdf:value ?networkValue .
+            FILTER ( NOT EXISTS {?_network aixm:uom ?networkUoM})
+            BIND(concat('val:',?networkValue) AS ?network)
+          }
+            UNION
+          {
+            ?_network
+              rdf:value ?networkValue ;
+              aixm:uom ?networkUoM .
+            BIND(concat('xval:',STR(?networkValue),':',?networkUoM) AS ?network)
+          }
+            UNION
+          {
+           ?_network  aixm:nilReason ?networkNilReason .
+           BIND(concat('nil:',?networkNilReason) AS ?network)
+          }
+        }
+      }
+      OPTIONAL { ?onlineContact aixm:linkage ?_linkage .
+        {
+          {
+            ?_linkage rdf:value ?linkageValue .
+            FILTER ( NOT EXISTS {?_linkage aixm:uom ?linkageUoM})
+            BIND(concat('val:',?linkageValue) AS ?linkage)
+          }
+            UNION
+          {
+            ?_linkage
+              rdf:value ?linkageValue ;
+              aixm:uom ?linkageUoM .
+            BIND(concat('xval:',STR(?linkageValue),':',?linkageUoM) AS ?linkage)
+          }
+            UNION
+          {
+           ?_linkage  aixm:nilReason ?linkageNilReason .
+           BIND(concat('nil:',?linkageNilReason) AS ?linkage)
+          }
+        }
+      }
+      OPTIONAL { ?onlineContact aixm:protocol ?_protocol .
+        {
+          {
+            ?_protocol rdf:value ?protocolValue .
+            FILTER ( NOT EXISTS {?_protocol aixm:uom ?protocolUoM})
+            BIND(concat('val:',?protocolValue) AS ?protocol)
+          }
+            UNION
+          {
+            ?_protocol
+              rdf:value ?protocolValue ;
+              aixm:uom ?protocolUoM .
+            BIND(concat('xval:',STR(?protocolValue),':',?protocolUoM) AS ?protocol)
+          }
+            UNION
+          {
+           ?_protocol  aixm:nilReason ?protocolNilReason .
+           BIND(concat('nil:',?protocolNilReason) AS ?protocol)
+          }
+        }
+      }
+      OPTIONAL { ?onlineContact aixm:eMail ?_eMail .
+        {
+          {
+            ?_eMail rdf:value ?eMailValue .
+            FILTER ( NOT EXISTS {?_eMail aixm:uom ?eMailUoM})
+            BIND(concat('val:',?eMailValue) AS ?eMail)
+          }
+            UNION
+          {
+            ?_eMail
+              rdf:value ?eMailValue ;
+              aixm:uom ?eMailUoM .
+            BIND(concat('xval:',STR(?eMailValue),':',?eMailUoM) AS ?eMail)
+          }
+            UNION
+          {
+           ?_eMail  aixm:nilReason ?eMailNilReason .
+           BIND(concat('nil:',?eMailNilReason) AS ?eMail)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?elevatedSurface ?elevation ?geoidUndulation ?verticalDatum ?verticalAccuracy
+WHERE
+  { GRAPH ?graph
+    {
+      ?elevatedSurface rdf:type aixm:ElevatedSurface .
+      OPTIONAL { ?elevatedSurface aixm:elevation ?_elevation .
+        {
+          {
+            ?_elevation rdf:value ?elevationValue .
+            FILTER ( NOT EXISTS {?_elevation aixm:uom ?elevationUoM})
+            BIND(concat('val:',?elevationValue) AS ?elevation)
+          }
+            UNION
+          {
+            ?_elevation
+              rdf:value ?elevationValue ;
+              aixm:uom ?elevationUoM .
+            BIND(concat('xval:',STR(?elevationValue),':',?elevationUoM) AS ?elevation)
+          }
+            UNION
+          {
+           ?_elevation  aixm:nilReason ?elevationNilReason .
+           BIND(concat('nil:',?elevationNilReason) AS ?elevation)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedSurface aixm:geoidUndulation ?_geoidUndulation .
+        {
+          {
+            ?_geoidUndulation rdf:value ?geoidUndulationValue .
+            FILTER ( NOT EXISTS {?_geoidUndulation aixm:uom ?geoidUndulationUoM})
+            BIND(concat('val:',?geoidUndulationValue) AS ?geoidUndulation)
+          }
+            UNION
+          {
+            ?_geoidUndulation
+              rdf:value ?geoidUndulationValue ;
+              aixm:uom ?geoidUndulationUoM .
+            BIND(concat('xval:',STR(?geoidUndulationValue),':',?geoidUndulationUoM) AS ?geoidUndulation)
+          }
+            UNION
+          {
+           ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
+           BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedSurface aixm:verticalDatum ?_verticalDatum .
+        {
+          {
+            ?_verticalDatum rdf:value ?verticalDatumValue .
+            FILTER ( NOT EXISTS {?_verticalDatum aixm:uom ?verticalDatumUoM})
+            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+          }
+            UNION
+          {
+            ?_verticalDatum
+              rdf:value ?verticalDatumValue ;
+              aixm:uom ?verticalDatumUoM .
+            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+          }
+            UNION
+          {
+           ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
+           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedSurface aixm:verticalAccuracy ?_verticalAccuracy .
+        {
+          {
+            ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
+            FILTER ( NOT EXISTS {?_verticalAccuracy aixm:uom ?verticalAccuracyUoM})
+            BIND(concat('val:',?verticalAccuracyValue) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+            ?_verticalAccuracy
+              rdf:value ?verticalAccuracyValue ;
+              aixm:uom ?verticalAccuracyUoM .
+            BIND(concat('xval:',STR(?verticalAccuracyValue),':',?verticalAccuracyUoM) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+           ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
+           BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSourceTimeSlice rdf:type aixm:AltimeterSourceTimeSlice .
+      OPTIONAL { ?altimeterSourceTimeSlice aixm:isRemote ?_isRemote .
+        {
+          {
+            ?_isRemote rdf:value ?isRemoteValue .
+            FILTER ( NOT EXISTS {?_isRemote aixm:uom ?isRemoteUoM})
+            BIND(concat('val:',?isRemoteValue) AS ?isRemote)
+          }
+            UNION
+          {
+            ?_isRemote
+              rdf:value ?isRemoteValue ;
+              aixm:uom ?isRemoteUoM .
+            BIND(concat('xval:',STR(?isRemoteValue),':',?isRemoteUoM) AS ?isRemote)
+          }
+            UNION
+          {
+           ?_isRemote  aixm:nilReason ?isRemoteNilReason .
+           BIND(concat('nil:',?isRemoteNilReason) AS ?isRemote)
+          }
+        }
+      }
+      OPTIONAL { ?altimeterSourceTimeSlice aixm:isPrimary ?_isPrimary .
+        {
+          {
+            ?_isPrimary rdf:value ?isPrimaryValue .
+            FILTER ( NOT EXISTS {?_isPrimary aixm:uom ?isPrimaryUoM})
+            BIND(concat('val:',?isPrimaryValue) AS ?isPrimary)
+          }
+            UNION
+          {
+            ?_isPrimary
+              rdf:value ?isPrimaryValue ;
+              aixm:uom ?isPrimaryUoM .
+            BIND(concat('xval:',STR(?isPrimaryValue),':',?isPrimaryUoM) AS ?isPrimary)
+          }
+            UNION
+          {
+           ?_isPrimary  aixm:nilReason ?isPrimaryNilReason .
+           BIND(concat('nil:',?isPrimaryNilReason) AS ?isPrimary)
+          }
+        }
+      }
+      OPTIONAL {?altimeterSourceTimeSlice aixm:availability ?availability .}
+      OPTIONAL {?altimeterSourceTimeSlice aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?point ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:Point .
+  }
+  { GRAPH ?graph
+    {
+      ?point rdf:type ?SUBCLASS .
+      OPTIONAL { ?point aixm:horizontalAccuracy ?_horizontalAccuracy .
+        {
+          {
+            ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
+            FILTER ( NOT EXISTS {?_horizontalAccuracy aixm:uom ?horizontalAccuracyUoM})
+            BIND(concat('val:',?horizontalAccuracyValue) AS ?horizontalAccuracy)
+          }
+            UNION
+          {
+            ?_horizontalAccuracy
+              rdf:value ?horizontalAccuracyValue ;
+              aixm:uom ?horizontalAccuracyUoM .
+            BIND(concat('xval:',STR(?horizontalAccuracyValue),':',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
+          }
+            UNION
+          {
+           ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
+           BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
+          }
+        }
+      }
+      OPTIONAL {?point aixm:annotation ?annotation .}
+    }
+  }
+}
+GROUP BY ?graph ?point ?horizontalAccuracy
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?postalAddress ?deliveryPoint ?city ?administrativeArea ?postalCode ?country
+WHERE
+  { GRAPH ?graph
+    {
+      ?postalAddress rdf:type aixm:PostalAddress .
+      OPTIONAL { ?postalAddress aixm:deliveryPoint ?_deliveryPoint .
+        {
+          {
+            ?_deliveryPoint rdf:value ?deliveryPointValue .
+            FILTER ( NOT EXISTS {?_deliveryPoint aixm:uom ?deliveryPointUoM})
+            BIND(concat('val:',?deliveryPointValue) AS ?deliveryPoint)
+          }
+            UNION
+          {
+            ?_deliveryPoint
+              rdf:value ?deliveryPointValue ;
+              aixm:uom ?deliveryPointUoM .
+            BIND(concat('xval:',STR(?deliveryPointValue),':',?deliveryPointUoM) AS ?deliveryPoint)
+          }
+            UNION
+          {
+           ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
+           BIND(concat('nil:',?deliveryPointNilReason) AS ?deliveryPoint)
+          }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:city ?_city .
+        {
+          {
+            ?_city rdf:value ?cityValue .
+            FILTER ( NOT EXISTS {?_city aixm:uom ?cityUoM})
+            BIND(concat('val:',?cityValue) AS ?city)
+          }
+            UNION
+          {
+            ?_city
+              rdf:value ?cityValue ;
+              aixm:uom ?cityUoM .
+            BIND(concat('xval:',STR(?cityValue),':',?cityUoM) AS ?city)
+          }
+            UNION
+          {
+           ?_city  aixm:nilReason ?cityNilReason .
+           BIND(concat('nil:',?cityNilReason) AS ?city)
+          }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:administrativeArea ?_administrativeArea .
+        {
+          {
+            ?_administrativeArea rdf:value ?administrativeAreaValue .
+            FILTER ( NOT EXISTS {?_administrativeArea aixm:uom ?administrativeAreaUoM})
+            BIND(concat('val:',?administrativeAreaValue) AS ?administrativeArea)
+          }
+            UNION
+          {
+            ?_administrativeArea
+              rdf:value ?administrativeAreaValue ;
+              aixm:uom ?administrativeAreaUoM .
+            BIND(concat('xval:',STR(?administrativeAreaValue),':',?administrativeAreaUoM) AS ?administrativeArea)
+          }
+            UNION
+          {
+           ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
+           BIND(concat('nil:',?administrativeAreaNilReason) AS ?administrativeArea)
+          }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:postalCode ?_postalCode .
+        {
+          {
+            ?_postalCode rdf:value ?postalCodeValue .
+            FILTER ( NOT EXISTS {?_postalCode aixm:uom ?postalCodeUoM})
+            BIND(concat('val:',?postalCodeValue) AS ?postalCode)
+          }
+            UNION
+          {
+            ?_postalCode
+              rdf:value ?postalCodeValue ;
+              aixm:uom ?postalCodeUoM .
+            BIND(concat('xval:',STR(?postalCodeValue),':',?postalCodeUoM) AS ?postalCode)
+          }
+            UNION
+          {
+           ?_postalCode  aixm:nilReason ?postalCodeNilReason .
+           BIND(concat('nil:',?postalCodeNilReason) AS ?postalCode)
+          }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:country ?_country .
+        {
+          {
+            ?_country rdf:value ?countryValue .
+            FILTER ( NOT EXISTS {?_country aixm:uom ?countryUoM})
+            BIND(concat('val:',?countryValue) AS ?country)
+          }
+            UNION
+          {
+            ?_country
+              rdf:value ?countryValue ;
+              aixm:uom ?countryUoM .
+            BIND(concat('xval:',STR(?countryValue),':',?countryUoM) AS ?country)
+          }
+            UNION
+          {
+           ?_country  aixm:nilReason ?countryNilReason .
+           BIND(concat('nil:',?countryNilReason) AS ?country)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?aircraftCharacteristic rdf:type aixm:AircraftCharacteristic .
+      OPTIONAL { ?aircraftCharacteristic aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:engine ?_engine .
+        {
+          {
+            ?_engine rdf:value ?engineValue .
+            FILTER ( NOT EXISTS {?_engine aixm:uom ?engineUoM})
+            BIND(concat('val:',?engineValue) AS ?engine)
+          }
+            UNION
+          {
+            ?_engine
+              rdf:value ?engineValue ;
+              aixm:uom ?engineUoM .
+            BIND(concat('xval:',STR(?engineValue),':',?engineUoM) AS ?engine)
+          }
+            UNION
+          {
+           ?_engine  aixm:nilReason ?engineNilReason .
+           BIND(concat('nil:',?engineNilReason) AS ?engine)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:numberEngine ?_numberEngine .
+        {
+          {
+            ?_numberEngine rdf:value ?numberEngineValue .
+            FILTER ( NOT EXISTS {?_numberEngine aixm:uom ?numberEngineUoM})
+            BIND(concat('val:',?numberEngineValue) AS ?numberEngine)
+          }
+            UNION
+          {
+            ?_numberEngine
+              rdf:value ?numberEngineValue ;
+              aixm:uom ?numberEngineUoM .
+            BIND(concat('xval:',STR(?numberEngineValue),':',?numberEngineUoM) AS ?numberEngine)
+          }
+            UNION
+          {
+           ?_numberEngine  aixm:nilReason ?numberEngineNilReason .
+           BIND(concat('nil:',?numberEngineNilReason) AS ?numberEngine)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:typeAircraftICAO ?_typeAircraftICAO .
+        {
+          {
+            ?_typeAircraftICAO rdf:value ?typeAircraftICAOValue .
+            FILTER ( NOT EXISTS {?_typeAircraftICAO aixm:uom ?typeAircraftICAOUoM})
+            BIND(concat('val:',?typeAircraftICAOValue) AS ?typeAircraftICAO)
+          }
+            UNION
+          {
+            ?_typeAircraftICAO
+              rdf:value ?typeAircraftICAOValue ;
+              aixm:uom ?typeAircraftICAOUoM .
+            BIND(concat('xval:',STR(?typeAircraftICAOValue),':',?typeAircraftICAOUoM) AS ?typeAircraftICAO)
+          }
+            UNION
+          {
+           ?_typeAircraftICAO  aixm:nilReason ?typeAircraftICAONilReason .
+           BIND(concat('nil:',?typeAircraftICAONilReason) AS ?typeAircraftICAO)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:aircraftLandingCategory ?_aircraftLandingCategory .
+        {
+          {
+            ?_aircraftLandingCategory rdf:value ?aircraftLandingCategoryValue .
+            FILTER ( NOT EXISTS {?_aircraftLandingCategory aixm:uom ?aircraftLandingCategoryUoM})
+            BIND(concat('val:',?aircraftLandingCategoryValue) AS ?aircraftLandingCategory)
+          }
+            UNION
+          {
+            ?_aircraftLandingCategory
+              rdf:value ?aircraftLandingCategoryValue ;
+              aixm:uom ?aircraftLandingCategoryUoM .
+            BIND(concat('xval:',STR(?aircraftLandingCategoryValue),':',?aircraftLandingCategoryUoM) AS ?aircraftLandingCategory)
+          }
+            UNION
+          {
+           ?_aircraftLandingCategory  aixm:nilReason ?aircraftLandingCategoryNilReason .
+           BIND(concat('nil:',?aircraftLandingCategoryNilReason) AS ?aircraftLandingCategory)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:wingSpan ?_wingSpan .
+        {
+          {
+            ?_wingSpan rdf:value ?wingSpanValue .
+            FILTER ( NOT EXISTS {?_wingSpan aixm:uom ?wingSpanUoM})
+            BIND(concat('val:',?wingSpanValue) AS ?wingSpan)
+          }
+            UNION
+          {
+            ?_wingSpan
+              rdf:value ?wingSpanValue ;
+              aixm:uom ?wingSpanUoM .
+            BIND(concat('xval:',STR(?wingSpanValue),':',?wingSpanUoM) AS ?wingSpan)
+          }
+            UNION
+          {
+           ?_wingSpan  aixm:nilReason ?wingSpanNilReason .
+           BIND(concat('nil:',?wingSpanNilReason) AS ?wingSpan)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:wingSpanInterpretation ?_wingSpanInterpretation .
+        {
+          {
+            ?_wingSpanInterpretation rdf:value ?wingSpanInterpretationValue .
+            FILTER ( NOT EXISTS {?_wingSpanInterpretation aixm:uom ?wingSpanInterpretationUoM})
+            BIND(concat('val:',?wingSpanInterpretationValue) AS ?wingSpanInterpretation)
+          }
+            UNION
+          {
+            ?_wingSpanInterpretation
+              rdf:value ?wingSpanInterpretationValue ;
+              aixm:uom ?wingSpanInterpretationUoM .
+            BIND(concat('xval:',STR(?wingSpanInterpretationValue),':',?wingSpanInterpretationUoM) AS ?wingSpanInterpretation)
+          }
+            UNION
+          {
+           ?_wingSpanInterpretation  aixm:nilReason ?wingSpanInterpretationNilReason .
+           BIND(concat('nil:',?wingSpanInterpretationNilReason) AS ?wingSpanInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:classWingSpan ?_classWingSpan .
+        {
+          {
+            ?_classWingSpan rdf:value ?classWingSpanValue .
+            FILTER ( NOT EXISTS {?_classWingSpan aixm:uom ?classWingSpanUoM})
+            BIND(concat('val:',?classWingSpanValue) AS ?classWingSpan)
+          }
+            UNION
+          {
+            ?_classWingSpan
+              rdf:value ?classWingSpanValue ;
+              aixm:uom ?classWingSpanUoM .
+            BIND(concat('xval:',STR(?classWingSpanValue),':',?classWingSpanUoM) AS ?classWingSpan)
+          }
+            UNION
+          {
+           ?_classWingSpan  aixm:nilReason ?classWingSpanNilReason .
+           BIND(concat('nil:',?classWingSpanNilReason) AS ?classWingSpan)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:weight ?_weight .
+        {
+          {
+            ?_weight rdf:value ?weightValue .
+            FILTER ( NOT EXISTS {?_weight aixm:uom ?weightUoM})
+            BIND(concat('val:',?weightValue) AS ?weight)
+          }
+            UNION
+          {
+            ?_weight
+              rdf:value ?weightValue ;
+              aixm:uom ?weightUoM .
+            BIND(concat('xval:',STR(?weightValue),':',?weightUoM) AS ?weight)
+          }
+            UNION
+          {
+           ?_weight  aixm:nilReason ?weightNilReason .
+           BIND(concat('nil:',?weightNilReason) AS ?weight)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:weightInterpretation ?_weightInterpretation .
+        {
+          {
+            ?_weightInterpretation rdf:value ?weightInterpretationValue .
+            FILTER ( NOT EXISTS {?_weightInterpretation aixm:uom ?weightInterpretationUoM})
+            BIND(concat('val:',?weightInterpretationValue) AS ?weightInterpretation)
+          }
+            UNION
+          {
+            ?_weightInterpretation
+              rdf:value ?weightInterpretationValue ;
+              aixm:uom ?weightInterpretationUoM .
+            BIND(concat('xval:',STR(?weightInterpretationValue),':',?weightInterpretationUoM) AS ?weightInterpretation)
+          }
+            UNION
+          {
+           ?_weightInterpretation  aixm:nilReason ?weightInterpretationNilReason .
+           BIND(concat('nil:',?weightInterpretationNilReason) AS ?weightInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:passengers ?_passengers .
+        {
+          {
+            ?_passengers rdf:value ?passengersValue .
+            FILTER ( NOT EXISTS {?_passengers aixm:uom ?passengersUoM})
+            BIND(concat('val:',?passengersValue) AS ?passengers)
+          }
+            UNION
+          {
+            ?_passengers
+              rdf:value ?passengersValue ;
+              aixm:uom ?passengersUoM .
+            BIND(concat('xval:',STR(?passengersValue),':',?passengersUoM) AS ?passengers)
+          }
+            UNION
+          {
+           ?_passengers  aixm:nilReason ?passengersNilReason .
+           BIND(concat('nil:',?passengersNilReason) AS ?passengers)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:passengersInterpretation ?_passengersInterpretation .
+        {
+          {
+            ?_passengersInterpretation rdf:value ?passengersInterpretationValue .
+            FILTER ( NOT EXISTS {?_passengersInterpretation aixm:uom ?passengersInterpretationUoM})
+            BIND(concat('val:',?passengersInterpretationValue) AS ?passengersInterpretation)
+          }
+            UNION
+          {
+            ?_passengersInterpretation
+              rdf:value ?passengersInterpretationValue ;
+              aixm:uom ?passengersInterpretationUoM .
+            BIND(concat('xval:',STR(?passengersInterpretationValue),':',?passengersInterpretationUoM) AS ?passengersInterpretation)
+          }
+            UNION
+          {
+           ?_passengersInterpretation  aixm:nilReason ?passengersInterpretationNilReason .
+           BIND(concat('nil:',?passengersInterpretationNilReason) AS ?passengersInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:speed ?_speed .
+        {
+          {
+            ?_speed rdf:value ?speedValue .
+            FILTER ( NOT EXISTS {?_speed aixm:uom ?speedUoM})
+            BIND(concat('val:',?speedValue) AS ?speed)
+          }
+            UNION
+          {
+            ?_speed
+              rdf:value ?speedValue ;
+              aixm:uom ?speedUoM .
+            BIND(concat('xval:',STR(?speedValue),':',?speedUoM) AS ?speed)
+          }
+            UNION
+          {
+           ?_speed  aixm:nilReason ?speedNilReason .
+           BIND(concat('nil:',?speedNilReason) AS ?speed)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:speedInterpretation ?_speedInterpretation .
+        {
+          {
+            ?_speedInterpretation rdf:value ?speedInterpretationValue .
+            FILTER ( NOT EXISTS {?_speedInterpretation aixm:uom ?speedInterpretationUoM})
+            BIND(concat('val:',?speedInterpretationValue) AS ?speedInterpretation)
+          }
+            UNION
+          {
+            ?_speedInterpretation
+              rdf:value ?speedInterpretationValue ;
+              aixm:uom ?speedInterpretationUoM .
+            BIND(concat('xval:',STR(?speedInterpretationValue),':',?speedInterpretationUoM) AS ?speedInterpretation)
+          }
+            UNION
+          {
+           ?_speedInterpretation  aixm:nilReason ?speedInterpretationNilReason .
+           BIND(concat('nil:',?speedInterpretationNilReason) AS ?speedInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:wakeTurbulence ?_wakeTurbulence .
+        {
+          {
+            ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
+            FILTER ( NOT EXISTS {?_wakeTurbulence aixm:uom ?wakeTurbulenceUoM})
+            BIND(concat('val:',?wakeTurbulenceValue) AS ?wakeTurbulence)
+          }
+            UNION
+          {
+            ?_wakeTurbulence
+              rdf:value ?wakeTurbulenceValue ;
+              aixm:uom ?wakeTurbulenceUoM .
+            BIND(concat('xval:',STR(?wakeTurbulenceValue),':',?wakeTurbulenceUoM) AS ?wakeTurbulence)
+          }
+            UNION
+          {
+           ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
+           BIND(concat('nil:',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:navigationEquipment ?_navigationEquipment .
+        {
+          {
+            ?_navigationEquipment rdf:value ?navigationEquipmentValue .
+            FILTER ( NOT EXISTS {?_navigationEquipment aixm:uom ?navigationEquipmentUoM})
+            BIND(concat('val:',?navigationEquipmentValue) AS ?navigationEquipment)
+          }
+            UNION
+          {
+            ?_navigationEquipment
+              rdf:value ?navigationEquipmentValue ;
+              aixm:uom ?navigationEquipmentUoM .
+            BIND(concat('xval:',STR(?navigationEquipmentValue),':',?navigationEquipmentUoM) AS ?navigationEquipment)
+          }
+            UNION
+          {
+           ?_navigationEquipment  aixm:nilReason ?navigationEquipmentNilReason .
+           BIND(concat('nil:',?navigationEquipmentNilReason) AS ?navigationEquipment)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:navigationSpecification ?_navigationSpecification .
+        {
+          {
+            ?_navigationSpecification rdf:value ?navigationSpecificationValue .
+            FILTER ( NOT EXISTS {?_navigationSpecification aixm:uom ?navigationSpecificationUoM})
+            BIND(concat('val:',?navigationSpecificationValue) AS ?navigationSpecification)
+          }
+            UNION
+          {
+            ?_navigationSpecification
+              rdf:value ?navigationSpecificationValue ;
+              aixm:uom ?navigationSpecificationUoM .
+            BIND(concat('xval:',STR(?navigationSpecificationValue),':',?navigationSpecificationUoM) AS ?navigationSpecification)
+          }
+            UNION
+          {
+           ?_navigationSpecification  aixm:nilReason ?navigationSpecificationNilReason .
+           BIND(concat('nil:',?navigationSpecificationNilReason) AS ?navigationSpecification)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:verticalSeparationCapability ?_verticalSeparationCapability .
+        {
+          {
+            ?_verticalSeparationCapability rdf:value ?verticalSeparationCapabilityValue .
+            FILTER ( NOT EXISTS {?_verticalSeparationCapability aixm:uom ?verticalSeparationCapabilityUoM})
+            BIND(concat('val:',?verticalSeparationCapabilityValue) AS ?verticalSeparationCapability)
+          }
+            UNION
+          {
+            ?_verticalSeparationCapability
+              rdf:value ?verticalSeparationCapabilityValue ;
+              aixm:uom ?verticalSeparationCapabilityUoM .
+            BIND(concat('xval:',STR(?verticalSeparationCapabilityValue),':',?verticalSeparationCapabilityUoM) AS ?verticalSeparationCapability)
+          }
+            UNION
+          {
+           ?_verticalSeparationCapability  aixm:nilReason ?verticalSeparationCapabilityNilReason .
+           BIND(concat('nil:',?verticalSeparationCapabilityNilReason) AS ?verticalSeparationCapability)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:antiCollisionAndSeparationEquipment ?_antiCollisionAndSeparationEquipment .
+        {
+          {
+            ?_antiCollisionAndSeparationEquipment rdf:value ?antiCollisionAndSeparationEquipmentValue .
+            FILTER ( NOT EXISTS {?_antiCollisionAndSeparationEquipment aixm:uom ?antiCollisionAndSeparationEquipmentUoM})
+            BIND(concat('val:',?antiCollisionAndSeparationEquipmentValue) AS ?antiCollisionAndSeparationEquipment)
+          }
+            UNION
+          {
+            ?_antiCollisionAndSeparationEquipment
+              rdf:value ?antiCollisionAndSeparationEquipmentValue ;
+              aixm:uom ?antiCollisionAndSeparationEquipmentUoM .
+            BIND(concat('xval:',STR(?antiCollisionAndSeparationEquipmentValue),':',?antiCollisionAndSeparationEquipmentUoM) AS ?antiCollisionAndSeparationEquipment)
+          }
+            UNION
+          {
+           ?_antiCollisionAndSeparationEquipment  aixm:nilReason ?antiCollisionAndSeparationEquipmentNilReason .
+           BIND(concat('nil:',?antiCollisionAndSeparationEquipmentNilReason) AS ?antiCollisionAndSeparationEquipment)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:communicationEquipment ?_communicationEquipment .
+        {
+          {
+            ?_communicationEquipment rdf:value ?communicationEquipmentValue .
+            FILTER ( NOT EXISTS {?_communicationEquipment aixm:uom ?communicationEquipmentUoM})
+            BIND(concat('val:',?communicationEquipmentValue) AS ?communicationEquipment)
+          }
+            UNION
+          {
+            ?_communicationEquipment
+              rdf:value ?communicationEquipmentValue ;
+              aixm:uom ?communicationEquipmentUoM .
+            BIND(concat('xval:',STR(?communicationEquipmentValue),':',?communicationEquipmentUoM) AS ?communicationEquipment)
+          }
+            UNION
+          {
+           ?_communicationEquipment  aixm:nilReason ?communicationEquipmentNilReason .
+           BIND(concat('nil:',?communicationEquipmentNilReason) AS ?communicationEquipment)
+          }
+        }
+      }
+      OPTIONAL { ?aircraftCharacteristic aixm:surveillanceEquipment ?_surveillanceEquipment .
+        {
+          {
+            ?_surveillanceEquipment rdf:value ?surveillanceEquipmentValue .
+            FILTER ( NOT EXISTS {?_surveillanceEquipment aixm:uom ?surveillanceEquipmentUoM})
+            BIND(concat('val:',?surveillanceEquipmentValue) AS ?surveillanceEquipment)
+          }
+            UNION
+          {
+            ?_surveillanceEquipment
+              rdf:value ?surveillanceEquipmentValue ;
+              aixm:uom ?surveillanceEquipmentUoM .
+            BIND(concat('xval:',STR(?surveillanceEquipmentValue),':',?surveillanceEquipmentUoM) AS ?surveillanceEquipment)
+          }
+            UNION
+          {
+           ?_surveillanceEquipment  aixm:nilReason ?surveillanceEquipmentNilReason .
+           BIND(concat('nil:',?surveillanceEquipmentNilReason) AS ?surveillanceEquipment)
+          }
+        }
+      }
+      OPTIONAL {?aircraftCharacteristic aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliportUsage ?operation
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportUsage rdf:type aixm:AirportHeliportUsage .
+      OPTIONAL { ?airportHeliportUsage aixm:operation ?_operation .
+        {
+          {
+            ?_operation rdf:value ?operationValue .
+            FILTER ( NOT EXISTS {?_operation aixm:uom ?operationUoM})
+            BIND(concat('val:',?operationValue) AS ?operation)
+          }
+            UNION
+          {
+            ?_operation
+              rdf:value ?operationValue ;
+              aixm:uom ?operationUoM .
+            BIND(concat('xval:',STR(?operationValue),':',?operationUoM) AS ?operation)
+          }
+            UNION
+          {
+           ?_operation  aixm:nilReason ?operationNilReason .
+           BIND(concat('nil:',?operationNilReason) AS ?operation)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?conditionCombination ?logicalOperator (GROUP_CONCAT(DISTINCT ?flight;SEPARATOR=",") AS ?flightConcat) (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat) (GROUP_CONCAT(DISTINCT ?weather;SEPARATOR=",") AS ?weatherConcat) (GROUP_CONCAT(DISTINCT ?subCondition;SEPARATOR=",") AS ?subConditionConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?conditionCombination rdf:type aixm:ConditionCombination .
+      OPTIONAL { ?conditionCombination aixm:logicalOperator ?_logicalOperator .
+        {
+          {
+            ?_logicalOperator rdf:value ?logicalOperatorValue .
+            FILTER ( NOT EXISTS {?_logicalOperator aixm:uom ?logicalOperatorUoM})
+            BIND(concat('val:',?logicalOperatorValue) AS ?logicalOperator)
+          }
+            UNION
+          {
+            ?_logicalOperator
+              rdf:value ?logicalOperatorValue ;
+              aixm:uom ?logicalOperatorUoM .
+            BIND(concat('xval:',STR(?logicalOperatorValue),':',?logicalOperatorUoM) AS ?logicalOperator)
+          }
+            UNION
+          {
+           ?_logicalOperator  aixm:nilReason ?logicalOperatorNilReason .
+           BIND(concat('nil:',?logicalOperatorNilReason) AS ?logicalOperator)
+          }
+        }
+      }
+      OPTIONAL {?conditionCombination aixm:flight ?flight .}
+      OPTIONAL {?conditionCombination aixm:aircraft ?aircraft .}
+      OPTIONAL {?conditionCombination aixm:weather ?weather .}
+      OPTIONAL {?conditionCombination aixm:subCondition ?subCondition .}
+    }
+  }
+GROUP BY ?graph ?conditionCombination ?logicalOperator
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type (GROUP_CONCAT(DISTINCT ?extent;SEPARATOR=",") AS ?extentConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?surfaceContaminationLayer rdf:type aixm:SurfaceContaminationLayer .
+      OPTIONAL { ?surfaceContaminationLayer aixm:layerOrder ?_layerOrder .
+        {
+          {
+            ?_layerOrder rdf:value ?layerOrderValue .
+            FILTER ( NOT EXISTS {?_layerOrder aixm:uom ?layerOrderUoM})
+            BIND(concat('val:',?layerOrderValue) AS ?layerOrder)
+          }
+            UNION
+          {
+            ?_layerOrder
+              rdf:value ?layerOrderValue ;
+              aixm:uom ?layerOrderUoM .
+            BIND(concat('xval:',STR(?layerOrderValue),':',?layerOrderUoM) AS ?layerOrder)
+          }
+            UNION
+          {
+           ?_layerOrder  aixm:nilReason ?layerOrderNilReason .
+           BIND(concat('nil:',?layerOrderNilReason) AS ?layerOrder)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContaminationLayer aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL {?surfaceContaminationLayer aixm:extent ?extent .}
+      OPTIONAL {?surfaceContaminationLayer aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?timesheet rdf:type aixm:Timesheet .
+      OPTIONAL { ?timesheet aixm:timeReference ?_timeReference .
+        {
+          {
+            ?_timeReference rdf:value ?timeReferenceValue .
+            FILTER ( NOT EXISTS {?_timeReference aixm:uom ?timeReferenceUoM})
+            BIND(concat('val:',?timeReferenceValue) AS ?timeReference)
+          }
+            UNION
+          {
+            ?_timeReference
+              rdf:value ?timeReferenceValue ;
+              aixm:uom ?timeReferenceUoM .
+            BIND(concat('xval:',STR(?timeReferenceValue),':',?timeReferenceUoM) AS ?timeReference)
+          }
+            UNION
+          {
+           ?_timeReference  aixm:nilReason ?timeReferenceNilReason .
+           BIND(concat('nil:',?timeReferenceNilReason) AS ?timeReference)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:startDate ?_startDate .
+        {
+          {
+            ?_startDate rdf:value ?startDateValue .
+            FILTER ( NOT EXISTS {?_startDate aixm:uom ?startDateUoM})
+            BIND(concat('val:',?startDateValue) AS ?startDate)
+          }
+            UNION
+          {
+            ?_startDate
+              rdf:value ?startDateValue ;
+              aixm:uom ?startDateUoM .
+            BIND(concat('xval:',STR(?startDateValue),':',?startDateUoM) AS ?startDate)
+          }
+            UNION
+          {
+           ?_startDate  aixm:nilReason ?startDateNilReason .
+           BIND(concat('nil:',?startDateNilReason) AS ?startDate)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:endDate ?_endDate .
+        {
+          {
+            ?_endDate rdf:value ?endDateValue .
+            FILTER ( NOT EXISTS {?_endDate aixm:uom ?endDateUoM})
+            BIND(concat('val:',?endDateValue) AS ?endDate)
+          }
+            UNION
+          {
+            ?_endDate
+              rdf:value ?endDateValue ;
+              aixm:uom ?endDateUoM .
+            BIND(concat('xval:',STR(?endDateValue),':',?endDateUoM) AS ?endDate)
+          }
+            UNION
+          {
+           ?_endDate  aixm:nilReason ?endDateNilReason .
+           BIND(concat('nil:',?endDateNilReason) AS ?endDate)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:day ?_day .
+        {
+          {
+            ?_day rdf:value ?dayValue .
+            FILTER ( NOT EXISTS {?_day aixm:uom ?dayUoM})
+            BIND(concat('val:',?dayValue) AS ?day)
+          }
+            UNION
+          {
+            ?_day
+              rdf:value ?dayValue ;
+              aixm:uom ?dayUoM .
+            BIND(concat('xval:',STR(?dayValue),':',?dayUoM) AS ?day)
+          }
+            UNION
+          {
+           ?_day  aixm:nilReason ?dayNilReason .
+           BIND(concat('nil:',?dayNilReason) AS ?day)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:dayTil ?_dayTil .
+        {
+          {
+            ?_dayTil rdf:value ?dayTilValue .
+            FILTER ( NOT EXISTS {?_dayTil aixm:uom ?dayTilUoM})
+            BIND(concat('val:',?dayTilValue) AS ?dayTil)
+          }
+            UNION
+          {
+            ?_dayTil
+              rdf:value ?dayTilValue ;
+              aixm:uom ?dayTilUoM .
+            BIND(concat('xval:',STR(?dayTilValue),':',?dayTilUoM) AS ?dayTil)
+          }
+            UNION
+          {
+           ?_dayTil  aixm:nilReason ?dayTilNilReason .
+           BIND(concat('nil:',?dayTilNilReason) AS ?dayTil)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:startTime ?_startTime .
+        {
+          {
+            ?_startTime rdf:value ?startTimeValue .
+            FILTER ( NOT EXISTS {?_startTime aixm:uom ?startTimeUoM})
+            BIND(concat('val:',?startTimeValue) AS ?startTime)
+          }
+            UNION
+          {
+            ?_startTime
+              rdf:value ?startTimeValue ;
+              aixm:uom ?startTimeUoM .
+            BIND(concat('xval:',STR(?startTimeValue),':',?startTimeUoM) AS ?startTime)
+          }
+            UNION
+          {
+           ?_startTime  aixm:nilReason ?startTimeNilReason .
+           BIND(concat('nil:',?startTimeNilReason) AS ?startTime)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:startEvent ?_startEvent .
+        {
+          {
+            ?_startEvent rdf:value ?startEventValue .
+            FILTER ( NOT EXISTS {?_startEvent aixm:uom ?startEventUoM})
+            BIND(concat('val:',?startEventValue) AS ?startEvent)
+          }
+            UNION
+          {
+            ?_startEvent
+              rdf:value ?startEventValue ;
+              aixm:uom ?startEventUoM .
+            BIND(concat('xval:',STR(?startEventValue),':',?startEventUoM) AS ?startEvent)
+          }
+            UNION
+          {
+           ?_startEvent  aixm:nilReason ?startEventNilReason .
+           BIND(concat('nil:',?startEventNilReason) AS ?startEvent)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:startTimeRelativeEvent ?_startTimeRelativeEvent .
+        {
+          {
+            ?_startTimeRelativeEvent rdf:value ?startTimeRelativeEventValue .
+            FILTER ( NOT EXISTS {?_startTimeRelativeEvent aixm:uom ?startTimeRelativeEventUoM})
+            BIND(concat('val:',?startTimeRelativeEventValue) AS ?startTimeRelativeEvent)
+          }
+            UNION
+          {
+            ?_startTimeRelativeEvent
+              rdf:value ?startTimeRelativeEventValue ;
+              aixm:uom ?startTimeRelativeEventUoM .
+            BIND(concat('xval:',STR(?startTimeRelativeEventValue),':',?startTimeRelativeEventUoM) AS ?startTimeRelativeEvent)
+          }
+            UNION
+          {
+           ?_startTimeRelativeEvent  aixm:nilReason ?startTimeRelativeEventNilReason .
+           BIND(concat('nil:',?startTimeRelativeEventNilReason) AS ?startTimeRelativeEvent)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:startEventInterpretation ?_startEventInterpretation .
+        {
+          {
+            ?_startEventInterpretation rdf:value ?startEventInterpretationValue .
+            FILTER ( NOT EXISTS {?_startEventInterpretation aixm:uom ?startEventInterpretationUoM})
+            BIND(concat('val:',?startEventInterpretationValue) AS ?startEventInterpretation)
+          }
+            UNION
+          {
+            ?_startEventInterpretation
+              rdf:value ?startEventInterpretationValue ;
+              aixm:uom ?startEventInterpretationUoM .
+            BIND(concat('xval:',STR(?startEventInterpretationValue),':',?startEventInterpretationUoM) AS ?startEventInterpretation)
+          }
+            UNION
+          {
+           ?_startEventInterpretation  aixm:nilReason ?startEventInterpretationNilReason .
+           BIND(concat('nil:',?startEventInterpretationNilReason) AS ?startEventInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:endTime ?_endTime .
+        {
+          {
+            ?_endTime rdf:value ?endTimeValue .
+            FILTER ( NOT EXISTS {?_endTime aixm:uom ?endTimeUoM})
+            BIND(concat('val:',?endTimeValue) AS ?endTime)
+          }
+            UNION
+          {
+            ?_endTime
+              rdf:value ?endTimeValue ;
+              aixm:uom ?endTimeUoM .
+            BIND(concat('xval:',STR(?endTimeValue),':',?endTimeUoM) AS ?endTime)
+          }
+            UNION
+          {
+           ?_endTime  aixm:nilReason ?endTimeNilReason .
+           BIND(concat('nil:',?endTimeNilReason) AS ?endTime)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:endEvent ?_endEvent .
+        {
+          {
+            ?_endEvent rdf:value ?endEventValue .
+            FILTER ( NOT EXISTS {?_endEvent aixm:uom ?endEventUoM})
+            BIND(concat('val:',?endEventValue) AS ?endEvent)
+          }
+            UNION
+          {
+            ?_endEvent
+              rdf:value ?endEventValue ;
+              aixm:uom ?endEventUoM .
+            BIND(concat('xval:',STR(?endEventValue),':',?endEventUoM) AS ?endEvent)
+          }
+            UNION
+          {
+           ?_endEvent  aixm:nilReason ?endEventNilReason .
+           BIND(concat('nil:',?endEventNilReason) AS ?endEvent)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:endTimeRelativeEvent ?_endTimeRelativeEvent .
+        {
+          {
+            ?_endTimeRelativeEvent rdf:value ?endTimeRelativeEventValue .
+            FILTER ( NOT EXISTS {?_endTimeRelativeEvent aixm:uom ?endTimeRelativeEventUoM})
+            BIND(concat('val:',?endTimeRelativeEventValue) AS ?endTimeRelativeEvent)
+          }
+            UNION
+          {
+            ?_endTimeRelativeEvent
+              rdf:value ?endTimeRelativeEventValue ;
+              aixm:uom ?endTimeRelativeEventUoM .
+            BIND(concat('xval:',STR(?endTimeRelativeEventValue),':',?endTimeRelativeEventUoM) AS ?endTimeRelativeEvent)
+          }
+            UNION
+          {
+           ?_endTimeRelativeEvent  aixm:nilReason ?endTimeRelativeEventNilReason .
+           BIND(concat('nil:',?endTimeRelativeEventNilReason) AS ?endTimeRelativeEvent)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:endEventInterpretation ?_endEventInterpretation .
+        {
+          {
+            ?_endEventInterpretation rdf:value ?endEventInterpretationValue .
+            FILTER ( NOT EXISTS {?_endEventInterpretation aixm:uom ?endEventInterpretationUoM})
+            BIND(concat('val:',?endEventInterpretationValue) AS ?endEventInterpretation)
+          }
+            UNION
+          {
+            ?_endEventInterpretation
+              rdf:value ?endEventInterpretationValue ;
+              aixm:uom ?endEventInterpretationUoM .
+            BIND(concat('xval:',STR(?endEventInterpretationValue),':',?endEventInterpretationUoM) AS ?endEventInterpretation)
+          }
+            UNION
+          {
+           ?_endEventInterpretation  aixm:nilReason ?endEventInterpretationNilReason .
+           BIND(concat('nil:',?endEventInterpretationNilReason) AS ?endEventInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:daylightSavingAdjust ?_daylightSavingAdjust .
+        {
+          {
+            ?_daylightSavingAdjust rdf:value ?daylightSavingAdjustValue .
+            FILTER ( NOT EXISTS {?_daylightSavingAdjust aixm:uom ?daylightSavingAdjustUoM})
+            BIND(concat('val:',?daylightSavingAdjustValue) AS ?daylightSavingAdjust)
+          }
+            UNION
+          {
+            ?_daylightSavingAdjust
+              rdf:value ?daylightSavingAdjustValue ;
+              aixm:uom ?daylightSavingAdjustUoM .
+            BIND(concat('xval:',STR(?daylightSavingAdjustValue),':',?daylightSavingAdjustUoM) AS ?daylightSavingAdjust)
+          }
+            UNION
+          {
+           ?_daylightSavingAdjust  aixm:nilReason ?daylightSavingAdjustNilReason .
+           BIND(concat('nil:',?daylightSavingAdjustNilReason) AS ?daylightSavingAdjust)
+          }
+        }
+      }
+      OPTIONAL { ?timesheet aixm:excluded ?_excluded .
+        {
+          {
+            ?_excluded rdf:value ?excludedValue .
+            FILTER ( NOT EXISTS {?_excluded aixm:uom ?excludedUoM})
+            BIND(concat('val:',?excludedValue) AS ?excluded)
+          }
+            UNION
+          {
+            ?_excluded
+              rdf:value ?excludedValue ;
+              aixm:uom ?excludedUoM .
+            BIND(concat('xval:',STR(?excludedValue),':',?excludedUoM) AS ?excluded)
+          }
+            UNION
+          {
+           ?_excluded  aixm:nilReason ?excludedNilReason .
+           BIND(concat('nil:',?excludedNilReason) AS ?excluded)
+          }
+        }
+      }
+      OPTIONAL {?timesheet aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?organisationAuthorityAssociation ?type (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?theOrganisationAuthority
+WHERE
+  { GRAPH ?graph
+    {
+      ?organisationAuthorityAssociation rdf:type aixm:OrganisationAuthorityAssociation .
+      OPTIONAL { ?organisationAuthorityAssociation aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL {?organisationAuthorityAssociation aixm:annotation ?annotation .}
+      ?organisationAuthorityAssociation aixm:theOrganisationAuthority ?theOrganisationAuthority .
+    }
+  }
+GROUP BY ?graph ?organisationAuthorityAssociation ?type ?theOrganisationAuthority
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?surfacePatch
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:SurfacePatch .
+  }
+  { GRAPH ?graph
+    {
+      ?surfacePatch rdf:type ?SUBCLASS .
+    }
+  }
+}
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?altimeterSourceStatus ?operationalStatus
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSourceStatus rdf:type aixm:AltimeterSourceStatus .
+      OPTIONAL { ?altimeterSourceStatus aixm:operationalStatus ?_operationalStatus .
+        {
+          {
+            ?_operationalStatus rdf:value ?operationalStatusValue .
+            FILTER ( NOT EXISTS {?_operationalStatus aixm:uom ?operationalStatusUoM})
+            BIND(concat('val:',?operationalStatusValue) AS ?operationalStatus)
+          }
+            UNION
+          {
+            ?_operationalStatus
+              rdf:value ?operationalStatusValue ;
+              aixm:uom ?operationalStatusUoM .
+            BIND(concat('xval:',STR(?operationalStatusValue),':',?operationalStatusUoM) AS ?operationalStatus)
+          }
+            UNION
+          {
+           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
+           BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?elevatedPoint ?elevation ?geoidUndulation ?verticalDatum ?verticalAccuracy
+WHERE
+  { GRAPH ?graph
+    {
+      ?elevatedPoint rdf:type aixm:ElevatedPoint .
+      OPTIONAL { ?elevatedPoint aixm:elevation ?_elevation .
+        {
+          {
+            ?_elevation rdf:value ?elevationValue .
+            FILTER ( NOT EXISTS {?_elevation aixm:uom ?elevationUoM})
+            BIND(concat('val:',?elevationValue) AS ?elevation)
+          }
+            UNION
+          {
+            ?_elevation
+              rdf:value ?elevationValue ;
+              aixm:uom ?elevationUoM .
+            BIND(concat('xval:',STR(?elevationValue),':',?elevationUoM) AS ?elevation)
+          }
+            UNION
+          {
+           ?_elevation  aixm:nilReason ?elevationNilReason .
+           BIND(concat('nil:',?elevationNilReason) AS ?elevation)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:geoidUndulation ?_geoidUndulation .
+        {
+          {
+            ?_geoidUndulation rdf:value ?geoidUndulationValue .
+            FILTER ( NOT EXISTS {?_geoidUndulation aixm:uom ?geoidUndulationUoM})
+            BIND(concat('val:',?geoidUndulationValue) AS ?geoidUndulation)
+          }
+            UNION
+          {
+            ?_geoidUndulation
+              rdf:value ?geoidUndulationValue ;
+              aixm:uom ?geoidUndulationUoM .
+            BIND(concat('xval:',STR(?geoidUndulationValue),':',?geoidUndulationUoM) AS ?geoidUndulation)
+          }
+            UNION
+          {
+           ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
+           BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:verticalDatum ?_verticalDatum .
+        {
+          {
+            ?_verticalDatum rdf:value ?verticalDatumValue .
+            FILTER ( NOT EXISTS {?_verticalDatum aixm:uom ?verticalDatumUoM})
+            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+          }
+            UNION
+          {
+            ?_verticalDatum
+              rdf:value ?verticalDatumValue ;
+              aixm:uom ?verticalDatumUoM .
+            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+          }
+            UNION
+          {
+           ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
+           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+          }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:verticalAccuracy ?_verticalAccuracy .
+        {
+          {
+            ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
+            FILTER ( NOT EXISTS {?_verticalAccuracy aixm:uom ?verticalAccuracyUoM})
+            BIND(concat('val:',?verticalAccuracyValue) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+            ?_verticalAccuracy
+              rdf:value ?verticalAccuracyValue ;
+              aixm:uom ?verticalAccuracyUoM .
+            BIND(concat('xval:',STR(?verticalAccuracyValue),':',?verticalAccuracyUoM) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+           ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
+           BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?ARP (GROUP_CONCAT(DISTINCT ?altimeterSource;SEPARATOR=",") AS ?altimeterSourceConcat) (GROUP_CONCAT(DISTINCT ?contaminant;SEPARATOR=",") AS ?contaminantConcat) (GROUP_CONCAT(DISTINCT ?servedCity;SEPARATOR=",") AS ?servedCityConcat) ?responsibleOrganisation ?aviationBoundary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportTimeSlice rdf:type aixm:AirportHeliportTimeSlice .
+      OPTIONAL { ?airportHeliportTimeSlice aixm:designator ?_designator .
+        {
+          {
+            ?_designator rdf:value ?designatorValue .
+            FILTER ( NOT EXISTS {?_designator aixm:uom ?designatorUoM})
+            BIND(concat('val:',?designatorValue) AS ?designator)
+          }
+            UNION
+          {
+            ?_designator
+              rdf:value ?designatorValue ;
+              aixm:uom ?designatorUoM .
+            BIND(concat('xval:',STR(?designatorValue),':',?designatorUoM) AS ?designator)
+          }
+            UNION
+          {
+           ?_designator  aixm:nilReason ?designatorNilReason .
+           BIND(concat('nil:',?designatorNilReason) AS ?designator)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:name ?_name .
+        {
+          {
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name aixm:uom ?nameUoM})
+            BIND(concat('val:',?nameValue) AS ?name)
+          }
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              aixm:uom ?nameUoM .
+            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat('nil:',?nameNilReason) AS ?name)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:locationIndicatorICAO ?_locationIndicatorICAO .
+        {
+          {
+            ?_locationIndicatorICAO rdf:value ?locationIndicatorICAOValue .
+            FILTER ( NOT EXISTS {?_locationIndicatorICAO aixm:uom ?locationIndicatorICAOUoM})
+            BIND(concat('val:',?locationIndicatorICAOValue) AS ?locationIndicatorICAO)
+          }
+            UNION
+          {
+            ?_locationIndicatorICAO
+              rdf:value ?locationIndicatorICAOValue ;
+              aixm:uom ?locationIndicatorICAOUoM .
+            BIND(concat('xval:',STR(?locationIndicatorICAOValue),':',?locationIndicatorICAOUoM) AS ?locationIndicatorICAO)
+          }
+            UNION
+          {
+           ?_locationIndicatorICAO  aixm:nilReason ?locationIndicatorICAONilReason .
+           BIND(concat('nil:',?locationIndicatorICAONilReason) AS ?locationIndicatorICAO)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:designatorIATA ?_designatorIATA .
+        {
+          {
+            ?_designatorIATA rdf:value ?designatorIATAValue .
+            FILTER ( NOT EXISTS {?_designatorIATA aixm:uom ?designatorIATAUoM})
+            BIND(concat('val:',?designatorIATAValue) AS ?designatorIATA)
+          }
+            UNION
+          {
+            ?_designatorIATA
+              rdf:value ?designatorIATAValue ;
+              aixm:uom ?designatorIATAUoM .
+            BIND(concat('xval:',STR(?designatorIATAValue),':',?designatorIATAUoM) AS ?designatorIATA)
+          }
+            UNION
+          {
+           ?_designatorIATA  aixm:nilReason ?designatorIATANilReason .
+           BIND(concat('nil:',?designatorIATANilReason) AS ?designatorIATA)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:certifiedICAO ?_certifiedICAO .
+        {
+          {
+            ?_certifiedICAO rdf:value ?certifiedICAOValue .
+            FILTER ( NOT EXISTS {?_certifiedICAO aixm:uom ?certifiedICAOUoM})
+            BIND(concat('val:',?certifiedICAOValue) AS ?certifiedICAO)
+          }
+            UNION
+          {
+            ?_certifiedICAO
+              rdf:value ?certifiedICAOValue ;
+              aixm:uom ?certifiedICAOUoM .
+            BIND(concat('xval:',STR(?certifiedICAOValue),':',?certifiedICAOUoM) AS ?certifiedICAO)
+          }
+            UNION
+          {
+           ?_certifiedICAO  aixm:nilReason ?certifiedICAONilReason .
+           BIND(concat('nil:',?certifiedICAONilReason) AS ?certifiedICAO)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:privateUse ?_privateUse .
+        {
+          {
+            ?_privateUse rdf:value ?privateUseValue .
+            FILTER ( NOT EXISTS {?_privateUse aixm:uom ?privateUseUoM})
+            BIND(concat('val:',?privateUseValue) AS ?privateUse)
+          }
+            UNION
+          {
+            ?_privateUse
+              rdf:value ?privateUseValue ;
+              aixm:uom ?privateUseUoM .
+            BIND(concat('xval:',STR(?privateUseValue),':',?privateUseUoM) AS ?privateUse)
+          }
+            UNION
+          {
+           ?_privateUse  aixm:nilReason ?privateUseNilReason .
+           BIND(concat('nil:',?privateUseNilReason) AS ?privateUse)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:controlType ?_controlType .
+        {
+          {
+            ?_controlType rdf:value ?controlTypeValue .
+            FILTER ( NOT EXISTS {?_controlType aixm:uom ?controlTypeUoM})
+            BIND(concat('val:',?controlTypeValue) AS ?controlType)
+          }
+            UNION
+          {
+            ?_controlType
+              rdf:value ?controlTypeValue ;
+              aixm:uom ?controlTypeUoM .
+            BIND(concat('xval:',STR(?controlTypeValue),':',?controlTypeUoM) AS ?controlType)
+          }
+            UNION
+          {
+           ?_controlType  aixm:nilReason ?controlTypeNilReason .
+           BIND(concat('nil:',?controlTypeNilReason) AS ?controlType)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:fieldElevation ?_fieldElevation .
+        {
+          {
+            ?_fieldElevation rdf:value ?fieldElevationValue .
+            FILTER ( NOT EXISTS {?_fieldElevation aixm:uom ?fieldElevationUoM})
+            BIND(concat('val:',?fieldElevationValue) AS ?fieldElevation)
+          }
+            UNION
+          {
+            ?_fieldElevation
+              rdf:value ?fieldElevationValue ;
+              aixm:uom ?fieldElevationUoM .
+            BIND(concat('xval:',STR(?fieldElevationValue),':',?fieldElevationUoM) AS ?fieldElevation)
+          }
+            UNION
+          {
+           ?_fieldElevation  aixm:nilReason ?fieldElevationNilReason .
+           BIND(concat('nil:',?fieldElevationNilReason) AS ?fieldElevation)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:fieldElevationAccuracy ?_fieldElevationAccuracy .
+        {
+          {
+            ?_fieldElevationAccuracy rdf:value ?fieldElevationAccuracyValue .
+            FILTER ( NOT EXISTS {?_fieldElevationAccuracy aixm:uom ?fieldElevationAccuracyUoM})
+            BIND(concat('val:',?fieldElevationAccuracyValue) AS ?fieldElevationAccuracy)
+          }
+            UNION
+          {
+            ?_fieldElevationAccuracy
+              rdf:value ?fieldElevationAccuracyValue ;
+              aixm:uom ?fieldElevationAccuracyUoM .
+            BIND(concat('xval:',STR(?fieldElevationAccuracyValue),':',?fieldElevationAccuracyUoM) AS ?fieldElevationAccuracy)
+          }
+            UNION
+          {
+           ?_fieldElevationAccuracy  aixm:nilReason ?fieldElevationAccuracyNilReason .
+           BIND(concat('nil:',?fieldElevationAccuracyNilReason) AS ?fieldElevationAccuracy)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:verticalDatum ?_verticalDatum .
+        {
+          {
+            ?_verticalDatum rdf:value ?verticalDatumValue .
+            FILTER ( NOT EXISTS {?_verticalDatum aixm:uom ?verticalDatumUoM})
+            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+          }
+            UNION
+          {
+            ?_verticalDatum
+              rdf:value ?verticalDatumValue ;
+              aixm:uom ?verticalDatumUoM .
+            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+          }
+            UNION
+          {
+           ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
+           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:magneticVariation ?_magneticVariation .
+        {
+          {
+            ?_magneticVariation rdf:value ?magneticVariationValue .
+            FILTER ( NOT EXISTS {?_magneticVariation aixm:uom ?magneticVariationUoM})
+            BIND(concat('val:',?magneticVariationValue) AS ?magneticVariation)
+          }
+            UNION
+          {
+            ?_magneticVariation
+              rdf:value ?magneticVariationValue ;
+              aixm:uom ?magneticVariationUoM .
+            BIND(concat('xval:',STR(?magneticVariationValue),':',?magneticVariationUoM) AS ?magneticVariation)
+          }
+            UNION
+          {
+           ?_magneticVariation  aixm:nilReason ?magneticVariationNilReason .
+           BIND(concat('nil:',?magneticVariationNilReason) AS ?magneticVariation)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:magneticVariationAccuracy ?_magneticVariationAccuracy .
+        {
+          {
+            ?_magneticVariationAccuracy rdf:value ?magneticVariationAccuracyValue .
+            FILTER ( NOT EXISTS {?_magneticVariationAccuracy aixm:uom ?magneticVariationAccuracyUoM})
+            BIND(concat('val:',?magneticVariationAccuracyValue) AS ?magneticVariationAccuracy)
+          }
+            UNION
+          {
+            ?_magneticVariationAccuracy
+              rdf:value ?magneticVariationAccuracyValue ;
+              aixm:uom ?magneticVariationAccuracyUoM .
+            BIND(concat('xval:',STR(?magneticVariationAccuracyValue),':',?magneticVariationAccuracyUoM) AS ?magneticVariationAccuracy)
+          }
+            UNION
+          {
+           ?_magneticVariationAccuracy  aixm:nilReason ?magneticVariationAccuracyNilReason .
+           BIND(concat('nil:',?magneticVariationAccuracyNilReason) AS ?magneticVariationAccuracy)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:dateMagneticVariation ?_dateMagneticVariation .
+        {
+          {
+            ?_dateMagneticVariation rdf:value ?dateMagneticVariationValue .
+            FILTER ( NOT EXISTS {?_dateMagneticVariation aixm:uom ?dateMagneticVariationUoM})
+            BIND(concat('val:',?dateMagneticVariationValue) AS ?dateMagneticVariation)
+          }
+            UNION
+          {
+            ?_dateMagneticVariation
+              rdf:value ?dateMagneticVariationValue ;
+              aixm:uom ?dateMagneticVariationUoM .
+            BIND(concat('xval:',STR(?dateMagneticVariationValue),':',?dateMagneticVariationUoM) AS ?dateMagneticVariation)
+          }
+            UNION
+          {
+           ?_dateMagneticVariation  aixm:nilReason ?dateMagneticVariationNilReason .
+           BIND(concat('nil:',?dateMagneticVariationNilReason) AS ?dateMagneticVariation)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:magneticVariationChange ?_magneticVariationChange .
+        {
+          {
+            ?_magneticVariationChange rdf:value ?magneticVariationChangeValue .
+            FILTER ( NOT EXISTS {?_magneticVariationChange aixm:uom ?magneticVariationChangeUoM})
+            BIND(concat('val:',?magneticVariationChangeValue) AS ?magneticVariationChange)
+          }
+            UNION
+          {
+            ?_magneticVariationChange
+              rdf:value ?magneticVariationChangeValue ;
+              aixm:uom ?magneticVariationChangeUoM .
+            BIND(concat('xval:',STR(?magneticVariationChangeValue),':',?magneticVariationChangeUoM) AS ?magneticVariationChange)
+          }
+            UNION
+          {
+           ?_magneticVariationChange  aixm:nilReason ?magneticVariationChangeNilReason .
+           BIND(concat('nil:',?magneticVariationChangeNilReason) AS ?magneticVariationChange)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:referenceTemperature ?_referenceTemperature .
+        {
+          {
+            ?_referenceTemperature rdf:value ?referenceTemperatureValue .
+            FILTER ( NOT EXISTS {?_referenceTemperature aixm:uom ?referenceTemperatureUoM})
+            BIND(concat('val:',?referenceTemperatureValue) AS ?referenceTemperature)
+          }
+            UNION
+          {
+            ?_referenceTemperature
+              rdf:value ?referenceTemperatureValue ;
+              aixm:uom ?referenceTemperatureUoM .
+            BIND(concat('xval:',STR(?referenceTemperatureValue),':',?referenceTemperatureUoM) AS ?referenceTemperature)
+          }
+            UNION
+          {
+           ?_referenceTemperature  aixm:nilReason ?referenceTemperatureNilReason .
+           BIND(concat('nil:',?referenceTemperatureNilReason) AS ?referenceTemperature)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:altimeterCheckLocation ?_altimeterCheckLocation .
+        {
+          {
+            ?_altimeterCheckLocation rdf:value ?altimeterCheckLocationValue .
+            FILTER ( NOT EXISTS {?_altimeterCheckLocation aixm:uom ?altimeterCheckLocationUoM})
+            BIND(concat('val:',?altimeterCheckLocationValue) AS ?altimeterCheckLocation)
+          }
+            UNION
+          {
+            ?_altimeterCheckLocation
+              rdf:value ?altimeterCheckLocationValue ;
+              aixm:uom ?altimeterCheckLocationUoM .
+            BIND(concat('xval:',STR(?altimeterCheckLocationValue),':',?altimeterCheckLocationUoM) AS ?altimeterCheckLocation)
+          }
+            UNION
+          {
+           ?_altimeterCheckLocation  aixm:nilReason ?altimeterCheckLocationNilReason .
+           BIND(concat('nil:',?altimeterCheckLocationNilReason) AS ?altimeterCheckLocation)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:secondaryPowerSupply ?_secondaryPowerSupply .
+        {
+          {
+            ?_secondaryPowerSupply rdf:value ?secondaryPowerSupplyValue .
+            FILTER ( NOT EXISTS {?_secondaryPowerSupply aixm:uom ?secondaryPowerSupplyUoM})
+            BIND(concat('val:',?secondaryPowerSupplyValue) AS ?secondaryPowerSupply)
+          }
+            UNION
+          {
+            ?_secondaryPowerSupply
+              rdf:value ?secondaryPowerSupplyValue ;
+              aixm:uom ?secondaryPowerSupplyUoM .
+            BIND(concat('xval:',STR(?secondaryPowerSupplyValue),':',?secondaryPowerSupplyUoM) AS ?secondaryPowerSupply)
+          }
+            UNION
+          {
+           ?_secondaryPowerSupply  aixm:nilReason ?secondaryPowerSupplyNilReason .
+           BIND(concat('nil:',?secondaryPowerSupplyNilReason) AS ?secondaryPowerSupply)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:windDirectionIndicator ?_windDirectionIndicator .
+        {
+          {
+            ?_windDirectionIndicator rdf:value ?windDirectionIndicatorValue .
+            FILTER ( NOT EXISTS {?_windDirectionIndicator aixm:uom ?windDirectionIndicatorUoM})
+            BIND(concat('val:',?windDirectionIndicatorValue) AS ?windDirectionIndicator)
+          }
+            UNION
+          {
+            ?_windDirectionIndicator
+              rdf:value ?windDirectionIndicatorValue ;
+              aixm:uom ?windDirectionIndicatorUoM .
+            BIND(concat('xval:',STR(?windDirectionIndicatorValue),':',?windDirectionIndicatorUoM) AS ?windDirectionIndicator)
+          }
+            UNION
+          {
+           ?_windDirectionIndicator  aixm:nilReason ?windDirectionIndicatorNilReason .
+           BIND(concat('nil:',?windDirectionIndicatorNilReason) AS ?windDirectionIndicator)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:landingDirectionIndicator ?_landingDirectionIndicator .
+        {
+          {
+            ?_landingDirectionIndicator rdf:value ?landingDirectionIndicatorValue .
+            FILTER ( NOT EXISTS {?_landingDirectionIndicator aixm:uom ?landingDirectionIndicatorUoM})
+            BIND(concat('val:',?landingDirectionIndicatorValue) AS ?landingDirectionIndicator)
+          }
+            UNION
+          {
+            ?_landingDirectionIndicator
+              rdf:value ?landingDirectionIndicatorValue ;
+              aixm:uom ?landingDirectionIndicatorUoM .
+            BIND(concat('xval:',STR(?landingDirectionIndicatorValue),':',?landingDirectionIndicatorUoM) AS ?landingDirectionIndicator)
+          }
+            UNION
+          {
+           ?_landingDirectionIndicator  aixm:nilReason ?landingDirectionIndicatorNilReason .
+           BIND(concat('nil:',?landingDirectionIndicatorNilReason) AS ?landingDirectionIndicator)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:transitionAltitude ?_transitionAltitude .
+        {
+          {
+            ?_transitionAltitude rdf:value ?transitionAltitudeValue .
+            FILTER ( NOT EXISTS {?_transitionAltitude aixm:uom ?transitionAltitudeUoM})
+            BIND(concat('val:',?transitionAltitudeValue) AS ?transitionAltitude)
+          }
+            UNION
+          {
+            ?_transitionAltitude
+              rdf:value ?transitionAltitudeValue ;
+              aixm:uom ?transitionAltitudeUoM .
+            BIND(concat('xval:',STR(?transitionAltitudeValue),':',?transitionAltitudeUoM) AS ?transitionAltitude)
+          }
+            UNION
+          {
+           ?_transitionAltitude  aixm:nilReason ?transitionAltitudeNilReason .
+           BIND(concat('nil:',?transitionAltitudeNilReason) AS ?transitionAltitude)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:transitionLevel ?_transitionLevel .
+        {
+          {
+            ?_transitionLevel rdf:value ?transitionLevelValue .
+            FILTER ( NOT EXISTS {?_transitionLevel aixm:uom ?transitionLevelUoM})
+            BIND(concat('val:',?transitionLevelValue) AS ?transitionLevel)
+          }
+            UNION
+          {
+            ?_transitionLevel
+              rdf:value ?transitionLevelValue ;
+              aixm:uom ?transitionLevelUoM .
+            BIND(concat('xval:',STR(?transitionLevelValue),':',?transitionLevelUoM) AS ?transitionLevel)
+          }
+            UNION
+          {
+           ?_transitionLevel  aixm:nilReason ?transitionLevelNilReason .
+           BIND(concat('nil:',?transitionLevelNilReason) AS ?transitionLevel)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:lowestTemperature ?_lowestTemperature .
+        {
+          {
+            ?_lowestTemperature rdf:value ?lowestTemperatureValue .
+            FILTER ( NOT EXISTS {?_lowestTemperature aixm:uom ?lowestTemperatureUoM})
+            BIND(concat('val:',?lowestTemperatureValue) AS ?lowestTemperature)
+          }
+            UNION
+          {
+            ?_lowestTemperature
+              rdf:value ?lowestTemperatureValue ;
+              aixm:uom ?lowestTemperatureUoM .
+            BIND(concat('xval:',STR(?lowestTemperatureValue),':',?lowestTemperatureUoM) AS ?lowestTemperature)
+          }
+            UNION
+          {
+           ?_lowestTemperature  aixm:nilReason ?lowestTemperatureNilReason .
+           BIND(concat('nil:',?lowestTemperatureNilReason) AS ?lowestTemperature)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:abandoned ?_abandoned .
+        {
+          {
+            ?_abandoned rdf:value ?abandonedValue .
+            FILTER ( NOT EXISTS {?_abandoned aixm:uom ?abandonedUoM})
+            BIND(concat('val:',?abandonedValue) AS ?abandoned)
+          }
+            UNION
+          {
+            ?_abandoned
+              rdf:value ?abandonedValue ;
+              aixm:uom ?abandonedUoM .
+            BIND(concat('xval:',STR(?abandonedValue),':',?abandonedUoM) AS ?abandoned)
+          }
+            UNION
+          {
+           ?_abandoned  aixm:nilReason ?abandonedNilReason .
+           BIND(concat('nil:',?abandonedNilReason) AS ?abandoned)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:certificationDate ?_certificationDate .
+        {
+          {
+            ?_certificationDate rdf:value ?certificationDateValue .
+            FILTER ( NOT EXISTS {?_certificationDate aixm:uom ?certificationDateUoM})
+            BIND(concat('val:',?certificationDateValue) AS ?certificationDate)
+          }
+            UNION
+          {
+            ?_certificationDate
+              rdf:value ?certificationDateValue ;
+              aixm:uom ?certificationDateUoM .
+            BIND(concat('xval:',STR(?certificationDateValue),':',?certificationDateUoM) AS ?certificationDate)
+          }
+            UNION
+          {
+           ?_certificationDate  aixm:nilReason ?certificationDateNilReason .
+           BIND(concat('nil:',?certificationDateNilReason) AS ?certificationDate)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportTimeSlice aixm:certificationExpirationDate ?_certificationExpirationDate .
+        {
+          {
+            ?_certificationExpirationDate rdf:value ?certificationExpirationDateValue .
+            FILTER ( NOT EXISTS {?_certificationExpirationDate aixm:uom ?certificationExpirationDateUoM})
+            BIND(concat('val:',?certificationExpirationDateValue) AS ?certificationExpirationDate)
+          }
+            UNION
+          {
+            ?_certificationExpirationDate
+              rdf:value ?certificationExpirationDateValue ;
+              aixm:uom ?certificationExpirationDateUoM .
+            BIND(concat('xval:',STR(?certificationExpirationDateValue),':',?certificationExpirationDateUoM) AS ?certificationExpirationDate)
+          }
+            UNION
+          {
+           ?_certificationExpirationDate  aixm:nilReason ?certificationExpirationDateNilReason .
+           BIND(concat('nil:',?certificationExpirationDateNilReason) AS ?certificationExpirationDate)
+          }
+        }
+      }
+      OPTIONAL {?airportHeliportTimeSlice aixm:contact ?contact .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:annotation ?annotation .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:ARP ?ARP .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:altimeterSource ?altimeterSource .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:contaminant ?contaminant .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:servedCity ?servedCity .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:responsibleOrganisation ?responsibleOrganisation .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:aviationBoundary ?aviationBoundary .}
+      OPTIONAL {?airportHeliportTimeSlice aixm:availability ?availability .}
+    }
+  }
+GROUP BY ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?ARP ?responsibleOrganisation ?aviationBoundary
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?flightCharacteristic rdf:type aixm:FlightCharacteristic .
+      OPTIONAL { ?flightCharacteristic aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:rule ?_rule .
+        {
+          {
+            ?_rule rdf:value ?ruleValue .
+            FILTER ( NOT EXISTS {?_rule aixm:uom ?ruleUoM})
+            BIND(concat('val:',?ruleValue) AS ?rule)
+          }
+            UNION
+          {
+            ?_rule
+              rdf:value ?ruleValue ;
+              aixm:uom ?ruleUoM .
+            BIND(concat('xval:',STR(?ruleValue),':',?ruleUoM) AS ?rule)
+          }
+            UNION
+          {
+           ?_rule  aixm:nilReason ?ruleNilReason .
+           BIND(concat('nil:',?ruleNilReason) AS ?rule)
+          }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:status ?_status .
+        {
+          {
+            ?_status rdf:value ?statusValue .
+            FILTER ( NOT EXISTS {?_status aixm:uom ?statusUoM})
+            BIND(concat('val:',?statusValue) AS ?status)
+          }
+            UNION
+          {
+            ?_status
+              rdf:value ?statusValue ;
+              aixm:uom ?statusUoM .
+            BIND(concat('xval:',STR(?statusValue),':',?statusUoM) AS ?status)
+          }
+            UNION
+          {
+           ?_status  aixm:nilReason ?statusNilReason .
+           BIND(concat('nil:',?statusNilReason) AS ?status)
+          }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:military ?_military .
+        {
+          {
+            ?_military rdf:value ?militaryValue .
+            FILTER ( NOT EXISTS {?_military aixm:uom ?militaryUoM})
+            BIND(concat('val:',?militaryValue) AS ?military)
+          }
+            UNION
+          {
+            ?_military
+              rdf:value ?militaryValue ;
+              aixm:uom ?militaryUoM .
+            BIND(concat('xval:',STR(?militaryValue),':',?militaryUoM) AS ?military)
+          }
+            UNION
+          {
+           ?_military  aixm:nilReason ?militaryNilReason .
+           BIND(concat('nil:',?militaryNilReason) AS ?military)
+          }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:origin ?_origin .
+        {
+          {
+            ?_origin rdf:value ?originValue .
+            FILTER ( NOT EXISTS {?_origin aixm:uom ?originUoM})
+            BIND(concat('val:',?originValue) AS ?origin)
+          }
+            UNION
+          {
+            ?_origin
+              rdf:value ?originValue ;
+              aixm:uom ?originUoM .
+            BIND(concat('xval:',STR(?originValue),':',?originUoM) AS ?origin)
+          }
+            UNION
+          {
+           ?_origin  aixm:nilReason ?originNilReason .
+           BIND(concat('nil:',?originNilReason) AS ?origin)
+          }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:purpose ?_purpose .
+        {
+          {
+            ?_purpose rdf:value ?purposeValue .
+            FILTER ( NOT EXISTS {?_purpose aixm:uom ?purposeUoM})
+            BIND(concat('val:',?purposeValue) AS ?purpose)
+          }
+            UNION
+          {
+            ?_purpose
+              rdf:value ?purposeValue ;
+              aixm:uom ?purposeUoM .
+            BIND(concat('xval:',STR(?purposeValue),':',?purposeUoM) AS ?purpose)
+          }
+            UNION
+          {
+           ?_purpose  aixm:nilReason ?purposeNilReason .
+           BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+          }
+        }
+      }
+      OPTIONAL {?flightCharacteristic aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?ridge ?side ?distance ?depth (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?ridge rdf:type aixm:Ridge .
+      OPTIONAL { ?ridge aixm:side ?_side .
+        {
+          {
+            ?_side rdf:value ?sideValue .
+            FILTER ( NOT EXISTS {?_side aixm:uom ?sideUoM})
+            BIND(concat('val:',?sideValue) AS ?side)
+          }
+            UNION
+          {
+            ?_side
+              rdf:value ?sideValue ;
+              aixm:uom ?sideUoM .
+            BIND(concat('xval:',STR(?sideValue),':',?sideUoM) AS ?side)
+          }
+            UNION
+          {
+           ?_side  aixm:nilReason ?sideNilReason .
+           BIND(concat('nil:',?sideNilReason) AS ?side)
+          }
+        }
+      }
+      OPTIONAL { ?ridge aixm:distance ?_distance .
+        {
+          {
+            ?_distance rdf:value ?distanceValue .
+            FILTER ( NOT EXISTS {?_distance aixm:uom ?distanceUoM})
+            BIND(concat('val:',?distanceValue) AS ?distance)
+          }
+            UNION
+          {
+            ?_distance
+              rdf:value ?distanceValue ;
+              aixm:uom ?distanceUoM .
+            BIND(concat('xval:',STR(?distanceValue),':',?distanceUoM) AS ?distance)
+          }
+            UNION
+          {
+           ?_distance  aixm:nilReason ?distanceNilReason .
+           BIND(concat('nil:',?distanceNilReason) AS ?distance)
+          }
+        }
+      }
+      OPTIONAL { ?ridge aixm:depth ?_depth .
+        {
+          {
+            ?_depth rdf:value ?depthValue .
+            FILTER ( NOT EXISTS {?_depth aixm:uom ?depthUoM})
+            BIND(concat('val:',?depthValue) AS ?depth)
+          }
+            UNION
+          {
+            ?_depth
+              rdf:value ?depthValue ;
+              aixm:uom ?depthUoM .
+            BIND(concat('xval:',STR(?depthValue),':',?depthUoM) AS ?depth)
+          }
+            UNION
+          {
+           ?_depth  aixm:nilReason ?depthNilReason .
+           BIND(concat('nil:',?depthNilReason) AS ?depth)
+          }
+        }
+      }
+      OPTIONAL {?ridge aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?ridge ?side ?distance ?depth
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliport (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliport rdf:type aixm:AirportHeliport .
+      OPTIONAL {?airportHeliport aixm:timeSlice ?timeSlice .}
+    }
+  }
+GROUP BY ?graph ?airportHeliport
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?usage;SEPARATOR=",") AS ?usageConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportAvailability rdf:type aixm:AirportHeliportAvailability .
+      OPTIONAL { ?airportHeliportAvailability aixm:operationalStatus ?_operationalStatus .
+        {
+          {
+            ?_operationalStatus rdf:value ?operationalStatusValue .
+            FILTER ( NOT EXISTS {?_operationalStatus aixm:uom ?operationalStatusUoM})
+            BIND(concat('val:',?operationalStatusValue) AS ?operationalStatus)
+          }
+            UNION
+          {
+            ?_operationalStatus
+              rdf:value ?operationalStatusValue ;
+              aixm:uom ?operationalStatusUoM .
+            BIND(concat('xval:',STR(?operationalStatusValue),':',?operationalStatusUoM) AS ?operationalStatus)
+          }
+            UNION
+          {
+           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
+           BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
+          }
+        }
+      }
+      OPTIONAL { ?airportHeliportAvailability aixm:warning ?_warning .
+        {
+          {
+            ?_warning rdf:value ?warningValue .
+            FILTER ( NOT EXISTS {?_warning aixm:uom ?warningUoM})
+            BIND(concat('val:',?warningValue) AS ?warning)
+          }
+            UNION
+          {
+            ?_warning
+              rdf:value ?warningValue ;
+              aixm:uom ?warningUoM .
+            BIND(concat('xval:',STR(?warningValue),':',?warningUoM) AS ?warning)
+          }
+            UNION
+          {
+           ?_warning  aixm:nilReason ?warningNilReason .
+           BIND(concat('nil:',?warningNilReason) AS ?warning)
+          }
+        }
+      }
+      OPTIONAL {?airportHeliportAvailability aixm:usage ?usage .}
+    }
+  }
+GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?point
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:Point .
+  }
+  { GRAPH ?graph
+    {
+      ?point rdf:type ?SUBCLASS .
+    }
+  }
+}
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?propertiesWithSchedule (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?specialDateAuthority;SEPARATOR=",") AS ?specialDateAuthorityConcat) (GROUP_CONCAT(DISTINCT ?timeInterval;SEPARATOR=",") AS ?timeIntervalConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:PropertiesWithSchedule .
+  }
+  { GRAPH ?graph
+    {
+      ?propertiesWithSchedule rdf:type ?SUBCLASS .
+      OPTIONAL {?propertiesWithSchedule aixm:annotation ?annotation .}
+      OPTIONAL {?propertiesWithSchedule aixm:specialDateAuthority ?specialDateAuthority .}
+      OPTIONAL {?propertiesWithSchedule aixm:timeInterval ?timeInterval .}
+    }
+  }
+}
+GROUP BY ?graph ?propertiesWithSchedule
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?altimeterSource (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSource rdf:type aixm:AltimeterSource .
+      OPTIONAL {?altimeterSource aixm:timeSlice ?timeSlice .}
+    }
+  }
+GROUP BY ?graph ?altimeterSource
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?patch;SEPARATOR=",") AS ?patchConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:Surface .
+  }
+  { GRAPH ?graph
+    {
+      ?surface rdf:type ?SUBCLASS .
+      ?surface aixm:patch ?patch .
+    }
+  }
+}
+GROUP BY ?graph ?surface
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion (GROUP_CONCAT(DISTINCT ?criticalRidge;SEPARATOR=",") AS ?criticalRidgeConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?layer;SEPARATOR=",") AS ?layerConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:SurfaceContamination .
+  }
+  { GRAPH ?graph
+    {
+      ?surfaceContamination rdf:type ?SUBCLASS .
+      OPTIONAL { ?surfaceContamination aixm:observationTime ?_observationTime .
+        {
+          {
+            ?_observationTime rdf:value ?observationTimeValue .
+            FILTER ( NOT EXISTS {?_observationTime aixm:uom ?observationTimeUoM})
+            BIND(concat('val:',?observationTimeValue) AS ?observationTime)
+          }
+            UNION
+          {
+            ?_observationTime
+              rdf:value ?observationTimeValue ;
+              aixm:uom ?observationTimeUoM .
+            BIND(concat('xval:',STR(?observationTimeValue),':',?observationTimeUoM) AS ?observationTime)
+          }
+            UNION
+          {
+           ?_observationTime  aixm:nilReason ?observationTimeNilReason .
+           BIND(concat('nil:',?observationTimeNilReason) AS ?observationTime)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:depth ?_depth .
+        {
+          {
+            ?_depth rdf:value ?depthValue .
+            FILTER ( NOT EXISTS {?_depth aixm:uom ?depthUoM})
+            BIND(concat('val:',?depthValue) AS ?depth)
+          }
+            UNION
+          {
+            ?_depth
+              rdf:value ?depthValue ;
+              aixm:uom ?depthUoM .
+            BIND(concat('xval:',STR(?depthValue),':',?depthUoM) AS ?depth)
+          }
+            UNION
+          {
+           ?_depth  aixm:nilReason ?depthNilReason .
+           BIND(concat('nil:',?depthNilReason) AS ?depth)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:frictionCoefficient ?_frictionCoefficient .
+        {
+          {
+            ?_frictionCoefficient rdf:value ?frictionCoefficientValue .
+            FILTER ( NOT EXISTS {?_frictionCoefficient aixm:uom ?frictionCoefficientUoM})
+            BIND(concat('val:',?frictionCoefficientValue) AS ?frictionCoefficient)
+          }
+            UNION
+          {
+            ?_frictionCoefficient
+              rdf:value ?frictionCoefficientValue ;
+              aixm:uom ?frictionCoefficientUoM .
+            BIND(concat('xval:',STR(?frictionCoefficientValue),':',?frictionCoefficientUoM) AS ?frictionCoefficient)
+          }
+            UNION
+          {
+           ?_frictionCoefficient  aixm:nilReason ?frictionCoefficientNilReason .
+           BIND(concat('nil:',?frictionCoefficientNilReason) AS ?frictionCoefficient)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:frictionEstimation ?_frictionEstimation .
+        {
+          {
+            ?_frictionEstimation rdf:value ?frictionEstimationValue .
+            FILTER ( NOT EXISTS {?_frictionEstimation aixm:uom ?frictionEstimationUoM})
+            BIND(concat('val:',?frictionEstimationValue) AS ?frictionEstimation)
+          }
+            UNION
+          {
+            ?_frictionEstimation
+              rdf:value ?frictionEstimationValue ;
+              aixm:uom ?frictionEstimationUoM .
+            BIND(concat('xval:',STR(?frictionEstimationValue),':',?frictionEstimationUoM) AS ?frictionEstimation)
+          }
+            UNION
+          {
+           ?_frictionEstimation  aixm:nilReason ?frictionEstimationNilReason .
+           BIND(concat('nil:',?frictionEstimationNilReason) AS ?frictionEstimation)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:frictionDevice ?_frictionDevice .
+        {
+          {
+            ?_frictionDevice rdf:value ?frictionDeviceValue .
+            FILTER ( NOT EXISTS {?_frictionDevice aixm:uom ?frictionDeviceUoM})
+            BIND(concat('val:',?frictionDeviceValue) AS ?frictionDevice)
+          }
+            UNION
+          {
+            ?_frictionDevice
+              rdf:value ?frictionDeviceValue ;
+              aixm:uom ?frictionDeviceUoM .
+            BIND(concat('xval:',STR(?frictionDeviceValue),':',?frictionDeviceUoM) AS ?frictionDevice)
+          }
+            UNION
+          {
+           ?_frictionDevice  aixm:nilReason ?frictionDeviceNilReason .
+           BIND(concat('nil:',?frictionDeviceNilReason) AS ?frictionDevice)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:obscuredLights ?_obscuredLights .
+        {
+          {
+            ?_obscuredLights rdf:value ?obscuredLightsValue .
+            FILTER ( NOT EXISTS {?_obscuredLights aixm:uom ?obscuredLightsUoM})
+            BIND(concat('val:',?obscuredLightsValue) AS ?obscuredLights)
+          }
+            UNION
+          {
+            ?_obscuredLights
+              rdf:value ?obscuredLightsValue ;
+              aixm:uom ?obscuredLightsUoM .
+            BIND(concat('xval:',STR(?obscuredLightsValue),':',?obscuredLightsUoM) AS ?obscuredLights)
+          }
+            UNION
+          {
+           ?_obscuredLights  aixm:nilReason ?obscuredLightsNilReason .
+           BIND(concat('nil:',?obscuredLightsNilReason) AS ?obscuredLights)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:furtherClearanceTime ?_furtherClearanceTime .
+        {
+          {
+            ?_furtherClearanceTime rdf:value ?furtherClearanceTimeValue .
+            FILTER ( NOT EXISTS {?_furtherClearanceTime aixm:uom ?furtherClearanceTimeUoM})
+            BIND(concat('val:',?furtherClearanceTimeValue) AS ?furtherClearanceTime)
+          }
+            UNION
+          {
+            ?_furtherClearanceTime
+              rdf:value ?furtherClearanceTimeValue ;
+              aixm:uom ?furtherClearanceTimeUoM .
+            BIND(concat('xval:',STR(?furtherClearanceTimeValue),':',?furtherClearanceTimeUoM) AS ?furtherClearanceTime)
+          }
+            UNION
+          {
+           ?_furtherClearanceTime  aixm:nilReason ?furtherClearanceTimeNilReason .
+           BIND(concat('nil:',?furtherClearanceTimeNilReason) AS ?furtherClearanceTime)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:furtherTotalClearance ?_furtherTotalClearance .
+        {
+          {
+            ?_furtherTotalClearance rdf:value ?furtherTotalClearanceValue .
+            FILTER ( NOT EXISTS {?_furtherTotalClearance aixm:uom ?furtherTotalClearanceUoM})
+            BIND(concat('val:',?furtherTotalClearanceValue) AS ?furtherTotalClearance)
+          }
+            UNION
+          {
+            ?_furtherTotalClearance
+              rdf:value ?furtherTotalClearanceValue ;
+              aixm:uom ?furtherTotalClearanceUoM .
+            BIND(concat('xval:',STR(?furtherTotalClearanceValue),':',?furtherTotalClearanceUoM) AS ?furtherTotalClearance)
+          }
+            UNION
+          {
+           ?_furtherTotalClearance  aixm:nilReason ?furtherTotalClearanceNilReason .
+           BIND(concat('nil:',?furtherTotalClearanceNilReason) AS ?furtherTotalClearance)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:nextObservationTime ?_nextObservationTime .
+        {
+          {
+            ?_nextObservationTime rdf:value ?nextObservationTimeValue .
+            FILTER ( NOT EXISTS {?_nextObservationTime aixm:uom ?nextObservationTimeUoM})
+            BIND(concat('val:',?nextObservationTimeValue) AS ?nextObservationTime)
+          }
+            UNION
+          {
+            ?_nextObservationTime
+              rdf:value ?nextObservationTimeValue ;
+              aixm:uom ?nextObservationTimeUoM .
+            BIND(concat('xval:',STR(?nextObservationTimeValue),':',?nextObservationTimeUoM) AS ?nextObservationTime)
+          }
+            UNION
+          {
+           ?_nextObservationTime  aixm:nilReason ?nextObservationTimeNilReason .
+           BIND(concat('nil:',?nextObservationTimeNilReason) AS ?nextObservationTime)
+          }
+        }
+      }
+      OPTIONAL { ?surfaceContamination aixm:proportion ?_proportion .
+        {
+          {
+            ?_proportion rdf:value ?proportionValue .
+            FILTER ( NOT EXISTS {?_proportion aixm:uom ?proportionUoM})
+            BIND(concat('val:',?proportionValue) AS ?proportion)
+          }
+            UNION
+          {
+            ?_proportion
+              rdf:value ?proportionValue ;
+              aixm:uom ?proportionUoM .
+            BIND(concat('xval:',STR(?proportionValue),':',?proportionUoM) AS ?proportion)
+          }
+            UNION
+          {
+           ?_proportion  aixm:nilReason ?proportionNilReason .
+           BIND(concat('nil:',?proportionNilReason) AS ?proportion)
+          }
+        }
+      }
+      OPTIONAL {?surfaceContamination aixm:criticalRidge ?criticalRidge .}
+      OPTIONAL {?surfaceContamination aixm:annotation ?annotation .}
+      OPTIONAL {?surfaceContamination aixm:layer ?layer .}
+    }
+  }
+}
+GROUP BY ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?organisationAuthority (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?organisationAuthority rdf:type aixm:OrganisationAuthority .
+      OPTIONAL {?organisationAuthority aixm:timeSlice ?timeSlice .}
+    }
+  }
+GROUP BY ?graph ?organisationAuthority
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?surface ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:Surface .
+  }
+  { GRAPH ?graph
+    {
+      ?surface rdf:type ?SUBCLASS .
+      OPTIONAL { ?surface aixm:horizontalAccuracy ?_horizontalAccuracy .
+        {
+          {
+            ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
+            FILTER ( NOT EXISTS {?_horizontalAccuracy aixm:uom ?horizontalAccuracyUoM})
+            BIND(concat('val:',?horizontalAccuracyValue) AS ?horizontalAccuracy)
+          }
+            UNION
+          {
+            ?_horizontalAccuracy
+              rdf:value ?horizontalAccuracyValue ;
+              aixm:uom ?horizontalAccuracyUoM .
+            BIND(concat('xval:',STR(?horizontalAccuracyValue),':',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
+          }
+            UNION
+          {
+           ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
+           BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
+          }
+        }
+      }
+      OPTIONAL {?surface aixm:annotation ?annotation .}
+    }
+  }
+}
+GROUP BY ?graph ?surface ?horizontalAccuracy
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?timePeriod ?beginPosition ?endPosition
+WHERE
+  { GRAPH ?graph
+    {
+      ?timePeriod rdf:type gml:TimePeriod .
+      ?timePeriod gml:beginPosition  ?_beginPosition .
+        {
+          {
+            ?_beginPosition rdf:value ?beginPositionValue .
+            FILTER ( NOT EXISTS {?_beginPosition aixm:uom ?beginPositionUoM})
+            BIND(concat('val:',?beginPositionValue) AS ?beginPosition)
+          }
+		     UNION
+		     {
+            ?_beginPosition
+              rdf:value ?beginPositionValue ;
+              aixm:uom ?beginPositionUoM .
+              BIND(concat('xval:',STR(?beginPositionValue),':',?beginPositionUoM) AS ?beginPosition)
+          }
+          UNION
+          {
+		       ?_beginPosition  aixm:nilReason ?beginPositionNilReason .
+		       BIND(concat('nil:',?beginPositionNilReason) AS ?beginPosition)
+		   }
+      }
+      ?timePeriod gml:endPosition  ?_endPosition .
+        {
+          {
+            ?_endPosition rdf:value ?endPositionValue .
+            FILTER ( NOT EXISTS {?_endPosition aixm:uom ?endPositionUoM})
+            BIND(concat('val:',?endPositionValue) AS ?endPosition)
+          }
+		     UNION
+		     {
+            ?_endPosition
+              rdf:value ?endPositionValue ;
+              aixm:uom ?endPositionUoM .
+              BIND(concat('xval:',STR(?endPositionValue),':',?endPositionUoM) AS ?endPosition)
+          }
+          UNION
+          {
+		       ?_endPosition  aixm:nilReason ?endPositionNilReason .
+		       BIND(concat('nil:',?endPositionNilReason) AS ?endPosition)
+		   }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?relatedOrganisationAuthority;SEPARATOR=",") AS ?relatedOrganisationAuthorityConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?organisationAuthorityTimeSlice rdf:type aixm:OrganisationAuthorityTimeSlice .
+      OPTIONAL { ?organisationAuthorityTimeSlice aixm:name ?_name .
+        {
+          {
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name aixm:uom ?nameUoM})
+            BIND(concat('val:',?nameValue) AS ?name)
+          }
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              aixm:uom ?nameUoM .
+            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat('nil:',?nameNilReason) AS ?name)
+          }
+        }
+      }
+      OPTIONAL { ?organisationAuthorityTimeSlice aixm:designator ?_designator .
+        {
+          {
+            ?_designator rdf:value ?designatorValue .
+            FILTER ( NOT EXISTS {?_designator aixm:uom ?designatorUoM})
+            BIND(concat('val:',?designatorValue) AS ?designator)
+          }
+            UNION
+          {
+            ?_designator
+              rdf:value ?designatorValue ;
+              aixm:uom ?designatorUoM .
+            BIND(concat('xval:',STR(?designatorValue),':',?designatorUoM) AS ?designator)
+          }
+            UNION
+          {
+           ?_designator  aixm:nilReason ?designatorNilReason .
+           BIND(concat('nil:',?designatorNilReason) AS ?designator)
+          }
+        }
+      }
+      OPTIONAL { ?organisationAuthorityTimeSlice aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL { ?organisationAuthorityTimeSlice aixm:military ?_military .
+        {
+          {
+            ?_military rdf:value ?militaryValue .
+            FILTER ( NOT EXISTS {?_military aixm:uom ?militaryUoM})
+            BIND(concat('val:',?militaryValue) AS ?military)
+          }
+            UNION
+          {
+            ?_military
+              rdf:value ?militaryValue ;
+              aixm:uom ?militaryUoM .
+            BIND(concat('xval:',STR(?militaryValue),':',?militaryUoM) AS ?military)
+          }
+            UNION
+          {
+           ?_military  aixm:nilReason ?militaryNilReason .
+           BIND(concat('nil:',?militaryNilReason) AS ?military)
+          }
+        }
+      }
+      OPTIONAL {?organisationAuthorityTimeSlice aixm:annotation ?annotation .}
+      OPTIONAL {?organisationAuthorityTimeSlice aixm:contact ?contact .}
+      OPTIONAL {?organisationAuthorityTimeSlice aixm:relatedOrganisationAuthority ?relatedOrganisationAuthority .}
+    }
+  }
+GROUP BY ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?linguisticNote ?note
+WHERE
+  { GRAPH ?graph
+    {
+      ?linguisticNote rdf:type aixm:LinguisticNote .
+      OPTIONAL { ?linguisticNote aixm:note ?_note .
+        {
+          {
+            ?_note rdf:value ?noteValue .
+            FILTER ( NOT EXISTS {?_note aixm:uom ?noteUoM})
+            BIND(concat('val:',?noteValue) AS ?note)
+          }
+            UNION
+          {
+            ?_note
+              rdf:value ?noteValue ;
+              aixm:uom ?noteUoM .
+            BIND(concat('xval:',STR(?noteValue),':',?noteUoM) AS ?note)
+          }
+            UNION
+          {
+           ?_note  aixm:nilReason ?noteNilReason .
+           BIND(concat('nil:',?noteNilReason) AS ?note)
+          }
+        }
+      }
+    }
+  }
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?meteorology rdf:type aixm:Meteorology .
+      OPTIONAL { ?meteorology aixm:flightConditions ?_flightConditions .
+        {
+          {
+            ?_flightConditions rdf:value ?flightConditionsValue .
+            FILTER ( NOT EXISTS {?_flightConditions aixm:uom ?flightConditionsUoM})
+            BIND(concat('val:',?flightConditionsValue) AS ?flightConditions)
+          }
+            UNION
+          {
+            ?_flightConditions
+              rdf:value ?flightConditionsValue ;
+              aixm:uom ?flightConditionsUoM .
+            BIND(concat('xval:',STR(?flightConditionsValue),':',?flightConditionsUoM) AS ?flightConditions)
+          }
+            UNION
+          {
+           ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
+           BIND(concat('nil:',?flightConditionsNilReason) AS ?flightConditions)
+          }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:visibility ?_visibility .
+        {
+          {
+            ?_visibility rdf:value ?visibilityValue .
+            FILTER ( NOT EXISTS {?_visibility aixm:uom ?visibilityUoM})
+            BIND(concat('val:',?visibilityValue) AS ?visibility)
+          }
+            UNION
+          {
+            ?_visibility
+              rdf:value ?visibilityValue ;
+              aixm:uom ?visibilityUoM .
+            BIND(concat('xval:',STR(?visibilityValue),':',?visibilityUoM) AS ?visibility)
+          }
+            UNION
+          {
+           ?_visibility  aixm:nilReason ?visibilityNilReason .
+           BIND(concat('nil:',?visibilityNilReason) AS ?visibility)
+          }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:visibilityInterpretation ?_visibilityInterpretation .
+        {
+          {
+            ?_visibilityInterpretation rdf:value ?visibilityInterpretationValue .
+            FILTER ( NOT EXISTS {?_visibilityInterpretation aixm:uom ?visibilityInterpretationUoM})
+            BIND(concat('val:',?visibilityInterpretationValue) AS ?visibilityInterpretation)
+          }
+            UNION
+          {
+            ?_visibilityInterpretation
+              rdf:value ?visibilityInterpretationValue ;
+              aixm:uom ?visibilityInterpretationUoM .
+            BIND(concat('xval:',STR(?visibilityInterpretationValue),':',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
+          }
+            UNION
+          {
+           ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
+           BIND(concat('nil:',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
+          }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:runwayVisualRange ?_runwayVisualRange .
+        {
+          {
+            ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
+            FILTER ( NOT EXISTS {?_runwayVisualRange aixm:uom ?runwayVisualRangeUoM})
+            BIND(concat('val:',?runwayVisualRangeValue) AS ?runwayVisualRange)
+          }
+            UNION
+          {
+            ?_runwayVisualRange
+              rdf:value ?runwayVisualRangeValue ;
+              aixm:uom ?runwayVisualRangeUoM .
+            BIND(concat('xval:',STR(?runwayVisualRangeValue),':',?runwayVisualRangeUoM) AS ?runwayVisualRange)
+          }
+            UNION
+          {
+           ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
+           BIND(concat('nil:',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
+          }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:runwayVisualRangeInterpretation ?_runwayVisualRangeInterpretation .
+        {
+          {
+            ?_runwayVisualRangeInterpretation rdf:value ?runwayVisualRangeInterpretationValue .
+            FILTER ( NOT EXISTS {?_runwayVisualRangeInterpretation aixm:uom ?runwayVisualRangeInterpretationUoM})
+            BIND(concat('val:',?runwayVisualRangeInterpretationValue) AS ?runwayVisualRangeInterpretation)
+          }
+            UNION
+          {
+            ?_runwayVisualRangeInterpretation
+              rdf:value ?runwayVisualRangeInterpretationValue ;
+              aixm:uom ?runwayVisualRangeInterpretationUoM .
+            BIND(concat('xval:',STR(?runwayVisualRangeInterpretationValue),':',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
+          }
+            UNION
+          {
+           ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
+           BIND(concat('nil:',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
+          }
+        }
+      }
+      OPTIONAL {?meteorology aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
+
+
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?graph ?usageCondition ?type ?priorPermission ?selection (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:UsageCondition .
+  }
+  { GRAPH ?graph
+    {
+      ?usageCondition rdf:type ?SUBCLASS .
+      OPTIONAL { ?usageCondition aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type aixm:uom ?typeUoM})
+            BIND(concat('val:',?typeValue) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              aixm:uom ?typeUoM .
+            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+        }
+      }
+      OPTIONAL { ?usageCondition aixm:priorPermission ?_priorPermission .
+        {
+          {
+            ?_priorPermission rdf:value ?priorPermissionValue .
+            FILTER ( NOT EXISTS {?_priorPermission aixm:uom ?priorPermissionUoM})
+            BIND(concat('val:',?priorPermissionValue) AS ?priorPermission)
+          }
+            UNION
+          {
+            ?_priorPermission
+              rdf:value ?priorPermissionValue ;
+              aixm:uom ?priorPermissionUoM .
+            BIND(concat('xval:',STR(?priorPermissionValue),':',?priorPermissionUoM) AS ?priorPermission)
+          }
+            UNION
+          {
+           ?_priorPermission  aixm:nilReason ?priorPermissionNilReason .
+           BIND(concat('nil:',?priorPermissionNilReason) AS ?priorPermission)
+          }
+        }
+      }
+      OPTIONAL {?usageCondition aixm:selection ?selection .}
+      OPTIONAL {?usageCondition aixm:annotation ?annotation .}
+      OPTIONAL {?usageCondition aixm:contact ?contact .}
+    }
+  }
+}
+GROUP BY ?graph ?usageCondition ?type ?priorPermission ?selection
+
+
