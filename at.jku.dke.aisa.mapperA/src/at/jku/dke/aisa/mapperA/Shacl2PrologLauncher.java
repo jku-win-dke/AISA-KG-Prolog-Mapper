@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.apache.jena.graph.Graph;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnectionFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
-import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.Shapes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,23 +22,21 @@ import org.slf4j.LoggerFactory;
  */
 public class Shacl2PrologLauncher {
 
+	private static final int NUMBER_OF_DATA_COPIES = 1;
+	private static final String INPUT_DATA = "input/data";
+	private static final String INPUT_SCHEMA = "input/schema";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(Shacl2PrologLauncher.class);
 
 	private final static String LOCALHOST_3030 = "http://localhost:3030/test/";
 	
-	private final static String SHACL_SCHEMA = "input/donlon-shacl.ttl";
-	private final static String DATA_FILE = "input/donlon-data.ttl";
-	
-//	private final static String SHACL_SCHEMA = "input/plain-shacl.ttl";
-//	private final static String DATA_FILE = "input/plain-data.ttl";
-	
 	private final static String PREFIXES_FILE = "input/prefixes.ttl";
 	
-	private static final String DATA_GRAPH_NAME = "https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml";
-	private final static String GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
+	private final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
+	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs/data";
 	
-	private final static String SPARQL_FILE = "output/donlon-queries.sparql";
-	private final static String FACTS_FILE = "output/donlon-facts.pl";
+	private final static String SPARQL_FILE = "output/queries.sparql";
+	private final static String FACTS_FILE = "output/facts.pl";
 	
 	public static void main(String[] args) {
 		
@@ -51,18 +49,43 @@ public class Shacl2PrologLauncher {
 //		process = builder.start();
 //		process.destroy();
 		
+		long startTime = System.currentTimeMillis();
+		
 		// jena fuseki setup
 		RDFConnectionFuseki fuseki = RDFConnectionFactory.connectFuseki(LOCALHOST_3030);
-		fuseki.loadDataset(SHACL_SCHEMA);
-		fuseki.load(GRAPH_NAME, SHACL_SCHEMA);
-		fuseki.load(DATA_GRAPH_NAME, DATA_FILE);
+
+		long time_one = System.currentTimeMillis();
 		
-		// load shacl schema from local file
-		Graph shapesGraph = RDFDataMgr.loadGraph(SHACL_SCHEMA);
+		File dir = new File(INPUT_SCHEMA);     
+		File[] files = dir.listFiles();
+		for (int i = 0; i < files.length; i++) {
+		  File file = files[i];
+		  fuseki.load(SCHEMA_GRAPH_NAME, file.getAbsolutePath());
+		}
+		
+		long time_two = System.currentTimeMillis();
+		
+		for(int j = 0 ; j<NUMBER_OF_DATA_COPIES ; j++) {
+			File dir2 = new File(INPUT_DATA);     
+			File[] files2 = dir2.listFiles();
+			for (int i = 0; i < files2.length; i++) {
+			  File file2 = files2[i];
+			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "/" + file2.getName(), file2.getAbsolutePath());
+			}
+		}
+		
+		long time_three = System.currentTimeMillis();
+		
+		Model model = fuseki.fetch(SCHEMA_GRAPH_NAME);
+		Graph shapesGraph = model.getGraph();
 		Shapes shapes = Shapes.parse(shapesGraph);
 		
+		long time_four = System.currentTimeMillis();
+		
 		// create KnowledgeGraphClasses and KnowledgeGraphProperties
-		Mapper mapper = new Mapper(shapesGraph, shapes, PREFIXES_FILE, GRAPH_NAME);
+		Mapper mapper = new Mapper(shapesGraph, shapes, PREFIXES_FILE, SCHEMA_GRAPH_NAME);
+		
+		long time_five = System.currentTimeMillis();
 		
 		// create SPARQL file
 		File sparqlFile = createFile(SPARQL_FILE);
@@ -77,50 +100,40 @@ public class Shacl2PrologLauncher {
 			LOGGER.debug("Shacl2Sparql mapping completed. Result can be found in " + SPARQL_FILE);
 		}
 			
+		long time_six = System.currentTimeMillis();
+		
 		// create facts file
 		File factsFile = createFile(FACTS_FILE);
 		try(PrintWriter printWriter = new PrintWriter(factsFile)) {
 		
-			printStaticContent(printWriter);
+			mapper.printStaticContent(printWriter);
 			mapper.printPrefixRegistration(printWriter);
 			mapper.printRDFMeta(printWriter);
 			
 			QueryExecuter queryExecuter = new QueryExecuter(SPARQL_FILE, fuseki, mapper, printWriter);
 			queryExecuter.execute();
-				
+			
+			mapper.printInheritanceRules(printWriter);
+			
 		} catch (FileNotFoundException e) {
 			String message = String.format("File %s could not be found.", FACTS_FILE);
 			LOGGER.debug(message);
 		} finally {
 			LOGGER.debug("SPARQL2Prolog mapping completed. Result can be found in " + FACTS_FILE);
 		}
-	}
-
-	/**
-	 * Print static content needed to execute the file in Prolog.
-	 * 
-	 * e.g.: modules used in Prolog or flags
-	 */
-	private static void printStaticContent(PrintWriter printWriter) {
-		printWriter.println("/* use the new RDF-DB library ");
-		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */");
-		printWriter.println(":- use_module(library(semweb/rdf11)).");
-		printWriter.println();
-		printWriter.println("/* for writing/reading RDF files in Turtle format we use the Turtle library");
-		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=turtle */");
-		printWriter.println(":- use_module(library(semweb/turtle)). ");
-		printWriter.println();
-		printWriter.println("/* do not output bindings for anonymous variables (e.g., _X) in query results ");
-		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=flags#flag:toplevel_print_anon */");
-		printWriter.println(":- set_prolog_flag(toplevel_print_anon, false).");
-		printWriter.println();
-		printWriter.println("/* PREFIX HANDLING ");
-		printWriter.println("see: https://www.swi-prolog.org/pldoc/doc/_SWI_/library/semweb/rdf_prefixes.pl");
-		printWriter.println("*/");
-		printWriter.println();
-		printWriter.println("/* declare namespace prefixes - in addition to predeclared ones ");
-		printWriter.println("https://www.swi-prolog.org/pldoc/doc_for?object=rdf_register_prefix/2");
-		printWriter.println("*/");
+		
+        long endTime = System.currentTimeMillis();
+        
+        long timeElapsed = endTime - startTime;
+        System.out.println("Jena Fuseki connection establishment: " + (time_one - startTime));
+        System.out.println("Loading shacl schema files: " + (time_two - time_one));
+        System.out.println("Loading data files: " + (time_three - time_two));
+        System.out.println("Fetching shacl schema: " + (time_four - time_three));
+        System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_five - time_four));
+        System.out.println("Creating SPARQL file: " + (time_six - time_five));
+        System.out.println("Executing SPARQL queries and creating Prolog facts: " + (endTime - time_six));
+        System.out.println();
+        System.out.println("Execution time in milliseconds: " + timeElapsed);
 	}
 
 	/**
@@ -128,9 +141,9 @@ public class Shacl2PrologLauncher {
 	 * @return
 	 */
 	private static File createFile(String name) {
-		File sparqlFile = new File(name);
+		File file = new File(name);
 		try {
-			if(!sparqlFile.createNewFile()) {
+			if(!file.createNewFile()) {
 				// delete old content of generated file
 				new PrintWriter(name).close();
 			}
@@ -141,6 +154,6 @@ public class Shacl2PrologLauncher {
 			String message = String.format("Error when creating %s.", name);
 			LOGGER.debug(message);
 		}
-		return sparqlFile;
+		return file;
 	}
 }

@@ -134,10 +134,6 @@ public class KnowledgeGraphProperty {
 		}
 	}
 	
-//	private String getUom() {
-//		ExtendedIterator<Triple> iterator = knowledgeGraphClass.rootShape.getShapeGraph().find(, null,);
-//	}
-	
 	/**
 	 * Returns the in the constructor created where fragment of the property.
 	 * 
@@ -209,7 +205,7 @@ public class KnowledgeGraphProperty {
 	 * @return
 	 */
 	private String getNameOfPath(Path path) {
-		if(path.toString().contains("aixm_5-1-1#")) {
+		if(path.toString().contains("aixm_5-1-1#") || path.toString().contains("fixm_3-0-1_sesar#")) {
 			String[] pathSplitted = path.toString().split("#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);
 		} else if(path.toString().startsWith("<http://www.opengis.net/gml/3.2#")) {

@@ -2,12 +2,14 @@ package at.jku.dke.aisa.mapperA;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.Triple;
@@ -35,6 +37,7 @@ public class Mapper {
 	private String graphName;
 	private List<KnowledgeGraphClass> knowledgeGraphClasses = new ArrayList<>();
 	private List<Node> superClasses = new ArrayList<>();
+	private Map<String, String> subNodeOfSuperNode = new HashMap<>();
 	
 	/**
 	 * Creates the mapper and all required variables for later use.
@@ -53,6 +56,33 @@ public class Mapper {
 		generateClassesAndProperties();
 	}
 
+	/**
+	 * Print static content needed to execute the file in Prolog.
+	 * 
+	 * e.g.: modules used in Prolog or flags
+	 */
+	public void printStaticContent(PrintWriter printWriter) {
+		printWriter.println("/* use the new RDF-DB library ");
+		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */");
+		printWriter.println(":- use_module(library(semweb/rdf11)).");
+		printWriter.println();
+		printWriter.println("/* for writing/reading RDF files in Turtle format we use the Turtle library");
+		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=turtle */");
+		printWriter.println(":- use_module(library(semweb/turtle)). ");
+		printWriter.println();
+		printWriter.println("/* do not output bindings for anonymous variables (e.g., _X) in query results ");
+		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=flags#flag:toplevel_print_anon */");
+		printWriter.println(":- set_prolog_flag(toplevel_print_anon, false).");
+		printWriter.println();
+		printWriter.println("/* PREFIX HANDLING ");
+		printWriter.println("see: https://www.swi-prolog.org/pldoc/doc/_SWI_/library/semweb/rdf_prefixes.pl");
+		printWriter.println("*/");
+		printWriter.println();
+		printWriter.println("/* declare namespace prefixes - in addition to predeclared ones ");
+		printWriter.println("https://www.swi-prolog.org/pldoc/doc_for?object=rdf_register_prefix/2");
+		printWriter.println("*/");
+	}
+	
 	/**
 	 * Takes all target shapes of the shacl graph as input and generates the respective knowledge graph classes and properties.
 	 * This method is called at creation time of the mapper.
@@ -100,9 +130,7 @@ public class Mapper {
 	 * @return
 	 */
 	public String generateFact(QuerySolution querySolution, KnowledgeGraphClass schemaForGeneratingFacts) {
-		System.out.println(querySolution);
-
-		String fact = schemaForGeneratingFacts.predicateName + "(";
+		String fact = schemaForGeneratingFacts.getNameOfTargetsWithPrefixShortAndUnderScore() + "(";
 		fact += resolvePrefixMapping(querySolution.get("?graph")) != null ? resolvePrefixMapping(querySolution.get("?graph")) : ("\'" + querySolution.get("?graph") + "\'");
 		fact += resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName)) != null ? (", " +resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName))) : (", \'" + querySolution.get("?" + schemaForGeneratingFacts.predicateName) + "\'");
 		for(KnowledgeGraphProperty property : schemaForGeneratingFacts.getKnowledgeGraphProperties()) {
@@ -203,15 +231,31 @@ public class Mapper {
 	}
 
 	/**
-	 * Find all shacl shapes, which have sub classes
+	 * Find all shacl shapes, which have sub classes.
 	 */
 	private void findSuperClasses() {
 		ExtendedIterator<Triple> superClassesTriples = shaclGraph.find(null, ShaclUtil.rdfsSubClassOfAsNode(), null);
 		while(superClassesTriples.hasNext()) {
-			Node superClass = superClassesTriples.next().getObject();
+			Triple triple = superClassesTriples.next();
+			Node superClass = triple.getObject();
 			if(!superClasses.contains(superClass)) {
 				superClasses.add(superClass);
 			}
+			
+			String key = null;
+			String value = null;
+			for(Entry<String, String> entry : orderedPrefixes.entrySet()) {
+				if(triple.getSubject().getNameSpace().equals(entry.getValue())) {
+					key = entry.getKey() + ":" + StringUtils.capitalize(triple.getSubject().getLocalName());
+				}
+				if(triple.getObject().getNameSpace().equals(entry.getValue())) {
+					value = entry.getKey() + ":" + StringUtils.capitalize(triple.getObject().getLocalName());
+				}
+			}
+			if(key != null && value != null) {
+				subNodeOfSuperNode.put(key, value);
+			}
+		
 		}
 	}
 	
@@ -259,12 +303,70 @@ public class Mapper {
 				properties += ",t";
 			}
 			if(i == 0 ) {
-				printWriter.println("  " + knowledgeGraphClasses.get(i).predicateName + "(r,r" + properties + ")");				
+				printWriter.println("  " + knowledgeGraphClasses.get(i).getNameOfTargetsWithPrefixShortAndUnderScore() + "(r,r" + properties + ")");				
 			} else {
-				printWriter.println("  ," + knowledgeGraphClasses.get(i).predicateName + "(r,r" + properties + ")");
+				printWriter.println("  ," + knowledgeGraphClasses.get(i).getNameOfTargetsWithPrefixShortAndUnderScore() + "(r,r" + properties + ")");
 			}
 		}
 		printWriter.println(".");
 		printWriter.println();
+	}
+	
+	/**
+	 * Generates and prints the inheritance rules of every subClass, which is a KnowledgeGraphClass.
+	 * 
+	 * e.g.: 
+	 * aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval, Role, TheOrganisationAuthority) :-
+  	 * 		aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority),
+  	 * 		aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval) .
+
+	 * 
+	 * @param printWriter
+	 */
+	public void printInheritanceRules(PrintWriter printWriter) {
+		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
+			String subClass = null;
+			KnowledgeGraphClass superClass = null;
+			for(String key : subNodeOfSuperNode.keySet())  {
+				if(key.equals(knowledgeGraphClass.getNameOfTargetsWithPrefixShort())) {
+					subClass = key;
+					superClass = getKnowledgeGraphClassByShortPrefixAndName(subNodeOfSuperNode.get(key));
+				}
+			}
+			if(subClass != null) {
+				String properties = "Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
+				for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
+				for(KnowledgeGraphProperty property : knowledgeGraphClass.getKnowledgeGraphProperties()) {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
+				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
+				
+				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
+				printWriter.println("  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .");
+				printWriter.println();
+			}
+		}
+	}
+	
+	/**
+	 * Takes prefix mapping short + name as input and returns the respective KnowledgeGraphClass.
+	 * 
+	 * e.g. input name: aixm:City
+	 * returns: the aixm:City KnowledgegraphClass
+	 * 
+	 * If there is no KnowledgeGraphClass with such a name, the method returns null.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	private KnowledgeGraphClass getKnowledgeGraphClassByShortPrefixAndName(String name) {
+		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
+			if((name.equals(knowledgeGraphClass.getNameOfTargetsWithPrefixShort()))) {
+				return knowledgeGraphClass;
+			}
+		}
+		return null;
 	}
 }

@@ -24,7 +24,8 @@ public class KnowledgeGraphClass {
 
 	private Graph shaclGraph;
 	public Shape rootShape;
-	private boolean isSuperClass;
+	public boolean isSuperClass;
+	public boolean isSubClass;
 	private KnowledgeGraphClass isSubClassOf;
 	private String graphName;
 	private List<KnowledgeGraphProperty> knowledgeGraphProperties = new ArrayList<>();
@@ -35,7 +36,7 @@ public class KnowledgeGraphClass {
 	public String predicateName;
 	private String nameOfTargets;
 	private String nameOfTargetsWithShortPrefix;
-	
+
 	/**
 	 * Creates the KnowledgeGraphClass and respective helper variables which are required for later use.
 	 * 
@@ -43,6 +44,7 @@ public class KnowledgeGraphClass {
 	 * @param rootShape
 	 * @param isSuperClass
 	 * @param graphName
+	 * @param subClassOfSuperClass 
 	 */
 	public KnowledgeGraphClass(Graph shaclGraph, Shape rootShape, boolean isSuperClass, String graphName) {
 		this.shaclGraph = shaclGraph;
@@ -157,12 +159,28 @@ public class KnowledgeGraphClass {
 	 * @return
 	 */
 	public String generateComment() {
-		String comment = "% " + predicateName + "(Graph, " + StringUtils.capitalize(predicateName);
+		String comment = "% " + getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + StringUtils.capitalize(predicateName);
 		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
 			comment += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName() + knowledgeGraphProperty.getCardinality());
 		}
 		comment += ")";
 		return comment;
+	}
+	
+	/**
+	 * Generates the Prolog rule of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: city(Graph, City, Name, Annotation)
+	 * 
+	 * @return
+	 */
+	public String generatePrologRule(String joinedName) {
+		String rule = getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + (joinedName == null ? StringUtils.capitalize(predicateName) : joinedName);
+		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
+			rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
+		}
+		rule += ")";
+		return rule;
 	}
 	
 	/**
@@ -265,13 +283,30 @@ public class KnowledgeGraphClass {
 	 * 
 	 * @return
 	 */
-	private String getNameOfTargetsWithPrefixShort() {
+	public String getNameOfTargetsWithPrefixShort() {
 		String target = "";
 		Collection<Target> targetCollection = rootShape.getTargets();
 		for(Target t : targetCollection) {
 			 target += getPrefixMapping(t.getObject(), rootShape);
 		}
 		return target;
+	}
+	
+	/**
+	 * Returns the name of the target with short prefix of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: aixm:Point
+	 * 
+	 * @return
+	 */
+	public String getNameOfTargetsWithPrefixShortAndUnderScore() {
+		String target = "";
+		Collection<Target> targetCollection = rootShape.getTargets();
+		for(Target t : targetCollection) {
+			 target += getPrefixMapping(t.getObject(), rootShape);
+		}
+		String[] split = target.split(":");
+		return split[0] + "_" + split[1];
 	}
 
 	/**
