@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Graph;
@@ -15,7 +13,6 @@ import org.apache.jena.graph.Triple;
 import org.apache.jena.shacl.engine.Target;
 import org.apache.jena.shacl.parser.PropertyShape;
 import org.apache.jena.shacl.parser.Shape;
-import org.apache.jena.shared.PrefixMapping;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 /**
@@ -76,9 +73,8 @@ public class KnowledgeGraphClass {
 	 * Generates the SPARQL query of this KnowledgeGraphClass.
 	 */
 	private void generateSPARQLQuery() {
-		sparqlQuery = generatePrefixes();
-		sparqlQuery += generateSelect();
-		sparqlQuery += generateWhere();
+		sparqlQuery = generateSelect() //
+					+ generateWhere();
 	}
 
 	/**
@@ -88,23 +84,6 @@ public class KnowledgeGraphClass {
 	 */
 	public String getSPARQLQuery() {
 		return this.sparqlQuery;
-	}
-	
-	/**
-	 * For each query the prefixes are generated.
-	 * 
-	 * e.g.: PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#>
-	 * 
-	 */
-	private String generatePrefixes() {
-		String prefixes = "";
-		PrefixMapping prefixMapping = shaclGraph.getPrefixMapping();
-		Map<String, String> prefix = prefixMapping.getNsPrefixMap();
-		for(Entry<String, String> entry : prefix.entrySet()) {
-			prefixes += "PREFIX " + entry.getKey() + ": <" + entry.getValue() + ">" + '\n';
-		}
-		prefixes += '\n';
-		return prefixes;
 	}
 	
 	/**

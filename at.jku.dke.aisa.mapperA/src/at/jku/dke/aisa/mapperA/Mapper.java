@@ -71,10 +71,26 @@ public class Mapper {
 	 */
 	public void generateSPARQLQueries(PrintWriter printWriter) {
 		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
+			printWriter.print(generatePrefixes());
 			printWriter.println(knowledgeGraphClass.getSPARQLQuery() + '\n');
 		}
 	}
 
+	/**
+	 * For each query the prefixes are generated.
+	 * 
+	 * e.g.: PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#>
+	 * 
+	 */
+	private String generatePrefixes() {
+		String prefixes = "";
+		for(Entry<String, String> entry : orderedPrefixes.entrySet()) {
+			prefixes += "PREFIX " + entry.getKey() + ": <" + entry.getValue() + ">" + '\n';
+		}
+		prefixes += '\n';
+		return prefixes;
+	}
+	
 	/**
 	 * Takes the querySolution as input and creates Prolog facts out of it.
 	 * For generation of the Prolog facts, the dedicated shacl schema is required to use information like minCount/maxCount, subClasses, etc. 
