@@ -1,0 +1,6 @@
+@prefix s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#> .
+
+# Named toplevel resources (1)
+
+s1:A-a72cfd3a
+	<http://ex.org/annotatedBy> s1:n002 .
