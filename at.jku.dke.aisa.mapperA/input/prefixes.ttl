@@ -11,3 +11,5 @@
 @prefix g1: <https://github.com/aixm/donlon/blob/master/>.
 @prefix graph: <https://github.com/jku-win-dke/aisa/graphs/>.
 @prefix uuid: <uuid:>.
+@prefix fixm:  <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#> .
+@prefix plain: <http://www.aisa-project.eu/vocabulary/plain#> .

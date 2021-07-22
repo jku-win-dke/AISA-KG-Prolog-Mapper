@@ -4,6 +4,8 @@
 @prefix gml:   <http://www.opengis.net/gml/3.2#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fixm:  <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#> .
+@prefix plain: <http://www.aisa-project.eu/vocabulary/plain#> .
 
 
 #<http://AISA-KG-NAMESPACE.org/schema> {
