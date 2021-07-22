@@ -10,6 +10,9 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnectionFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.shacl.Shapes;
+import org.jpl7.Atom;
+import org.jpl7.Query;
+import org.jpl7.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +36,8 @@ public class Shacl2PrologLauncher {
 	private final static String PREFIXES_FILE = "input/prefixes.ttl";
 	
 	private final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
-	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs/data";
+//	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs/data";
+	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";//BN
 	
 	private final static String SPARQL_FILE = "output/queries.sparql";
 	private final static String FACTS_FILE = "output/facts.pl";
@@ -70,7 +74,8 @@ public class Shacl2PrologLauncher {
 			File[] files2 = dir2.listFiles();
 			for (int i = 0; i < files2.length; i++) {
 			  File file2 = files2[i];
-			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "/" + file2.getName(), file2.getAbsolutePath());
+//			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "/" + file2.getName(), file2.getAbsolutePath());
+			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "_" + file2.getName(), file2.getAbsolutePath());//BN
 			}
 		}
 		
@@ -134,6 +139,21 @@ public class Shacl2PrologLauncher {
         System.out.println("Executing SPARQL queries and creating Prolog facts: " + (endTime - time_six));
         System.out.println();
         System.out.println("Execution time in milliseconds: " + timeElapsed);
+        
+		Query q1 = 
+			    new Query( 
+				"consult", 
+				new Term[] {new Atom("C:\\Users\\neumayr\\git\\AISA-KG-Prolog-Mapper\\at.jku.dke.aisa.mapperA\\output\\program.pl")} 
+			    );
+		System.out.println( "consult " + (q1.hasSolution() ? "succeeded" : "failed"));
+		new Query("run").hasSolution();
+		
+		fuseki.load("http://ex.org/new", "output/output.ttl");
+
+        
+        
+        
+
 	}
 
 	/**
