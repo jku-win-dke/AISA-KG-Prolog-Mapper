@@ -344,9 +344,52 @@ public class Mapper {
 				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
 				
 				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-				printWriter.println("  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .");
+				//printWriter.println("  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .");
+				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
 				printWriter.println();
 			}
+		}
+	}
+	
+	/**
+	 * Checks if the previously called superClass from printInheritanceRules does also have a superClass and generates the according output.
+	 * This method is called by printInheritanceRules only.
+	 * 
+	 * e.g.: if originalSuperClass does have a superClass:
+	 * aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) :-
+  	 *		aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation),
+  	 *		gml_Surface_Combined(Graph, SurfacePatch, Patch) . <------------------- returns this line
+  	 *
+  	 * e.g.: if originalSuperClass does not have a superClass:
+  	 * gml_Surface_Combined(Graph, Surface, Patch) :-
+  	 *		gml_Surface(Graph, Surface, Patch),
+  	 *		gml_SurfacePatch(Graph, Surface) .  <------------------- returns this line
+  	 *
+	 * 
+	 * @param originalSuperClass
+	 * @param knowledgeGraphClass
+	 * @return
+	 */
+	private String generateSuperClassPart(KnowledgeGraphClass originalSuperClass, KnowledgeGraphClass knowledgeGraphClass) {
+		String subClass = null;
+		KnowledgeGraphClass superClass = null;
+		for(String key : subNodeOfSuperNode.keySet())  {
+			if(key.equals(originalSuperClass.getNameOfTargetsWithPrefixShort())) {
+				subClass = key;
+				superClass = getKnowledgeGraphClassByShortPrefixAndName(subNodeOfSuperNode.get(key));
+			}
+		}
+		if(subClass != null) {
+			String properties = "Graph, " + StringUtils.capitalize(superClass.predicateName);
+			for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
+				properties += ", " + StringUtils.capitalize(property.getName());
+			}
+			for(KnowledgeGraphProperty property : originalSuperClass.getKnowledgeGraphProperties()) {
+				properties += ", " + StringUtils.capitalize(property.getName());
+			}
+			return originalSuperClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ")";
+		} else {
+			return originalSuperClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName));
 		}
 	}
 	
