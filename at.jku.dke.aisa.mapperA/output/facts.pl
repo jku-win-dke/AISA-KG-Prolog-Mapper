@@ -1558,16 +1558,16 @@ fixm_Aircraft(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESA
 % fixm_Extension(Graph, Extension)
 
 % fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
-fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
+fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
 fixm_SurveillanceCapabilities(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:D1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:D1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
+fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 fixm_Trajectory(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_021', ['https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_022']).
@@ -1825,7 +1825,7 @@ fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, Dela
 
 aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Surface(Graph, ElevatedSurface, HorizontalAccuracy, Annotation) .
+  aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) .
 
 aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval, LogicalOperator, Flight, Aircraft, Weather, SubCondition) :-
   aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, Aircraft, Weather, SubCondition),
@@ -1833,11 +1833,11 @@ aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, Spec
 
 aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Point(Graph, ElevatedPoint, HorizontalAccuracy, Annotation) .
+  aixm_Point_Combined(Graph, Point, HorizontalAccuracy, Annotation) .
 
 fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, Altitude, Time, PointRange, FlightLevel) :-
   fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel),
-  fixm_Point4D(Graph, EfplPoint4D, Altitude, Time, PointRange) .
+  fixm_Point4D_Combined(Graph, GeographicLocation, Pos, SrsName, Altitude, Time, PointRange) .
 
 fixm_EfplTrajectoryRoutePair_Combined(Graph, EfplTrajectoryRoutePair, Trajectory, Route) :-
   fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair),
@@ -1889,7 +1889,7 @@ fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDurat
 
 fixm_EfplFlight_Combined(Graph, EfplFlight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
   fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
-  fixm_Flight(Graph, EfplFlight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
+  fixm_Flight_Combined(Graph, Feature, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
 
 fixm_FlightStatus_Combined(Graph, FlightStatus, Provenance, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended) :-
   fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended),
@@ -1925,7 +1925,7 @@ fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, Last
 
 aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) :-
   aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation),
-  gml_Surface(Graph, Surface, Patch) .
+  gml_Surface_Combined(Graph, SurfacePatch, Patch) .
 
 fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
   fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position),
@@ -1953,7 +1953,7 @@ aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, Annotation, Sp
 
 fixm_EfplRoute_Combined(Graph, EfplRoute, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment, EfplFlightRules) :-
   fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules),
-  fixm_Route(Graph, EfplRoute, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
+  fixm_Route_Combined(Graph, Feature, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
 
 fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
   fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
@@ -1973,7 +1973,7 @@ fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, Appro
 
 fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Target, Controlled, Initial) :-
   fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
-  fixm_TargetMultiTime(Graph, ExtendedMultiTime, Target) .
+  fixm_TargetMultiTime_Combined(Graph, MultiTime, Actual, Estimated, Target) .
 
 fixm_TargetMultiTime_Combined(Graph, TargetMultiTime, Actual, Estimated, Target) :-
   fixm_TargetMultiTime(Graph, TargetMultiTime, Target),
@@ -1985,5 +1985,5 @@ fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerod
 
 fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
   fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, TaxiTime),
-  fixm_FlightDeparture(Graph, EfplFlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
+  fixm_FlightDeparture_Combined(Graph, Feature, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
 
