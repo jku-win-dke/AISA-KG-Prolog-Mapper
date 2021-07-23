@@ -10,9 +10,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnectionFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.shacl.Shapes;
-import org.jpl7.Atom;
 import org.jpl7.Query;
-import org.jpl7.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,12 +128,7 @@ public class Shacl2PrologLauncher {
 		long time_seven = System.currentTimeMillis();
 
         
-		Query q1 = 
-			    new Query( 
-				"consult", 
-				new Term[] {new Atom("C:\\Users\\neumayr\\git\\AISA-KG-Prolog-Mapper\\at.jku.dke.aisa.mapperA\\output\\program.pl")} 
-			    );
-		System.out.println( "consult " + (q1.hasSolution() ? "succeeded" : "failed"));
+		new Query("consult('output/program.pl')").hasSolution();
 		
 		long time_eight = System.currentTimeMillis();
 		
@@ -147,6 +140,8 @@ public class Shacl2PrologLauncher {
 
 		long time_ten = System.currentTimeMillis();
 
+
+		
 		
 		fuseki.load("http://ex.org/new", "output/output.ttl");
 
@@ -171,6 +166,24 @@ public class Shacl2PrologLauncher {
         fuseki.fetch("http://ex.org/new").write(System.out, "TURTLE");
         
 
+        /* in ein Log-File schreiben und dann in z.B. Excel auswerten */
+        System.out.println(
+        		System.currentTimeMillis()
+        		+ ";A"
+        		+ ";" + NUMBER_OF_DATA_COPIES
+        		+ ";" + (time_one - startTime)
+           		+ ";" + (time_two - time_one)
+           		+ ";" + (time_three - time_two)
+           		+ ";" + (time_four - time_three)
+           		+ ";" + (time_five - time_four)
+           		+ ";" + (time_six - time_five)
+           		+ ";" + (time_seven - time_six)
+           		+ ";" + (time_eight - time_seven)
+           		+ ";" + (time_nine - time_eight)
+           		+ ";" + (time_ten - time_nine)
+           		+ ";" + timeElapsed);
+        
+        
 	}
 
 	/**
