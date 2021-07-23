@@ -1,4 +1,4 @@
-package at.jku.dke.aisa.mapperA;
+package at.jku.dke.aisa.mapperC;
 
 import org.apache.jena.graph.Node;
 import org.apache.jena.rdf.model.Resource;
