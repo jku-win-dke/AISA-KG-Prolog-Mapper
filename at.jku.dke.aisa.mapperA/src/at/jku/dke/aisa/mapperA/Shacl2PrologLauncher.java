@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Shacl2PrologLauncher {
 
-	private static final int NUMBER_OF_DATA_COPIES = 1;
+	private static final int NUMBER_OF_DATA_COPIES = 10;
 	private static final String INPUT_DATA = "input/data";
 	private static final String INPUT_SCHEMA = "input/schema";
 
@@ -127,18 +127,8 @@ public class Shacl2PrologLauncher {
 			LOGGER.debug("SPARQL2Prolog mapping completed. Result can be found in " + FACTS_FILE);
 		}
 		
-        long endTime = System.currentTimeMillis();
-        
-        long timeElapsed = endTime - startTime;
-        System.out.println("Jena Fuseki connection establishment: " + (time_one - startTime));
-        System.out.println("Loading shacl schema files: " + (time_two - time_one));
-        System.out.println("Loading data files: " + (time_three - time_two));
-        System.out.println("Fetching shacl schema: " + (time_four - time_three));
-        System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_five - time_four));
-        System.out.println("Creating SPARQL file: " + (time_six - time_five));
-        System.out.println("Executing SPARQL queries and creating Prolog facts: " + (endTime - time_six));
-        System.out.println();
-        System.out.println("Execution time in milliseconds: " + timeElapsed);
+		long time_seven = System.currentTimeMillis();
+
         
 		Query q1 = 
 			    new Query( 
@@ -146,12 +136,39 @@ public class Shacl2PrologLauncher {
 				new Term[] {new Atom("C:\\Users\\neumayr\\git\\AISA-KG-Prolog-Mapper\\at.jku.dke.aisa.mapperA\\output\\program.pl")} 
 			    );
 		System.out.println( "consult " + (q1.hasSolution() ? "succeeded" : "failed"));
+		
+		long time_eight = System.currentTimeMillis();
+		
 		new Query("run").hasSolution();
+		
+		long time_nine = System.currentTimeMillis();
+		
+		new Query("save").hasSolution();
+
+		long time_ten = System.currentTimeMillis();
+
 		
 		fuseki.load("http://ex.org/new", "output/output.ttl");
 
+        long endTime = System.currentTimeMillis();        
+        long timeElapsed = endTime - startTime;
+        
+        System.out.println("Jena Fuseki connection establishment: " + (time_one - startTime));
+        System.out.println("Loading shacl schema files: " + (time_two - time_one));
+        System.out.println("Loading data files: " + (time_three - time_two));
+        System.out.println("Fetching shacl schema: " + (time_four - time_three));
+        System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_five - time_four));
+        System.out.println("Creating SPARQL file: " + (time_six - time_five));
+        System.out.println("Executing SPARQL queries and creating Prolog facts: " + (time_seven - time_six));
+        System.out.println("Consult Program: " + (time_eight - time_seven));
+        System.out.println("Invoke run/0 in Prolog: " + (time_nine - time_eight));
+        System.out.println("Invoke save/0 in Prolog: " + (time_ten - time_nine));
+        System.out.println("Load saved results to Fuseki: " + (endTime - time_ten));
+        System.out.println();
+        System.out.println("Execution time in milliseconds: " + timeElapsed);        
         
         
+        fuseki.fetch("http://ex.org/new").write(System.out, "TURTLE");
         
 
 	}
