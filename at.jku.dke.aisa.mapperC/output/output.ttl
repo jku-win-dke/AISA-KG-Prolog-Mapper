@@ -1,0 +1,17 @@
+@prefix  s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#> .
+@prefix org: <http://ex.org/> .
+
+# Named toplevel resources (1)
+
+s1:A-a72cfd3a
+	org:annotatedBy s1:n002 ;
+	org:mentionedIn <https://github.com/jku-win-dke/aisa/graphs/0_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/1_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/2_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/3_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/4_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/5_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/6_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/7_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/8_donlon-data.ttl> ,
+			<https://github.com/jku-win-dke/aisa/graphs/9_donlon-data.ttl> .
