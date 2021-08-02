@@ -41,19 +41,19 @@ WHERE
           {
             ?_administrativeArea rdf:value ?administrativeAreaValue .
             FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
-            BIND(concat('val:',?administrativeAreaValue) AS ?administrativeArea)
+            BIND(concat(\'val:\',?administrativeAreaValue) AS ?administrativeArea)
           }
             UNION
           {
             ?_administrativeArea
               rdf:value ?administrativeAreaValue ;
               (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
-            BIND(concat('xval:',STR(?administrativeAreaValue),':',?administrativeAreaUoM) AS ?administrativeArea)
+            BIND(concat(\'xval:\',STR(?administrativeAreaValue),\':\',?administrativeAreaUoM) AS ?administrativeArea)
           }
             UNION
           {
            ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
-           BIND(concat('nil:',?administrativeAreaNilReason) AS ?administrativeArea)
+           BIND(concat(\'nil:\',?administrativeAreaNilReason) AS ?administrativeArea)
           }
         }
       }
@@ -62,19 +62,19 @@ WHERE
           {
             ?_postalCode rdf:value ?postalCodeValue .
             FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
-            BIND(concat('val:',?postalCodeValue) AS ?postalCode)
+            BIND(concat(\'val:\',?postalCodeValue) AS ?postalCode)
           }
             UNION
           {
             ?_postalCode
               rdf:value ?postalCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
-            BIND(concat('xval:',STR(?postalCodeValue),':',?postalCodeUoM) AS ?postalCode)
+            BIND(concat(\'xval:\',STR(?postalCodeValue),\':\',?postalCodeUoM) AS ?postalCode)
           }
             UNION
           {
            ?_postalCode  aixm:nilReason ?postalCodeNilReason .
-           BIND(concat('nil:',?postalCodeNilReason) AS ?postalCode)
+           BIND(concat(\'nil:\',?postalCodeNilReason) AS ?postalCode)
           }
         }
       }
@@ -83,19 +83,19 @@ WHERE
           {
             ?_deliveryPoint rdf:value ?deliveryPointValue .
             FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
-            BIND(concat('val:',?deliveryPointValue) AS ?deliveryPoint)
+            BIND(concat(\'val:\',?deliveryPointValue) AS ?deliveryPoint)
           }
             UNION
           {
             ?_deliveryPoint
               rdf:value ?deliveryPointValue ;
               (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
-            BIND(concat('xval:',STR(?deliveryPointValue),':',?deliveryPointUoM) AS ?deliveryPoint)
+            BIND(concat(\'xval:\',STR(?deliveryPointValue),\':\',?deliveryPointUoM) AS ?deliveryPoint)
           }
             UNION
           {
            ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
-           BIND(concat('nil:',?deliveryPointNilReason) AS ?deliveryPoint)
+           BIND(concat(\'nil:\',?deliveryPointNilReason) AS ?deliveryPoint)
           }
         }
       }
@@ -104,19 +104,19 @@ WHERE
           {
             ?_countryCode rdf:value ?countryCodeValue .
             FILTER ( NOT EXISTS {?_countryCode (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM})
-            BIND(concat('val:',?countryCodeValue) AS ?countryCode)
+            BIND(concat(\'val:\',?countryCodeValue) AS ?countryCode)
           }
             UNION
           {
             ?_countryCode
               rdf:value ?countryCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM .
-            BIND(concat('xval:',STR(?countryCodeValue),':',?countryCodeUoM) AS ?countryCode)
+            BIND(concat(\'xval:\',STR(?countryCodeValue),\':\',?countryCodeUoM) AS ?countryCode)
           }
             UNION
           {
            ?_countryCode  aixm:nilReason ?countryCodeNilReason .
-           BIND(concat('nil:',?countryCodeNilReason) AS ?countryCode)
+           BIND(concat(\'nil:\',?countryCodeNilReason) AS ?countryCode)
           }
         }
       }
@@ -125,19 +125,19 @@ WHERE
           {
             ?_countryName rdf:value ?countryNameValue .
             FILTER ( NOT EXISTS {?_countryName (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM})
-            BIND(concat('val:',?countryNameValue) AS ?countryName)
+            BIND(concat(\'val:\',?countryNameValue) AS ?countryName)
           }
             UNION
           {
             ?_countryName
               rdf:value ?countryNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM .
-            BIND(concat('xval:',STR(?countryNameValue),':',?countryNameUoM) AS ?countryName)
+            BIND(concat(\'xval:\',STR(?countryNameValue),\':\',?countryNameUoM) AS ?countryName)
           }
             UNION
           {
            ?_countryName  aixm:nilReason ?countryNameNilReason .
-           BIND(concat('nil:',?countryNameNilReason) AS ?countryName)
+           BIND(concat(\'nil:\',?countryNameNilReason) AS ?countryName)
           }
         }
       }
@@ -146,19 +146,19 @@ WHERE
           {
             ?_city rdf:value ?cityValue .
             FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
-            BIND(concat('val:',?cityValue) AS ?city)
+            BIND(concat(\'val:\',?cityValue) AS ?city)
           }
             UNION
           {
             ?_city
               rdf:value ?cityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
-            BIND(concat('xval:',STR(?cityValue),':',?cityUoM) AS ?city)
+            BIND(concat(\'xval:\',STR(?cityValue),\':\',?cityUoM) AS ?city)
           }
             UNION
           {
            ?_city  aixm:nilReason ?cityNilReason .
-           BIND(concat('nil:',?cityNilReason) AS ?city)
+           BIND(concat(\'nil:\',?cityNilReason) AS ?city)
           }
         }
       }
@@ -191,7 +191,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?navigationCapabilities ?otherNavigationCapabilities (GROUP_CONCAT(DISTINCT ?performanceBasedCode;SEPARATOR=",") AS ?performanceBasedCodeConcat) (GROUP_CONCAT(DISTINCT ?navigationCode;SEPARATOR=",") AS ?navigationCodeConcat)
+SELECT ?graph ?navigationCapabilities ?otherNavigationCapabilities ?performanceBasedCode ?navigationCode
 WHERE
   { GRAPH ?graph
     {
@@ -201,19 +201,19 @@ WHERE
           {
             ?_otherNavigationCapabilities rdf:value ?otherNavigationCapabilitiesValue .
             FILTER ( NOT EXISTS {?_otherNavigationCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherNavigationCapabilitiesUoM})
-            BIND(concat('val:',?otherNavigationCapabilitiesValue) AS ?otherNavigationCapabilities)
+            BIND(concat(\'val:\',?otherNavigationCapabilitiesValue) AS ?otherNavigationCapabilities)
           }
             UNION
           {
             ?_otherNavigationCapabilities
               rdf:value ?otherNavigationCapabilitiesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherNavigationCapabilitiesUoM .
-            BIND(concat('xval:',STR(?otherNavigationCapabilitiesValue),':',?otherNavigationCapabilitiesUoM) AS ?otherNavigationCapabilities)
+            BIND(concat(\'xval:\',STR(?otherNavigationCapabilitiesValue),\':\',?otherNavigationCapabilitiesUoM) AS ?otherNavigationCapabilities)
           }
             UNION
           {
            ?_otherNavigationCapabilities  aixm:nilReason ?otherNavigationCapabilitiesNilReason .
-           BIND(concat('nil:',?otherNavigationCapabilitiesNilReason) AS ?otherNavigationCapabilities)
+           BIND(concat(\'nil:\',?otherNavigationCapabilitiesNilReason) AS ?otherNavigationCapabilities)
           }
         }
       }
@@ -222,19 +222,19 @@ WHERE
           {
             ?_performanceBasedCode rdf:value ?performanceBasedCodeValue .
             FILTER ( NOT EXISTS {?_performanceBasedCode (aixm:uom | fixm:uom | plain:uom) ?performanceBasedCodeUoM})
-            BIND(concat('val:',?performanceBasedCodeValue) AS ?performanceBasedCode)
+            BIND(concat(\'val:\',?performanceBasedCodeValue) AS ?performanceBasedCode)
           }
             UNION
           {
             ?_performanceBasedCode
               rdf:value ?performanceBasedCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?performanceBasedCodeUoM .
-            BIND(concat('xval:',STR(?performanceBasedCodeValue),':',?performanceBasedCodeUoM) AS ?performanceBasedCode)
+            BIND(concat(\'xval:\',STR(?performanceBasedCodeValue),\':\',?performanceBasedCodeUoM) AS ?performanceBasedCode)
           }
             UNION
           {
            ?_performanceBasedCode  aixm:nilReason ?performanceBasedCodeNilReason .
-           BIND(concat('nil:',?performanceBasedCodeNilReason) AS ?performanceBasedCode)
+           BIND(concat(\'nil:\',?performanceBasedCodeNilReason) AS ?performanceBasedCode)
           }
         }
       }
@@ -243,19 +243,19 @@ WHERE
           {
             ?_navigationCode rdf:value ?navigationCodeValue .
             FILTER ( NOT EXISTS {?_navigationCode (aixm:uom | fixm:uom | plain:uom) ?navigationCodeUoM})
-            BIND(concat('val:',?navigationCodeValue) AS ?navigationCode)
+            BIND(concat(\'val:\',?navigationCodeValue) AS ?navigationCode)
           }
             UNION
           {
             ?_navigationCode
               rdf:value ?navigationCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?navigationCodeUoM .
-            BIND(concat('xval:',STR(?navigationCodeValue),':',?navigationCodeUoM) AS ?navigationCode)
+            BIND(concat(\'xval:\',STR(?navigationCodeValue),\':\',?navigationCodeUoM) AS ?navigationCode)
           }
             UNION
           {
            ?_navigationCode  aixm:nilReason ?navigationCodeNilReason .
-           BIND(concat('nil:',?navigationCodeNilReason) AS ?navigationCode)
+           BIND(concat(\'nil:\',?navigationCodeNilReason) AS ?navigationCode)
           }
         }
       }
@@ -264,7 +264,7 @@ WHERE
 GROUP BY ?graph ?navigationCapabilities ?otherNavigationCapabilities
 
       '
-,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCodeConcat,NavigationCodeConcat),[]), convert(PerformanceBasedCodeConcat,PerformanceBasedCodeList), convert(NavigationCodeConcat,NavigationCodeList).
+,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCode,NavigationCode),[]).
 
 % fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed?, UpperSpeed?)
 
@@ -299,19 +299,19 @@ WHERE
           {
             ?_lowerSpeed rdf:value ?lowerSpeedValue .
             FILTER ( NOT EXISTS {?_lowerSpeed (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM})
-            BIND(concat('val:',?lowerSpeedValue) AS ?lowerSpeed)
+            BIND(concat(\'val:\',?lowerSpeedValue) AS ?lowerSpeed)
           }
             UNION
           {
             ?_lowerSpeed
               rdf:value ?lowerSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM .
-            BIND(concat('xval:',STR(?lowerSpeedValue),':',?lowerSpeedUoM) AS ?lowerSpeed)
+            BIND(concat(\'xval:\',STR(?lowerSpeedValue),\':\',?lowerSpeedUoM) AS ?lowerSpeed)
           }
             UNION
           {
            ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
-           BIND(concat('nil:',?lowerSpeedNilReason) AS ?lowerSpeed)
+           BIND(concat(\'nil:\',?lowerSpeedNilReason) AS ?lowerSpeed)
           }
         }
       }
@@ -320,19 +320,19 @@ WHERE
           {
             ?_upperSpeed rdf:value ?upperSpeedValue .
             FILTER ( NOT EXISTS {?_upperSpeed (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM})
-            BIND(concat('val:',?upperSpeedValue) AS ?upperSpeed)
+            BIND(concat(\'val:\',?upperSpeedValue) AS ?upperSpeed)
           }
             UNION
           {
             ?_upperSpeed
               rdf:value ?upperSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM .
-            BIND(concat('xval:',STR(?upperSpeedValue),':',?upperSpeedUoM) AS ?upperSpeed)
+            BIND(concat(\'xval:\',STR(?upperSpeedValue),\':\',?upperSpeedUoM) AS ?upperSpeed)
           }
             UNION
           {
            ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
-           BIND(concat('nil:',?upperSpeedNilReason) AS ?upperSpeed)
+           BIND(concat(\'nil:\',?upperSpeedNilReason) AS ?upperSpeed)
           }
         }
       }
@@ -365,7 +365,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?note ?propertyName ?purpose (GROUP_CONCAT(DISTINCT ?translatedNote;SEPARATOR=",") AS ?translatedNoteConcat)
+SELECT ?graph ?note ?propertyName ?purpose ?translatedNote
 WHERE
   { GRAPH ?graph
     {
@@ -375,19 +375,19 @@ WHERE
           {
             ?_propertyName rdf:value ?propertyNameValue .
             FILTER ( NOT EXISTS {?_propertyName (aixm:uom | fixm:uom | plain:uom) ?propertyNameUoM})
-            BIND(concat('val:',?propertyNameValue) AS ?propertyName)
+            BIND(concat(\'val:\',?propertyNameValue) AS ?propertyName)
           }
             UNION
           {
             ?_propertyName
               rdf:value ?propertyNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?propertyNameUoM .
-            BIND(concat('xval:',STR(?propertyNameValue),':',?propertyNameUoM) AS ?propertyName)
+            BIND(concat(\'xval:\',STR(?propertyNameValue),\':\',?propertyNameUoM) AS ?propertyName)
           }
             UNION
           {
            ?_propertyName  aixm:nilReason ?propertyNameNilReason .
-           BIND(concat('nil:',?propertyNameNilReason) AS ?propertyName)
+           BIND(concat(\'nil:\',?propertyNameNilReason) AS ?propertyName)
           }
         }
       }
@@ -396,19 +396,19 @@ WHERE
           {
             ?_purpose rdf:value ?purposeValue .
             FILTER ( NOT EXISTS {?_purpose (aixm:uom | fixm:uom | plain:uom) ?purposeUoM})
-            BIND(concat('val:',?purposeValue) AS ?purpose)
+            BIND(concat(\'val:\',?purposeValue) AS ?purpose)
           }
             UNION
           {
             ?_purpose
               rdf:value ?purposeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?purposeUoM .
-            BIND(concat('xval:',STR(?purposeValue),':',?purposeUoM) AS ?purpose)
+            BIND(concat(\'xval:\',STR(?purposeValue),\':\',?purposeUoM) AS ?purpose)
           }
             UNION
           {
            ?_purpose  aixm:nilReason ?purposeNilReason .
-           BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+           BIND(concat(\'nil:\',?purposeNilReason) AS ?purpose)
           }
         }
       }
@@ -418,7 +418,7 @@ WHERE
 GROUP BY ?graph ?note ?propertyName ?purpose
 
       '
-,row(Graph,Note,PropertyName,Purpose,TranslatedNoteConcat),[]), convert(TranslatedNoteConcat,TranslatedNoteList).
+,row(Graph,Note,PropertyName,Purpose,TranslatedNote),[]).
 
 % fixm_Pointout(Graph, Pointout, OriginatingUnit?, ReceivingUnit*)
 
@@ -443,7 +443,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?pointout ?originatingUnit (GROUP_CONCAT(DISTINCT ?receivingUnit;SEPARATOR=",") AS ?receivingUnitConcat)
+SELECT ?graph ?pointout ?originatingUnit ?receivingUnit
 WHERE
   { GRAPH ?graph
     {
@@ -455,7 +455,7 @@ WHERE
 GROUP BY ?graph ?pointout ?originatingUnit
 
       '
-,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convert(ReceivingUnitConcat,ReceivingUnitList).
+,row(Graph,Pointout,OriginatingUnit,ReceivingUnit),[]).
 
 % fixm_VerticalRange(Graph, VerticalRange, LowerBound?, UpperBound?)
 
@@ -490,19 +490,19 @@ WHERE
           {
             ?_lowerBound rdf:value ?lowerBoundValue .
             FILTER ( NOT EXISTS {?_lowerBound (aixm:uom | fixm:uom | plain:uom) ?lowerBoundUoM})
-            BIND(concat('val:',?lowerBoundValue) AS ?lowerBound)
+            BIND(concat(\'val:\',?lowerBoundValue) AS ?lowerBound)
           }
             UNION
           {
             ?_lowerBound
               rdf:value ?lowerBoundValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lowerBoundUoM .
-            BIND(concat('xval:',STR(?lowerBoundValue),':',?lowerBoundUoM) AS ?lowerBound)
+            BIND(concat(\'xval:\',STR(?lowerBoundValue),\':\',?lowerBoundUoM) AS ?lowerBound)
           }
             UNION
           {
            ?_lowerBound  aixm:nilReason ?lowerBoundNilReason .
-           BIND(concat('nil:',?lowerBoundNilReason) AS ?lowerBound)
+           BIND(concat(\'nil:\',?lowerBoundNilReason) AS ?lowerBound)
           }
         }
       }
@@ -511,19 +511,19 @@ WHERE
           {
             ?_upperBound rdf:value ?upperBoundValue .
             FILTER ( NOT EXISTS {?_upperBound (aixm:uom | fixm:uom | plain:uom) ?upperBoundUoM})
-            BIND(concat('val:',?upperBoundValue) AS ?upperBound)
+            BIND(concat(\'val:\',?upperBoundValue) AS ?upperBound)
           }
             UNION
           {
             ?_upperBound
               rdf:value ?upperBoundValue ;
               (aixm:uom | fixm:uom | plain:uom) ?upperBoundUoM .
-            BIND(concat('xval:',STR(?upperBoundValue),':',?upperBoundUoM) AS ?upperBound)
+            BIND(concat(\'xval:\',STR(?upperBoundValue),\':\',?upperBoundUoM) AS ?upperBound)
           }
             UNION
           {
            ?_upperBound  aixm:nilReason ?upperBoundNilReason .
-           BIND(concat('nil:',?upperBoundNilReason) AS ?upperBound)
+           BIND(concat(\'nil:\',?upperBoundNilReason) AS ?upperBound)
           }
         }
       }
@@ -556,7 +556,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
+SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime ?constraint
 WHERE
   { GRAPH ?graph
     {
@@ -566,19 +566,19 @@ WHERE
           {
             ?_estimatedLevel rdf:value ?estimatedLevelValue .
             FILTER ( NOT EXISTS {?_estimatedLevel (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM})
-            BIND(concat('val:',?estimatedLevelValue) AS ?estimatedLevel)
+            BIND(concat(\'val:\',?estimatedLevelValue) AS ?estimatedLevel)
           }
             UNION
           {
             ?_estimatedLevel
               rdf:value ?estimatedLevelValue ;
               (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM .
-            BIND(concat('xval:',STR(?estimatedLevelValue),':',?estimatedLevelUoM) AS ?estimatedLevel)
+            BIND(concat(\'xval:\',STR(?estimatedLevelValue),\':\',?estimatedLevelUoM) AS ?estimatedLevel)
           }
             UNION
           {
            ?_estimatedLevel  aixm:nilReason ?estimatedLevelNilReason .
-           BIND(concat('nil:',?estimatedLevelNilReason) AS ?estimatedLevel)
+           BIND(concat(\'nil:\',?estimatedLevelNilReason) AS ?estimatedLevel)
           }
         }
       }
@@ -587,19 +587,19 @@ WHERE
           {
             ?_estimatedTime rdf:value ?estimatedTimeValue .
             FILTER ( NOT EXISTS {?_estimatedTime (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM})
-            BIND(concat('val:',?estimatedTimeValue) AS ?estimatedTime)
+            BIND(concat(\'val:\',?estimatedTimeValue) AS ?estimatedTime)
           }
             UNION
           {
             ?_estimatedTime
               rdf:value ?estimatedTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM .
-            BIND(concat('xval:',STR(?estimatedTimeValue),':',?estimatedTimeUoM) AS ?estimatedTime)
+            BIND(concat(\'xval:\',STR(?estimatedTimeValue),\':\',?estimatedTimeUoM) AS ?estimatedTime)
           }
             UNION
           {
            ?_estimatedTime  aixm:nilReason ?estimatedTimeNilReason .
-           BIND(concat('nil:',?estimatedTimeNilReason) AS ?estimatedTime)
+           BIND(concat(\'nil:\',?estimatedTimeNilReason) AS ?estimatedTime)
           }
         }
       }
@@ -609,7 +609,7 @@ WHERE
 GROUP BY ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime
 
       '
-,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList).
+,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,Constraint),[]).
 
 % aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
 
@@ -644,19 +644,19 @@ WHERE
           {
             ?_elevation rdf:value ?elevationValue .
             FILTER ( NOT EXISTS {?_elevation (aixm:uom | fixm:uom | plain:uom) ?elevationUoM})
-            BIND(concat('val:',?elevationValue) AS ?elevation)
+            BIND(concat(\'val:\',?elevationValue) AS ?elevation)
           }
             UNION
           {
             ?_elevation
               rdf:value ?elevationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?elevationUoM .
-            BIND(concat('xval:',STR(?elevationValue),':',?elevationUoM) AS ?elevation)
+            BIND(concat(\'xval:\',STR(?elevationValue),\':\',?elevationUoM) AS ?elevation)
           }
             UNION
           {
            ?_elevation  aixm:nilReason ?elevationNilReason .
-           BIND(concat('nil:',?elevationNilReason) AS ?elevation)
+           BIND(concat(\'nil:\',?elevationNilReason) AS ?elevation)
           }
         }
       }
@@ -665,19 +665,19 @@ WHERE
           {
             ?_geoidUndulation rdf:value ?geoidUndulationValue .
             FILTER ( NOT EXISTS {?_geoidUndulation (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM})
-            BIND(concat('val:',?geoidUndulationValue) AS ?geoidUndulation)
+            BIND(concat(\'val:\',?geoidUndulationValue) AS ?geoidUndulation)
           }
             UNION
           {
             ?_geoidUndulation
               rdf:value ?geoidUndulationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM .
-            BIND(concat('xval:',STR(?geoidUndulationValue),':',?geoidUndulationUoM) AS ?geoidUndulation)
+            BIND(concat(\'xval:\',STR(?geoidUndulationValue),\':\',?geoidUndulationUoM) AS ?geoidUndulation)
           }
             UNION
           {
            ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
-           BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+           BIND(concat(\'nil:\',?geoidUndulationNilReason) AS ?geoidUndulation)
           }
         }
       }
@@ -686,19 +686,19 @@ WHERE
           {
             ?_verticalDatum rdf:value ?verticalDatumValue .
             FILTER ( NOT EXISTS {?_verticalDatum (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM})
-            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+            BIND(concat(\'val:\',?verticalDatumValue) AS ?verticalDatum)
           }
             UNION
           {
             ?_verticalDatum
               rdf:value ?verticalDatumValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM .
-            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+            BIND(concat(\'xval:\',STR(?verticalDatumValue),\':\',?verticalDatumUoM) AS ?verticalDatum)
           }
             UNION
           {
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
-           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+           BIND(concat(\'nil:\',?verticalDatumNilReason) AS ?verticalDatum)
           }
         }
       }
@@ -707,19 +707,19 @@ WHERE
           {
             ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
             FILTER ( NOT EXISTS {?_verticalAccuracy (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM})
-            BIND(concat('val:',?verticalAccuracyValue) AS ?verticalAccuracy)
+            BIND(concat(\'val:\',?verticalAccuracyValue) AS ?verticalAccuracy)
           }
             UNION
           {
             ?_verticalAccuracy
               rdf:value ?verticalAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM .
-            BIND(concat('xval:',STR(?verticalAccuracyValue),':',?verticalAccuracyUoM) AS ?verticalAccuracy)
+            BIND(concat(\'xval:\',STR(?verticalAccuracyValue),\':\',?verticalAccuracyUoM) AS ?verticalAccuracy)
           }
             UNION
           {
            ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
-           BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+           BIND(concat(\'nil:\',?verticalAccuracyNilReason) AS ?verticalAccuracy)
           }
         }
       }
@@ -762,19 +762,19 @@ WHERE
           {
             ?_height rdf:value ?heightValue .
             FILTER ( NOT EXISTS {?_height (aixm:uom | fixm:uom | plain:uom) ?heightUoM})
-            BIND(concat('val:',?heightValue) AS ?height)
+            BIND(concat(\'val:\',?heightValue) AS ?height)
           }
             UNION
           {
             ?_height
               rdf:value ?heightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?heightUoM .
-            BIND(concat('xval:',STR(?heightValue),':',?heightUoM) AS ?height)
+            BIND(concat(\'xval:\',STR(?heightValue),\':\',?heightUoM) AS ?height)
           }
             UNION
           {
            ?_height  aixm:nilReason ?heightNilReason .
-           BIND(concat('nil:',?heightNilReason) AS ?height)
+           BIND(concat(\'nil:\',?heightNilReason) AS ?height)
           }
         }
       }
@@ -783,19 +783,19 @@ WHERE
           {
             ?_length rdf:value ?lengthValue .
             FILTER ( NOT EXISTS {?_length (aixm:uom | fixm:uom | plain:uom) ?lengthUoM})
-            BIND(concat('val:',?lengthValue) AS ?length)
+            BIND(concat(\'val:\',?lengthValue) AS ?length)
           }
             UNION
           {
             ?_length
               rdf:value ?lengthValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lengthUoM .
-            BIND(concat('xval:',STR(?lengthValue),':',?lengthUoM) AS ?length)
+            BIND(concat(\'xval:\',STR(?lengthValue),\':\',?lengthUoM) AS ?length)
           }
             UNION
           {
            ?_length  aixm:nilReason ?lengthNilReason .
-           BIND(concat('nil:',?lengthNilReason) AS ?length)
+           BIND(concat(\'nil:\',?lengthNilReason) AS ?length)
           }
         }
       }
@@ -804,19 +804,19 @@ WHERE
           {
             ?_width rdf:value ?widthValue .
             FILTER ( NOT EXISTS {?_width (aixm:uom | fixm:uom | plain:uom) ?widthUoM})
-            BIND(concat('val:',?widthValue) AS ?width)
+            BIND(concat(\'val:\',?widthValue) AS ?width)
           }
             UNION
           {
             ?_width
               rdf:value ?widthValue ;
               (aixm:uom | fixm:uom | plain:uom) ?widthUoM .
-            BIND(concat('xval:',STR(?widthValue),':',?widthUoM) AS ?width)
+            BIND(concat(\'xval:\',STR(?widthValue),\':\',?widthUoM) AS ?width)
           }
             UNION
           {
            ?_width  aixm:nilReason ?widthNilReason .
-           BIND(concat('nil:',?widthNilReason) AS ?width)
+           BIND(concat(\'nil:\',?widthNilReason) AS ?width)
           }
         }
       }
@@ -859,19 +859,19 @@ WHERE
           {
             ?_standName rdf:value ?standNameValue .
             FILTER ( NOT EXISTS {?_standName (aixm:uom | fixm:uom | plain:uom) ?standNameUoM})
-            BIND(concat('val:',?standNameValue) AS ?standName)
+            BIND(concat(\'val:\',?standNameValue) AS ?standName)
           }
             UNION
           {
             ?_standName
               rdf:value ?standNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?standNameUoM .
-            BIND(concat('xval:',STR(?standNameValue),':',?standNameUoM) AS ?standName)
+            BIND(concat(\'xval:\',STR(?standNameValue),\':\',?standNameUoM) AS ?standName)
           }
             UNION
           {
            ?_standName  aixm:nilReason ?standNameNilReason .
-           BIND(concat('nil:',?standNameNilReason) AS ?standName)
+           BIND(concat(\'nil:\',?standNameNilReason) AS ?standName)
           }
         }
       }
@@ -881,19 +881,19 @@ WHERE
           {
             ?_terminalName rdf:value ?terminalNameValue .
             FILTER ( NOT EXISTS {?_terminalName (aixm:uom | fixm:uom | plain:uom) ?terminalNameUoM})
-            BIND(concat('val:',?terminalNameValue) AS ?terminalName)
+            BIND(concat(\'val:\',?terminalNameValue) AS ?terminalName)
           }
             UNION
           {
             ?_terminalName
               rdf:value ?terminalNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?terminalNameUoM .
-            BIND(concat('xval:',STR(?terminalNameValue),':',?terminalNameUoM) AS ?terminalName)
+            BIND(concat(\'xval:\',STR(?terminalNameValue),\':\',?terminalNameUoM) AS ?terminalName)
           }
             UNION
           {
            ?_terminalName  aixm:nilReason ?terminalNameNilReason .
-           BIND(concat('nil:',?terminalNameNilReason) AS ?terminalName)
+           BIND(concat(\'nil:\',?terminalNameNilReason) AS ?terminalName)
           }
         }
       }
@@ -936,19 +936,19 @@ WHERE
           {
             ?_airway rdf:value ?airwayValue .
             FILTER ( NOT EXISTS {?_airway (aixm:uom | fixm:uom | plain:uom) ?airwayUoM})
-            BIND(concat('val:',?airwayValue) AS ?airway)
+            BIND(concat(\'val:\',?airwayValue) AS ?airway)
           }
             UNION
           {
             ?_airway
               rdf:value ?airwayValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airwayUoM .
-            BIND(concat('xval:',STR(?airwayValue),':',?airwayUoM) AS ?airway)
+            BIND(concat(\'xval:\',STR(?airwayValue),\':\',?airwayUoM) AS ?airway)
           }
             UNION
           {
            ?_airway  aixm:nilReason ?airwayNilReason .
-           BIND(concat('nil:',?airwayNilReason) AS ?airway)
+           BIND(concat(\'nil:\',?airwayNilReason) AS ?airway)
           }
         }
       }
@@ -982,7 +982,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?conditionCombination ?logicalOperator (GROUP_CONCAT(DISTINCT ?flight;SEPARATOR=",") AS ?flightConcat) (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat) (GROUP_CONCAT(DISTINCT ?weather;SEPARATOR=",") AS ?weatherConcat) (GROUP_CONCAT(DISTINCT ?subCondition;SEPARATOR=",") AS ?subConditionConcat)
+SELECT ?graph ?conditionCombination ?logicalOperator ?flight ?aircraft ?weather ?subCondition
 WHERE
   { GRAPH ?graph
     {
@@ -992,19 +992,19 @@ WHERE
           {
             ?_logicalOperator rdf:value ?logicalOperatorValue .
             FILTER ( NOT EXISTS {?_logicalOperator (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM})
-            BIND(concat('val:',?logicalOperatorValue) AS ?logicalOperator)
+            BIND(concat(\'val:\',?logicalOperatorValue) AS ?logicalOperator)
           }
             UNION
           {
             ?_logicalOperator
               rdf:value ?logicalOperatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM .
-            BIND(concat('xval:',STR(?logicalOperatorValue),':',?logicalOperatorUoM) AS ?logicalOperator)
+            BIND(concat(\'xval:\',STR(?logicalOperatorValue),\':\',?logicalOperatorUoM) AS ?logicalOperator)
           }
             UNION
           {
            ?_logicalOperator  aixm:nilReason ?logicalOperatorNilReason .
-           BIND(concat('nil:',?logicalOperatorNilReason) AS ?logicalOperator)
+           BIND(concat(\'nil:\',?logicalOperatorNilReason) AS ?logicalOperator)
           }
         }
       }
@@ -1017,7 +1017,7 @@ WHERE
 GROUP BY ?graph ?conditionCombination ?logicalOperator
 
       '
-,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList).
+,row(Graph,ConditionCombination,LogicalOperator,Flight,Aircraft,Weather,SubCondition),[]).
 
 % aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder?, Type?, Extent*, Annotation*)
 
@@ -1042,7 +1042,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type (GROUP_CONCAT(DISTINCT ?extent;SEPARATOR=",") AS ?extentConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type ?extent ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -1052,19 +1052,19 @@ WHERE
           {
             ?_layerOrder rdf:value ?layerOrderValue .
             FILTER ( NOT EXISTS {?_layerOrder (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM})
-            BIND(concat('val:',?layerOrderValue) AS ?layerOrder)
+            BIND(concat(\'val:\',?layerOrderValue) AS ?layerOrder)
           }
             UNION
           {
             ?_layerOrder
               rdf:value ?layerOrderValue ;
               (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM .
-            BIND(concat('xval:',STR(?layerOrderValue),':',?layerOrderUoM) AS ?layerOrder)
+            BIND(concat(\'xval:\',STR(?layerOrderValue),\':\',?layerOrderUoM) AS ?layerOrder)
           }
             UNION
           {
            ?_layerOrder  aixm:nilReason ?layerOrderNilReason .
-           BIND(concat('nil:',?layerOrderNilReason) AS ?layerOrder)
+           BIND(concat(\'nil:\',?layerOrderNilReason) AS ?layerOrder)
           }
         }
       }
@@ -1073,19 +1073,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -1096,7 +1096,7 @@ WHERE
 GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
 
       '
-,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList).
+,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,Extent,Annotation),[]).
 
 % fixm_Organization(Graph, Organization, Name?, OtherOrganization?, Contact?)
 
@@ -1131,19 +1131,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -1152,19 +1152,19 @@ WHERE
           {
             ?_otherOrganization rdf:value ?otherOrganizationValue .
             FILTER ( NOT EXISTS {?_otherOrganization (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM})
-            BIND(concat('val:',?otherOrganizationValue) AS ?otherOrganization)
+            BIND(concat(\'val:\',?otherOrganizationValue) AS ?otherOrganization)
           }
             UNION
           {
             ?_otherOrganization
               rdf:value ?otherOrganizationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM .
-            BIND(concat('xval:',STR(?otherOrganizationValue),':',?otherOrganizationUoM) AS ?otherOrganization)
+            BIND(concat(\'xval:\',STR(?otherOrganizationValue),\':\',?otherOrganizationUoM) AS ?otherOrganization)
           }
             UNION
           {
            ?_otherOrganization  aixm:nilReason ?otherOrganizationNilReason .
-           BIND(concat('nil:',?otherOrganizationNilReason) AS ?otherOrganization)
+           BIND(concat(\'nil:\',?otherOrganizationNilReason) AS ?otherOrganization)
           }
         }
       }
@@ -1198,7 +1198,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthorityAssociation ?type (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?theOrganisationAuthority
+SELECT ?graph ?organisationAuthorityAssociation ?type ?annotation ?theOrganisationAuthority
 WHERE
   { GRAPH ?graph
     {
@@ -1208,19 +1208,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -1231,7 +1231,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityAssociation ?type ?theOrganisationAuthority
 
       '
-,row(Graph,OrganisationAuthorityAssociation,Type,AnnotationConcat,TheOrganisationAuthority),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,OrganisationAuthorityAssociation,Type,Annotation,TheOrganisationAuthority),[]).
 
 % aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
 
@@ -1266,19 +1266,19 @@ WHERE
           {
             ?_elevation rdf:value ?elevationValue .
             FILTER ( NOT EXISTS {?_elevation (aixm:uom | fixm:uom | plain:uom) ?elevationUoM})
-            BIND(concat('val:',?elevationValue) AS ?elevation)
+            BIND(concat(\'val:\',?elevationValue) AS ?elevation)
           }
             UNION
           {
             ?_elevation
               rdf:value ?elevationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?elevationUoM .
-            BIND(concat('xval:',STR(?elevationValue),':',?elevationUoM) AS ?elevation)
+            BIND(concat(\'xval:\',STR(?elevationValue),\':\',?elevationUoM) AS ?elevation)
           }
             UNION
           {
            ?_elevation  aixm:nilReason ?elevationNilReason .
-           BIND(concat('nil:',?elevationNilReason) AS ?elevation)
+           BIND(concat(\'nil:\',?elevationNilReason) AS ?elevation)
           }
         }
       }
@@ -1287,19 +1287,19 @@ WHERE
           {
             ?_geoidUndulation rdf:value ?geoidUndulationValue .
             FILTER ( NOT EXISTS {?_geoidUndulation (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM})
-            BIND(concat('val:',?geoidUndulationValue) AS ?geoidUndulation)
+            BIND(concat(\'val:\',?geoidUndulationValue) AS ?geoidUndulation)
           }
             UNION
           {
             ?_geoidUndulation
               rdf:value ?geoidUndulationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM .
-            BIND(concat('xval:',STR(?geoidUndulationValue),':',?geoidUndulationUoM) AS ?geoidUndulation)
+            BIND(concat(\'xval:\',STR(?geoidUndulationValue),\':\',?geoidUndulationUoM) AS ?geoidUndulation)
           }
             UNION
           {
            ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
-           BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+           BIND(concat(\'nil:\',?geoidUndulationNilReason) AS ?geoidUndulation)
           }
         }
       }
@@ -1308,19 +1308,19 @@ WHERE
           {
             ?_verticalDatum rdf:value ?verticalDatumValue .
             FILTER ( NOT EXISTS {?_verticalDatum (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM})
-            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+            BIND(concat(\'val:\',?verticalDatumValue) AS ?verticalDatum)
           }
             UNION
           {
             ?_verticalDatum
               rdf:value ?verticalDatumValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM .
-            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+            BIND(concat(\'xval:\',STR(?verticalDatumValue),\':\',?verticalDatumUoM) AS ?verticalDatum)
           }
             UNION
           {
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
-           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+           BIND(concat(\'nil:\',?verticalDatumNilReason) AS ?verticalDatum)
           }
         }
       }
@@ -1329,19 +1329,19 @@ WHERE
           {
             ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
             FILTER ( NOT EXISTS {?_verticalAccuracy (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM})
-            BIND(concat('val:',?verticalAccuracyValue) AS ?verticalAccuracy)
+            BIND(concat(\'val:\',?verticalAccuracyValue) AS ?verticalAccuracy)
           }
             UNION
           {
             ?_verticalAccuracy
               rdf:value ?verticalAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM .
-            BIND(concat('xval:',STR(?verticalAccuracyValue),':',?verticalAccuracyUoM) AS ?verticalAccuracy)
+            BIND(concat(\'xval:\',STR(?verticalAccuracyValue),\':\',?verticalAccuracyUoM) AS ?verticalAccuracy)
           }
             UNION
           {
            ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
-           BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+           BIND(concat(\'nil:\',?verticalAccuracyNilReason) AS ?verticalAccuracy)
           }
         }
       }
@@ -1419,19 +1419,19 @@ WHERE
           {
             ?_operatingOrganization rdf:value ?operatingOrganizationValue .
             FILTER ( NOT EXISTS {?_operatingOrganization (aixm:uom | fixm:uom | plain:uom) ?operatingOrganizationUoM})
-            BIND(concat('val:',?operatingOrganizationValue) AS ?operatingOrganization)
+            BIND(concat(\'val:\',?operatingOrganizationValue) AS ?operatingOrganization)
           }
             UNION
           {
             ?_operatingOrganization
               rdf:value ?operatingOrganizationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?operatingOrganizationUoM .
-            BIND(concat('xval:',STR(?operatingOrganizationValue),':',?operatingOrganizationUoM) AS ?operatingOrganization)
+            BIND(concat(\'xval:\',STR(?operatingOrganizationValue),\':\',?operatingOrganizationUoM) AS ?operatingOrganization)
           }
             UNION
           {
            ?_operatingOrganization  aixm:nilReason ?operatingOrganizationNilReason .
-           BIND(concat('nil:',?operatingOrganizationNilReason) AS ?operatingOrganization)
+           BIND(concat(\'nil:\',?operatingOrganizationNilReason) AS ?operatingOrganization)
           }
         }
       }
@@ -1440,19 +1440,19 @@ WHERE
           {
             ?_operatorCategory rdf:value ?operatorCategoryValue .
             FILTER ( NOT EXISTS {?_operatorCategory (aixm:uom | fixm:uom | plain:uom) ?operatorCategoryUoM})
-            BIND(concat('val:',?operatorCategoryValue) AS ?operatorCategory)
+            BIND(concat(\'val:\',?operatorCategoryValue) AS ?operatorCategory)
           }
             UNION
           {
             ?_operatorCategory
               rdf:value ?operatorCategoryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?operatorCategoryUoM .
-            BIND(concat('xval:',STR(?operatorCategoryValue),':',?operatorCategoryUoM) AS ?operatorCategory)
+            BIND(concat(\'xval:\',STR(?operatorCategoryValue),\':\',?operatorCategoryUoM) AS ?operatorCategory)
           }
             UNION
           {
            ?_operatorCategory  aixm:nilReason ?operatorCategoryNilReason .
-           BIND(concat('nil:',?operatorCategoryNilReason) AS ?operatorCategory)
+           BIND(concat(\'nil:\',?operatorCategoryNilReason) AS ?operatorCategory)
           }
         }
       }
@@ -1558,7 +1558,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?routePoint (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
+SELECT ?graph ?routePoint ?constraint
 WHERE
   { GRAPH ?graph
     {
@@ -1569,7 +1569,7 @@ WHERE
 GROUP BY ?graph ?routePoint
 
       '
-,row(Graph,RoutePoint,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList).
+,row(Graph,RoutePoint,Constraint),[]).
 
 % fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode?, PreviousBeaconCode?, ReassignedBeaconCode?, ReassigningUnit?)
 
@@ -1604,19 +1604,19 @@ WHERE
           {
             ?_currentBeaconCode rdf:value ?currentBeaconCodeValue .
             FILTER ( NOT EXISTS {?_currentBeaconCode (aixm:uom | fixm:uom | plain:uom) ?currentBeaconCodeUoM})
-            BIND(concat('val:',?currentBeaconCodeValue) AS ?currentBeaconCode)
+            BIND(concat(\'val:\',?currentBeaconCodeValue) AS ?currentBeaconCode)
           }
             UNION
           {
             ?_currentBeaconCode
               rdf:value ?currentBeaconCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?currentBeaconCodeUoM .
-            BIND(concat('xval:',STR(?currentBeaconCodeValue),':',?currentBeaconCodeUoM) AS ?currentBeaconCode)
+            BIND(concat(\'xval:\',STR(?currentBeaconCodeValue),\':\',?currentBeaconCodeUoM) AS ?currentBeaconCode)
           }
             UNION
           {
            ?_currentBeaconCode  aixm:nilReason ?currentBeaconCodeNilReason .
-           BIND(concat('nil:',?currentBeaconCodeNilReason) AS ?currentBeaconCode)
+           BIND(concat(\'nil:\',?currentBeaconCodeNilReason) AS ?currentBeaconCode)
           }
         }
       }
@@ -1625,19 +1625,19 @@ WHERE
           {
             ?_previousBeaconCode rdf:value ?previousBeaconCodeValue .
             FILTER ( NOT EXISTS {?_previousBeaconCode (aixm:uom | fixm:uom | plain:uom) ?previousBeaconCodeUoM})
-            BIND(concat('val:',?previousBeaconCodeValue) AS ?previousBeaconCode)
+            BIND(concat(\'val:\',?previousBeaconCodeValue) AS ?previousBeaconCode)
           }
             UNION
           {
             ?_previousBeaconCode
               rdf:value ?previousBeaconCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?previousBeaconCodeUoM .
-            BIND(concat('xval:',STR(?previousBeaconCodeValue),':',?previousBeaconCodeUoM) AS ?previousBeaconCode)
+            BIND(concat(\'xval:\',STR(?previousBeaconCodeValue),\':\',?previousBeaconCodeUoM) AS ?previousBeaconCode)
           }
             UNION
           {
            ?_previousBeaconCode  aixm:nilReason ?previousBeaconCodeNilReason .
-           BIND(concat('nil:',?previousBeaconCodeNilReason) AS ?previousBeaconCode)
+           BIND(concat(\'nil:\',?previousBeaconCodeNilReason) AS ?previousBeaconCode)
           }
         }
       }
@@ -1646,19 +1646,19 @@ WHERE
           {
             ?_reassignedBeaconCode rdf:value ?reassignedBeaconCodeValue .
             FILTER ( NOT EXISTS {?_reassignedBeaconCode (aixm:uom | fixm:uom | plain:uom) ?reassignedBeaconCodeUoM})
-            BIND(concat('val:',?reassignedBeaconCodeValue) AS ?reassignedBeaconCode)
+            BIND(concat(\'val:\',?reassignedBeaconCodeValue) AS ?reassignedBeaconCode)
           }
             UNION
           {
             ?_reassignedBeaconCode
               rdf:value ?reassignedBeaconCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?reassignedBeaconCodeUoM .
-            BIND(concat('xval:',STR(?reassignedBeaconCodeValue),':',?reassignedBeaconCodeUoM) AS ?reassignedBeaconCode)
+            BIND(concat(\'xval:\',STR(?reassignedBeaconCodeValue),\':\',?reassignedBeaconCodeUoM) AS ?reassignedBeaconCode)
           }
             UNION
           {
            ?_reassignedBeaconCode  aixm:nilReason ?reassignedBeaconCodeNilReason .
-           BIND(concat('nil:',?reassignedBeaconCodeNilReason) AS ?reassignedBeaconCode)
+           BIND(concat(\'nil:\',?reassignedBeaconCodeNilReason) AS ?reassignedBeaconCode)
           }
         }
       }
@@ -1692,7 +1692,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightPerformanceData (GROUP_CONCAT(DISTINCT ?climbProfile;SEPARATOR=",") AS ?climbProfileConcat) (GROUP_CONCAT(DISTINCT ?descentProfile;SEPARATOR=",") AS ?descentProfileConcat)
+SELECT ?graph ?flightPerformanceData ?climbProfile ?descentProfile
 WHERE
   { GRAPH ?graph
     {
@@ -1704,7 +1704,7 @@ WHERE
 GROUP BY ?graph ?flightPerformanceData
 
       '
-,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList).
+,row(Graph,FlightPerformanceData,ClimbProfile,DescentProfile),[]).
 
 % fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint*)
 
@@ -1729,7 +1729,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?expandedRoute (GROUP_CONCAT(DISTINCT ?routePoint;SEPARATOR=",") AS ?routePointConcat)
+SELECT ?graph ?expandedRoute ?routePoint
 WHERE
   { GRAPH ?graph
     {
@@ -1740,7 +1740,7 @@ WHERE
 GROUP BY ?graph ?expandedRoute
 
       '
-,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList).
+,row(Graph,ExpandedRoute,RoutePoint),[]).
 
 % fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintType?)
 
@@ -1775,19 +1775,19 @@ WHERE
           {
             ?_constraintType rdf:value ?constraintTypeValue .
             FILTER ( NOT EXISTS {?_constraintType (aixm:uom | fixm:uom | plain:uom) ?constraintTypeUoM})
-            BIND(concat('val:',?constraintTypeValue) AS ?constraintType)
+            BIND(concat(\'val:\',?constraintTypeValue) AS ?constraintType)
           }
             UNION
           {
             ?_constraintType
               rdf:value ?constraintTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?constraintTypeUoM .
-            BIND(concat('xval:',STR(?constraintTypeValue),':',?constraintTypeUoM) AS ?constraintType)
+            BIND(concat(\'xval:\',STR(?constraintTypeValue),\':\',?constraintTypeUoM) AS ?constraintType)
           }
             UNION
           {
            ?_constraintType  aixm:nilReason ?constraintTypeNilReason .
-           BIND(concat('nil:',?constraintTypeNilReason) AS ?constraintType)
+           BIND(concat(\'nil:\',?constraintTypeNilReason) AS ?constraintType)
           }
         }
       }
@@ -1830,19 +1830,19 @@ WHERE
           {
             ?_compliance rdf:value ?complianceValue .
             FILTER ( NOT EXISTS {?_compliance (aixm:uom | fixm:uom | plain:uom) ?complianceUoM})
-            BIND(concat('val:',?complianceValue) AS ?compliance)
+            BIND(concat(\'val:\',?complianceValue) AS ?compliance)
           }
             UNION
           {
             ?_compliance
               rdf:value ?complianceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?complianceUoM .
-            BIND(concat('xval:',STR(?complianceValue),':',?complianceUoM) AS ?compliance)
+            BIND(concat(\'xval:\',STR(?complianceValue),\':\',?complianceUoM) AS ?compliance)
           }
             UNION
           {
            ?_compliance  aixm:nilReason ?complianceNilReason .
-           BIND(concat('nil:',?complianceNilReason) AS ?compliance)
+           BIND(concat(\'nil:\',?complianceNilReason) AS ?compliance)
           }
         }
       }
@@ -1851,19 +1851,19 @@ WHERE
           {
             ?_consignor rdf:value ?consignorValue .
             FILTER ( NOT EXISTS {?_consignor (aixm:uom | fixm:uom | plain:uom) ?consignorUoM})
-            BIND(concat('val:',?consignorValue) AS ?consignor)
+            BIND(concat(\'val:\',?consignorValue) AS ?consignor)
           }
             UNION
           {
             ?_consignor
               rdf:value ?consignorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?consignorUoM .
-            BIND(concat('xval:',STR(?consignorValue),':',?consignorUoM) AS ?consignor)
+            BIND(concat(\'xval:\',STR(?consignorValue),\':\',?consignorUoM) AS ?consignor)
           }
             UNION
           {
            ?_consignor  aixm:nilReason ?consignorNilReason .
-           BIND(concat('nil:',?consignorNilReason) AS ?consignor)
+           BIND(concat(\'nil:\',?consignorNilReason) AS ?consignor)
           }
         }
       }
@@ -1872,19 +1872,19 @@ WHERE
           {
             ?_shipper rdf:value ?shipperValue .
             FILTER ( NOT EXISTS {?_shipper (aixm:uom | fixm:uom | plain:uom) ?shipperUoM})
-            BIND(concat('val:',?shipperValue) AS ?shipper)
+            BIND(concat(\'val:\',?shipperValue) AS ?shipper)
           }
             UNION
           {
             ?_shipper
               rdf:value ?shipperValue ;
               (aixm:uom | fixm:uom | plain:uom) ?shipperUoM .
-            BIND(concat('xval:',STR(?shipperValue),':',?shipperUoM) AS ?shipper)
+            BIND(concat(\'xval:\',STR(?shipperValue),\':\',?shipperUoM) AS ?shipper)
           }
             UNION
           {
            ?_shipper  aixm:nilReason ?shipperNilReason .
-           BIND(concat('nil:',?shipperNilReason) AS ?shipper)
+           BIND(concat(\'nil:\',?shipperNilReason) AS ?shipper)
           }
         }
       }
@@ -1927,19 +1927,19 @@ WHERE
           {
             ?_elapsedTime rdf:value ?elapsedTimeValue .
             FILTER ( NOT EXISTS {?_elapsedTime (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM})
-            BIND(concat('val:',?elapsedTimeValue) AS ?elapsedTime)
+            BIND(concat(\'val:\',?elapsedTimeValue) AS ?elapsedTime)
           }
             UNION
           {
             ?_elapsedTime
               rdf:value ?elapsedTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM .
-            BIND(concat('xval:',STR(?elapsedTimeValue),':',?elapsedTimeUoM) AS ?elapsedTime)
+            BIND(concat(\'xval:\',STR(?elapsedTimeValue),\':\',?elapsedTimeUoM) AS ?elapsedTime)
           }
             UNION
           {
            ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
-           BIND(concat('nil:',?elapsedTimeNilReason) AS ?elapsedTime)
+           BIND(concat(\'nil:\',?elapsedTimeNilReason) AS ?elapsedTime)
           }
         }
       }
@@ -1948,19 +1948,19 @@ WHERE
           {
             ?_location rdf:value ?locationValue .
             FILTER ( NOT EXISTS {?_location (aixm:uom | fixm:uom | plain:uom) ?locationUoM})
-            BIND(concat('val:',?locationValue) AS ?location)
+            BIND(concat(\'val:\',?locationValue) AS ?location)
           }
             UNION
           {
             ?_location
               rdf:value ?locationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?locationUoM .
-            BIND(concat('xval:',STR(?locationValue),':',?locationUoM) AS ?location)
+            BIND(concat(\'xval:\',STR(?locationValue),\':\',?locationUoM) AS ?location)
           }
             UNION
           {
            ?_location  aixm:nilReason ?locationNilReason .
-           BIND(concat('nil:',?locationNilReason) AS ?location)
+           BIND(concat(\'nil:\',?locationNilReason) AS ?location)
           }
         }
       }
@@ -2004,19 +2004,19 @@ WHERE
           {
             ?_time rdf:value ?timeValue .
             FILTER ( NOT EXISTS {?_time (aixm:uom | fixm:uom | plain:uom) ?timeUoM})
-            BIND(concat('val:',?timeValue) AS ?time)
+            BIND(concat(\'val:\',?timeValue) AS ?time)
           }
             UNION
           {
             ?_time
               rdf:value ?timeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?timeUoM .
-            BIND(concat('xval:',STR(?timeValue),':',?timeUoM) AS ?time)
+            BIND(concat(\'xval:\',STR(?timeValue),\':\',?timeUoM) AS ?time)
           }
             UNION
           {
            ?_time  aixm:nilReason ?timeNilReason .
-           BIND(concat('nil:',?timeNilReason) AS ?time)
+           BIND(concat(\'nil:\',?timeNilReason) AS ?time)
           }
         }
       }
@@ -2026,9 +2026,9 @@ WHERE
       '
 ,row(Graph,ReportedTime,Provenance,Time),[]).
 
-% fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName?)
+% fixm_GeographicLocation(Graph, GeographicLocation, Pos*, SrsName?)
 
-fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName) :-
+fixm_GeographicLocation(Graph, GeographicLocation, PosList, SrsName) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -2049,7 +2049,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?geographicLocation ?pos ?srsName
+SELECT ?graph ?geographicLocation (GROUP_CONCAT(DISTINCT ?pos;SEPARATOR=",") AS ?posConcat) ?srsName
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -2063,19 +2063,19 @@ WHERE
           {
             ?_pos rdf:value ?posValue .
             FILTER ( NOT EXISTS {?_pos (aixm:uom | fixm:uom | plain:uom) ?posUoM})
-            BIND(concat('val:',?posValue) AS ?pos)
+            BIND(concat(\'val:\',?posValue) AS ?pos)
           }
             UNION
           {
             ?_pos
               rdf:value ?posValue ;
               (aixm:uom | fixm:uom | plain:uom) ?posUoM .
-            BIND(concat('xval:',STR(?posValue),':',?posUoM) AS ?pos)
+            BIND(concat(\'xval:\',STR(?posValue),\':\',?posUoM) AS ?pos)
           }
             UNION
           {
            ?_pos  aixm:nilReason ?posNilReason .
-           BIND(concat('nil:',?posNilReason) AS ?pos)
+           BIND(concat(\'nil:\',?posNilReason) AS ?pos)
           }
         }
       }
@@ -2084,19 +2084,19 @@ WHERE
           {
             ?_srsName rdf:value ?srsNameValue .
             FILTER ( NOT EXISTS {?_srsName (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM})
-            BIND(concat('val:',?srsNameValue) AS ?srsName)
+            BIND(concat(\'val:\',?srsNameValue) AS ?srsName)
           }
             UNION
           {
             ?_srsName
               rdf:value ?srsNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM .
-            BIND(concat('xval:',STR(?srsNameValue),':',?srsNameUoM) AS ?srsName)
+            BIND(concat(\'xval:\',STR(?srsNameValue),\':\',?srsNameUoM) AS ?srsName)
           }
             UNION
           {
            ?_srsName  aixm:nilReason ?srsNameNilReason .
-           BIND(concat('nil:',?srsNameNilReason) AS ?srsName)
+           BIND(concat(\'nil:\',?srsNameNilReason) AS ?srsName)
           }
         }
       }
@@ -2140,19 +2140,19 @@ WHERE
           {
             ?_note rdf:value ?noteValue .
             FILTER ( NOT EXISTS {?_note (aixm:uom | fixm:uom | plain:uom) ?noteUoM})
-            BIND(concat('val:',?noteValue) AS ?note)
+            BIND(concat(\'val:\',?noteValue) AS ?note)
           }
             UNION
           {
             ?_note
               rdf:value ?noteValue ;
               (aixm:uom | fixm:uom | plain:uom) ?noteUoM .
-            BIND(concat('xval:',STR(?noteValue),':',?noteUoM) AS ?note)
+            BIND(concat(\'xval:\',STR(?noteValue),\':\',?noteUoM) AS ?note)
           }
             UNION
           {
            ?_note  aixm:nilReason ?noteNilReason .
-           BIND(concat('nil:',?noteNilReason) AS ?note)
+           BIND(concat(\'nil:\',?noteNilReason) AS ?note)
           }
         }
       }
@@ -2185,7 +2185,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -2195,19 +2195,19 @@ WHERE
           {
             ?_flightConditions rdf:value ?flightConditionsValue .
             FILTER ( NOT EXISTS {?_flightConditions (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM})
-            BIND(concat('val:',?flightConditionsValue) AS ?flightConditions)
+            BIND(concat(\'val:\',?flightConditionsValue) AS ?flightConditions)
           }
             UNION
           {
             ?_flightConditions
               rdf:value ?flightConditionsValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM .
-            BIND(concat('xval:',STR(?flightConditionsValue),':',?flightConditionsUoM) AS ?flightConditions)
+            BIND(concat(\'xval:\',STR(?flightConditionsValue),\':\',?flightConditionsUoM) AS ?flightConditions)
           }
             UNION
           {
            ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
-           BIND(concat('nil:',?flightConditionsNilReason) AS ?flightConditions)
+           BIND(concat(\'nil:\',?flightConditionsNilReason) AS ?flightConditions)
           }
         }
       }
@@ -2216,19 +2216,19 @@ WHERE
           {
             ?_visibility rdf:value ?visibilityValue .
             FILTER ( NOT EXISTS {?_visibility (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM})
-            BIND(concat('val:',?visibilityValue) AS ?visibility)
+            BIND(concat(\'val:\',?visibilityValue) AS ?visibility)
           }
             UNION
           {
             ?_visibility
               rdf:value ?visibilityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM .
-            BIND(concat('xval:',STR(?visibilityValue),':',?visibilityUoM) AS ?visibility)
+            BIND(concat(\'xval:\',STR(?visibilityValue),\':\',?visibilityUoM) AS ?visibility)
           }
             UNION
           {
            ?_visibility  aixm:nilReason ?visibilityNilReason .
-           BIND(concat('nil:',?visibilityNilReason) AS ?visibility)
+           BIND(concat(\'nil:\',?visibilityNilReason) AS ?visibility)
           }
         }
       }
@@ -2237,19 +2237,19 @@ WHERE
           {
             ?_visibilityInterpretation rdf:value ?visibilityInterpretationValue .
             FILTER ( NOT EXISTS {?_visibilityInterpretation (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM})
-            BIND(concat('val:',?visibilityInterpretationValue) AS ?visibilityInterpretation)
+            BIND(concat(\'val:\',?visibilityInterpretationValue) AS ?visibilityInterpretation)
           }
             UNION
           {
             ?_visibilityInterpretation
               rdf:value ?visibilityInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM .
-            BIND(concat('xval:',STR(?visibilityInterpretationValue),':',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
+            BIND(concat(\'xval:\',STR(?visibilityInterpretationValue),\':\',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
           }
             UNION
           {
            ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
-           BIND(concat('nil:',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
+           BIND(concat(\'nil:\',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
           }
         }
       }
@@ -2258,19 +2258,19 @@ WHERE
           {
             ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
             FILTER ( NOT EXISTS {?_runwayVisualRange (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM})
-            BIND(concat('val:',?runwayVisualRangeValue) AS ?runwayVisualRange)
+            BIND(concat(\'val:\',?runwayVisualRangeValue) AS ?runwayVisualRange)
           }
             UNION
           {
             ?_runwayVisualRange
               rdf:value ?runwayVisualRangeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM .
-            BIND(concat('xval:',STR(?runwayVisualRangeValue),':',?runwayVisualRangeUoM) AS ?runwayVisualRange)
+            BIND(concat(\'xval:\',STR(?runwayVisualRangeValue),\':\',?runwayVisualRangeUoM) AS ?runwayVisualRange)
           }
             UNION
           {
            ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
-           BIND(concat('nil:',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
+           BIND(concat(\'nil:\',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
           }
         }
       }
@@ -2279,19 +2279,19 @@ WHERE
           {
             ?_runwayVisualRangeInterpretation rdf:value ?runwayVisualRangeInterpretationValue .
             FILTER ( NOT EXISTS {?_runwayVisualRangeInterpretation (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM})
-            BIND(concat('val:',?runwayVisualRangeInterpretationValue) AS ?runwayVisualRangeInterpretation)
+            BIND(concat(\'val:\',?runwayVisualRangeInterpretationValue) AS ?runwayVisualRangeInterpretation)
           }
             UNION
           {
             ?_runwayVisualRangeInterpretation
               rdf:value ?runwayVisualRangeInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM .
-            BIND(concat('xval:',STR(?runwayVisualRangeInterpretationValue),':',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
+            BIND(concat(\'xval:\',STR(?runwayVisualRangeInterpretationValue),\':\',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
           }
             UNION
           {
            ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
-           BIND(concat('nil:',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
+           BIND(concat(\'nil:\',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
           }
         }
       }
@@ -2301,7 +2301,7 @@ WHERE
 GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
 
       '
-,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,Annotation),[]).
 
 % fixm_PointRange(Graph, PointRange, LateralRange?, VerticalRange?, TemporalRange?)
 
@@ -2363,7 +2363,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?city ?name (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?city ?name ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -2373,19 +2373,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -2395,7 +2395,7 @@ WHERE
 GROUP BY ?graph ?city ?name
 
       '
-,row(Graph,City,Name,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,City,Name,Annotation),[]).
 
 % aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role?, TheOrganisationAuthority)
 
@@ -2430,19 +2430,19 @@ WHERE
           {
             ?_role rdf:value ?roleValue .
             FILTER ( NOT EXISTS {?_role (aixm:uom | fixm:uom | plain:uom) ?roleUoM})
-            BIND(concat('val:',?roleValue) AS ?role)
+            BIND(concat(\'val:\',?roleValue) AS ?role)
           }
             UNION
           {
             ?_role
               rdf:value ?roleValue ;
               (aixm:uom | fixm:uom | plain:uom) ?roleUoM .
-            BIND(concat('xval:',STR(?roleValue),':',?roleUoM) AS ?role)
+            BIND(concat(\'xval:\',STR(?roleValue),\':\',?roleUoM) AS ?role)
           }
             UNION
           {
            ?_role  aixm:nilReason ?roleNilReason .
-           BIND(concat('nil:',?roleNilReason) AS ?role)
+           BIND(concat(\'nil:\',?roleNilReason) AS ?role)
           }
         }
       }
@@ -2486,19 +2486,19 @@ WHERE
           {
             ?_lowerSpeed rdf:value ?lowerSpeedValue .
             FILTER ( NOT EXISTS {?_lowerSpeed (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM})
-            BIND(concat('val:',?lowerSpeedValue) AS ?lowerSpeed)
+            BIND(concat(\'val:\',?lowerSpeedValue) AS ?lowerSpeed)
           }
             UNION
           {
             ?_lowerSpeed
               rdf:value ?lowerSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM .
-            BIND(concat('xval:',STR(?lowerSpeedValue),':',?lowerSpeedUoM) AS ?lowerSpeed)
+            BIND(concat(\'xval:\',STR(?lowerSpeedValue),\':\',?lowerSpeedUoM) AS ?lowerSpeed)
           }
             UNION
           {
            ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
-           BIND(concat('nil:',?lowerSpeedNilReason) AS ?lowerSpeed)
+           BIND(concat(\'nil:\',?lowerSpeedNilReason) AS ?lowerSpeed)
           }
         }
       }
@@ -2507,19 +2507,19 @@ WHERE
           {
             ?_upperSpeed rdf:value ?upperSpeedValue .
             FILTER ( NOT EXISTS {?_upperSpeed (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM})
-            BIND(concat('val:',?upperSpeedValue) AS ?upperSpeed)
+            BIND(concat(\'val:\',?upperSpeedValue) AS ?upperSpeed)
           }
             UNION
           {
             ?_upperSpeed
               rdf:value ?upperSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM .
-            BIND(concat('xval:',STR(?upperSpeedValue),':',?upperSpeedUoM) AS ?upperSpeed)
+            BIND(concat(\'xval:\',STR(?upperSpeedValue),\':\',?upperSpeedUoM) AS ?upperSpeed)
           }
             UNION
           {
            ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
-           BIND(concat('nil:',?upperSpeedNilReason) AS ?upperSpeed)
+           BIND(concat(\'nil:\',?upperSpeedNilReason) AS ?upperSpeed)
           }
         }
       }
@@ -2562,19 +2562,19 @@ WHERE
           {
             ?_identifier rdf:value ?identifierValue .
             FILTER ( NOT EXISTS {?_identifier (aixm:uom | fixm:uom | plain:uom) ?identifierUoM})
-            BIND(concat('val:',?identifierValue) AS ?identifier)
+            BIND(concat(\'val:\',?identifierValue) AS ?identifier)
           }
             UNION
           {
             ?_identifier
               rdf:value ?identifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?identifierUoM .
-            BIND(concat('xval:',STR(?identifierValue),':',?identifierUoM) AS ?identifier)
+            BIND(concat(\'xval:\',STR(?identifierValue),\':\',?identifierUoM) AS ?identifier)
           }
             UNION
           {
            ?_identifier  aixm:nilReason ?identifierNilReason .
-           BIND(concat('nil:',?identifierNilReason) AS ?identifier)
+           BIND(concat(\'nil:\',?identifierNilReason) AS ?identifier)
           }
         }
       }
@@ -2583,19 +2583,19 @@ WHERE
           {
             ?_maximumAcceptableDelay rdf:value ?maximumAcceptableDelayValue .
             FILTER ( NOT EXISTS {?_maximumAcceptableDelay (aixm:uom | fixm:uom | plain:uom) ?maximumAcceptableDelayUoM})
-            BIND(concat('val:',?maximumAcceptableDelayValue) AS ?maximumAcceptableDelay)
+            BIND(concat(\'val:\',?maximumAcceptableDelayValue) AS ?maximumAcceptableDelay)
           }
             UNION
           {
             ?_maximumAcceptableDelay
               rdf:value ?maximumAcceptableDelayValue ;
               (aixm:uom | fixm:uom | plain:uom) ?maximumAcceptableDelayUoM .
-            BIND(concat('xval:',STR(?maximumAcceptableDelayValue),':',?maximumAcceptableDelayUoM) AS ?maximumAcceptableDelay)
+            BIND(concat(\'xval:\',STR(?maximumAcceptableDelayValue),\':\',?maximumAcceptableDelayUoM) AS ?maximumAcceptableDelay)
           }
             UNION
           {
            ?_maximumAcceptableDelay  aixm:nilReason ?maximumAcceptableDelayNilReason .
-           BIND(concat('nil:',?maximumAcceptableDelayNilReason) AS ?maximumAcceptableDelay)
+           BIND(concat(\'nil:\',?maximumAcceptableDelayNilReason) AS ?maximumAcceptableDelay)
           }
         }
       }
@@ -2604,19 +2604,19 @@ WHERE
           {
             ?_assignedIndicator rdf:value ?assignedIndicatorValue .
             FILTER ( NOT EXISTS {?_assignedIndicator (aixm:uom | fixm:uom | plain:uom) ?assignedIndicatorUoM})
-            BIND(concat('val:',?assignedIndicatorValue) AS ?assignedIndicator)
+            BIND(concat(\'val:\',?assignedIndicatorValue) AS ?assignedIndicator)
           }
             UNION
           {
             ?_assignedIndicator
               rdf:value ?assignedIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?assignedIndicatorUoM .
-            BIND(concat('xval:',STR(?assignedIndicatorValue),':',?assignedIndicatorUoM) AS ?assignedIndicator)
+            BIND(concat(\'xval:\',STR(?assignedIndicatorValue),\':\',?assignedIndicatorUoM) AS ?assignedIndicator)
           }
             UNION
           {
            ?_assignedIndicator  aixm:nilReason ?assignedIndicatorNilReason .
-           BIND(concat('nil:',?assignedIndicatorNilReason) AS ?assignedIndicator)
+           BIND(concat(\'nil:\',?assignedIndicatorNilReason) AS ?assignedIndicator)
           }
         }
       }
@@ -2660,19 +2660,19 @@ WHERE
           {
             ?_bottomOfClimb rdf:value ?bottomOfClimbValue .
             FILTER ( NOT EXISTS {?_bottomOfClimb (aixm:uom | fixm:uom | plain:uom) ?bottomOfClimbUoM})
-            BIND(concat('val:',?bottomOfClimbValue) AS ?bottomOfClimb)
+            BIND(concat(\'val:\',?bottomOfClimbValue) AS ?bottomOfClimb)
           }
             UNION
           {
             ?_bottomOfClimb
               rdf:value ?bottomOfClimbValue ;
               (aixm:uom | fixm:uom | plain:uom) ?bottomOfClimbUoM .
-            BIND(concat('xval:',STR(?bottomOfClimbValue),':',?bottomOfClimbUoM) AS ?bottomOfClimb)
+            BIND(concat(\'xval:\',STR(?bottomOfClimbValue),\':\',?bottomOfClimbUoM) AS ?bottomOfClimb)
           }
             UNION
           {
            ?_bottomOfClimb  aixm:nilReason ?bottomOfClimbNilReason .
-           BIND(concat('nil:',?bottomOfClimbNilReason) AS ?bottomOfClimb)
+           BIND(concat(\'nil:\',?bottomOfClimbNilReason) AS ?bottomOfClimb)
           }
         }
       }
@@ -2681,19 +2681,19 @@ WHERE
           {
             ?_bottomOfDescent rdf:value ?bottomOfDescentValue .
             FILTER ( NOT EXISTS {?_bottomOfDescent (aixm:uom | fixm:uom | plain:uom) ?bottomOfDescentUoM})
-            BIND(concat('val:',?bottomOfDescentValue) AS ?bottomOfDescent)
+            BIND(concat(\'val:\',?bottomOfDescentValue) AS ?bottomOfDescent)
           }
             UNION
           {
             ?_bottomOfDescent
               rdf:value ?bottomOfDescentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?bottomOfDescentUoM .
-            BIND(concat('xval:',STR(?bottomOfDescentValue),':',?bottomOfDescentUoM) AS ?bottomOfDescent)
+            BIND(concat(\'xval:\',STR(?bottomOfDescentValue),\':\',?bottomOfDescentUoM) AS ?bottomOfDescent)
           }
             UNION
           {
            ?_bottomOfDescent  aixm:nilReason ?bottomOfDescentNilReason .
-           BIND(concat('nil:',?bottomOfDescentNilReason) AS ?bottomOfDescent)
+           BIND(concat(\'nil:\',?bottomOfDescentNilReason) AS ?bottomOfDescent)
           }
         }
       }
@@ -2702,19 +2702,19 @@ WHERE
           {
             ?_boundaryPoint rdf:value ?boundaryPointValue .
             FILTER ( NOT EXISTS {?_boundaryPoint (aixm:uom | fixm:uom | plain:uom) ?boundaryPointUoM})
-            BIND(concat('val:',?boundaryPointValue) AS ?boundaryPoint)
+            BIND(concat(\'val:\',?boundaryPointValue) AS ?boundaryPoint)
           }
             UNION
           {
             ?_boundaryPoint
               rdf:value ?boundaryPointValue ;
               (aixm:uom | fixm:uom | plain:uom) ?boundaryPointUoM .
-            BIND(concat('xval:',STR(?boundaryPointValue),':',?boundaryPointUoM) AS ?boundaryPoint)
+            BIND(concat(\'xval:\',STR(?boundaryPointValue),\':\',?boundaryPointUoM) AS ?boundaryPoint)
           }
             UNION
           {
            ?_boundaryPoint  aixm:nilReason ?boundaryPointNilReason .
-           BIND(concat('nil:',?boundaryPointNilReason) AS ?boundaryPoint)
+           BIND(concat(\'nil:\',?boundaryPointNilReason) AS ?boundaryPoint)
           }
         }
       }
@@ -2723,19 +2723,19 @@ WHERE
           {
             ?_fromGATToOAT rdf:value ?fromGATToOATValue .
             FILTER ( NOT EXISTS {?_fromGATToOAT (aixm:uom | fixm:uom | plain:uom) ?fromGATToOATUoM})
-            BIND(concat('val:',?fromGATToOATValue) AS ?fromGATToOAT)
+            BIND(concat(\'val:\',?fromGATToOATValue) AS ?fromGATToOAT)
           }
             UNION
           {
             ?_fromGATToOAT
               rdf:value ?fromGATToOATValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fromGATToOATUoM .
-            BIND(concat('xval:',STR(?fromGATToOATValue),':',?fromGATToOATUoM) AS ?fromGATToOAT)
+            BIND(concat(\'xval:\',STR(?fromGATToOATValue),\':\',?fromGATToOATUoM) AS ?fromGATToOAT)
           }
             UNION
           {
            ?_fromGATToOAT  aixm:nilReason ?fromGATToOATNilReason .
-           BIND(concat('nil:',?fromGATToOATNilReason) AS ?fromGATToOAT)
+           BIND(concat(\'nil:\',?fromGATToOATNilReason) AS ?fromGATToOAT)
           }
         }
       }
@@ -2744,19 +2744,19 @@ WHERE
           {
             ?_fromIFRToVFR rdf:value ?fromIFRToVFRValue .
             FILTER ( NOT EXISTS {?_fromIFRToVFR (aixm:uom | fixm:uom | plain:uom) ?fromIFRToVFRUoM})
-            BIND(concat('val:',?fromIFRToVFRValue) AS ?fromIFRToVFR)
+            BIND(concat(\'val:\',?fromIFRToVFRValue) AS ?fromIFRToVFR)
           }
             UNION
           {
             ?_fromIFRToVFR
               rdf:value ?fromIFRToVFRValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fromIFRToVFRUoM .
-            BIND(concat('xval:',STR(?fromIFRToVFRValue),':',?fromIFRToVFRUoM) AS ?fromIFRToVFR)
+            BIND(concat(\'xval:\',STR(?fromIFRToVFRValue),\':\',?fromIFRToVFRUoM) AS ?fromIFRToVFR)
           }
             UNION
           {
            ?_fromIFRToVFR  aixm:nilReason ?fromIFRToVFRNilReason .
-           BIND(concat('nil:',?fromIFRToVFRNilReason) AS ?fromIFRToVFR)
+           BIND(concat(\'nil:\',?fromIFRToVFRNilReason) AS ?fromIFRToVFR)
           }
         }
       }
@@ -2765,19 +2765,19 @@ WHERE
           {
             ?_fromOATToGat rdf:value ?fromOATToGatValue .
             FILTER ( NOT EXISTS {?_fromOATToGat (aixm:uom | fixm:uom | plain:uom) ?fromOATToGatUoM})
-            BIND(concat('val:',?fromOATToGatValue) AS ?fromOATToGat)
+            BIND(concat(\'val:\',?fromOATToGatValue) AS ?fromOATToGat)
           }
             UNION
           {
             ?_fromOATToGat
               rdf:value ?fromOATToGatValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fromOATToGatUoM .
-            BIND(concat('xval:',STR(?fromOATToGatValue),':',?fromOATToGatUoM) AS ?fromOATToGat)
+            BIND(concat(\'xval:\',STR(?fromOATToGatValue),\':\',?fromOATToGatUoM) AS ?fromOATToGat)
           }
             UNION
           {
            ?_fromOATToGat  aixm:nilReason ?fromOATToGatNilReason .
-           BIND(concat('nil:',?fromOATToGatNilReason) AS ?fromOATToGat)
+           BIND(concat(\'nil:\',?fromOATToGatNilReason) AS ?fromOATToGat)
           }
         }
       }
@@ -2786,19 +2786,19 @@ WHERE
           {
             ?_fromVFRToIFR rdf:value ?fromVFRToIFRValue .
             FILTER ( NOT EXISTS {?_fromVFRToIFR (aixm:uom | fixm:uom | plain:uom) ?fromVFRToIFRUoM})
-            BIND(concat('val:',?fromVFRToIFRValue) AS ?fromVFRToIFR)
+            BIND(concat(\'val:\',?fromVFRToIFRValue) AS ?fromVFRToIFR)
           }
             UNION
           {
             ?_fromVFRToIFR
               rdf:value ?fromVFRToIFRValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fromVFRToIFRUoM .
-            BIND(concat('xval:',STR(?fromVFRToIFRValue),':',?fromVFRToIFRUoM) AS ?fromVFRToIFR)
+            BIND(concat(\'xval:\',STR(?fromVFRToIFRValue),\':\',?fromVFRToIFRUoM) AS ?fromVFRToIFR)
           }
             UNION
           {
            ?_fromVFRToIFR  aixm:nilReason ?fromVFRToIFRNilReason .
-           BIND(concat('nil:',?fromVFRToIFRNilReason) AS ?fromVFRToIFR)
+           BIND(concat(\'nil:\',?fromVFRToIFRNilReason) AS ?fromVFRToIFR)
           }
         }
       }
@@ -2807,19 +2807,19 @@ WHERE
           {
             ?_topOfClimb rdf:value ?topOfClimbValue .
             FILTER ( NOT EXISTS {?_topOfClimb (aixm:uom | fixm:uom | plain:uom) ?topOfClimbUoM})
-            BIND(concat('val:',?topOfClimbValue) AS ?topOfClimb)
+            BIND(concat(\'val:\',?topOfClimbValue) AS ?topOfClimb)
           }
             UNION
           {
             ?_topOfClimb
               rdf:value ?topOfClimbValue ;
               (aixm:uom | fixm:uom | plain:uom) ?topOfClimbUoM .
-            BIND(concat('xval:',STR(?topOfClimbValue),':',?topOfClimbUoM) AS ?topOfClimb)
+            BIND(concat(\'xval:\',STR(?topOfClimbValue),\':\',?topOfClimbUoM) AS ?topOfClimb)
           }
             UNION
           {
            ?_topOfClimb  aixm:nilReason ?topOfClimbNilReason .
-           BIND(concat('nil:',?topOfClimbNilReason) AS ?topOfClimb)
+           BIND(concat(\'nil:\',?topOfClimbNilReason) AS ?topOfClimb)
           }
         }
       }
@@ -2828,19 +2828,19 @@ WHERE
           {
             ?_topOfDescent rdf:value ?topOfDescentValue .
             FILTER ( NOT EXISTS {?_topOfDescent (aixm:uom | fixm:uom | plain:uom) ?topOfDescentUoM})
-            BIND(concat('val:',?topOfDescentValue) AS ?topOfDescent)
+            BIND(concat(\'val:\',?topOfDescentValue) AS ?topOfDescent)
           }
             UNION
           {
             ?_topOfDescent
               rdf:value ?topOfDescentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?topOfDescentUoM .
-            BIND(concat('xval:',STR(?topOfDescentValue),':',?topOfDescentUoM) AS ?topOfDescent)
+            BIND(concat(\'xval:\',STR(?topOfDescentValue),\':\',?topOfDescentUoM) AS ?topOfDescent)
           }
             UNION
           {
            ?_topOfDescent  aixm:nilReason ?topOfDescentNilReason .
-           BIND(concat('nil:',?topOfDescentNilReason) AS ?topOfDescent)
+           BIND(concat(\'nil:\',?topOfDescentNilReason) AS ?topOfDescent)
           }
         }
       }
@@ -2873,7 +2873,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities (GROUP_CONCAT(DISTINCT ?dataLinkCode;SEPARATOR=",") AS ?dataLinkCodeConcat) ?selectiveCallingCode (GROUP_CONCAT(DISTINCT ?communicationCode;SEPARATOR=",") AS ?communicationCodeConcat)
+SELECT ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities ?dataLinkCode ?selectiveCallingCode ?communicationCode
 WHERE
   { GRAPH ?graph
     {
@@ -2883,19 +2883,19 @@ WHERE
           {
             ?_otherCommunicationCapabilities rdf:value ?otherCommunicationCapabilitiesValue .
             FILTER ( NOT EXISTS {?_otherCommunicationCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherCommunicationCapabilitiesUoM})
-            BIND(concat('val:',?otherCommunicationCapabilitiesValue) AS ?otherCommunicationCapabilities)
+            BIND(concat(\'val:\',?otherCommunicationCapabilitiesValue) AS ?otherCommunicationCapabilities)
           }
             UNION
           {
             ?_otherCommunicationCapabilities
               rdf:value ?otherCommunicationCapabilitiesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherCommunicationCapabilitiesUoM .
-            BIND(concat('xval:',STR(?otherCommunicationCapabilitiesValue),':',?otherCommunicationCapabilitiesUoM) AS ?otherCommunicationCapabilities)
+            BIND(concat(\'xval:\',STR(?otherCommunicationCapabilitiesValue),\':\',?otherCommunicationCapabilitiesUoM) AS ?otherCommunicationCapabilities)
           }
             UNION
           {
            ?_otherCommunicationCapabilities  aixm:nilReason ?otherCommunicationCapabilitiesNilReason .
-           BIND(concat('nil:',?otherCommunicationCapabilitiesNilReason) AS ?otherCommunicationCapabilities)
+           BIND(concat(\'nil:\',?otherCommunicationCapabilitiesNilReason) AS ?otherCommunicationCapabilities)
           }
         }
       }
@@ -2904,19 +2904,19 @@ WHERE
           {
             ?_otherDataLinkCapabilities rdf:value ?otherDataLinkCapabilitiesValue .
             FILTER ( NOT EXISTS {?_otherDataLinkCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherDataLinkCapabilitiesUoM})
-            BIND(concat('val:',?otherDataLinkCapabilitiesValue) AS ?otherDataLinkCapabilities)
+            BIND(concat(\'val:\',?otherDataLinkCapabilitiesValue) AS ?otherDataLinkCapabilities)
           }
             UNION
           {
             ?_otherDataLinkCapabilities
               rdf:value ?otherDataLinkCapabilitiesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherDataLinkCapabilitiesUoM .
-            BIND(concat('xval:',STR(?otherDataLinkCapabilitiesValue),':',?otherDataLinkCapabilitiesUoM) AS ?otherDataLinkCapabilities)
+            BIND(concat(\'xval:\',STR(?otherDataLinkCapabilitiesValue),\':\',?otherDataLinkCapabilitiesUoM) AS ?otherDataLinkCapabilities)
           }
             UNION
           {
            ?_otherDataLinkCapabilities  aixm:nilReason ?otherDataLinkCapabilitiesNilReason .
-           BIND(concat('nil:',?otherDataLinkCapabilitiesNilReason) AS ?otherDataLinkCapabilities)
+           BIND(concat(\'nil:\',?otherDataLinkCapabilitiesNilReason) AS ?otherDataLinkCapabilities)
           }
         }
       }
@@ -2925,19 +2925,19 @@ WHERE
           {
             ?_dataLinkCode rdf:value ?dataLinkCodeValue .
             FILTER ( NOT EXISTS {?_dataLinkCode (aixm:uom | fixm:uom | plain:uom) ?dataLinkCodeUoM})
-            BIND(concat('val:',?dataLinkCodeValue) AS ?dataLinkCode)
+            BIND(concat(\'val:\',?dataLinkCodeValue) AS ?dataLinkCode)
           }
             UNION
           {
             ?_dataLinkCode
               rdf:value ?dataLinkCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dataLinkCodeUoM .
-            BIND(concat('xval:',STR(?dataLinkCodeValue),':',?dataLinkCodeUoM) AS ?dataLinkCode)
+            BIND(concat(\'xval:\',STR(?dataLinkCodeValue),\':\',?dataLinkCodeUoM) AS ?dataLinkCode)
           }
             UNION
           {
            ?_dataLinkCode  aixm:nilReason ?dataLinkCodeNilReason .
-           BIND(concat('nil:',?dataLinkCodeNilReason) AS ?dataLinkCode)
+           BIND(concat(\'nil:\',?dataLinkCodeNilReason) AS ?dataLinkCode)
           }
         }
       }
@@ -2946,19 +2946,19 @@ WHERE
           {
             ?_selectiveCallingCode rdf:value ?selectiveCallingCodeValue .
             FILTER ( NOT EXISTS {?_selectiveCallingCode (aixm:uom | fixm:uom | plain:uom) ?selectiveCallingCodeUoM})
-            BIND(concat('val:',?selectiveCallingCodeValue) AS ?selectiveCallingCode)
+            BIND(concat(\'val:\',?selectiveCallingCodeValue) AS ?selectiveCallingCode)
           }
             UNION
           {
             ?_selectiveCallingCode
               rdf:value ?selectiveCallingCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?selectiveCallingCodeUoM .
-            BIND(concat('xval:',STR(?selectiveCallingCodeValue),':',?selectiveCallingCodeUoM) AS ?selectiveCallingCode)
+            BIND(concat(\'xval:\',STR(?selectiveCallingCodeValue),\':\',?selectiveCallingCodeUoM) AS ?selectiveCallingCode)
           }
             UNION
           {
            ?_selectiveCallingCode  aixm:nilReason ?selectiveCallingCodeNilReason .
-           BIND(concat('nil:',?selectiveCallingCodeNilReason) AS ?selectiveCallingCode)
+           BIND(concat(\'nil:\',?selectiveCallingCodeNilReason) AS ?selectiveCallingCode)
           }
         }
       }
@@ -2967,19 +2967,19 @@ WHERE
           {
             ?_communicationCode rdf:value ?communicationCodeValue .
             FILTER ( NOT EXISTS {?_communicationCode (aixm:uom | fixm:uom | plain:uom) ?communicationCodeUoM})
-            BIND(concat('val:',?communicationCodeValue) AS ?communicationCode)
+            BIND(concat(\'val:\',?communicationCodeValue) AS ?communicationCode)
           }
             UNION
           {
             ?_communicationCode
               rdf:value ?communicationCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?communicationCodeUoM .
-            BIND(concat('xval:',STR(?communicationCodeValue),':',?communicationCodeUoM) AS ?communicationCode)
+            BIND(concat(\'xval:\',STR(?communicationCodeValue),\':\',?communicationCodeUoM) AS ?communicationCode)
           }
             UNION
           {
            ?_communicationCode  aixm:nilReason ?communicationCodeNilReason .
-           BIND(concat('nil:',?communicationCodeNilReason) AS ?communicationCode)
+           BIND(concat(\'nil:\',?communicationCodeNilReason) AS ?communicationCode)
           }
         }
       }
@@ -2988,7 +2988,7 @@ WHERE
 GROUP BY ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities ?selectiveCallingCode
 
       '
-,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCodeConcat,SelectiveCallingCode,CommunicationCodeConcat),[]), convert(DataLinkCodeConcat,DataLinkCodeList), convert(CommunicationCodeConcat,CommunicationCodeList).
+,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCode,SelectiveCallingCode,CommunicationCode),[]).
 
 % fixm_Dinghy(Graph, Dinghy, Quantity?, TotalCapacity?, Covered?, Colour?)
 
@@ -3023,19 +3023,19 @@ WHERE
           {
             ?_quantity rdf:value ?quantityValue .
             FILTER ( NOT EXISTS {?_quantity (aixm:uom | fixm:uom | plain:uom) ?quantityUoM})
-            BIND(concat('val:',?quantityValue) AS ?quantity)
+            BIND(concat(\'val:\',?quantityValue) AS ?quantity)
           }
             UNION
           {
             ?_quantity
               rdf:value ?quantityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?quantityUoM .
-            BIND(concat('xval:',STR(?quantityValue),':',?quantityUoM) AS ?quantity)
+            BIND(concat(\'xval:\',STR(?quantityValue),\':\',?quantityUoM) AS ?quantity)
           }
             UNION
           {
            ?_quantity  aixm:nilReason ?quantityNilReason .
-           BIND(concat('nil:',?quantityNilReason) AS ?quantity)
+           BIND(concat(\'nil:\',?quantityNilReason) AS ?quantity)
           }
         }
       }
@@ -3044,19 +3044,19 @@ WHERE
           {
             ?_totalCapacity rdf:value ?totalCapacityValue .
             FILTER ( NOT EXISTS {?_totalCapacity (aixm:uom | fixm:uom | plain:uom) ?totalCapacityUoM})
-            BIND(concat('val:',?totalCapacityValue) AS ?totalCapacity)
+            BIND(concat(\'val:\',?totalCapacityValue) AS ?totalCapacity)
           }
             UNION
           {
             ?_totalCapacity
               rdf:value ?totalCapacityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?totalCapacityUoM .
-            BIND(concat('xval:',STR(?totalCapacityValue),':',?totalCapacityUoM) AS ?totalCapacity)
+            BIND(concat(\'xval:\',STR(?totalCapacityValue),\':\',?totalCapacityUoM) AS ?totalCapacity)
           }
             UNION
           {
            ?_totalCapacity  aixm:nilReason ?totalCapacityNilReason .
-           BIND(concat('nil:',?totalCapacityNilReason) AS ?totalCapacity)
+           BIND(concat(\'nil:\',?totalCapacityNilReason) AS ?totalCapacity)
           }
         }
       }
@@ -3065,19 +3065,19 @@ WHERE
           {
             ?_covered rdf:value ?coveredValue .
             FILTER ( NOT EXISTS {?_covered (aixm:uom | fixm:uom | plain:uom) ?coveredUoM})
-            BIND(concat('val:',?coveredValue) AS ?covered)
+            BIND(concat(\'val:\',?coveredValue) AS ?covered)
           }
             UNION
           {
             ?_covered
               rdf:value ?coveredValue ;
               (aixm:uom | fixm:uom | plain:uom) ?coveredUoM .
-            BIND(concat('xval:',STR(?coveredValue),':',?coveredUoM) AS ?covered)
+            BIND(concat(\'xval:\',STR(?coveredValue),\':\',?coveredUoM) AS ?covered)
           }
             UNION
           {
            ?_covered  aixm:nilReason ?coveredNilReason .
-           BIND(concat('nil:',?coveredNilReason) AS ?covered)
+           BIND(concat(\'nil:\',?coveredNilReason) AS ?covered)
           }
         }
       }
@@ -3086,19 +3086,19 @@ WHERE
           {
             ?_colour rdf:value ?colourValue .
             FILTER ( NOT EXISTS {?_colour (aixm:uom | fixm:uom | plain:uom) ?colourUoM})
-            BIND(concat('val:',?colourValue) AS ?colour)
+            BIND(concat(\'val:\',?colourValue) AS ?colour)
           }
             UNION
           {
             ?_colour
               rdf:value ?colourValue ;
               (aixm:uom | fixm:uom | plain:uom) ?colourUoM .
-            BIND(concat('xval:',STR(?colourValue),':',?colourUoM) AS ?colour)
+            BIND(concat(\'xval:\',STR(?colourValue),\':\',?colourUoM) AS ?colour)
           }
             UNION
           {
            ?_colour  aixm:nilReason ?colourNilReason .
-           BIND(concat('nil:',?colourNilReason) AS ?colour)
+           BIND(concat(\'nil:\',?colourNilReason) AS ?colour)
           }
         }
       }
@@ -3131,7 +3131,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?contactInformation ?name ?title (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?networkNode;SEPARATOR=",") AS ?networkNodeConcat) (GROUP_CONCAT(DISTINCT ?address;SEPARATOR=",") AS ?addressConcat) (GROUP_CONCAT(DISTINCT ?phoneFax;SEPARATOR=",") AS ?phoneFaxConcat)
+SELECT ?graph ?contactInformation ?name ?title ?annotation ?networkNode ?address ?phoneFax
 WHERE
   { GRAPH ?graph
     {
@@ -3141,19 +3141,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -3162,19 +3162,19 @@ WHERE
           {
             ?_title rdf:value ?titleValue .
             FILTER ( NOT EXISTS {?_title (aixm:uom | fixm:uom | plain:uom) ?titleUoM})
-            BIND(concat('val:',?titleValue) AS ?title)
+            BIND(concat(\'val:\',?titleValue) AS ?title)
           }
             UNION
           {
             ?_title
               rdf:value ?titleValue ;
               (aixm:uom | fixm:uom | plain:uom) ?titleUoM .
-            BIND(concat('xval:',STR(?titleValue),':',?titleUoM) AS ?title)
+            BIND(concat(\'xval:\',STR(?titleValue),\':\',?titleUoM) AS ?title)
           }
             UNION
           {
            ?_title  aixm:nilReason ?titleNilReason .
-           BIND(concat('nil:',?titleNilReason) AS ?title)
+           BIND(concat(\'nil:\',?titleNilReason) AS ?title)
           }
         }
       }
@@ -3187,7 +3187,7 @@ WHERE
 GROUP BY ?graph ?contactInformation ?name ?title
 
       '
-,row(Graph,ContactInformation,Name,Title,AnnotationConcat,NetworkNodeConcat,AddressConcat,PhoneFaxConcat),[]), convert(AnnotationConcat,AnnotationList), convert(NetworkNodeConcat,NetworkNodeList), convert(AddressConcat,AddressList), convert(PhoneFaxConcat,PhoneFaxList).
+,row(Graph,ContactInformation,Name,Title,Annotation,NetworkNode,Address,PhoneFax),[]).
 
 % fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position?, PositionAltitude?, PositionEstimatedTime?)
 
@@ -3223,19 +3223,19 @@ WHERE
           {
             ?_positionAltitude rdf:value ?positionAltitudeValue .
             FILTER ( NOT EXISTS {?_positionAltitude (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM})
-            BIND(concat('val:',?positionAltitudeValue) AS ?positionAltitude)
+            BIND(concat(\'val:\',?positionAltitudeValue) AS ?positionAltitude)
           }
             UNION
           {
             ?_positionAltitude
               rdf:value ?positionAltitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM .
-            BIND(concat('xval:',STR(?positionAltitudeValue),':',?positionAltitudeUoM) AS ?positionAltitude)
+            BIND(concat(\'xval:\',STR(?positionAltitudeValue),\':\',?positionAltitudeUoM) AS ?positionAltitude)
           }
             UNION
           {
            ?_positionAltitude  aixm:nilReason ?positionAltitudeNilReason .
-           BIND(concat('nil:',?positionAltitudeNilReason) AS ?positionAltitude)
+           BIND(concat(\'nil:\',?positionAltitudeNilReason) AS ?positionAltitude)
           }
         }
       }
@@ -3244,19 +3244,19 @@ WHERE
           {
             ?_positionEstimatedTime rdf:value ?positionEstimatedTimeValue .
             FILTER ( NOT EXISTS {?_positionEstimatedTime (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM})
-            BIND(concat('val:',?positionEstimatedTimeValue) AS ?positionEstimatedTime)
+            BIND(concat(\'val:\',?positionEstimatedTimeValue) AS ?positionEstimatedTime)
           }
             UNION
           {
             ?_positionEstimatedTime
               rdf:value ?positionEstimatedTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM .
-            BIND(concat('xval:',STR(?positionEstimatedTimeValue),':',?positionEstimatedTimeUoM) AS ?positionEstimatedTime)
+            BIND(concat(\'xval:\',STR(?positionEstimatedTimeValue),\':\',?positionEstimatedTimeUoM) AS ?positionEstimatedTime)
           }
             UNION
           {
            ?_positionEstimatedTime  aixm:nilReason ?positionEstimatedTimeNilReason .
-           BIND(concat('nil:',?positionEstimatedTimeNilReason) AS ?positionEstimatedTime)
+           BIND(concat(\'nil:\',?positionEstimatedTimeNilReason) AS ?positionEstimatedTime)
           }
         }
       }
@@ -3333,19 +3333,19 @@ WHERE
           {
             ?_fuelEndurance rdf:value ?fuelEnduranceValue .
             FILTER ( NOT EXISTS {?_fuelEndurance (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM})
-            BIND(concat('val:',?fuelEnduranceValue) AS ?fuelEndurance)
+            BIND(concat(\'val:\',?fuelEnduranceValue) AS ?fuelEndurance)
           }
             UNION
           {
             ?_fuelEndurance
               rdf:value ?fuelEnduranceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM .
-            BIND(concat('xval:',STR(?fuelEnduranceValue),':',?fuelEnduranceUoM) AS ?fuelEndurance)
+            BIND(concat(\'xval:\',STR(?fuelEnduranceValue),\':\',?fuelEnduranceUoM) AS ?fuelEndurance)
           }
             UNION
           {
            ?_fuelEndurance  aixm:nilReason ?fuelEnduranceNilReason .
-           BIND(concat('nil:',?fuelEnduranceNilReason) AS ?fuelEndurance)
+           BIND(concat(\'nil:\',?fuelEnduranceNilReason) AS ?fuelEndurance)
           }
         }
       }
@@ -3354,19 +3354,19 @@ WHERE
           {
             ?_personsOnBoard rdf:value ?personsOnBoardValue .
             FILTER ( NOT EXISTS {?_personsOnBoard (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM})
-            BIND(concat('val:',?personsOnBoardValue) AS ?personsOnBoard)
+            BIND(concat(\'val:\',?personsOnBoardValue) AS ?personsOnBoard)
           }
             UNION
           {
             ?_personsOnBoard
               rdf:value ?personsOnBoardValue ;
               (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM .
-            BIND(concat('xval:',STR(?personsOnBoardValue),':',?personsOnBoardUoM) AS ?personsOnBoard)
+            BIND(concat(\'xval:\',STR(?personsOnBoardValue),\':\',?personsOnBoardUoM) AS ?personsOnBoard)
           }
             UNION
           {
            ?_personsOnBoard  aixm:nilReason ?personsOnBoardNilReason .
-           BIND(concat('nil:',?personsOnBoardNilReason) AS ?personsOnBoard)
+           BIND(concat(\'nil:\',?personsOnBoardNilReason) AS ?personsOnBoard)
           }
         }
       }
@@ -3400,7 +3400,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment (GROUP_CONCAT(DISTINCT ?packageGroup;SEPARATOR=",") AS ?packageGroupConcat) ?shippingInformation
+SELECT ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment ?packageGroup ?shippingInformation
 WHERE
   { GRAPH ?graph
     {
@@ -3410,19 +3410,19 @@ WHERE
           {
             ?_guidebookNumber rdf:value ?guidebookNumberValue .
             FILTER ( NOT EXISTS {?_guidebookNumber (aixm:uom | fixm:uom | plain:uom) ?guidebookNumberUoM})
-            BIND(concat('val:',?guidebookNumberValue) AS ?guidebookNumber)
+            BIND(concat(\'val:\',?guidebookNumberValue) AS ?guidebookNumber)
           }
             UNION
           {
             ?_guidebookNumber
               rdf:value ?guidebookNumberValue ;
               (aixm:uom | fixm:uom | plain:uom) ?guidebookNumberUoM .
-            BIND(concat('xval:',STR(?guidebookNumberValue),':',?guidebookNumberUoM) AS ?guidebookNumber)
+            BIND(concat(\'xval:\',STR(?guidebookNumberValue),\':\',?guidebookNumberUoM) AS ?guidebookNumber)
           }
             UNION
           {
            ?_guidebookNumber  aixm:nilReason ?guidebookNumberNilReason .
-           BIND(concat('nil:',?guidebookNumberNilReason) AS ?guidebookNumber)
+           BIND(concat(\'nil:\',?guidebookNumberNilReason) AS ?guidebookNumber)
           }
         }
       }
@@ -3431,19 +3431,19 @@ WHERE
           {
             ?_onboardLocation rdf:value ?onboardLocationValue .
             FILTER ( NOT EXISTS {?_onboardLocation (aixm:uom | fixm:uom | plain:uom) ?onboardLocationUoM})
-            BIND(concat('val:',?onboardLocationValue) AS ?onboardLocation)
+            BIND(concat(\'val:\',?onboardLocationValue) AS ?onboardLocation)
           }
             UNION
           {
             ?_onboardLocation
               rdf:value ?onboardLocationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?onboardLocationUoM .
-            BIND(concat('xval:',STR(?onboardLocationValue),':',?onboardLocationUoM) AS ?onboardLocation)
+            BIND(concat(\'xval:\',STR(?onboardLocationValue),\':\',?onboardLocationUoM) AS ?onboardLocation)
           }
             UNION
           {
            ?_onboardLocation  aixm:nilReason ?onboardLocationNilReason .
-           BIND(concat('nil:',?onboardLocationNilReason) AS ?onboardLocation)
+           BIND(concat(\'nil:\',?onboardLocationNilReason) AS ?onboardLocation)
           }
         }
       }
@@ -3453,19 +3453,19 @@ WHERE
           {
             ?_aircraftLimitation rdf:value ?aircraftLimitationValue .
             FILTER ( NOT EXISTS {?_aircraftLimitation (aixm:uom | fixm:uom | plain:uom) ?aircraftLimitationUoM})
-            BIND(concat('val:',?aircraftLimitationValue) AS ?aircraftLimitation)
+            BIND(concat(\'val:\',?aircraftLimitationValue) AS ?aircraftLimitation)
           }
             UNION
           {
             ?_aircraftLimitation
               rdf:value ?aircraftLimitationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftLimitationUoM .
-            BIND(concat('xval:',STR(?aircraftLimitationValue),':',?aircraftLimitationUoM) AS ?aircraftLimitation)
+            BIND(concat(\'xval:\',STR(?aircraftLimitationValue),\':\',?aircraftLimitationUoM) AS ?aircraftLimitation)
           }
             UNION
           {
            ?_aircraftLimitation  aixm:nilReason ?aircraftLimitationNilReason .
-           BIND(concat('nil:',?aircraftLimitationNilReason) AS ?aircraftLimitation)
+           BIND(concat(\'nil:\',?aircraftLimitationNilReason) AS ?aircraftLimitation)
           }
         }
       }
@@ -3474,19 +3474,19 @@ WHERE
           {
             ?_airWayBill rdf:value ?airWayBillValue .
             FILTER ( NOT EXISTS {?_airWayBill (aixm:uom | fixm:uom | plain:uom) ?airWayBillUoM})
-            BIND(concat('val:',?airWayBillValue) AS ?airWayBill)
+            BIND(concat(\'val:\',?airWayBillValue) AS ?airWayBill)
           }
             UNION
           {
             ?_airWayBill
               rdf:value ?airWayBillValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airWayBillUoM .
-            BIND(concat('xval:',STR(?airWayBillValue),':',?airWayBillUoM) AS ?airWayBill)
+            BIND(concat(\'xval:\',STR(?airWayBillValue),\':\',?airWayBillUoM) AS ?airWayBill)
           }
             UNION
           {
            ?_airWayBill  aixm:nilReason ?airWayBillNilReason .
-           BIND(concat('nil:',?airWayBillNilReason) AS ?airWayBill)
+           BIND(concat(\'nil:\',?airWayBillNilReason) AS ?airWayBill)
           }
         }
       }
@@ -3495,19 +3495,19 @@ WHERE
           {
             ?_shipment rdf:value ?shipmentValue .
             FILTER ( NOT EXISTS {?_shipment (aixm:uom | fixm:uom | plain:uom) ?shipmentUoM})
-            BIND(concat('val:',?shipmentValue) AS ?shipment)
+            BIND(concat(\'val:\',?shipmentValue) AS ?shipment)
           }
             UNION
           {
             ?_shipment
               rdf:value ?shipmentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?shipmentUoM .
-            BIND(concat('xval:',STR(?shipmentValue),':',?shipmentUoM) AS ?shipment)
+            BIND(concat(\'xval:\',STR(?shipmentValue),\':\',?shipmentUoM) AS ?shipment)
           }
             UNION
           {
            ?_shipment  aixm:nilReason ?shipmentNilReason .
-           BIND(concat('nil:',?shipmentNilReason) AS ?shipment)
+           BIND(concat(\'nil:\',?shipmentNilReason) AS ?shipment)
           }
         }
       }
@@ -3518,7 +3518,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment ?shippingInformation
 
       '
-,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroupConcat,ShippingInformation),[]), convert(PackageGroupConcat,PackageGroupList).
+,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroup,ShippingInformation),[]).
 
 % fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions?, DangerousGoodsPackage*, ShipmentUseIndicator?)
 
@@ -3543,7 +3543,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions (GROUP_CONCAT(DISTINCT ?dangerousGoodsPackage;SEPARATOR=",") AS ?dangerousGoodsPackageConcat) ?shipmentUseIndicator
+SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?dangerousGoodsPackage ?shipmentUseIndicator
 WHERE
   { GRAPH ?graph
     {
@@ -3555,19 +3555,19 @@ WHERE
           {
             ?_shipmentUseIndicator rdf:value ?shipmentUseIndicatorValue .
             FILTER ( NOT EXISTS {?_shipmentUseIndicator (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM})
-            BIND(concat('val:',?shipmentUseIndicatorValue) AS ?shipmentUseIndicator)
+            BIND(concat(\'val:\',?shipmentUseIndicatorValue) AS ?shipmentUseIndicator)
           }
             UNION
           {
             ?_shipmentUseIndicator
               rdf:value ?shipmentUseIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM .
-            BIND(concat('xval:',STR(?shipmentUseIndicatorValue),':',?shipmentUseIndicatorUoM) AS ?shipmentUseIndicator)
+            BIND(concat(\'xval:\',STR(?shipmentUseIndicatorValue),\':\',?shipmentUseIndicatorUoM) AS ?shipmentUseIndicator)
           }
             UNION
           {
            ?_shipmentUseIndicator  aixm:nilReason ?shipmentUseIndicatorNilReason .
-           BIND(concat('nil:',?shipmentUseIndicatorNilReason) AS ?shipmentUseIndicator)
+           BIND(concat(\'nil:\',?shipmentUseIndicatorNilReason) AS ?shipmentUseIndicator)
           }
         }
       }
@@ -3576,7 +3576,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?shipmentUseIndicator
 
       '
-,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList).
+,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackage,ShipmentUseIndicator),[]).
 
 % fixm_OfftrackDistance(Graph, OfftrackDistance, Distance?, Direction?)
 
@@ -3611,19 +3611,19 @@ WHERE
           {
             ?_distance rdf:value ?distanceValue .
             FILTER ( NOT EXISTS {?_distance (aixm:uom | fixm:uom | plain:uom) ?distanceUoM})
-            BIND(concat('val:',?distanceValue) AS ?distance)
+            BIND(concat(\'val:\',?distanceValue) AS ?distance)
           }
             UNION
           {
             ?_distance
               rdf:value ?distanceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?distanceUoM .
-            BIND(concat('xval:',STR(?distanceValue),':',?distanceUoM) AS ?distance)
+            BIND(concat(\'xval:\',STR(?distanceValue),\':\',?distanceUoM) AS ?distance)
           }
             UNION
           {
            ?_distance  aixm:nilReason ?distanceNilReason .
-           BIND(concat('nil:',?distanceNilReason) AS ?distance)
+           BIND(concat(\'nil:\',?distanceNilReason) AS ?distance)
           }
         }
       }
@@ -3632,19 +3632,19 @@ WHERE
           {
             ?_direction rdf:value ?directionValue .
             FILTER ( NOT EXISTS {?_direction (aixm:uom | fixm:uom | plain:uom) ?directionUoM})
-            BIND(concat('val:',?directionValue) AS ?direction)
+            BIND(concat(\'val:\',?directionValue) AS ?direction)
           }
             UNION
           {
             ?_direction
               rdf:value ?directionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?directionUoM .
-            BIND(concat('xval:',STR(?directionValue),':',?directionUoM) AS ?direction)
+            BIND(concat(\'xval:\',STR(?directionValue),\':\',?directionUoM) AS ?direction)
           }
             UNION
           {
            ?_direction  aixm:nilReason ?directionNilReason .
-           BIND(concat('nil:',?directionNilReason) AS ?direction)
+           BIND(concat(\'nil:\',?directionNilReason) AS ?direction)
           }
         }
       }
@@ -3724,19 +3724,19 @@ WHERE
           {
             ?_constrainedAirspace rdf:value ?constrainedAirspaceValue .
             FILTER ( NOT EXISTS {?_constrainedAirspace (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM})
-            BIND(concat('val:',?constrainedAirspaceValue) AS ?constrainedAirspace)
+            BIND(concat(\'val:\',?constrainedAirspaceValue) AS ?constrainedAirspace)
           }
             UNION
           {
             ?_constrainedAirspace
               rdf:value ?constrainedAirspaceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM .
-            BIND(concat('xval:',STR(?constrainedAirspaceValue),':',?constrainedAirspaceUoM) AS ?constrainedAirspace)
+            BIND(concat(\'xval:\',STR(?constrainedAirspaceValue),\':\',?constrainedAirspaceUoM) AS ?constrainedAirspace)
           }
             UNION
           {
            ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
-           BIND(concat('nil:',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
+           BIND(concat(\'nil:\',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
           }
         }
       }
@@ -3745,19 +3745,19 @@ WHERE
           {
             ?_specialActivityAirspace rdf:value ?specialActivityAirspaceValue .
             FILTER ( NOT EXISTS {?_specialActivityAirspace (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM})
-            BIND(concat('val:',?specialActivityAirspaceValue) AS ?specialActivityAirspace)
+            BIND(concat(\'val:\',?specialActivityAirspaceValue) AS ?specialActivityAirspace)
           }
             UNION
           {
             ?_specialActivityAirspace
               rdf:value ?specialActivityAirspaceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM .
-            BIND(concat('xval:',STR(?specialActivityAirspaceValue),':',?specialActivityAirspaceUoM) AS ?specialActivityAirspace)
+            BIND(concat(\'xval:\',STR(?specialActivityAirspaceValue),\':\',?specialActivityAirspaceUoM) AS ?specialActivityAirspace)
           }
             UNION
           {
            ?_specialActivityAirspace  aixm:nilReason ?specialActivityAirspaceNilReason .
-           BIND(concat('nil:',?specialActivityAirspaceNilReason) AS ?specialActivityAirspace)
+           BIND(concat(\'nil:\',?specialActivityAirspaceNilReason) AS ?specialActivityAirspace)
           }
         }
       }
@@ -3804,19 +3804,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -3825,19 +3825,19 @@ WHERE
           {
             ?_title rdf:value ?titleValue .
             FILTER ( NOT EXISTS {?_title (aixm:uom | fixm:uom | plain:uom) ?titleUoM})
-            BIND(concat('val:',?titleValue) AS ?title)
+            BIND(concat(\'val:\',?titleValue) AS ?title)
           }
             UNION
           {
             ?_title
               rdf:value ?titleValue ;
               (aixm:uom | fixm:uom | plain:uom) ?titleUoM .
-            BIND(concat('xval:',STR(?titleValue),':',?titleUoM) AS ?title)
+            BIND(concat(\'xval:\',STR(?titleValue),\':\',?titleUoM) AS ?title)
           }
             UNION
           {
            ?_title  aixm:nilReason ?titleNilReason .
-           BIND(concat('nil:',?titleNilReason) AS ?title)
+           BIND(concat(\'nil:\',?titleNilReason) AS ?title)
           }
         }
       }
@@ -3874,7 +3874,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?ARP (GROUP_CONCAT(DISTINCT ?altimeterSource;SEPARATOR=",") AS ?altimeterSourceConcat) (GROUP_CONCAT(DISTINCT ?contaminant;SEPARATOR=",") AS ?contaminantConcat) (GROUP_CONCAT(DISTINCT ?servedCity;SEPARATOR=",") AS ?servedCityConcat) ?responsibleOrganisation ?aviationBoundary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat)
+SELECT ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?contact ?annotation ?ARP ?altimeterSource ?contaminant ?servedCity ?responsibleOrganisation ?aviationBoundary ?availability
 WHERE
   { GRAPH ?graph
     {
@@ -3884,19 +3884,19 @@ WHERE
           {
             ?_designator rdf:value ?designatorValue .
             FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat('val:',?designatorValue) AS ?designator)
+            BIND(concat(\'val:\',?designatorValue) AS ?designator)
           }
             UNION
           {
             ?_designator
               rdf:value ?designatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-            BIND(concat('xval:',STR(?designatorValue),':',?designatorUoM) AS ?designator)
+            BIND(concat(\'xval:\',STR(?designatorValue),\':\',?designatorUoM) AS ?designator)
           }
             UNION
           {
            ?_designator  aixm:nilReason ?designatorNilReason .
-           BIND(concat('nil:',?designatorNilReason) AS ?designator)
+           BIND(concat(\'nil:\',?designatorNilReason) AS ?designator)
           }
         }
       }
@@ -3905,19 +3905,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -3926,19 +3926,19 @@ WHERE
           {
             ?_locationIndicatorICAO rdf:value ?locationIndicatorICAOValue .
             FILTER ( NOT EXISTS {?_locationIndicatorICAO (aixm:uom | fixm:uom | plain:uom) ?locationIndicatorICAOUoM})
-            BIND(concat('val:',?locationIndicatorICAOValue) AS ?locationIndicatorICAO)
+            BIND(concat(\'val:\',?locationIndicatorICAOValue) AS ?locationIndicatorICAO)
           }
             UNION
           {
             ?_locationIndicatorICAO
               rdf:value ?locationIndicatorICAOValue ;
               (aixm:uom | fixm:uom | plain:uom) ?locationIndicatorICAOUoM .
-            BIND(concat('xval:',STR(?locationIndicatorICAOValue),':',?locationIndicatorICAOUoM) AS ?locationIndicatorICAO)
+            BIND(concat(\'xval:\',STR(?locationIndicatorICAOValue),\':\',?locationIndicatorICAOUoM) AS ?locationIndicatorICAO)
           }
             UNION
           {
            ?_locationIndicatorICAO  aixm:nilReason ?locationIndicatorICAONilReason .
-           BIND(concat('nil:',?locationIndicatorICAONilReason) AS ?locationIndicatorICAO)
+           BIND(concat(\'nil:\',?locationIndicatorICAONilReason) AS ?locationIndicatorICAO)
           }
         }
       }
@@ -3947,19 +3947,19 @@ WHERE
           {
             ?_designatorIATA rdf:value ?designatorIATAValue .
             FILTER ( NOT EXISTS {?_designatorIATA (aixm:uom | fixm:uom | plain:uom) ?designatorIATAUoM})
-            BIND(concat('val:',?designatorIATAValue) AS ?designatorIATA)
+            BIND(concat(\'val:\',?designatorIATAValue) AS ?designatorIATA)
           }
             UNION
           {
             ?_designatorIATA
               rdf:value ?designatorIATAValue ;
               (aixm:uom | fixm:uom | plain:uom) ?designatorIATAUoM .
-            BIND(concat('xval:',STR(?designatorIATAValue),':',?designatorIATAUoM) AS ?designatorIATA)
+            BIND(concat(\'xval:\',STR(?designatorIATAValue),\':\',?designatorIATAUoM) AS ?designatorIATA)
           }
             UNION
           {
            ?_designatorIATA  aixm:nilReason ?designatorIATANilReason .
-           BIND(concat('nil:',?designatorIATANilReason) AS ?designatorIATA)
+           BIND(concat(\'nil:\',?designatorIATANilReason) AS ?designatorIATA)
           }
         }
       }
@@ -3968,19 +3968,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -3989,19 +3989,19 @@ WHERE
           {
             ?_certifiedICAO rdf:value ?certifiedICAOValue .
             FILTER ( NOT EXISTS {?_certifiedICAO (aixm:uom | fixm:uom | plain:uom) ?certifiedICAOUoM})
-            BIND(concat('val:',?certifiedICAOValue) AS ?certifiedICAO)
+            BIND(concat(\'val:\',?certifiedICAOValue) AS ?certifiedICAO)
           }
             UNION
           {
             ?_certifiedICAO
               rdf:value ?certifiedICAOValue ;
               (aixm:uom | fixm:uom | plain:uom) ?certifiedICAOUoM .
-            BIND(concat('xval:',STR(?certifiedICAOValue),':',?certifiedICAOUoM) AS ?certifiedICAO)
+            BIND(concat(\'xval:\',STR(?certifiedICAOValue),\':\',?certifiedICAOUoM) AS ?certifiedICAO)
           }
             UNION
           {
            ?_certifiedICAO  aixm:nilReason ?certifiedICAONilReason .
-           BIND(concat('nil:',?certifiedICAONilReason) AS ?certifiedICAO)
+           BIND(concat(\'nil:\',?certifiedICAONilReason) AS ?certifiedICAO)
           }
         }
       }
@@ -4010,19 +4010,19 @@ WHERE
           {
             ?_privateUse rdf:value ?privateUseValue .
             FILTER ( NOT EXISTS {?_privateUse (aixm:uom | fixm:uom | plain:uom) ?privateUseUoM})
-            BIND(concat('val:',?privateUseValue) AS ?privateUse)
+            BIND(concat(\'val:\',?privateUseValue) AS ?privateUse)
           }
             UNION
           {
             ?_privateUse
               rdf:value ?privateUseValue ;
               (aixm:uom | fixm:uom | plain:uom) ?privateUseUoM .
-            BIND(concat('xval:',STR(?privateUseValue),':',?privateUseUoM) AS ?privateUse)
+            BIND(concat(\'xval:\',STR(?privateUseValue),\':\',?privateUseUoM) AS ?privateUse)
           }
             UNION
           {
            ?_privateUse  aixm:nilReason ?privateUseNilReason .
-           BIND(concat('nil:',?privateUseNilReason) AS ?privateUse)
+           BIND(concat(\'nil:\',?privateUseNilReason) AS ?privateUse)
           }
         }
       }
@@ -4031,19 +4031,19 @@ WHERE
           {
             ?_controlType rdf:value ?controlTypeValue .
             FILTER ( NOT EXISTS {?_controlType (aixm:uom | fixm:uom | plain:uom) ?controlTypeUoM})
-            BIND(concat('val:',?controlTypeValue) AS ?controlType)
+            BIND(concat(\'val:\',?controlTypeValue) AS ?controlType)
           }
             UNION
           {
             ?_controlType
               rdf:value ?controlTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?controlTypeUoM .
-            BIND(concat('xval:',STR(?controlTypeValue),':',?controlTypeUoM) AS ?controlType)
+            BIND(concat(\'xval:\',STR(?controlTypeValue),\':\',?controlTypeUoM) AS ?controlType)
           }
             UNION
           {
            ?_controlType  aixm:nilReason ?controlTypeNilReason .
-           BIND(concat('nil:',?controlTypeNilReason) AS ?controlType)
+           BIND(concat(\'nil:\',?controlTypeNilReason) AS ?controlType)
           }
         }
       }
@@ -4052,19 +4052,19 @@ WHERE
           {
             ?_fieldElevation rdf:value ?fieldElevationValue .
             FILTER ( NOT EXISTS {?_fieldElevation (aixm:uom | fixm:uom | plain:uom) ?fieldElevationUoM})
-            BIND(concat('val:',?fieldElevationValue) AS ?fieldElevation)
+            BIND(concat(\'val:\',?fieldElevationValue) AS ?fieldElevation)
           }
             UNION
           {
             ?_fieldElevation
               rdf:value ?fieldElevationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fieldElevationUoM .
-            BIND(concat('xval:',STR(?fieldElevationValue),':',?fieldElevationUoM) AS ?fieldElevation)
+            BIND(concat(\'xval:\',STR(?fieldElevationValue),\':\',?fieldElevationUoM) AS ?fieldElevation)
           }
             UNION
           {
            ?_fieldElevation  aixm:nilReason ?fieldElevationNilReason .
-           BIND(concat('nil:',?fieldElevationNilReason) AS ?fieldElevation)
+           BIND(concat(\'nil:\',?fieldElevationNilReason) AS ?fieldElevation)
           }
         }
       }
@@ -4073,19 +4073,19 @@ WHERE
           {
             ?_fieldElevationAccuracy rdf:value ?fieldElevationAccuracyValue .
             FILTER ( NOT EXISTS {?_fieldElevationAccuracy (aixm:uom | fixm:uom | plain:uom) ?fieldElevationAccuracyUoM})
-            BIND(concat('val:',?fieldElevationAccuracyValue) AS ?fieldElevationAccuracy)
+            BIND(concat(\'val:\',?fieldElevationAccuracyValue) AS ?fieldElevationAccuracy)
           }
             UNION
           {
             ?_fieldElevationAccuracy
               rdf:value ?fieldElevationAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fieldElevationAccuracyUoM .
-            BIND(concat('xval:',STR(?fieldElevationAccuracyValue),':',?fieldElevationAccuracyUoM) AS ?fieldElevationAccuracy)
+            BIND(concat(\'xval:\',STR(?fieldElevationAccuracyValue),\':\',?fieldElevationAccuracyUoM) AS ?fieldElevationAccuracy)
           }
             UNION
           {
            ?_fieldElevationAccuracy  aixm:nilReason ?fieldElevationAccuracyNilReason .
-           BIND(concat('nil:',?fieldElevationAccuracyNilReason) AS ?fieldElevationAccuracy)
+           BIND(concat(\'nil:\',?fieldElevationAccuracyNilReason) AS ?fieldElevationAccuracy)
           }
         }
       }
@@ -4094,19 +4094,19 @@ WHERE
           {
             ?_verticalDatum rdf:value ?verticalDatumValue .
             FILTER ( NOT EXISTS {?_verticalDatum (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM})
-            BIND(concat('val:',?verticalDatumValue) AS ?verticalDatum)
+            BIND(concat(\'val:\',?verticalDatumValue) AS ?verticalDatum)
           }
             UNION
           {
             ?_verticalDatum
               rdf:value ?verticalDatumValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM .
-            BIND(concat('xval:',STR(?verticalDatumValue),':',?verticalDatumUoM) AS ?verticalDatum)
+            BIND(concat(\'xval:\',STR(?verticalDatumValue),\':\',?verticalDatumUoM) AS ?verticalDatum)
           }
             UNION
           {
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
-           BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
+           BIND(concat(\'nil:\',?verticalDatumNilReason) AS ?verticalDatum)
           }
         }
       }
@@ -4115,19 +4115,19 @@ WHERE
           {
             ?_magneticVariation rdf:value ?magneticVariationValue .
             FILTER ( NOT EXISTS {?_magneticVariation (aixm:uom | fixm:uom | plain:uom) ?magneticVariationUoM})
-            BIND(concat('val:',?magneticVariationValue) AS ?magneticVariation)
+            BIND(concat(\'val:\',?magneticVariationValue) AS ?magneticVariation)
           }
             UNION
           {
             ?_magneticVariation
               rdf:value ?magneticVariationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?magneticVariationUoM .
-            BIND(concat('xval:',STR(?magneticVariationValue),':',?magneticVariationUoM) AS ?magneticVariation)
+            BIND(concat(\'xval:\',STR(?magneticVariationValue),\':\',?magneticVariationUoM) AS ?magneticVariation)
           }
             UNION
           {
            ?_magneticVariation  aixm:nilReason ?magneticVariationNilReason .
-           BIND(concat('nil:',?magneticVariationNilReason) AS ?magneticVariation)
+           BIND(concat(\'nil:\',?magneticVariationNilReason) AS ?magneticVariation)
           }
         }
       }
@@ -4136,19 +4136,19 @@ WHERE
           {
             ?_magneticVariationAccuracy rdf:value ?magneticVariationAccuracyValue .
             FILTER ( NOT EXISTS {?_magneticVariationAccuracy (aixm:uom | fixm:uom | plain:uom) ?magneticVariationAccuracyUoM})
-            BIND(concat('val:',?magneticVariationAccuracyValue) AS ?magneticVariationAccuracy)
+            BIND(concat(\'val:\',?magneticVariationAccuracyValue) AS ?magneticVariationAccuracy)
           }
             UNION
           {
             ?_magneticVariationAccuracy
               rdf:value ?magneticVariationAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?magneticVariationAccuracyUoM .
-            BIND(concat('xval:',STR(?magneticVariationAccuracyValue),':',?magneticVariationAccuracyUoM) AS ?magneticVariationAccuracy)
+            BIND(concat(\'xval:\',STR(?magneticVariationAccuracyValue),\':\',?magneticVariationAccuracyUoM) AS ?magneticVariationAccuracy)
           }
             UNION
           {
            ?_magneticVariationAccuracy  aixm:nilReason ?magneticVariationAccuracyNilReason .
-           BIND(concat('nil:',?magneticVariationAccuracyNilReason) AS ?magneticVariationAccuracy)
+           BIND(concat(\'nil:\',?magneticVariationAccuracyNilReason) AS ?magneticVariationAccuracy)
           }
         }
       }
@@ -4157,19 +4157,19 @@ WHERE
           {
             ?_dateMagneticVariation rdf:value ?dateMagneticVariationValue .
             FILTER ( NOT EXISTS {?_dateMagneticVariation (aixm:uom | fixm:uom | plain:uom) ?dateMagneticVariationUoM})
-            BIND(concat('val:',?dateMagneticVariationValue) AS ?dateMagneticVariation)
+            BIND(concat(\'val:\',?dateMagneticVariationValue) AS ?dateMagneticVariation)
           }
             UNION
           {
             ?_dateMagneticVariation
               rdf:value ?dateMagneticVariationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dateMagneticVariationUoM .
-            BIND(concat('xval:',STR(?dateMagneticVariationValue),':',?dateMagneticVariationUoM) AS ?dateMagneticVariation)
+            BIND(concat(\'xval:\',STR(?dateMagneticVariationValue),\':\',?dateMagneticVariationUoM) AS ?dateMagneticVariation)
           }
             UNION
           {
            ?_dateMagneticVariation  aixm:nilReason ?dateMagneticVariationNilReason .
-           BIND(concat('nil:',?dateMagneticVariationNilReason) AS ?dateMagneticVariation)
+           BIND(concat(\'nil:\',?dateMagneticVariationNilReason) AS ?dateMagneticVariation)
           }
         }
       }
@@ -4178,19 +4178,19 @@ WHERE
           {
             ?_magneticVariationChange rdf:value ?magneticVariationChangeValue .
             FILTER ( NOT EXISTS {?_magneticVariationChange (aixm:uom | fixm:uom | plain:uom) ?magneticVariationChangeUoM})
-            BIND(concat('val:',?magneticVariationChangeValue) AS ?magneticVariationChange)
+            BIND(concat(\'val:\',?magneticVariationChangeValue) AS ?magneticVariationChange)
           }
             UNION
           {
             ?_magneticVariationChange
               rdf:value ?magneticVariationChangeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?magneticVariationChangeUoM .
-            BIND(concat('xval:',STR(?magneticVariationChangeValue),':',?magneticVariationChangeUoM) AS ?magneticVariationChange)
+            BIND(concat(\'xval:\',STR(?magneticVariationChangeValue),\':\',?magneticVariationChangeUoM) AS ?magneticVariationChange)
           }
             UNION
           {
            ?_magneticVariationChange  aixm:nilReason ?magneticVariationChangeNilReason .
-           BIND(concat('nil:',?magneticVariationChangeNilReason) AS ?magneticVariationChange)
+           BIND(concat(\'nil:\',?magneticVariationChangeNilReason) AS ?magneticVariationChange)
           }
         }
       }
@@ -4199,19 +4199,19 @@ WHERE
           {
             ?_referenceTemperature rdf:value ?referenceTemperatureValue .
             FILTER ( NOT EXISTS {?_referenceTemperature (aixm:uom | fixm:uom | plain:uom) ?referenceTemperatureUoM})
-            BIND(concat('val:',?referenceTemperatureValue) AS ?referenceTemperature)
+            BIND(concat(\'val:\',?referenceTemperatureValue) AS ?referenceTemperature)
           }
             UNION
           {
             ?_referenceTemperature
               rdf:value ?referenceTemperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?referenceTemperatureUoM .
-            BIND(concat('xval:',STR(?referenceTemperatureValue),':',?referenceTemperatureUoM) AS ?referenceTemperature)
+            BIND(concat(\'xval:\',STR(?referenceTemperatureValue),\':\',?referenceTemperatureUoM) AS ?referenceTemperature)
           }
             UNION
           {
            ?_referenceTemperature  aixm:nilReason ?referenceTemperatureNilReason .
-           BIND(concat('nil:',?referenceTemperatureNilReason) AS ?referenceTemperature)
+           BIND(concat(\'nil:\',?referenceTemperatureNilReason) AS ?referenceTemperature)
           }
         }
       }
@@ -4220,19 +4220,19 @@ WHERE
           {
             ?_altimeterCheckLocation rdf:value ?altimeterCheckLocationValue .
             FILTER ( NOT EXISTS {?_altimeterCheckLocation (aixm:uom | fixm:uom | plain:uom) ?altimeterCheckLocationUoM})
-            BIND(concat('val:',?altimeterCheckLocationValue) AS ?altimeterCheckLocation)
+            BIND(concat(\'val:\',?altimeterCheckLocationValue) AS ?altimeterCheckLocation)
           }
             UNION
           {
             ?_altimeterCheckLocation
               rdf:value ?altimeterCheckLocationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altimeterCheckLocationUoM .
-            BIND(concat('xval:',STR(?altimeterCheckLocationValue),':',?altimeterCheckLocationUoM) AS ?altimeterCheckLocation)
+            BIND(concat(\'xval:\',STR(?altimeterCheckLocationValue),\':\',?altimeterCheckLocationUoM) AS ?altimeterCheckLocation)
           }
             UNION
           {
            ?_altimeterCheckLocation  aixm:nilReason ?altimeterCheckLocationNilReason .
-           BIND(concat('nil:',?altimeterCheckLocationNilReason) AS ?altimeterCheckLocation)
+           BIND(concat(\'nil:\',?altimeterCheckLocationNilReason) AS ?altimeterCheckLocation)
           }
         }
       }
@@ -4241,19 +4241,19 @@ WHERE
           {
             ?_secondaryPowerSupply rdf:value ?secondaryPowerSupplyValue .
             FILTER ( NOT EXISTS {?_secondaryPowerSupply (aixm:uom | fixm:uom | plain:uom) ?secondaryPowerSupplyUoM})
-            BIND(concat('val:',?secondaryPowerSupplyValue) AS ?secondaryPowerSupply)
+            BIND(concat(\'val:\',?secondaryPowerSupplyValue) AS ?secondaryPowerSupply)
           }
             UNION
           {
             ?_secondaryPowerSupply
               rdf:value ?secondaryPowerSupplyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?secondaryPowerSupplyUoM .
-            BIND(concat('xval:',STR(?secondaryPowerSupplyValue),':',?secondaryPowerSupplyUoM) AS ?secondaryPowerSupply)
+            BIND(concat(\'xval:\',STR(?secondaryPowerSupplyValue),\':\',?secondaryPowerSupplyUoM) AS ?secondaryPowerSupply)
           }
             UNION
           {
            ?_secondaryPowerSupply  aixm:nilReason ?secondaryPowerSupplyNilReason .
-           BIND(concat('nil:',?secondaryPowerSupplyNilReason) AS ?secondaryPowerSupply)
+           BIND(concat(\'nil:\',?secondaryPowerSupplyNilReason) AS ?secondaryPowerSupply)
           }
         }
       }
@@ -4262,19 +4262,19 @@ WHERE
           {
             ?_windDirectionIndicator rdf:value ?windDirectionIndicatorValue .
             FILTER ( NOT EXISTS {?_windDirectionIndicator (aixm:uom | fixm:uom | plain:uom) ?windDirectionIndicatorUoM})
-            BIND(concat('val:',?windDirectionIndicatorValue) AS ?windDirectionIndicator)
+            BIND(concat(\'val:\',?windDirectionIndicatorValue) AS ?windDirectionIndicator)
           }
             UNION
           {
             ?_windDirectionIndicator
               rdf:value ?windDirectionIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?windDirectionIndicatorUoM .
-            BIND(concat('xval:',STR(?windDirectionIndicatorValue),':',?windDirectionIndicatorUoM) AS ?windDirectionIndicator)
+            BIND(concat(\'xval:\',STR(?windDirectionIndicatorValue),\':\',?windDirectionIndicatorUoM) AS ?windDirectionIndicator)
           }
             UNION
           {
            ?_windDirectionIndicator  aixm:nilReason ?windDirectionIndicatorNilReason .
-           BIND(concat('nil:',?windDirectionIndicatorNilReason) AS ?windDirectionIndicator)
+           BIND(concat(\'nil:\',?windDirectionIndicatorNilReason) AS ?windDirectionIndicator)
           }
         }
       }
@@ -4283,19 +4283,19 @@ WHERE
           {
             ?_landingDirectionIndicator rdf:value ?landingDirectionIndicatorValue .
             FILTER ( NOT EXISTS {?_landingDirectionIndicator (aixm:uom | fixm:uom | plain:uom) ?landingDirectionIndicatorUoM})
-            BIND(concat('val:',?landingDirectionIndicatorValue) AS ?landingDirectionIndicator)
+            BIND(concat(\'val:\',?landingDirectionIndicatorValue) AS ?landingDirectionIndicator)
           }
             UNION
           {
             ?_landingDirectionIndicator
               rdf:value ?landingDirectionIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?landingDirectionIndicatorUoM .
-            BIND(concat('xval:',STR(?landingDirectionIndicatorValue),':',?landingDirectionIndicatorUoM) AS ?landingDirectionIndicator)
+            BIND(concat(\'xval:\',STR(?landingDirectionIndicatorValue),\':\',?landingDirectionIndicatorUoM) AS ?landingDirectionIndicator)
           }
             UNION
           {
            ?_landingDirectionIndicator  aixm:nilReason ?landingDirectionIndicatorNilReason .
-           BIND(concat('nil:',?landingDirectionIndicatorNilReason) AS ?landingDirectionIndicator)
+           BIND(concat(\'nil:\',?landingDirectionIndicatorNilReason) AS ?landingDirectionIndicator)
           }
         }
       }
@@ -4304,19 +4304,19 @@ WHERE
           {
             ?_transitionAltitude rdf:value ?transitionAltitudeValue .
             FILTER ( NOT EXISTS {?_transitionAltitude (aixm:uom | fixm:uom | plain:uom) ?transitionAltitudeUoM})
-            BIND(concat('val:',?transitionAltitudeValue) AS ?transitionAltitude)
+            BIND(concat(\'val:\',?transitionAltitudeValue) AS ?transitionAltitude)
           }
             UNION
           {
             ?_transitionAltitude
               rdf:value ?transitionAltitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?transitionAltitudeUoM .
-            BIND(concat('xval:',STR(?transitionAltitudeValue),':',?transitionAltitudeUoM) AS ?transitionAltitude)
+            BIND(concat(\'xval:\',STR(?transitionAltitudeValue),\':\',?transitionAltitudeUoM) AS ?transitionAltitude)
           }
             UNION
           {
            ?_transitionAltitude  aixm:nilReason ?transitionAltitudeNilReason .
-           BIND(concat('nil:',?transitionAltitudeNilReason) AS ?transitionAltitude)
+           BIND(concat(\'nil:\',?transitionAltitudeNilReason) AS ?transitionAltitude)
           }
         }
       }
@@ -4325,19 +4325,19 @@ WHERE
           {
             ?_transitionLevel rdf:value ?transitionLevelValue .
             FILTER ( NOT EXISTS {?_transitionLevel (aixm:uom | fixm:uom | plain:uom) ?transitionLevelUoM})
-            BIND(concat('val:',?transitionLevelValue) AS ?transitionLevel)
+            BIND(concat(\'val:\',?transitionLevelValue) AS ?transitionLevel)
           }
             UNION
           {
             ?_transitionLevel
               rdf:value ?transitionLevelValue ;
               (aixm:uom | fixm:uom | plain:uom) ?transitionLevelUoM .
-            BIND(concat('xval:',STR(?transitionLevelValue),':',?transitionLevelUoM) AS ?transitionLevel)
+            BIND(concat(\'xval:\',STR(?transitionLevelValue),\':\',?transitionLevelUoM) AS ?transitionLevel)
           }
             UNION
           {
            ?_transitionLevel  aixm:nilReason ?transitionLevelNilReason .
-           BIND(concat('nil:',?transitionLevelNilReason) AS ?transitionLevel)
+           BIND(concat(\'nil:\',?transitionLevelNilReason) AS ?transitionLevel)
           }
         }
       }
@@ -4346,19 +4346,19 @@ WHERE
           {
             ?_lowestTemperature rdf:value ?lowestTemperatureValue .
             FILTER ( NOT EXISTS {?_lowestTemperature (aixm:uom | fixm:uom | plain:uom) ?lowestTemperatureUoM})
-            BIND(concat('val:',?lowestTemperatureValue) AS ?lowestTemperature)
+            BIND(concat(\'val:\',?lowestTemperatureValue) AS ?lowestTemperature)
           }
             UNION
           {
             ?_lowestTemperature
               rdf:value ?lowestTemperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lowestTemperatureUoM .
-            BIND(concat('xval:',STR(?lowestTemperatureValue),':',?lowestTemperatureUoM) AS ?lowestTemperature)
+            BIND(concat(\'xval:\',STR(?lowestTemperatureValue),\':\',?lowestTemperatureUoM) AS ?lowestTemperature)
           }
             UNION
           {
            ?_lowestTemperature  aixm:nilReason ?lowestTemperatureNilReason .
-           BIND(concat('nil:',?lowestTemperatureNilReason) AS ?lowestTemperature)
+           BIND(concat(\'nil:\',?lowestTemperatureNilReason) AS ?lowestTemperature)
           }
         }
       }
@@ -4367,19 +4367,19 @@ WHERE
           {
             ?_abandoned rdf:value ?abandonedValue .
             FILTER ( NOT EXISTS {?_abandoned (aixm:uom | fixm:uom | plain:uom) ?abandonedUoM})
-            BIND(concat('val:',?abandonedValue) AS ?abandoned)
+            BIND(concat(\'val:\',?abandonedValue) AS ?abandoned)
           }
             UNION
           {
             ?_abandoned
               rdf:value ?abandonedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?abandonedUoM .
-            BIND(concat('xval:',STR(?abandonedValue),':',?abandonedUoM) AS ?abandoned)
+            BIND(concat(\'xval:\',STR(?abandonedValue),\':\',?abandonedUoM) AS ?abandoned)
           }
             UNION
           {
            ?_abandoned  aixm:nilReason ?abandonedNilReason .
-           BIND(concat('nil:',?abandonedNilReason) AS ?abandoned)
+           BIND(concat(\'nil:\',?abandonedNilReason) AS ?abandoned)
           }
         }
       }
@@ -4388,19 +4388,19 @@ WHERE
           {
             ?_certificationDate rdf:value ?certificationDateValue .
             FILTER ( NOT EXISTS {?_certificationDate (aixm:uom | fixm:uom | plain:uom) ?certificationDateUoM})
-            BIND(concat('val:',?certificationDateValue) AS ?certificationDate)
+            BIND(concat(\'val:\',?certificationDateValue) AS ?certificationDate)
           }
             UNION
           {
             ?_certificationDate
               rdf:value ?certificationDateValue ;
               (aixm:uom | fixm:uom | plain:uom) ?certificationDateUoM .
-            BIND(concat('xval:',STR(?certificationDateValue),':',?certificationDateUoM) AS ?certificationDate)
+            BIND(concat(\'xval:\',STR(?certificationDateValue),\':\',?certificationDateUoM) AS ?certificationDate)
           }
             UNION
           {
            ?_certificationDate  aixm:nilReason ?certificationDateNilReason .
-           BIND(concat('nil:',?certificationDateNilReason) AS ?certificationDate)
+           BIND(concat(\'nil:\',?certificationDateNilReason) AS ?certificationDate)
           }
         }
       }
@@ -4409,19 +4409,19 @@ WHERE
           {
             ?_certificationExpirationDate rdf:value ?certificationExpirationDateValue .
             FILTER ( NOT EXISTS {?_certificationExpirationDate (aixm:uom | fixm:uom | plain:uom) ?certificationExpirationDateUoM})
-            BIND(concat('val:',?certificationExpirationDateValue) AS ?certificationExpirationDate)
+            BIND(concat(\'val:\',?certificationExpirationDateValue) AS ?certificationExpirationDate)
           }
             UNION
           {
             ?_certificationExpirationDate
               rdf:value ?certificationExpirationDateValue ;
               (aixm:uom | fixm:uom | plain:uom) ?certificationExpirationDateUoM .
-            BIND(concat('xval:',STR(?certificationExpirationDateValue),':',?certificationExpirationDateUoM) AS ?certificationExpirationDate)
+            BIND(concat(\'xval:\',STR(?certificationExpirationDateValue),\':\',?certificationExpirationDateUoM) AS ?certificationExpirationDate)
           }
             UNION
           {
            ?_certificationExpirationDate  aixm:nilReason ?certificationExpirationDateNilReason .
-           BIND(concat('nil:',?certificationExpirationDateNilReason) AS ?certificationExpirationDate)
+           BIND(concat(\'nil:\',?certificationExpirationDateNilReason) AS ?certificationExpirationDate)
           }
         }
       }
@@ -4439,7 +4439,7 @@ WHERE
 GROUP BY ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?ARP ?responsibleOrganisation ?aviationBoundary
 
       '
-,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,ContactConcat,AnnotationConcat,ARP,AltimeterSourceConcat,ContaminantConcat,ServedCityConcat,ResponsibleOrganisation,AviationBoundary,AvailabilityConcat),[]), convert(ContactConcat,ContactList), convert(AnnotationConcat,AnnotationList), convert(AltimeterSourceConcat,AltimeterSourceList), convert(ContaminantConcat,ContaminantList), convert(ServedCityConcat,ServedCityList), convert(AvailabilityConcat,AvailabilityList).
+,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,Contact,Annotation,ARP,AltimeterSource,Contaminant,ServedCity,ResponsibleOrganisation,AviationBoundary,Availability),[]).
 
 % fixm_Point4D(Graph, Point4D, Altitude?, Time?, PointRange?)
 
@@ -4478,19 +4478,19 @@ WHERE
           {
             ?_altitude rdf:value ?altitudeValue .
             FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat('val:',?altitudeValue) AS ?altitude)
+            BIND(concat(\'val:\',?altitudeValue) AS ?altitude)
           }
             UNION
           {
             ?_altitude
               rdf:value ?altitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-            BIND(concat('xval:',STR(?altitudeValue),':',?altitudeUoM) AS ?altitude)
+            BIND(concat(\'xval:\',STR(?altitudeValue),\':\',?altitudeUoM) AS ?altitude)
           }
             UNION
           {
            ?_altitude  aixm:nilReason ?altitudeNilReason .
-           BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
+           BIND(concat(\'nil:\',?altitudeNilReason) AS ?altitude)
           }
         }
       }
@@ -4499,19 +4499,19 @@ WHERE
           {
             ?_time rdf:value ?timeValue .
             FILTER ( NOT EXISTS {?_time (aixm:uom | fixm:uom | plain:uom) ?timeUoM})
-            BIND(concat('val:',?timeValue) AS ?time)
+            BIND(concat(\'val:\',?timeValue) AS ?time)
           }
             UNION
           {
             ?_time
               rdf:value ?timeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?timeUoM .
-            BIND(concat('xval:',STR(?timeValue),':',?timeUoM) AS ?time)
+            BIND(concat(\'xval:\',STR(?timeValue),\':\',?timeUoM) AS ?time)
           }
             UNION
           {
            ?_time  aixm:nilReason ?timeNilReason .
-           BIND(concat('nil:',?timeNilReason) AS ?time)
+           BIND(concat(\'nil:\',?timeNilReason) AS ?time)
           }
         }
       }
@@ -4560,19 +4560,19 @@ WHERE
           {
             ?_airTrafficType rdf:value ?airTrafficTypeValue .
             FILTER ( NOT EXISTS {?_airTrafficType (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM})
-            BIND(concat('val:',?airTrafficTypeValue) AS ?airTrafficType)
+            BIND(concat(\'val:\',?airTrafficTypeValue) AS ?airTrafficType)
           }
             UNION
           {
             ?_airTrafficType
               rdf:value ?airTrafficTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM .
-            BIND(concat('xval:',STR(?airTrafficTypeValue),':',?airTrafficTypeUoM) AS ?airTrafficType)
+            BIND(concat(\'xval:\',STR(?airTrafficTypeValue),\':\',?airTrafficTypeUoM) AS ?airTrafficType)
           }
             UNION
           {
            ?_airTrafficType  aixm:nilReason ?airTrafficTypeNilReason .
-           BIND(concat('nil:',?airTrafficTypeNilReason) AS ?airTrafficType)
+           BIND(concat(\'nil:\',?airTrafficTypeNilReason) AS ?airTrafficType)
           }
         }
       }
@@ -4581,19 +4581,19 @@ WHERE
           {
             ?_delayAtPoint rdf:value ?delayAtPointValue .
             FILTER ( NOT EXISTS {?_delayAtPoint (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM})
-            BIND(concat('val:',?delayAtPointValue) AS ?delayAtPoint)
+            BIND(concat(\'val:\',?delayAtPointValue) AS ?delayAtPoint)
           }
             UNION
           {
             ?_delayAtPoint
               rdf:value ?delayAtPointValue ;
               (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM .
-            BIND(concat('xval:',STR(?delayAtPointValue),':',?delayAtPointUoM) AS ?delayAtPoint)
+            BIND(concat(\'xval:\',STR(?delayAtPointValue),\':\',?delayAtPointUoM) AS ?delayAtPoint)
           }
             UNION
           {
            ?_delayAtPoint  aixm:nilReason ?delayAtPointNilReason .
-           BIND(concat('nil:',?delayAtPointNilReason) AS ?delayAtPoint)
+           BIND(concat(\'nil:\',?delayAtPointNilReason) AS ?delayAtPoint)
           }
         }
       }
@@ -4602,19 +4602,19 @@ WHERE
           {
             ?_flightRules rdf:value ?flightRulesValue .
             FILTER ( NOT EXISTS {?_flightRules (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM})
-            BIND(concat('val:',?flightRulesValue) AS ?flightRules)
+            BIND(concat(\'val:\',?flightRulesValue) AS ?flightRules)
           }
             UNION
           {
             ?_flightRules
               rdf:value ?flightRulesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM .
-            BIND(concat('xval:',STR(?flightRulesValue),':',?flightRulesUoM) AS ?flightRules)
+            BIND(concat(\'xval:\',STR(?flightRulesValue),\':\',?flightRulesUoM) AS ?flightRules)
           }
             UNION
           {
            ?_flightRules  aixm:nilReason ?flightRulesNilReason .
-           BIND(concat('nil:',?flightRulesNilReason) AS ?flightRules)
+           BIND(concat(\'nil:\',?flightRulesNilReason) AS ?flightRules)
           }
         }
       }
@@ -4624,19 +4624,19 @@ WHERE
           {
             ?_clearanceLimit rdf:value ?clearanceLimitValue .
             FILTER ( NOT EXISTS {?_clearanceLimit (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM})
-            BIND(concat('val:',?clearanceLimitValue) AS ?clearanceLimit)
+            BIND(concat(\'val:\',?clearanceLimitValue) AS ?clearanceLimit)
           }
             UNION
           {
             ?_clearanceLimit
               rdf:value ?clearanceLimitValue ;
               (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM .
-            BIND(concat('xval:',STR(?clearanceLimitValue),':',?clearanceLimitUoM) AS ?clearanceLimit)
+            BIND(concat(\'xval:\',STR(?clearanceLimitValue),\':\',?clearanceLimitUoM) AS ?clearanceLimit)
           }
             UNION
           {
            ?_clearanceLimit  aixm:nilReason ?clearanceLimitNilReason .
-           BIND(concat('nil:',?clearanceLimitNilReason) AS ?clearanceLimit)
+           BIND(concat(\'nil:\',?clearanceLimitNilReason) AS ?clearanceLimit)
           }
         }
       }
@@ -4670,7 +4670,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?ridge ?side ?distance ?depth (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?ridge ?side ?distance ?depth ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -4680,19 +4680,19 @@ WHERE
           {
             ?_side rdf:value ?sideValue .
             FILTER ( NOT EXISTS {?_side (aixm:uom | fixm:uom | plain:uom) ?sideUoM})
-            BIND(concat('val:',?sideValue) AS ?side)
+            BIND(concat(\'val:\',?sideValue) AS ?side)
           }
             UNION
           {
             ?_side
               rdf:value ?sideValue ;
               (aixm:uom | fixm:uom | plain:uom) ?sideUoM .
-            BIND(concat('xval:',STR(?sideValue),':',?sideUoM) AS ?side)
+            BIND(concat(\'xval:\',STR(?sideValue),\':\',?sideUoM) AS ?side)
           }
             UNION
           {
            ?_side  aixm:nilReason ?sideNilReason .
-           BIND(concat('nil:',?sideNilReason) AS ?side)
+           BIND(concat(\'nil:\',?sideNilReason) AS ?side)
           }
         }
       }
@@ -4701,19 +4701,19 @@ WHERE
           {
             ?_distance rdf:value ?distanceValue .
             FILTER ( NOT EXISTS {?_distance (aixm:uom | fixm:uom | plain:uom) ?distanceUoM})
-            BIND(concat('val:',?distanceValue) AS ?distance)
+            BIND(concat(\'val:\',?distanceValue) AS ?distance)
           }
             UNION
           {
             ?_distance
               rdf:value ?distanceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?distanceUoM .
-            BIND(concat('xval:',STR(?distanceValue),':',?distanceUoM) AS ?distance)
+            BIND(concat(\'xval:\',STR(?distanceValue),\':\',?distanceUoM) AS ?distance)
           }
             UNION
           {
            ?_distance  aixm:nilReason ?distanceNilReason .
-           BIND(concat('nil:',?distanceNilReason) AS ?distance)
+           BIND(concat(\'nil:\',?distanceNilReason) AS ?distance)
           }
         }
       }
@@ -4722,19 +4722,19 @@ WHERE
           {
             ?_depth rdf:value ?depthValue .
             FILTER ( NOT EXISTS {?_depth (aixm:uom | fixm:uom | plain:uom) ?depthUoM})
-            BIND(concat('val:',?depthValue) AS ?depth)
+            BIND(concat(\'val:\',?depthValue) AS ?depth)
           }
             UNION
           {
             ?_depth
               rdf:value ?depthValue ;
               (aixm:uom | fixm:uom | plain:uom) ?depthUoM .
-            BIND(concat('xval:',STR(?depthValue),':',?depthUoM) AS ?depth)
+            BIND(concat(\'xval:\',STR(?depthValue),\':\',?depthUoM) AS ?depth)
           }
             UNION
           {
            ?_depth  aixm:nilReason ?depthNilReason .
-           BIND(concat('nil:',?depthNilReason) AS ?depth)
+           BIND(concat(\'nil:\',?depthNilReason) AS ?depth)
           }
         }
       }
@@ -4744,7 +4744,7 @@ WHERE
 GROUP BY ?graph ?ridge ?side ?distance ?depth
 
       '
-,row(Graph,Ridge,Side,Distance,Depth,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,Ridge,Side,Distance,Depth,Annotation),[]).
 
 % fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTime?, DeIcingTime?, GroundHandlingTime?, StartupTime?)
 
@@ -4817,19 +4817,19 @@ WHERE
           {
             ?_diversionRecoveryInformation rdf:value ?diversionRecoveryInformationValue .
             FILTER ( NOT EXISTS {?_diversionRecoveryInformation (aixm:uom | fixm:uom | plain:uom) ?diversionRecoveryInformationUoM})
-            BIND(concat('val:',?diversionRecoveryInformationValue) AS ?diversionRecoveryInformation)
+            BIND(concat(\'val:\',?diversionRecoveryInformationValue) AS ?diversionRecoveryInformation)
           }
             UNION
           {
             ?_diversionRecoveryInformation
               rdf:value ?diversionRecoveryInformationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?diversionRecoveryInformationUoM .
-            BIND(concat('xval:',STR(?diversionRecoveryInformationValue),':',?diversionRecoveryInformationUoM) AS ?diversionRecoveryInformation)
+            BIND(concat(\'xval:\',STR(?diversionRecoveryInformationValue),\':\',?diversionRecoveryInformationUoM) AS ?diversionRecoveryInformation)
           }
             UNION
           {
            ?_diversionRecoveryInformation  aixm:nilReason ?diversionRecoveryInformationNilReason .
-           BIND(concat('nil:',?diversionRecoveryInformationNilReason) AS ?diversionRecoveryInformation)
+           BIND(concat(\'nil:\',?diversionRecoveryInformationNilReason) AS ?diversionRecoveryInformation)
           }
         }
       }
@@ -4872,19 +4872,19 @@ WHERE
           {
             ?_calculated rdf:value ?calculatedValue .
             FILTER ( NOT EXISTS {?_calculated (aixm:uom | fixm:uom | plain:uom) ?calculatedUoM})
-            BIND(concat('val:',?calculatedValue) AS ?calculated)
+            BIND(concat(\'val:\',?calculatedValue) AS ?calculated)
           }
             UNION
           {
             ?_calculated
               rdf:value ?calculatedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?calculatedUoM .
-            BIND(concat('xval:',STR(?calculatedValue),':',?calculatedUoM) AS ?calculated)
+            BIND(concat(\'xval:\',STR(?calculatedValue),\':\',?calculatedUoM) AS ?calculated)
           }
             UNION
           {
            ?_calculated  aixm:nilReason ?calculatedNilReason .
-           BIND(concat('nil:',?calculatedNilReason) AS ?calculated)
+           BIND(concat(\'nil:\',?calculatedNilReason) AS ?calculated)
           }
         }
       }
@@ -4893,19 +4893,19 @@ WHERE
           {
             ?_pilotReported rdf:value ?pilotReportedValue .
             FILTER ( NOT EXISTS {?_pilotReported (aixm:uom | fixm:uom | plain:uom) ?pilotReportedUoM})
-            BIND(concat('val:',?pilotReportedValue) AS ?pilotReported)
+            BIND(concat(\'val:\',?pilotReportedValue) AS ?pilotReported)
           }
             UNION
           {
             ?_pilotReported
               rdf:value ?pilotReportedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?pilotReportedUoM .
-            BIND(concat('xval:',STR(?pilotReportedValue),':',?pilotReportedUoM) AS ?pilotReported)
+            BIND(concat(\'xval:\',STR(?pilotReportedValue),\':\',?pilotReportedUoM) AS ?pilotReported)
           }
             UNION
           {
            ?_pilotReported  aixm:nilReason ?pilotReportedNilReason .
-           BIND(concat('nil:',?pilotReportedNilReason) AS ?pilotReported)
+           BIND(concat(\'nil:\',?pilotReportedNilReason) AS ?pilotReported)
           }
         }
       }
@@ -4914,19 +4914,19 @@ WHERE
           {
             ?_surveillance rdf:value ?surveillanceValue .
             FILTER ( NOT EXISTS {?_surveillance (aixm:uom | fixm:uom | plain:uom) ?surveillanceUoM})
-            BIND(concat('val:',?surveillanceValue) AS ?surveillance)
+            BIND(concat(\'val:\',?surveillanceValue) AS ?surveillance)
           }
             UNION
           {
             ?_surveillance
               rdf:value ?surveillanceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?surveillanceUoM .
-            BIND(concat('xval:',STR(?surveillanceValue),':',?surveillanceUoM) AS ?surveillance)
+            BIND(concat(\'xval:\',STR(?surveillanceValue),\':\',?surveillanceUoM) AS ?surveillance)
           }
             UNION
           {
            ?_surveillance  aixm:nilReason ?surveillanceNilReason .
-           BIND(concat('nil:',?surveillanceNilReason) AS ?surveillance)
+           BIND(concat(\'nil:\',?surveillanceNilReason) AS ?surveillance)
           }
         }
       }
@@ -4969,19 +4969,19 @@ WHERE
           {
             ?_actionTaken rdf:value ?actionTakenValue .
             FILTER ( NOT EXISTS {?_actionTaken (aixm:uom | fixm:uom | plain:uom) ?actionTakenUoM})
-            BIND(concat('val:',?actionTakenValue) AS ?actionTaken)
+            BIND(concat(\'val:\',?actionTakenValue) AS ?actionTaken)
           }
             UNION
           {
             ?_actionTaken
               rdf:value ?actionTakenValue ;
               (aixm:uom | fixm:uom | plain:uom) ?actionTakenUoM .
-            BIND(concat('xval:',STR(?actionTakenValue),':',?actionTakenUoM) AS ?actionTaken)
+            BIND(concat(\'xval:\',STR(?actionTakenValue),\':\',?actionTakenUoM) AS ?actionTaken)
           }
             UNION
           {
            ?_actionTaken  aixm:nilReason ?actionTakenNilReason .
-           BIND(concat('nil:',?actionTakenNilReason) AS ?actionTaken)
+           BIND(concat(\'nil:\',?actionTakenNilReason) AS ?actionTaken)
           }
         }
       }
@@ -4990,19 +4990,19 @@ WHERE
           {
             ?_emergencyDescription rdf:value ?emergencyDescriptionValue .
             FILTER ( NOT EXISTS {?_emergencyDescription (aixm:uom | fixm:uom | plain:uom) ?emergencyDescriptionUoM})
-            BIND(concat('val:',?emergencyDescriptionValue) AS ?emergencyDescription)
+            BIND(concat(\'val:\',?emergencyDescriptionValue) AS ?emergencyDescription)
           }
             UNION
           {
             ?_emergencyDescription
               rdf:value ?emergencyDescriptionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?emergencyDescriptionUoM .
-            BIND(concat('xval:',STR(?emergencyDescriptionValue),':',?emergencyDescriptionUoM) AS ?emergencyDescription)
+            BIND(concat(\'xval:\',STR(?emergencyDescriptionValue),\':\',?emergencyDescriptionUoM) AS ?emergencyDescription)
           }
             UNION
           {
            ?_emergencyDescription  aixm:nilReason ?emergencyDescriptionNilReason .
-           BIND(concat('nil:',?emergencyDescriptionNilReason) AS ?emergencyDescription)
+           BIND(concat(\'nil:\',?emergencyDescriptionNilReason) AS ?emergencyDescription)
           }
         }
       }
@@ -5012,19 +5012,19 @@ WHERE
           {
             ?_otherInformation rdf:value ?otherInformationValue .
             FILTER ( NOT EXISTS {?_otherInformation (aixm:uom | fixm:uom | plain:uom) ?otherInformationUoM})
-            BIND(concat('val:',?otherInformationValue) AS ?otherInformation)
+            BIND(concat(\'val:\',?otherInformationValue) AS ?otherInformation)
           }
             UNION
           {
             ?_otherInformation
               rdf:value ?otherInformationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherInformationUoM .
-            BIND(concat('xval:',STR(?otherInformationValue),':',?otherInformationUoM) AS ?otherInformation)
+            BIND(concat(\'xval:\',STR(?otherInformationValue),\':\',?otherInformationUoM) AS ?otherInformation)
           }
             UNION
           {
            ?_otherInformation  aixm:nilReason ?otherInformationNilReason .
-           BIND(concat('nil:',?otherInformationNilReason) AS ?otherInformation)
+           BIND(concat(\'nil:\',?otherInformationNilReason) AS ?otherInformation)
           }
         }
       }
@@ -5033,19 +5033,19 @@ WHERE
           {
             ?_phase rdf:value ?phaseValue .
             FILTER ( NOT EXISTS {?_phase (aixm:uom | fixm:uom | plain:uom) ?phaseUoM})
-            BIND(concat('val:',?phaseValue) AS ?phase)
+            BIND(concat(\'val:\',?phaseValue) AS ?phase)
           }
             UNION
           {
             ?_phase
               rdf:value ?phaseValue ;
               (aixm:uom | fixm:uom | plain:uom) ?phaseUoM .
-            BIND(concat('xval:',STR(?phaseValue),':',?phaseUoM) AS ?phase)
+            BIND(concat(\'xval:\',STR(?phaseValue),\':\',?phaseUoM) AS ?phase)
           }
             UNION
           {
            ?_phase  aixm:nilReason ?phaseNilReason .
-           BIND(concat('nil:',?phaseNilReason) AS ?phase)
+           BIND(concat(\'nil:\',?phaseNilReason) AS ?phase)
           }
         }
       }
@@ -5079,7 +5079,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flight ?controllingUnit (GROUP_CONCAT(DISTINCT ?extensions;SEPARATOR=",") AS ?extensionsConcat) ?flightFiler ?gufi ?remarks ?aircraftDescription (GROUP_CONCAT(DISTINCT ?dangerousGoods;SEPARATOR=",") AS ?dangerousGoodsConcat) (GROUP_CONCAT(DISTINCT ?rankedTrajectories;SEPARATOR=",") AS ?rankedTrajectoriesConcat) ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification (GROUP_CONCAT(DISTINCT ?specialHandling;SEPARATOR=",") AS ?specialHandlingConcat)
+SELECT ?graph ?flight ?controllingUnit ?extensions ?flightFiler ?gufi ?remarks ?aircraftDescription ?dangerousGoods ?rankedTrajectories ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification ?specialHandling
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5095,19 +5095,19 @@ WHERE
           {
             ?_flightFiler rdf:value ?flightFilerValue .
             FILTER ( NOT EXISTS {?_flightFiler (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM})
-            BIND(concat('val:',?flightFilerValue) AS ?flightFiler)
+            BIND(concat(\'val:\',?flightFilerValue) AS ?flightFiler)
           }
             UNION
           {
             ?_flightFiler
               rdf:value ?flightFilerValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM .
-            BIND(concat('xval:',STR(?flightFilerValue),':',?flightFilerUoM) AS ?flightFiler)
+            BIND(concat(\'xval:\',STR(?flightFilerValue),\':\',?flightFilerUoM) AS ?flightFiler)
           }
             UNION
           {
            ?_flightFiler  aixm:nilReason ?flightFilerNilReason .
-           BIND(concat('nil:',?flightFilerNilReason) AS ?flightFiler)
+           BIND(concat(\'nil:\',?flightFilerNilReason) AS ?flightFiler)
           }
         }
       }
@@ -5116,19 +5116,19 @@ WHERE
           {
             ?_gufi rdf:value ?gufiValue .
             FILTER ( NOT EXISTS {?_gufi (aixm:uom | fixm:uom | plain:uom) ?gufiUoM})
-            BIND(concat('val:',?gufiValue) AS ?gufi)
+            BIND(concat(\'val:\',?gufiValue) AS ?gufi)
           }
             UNION
           {
             ?_gufi
               rdf:value ?gufiValue ;
               (aixm:uom | fixm:uom | plain:uom) ?gufiUoM .
-            BIND(concat('xval:',STR(?gufiValue),':',?gufiUoM) AS ?gufi)
+            BIND(concat(\'xval:\',STR(?gufiValue),\':\',?gufiUoM) AS ?gufi)
           }
             UNION
           {
            ?_gufi  aixm:nilReason ?gufiNilReason .
-           BIND(concat('nil:',?gufiNilReason) AS ?gufi)
+           BIND(concat(\'nil:\',?gufiNilReason) AS ?gufi)
           }
         }
       }
@@ -5137,19 +5137,19 @@ WHERE
           {
             ?_remarks rdf:value ?remarksValue .
             FILTER ( NOT EXISTS {?_remarks (aixm:uom | fixm:uom | plain:uom) ?remarksUoM})
-            BIND(concat('val:',?remarksValue) AS ?remarks)
+            BIND(concat(\'val:\',?remarksValue) AS ?remarks)
           }
             UNION
           {
             ?_remarks
               rdf:value ?remarksValue ;
               (aixm:uom | fixm:uom | plain:uom) ?remarksUoM .
-            BIND(concat('xval:',STR(?remarksValue),':',?remarksUoM) AS ?remarks)
+            BIND(concat(\'xval:\',STR(?remarksValue),\':\',?remarksUoM) AS ?remarks)
           }
             UNION
           {
            ?_remarks  aixm:nilReason ?remarksNilReason .
-           BIND(concat('nil:',?remarksNilReason) AS ?remarks)
+           BIND(concat(\'nil:\',?remarksNilReason) AS ?remarks)
           }
         }
       }
@@ -5171,19 +5171,19 @@ WHERE
           {
             ?_flightType rdf:value ?flightTypeValue .
             FILTER ( NOT EXISTS {?_flightType (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM})
-            BIND(concat('val:',?flightTypeValue) AS ?flightType)
+            BIND(concat(\'val:\',?flightTypeValue) AS ?flightType)
           }
             UNION
           {
             ?_flightType
               rdf:value ?flightTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM .
-            BIND(concat('xval:',STR(?flightTypeValue),':',?flightTypeUoM) AS ?flightType)
+            BIND(concat(\'xval:\',STR(?flightTypeValue),\':\',?flightTypeUoM) AS ?flightType)
           }
             UNION
           {
            ?_flightType  aixm:nilReason ?flightTypeNilReason .
-           BIND(concat('nil:',?flightTypeNilReason) AS ?flightType)
+           BIND(concat(\'nil:\',?flightTypeNilReason) AS ?flightType)
           }
         }
       }
@@ -5193,19 +5193,19 @@ WHERE
           {
             ?_originator rdf:value ?originatorValue .
             FILTER ( NOT EXISTS {?_originator (aixm:uom | fixm:uom | plain:uom) ?originatorUoM})
-            BIND(concat('val:',?originatorValue) AS ?originator)
+            BIND(concat(\'val:\',?originatorValue) AS ?originator)
           }
             UNION
           {
             ?_originator
               rdf:value ?originatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?originatorUoM .
-            BIND(concat('xval:',STR(?originatorValue),':',?originatorUoM) AS ?originator)
+            BIND(concat(\'xval:\',STR(?originatorValue),\':\',?originatorUoM) AS ?originator)
           }
             UNION
           {
            ?_originator  aixm:nilReason ?originatorNilReason .
-           BIND(concat('nil:',?originatorNilReason) AS ?originator)
+           BIND(concat(\'nil:\',?originatorNilReason) AS ?originator)
           }
         }
       }
@@ -5216,19 +5216,19 @@ WHERE
           {
             ?_specialHandling rdf:value ?specialHandlingValue .
             FILTER ( NOT EXISTS {?_specialHandling (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM})
-            BIND(concat('val:',?specialHandlingValue) AS ?specialHandling)
+            BIND(concat(\'val:\',?specialHandlingValue) AS ?specialHandling)
           }
             UNION
           {
             ?_specialHandling
               rdf:value ?specialHandlingValue ;
               (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM .
-            BIND(concat('xval:',STR(?specialHandlingValue),':',?specialHandlingUoM) AS ?specialHandling)
+            BIND(concat(\'xval:\',STR(?specialHandlingValue),\':\',?specialHandlingUoM) AS ?specialHandling)
           }
             UNION
           {
            ?_specialHandling  aixm:nilReason ?specialHandlingNilReason .
-           BIND(concat('nil:',?specialHandlingNilReason) AS ?specialHandling)
+           BIND(concat(\'nil:\',?specialHandlingNilReason) AS ?specialHandling)
           }
         }
       }
@@ -5238,7 +5238,7 @@ WHERE
 GROUP BY ?graph ?flight ?controllingUnit ?flightFiler ?gufi ?remarks ?aircraftDescription ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification
 
       '
-,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convert(ExtensionsConcat,ExtensionsList), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convert(SpecialHandlingConcat,SpecialHandlingList).
+,row(Graph,Flight,ControllingUnit,Extensions,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoods,RankedTrajectories,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandling),[]).
 
 % aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation*, SpecialDateAuthority*, TimeInterval*)
 
@@ -5263,7 +5263,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?propertiesWithSchedule (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?specialDateAuthority;SEPARATOR=",") AS ?specialDateAuthorityConcat) (GROUP_CONCAT(DISTINCT ?timeInterval;SEPARATOR=",") AS ?timeIntervalConcat)
+SELECT ?graph ?propertiesWithSchedule ?annotation ?specialDateAuthority ?timeInterval
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5281,7 +5281,7 @@ WHERE
 GROUP BY ?graph ?propertiesWithSchedule
 
       '
-,row(Graph,PropertiesWithSchedule,AnnotationConcat,SpecialDateAuthorityConcat,TimeIntervalConcat),[]), convert(AnnotationConcat,AnnotationList), convert(SpecialDateAuthorityConcat,SpecialDateAuthorityList), convert(TimeIntervalConcat,TimeIntervalList).
+,row(Graph,PropertiesWithSchedule,Annotation,SpecialDateAuthority,TimeInterval),[]).
 
 % gml_Surface(Graph, Surface, Patch+)
 
@@ -5306,7 +5306,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?patch;SEPARATOR=",") AS ?patchConcat)
+SELECT ?graph ?surface ?patch
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5322,7 +5322,7 @@ WHERE
 GROUP BY ?graph ?surface
 
       '
-,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList).
+,row(Graph,Surface,Patch),[]).
 
 % fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevel?, ClearedSpeed?, Heading?, OfftrackClearance?, RateOfClimbDescend?, DirectRouting?)
 
@@ -5357,19 +5357,19 @@ WHERE
           {
             ?_clearedFlightLevel rdf:value ?clearedFlightLevelValue .
             FILTER ( NOT EXISTS {?_clearedFlightLevel (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM})
-            BIND(concat('val:',?clearedFlightLevelValue) AS ?clearedFlightLevel)
+            BIND(concat(\'val:\',?clearedFlightLevelValue) AS ?clearedFlightLevel)
           }
             UNION
           {
             ?_clearedFlightLevel
               rdf:value ?clearedFlightLevelValue ;
               (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM .
-            BIND(concat('xval:',STR(?clearedFlightLevelValue),':',?clearedFlightLevelUoM) AS ?clearedFlightLevel)
+            BIND(concat(\'xval:\',STR(?clearedFlightLevelValue),\':\',?clearedFlightLevelUoM) AS ?clearedFlightLevel)
           }
             UNION
           {
            ?_clearedFlightLevel  aixm:nilReason ?clearedFlightLevelNilReason .
-           BIND(concat('nil:',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
+           BIND(concat(\'nil:\',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
           }
         }
       }
@@ -5378,19 +5378,19 @@ WHERE
           {
             ?_clearedSpeed rdf:value ?clearedSpeedValue .
             FILTER ( NOT EXISTS {?_clearedSpeed (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM})
-            BIND(concat('val:',?clearedSpeedValue) AS ?clearedSpeed)
+            BIND(concat(\'val:\',?clearedSpeedValue) AS ?clearedSpeed)
           }
             UNION
           {
             ?_clearedSpeed
               rdf:value ?clearedSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM .
-            BIND(concat('xval:',STR(?clearedSpeedValue),':',?clearedSpeedUoM) AS ?clearedSpeed)
+            BIND(concat(\'xval:\',STR(?clearedSpeedValue),\':\',?clearedSpeedUoM) AS ?clearedSpeed)
           }
             UNION
           {
            ?_clearedSpeed  aixm:nilReason ?clearedSpeedNilReason .
-           BIND(concat('nil:',?clearedSpeedNilReason) AS ?clearedSpeed)
+           BIND(concat(\'nil:\',?clearedSpeedNilReason) AS ?clearedSpeed)
           }
         }
       }
@@ -5399,19 +5399,19 @@ WHERE
           {
             ?_heading rdf:value ?headingValue .
             FILTER ( NOT EXISTS {?_heading (aixm:uom | fixm:uom | plain:uom) ?headingUoM})
-            BIND(concat('val:',?headingValue) AS ?heading)
+            BIND(concat(\'val:\',?headingValue) AS ?heading)
           }
             UNION
           {
             ?_heading
               rdf:value ?headingValue ;
               (aixm:uom | fixm:uom | plain:uom) ?headingUoM .
-            BIND(concat('xval:',STR(?headingValue),':',?headingUoM) AS ?heading)
+            BIND(concat(\'xval:\',STR(?headingValue),\':\',?headingUoM) AS ?heading)
           }
             UNION
           {
            ?_heading  aixm:nilReason ?headingNilReason .
-           BIND(concat('nil:',?headingNilReason) AS ?heading)
+           BIND(concat(\'nil:\',?headingNilReason) AS ?heading)
           }
         }
       }
@@ -5421,19 +5421,19 @@ WHERE
           {
             ?_rateOfClimbDescend rdf:value ?rateOfClimbDescendValue .
             FILTER ( NOT EXISTS {?_rateOfClimbDescend (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM})
-            BIND(concat('val:',?rateOfClimbDescendValue) AS ?rateOfClimbDescend)
+            BIND(concat(\'val:\',?rateOfClimbDescendValue) AS ?rateOfClimbDescend)
           }
             UNION
           {
             ?_rateOfClimbDescend
               rdf:value ?rateOfClimbDescendValue ;
               (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM .
-            BIND(concat('xval:',STR(?rateOfClimbDescendValue),':',?rateOfClimbDescendUoM) AS ?rateOfClimbDescend)
+            BIND(concat(\'xval:\',STR(?rateOfClimbDescendValue),\':\',?rateOfClimbDescendUoM) AS ?rateOfClimbDescend)
           }
             UNION
           {
            ?_rateOfClimbDescend  aixm:nilReason ?rateOfClimbDescendNilReason .
-           BIND(concat('nil:',?rateOfClimbDescendNilReason) AS ?rateOfClimbDescend)
+           BIND(concat(\'nil:\',?rateOfClimbDescendNilReason) AS ?rateOfClimbDescend)
           }
         }
       }
@@ -5523,19 +5523,19 @@ WHERE
           {
             ?_unitBoundaryIndicator rdf:value ?unitBoundaryIndicatorValue .
             FILTER ( NOT EXISTS {?_unitBoundaryIndicator (aixm:uom | fixm:uom | plain:uom) ?unitBoundaryIndicatorUoM})
-            BIND(concat('val:',?unitBoundaryIndicatorValue) AS ?unitBoundaryIndicator)
+            BIND(concat(\'val:\',?unitBoundaryIndicatorValue) AS ?unitBoundaryIndicator)
           }
             UNION
           {
             ?_unitBoundaryIndicator
               rdf:value ?unitBoundaryIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?unitBoundaryIndicatorUoM .
-            BIND(concat('xval:',STR(?unitBoundaryIndicatorValue),':',?unitBoundaryIndicatorUoM) AS ?unitBoundaryIndicator)
+            BIND(concat(\'xval:\',STR(?unitBoundaryIndicatorValue),\':\',?unitBoundaryIndicatorUoM) AS ?unitBoundaryIndicator)
           }
             UNION
           {
            ?_unitBoundaryIndicator  aixm:nilReason ?unitBoundaryIndicatorNilReason .
-           BIND(concat('nil:',?unitBoundaryIndicatorNilReason) AS ?unitBoundaryIndicator)
+           BIND(concat(\'nil:\',?unitBoundaryIndicatorNilReason) AS ?unitBoundaryIndicator)
           }
         }
       }
@@ -5568,7 +5568,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion (GROUP_CONCAT(DISTINCT ?criticalRidge;SEPARATOR=",") AS ?criticalRidgeConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?layer;SEPARATOR=",") AS ?layerConcat)
+SELECT ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion ?criticalRidge ?annotation ?layer
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5582,19 +5582,19 @@ WHERE
           {
             ?_observationTime rdf:value ?observationTimeValue .
             FILTER ( NOT EXISTS {?_observationTime (aixm:uom | fixm:uom | plain:uom) ?observationTimeUoM})
-            BIND(concat('val:',?observationTimeValue) AS ?observationTime)
+            BIND(concat(\'val:\',?observationTimeValue) AS ?observationTime)
           }
             UNION
           {
             ?_observationTime
               rdf:value ?observationTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?observationTimeUoM .
-            BIND(concat('xval:',STR(?observationTimeValue),':',?observationTimeUoM) AS ?observationTime)
+            BIND(concat(\'xval:\',STR(?observationTimeValue),\':\',?observationTimeUoM) AS ?observationTime)
           }
             UNION
           {
            ?_observationTime  aixm:nilReason ?observationTimeNilReason .
-           BIND(concat('nil:',?observationTimeNilReason) AS ?observationTime)
+           BIND(concat(\'nil:\',?observationTimeNilReason) AS ?observationTime)
           }
         }
       }
@@ -5603,19 +5603,19 @@ WHERE
           {
             ?_depth rdf:value ?depthValue .
             FILTER ( NOT EXISTS {?_depth (aixm:uom | fixm:uom | plain:uom) ?depthUoM})
-            BIND(concat('val:',?depthValue) AS ?depth)
+            BIND(concat(\'val:\',?depthValue) AS ?depth)
           }
             UNION
           {
             ?_depth
               rdf:value ?depthValue ;
               (aixm:uom | fixm:uom | plain:uom) ?depthUoM .
-            BIND(concat('xval:',STR(?depthValue),':',?depthUoM) AS ?depth)
+            BIND(concat(\'xval:\',STR(?depthValue),\':\',?depthUoM) AS ?depth)
           }
             UNION
           {
            ?_depth  aixm:nilReason ?depthNilReason .
-           BIND(concat('nil:',?depthNilReason) AS ?depth)
+           BIND(concat(\'nil:\',?depthNilReason) AS ?depth)
           }
         }
       }
@@ -5624,19 +5624,19 @@ WHERE
           {
             ?_frictionCoefficient rdf:value ?frictionCoefficientValue .
             FILTER ( NOT EXISTS {?_frictionCoefficient (aixm:uom | fixm:uom | plain:uom) ?frictionCoefficientUoM})
-            BIND(concat('val:',?frictionCoefficientValue) AS ?frictionCoefficient)
+            BIND(concat(\'val:\',?frictionCoefficientValue) AS ?frictionCoefficient)
           }
             UNION
           {
             ?_frictionCoefficient
               rdf:value ?frictionCoefficientValue ;
               (aixm:uom | fixm:uom | plain:uom) ?frictionCoefficientUoM .
-            BIND(concat('xval:',STR(?frictionCoefficientValue),':',?frictionCoefficientUoM) AS ?frictionCoefficient)
+            BIND(concat(\'xval:\',STR(?frictionCoefficientValue),\':\',?frictionCoefficientUoM) AS ?frictionCoefficient)
           }
             UNION
           {
            ?_frictionCoefficient  aixm:nilReason ?frictionCoefficientNilReason .
-           BIND(concat('nil:',?frictionCoefficientNilReason) AS ?frictionCoefficient)
+           BIND(concat(\'nil:\',?frictionCoefficientNilReason) AS ?frictionCoefficient)
           }
         }
       }
@@ -5645,19 +5645,19 @@ WHERE
           {
             ?_frictionEstimation rdf:value ?frictionEstimationValue .
             FILTER ( NOT EXISTS {?_frictionEstimation (aixm:uom | fixm:uom | plain:uom) ?frictionEstimationUoM})
-            BIND(concat('val:',?frictionEstimationValue) AS ?frictionEstimation)
+            BIND(concat(\'val:\',?frictionEstimationValue) AS ?frictionEstimation)
           }
             UNION
           {
             ?_frictionEstimation
               rdf:value ?frictionEstimationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?frictionEstimationUoM .
-            BIND(concat('xval:',STR(?frictionEstimationValue),':',?frictionEstimationUoM) AS ?frictionEstimation)
+            BIND(concat(\'xval:\',STR(?frictionEstimationValue),\':\',?frictionEstimationUoM) AS ?frictionEstimation)
           }
             UNION
           {
            ?_frictionEstimation  aixm:nilReason ?frictionEstimationNilReason .
-           BIND(concat('nil:',?frictionEstimationNilReason) AS ?frictionEstimation)
+           BIND(concat(\'nil:\',?frictionEstimationNilReason) AS ?frictionEstimation)
           }
         }
       }
@@ -5666,19 +5666,19 @@ WHERE
           {
             ?_frictionDevice rdf:value ?frictionDeviceValue .
             FILTER ( NOT EXISTS {?_frictionDevice (aixm:uom | fixm:uom | plain:uom) ?frictionDeviceUoM})
-            BIND(concat('val:',?frictionDeviceValue) AS ?frictionDevice)
+            BIND(concat(\'val:\',?frictionDeviceValue) AS ?frictionDevice)
           }
             UNION
           {
             ?_frictionDevice
               rdf:value ?frictionDeviceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?frictionDeviceUoM .
-            BIND(concat('xval:',STR(?frictionDeviceValue),':',?frictionDeviceUoM) AS ?frictionDevice)
+            BIND(concat(\'xval:\',STR(?frictionDeviceValue),\':\',?frictionDeviceUoM) AS ?frictionDevice)
           }
             UNION
           {
            ?_frictionDevice  aixm:nilReason ?frictionDeviceNilReason .
-           BIND(concat('nil:',?frictionDeviceNilReason) AS ?frictionDevice)
+           BIND(concat(\'nil:\',?frictionDeviceNilReason) AS ?frictionDevice)
           }
         }
       }
@@ -5687,19 +5687,19 @@ WHERE
           {
             ?_obscuredLights rdf:value ?obscuredLightsValue .
             FILTER ( NOT EXISTS {?_obscuredLights (aixm:uom | fixm:uom | plain:uom) ?obscuredLightsUoM})
-            BIND(concat('val:',?obscuredLightsValue) AS ?obscuredLights)
+            BIND(concat(\'val:\',?obscuredLightsValue) AS ?obscuredLights)
           }
             UNION
           {
             ?_obscuredLights
               rdf:value ?obscuredLightsValue ;
               (aixm:uom | fixm:uom | plain:uom) ?obscuredLightsUoM .
-            BIND(concat('xval:',STR(?obscuredLightsValue),':',?obscuredLightsUoM) AS ?obscuredLights)
+            BIND(concat(\'xval:\',STR(?obscuredLightsValue),\':\',?obscuredLightsUoM) AS ?obscuredLights)
           }
             UNION
           {
            ?_obscuredLights  aixm:nilReason ?obscuredLightsNilReason .
-           BIND(concat('nil:',?obscuredLightsNilReason) AS ?obscuredLights)
+           BIND(concat(\'nil:\',?obscuredLightsNilReason) AS ?obscuredLights)
           }
         }
       }
@@ -5708,19 +5708,19 @@ WHERE
           {
             ?_furtherClearanceTime rdf:value ?furtherClearanceTimeValue .
             FILTER ( NOT EXISTS {?_furtherClearanceTime (aixm:uom | fixm:uom | plain:uom) ?furtherClearanceTimeUoM})
-            BIND(concat('val:',?furtherClearanceTimeValue) AS ?furtherClearanceTime)
+            BIND(concat(\'val:\',?furtherClearanceTimeValue) AS ?furtherClearanceTime)
           }
             UNION
           {
             ?_furtherClearanceTime
               rdf:value ?furtherClearanceTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?furtherClearanceTimeUoM .
-            BIND(concat('xval:',STR(?furtherClearanceTimeValue),':',?furtherClearanceTimeUoM) AS ?furtherClearanceTime)
+            BIND(concat(\'xval:\',STR(?furtherClearanceTimeValue),\':\',?furtherClearanceTimeUoM) AS ?furtherClearanceTime)
           }
             UNION
           {
            ?_furtherClearanceTime  aixm:nilReason ?furtherClearanceTimeNilReason .
-           BIND(concat('nil:',?furtherClearanceTimeNilReason) AS ?furtherClearanceTime)
+           BIND(concat(\'nil:\',?furtherClearanceTimeNilReason) AS ?furtherClearanceTime)
           }
         }
       }
@@ -5729,19 +5729,19 @@ WHERE
           {
             ?_furtherTotalClearance rdf:value ?furtherTotalClearanceValue .
             FILTER ( NOT EXISTS {?_furtherTotalClearance (aixm:uom | fixm:uom | plain:uom) ?furtherTotalClearanceUoM})
-            BIND(concat('val:',?furtherTotalClearanceValue) AS ?furtherTotalClearance)
+            BIND(concat(\'val:\',?furtherTotalClearanceValue) AS ?furtherTotalClearance)
           }
             UNION
           {
             ?_furtherTotalClearance
               rdf:value ?furtherTotalClearanceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?furtherTotalClearanceUoM .
-            BIND(concat('xval:',STR(?furtherTotalClearanceValue),':',?furtherTotalClearanceUoM) AS ?furtherTotalClearance)
+            BIND(concat(\'xval:\',STR(?furtherTotalClearanceValue),\':\',?furtherTotalClearanceUoM) AS ?furtherTotalClearance)
           }
             UNION
           {
            ?_furtherTotalClearance  aixm:nilReason ?furtherTotalClearanceNilReason .
-           BIND(concat('nil:',?furtherTotalClearanceNilReason) AS ?furtherTotalClearance)
+           BIND(concat(\'nil:\',?furtherTotalClearanceNilReason) AS ?furtherTotalClearance)
           }
         }
       }
@@ -5750,19 +5750,19 @@ WHERE
           {
             ?_nextObservationTime rdf:value ?nextObservationTimeValue .
             FILTER ( NOT EXISTS {?_nextObservationTime (aixm:uom | fixm:uom | plain:uom) ?nextObservationTimeUoM})
-            BIND(concat('val:',?nextObservationTimeValue) AS ?nextObservationTime)
+            BIND(concat(\'val:\',?nextObservationTimeValue) AS ?nextObservationTime)
           }
             UNION
           {
             ?_nextObservationTime
               rdf:value ?nextObservationTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nextObservationTimeUoM .
-            BIND(concat('xval:',STR(?nextObservationTimeValue),':',?nextObservationTimeUoM) AS ?nextObservationTime)
+            BIND(concat(\'xval:\',STR(?nextObservationTimeValue),\':\',?nextObservationTimeUoM) AS ?nextObservationTime)
           }
             UNION
           {
            ?_nextObservationTime  aixm:nilReason ?nextObservationTimeNilReason .
-           BIND(concat('nil:',?nextObservationTimeNilReason) AS ?nextObservationTime)
+           BIND(concat(\'nil:\',?nextObservationTimeNilReason) AS ?nextObservationTime)
           }
         }
       }
@@ -5771,19 +5771,19 @@ WHERE
           {
             ?_proportion rdf:value ?proportionValue .
             FILTER ( NOT EXISTS {?_proportion (aixm:uom | fixm:uom | plain:uom) ?proportionUoM})
-            BIND(concat('val:',?proportionValue) AS ?proportion)
+            BIND(concat(\'val:\',?proportionValue) AS ?proportion)
           }
             UNION
           {
             ?_proportion
               rdf:value ?proportionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?proportionUoM .
-            BIND(concat('xval:',STR(?proportionValue),':',?proportionUoM) AS ?proportion)
+            BIND(concat(\'xval:\',STR(?proportionValue),\':\',?proportionUoM) AS ?proportion)
           }
             UNION
           {
            ?_proportion  aixm:nilReason ?proportionNilReason .
-           BIND(concat('nil:',?proportionNilReason) AS ?proportion)
+           BIND(concat(\'nil:\',?proportionNilReason) AS ?proportion)
           }
         }
       }
@@ -5796,7 +5796,7 @@ WHERE
 GROUP BY ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion
 
       '
-,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidgeConcat,AnnotationConcat,LayerConcat),[]), convert(CriticalRidgeConcat,CriticalRidgeList), convert(AnnotationConcat,AnnotationList), convert(LayerConcat,LayerList).
+,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidge,Annotation,Layer),[]).
 
 % fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature?, WindDirection?, WindSpeed?)
 
@@ -5831,19 +5831,19 @@ WHERE
           {
             ?_temperature rdf:value ?temperatureValue .
             FILTER ( NOT EXISTS {?_temperature (aixm:uom | fixm:uom | plain:uom) ?temperatureUoM})
-            BIND(concat('val:',?temperatureValue) AS ?temperature)
+            BIND(concat(\'val:\',?temperatureValue) AS ?temperature)
           }
             UNION
           {
             ?_temperature
               rdf:value ?temperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?temperatureUoM .
-            BIND(concat('xval:',STR(?temperatureValue),':',?temperatureUoM) AS ?temperature)
+            BIND(concat(\'xval:\',STR(?temperatureValue),\':\',?temperatureUoM) AS ?temperature)
           }
             UNION
           {
            ?_temperature  aixm:nilReason ?temperatureNilReason .
-           BIND(concat('nil:',?temperatureNilReason) AS ?temperature)
+           BIND(concat(\'nil:\',?temperatureNilReason) AS ?temperature)
           }
         }
       }
@@ -5852,19 +5852,19 @@ WHERE
           {
             ?_windDirection rdf:value ?windDirectionValue .
             FILTER ( NOT EXISTS {?_windDirection (aixm:uom | fixm:uom | plain:uom) ?windDirectionUoM})
-            BIND(concat('val:',?windDirectionValue) AS ?windDirection)
+            BIND(concat(\'val:\',?windDirectionValue) AS ?windDirection)
           }
             UNION
           {
             ?_windDirection
               rdf:value ?windDirectionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?windDirectionUoM .
-            BIND(concat('xval:',STR(?windDirectionValue),':',?windDirectionUoM) AS ?windDirection)
+            BIND(concat(\'xval:\',STR(?windDirectionValue),\':\',?windDirectionUoM) AS ?windDirection)
           }
             UNION
           {
            ?_windDirection  aixm:nilReason ?windDirectionNilReason .
-           BIND(concat('nil:',?windDirectionNilReason) AS ?windDirection)
+           BIND(concat(\'nil:\',?windDirectionNilReason) AS ?windDirection)
           }
         }
       }
@@ -5873,19 +5873,19 @@ WHERE
           {
             ?_windSpeed rdf:value ?windSpeedValue .
             FILTER ( NOT EXISTS {?_windSpeed (aixm:uom | fixm:uom | plain:uom) ?windSpeedUoM})
-            BIND(concat('val:',?windSpeedValue) AS ?windSpeed)
+            BIND(concat(\'val:\',?windSpeedValue) AS ?windSpeed)
           }
             UNION
           {
             ?_windSpeed
               rdf:value ?windSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?windSpeedUoM .
-            BIND(concat('xval:',STR(?windSpeedValue),':',?windSpeedUoM) AS ?windSpeed)
+            BIND(concat(\'xval:\',STR(?windSpeedValue),\':\',?windSpeedUoM) AS ?windSpeed)
           }
             UNION
           {
            ?_windSpeed  aixm:nilReason ?windSpeedNilReason .
-           BIND(concat('nil:',?windSpeedNilReason) AS ?windSpeed)
+           BIND(concat(\'nil:\',?windSpeedNilReason) AS ?windSpeed)
           }
         }
       }
@@ -5918,7 +5918,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthority (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+SELECT ?graph ?organisationAuthority ?timeSlice
 WHERE
   { GRAPH ?graph
     {
@@ -5929,7 +5929,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthority
 
       '
-,row(Graph,OrganisationAuthority,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
+,row(Graph,OrganisationAuthority,TimeSlice),[]).
 
 % fixm_TelephoneContact(Graph, TelephoneContact, Voice?, Facimile?)
 
@@ -5964,19 +5964,19 @@ WHERE
           {
             ?_voice rdf:value ?voiceValue .
             FILTER ( NOT EXISTS {?_voice (aixm:uom | fixm:uom | plain:uom) ?voiceUoM})
-            BIND(concat('val:',?voiceValue) AS ?voice)
+            BIND(concat(\'val:\',?voiceValue) AS ?voice)
           }
             UNION
           {
             ?_voice
               rdf:value ?voiceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?voiceUoM .
-            BIND(concat('xval:',STR(?voiceValue),':',?voiceUoM) AS ?voice)
+            BIND(concat(\'xval:\',STR(?voiceValue),\':\',?voiceUoM) AS ?voice)
           }
             UNION
           {
            ?_voice  aixm:nilReason ?voiceNilReason .
-           BIND(concat('nil:',?voiceNilReason) AS ?voice)
+           BIND(concat(\'nil:\',?voiceNilReason) AS ?voice)
           }
         }
       }
@@ -5985,19 +5985,19 @@ WHERE
           {
             ?_facimile rdf:value ?facimileValue .
             FILTER ( NOT EXISTS {?_facimile (aixm:uom | fixm:uom | plain:uom) ?facimileUoM})
-            BIND(concat('val:',?facimileValue) AS ?facimile)
+            BIND(concat(\'val:\',?facimileValue) AS ?facimile)
           }
             UNION
           {
             ?_facimile
               rdf:value ?facimileValue ;
               (aixm:uom | fixm:uom | plain:uom) ?facimileUoM .
-            BIND(concat('xval:',STR(?facimileValue),':',?facimileUoM) AS ?facimile)
+            BIND(concat(\'xval:\',STR(?facimileValue),\':\',?facimileUoM) AS ?facimile)
           }
             UNION
           {
            ?_facimile  aixm:nilReason ?facimileNilReason .
-           BIND(concat('nil:',?facimileNilReason) AS ?facimile)
+           BIND(concat(\'nil:\',?facimileNilReason) AS ?facimile)
           }
         }
       }
@@ -6030,7 +6030,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation (GROUP_CONCAT(DISTINCT ?transferAerodromes;SEPARATOR=",") AS ?transferAerodromesConcat) ?declarationText ?consignee ?shipper
+SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?transferAerodromes ?declarationText ?consignee ?shipper
 WHERE
   { GRAPH ?graph
     {
@@ -6042,19 +6042,19 @@ WHERE
           {
             ?_dangerousGoodsScreeningLocation rdf:value ?dangerousGoodsScreeningLocationValue .
             FILTER ( NOT EXISTS {?_dangerousGoodsScreeningLocation (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM})
-            BIND(concat('val:',?dangerousGoodsScreeningLocationValue) AS ?dangerousGoodsScreeningLocation)
+            BIND(concat(\'val:\',?dangerousGoodsScreeningLocationValue) AS ?dangerousGoodsScreeningLocation)
           }
             UNION
           {
             ?_dangerousGoodsScreeningLocation
               rdf:value ?dangerousGoodsScreeningLocationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM .
-            BIND(concat('xval:',STR(?dangerousGoodsScreeningLocationValue),':',?dangerousGoodsScreeningLocationUoM) AS ?dangerousGoodsScreeningLocation)
+            BIND(concat(\'xval:\',STR(?dangerousGoodsScreeningLocationValue),\':\',?dangerousGoodsScreeningLocationUoM) AS ?dangerousGoodsScreeningLocation)
           }
             UNION
           {
            ?_dangerousGoodsScreeningLocation  aixm:nilReason ?dangerousGoodsScreeningLocationNilReason .
-           BIND(concat('nil:',?dangerousGoodsScreeningLocationNilReason) AS ?dangerousGoodsScreeningLocation)
+           BIND(concat(\'nil:\',?dangerousGoodsScreeningLocationNilReason) AS ?dangerousGoodsScreeningLocation)
           }
         }
       }
@@ -6063,19 +6063,19 @@ WHERE
           {
             ?_departureCountry rdf:value ?departureCountryValue .
             FILTER ( NOT EXISTS {?_departureCountry (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM})
-            BIND(concat('val:',?departureCountryValue) AS ?departureCountry)
+            BIND(concat(\'val:\',?departureCountryValue) AS ?departureCountry)
           }
             UNION
           {
             ?_departureCountry
               rdf:value ?departureCountryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM .
-            BIND(concat('xval:',STR(?departureCountryValue),':',?departureCountryUoM) AS ?departureCountry)
+            BIND(concat(\'xval:\',STR(?departureCountryValue),\':\',?departureCountryUoM) AS ?departureCountry)
           }
             UNION
           {
            ?_departureCountry  aixm:nilReason ?departureCountryNilReason .
-           BIND(concat('nil:',?departureCountryNilReason) AS ?departureCountry)
+           BIND(concat(\'nil:\',?departureCountryNilReason) AS ?departureCountry)
           }
         }
       }
@@ -6084,19 +6084,19 @@ WHERE
           {
             ?_destinationCountry rdf:value ?destinationCountryValue .
             FILTER ( NOT EXISTS {?_destinationCountry (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM})
-            BIND(concat('val:',?destinationCountryValue) AS ?destinationCountry)
+            BIND(concat(\'val:\',?destinationCountryValue) AS ?destinationCountry)
           }
             UNION
           {
             ?_destinationCountry
               rdf:value ?destinationCountryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM .
-            BIND(concat('xval:',STR(?destinationCountryValue),':',?destinationCountryUoM) AS ?destinationCountry)
+            BIND(concat(\'xval:\',STR(?destinationCountryValue),\':\',?destinationCountryUoM) AS ?destinationCountry)
           }
             UNION
           {
            ?_destinationCountry  aixm:nilReason ?destinationCountryNilReason .
-           BIND(concat('nil:',?destinationCountryNilReason) AS ?destinationCountry)
+           BIND(concat(\'nil:\',?destinationCountryNilReason) AS ?destinationCountry)
           }
         }
       }
@@ -6105,19 +6105,19 @@ WHERE
           {
             ?_originCountry rdf:value ?originCountryValue .
             FILTER ( NOT EXISTS {?_originCountry (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM})
-            BIND(concat('val:',?originCountryValue) AS ?originCountry)
+            BIND(concat(\'val:\',?originCountryValue) AS ?originCountry)
           }
             UNION
           {
             ?_originCountry
               rdf:value ?originCountryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM .
-            BIND(concat('xval:',STR(?originCountryValue),':',?originCountryUoM) AS ?originCountry)
+            BIND(concat(\'xval:\',STR(?originCountryValue),\':\',?originCountryUoM) AS ?originCountry)
           }
             UNION
           {
            ?_originCountry  aixm:nilReason ?originCountryNilReason .
-           BIND(concat('nil:',?originCountryNilReason) AS ?originCountry)
+           BIND(concat(\'nil:\',?originCountryNilReason) AS ?originCountry)
           }
         }
       }
@@ -6126,19 +6126,19 @@ WHERE
           {
             ?_shipmentAuthorizations rdf:value ?shipmentAuthorizationsValue .
             FILTER ( NOT EXISTS {?_shipmentAuthorizations (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM})
-            BIND(concat('val:',?shipmentAuthorizationsValue) AS ?shipmentAuthorizations)
+            BIND(concat(\'val:\',?shipmentAuthorizationsValue) AS ?shipmentAuthorizations)
           }
             UNION
           {
             ?_shipmentAuthorizations
               rdf:value ?shipmentAuthorizationsValue ;
               (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM .
-            BIND(concat('xval:',STR(?shipmentAuthorizationsValue),':',?shipmentAuthorizationsUoM) AS ?shipmentAuthorizations)
+            BIND(concat(\'xval:\',STR(?shipmentAuthorizationsValue),\':\',?shipmentAuthorizationsUoM) AS ?shipmentAuthorizations)
           }
             UNION
           {
            ?_shipmentAuthorizations  aixm:nilReason ?shipmentAuthorizationsNilReason .
-           BIND(concat('nil:',?shipmentAuthorizationsNilReason) AS ?shipmentAuthorizations)
+           BIND(concat(\'nil:\',?shipmentAuthorizationsNilReason) AS ?shipmentAuthorizations)
           }
         }
       }
@@ -6147,19 +6147,19 @@ WHERE
           {
             ?_subsidiaryHazardClassAndDivision rdf:value ?subsidiaryHazardClassAndDivisionValue .
             FILTER ( NOT EXISTS {?_subsidiaryHazardClassAndDivision (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM})
-            BIND(concat('val:',?subsidiaryHazardClassAndDivisionValue) AS ?subsidiaryHazardClassAndDivision)
+            BIND(concat(\'val:\',?subsidiaryHazardClassAndDivisionValue) AS ?subsidiaryHazardClassAndDivision)
           }
             UNION
           {
             ?_subsidiaryHazardClassAndDivision
               rdf:value ?subsidiaryHazardClassAndDivisionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM .
-            BIND(concat('xval:',STR(?subsidiaryHazardClassAndDivisionValue),':',?subsidiaryHazardClassAndDivisionUoM) AS ?subsidiaryHazardClassAndDivision)
+            BIND(concat(\'xval:\',STR(?subsidiaryHazardClassAndDivisionValue),\':\',?subsidiaryHazardClassAndDivisionUoM) AS ?subsidiaryHazardClassAndDivision)
           }
             UNION
           {
            ?_subsidiaryHazardClassAndDivision  aixm:nilReason ?subsidiaryHazardClassAndDivisionNilReason .
-           BIND(concat('nil:',?subsidiaryHazardClassAndDivisionNilReason) AS ?subsidiaryHazardClassAndDivision)
+           BIND(concat(\'nil:\',?subsidiaryHazardClassAndDivisionNilReason) AS ?subsidiaryHazardClassAndDivision)
           }
         }
       }
@@ -6168,19 +6168,19 @@ WHERE
           {
             ?_supplementaryInformation rdf:value ?supplementaryInformationValue .
             FILTER ( NOT EXISTS {?_supplementaryInformation (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM})
-            BIND(concat('val:',?supplementaryInformationValue) AS ?supplementaryInformation)
+            BIND(concat(\'val:\',?supplementaryInformationValue) AS ?supplementaryInformation)
           }
             UNION
           {
             ?_supplementaryInformation
               rdf:value ?supplementaryInformationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM .
-            BIND(concat('xval:',STR(?supplementaryInformationValue),':',?supplementaryInformationUoM) AS ?supplementaryInformation)
+            BIND(concat(\'xval:\',STR(?supplementaryInformationValue),\':\',?supplementaryInformationUoM) AS ?supplementaryInformation)
           }
             UNION
           {
            ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
-           BIND(concat('nil:',?supplementaryInformationNilReason) AS ?supplementaryInformation)
+           BIND(concat(\'nil:\',?supplementaryInformationNilReason) AS ?supplementaryInformation)
           }
         }
       }
@@ -6189,19 +6189,19 @@ WHERE
           {
             ?_transferAerodromes rdf:value ?transferAerodromesValue .
             FILTER ( NOT EXISTS {?_transferAerodromes (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM})
-            BIND(concat('val:',?transferAerodromesValue) AS ?transferAerodromes)
+            BIND(concat(\'val:\',?transferAerodromesValue) AS ?transferAerodromes)
           }
             UNION
           {
             ?_transferAerodromes
               rdf:value ?transferAerodromesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM .
-            BIND(concat('xval:',STR(?transferAerodromesValue),':',?transferAerodromesUoM) AS ?transferAerodromes)
+            BIND(concat(\'xval:\',STR(?transferAerodromesValue),\':\',?transferAerodromesUoM) AS ?transferAerodromes)
           }
             UNION
           {
            ?_transferAerodromes  aixm:nilReason ?transferAerodromesNilReason .
-           BIND(concat('nil:',?transferAerodromesNilReason) AS ?transferAerodromes)
+           BIND(concat(\'nil:\',?transferAerodromesNilReason) AS ?transferAerodromes)
           }
         }
       }
@@ -6213,7 +6213,7 @@ WHERE
 GROUP BY ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?declarationText ?consignee ?shipper
 
       '
-,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convert(TransferAerodromesConcat,TransferAerodromesList).
+,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromes,DeclarationText,Consignee,Shipper),[]).
 
 % aixm_AirportHeliportContamination(Graph, AirportHeliportContamination)
 
@@ -6282,19 +6282,19 @@ WHERE
           {
             ?_replacementFlightPlanIndicator rdf:value ?replacementFlightPlanIndicatorValue .
             FILTER ( NOT EXISTS {?_replacementFlightPlanIndicator (aixm:uom | fixm:uom | plain:uom) ?replacementFlightPlanIndicatorUoM})
-            BIND(concat('val:',?replacementFlightPlanIndicatorValue) AS ?replacementFlightPlanIndicator)
+            BIND(concat(\'val:\',?replacementFlightPlanIndicatorValue) AS ?replacementFlightPlanIndicator)
           }
             UNION
           {
             ?_replacementFlightPlanIndicator
               rdf:value ?replacementFlightPlanIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?replacementFlightPlanIndicatorUoM .
-            BIND(concat('xval:',STR(?replacementFlightPlanIndicatorValue),':',?replacementFlightPlanIndicatorUoM) AS ?replacementFlightPlanIndicator)
+            BIND(concat(\'xval:\',STR(?replacementFlightPlanIndicatorValue),\':\',?replacementFlightPlanIndicatorUoM) AS ?replacementFlightPlanIndicator)
           }
             UNION
           {
            ?_replacementFlightPlanIndicator  aixm:nilReason ?replacementFlightPlanIndicatorNilReason .
-           BIND(concat('nil:',?replacementFlightPlanIndicatorNilReason) AS ?replacementFlightPlanIndicator)
+           BIND(concat(\'nil:\',?replacementFlightPlanIndicatorNilReason) AS ?replacementFlightPlanIndicator)
           }
         }
       }
@@ -6303,19 +6303,19 @@ WHERE
           {
             ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
             FILTER ( NOT EXISTS {?_runwayVisualRange (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM})
-            BIND(concat('val:',?runwayVisualRangeValue) AS ?runwayVisualRange)
+            BIND(concat(\'val:\',?runwayVisualRangeValue) AS ?runwayVisualRange)
           }
             UNION
           {
             ?_runwayVisualRange
               rdf:value ?runwayVisualRangeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM .
-            BIND(concat('xval:',STR(?runwayVisualRangeValue),':',?runwayVisualRangeUoM) AS ?runwayVisualRange)
+            BIND(concat(\'xval:\',STR(?runwayVisualRangeValue),\':\',?runwayVisualRangeUoM) AS ?runwayVisualRange)
           }
             UNION
           {
            ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
-           BIND(concat('nil:',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
+           BIND(concat(\'nil:\',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
           }
         }
       }
@@ -6392,19 +6392,19 @@ WHERE
           {
             ?_receivingUnitFrequency rdf:value ?receivingUnitFrequencyValue .
             FILTER ( NOT EXISTS {?_receivingUnitFrequency (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM})
-            BIND(concat('val:',?receivingUnitFrequencyValue) AS ?receivingUnitFrequency)
+            BIND(concat(\'val:\',?receivingUnitFrequencyValue) AS ?receivingUnitFrequency)
           }
             UNION
           {
             ?_receivingUnitFrequency
               rdf:value ?receivingUnitFrequencyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM .
-            BIND(concat('xval:',STR(?receivingUnitFrequencyValue),':',?receivingUnitFrequencyUoM) AS ?receivingUnitFrequency)
+            BIND(concat(\'xval:\',STR(?receivingUnitFrequencyValue),\':\',?receivingUnitFrequencyUoM) AS ?receivingUnitFrequency)
           }
             UNION
           {
            ?_receivingUnitFrequency  aixm:nilReason ?receivingUnitFrequencyNilReason .
-           BIND(concat('nil:',?receivingUnitFrequencyNilReason) AS ?receivingUnitFrequency)
+           BIND(concat(\'nil:\',?receivingUnitFrequencyNilReason) AS ?receivingUnitFrequency)
           }
         }
       }
@@ -6413,19 +6413,19 @@ WHERE
           {
             ?_atnLogonParameters rdf:value ?atnLogonParametersValue .
             FILTER ( NOT EXISTS {?_atnLogonParameters (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM})
-            BIND(concat('val:',?atnLogonParametersValue) AS ?atnLogonParameters)
+            BIND(concat(\'val:\',?atnLogonParametersValue) AS ?atnLogonParameters)
           }
             UNION
           {
             ?_atnLogonParameters
               rdf:value ?atnLogonParametersValue ;
               (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM .
-            BIND(concat('xval:',STR(?atnLogonParametersValue),':',?atnLogonParametersUoM) AS ?atnLogonParameters)
+            BIND(concat(\'xval:\',STR(?atnLogonParametersValue),\':\',?atnLogonParametersUoM) AS ?atnLogonParameters)
           }
             UNION
           {
            ?_atnLogonParameters  aixm:nilReason ?atnLogonParametersNilReason .
-           BIND(concat('nil:',?atnLogonParametersNilReason) AS ?atnLogonParameters)
+           BIND(concat(\'nil:\',?atnLogonParametersNilReason) AS ?atnLogonParameters)
           }
         }
       }
@@ -6434,19 +6434,19 @@ WHERE
           {
             ?_sendCpldcIndicator rdf:value ?sendCpldcIndicatorValue .
             FILTER ( NOT EXISTS {?_sendCpldcIndicator (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM})
-            BIND(concat('val:',?sendCpldcIndicatorValue) AS ?sendCpldcIndicator)
+            BIND(concat(\'val:\',?sendCpldcIndicatorValue) AS ?sendCpldcIndicator)
           }
             UNION
           {
             ?_sendCpldcIndicator
               rdf:value ?sendCpldcIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM .
-            BIND(concat('xval:',STR(?sendCpldcIndicatorValue),':',?sendCpldcIndicatorUoM) AS ?sendCpldcIndicator)
+            BIND(concat(\'xval:\',STR(?sendCpldcIndicatorValue),\':\',?sendCpldcIndicatorUoM) AS ?sendCpldcIndicator)
           }
             UNION
           {
            ?_sendCpldcIndicator  aixm:nilReason ?sendCpldcIndicatorNilReason .
-           BIND(concat('nil:',?sendCpldcIndicatorNilReason) AS ?sendCpldcIndicator)
+           BIND(concat(\'nil:\',?sendCpldcIndicatorNilReason) AS ?sendCpldcIndicator)
           }
         }
       }
@@ -6455,19 +6455,19 @@ WHERE
           {
             ?_connectionStatus rdf:value ?connectionStatusValue .
             FILTER ( NOT EXISTS {?_connectionStatus (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM})
-            BIND(concat('val:',?connectionStatusValue) AS ?connectionStatus)
+            BIND(concat(\'val:\',?connectionStatusValue) AS ?connectionStatus)
           }
             UNION
           {
             ?_connectionStatus
               rdf:value ?connectionStatusValue ;
               (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM .
-            BIND(concat('xval:',STR(?connectionStatusValue),':',?connectionStatusUoM) AS ?connectionStatus)
+            BIND(concat(\'xval:\',STR(?connectionStatusValue),\':\',?connectionStatusUoM) AS ?connectionStatus)
           }
             UNION
           {
            ?_connectionStatus  aixm:nilReason ?connectionStatusNilReason .
-           BIND(concat('nil:',?connectionStatusNilReason) AS ?connectionStatus)
+           BIND(concat(\'nil:\',?connectionStatusNilReason) AS ?connectionStatus)
           }
         }
       }
@@ -6476,19 +6476,19 @@ WHERE
           {
             ?_frequencyUsage rdf:value ?frequencyUsageValue .
             FILTER ( NOT EXISTS {?_frequencyUsage (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM})
-            BIND(concat('val:',?frequencyUsageValue) AS ?frequencyUsage)
+            BIND(concat(\'val:\',?frequencyUsageValue) AS ?frequencyUsage)
           }
             UNION
           {
             ?_frequencyUsage
               rdf:value ?frequencyUsageValue ;
               (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM .
-            BIND(concat('xval:',STR(?frequencyUsageValue),':',?frequencyUsageUoM) AS ?frequencyUsage)
+            BIND(concat(\'xval:\',STR(?frequencyUsageValue),\':\',?frequencyUsageUoM) AS ?frequencyUsage)
           }
             UNION
           {
            ?_frequencyUsage  aixm:nilReason ?frequencyUsageNilReason .
-           BIND(concat('nil:',?frequencyUsageNilReason) AS ?frequencyUsage)
+           BIND(concat(\'nil:\',?frequencyUsageNilReason) AS ?frequencyUsage)
           }
         }
       }
@@ -6497,19 +6497,19 @@ WHERE
           {
             ?_fans1ALogonParameters rdf:value ?fans1ALogonParametersValue .
             FILTER ( NOT EXISTS {?_fans1ALogonParameters (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM})
-            BIND(concat('val:',?fans1ALogonParametersValue) AS ?fans1ALogonParameters)
+            BIND(concat(\'val:\',?fans1ALogonParametersValue) AS ?fans1ALogonParameters)
           }
             UNION
           {
             ?_fans1ALogonParameters
               rdf:value ?fans1ALogonParametersValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM .
-            BIND(concat('xval:',STR(?fans1ALogonParametersValue),':',?fans1ALogonParametersUoM) AS ?fans1ALogonParameters)
+            BIND(concat(\'xval:\',STR(?fans1ALogonParametersValue),\':\',?fans1ALogonParametersUoM) AS ?fans1ALogonParameters)
           }
             UNION
           {
            ?_fans1ALogonParameters  aixm:nilReason ?fans1ALogonParametersNilReason .
-           BIND(concat('nil:',?fans1ALogonParametersNilReason) AS ?fans1ALogonParameters)
+           BIND(concat(\'nil:\',?fans1ALogonParametersNilReason) AS ?fans1ALogonParameters)
           }
         }
       }
@@ -6552,19 +6552,19 @@ WHERE
           {
             ?_voice rdf:value ?voiceValue .
             FILTER ( NOT EXISTS {?_voice (aixm:uom | fixm:uom | plain:uom) ?voiceUoM})
-            BIND(concat('val:',?voiceValue) AS ?voice)
+            BIND(concat(\'val:\',?voiceValue) AS ?voice)
           }
             UNION
           {
             ?_voice
               rdf:value ?voiceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?voiceUoM .
-            BIND(concat('xval:',STR(?voiceValue),':',?voiceUoM) AS ?voice)
+            BIND(concat(\'xval:\',STR(?voiceValue),\':\',?voiceUoM) AS ?voice)
           }
             UNION
           {
            ?_voice  aixm:nilReason ?voiceNilReason .
-           BIND(concat('nil:',?voiceNilReason) AS ?voice)
+           BIND(concat(\'nil:\',?voiceNilReason) AS ?voice)
           }
         }
       }
@@ -6573,19 +6573,19 @@ WHERE
           {
             ?_facsimile rdf:value ?facsimileValue .
             FILTER ( NOT EXISTS {?_facsimile (aixm:uom | fixm:uom | plain:uom) ?facsimileUoM})
-            BIND(concat('val:',?facsimileValue) AS ?facsimile)
+            BIND(concat(\'val:\',?facsimileValue) AS ?facsimile)
           }
             UNION
           {
             ?_facsimile
               rdf:value ?facsimileValue ;
               (aixm:uom | fixm:uom | plain:uom) ?facsimileUoM .
-            BIND(concat('xval:',STR(?facsimileValue),':',?facsimileUoM) AS ?facsimile)
+            BIND(concat(\'xval:\',STR(?facsimileValue),\':\',?facsimileUoM) AS ?facsimile)
           }
             UNION
           {
            ?_facsimile  aixm:nilReason ?facsimileNilReason .
-           BIND(concat('nil:',?facsimileNilReason) AS ?facsimile)
+           BIND(concat(\'nil:\',?facsimileNilReason) AS ?facsimile)
           }
         }
       }
@@ -6618,7 +6618,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText (GROUP_CONCAT(DISTINCT ?estimatedElapsedTime;SEPARATOR=",") AS ?estimatedElapsedTimeConcat) ?expandedRoute ?climbSchedule ?descentSchedule (GROUP_CONCAT(DISTINCT ?segment;SEPARATOR=",") AS ?segmentConcat)
+SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?estimatedElapsedTime ?expandedRoute ?climbSchedule ?descentSchedule ?segment
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -6632,19 +6632,19 @@ WHERE
           {
             ?_airfileRouteStartTime rdf:value ?airfileRouteStartTimeValue .
             FILTER ( NOT EXISTS {?_airfileRouteStartTime (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM})
-            BIND(concat('val:',?airfileRouteStartTimeValue) AS ?airfileRouteStartTime)
+            BIND(concat(\'val:\',?airfileRouteStartTimeValue) AS ?airfileRouteStartTime)
           }
             UNION
           {
             ?_airfileRouteStartTime
               rdf:value ?airfileRouteStartTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM .
-            BIND(concat('xval:',STR(?airfileRouteStartTimeValue),':',?airfileRouteStartTimeUoM) AS ?airfileRouteStartTime)
+            BIND(concat(\'xval:\',STR(?airfileRouteStartTimeValue),\':\',?airfileRouteStartTimeUoM) AS ?airfileRouteStartTime)
           }
             UNION
           {
            ?_airfileRouteStartTime  aixm:nilReason ?airfileRouteStartTimeNilReason .
-           BIND(concat('nil:',?airfileRouteStartTimeNilReason) AS ?airfileRouteStartTime)
+           BIND(concat(\'nil:\',?airfileRouteStartTimeNilReason) AS ?airfileRouteStartTime)
           }
         }
       }
@@ -6653,19 +6653,19 @@ WHERE
           {
             ?_flightDuration rdf:value ?flightDurationValue .
             FILTER ( NOT EXISTS {?_flightDuration (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM})
-            BIND(concat('val:',?flightDurationValue) AS ?flightDuration)
+            BIND(concat(\'val:\',?flightDurationValue) AS ?flightDuration)
           }
             UNION
           {
             ?_flightDuration
               rdf:value ?flightDurationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM .
-            BIND(concat('xval:',STR(?flightDurationValue),':',?flightDurationUoM) AS ?flightDuration)
+            BIND(concat(\'xval:\',STR(?flightDurationValue),\':\',?flightDurationUoM) AS ?flightDuration)
           }
             UNION
           {
            ?_flightDuration  aixm:nilReason ?flightDurationNilReason .
-           BIND(concat('nil:',?flightDurationNilReason) AS ?flightDuration)
+           BIND(concat(\'nil:\',?flightDurationNilReason) AS ?flightDuration)
           }
         }
       }
@@ -6674,19 +6674,19 @@ WHERE
           {
             ?_initialCruisingSpeed rdf:value ?initialCruisingSpeedValue .
             FILTER ( NOT EXISTS {?_initialCruisingSpeed (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM})
-            BIND(concat('val:',?initialCruisingSpeedValue) AS ?initialCruisingSpeed)
+            BIND(concat(\'val:\',?initialCruisingSpeedValue) AS ?initialCruisingSpeed)
           }
             UNION
           {
             ?_initialCruisingSpeed
               rdf:value ?initialCruisingSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM .
-            BIND(concat('xval:',STR(?initialCruisingSpeedValue),':',?initialCruisingSpeedUoM) AS ?initialCruisingSpeed)
+            BIND(concat(\'xval:\',STR(?initialCruisingSpeedValue),\':\',?initialCruisingSpeedUoM) AS ?initialCruisingSpeed)
           }
             UNION
           {
            ?_initialCruisingSpeed  aixm:nilReason ?initialCruisingSpeedNilReason .
-           BIND(concat('nil:',?initialCruisingSpeedNilReason) AS ?initialCruisingSpeed)
+           BIND(concat(\'nil:\',?initialCruisingSpeedNilReason) AS ?initialCruisingSpeed)
           }
         }
       }
@@ -6695,19 +6695,19 @@ WHERE
           {
             ?_initialFlightRules rdf:value ?initialFlightRulesValue .
             FILTER ( NOT EXISTS {?_initialFlightRules (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM})
-            BIND(concat('val:',?initialFlightRulesValue) AS ?initialFlightRules)
+            BIND(concat(\'val:\',?initialFlightRulesValue) AS ?initialFlightRules)
           }
             UNION
           {
             ?_initialFlightRules
               rdf:value ?initialFlightRulesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM .
-            BIND(concat('xval:',STR(?initialFlightRulesValue),':',?initialFlightRulesUoM) AS ?initialFlightRules)
+            BIND(concat(\'xval:\',STR(?initialFlightRulesValue),\':\',?initialFlightRulesUoM) AS ?initialFlightRules)
           }
             UNION
           {
            ?_initialFlightRules  aixm:nilReason ?initialFlightRulesNilReason .
-           BIND(concat('nil:',?initialFlightRulesNilReason) AS ?initialFlightRules)
+           BIND(concat(\'nil:\',?initialFlightRulesNilReason) AS ?initialFlightRules)
           }
         }
       }
@@ -6716,19 +6716,19 @@ WHERE
           {
             ?_requestedAltitude rdf:value ?requestedAltitudeValue .
             FILTER ( NOT EXISTS {?_requestedAltitude (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM})
-            BIND(concat('val:',?requestedAltitudeValue) AS ?requestedAltitude)
+            BIND(concat(\'val:\',?requestedAltitudeValue) AS ?requestedAltitude)
           }
             UNION
           {
             ?_requestedAltitude
               rdf:value ?requestedAltitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM .
-            BIND(concat('xval:',STR(?requestedAltitudeValue),':',?requestedAltitudeUoM) AS ?requestedAltitude)
+            BIND(concat(\'xval:\',STR(?requestedAltitudeValue),\':\',?requestedAltitudeUoM) AS ?requestedAltitude)
           }
             UNION
           {
            ?_requestedAltitude  aixm:nilReason ?requestedAltitudeNilReason .
-           BIND(concat('nil:',?requestedAltitudeNilReason) AS ?requestedAltitude)
+           BIND(concat(\'nil:\',?requestedAltitudeNilReason) AS ?requestedAltitude)
           }
         }
       }
@@ -6737,19 +6737,19 @@ WHERE
           {
             ?_routeText rdf:value ?routeTextValue .
             FILTER ( NOT EXISTS {?_routeText (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM})
-            BIND(concat('val:',?routeTextValue) AS ?routeText)
+            BIND(concat(\'val:\',?routeTextValue) AS ?routeText)
           }
             UNION
           {
             ?_routeText
               rdf:value ?routeTextValue ;
               (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM .
-            BIND(concat('xval:',STR(?routeTextValue),':',?routeTextUoM) AS ?routeText)
+            BIND(concat(\'xval:\',STR(?routeTextValue),\':\',?routeTextUoM) AS ?routeText)
           }
             UNION
           {
            ?_routeText  aixm:nilReason ?routeTextNilReason .
-           BIND(concat('nil:',?routeTextNilReason) AS ?routeText)
+           BIND(concat(\'nil:\',?routeTextNilReason) AS ?routeText)
           }
         }
       }
@@ -6764,7 +6764,7 @@ WHERE
 GROUP BY ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?expandedRoute ?climbSchedule ?descentSchedule
 
       '
-,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convert(SegmentConcat,SegmentList).
+,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTime,ExpandedRoute,ClimbSchedule,DescentSchedule,Segment),[]).
 
 % fixm_Person(Graph, Person, Name?, Contact?)
 
@@ -6799,19 +6799,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -6855,19 +6855,19 @@ WHERE
           {
             ?_ifplId rdf:value ?ifplIdValue .
             FILTER ( NOT EXISTS {?_ifplId (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM})
-            BIND(concat('val:',?ifplIdValue) AS ?ifplId)
+            BIND(concat(\'val:\',?ifplIdValue) AS ?ifplId)
           }
             UNION
           {
             ?_ifplId
               rdf:value ?ifplIdValue ;
               (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM .
-            BIND(concat('xval:',STR(?ifplIdValue),':',?ifplIdUoM) AS ?ifplId)
+            BIND(concat(\'xval:\',STR(?ifplIdValue),\':\',?ifplIdUoM) AS ?ifplId)
           }
             UNION
           {
            ?_ifplId  aixm:nilReason ?ifplIdNilReason .
-           BIND(concat('nil:',?ifplIdNilReason) AS ?ifplId)
+           BIND(concat(\'nil:\',?ifplIdNilReason) AS ?ifplId)
           }
         }
       }
@@ -6876,19 +6876,19 @@ WHERE
           {
             ?_totalEstimatedElapsedTime rdf:value ?totalEstimatedElapsedTimeValue .
             FILTER ( NOT EXISTS {?_totalEstimatedElapsedTime (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM})
-            BIND(concat('val:',?totalEstimatedElapsedTimeValue) AS ?totalEstimatedElapsedTime)
+            BIND(concat(\'val:\',?totalEstimatedElapsedTimeValue) AS ?totalEstimatedElapsedTime)
           }
             UNION
           {
             ?_totalEstimatedElapsedTime
               rdf:value ?totalEstimatedElapsedTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM .
-            BIND(concat('xval:',STR(?totalEstimatedElapsedTimeValue),':',?totalEstimatedElapsedTimeUoM) AS ?totalEstimatedElapsedTime)
+            BIND(concat(\'xval:\',STR(?totalEstimatedElapsedTimeValue),\':\',?totalEstimatedElapsedTimeUoM) AS ?totalEstimatedElapsedTime)
           }
             UNION
           {
            ?_totalEstimatedElapsedTime  aixm:nilReason ?totalEstimatedElapsedTimeNilReason .
-           BIND(concat('nil:',?totalEstimatedElapsedTimeNilReason) AS ?totalEstimatedElapsedTime)
+           BIND(concat(\'nil:\',?totalEstimatedElapsedTimeNilReason) AS ?totalEstimatedElapsedTime)
           }
         }
       }
@@ -6898,19 +6898,19 @@ WHERE
           {
             ?_efplSpecialHandling rdf:value ?efplSpecialHandlingValue .
             FILTER ( NOT EXISTS {?_efplSpecialHandling (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM})
-            BIND(concat('val:',?efplSpecialHandlingValue) AS ?efplSpecialHandling)
+            BIND(concat(\'val:\',?efplSpecialHandlingValue) AS ?efplSpecialHandling)
           }
             UNION
           {
             ?_efplSpecialHandling
               rdf:value ?efplSpecialHandlingValue ;
               (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM .
-            BIND(concat('xval:',STR(?efplSpecialHandlingValue),':',?efplSpecialHandlingUoM) AS ?efplSpecialHandling)
+            BIND(concat(\'xval:\',STR(?efplSpecialHandlingValue),\':\',?efplSpecialHandlingUoM) AS ?efplSpecialHandling)
           }
             UNION
           {
            ?_efplSpecialHandling  aixm:nilReason ?efplSpecialHandlingNilReason .
-           BIND(concat('nil:',?efplSpecialHandlingNilReason) AS ?efplSpecialHandling)
+           BIND(concat(\'nil:\',?efplSpecialHandlingNilReason) AS ?efplSpecialHandling)
           }
         }
       }
@@ -6991,19 +6991,19 @@ WHERE
           {
             ?_airborneHold rdf:value ?airborneHoldValue .
             FILTER ( NOT EXISTS {?_airborneHold (aixm:uom | fixm:uom | plain:uom) ?airborneHoldUoM})
-            BIND(concat('val:',?airborneHoldValue) AS ?airborneHold)
+            BIND(concat(\'val:\',?airborneHoldValue) AS ?airborneHold)
           }
             UNION
           {
             ?_airborneHold
               rdf:value ?airborneHoldValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airborneHoldUoM .
-            BIND(concat('xval:',STR(?airborneHoldValue),':',?airborneHoldUoM) AS ?airborneHold)
+            BIND(concat(\'xval:\',STR(?airborneHoldValue),\':\',?airborneHoldUoM) AS ?airborneHold)
           }
             UNION
           {
            ?_airborneHold  aixm:nilReason ?airborneHoldNilReason .
-           BIND(concat('nil:',?airborneHoldNilReason) AS ?airborneHold)
+           BIND(concat(\'nil:\',?airborneHoldNilReason) AS ?airborneHold)
           }
         }
       }
@@ -7012,19 +7012,19 @@ WHERE
           {
             ?_airfile rdf:value ?airfileValue .
             FILTER ( NOT EXISTS {?_airfile (aixm:uom | fixm:uom | plain:uom) ?airfileUoM})
-            BIND(concat('val:',?airfileValue) AS ?airfile)
+            BIND(concat(\'val:\',?airfileValue) AS ?airfile)
           }
             UNION
           {
             ?_airfile
               rdf:value ?airfileValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airfileUoM .
-            BIND(concat('xval:',STR(?airfileValue),':',?airfileUoM) AS ?airfile)
+            BIND(concat(\'xval:\',STR(?airfileValue),\':\',?airfileUoM) AS ?airfile)
           }
             UNION
           {
            ?_airfile  aixm:nilReason ?airfileNilReason .
-           BIND(concat('nil:',?airfileNilReason) AS ?airfile)
+           BIND(concat(\'nil:\',?airfileNilReason) AS ?airfile)
           }
         }
       }
@@ -7033,19 +7033,19 @@ WHERE
           {
             ?_accepted rdf:value ?acceptedValue .
             FILTER ( NOT EXISTS {?_accepted (aixm:uom | fixm:uom | plain:uom) ?acceptedUoM})
-            BIND(concat('val:',?acceptedValue) AS ?accepted)
+            BIND(concat(\'val:\',?acceptedValue) AS ?accepted)
           }
             UNION
           {
             ?_accepted
               rdf:value ?acceptedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?acceptedUoM .
-            BIND(concat('xval:',STR(?acceptedValue),':',?acceptedUoM) AS ?accepted)
+            BIND(concat(\'xval:\',STR(?acceptedValue),\':\',?acceptedUoM) AS ?accepted)
           }
             UNION
           {
            ?_accepted  aixm:nilReason ?acceptedNilReason .
-           BIND(concat('nil:',?acceptedNilReason) AS ?accepted)
+           BIND(concat(\'nil:\',?acceptedNilReason) AS ?accepted)
           }
         }
       }
@@ -7054,19 +7054,19 @@ WHERE
           {
             ?_flightCycle rdf:value ?flightCycleValue .
             FILTER ( NOT EXISTS {?_flightCycle (aixm:uom | fixm:uom | plain:uom) ?flightCycleUoM})
-            BIND(concat('val:',?flightCycleValue) AS ?flightCycle)
+            BIND(concat(\'val:\',?flightCycleValue) AS ?flightCycle)
           }
             UNION
           {
             ?_flightCycle
               rdf:value ?flightCycleValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flightCycleUoM .
-            BIND(concat('xval:',STR(?flightCycleValue),':',?flightCycleUoM) AS ?flightCycle)
+            BIND(concat(\'xval:\',STR(?flightCycleValue),\':\',?flightCycleUoM) AS ?flightCycle)
           }
             UNION
           {
            ?_flightCycle  aixm:nilReason ?flightCycleNilReason .
-           BIND(concat('nil:',?flightCycleNilReason) AS ?flightCycle)
+           BIND(concat(\'nil:\',?flightCycleNilReason) AS ?flightCycle)
           }
         }
       }
@@ -7075,19 +7075,19 @@ WHERE
           {
             ?_missedApproach rdf:value ?missedApproachValue .
             FILTER ( NOT EXISTS {?_missedApproach (aixm:uom | fixm:uom | plain:uom) ?missedApproachUoM})
-            BIND(concat('val:',?missedApproachValue) AS ?missedApproach)
+            BIND(concat(\'val:\',?missedApproachValue) AS ?missedApproach)
           }
             UNION
           {
             ?_missedApproach
               rdf:value ?missedApproachValue ;
               (aixm:uom | fixm:uom | plain:uom) ?missedApproachUoM .
-            BIND(concat('xval:',STR(?missedApproachValue),':',?missedApproachUoM) AS ?missedApproach)
+            BIND(concat(\'xval:\',STR(?missedApproachValue),\':\',?missedApproachUoM) AS ?missedApproach)
           }
             UNION
           {
            ?_missedApproach  aixm:nilReason ?missedApproachNilReason .
-           BIND(concat('nil:',?missedApproachNilReason) AS ?missedApproach)
+           BIND(concat(\'nil:\',?missedApproachNilReason) AS ?missedApproach)
           }
         }
       }
@@ -7096,19 +7096,19 @@ WHERE
           {
             ?_suspended rdf:value ?suspendedValue .
             FILTER ( NOT EXISTS {?_suspended (aixm:uom | fixm:uom | plain:uom) ?suspendedUoM})
-            BIND(concat('val:',?suspendedValue) AS ?suspended)
+            BIND(concat(\'val:\',?suspendedValue) AS ?suspended)
           }
             UNION
           {
             ?_suspended
               rdf:value ?suspendedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?suspendedUoM .
-            BIND(concat('xval:',STR(?suspendedValue),':',?suspendedUoM) AS ?suspended)
+            BIND(concat(\'xval:\',STR(?suspendedValue),\':\',?suspendedUoM) AS ?suspended)
           }
             UNION
           {
            ?_suspended  aixm:nilReason ?suspendedNilReason .
-           BIND(concat('nil:',?suspendedNilReason) AS ?suspended)
+           BIND(concat(\'nil:\',?suspendedNilReason) AS ?suspended)
           }
         }
       }
@@ -7151,19 +7151,19 @@ WHERE
           {
             ?_unitIdentifier rdf:value ?unitIdentifierValue .
             FILTER ( NOT EXISTS {?_unitIdentifier (aixm:uom | fixm:uom | plain:uom) ?unitIdentifierUoM})
-            BIND(concat('val:',?unitIdentifierValue) AS ?unitIdentifier)
+            BIND(concat(\'val:\',?unitIdentifierValue) AS ?unitIdentifier)
           }
             UNION
           {
             ?_unitIdentifier
               rdf:value ?unitIdentifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?unitIdentifierUoM .
-            BIND(concat('xval:',STR(?unitIdentifierValue),':',?unitIdentifierUoM) AS ?unitIdentifier)
+            BIND(concat(\'xval:\',STR(?unitIdentifierValue),\':\',?unitIdentifierUoM) AS ?unitIdentifier)
           }
             UNION
           {
            ?_unitIdentifier  aixm:nilReason ?unitIdentifierNilReason .
-           BIND(concat('nil:',?unitIdentifierNilReason) AS ?unitIdentifier)
+           BIND(concat(\'nil:\',?unitIdentifierNilReason) AS ?unitIdentifier)
           }
         }
       }
@@ -7206,19 +7206,19 @@ WHERE
           {
             ?_physicalChemicalForm rdf:value ?physicalChemicalFormValue .
             FILTER ( NOT EXISTS {?_physicalChemicalForm (aixm:uom | fixm:uom | plain:uom) ?physicalChemicalFormUoM})
-            BIND(concat('val:',?physicalChemicalFormValue) AS ?physicalChemicalForm)
+            BIND(concat(\'val:\',?physicalChemicalFormValue) AS ?physicalChemicalForm)
           }
             UNION
           {
             ?_physicalChemicalForm
               rdf:value ?physicalChemicalFormValue ;
               (aixm:uom | fixm:uom | plain:uom) ?physicalChemicalFormUoM .
-            BIND(concat('xval:',STR(?physicalChemicalFormValue),':',?physicalChemicalFormUoM) AS ?physicalChemicalForm)
+            BIND(concat(\'xval:\',STR(?physicalChemicalFormValue),\':\',?physicalChemicalFormUoM) AS ?physicalChemicalForm)
           }
             UNION
           {
            ?_physicalChemicalForm  aixm:nilReason ?physicalChemicalFormNilReason .
-           BIND(concat('nil:',?physicalChemicalFormNilReason) AS ?physicalChemicalForm)
+           BIND(concat(\'nil:\',?physicalChemicalFormNilReason) AS ?physicalChemicalForm)
           }
         }
       }
@@ -7227,19 +7227,19 @@ WHERE
           {
             ?_radionuclideId rdf:value ?radionuclideIdValue .
             FILTER ( NOT EXISTS {?_radionuclideId (aixm:uom | fixm:uom | plain:uom) ?radionuclideIdUoM})
-            BIND(concat('val:',?radionuclideIdValue) AS ?radionuclideId)
+            BIND(concat(\'val:\',?radionuclideIdValue) AS ?radionuclideId)
           }
             UNION
           {
             ?_radionuclideId
               rdf:value ?radionuclideIdValue ;
               (aixm:uom | fixm:uom | plain:uom) ?radionuclideIdUoM .
-            BIND(concat('xval:',STR(?radionuclideIdValue),':',?radionuclideIdUoM) AS ?radionuclideId)
+            BIND(concat(\'xval:\',STR(?radionuclideIdValue),\':\',?radionuclideIdUoM) AS ?radionuclideId)
           }
             UNION
           {
            ?_radionuclideId  aixm:nilReason ?radionuclideIdNilReason .
-           BIND(concat('nil:',?radionuclideIdNilReason) AS ?radionuclideId)
+           BIND(concat(\'nil:\',?radionuclideIdNilReason) AS ?radionuclideId)
           }
         }
       }
@@ -7248,19 +7248,19 @@ WHERE
           {
             ?_radionuclideName rdf:value ?radionuclideNameValue .
             FILTER ( NOT EXISTS {?_radionuclideName (aixm:uom | fixm:uom | plain:uom) ?radionuclideNameUoM})
-            BIND(concat('val:',?radionuclideNameValue) AS ?radionuclideName)
+            BIND(concat(\'val:\',?radionuclideNameValue) AS ?radionuclideName)
           }
             UNION
           {
             ?_radionuclideName
               rdf:value ?radionuclideNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?radionuclideNameUoM .
-            BIND(concat('xval:',STR(?radionuclideNameValue),':',?radionuclideNameUoM) AS ?radionuclideName)
+            BIND(concat(\'xval:\',STR(?radionuclideNameValue),\':\',?radionuclideNameUoM) AS ?radionuclideName)
           }
             UNION
           {
            ?_radionuclideName  aixm:nilReason ?radionuclideNameNilReason .
-           BIND(concat('nil:',?radionuclideNameNilReason) AS ?radionuclideName)
+           BIND(concat(\'nil:\',?radionuclideNameNilReason) AS ?radionuclideName)
           }
         }
       }
@@ -7269,19 +7269,19 @@ WHERE
           {
             ?_lowDispersibleMaterialIndicator rdf:value ?lowDispersibleMaterialIndicatorValue .
             FILTER ( NOT EXISTS {?_lowDispersibleMaterialIndicator (aixm:uom | fixm:uom | plain:uom) ?lowDispersibleMaterialIndicatorUoM})
-            BIND(concat('val:',?lowDispersibleMaterialIndicatorValue) AS ?lowDispersibleMaterialIndicator)
+            BIND(concat(\'val:\',?lowDispersibleMaterialIndicatorValue) AS ?lowDispersibleMaterialIndicator)
           }
             UNION
           {
             ?_lowDispersibleMaterialIndicator
               rdf:value ?lowDispersibleMaterialIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lowDispersibleMaterialIndicatorUoM .
-            BIND(concat('xval:',STR(?lowDispersibleMaterialIndicatorValue),':',?lowDispersibleMaterialIndicatorUoM) AS ?lowDispersibleMaterialIndicator)
+            BIND(concat(\'xval:\',STR(?lowDispersibleMaterialIndicatorValue),\':\',?lowDispersibleMaterialIndicatorUoM) AS ?lowDispersibleMaterialIndicator)
           }
             UNION
           {
            ?_lowDispersibleMaterialIndicator  aixm:nilReason ?lowDispersibleMaterialIndicatorNilReason .
-           BIND(concat('nil:',?lowDispersibleMaterialIndicatorNilReason) AS ?lowDispersibleMaterialIndicator)
+           BIND(concat(\'nil:\',?lowDispersibleMaterialIndicatorNilReason) AS ?lowDispersibleMaterialIndicator)
           }
         }
       }
@@ -7290,19 +7290,19 @@ WHERE
           {
             ?_activity rdf:value ?activityValue .
             FILTER ( NOT EXISTS {?_activity (aixm:uom | fixm:uom | plain:uom) ?activityUoM})
-            BIND(concat('val:',?activityValue) AS ?activity)
+            BIND(concat(\'val:\',?activityValue) AS ?activity)
           }
             UNION
           {
             ?_activity
               rdf:value ?activityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?activityUoM .
-            BIND(concat('xval:',STR(?activityValue),':',?activityUoM) AS ?activity)
+            BIND(concat(\'xval:\',STR(?activityValue),\':\',?activityUoM) AS ?activity)
           }
             UNION
           {
            ?_activity  aixm:nilReason ?activityNilReason .
-           BIND(concat('nil:',?activityNilReason) AS ?activity)
+           BIND(concat(\'nil:\',?activityNilReason) AS ?activity)
           }
         }
       }
@@ -7311,19 +7311,19 @@ WHERE
           {
             ?_specialFormIndicator rdf:value ?specialFormIndicatorValue .
             FILTER ( NOT EXISTS {?_specialFormIndicator (aixm:uom | fixm:uom | plain:uom) ?specialFormIndicatorUoM})
-            BIND(concat('val:',?specialFormIndicatorValue) AS ?specialFormIndicator)
+            BIND(concat(\'val:\',?specialFormIndicatorValue) AS ?specialFormIndicator)
           }
             UNION
           {
             ?_specialFormIndicator
               rdf:value ?specialFormIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?specialFormIndicatorUoM .
-            BIND(concat('xval:',STR(?specialFormIndicatorValue),':',?specialFormIndicatorUoM) AS ?specialFormIndicator)
+            BIND(concat(\'xval:\',STR(?specialFormIndicatorValue),\':\',?specialFormIndicatorUoM) AS ?specialFormIndicator)
           }
             UNION
           {
            ?_specialFormIndicator  aixm:nilReason ?specialFormIndicatorNilReason .
-           BIND(concat('nil:',?specialFormIndicatorNilReason) AS ?specialFormIndicator)
+           BIND(concat(\'nil:\',?specialFormIndicatorNilReason) AS ?specialFormIndicator)
           }
         }
       }
@@ -7366,19 +7366,19 @@ WHERE
           {
             ?_network rdf:value ?networkValue .
             FILTER ( NOT EXISTS {?_network (aixm:uom | fixm:uom | plain:uom) ?networkUoM})
-            BIND(concat('val:',?networkValue) AS ?network)
+            BIND(concat(\'val:\',?networkValue) AS ?network)
           }
             UNION
           {
             ?_network
               rdf:value ?networkValue ;
               (aixm:uom | fixm:uom | plain:uom) ?networkUoM .
-            BIND(concat('xval:',STR(?networkValue),':',?networkUoM) AS ?network)
+            BIND(concat(\'xval:\',STR(?networkValue),\':\',?networkUoM) AS ?network)
           }
             UNION
           {
            ?_network  aixm:nilReason ?networkNilReason .
-           BIND(concat('nil:',?networkNilReason) AS ?network)
+           BIND(concat(\'nil:\',?networkNilReason) AS ?network)
           }
         }
       }
@@ -7387,19 +7387,19 @@ WHERE
           {
             ?_linkage rdf:value ?linkageValue .
             FILTER ( NOT EXISTS {?_linkage (aixm:uom | fixm:uom | plain:uom) ?linkageUoM})
-            BIND(concat('val:',?linkageValue) AS ?linkage)
+            BIND(concat(\'val:\',?linkageValue) AS ?linkage)
           }
             UNION
           {
             ?_linkage
               rdf:value ?linkageValue ;
               (aixm:uom | fixm:uom | plain:uom) ?linkageUoM .
-            BIND(concat('xval:',STR(?linkageValue),':',?linkageUoM) AS ?linkage)
+            BIND(concat(\'xval:\',STR(?linkageValue),\':\',?linkageUoM) AS ?linkage)
           }
             UNION
           {
            ?_linkage  aixm:nilReason ?linkageNilReason .
-           BIND(concat('nil:',?linkageNilReason) AS ?linkage)
+           BIND(concat(\'nil:\',?linkageNilReason) AS ?linkage)
           }
         }
       }
@@ -7408,19 +7408,19 @@ WHERE
           {
             ?_protocol rdf:value ?protocolValue .
             FILTER ( NOT EXISTS {?_protocol (aixm:uom | fixm:uom | plain:uom) ?protocolUoM})
-            BIND(concat('val:',?protocolValue) AS ?protocol)
+            BIND(concat(\'val:\',?protocolValue) AS ?protocol)
           }
             UNION
           {
             ?_protocol
               rdf:value ?protocolValue ;
               (aixm:uom | fixm:uom | plain:uom) ?protocolUoM .
-            BIND(concat('xval:',STR(?protocolValue),':',?protocolUoM) AS ?protocol)
+            BIND(concat(\'xval:\',STR(?protocolValue),\':\',?protocolUoM) AS ?protocol)
           }
             UNION
           {
            ?_protocol  aixm:nilReason ?protocolNilReason .
-           BIND(concat('nil:',?protocolNilReason) AS ?protocol)
+           BIND(concat(\'nil:\',?protocolNilReason) AS ?protocol)
           }
         }
       }
@@ -7429,19 +7429,19 @@ WHERE
           {
             ?_eMail rdf:value ?eMailValue .
             FILTER ( NOT EXISTS {?_eMail (aixm:uom | fixm:uom | plain:uom) ?eMailUoM})
-            BIND(concat('val:',?eMailValue) AS ?eMail)
+            BIND(concat(\'val:\',?eMailValue) AS ?eMail)
           }
             UNION
           {
             ?_eMail
               rdf:value ?eMailValue ;
               (aixm:uom | fixm:uom | plain:uom) ?eMailUoM .
-            BIND(concat('xval:',STR(?eMailValue),':',?eMailUoM) AS ?eMail)
+            BIND(concat(\'xval:\',STR(?eMailValue),\':\',?eMailUoM) AS ?eMail)
           }
             UNION
           {
            ?_eMail  aixm:nilReason ?eMailNilReason .
-           BIND(concat('nil:',?eMailNilReason) AS ?eMail)
+           BIND(concat(\'nil:\',?eMailNilReason) AS ?eMail)
           }
         }
       }
@@ -7518,19 +7518,19 @@ WHERE
           {
             ?_altitude rdf:value ?altitudeValue .
             FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat('val:',?altitudeValue) AS ?altitude)
+            BIND(concat(\'val:\',?altitudeValue) AS ?altitude)
           }
             UNION
           {
             ?_altitude
               rdf:value ?altitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-            BIND(concat('xval:',STR(?altitudeValue),':',?altitudeUoM) AS ?altitude)
+            BIND(concat(\'xval:\',STR(?altitudeValue),\':\',?altitudeUoM) AS ?altitude)
           }
             UNION
           {
            ?_altitude  aixm:nilReason ?altitudeNilReason .
-           BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
+           BIND(concat(\'nil:\',?altitudeNilReason) AS ?altitude)
           }
         }
       }
@@ -7540,19 +7540,19 @@ WHERE
           {
             ?_positionTime rdf:value ?positionTimeValue .
             FILTER ( NOT EXISTS {?_positionTime (aixm:uom | fixm:uom | plain:uom) ?positionTimeUoM})
-            BIND(concat('val:',?positionTimeValue) AS ?positionTime)
+            BIND(concat(\'val:\',?positionTimeValue) AS ?positionTime)
           }
             UNION
           {
             ?_positionTime
               rdf:value ?positionTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?positionTimeUoM .
-            BIND(concat('xval:',STR(?positionTimeValue),':',?positionTimeUoM) AS ?positionTime)
+            BIND(concat(\'xval:\',STR(?positionTimeValue),\':\',?positionTimeUoM) AS ?positionTime)
           }
             UNION
           {
            ?_positionTime  aixm:nilReason ?positionTimeNilReason .
-           BIND(concat('nil:',?positionTimeNilReason) AS ?positionTime)
+           BIND(concat(\'nil:\',?positionTimeNilReason) AS ?positionTime)
           }
         }
       }
@@ -7561,19 +7561,19 @@ WHERE
           {
             ?_track rdf:value ?trackValue .
             FILTER ( NOT EXISTS {?_track (aixm:uom | fixm:uom | plain:uom) ?trackUoM})
-            BIND(concat('val:',?trackValue) AS ?track)
+            BIND(concat(\'val:\',?trackValue) AS ?track)
           }
             UNION
           {
             ?_track
               rdf:value ?trackValue ;
               (aixm:uom | fixm:uom | plain:uom) ?trackUoM .
-            BIND(concat('xval:',STR(?trackValue),':',?trackUoM) AS ?track)
+            BIND(concat(\'xval:\',STR(?trackValue),\':\',?trackUoM) AS ?track)
           }
             UNION
           {
            ?_track  aixm:nilReason ?trackNilReason .
-           BIND(concat('nil:',?trackNilReason) AS ?track)
+           BIND(concat(\'nil:\',?trackNilReason) AS ?track)
           }
         }
       }
@@ -7584,19 +7584,19 @@ WHERE
           {
             ?_reportSource rdf:value ?reportSourceValue .
             FILTER ( NOT EXISTS {?_reportSource (aixm:uom | fixm:uom | plain:uom) ?reportSourceUoM})
-            BIND(concat('val:',?reportSourceValue) AS ?reportSource)
+            BIND(concat(\'val:\',?reportSourceValue) AS ?reportSource)
           }
             UNION
           {
             ?_reportSource
               rdf:value ?reportSourceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?reportSourceUoM .
-            BIND(concat('xval:',STR(?reportSourceValue),':',?reportSourceUoM) AS ?reportSource)
+            BIND(concat(\'xval:\',STR(?reportSourceValue),\':\',?reportSourceUoM) AS ?reportSource)
           }
             UNION
           {
            ?_reportSource  aixm:nilReason ?reportSourceNilReason .
-           BIND(concat('nil:',?reportSourceNilReason) AS ?reportSource)
+           BIND(concat(\'nil:\',?reportSourceNilReason) AS ?reportSource)
           }
         }
       }
@@ -7640,19 +7640,19 @@ WHERE
           {
             ?_operation rdf:value ?operationValue .
             FILTER ( NOT EXISTS {?_operation (aixm:uom | fixm:uom | plain:uom) ?operationUoM})
-            BIND(concat('val:',?operationValue) AS ?operation)
+            BIND(concat(\'val:\',?operationValue) AS ?operation)
           }
             UNION
           {
             ?_operation
               rdf:value ?operationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?operationUoM .
-            BIND(concat('xval:',STR(?operationValue),':',?operationUoM) AS ?operation)
+            BIND(concat(\'xval:\',STR(?operationValue),\':\',?operationUoM) AS ?operation)
           }
             UNION
           {
            ?_operation  aixm:nilReason ?operationNilReason .
-           BIND(concat('nil:',?operationNilReason) AS ?operation)
+           BIND(concat(\'nil:\',?operationNilReason) AS ?operation)
           }
         }
       }
@@ -7685,7 +7685,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -7695,19 +7695,19 @@ WHERE
           {
             ?_timeReference rdf:value ?timeReferenceValue .
             FILTER ( NOT EXISTS {?_timeReference (aixm:uom | fixm:uom | plain:uom) ?timeReferenceUoM})
-            BIND(concat('val:',?timeReferenceValue) AS ?timeReference)
+            BIND(concat(\'val:\',?timeReferenceValue) AS ?timeReference)
           }
             UNION
           {
             ?_timeReference
               rdf:value ?timeReferenceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?timeReferenceUoM .
-            BIND(concat('xval:',STR(?timeReferenceValue),':',?timeReferenceUoM) AS ?timeReference)
+            BIND(concat(\'xval:\',STR(?timeReferenceValue),\':\',?timeReferenceUoM) AS ?timeReference)
           }
             UNION
           {
            ?_timeReference  aixm:nilReason ?timeReferenceNilReason .
-           BIND(concat('nil:',?timeReferenceNilReason) AS ?timeReference)
+           BIND(concat(\'nil:\',?timeReferenceNilReason) AS ?timeReference)
           }
         }
       }
@@ -7716,19 +7716,19 @@ WHERE
           {
             ?_startDate rdf:value ?startDateValue .
             FILTER ( NOT EXISTS {?_startDate (aixm:uom | fixm:uom | plain:uom) ?startDateUoM})
-            BIND(concat('val:',?startDateValue) AS ?startDate)
+            BIND(concat(\'val:\',?startDateValue) AS ?startDate)
           }
             UNION
           {
             ?_startDate
               rdf:value ?startDateValue ;
               (aixm:uom | fixm:uom | plain:uom) ?startDateUoM .
-            BIND(concat('xval:',STR(?startDateValue),':',?startDateUoM) AS ?startDate)
+            BIND(concat(\'xval:\',STR(?startDateValue),\':\',?startDateUoM) AS ?startDate)
           }
             UNION
           {
            ?_startDate  aixm:nilReason ?startDateNilReason .
-           BIND(concat('nil:',?startDateNilReason) AS ?startDate)
+           BIND(concat(\'nil:\',?startDateNilReason) AS ?startDate)
           }
         }
       }
@@ -7737,19 +7737,19 @@ WHERE
           {
             ?_endDate rdf:value ?endDateValue .
             FILTER ( NOT EXISTS {?_endDate (aixm:uom | fixm:uom | plain:uom) ?endDateUoM})
-            BIND(concat('val:',?endDateValue) AS ?endDate)
+            BIND(concat(\'val:\',?endDateValue) AS ?endDate)
           }
             UNION
           {
             ?_endDate
               rdf:value ?endDateValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endDateUoM .
-            BIND(concat('xval:',STR(?endDateValue),':',?endDateUoM) AS ?endDate)
+            BIND(concat(\'xval:\',STR(?endDateValue),\':\',?endDateUoM) AS ?endDate)
           }
             UNION
           {
            ?_endDate  aixm:nilReason ?endDateNilReason .
-           BIND(concat('nil:',?endDateNilReason) AS ?endDate)
+           BIND(concat(\'nil:\',?endDateNilReason) AS ?endDate)
           }
         }
       }
@@ -7758,19 +7758,19 @@ WHERE
           {
             ?_day rdf:value ?dayValue .
             FILTER ( NOT EXISTS {?_day (aixm:uom | fixm:uom | plain:uom) ?dayUoM})
-            BIND(concat('val:',?dayValue) AS ?day)
+            BIND(concat(\'val:\',?dayValue) AS ?day)
           }
             UNION
           {
             ?_day
               rdf:value ?dayValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dayUoM .
-            BIND(concat('xval:',STR(?dayValue),':',?dayUoM) AS ?day)
+            BIND(concat(\'xval:\',STR(?dayValue),\':\',?dayUoM) AS ?day)
           }
             UNION
           {
            ?_day  aixm:nilReason ?dayNilReason .
-           BIND(concat('nil:',?dayNilReason) AS ?day)
+           BIND(concat(\'nil:\',?dayNilReason) AS ?day)
           }
         }
       }
@@ -7779,19 +7779,19 @@ WHERE
           {
             ?_dayTil rdf:value ?dayTilValue .
             FILTER ( NOT EXISTS {?_dayTil (aixm:uom | fixm:uom | plain:uom) ?dayTilUoM})
-            BIND(concat('val:',?dayTilValue) AS ?dayTil)
+            BIND(concat(\'val:\',?dayTilValue) AS ?dayTil)
           }
             UNION
           {
             ?_dayTil
               rdf:value ?dayTilValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dayTilUoM .
-            BIND(concat('xval:',STR(?dayTilValue),':',?dayTilUoM) AS ?dayTil)
+            BIND(concat(\'xval:\',STR(?dayTilValue),\':\',?dayTilUoM) AS ?dayTil)
           }
             UNION
           {
            ?_dayTil  aixm:nilReason ?dayTilNilReason .
-           BIND(concat('nil:',?dayTilNilReason) AS ?dayTil)
+           BIND(concat(\'nil:\',?dayTilNilReason) AS ?dayTil)
           }
         }
       }
@@ -7800,19 +7800,19 @@ WHERE
           {
             ?_startTime rdf:value ?startTimeValue .
             FILTER ( NOT EXISTS {?_startTime (aixm:uom | fixm:uom | plain:uom) ?startTimeUoM})
-            BIND(concat('val:',?startTimeValue) AS ?startTime)
+            BIND(concat(\'val:\',?startTimeValue) AS ?startTime)
           }
             UNION
           {
             ?_startTime
               rdf:value ?startTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?startTimeUoM .
-            BIND(concat('xval:',STR(?startTimeValue),':',?startTimeUoM) AS ?startTime)
+            BIND(concat(\'xval:\',STR(?startTimeValue),\':\',?startTimeUoM) AS ?startTime)
           }
             UNION
           {
            ?_startTime  aixm:nilReason ?startTimeNilReason .
-           BIND(concat('nil:',?startTimeNilReason) AS ?startTime)
+           BIND(concat(\'nil:\',?startTimeNilReason) AS ?startTime)
           }
         }
       }
@@ -7821,19 +7821,19 @@ WHERE
           {
             ?_startEvent rdf:value ?startEventValue .
             FILTER ( NOT EXISTS {?_startEvent (aixm:uom | fixm:uom | plain:uom) ?startEventUoM})
-            BIND(concat('val:',?startEventValue) AS ?startEvent)
+            BIND(concat(\'val:\',?startEventValue) AS ?startEvent)
           }
             UNION
           {
             ?_startEvent
               rdf:value ?startEventValue ;
               (aixm:uom | fixm:uom | plain:uom) ?startEventUoM .
-            BIND(concat('xval:',STR(?startEventValue),':',?startEventUoM) AS ?startEvent)
+            BIND(concat(\'xval:\',STR(?startEventValue),\':\',?startEventUoM) AS ?startEvent)
           }
             UNION
           {
            ?_startEvent  aixm:nilReason ?startEventNilReason .
-           BIND(concat('nil:',?startEventNilReason) AS ?startEvent)
+           BIND(concat(\'nil:\',?startEventNilReason) AS ?startEvent)
           }
         }
       }
@@ -7842,19 +7842,19 @@ WHERE
           {
             ?_startTimeRelativeEvent rdf:value ?startTimeRelativeEventValue .
             FILTER ( NOT EXISTS {?_startTimeRelativeEvent (aixm:uom | fixm:uom | plain:uom) ?startTimeRelativeEventUoM})
-            BIND(concat('val:',?startTimeRelativeEventValue) AS ?startTimeRelativeEvent)
+            BIND(concat(\'val:\',?startTimeRelativeEventValue) AS ?startTimeRelativeEvent)
           }
             UNION
           {
             ?_startTimeRelativeEvent
               rdf:value ?startTimeRelativeEventValue ;
               (aixm:uom | fixm:uom | plain:uom) ?startTimeRelativeEventUoM .
-            BIND(concat('xval:',STR(?startTimeRelativeEventValue),':',?startTimeRelativeEventUoM) AS ?startTimeRelativeEvent)
+            BIND(concat(\'xval:\',STR(?startTimeRelativeEventValue),\':\',?startTimeRelativeEventUoM) AS ?startTimeRelativeEvent)
           }
             UNION
           {
            ?_startTimeRelativeEvent  aixm:nilReason ?startTimeRelativeEventNilReason .
-           BIND(concat('nil:',?startTimeRelativeEventNilReason) AS ?startTimeRelativeEvent)
+           BIND(concat(\'nil:\',?startTimeRelativeEventNilReason) AS ?startTimeRelativeEvent)
           }
         }
       }
@@ -7863,19 +7863,19 @@ WHERE
           {
             ?_startEventInterpretation rdf:value ?startEventInterpretationValue .
             FILTER ( NOT EXISTS {?_startEventInterpretation (aixm:uom | fixm:uom | plain:uom) ?startEventInterpretationUoM})
-            BIND(concat('val:',?startEventInterpretationValue) AS ?startEventInterpretation)
+            BIND(concat(\'val:\',?startEventInterpretationValue) AS ?startEventInterpretation)
           }
             UNION
           {
             ?_startEventInterpretation
               rdf:value ?startEventInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?startEventInterpretationUoM .
-            BIND(concat('xval:',STR(?startEventInterpretationValue),':',?startEventInterpretationUoM) AS ?startEventInterpretation)
+            BIND(concat(\'xval:\',STR(?startEventInterpretationValue),\':\',?startEventInterpretationUoM) AS ?startEventInterpretation)
           }
             UNION
           {
            ?_startEventInterpretation  aixm:nilReason ?startEventInterpretationNilReason .
-           BIND(concat('nil:',?startEventInterpretationNilReason) AS ?startEventInterpretation)
+           BIND(concat(\'nil:\',?startEventInterpretationNilReason) AS ?startEventInterpretation)
           }
         }
       }
@@ -7884,19 +7884,19 @@ WHERE
           {
             ?_endTime rdf:value ?endTimeValue .
             FILTER ( NOT EXISTS {?_endTime (aixm:uom | fixm:uom | plain:uom) ?endTimeUoM})
-            BIND(concat('val:',?endTimeValue) AS ?endTime)
+            BIND(concat(\'val:\',?endTimeValue) AS ?endTime)
           }
             UNION
           {
             ?_endTime
               rdf:value ?endTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endTimeUoM .
-            BIND(concat('xval:',STR(?endTimeValue),':',?endTimeUoM) AS ?endTime)
+            BIND(concat(\'xval:\',STR(?endTimeValue),\':\',?endTimeUoM) AS ?endTime)
           }
             UNION
           {
            ?_endTime  aixm:nilReason ?endTimeNilReason .
-           BIND(concat('nil:',?endTimeNilReason) AS ?endTime)
+           BIND(concat(\'nil:\',?endTimeNilReason) AS ?endTime)
           }
         }
       }
@@ -7905,19 +7905,19 @@ WHERE
           {
             ?_endEvent rdf:value ?endEventValue .
             FILTER ( NOT EXISTS {?_endEvent (aixm:uom | fixm:uom | plain:uom) ?endEventUoM})
-            BIND(concat('val:',?endEventValue) AS ?endEvent)
+            BIND(concat(\'val:\',?endEventValue) AS ?endEvent)
           }
             UNION
           {
             ?_endEvent
               rdf:value ?endEventValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endEventUoM .
-            BIND(concat('xval:',STR(?endEventValue),':',?endEventUoM) AS ?endEvent)
+            BIND(concat(\'xval:\',STR(?endEventValue),\':\',?endEventUoM) AS ?endEvent)
           }
             UNION
           {
            ?_endEvent  aixm:nilReason ?endEventNilReason .
-           BIND(concat('nil:',?endEventNilReason) AS ?endEvent)
+           BIND(concat(\'nil:\',?endEventNilReason) AS ?endEvent)
           }
         }
       }
@@ -7926,19 +7926,19 @@ WHERE
           {
             ?_endTimeRelativeEvent rdf:value ?endTimeRelativeEventValue .
             FILTER ( NOT EXISTS {?_endTimeRelativeEvent (aixm:uom | fixm:uom | plain:uom) ?endTimeRelativeEventUoM})
-            BIND(concat('val:',?endTimeRelativeEventValue) AS ?endTimeRelativeEvent)
+            BIND(concat(\'val:\',?endTimeRelativeEventValue) AS ?endTimeRelativeEvent)
           }
             UNION
           {
             ?_endTimeRelativeEvent
               rdf:value ?endTimeRelativeEventValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endTimeRelativeEventUoM .
-            BIND(concat('xval:',STR(?endTimeRelativeEventValue),':',?endTimeRelativeEventUoM) AS ?endTimeRelativeEvent)
+            BIND(concat(\'xval:\',STR(?endTimeRelativeEventValue),\':\',?endTimeRelativeEventUoM) AS ?endTimeRelativeEvent)
           }
             UNION
           {
            ?_endTimeRelativeEvent  aixm:nilReason ?endTimeRelativeEventNilReason .
-           BIND(concat('nil:',?endTimeRelativeEventNilReason) AS ?endTimeRelativeEvent)
+           BIND(concat(\'nil:\',?endTimeRelativeEventNilReason) AS ?endTimeRelativeEvent)
           }
         }
       }
@@ -7947,19 +7947,19 @@ WHERE
           {
             ?_endEventInterpretation rdf:value ?endEventInterpretationValue .
             FILTER ( NOT EXISTS {?_endEventInterpretation (aixm:uom | fixm:uom | plain:uom) ?endEventInterpretationUoM})
-            BIND(concat('val:',?endEventInterpretationValue) AS ?endEventInterpretation)
+            BIND(concat(\'val:\',?endEventInterpretationValue) AS ?endEventInterpretation)
           }
             UNION
           {
             ?_endEventInterpretation
               rdf:value ?endEventInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endEventInterpretationUoM .
-            BIND(concat('xval:',STR(?endEventInterpretationValue),':',?endEventInterpretationUoM) AS ?endEventInterpretation)
+            BIND(concat(\'xval:\',STR(?endEventInterpretationValue),\':\',?endEventInterpretationUoM) AS ?endEventInterpretation)
           }
             UNION
           {
            ?_endEventInterpretation  aixm:nilReason ?endEventInterpretationNilReason .
-           BIND(concat('nil:',?endEventInterpretationNilReason) AS ?endEventInterpretation)
+           BIND(concat(\'nil:\',?endEventInterpretationNilReason) AS ?endEventInterpretation)
           }
         }
       }
@@ -7968,19 +7968,19 @@ WHERE
           {
             ?_daylightSavingAdjust rdf:value ?daylightSavingAdjustValue .
             FILTER ( NOT EXISTS {?_daylightSavingAdjust (aixm:uom | fixm:uom | plain:uom) ?daylightSavingAdjustUoM})
-            BIND(concat('val:',?daylightSavingAdjustValue) AS ?daylightSavingAdjust)
+            BIND(concat(\'val:\',?daylightSavingAdjustValue) AS ?daylightSavingAdjust)
           }
             UNION
           {
             ?_daylightSavingAdjust
               rdf:value ?daylightSavingAdjustValue ;
               (aixm:uom | fixm:uom | plain:uom) ?daylightSavingAdjustUoM .
-            BIND(concat('xval:',STR(?daylightSavingAdjustValue),':',?daylightSavingAdjustUoM) AS ?daylightSavingAdjust)
+            BIND(concat(\'xval:\',STR(?daylightSavingAdjustValue),\':\',?daylightSavingAdjustUoM) AS ?daylightSavingAdjust)
           }
             UNION
           {
            ?_daylightSavingAdjust  aixm:nilReason ?daylightSavingAdjustNilReason .
-           BIND(concat('nil:',?daylightSavingAdjustNilReason) AS ?daylightSavingAdjust)
+           BIND(concat(\'nil:\',?daylightSavingAdjustNilReason) AS ?daylightSavingAdjust)
           }
         }
       }
@@ -7989,19 +7989,19 @@ WHERE
           {
             ?_excluded rdf:value ?excludedValue .
             FILTER ( NOT EXISTS {?_excluded (aixm:uom | fixm:uom | plain:uom) ?excludedUoM})
-            BIND(concat('val:',?excludedValue) AS ?excluded)
+            BIND(concat(\'val:\',?excludedValue) AS ?excluded)
           }
             UNION
           {
             ?_excluded
               rdf:value ?excludedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?excludedUoM .
-            BIND(concat('xval:',STR(?excludedValue),':',?excludedUoM) AS ?excluded)
+            BIND(concat(\'xval:\',STR(?excludedValue),\':\',?excludedUoM) AS ?excluded)
           }
             UNION
           {
            ?_excluded  aixm:nilReason ?excludedNilReason .
-           BIND(concat('nil:',?excludedNilReason) AS ?excluded)
+           BIND(concat(\'nil:\',?excludedNilReason) AS ?excluded)
           }
         }
       }
@@ -8011,7 +8011,7 @@ WHERE
 GROUP BY ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded
 
       '
-,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,Annotation),[]).
 
 % gml_SurfacePatch(Graph, SurfacePatch)
 
@@ -8116,7 +8116,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -8126,19 +8126,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -8147,19 +8147,19 @@ WHERE
           {
             ?_rule rdf:value ?ruleValue .
             FILTER ( NOT EXISTS {?_rule (aixm:uom | fixm:uom | plain:uom) ?ruleUoM})
-            BIND(concat('val:',?ruleValue) AS ?rule)
+            BIND(concat(\'val:\',?ruleValue) AS ?rule)
           }
             UNION
           {
             ?_rule
               rdf:value ?ruleValue ;
               (aixm:uom | fixm:uom | plain:uom) ?ruleUoM .
-            BIND(concat('xval:',STR(?ruleValue),':',?ruleUoM) AS ?rule)
+            BIND(concat(\'xval:\',STR(?ruleValue),\':\',?ruleUoM) AS ?rule)
           }
             UNION
           {
            ?_rule  aixm:nilReason ?ruleNilReason .
-           BIND(concat('nil:',?ruleNilReason) AS ?rule)
+           BIND(concat(\'nil:\',?ruleNilReason) AS ?rule)
           }
         }
       }
@@ -8168,19 +8168,19 @@ WHERE
           {
             ?_status rdf:value ?statusValue .
             FILTER ( NOT EXISTS {?_status (aixm:uom | fixm:uom | plain:uom) ?statusUoM})
-            BIND(concat('val:',?statusValue) AS ?status)
+            BIND(concat(\'val:\',?statusValue) AS ?status)
           }
             UNION
           {
             ?_status
               rdf:value ?statusValue ;
               (aixm:uom | fixm:uom | plain:uom) ?statusUoM .
-            BIND(concat('xval:',STR(?statusValue),':',?statusUoM) AS ?status)
+            BIND(concat(\'xval:\',STR(?statusValue),\':\',?statusUoM) AS ?status)
           }
             UNION
           {
            ?_status  aixm:nilReason ?statusNilReason .
-           BIND(concat('nil:',?statusNilReason) AS ?status)
+           BIND(concat(\'nil:\',?statusNilReason) AS ?status)
           }
         }
       }
@@ -8189,19 +8189,19 @@ WHERE
           {
             ?_military rdf:value ?militaryValue .
             FILTER ( NOT EXISTS {?_military (aixm:uom | fixm:uom | plain:uom) ?militaryUoM})
-            BIND(concat('val:',?militaryValue) AS ?military)
+            BIND(concat(\'val:\',?militaryValue) AS ?military)
           }
             UNION
           {
             ?_military
               rdf:value ?militaryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?militaryUoM .
-            BIND(concat('xval:',STR(?militaryValue),':',?militaryUoM) AS ?military)
+            BIND(concat(\'xval:\',STR(?militaryValue),\':\',?militaryUoM) AS ?military)
           }
             UNION
           {
            ?_military  aixm:nilReason ?militaryNilReason .
-           BIND(concat('nil:',?militaryNilReason) AS ?military)
+           BIND(concat(\'nil:\',?militaryNilReason) AS ?military)
           }
         }
       }
@@ -8210,19 +8210,19 @@ WHERE
           {
             ?_origin rdf:value ?originValue .
             FILTER ( NOT EXISTS {?_origin (aixm:uom | fixm:uom | plain:uom) ?originUoM})
-            BIND(concat('val:',?originValue) AS ?origin)
+            BIND(concat(\'val:\',?originValue) AS ?origin)
           }
             UNION
           {
             ?_origin
               rdf:value ?originValue ;
               (aixm:uom | fixm:uom | plain:uom) ?originUoM .
-            BIND(concat('xval:',STR(?originValue),':',?originUoM) AS ?origin)
+            BIND(concat(\'xval:\',STR(?originValue),\':\',?originUoM) AS ?origin)
           }
             UNION
           {
            ?_origin  aixm:nilReason ?originNilReason .
-           BIND(concat('nil:',?originNilReason) AS ?origin)
+           BIND(concat(\'nil:\',?originNilReason) AS ?origin)
           }
         }
       }
@@ -8231,19 +8231,19 @@ WHERE
           {
             ?_purpose rdf:value ?purposeValue .
             FILTER ( NOT EXISTS {?_purpose (aixm:uom | fixm:uom | plain:uom) ?purposeUoM})
-            BIND(concat('val:',?purposeValue) AS ?purpose)
+            BIND(concat(\'val:\',?purposeValue) AS ?purpose)
           }
             UNION
           {
             ?_purpose
               rdf:value ?purposeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?purposeUoM .
-            BIND(concat('xval:',STR(?purposeValue),':',?purposeUoM) AS ?purpose)
+            BIND(concat(\'xval:\',STR(?purposeValue),\':\',?purposeUoM) AS ?purpose)
           }
             UNION
           {
            ?_purpose  aixm:nilReason ?purposeNilReason .
-           BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+           BIND(concat(\'nil:\',?purposeNilReason) AS ?purpose)
           }
         }
       }
@@ -8253,7 +8253,7 @@ WHERE
 GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
 
       '
-,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,Annotation),[]).
 
 % fixm_Provenance(Graph, Provenance, Timestamp?, Centre?, Source?, System?)
 
@@ -8288,19 +8288,19 @@ WHERE
           {
             ?_timestamp rdf:value ?timestampValue .
             FILTER ( NOT EXISTS {?_timestamp (aixm:uom | fixm:uom | plain:uom) ?timestampUoM})
-            BIND(concat('val:',?timestampValue) AS ?timestamp)
+            BIND(concat(\'val:\',?timestampValue) AS ?timestamp)
           }
             UNION
           {
             ?_timestamp
               rdf:value ?timestampValue ;
               (aixm:uom | fixm:uom | plain:uom) ?timestampUoM .
-            BIND(concat('xval:',STR(?timestampValue),':',?timestampUoM) AS ?timestamp)
+            BIND(concat(\'xval:\',STR(?timestampValue),\':\',?timestampUoM) AS ?timestamp)
           }
             UNION
           {
            ?_timestamp  aixm:nilReason ?timestampNilReason .
-           BIND(concat('nil:',?timestampNilReason) AS ?timestamp)
+           BIND(concat(\'nil:\',?timestampNilReason) AS ?timestamp)
           }
         }
       }
@@ -8309,19 +8309,19 @@ WHERE
           {
             ?_centre rdf:value ?centreValue .
             FILTER ( NOT EXISTS {?_centre (aixm:uom | fixm:uom | plain:uom) ?centreUoM})
-            BIND(concat('val:',?centreValue) AS ?centre)
+            BIND(concat(\'val:\',?centreValue) AS ?centre)
           }
             UNION
           {
             ?_centre
               rdf:value ?centreValue ;
               (aixm:uom | fixm:uom | plain:uom) ?centreUoM .
-            BIND(concat('xval:',STR(?centreValue),':',?centreUoM) AS ?centre)
+            BIND(concat(\'xval:\',STR(?centreValue),\':\',?centreUoM) AS ?centre)
           }
             UNION
           {
            ?_centre  aixm:nilReason ?centreNilReason .
-           BIND(concat('nil:',?centreNilReason) AS ?centre)
+           BIND(concat(\'nil:\',?centreNilReason) AS ?centre)
           }
         }
       }
@@ -8330,19 +8330,19 @@ WHERE
           {
             ?_source rdf:value ?sourceValue .
             FILTER ( NOT EXISTS {?_source (aixm:uom | fixm:uom | plain:uom) ?sourceUoM})
-            BIND(concat('val:',?sourceValue) AS ?source)
+            BIND(concat(\'val:\',?sourceValue) AS ?source)
           }
             UNION
           {
             ?_source
               rdf:value ?sourceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?sourceUoM .
-            BIND(concat('xval:',STR(?sourceValue),':',?sourceUoM) AS ?source)
+            BIND(concat(\'xval:\',STR(?sourceValue),\':\',?sourceUoM) AS ?source)
           }
             UNION
           {
            ?_source  aixm:nilReason ?sourceNilReason .
-           BIND(concat('nil:',?sourceNilReason) AS ?source)
+           BIND(concat(\'nil:\',?sourceNilReason) AS ?source)
           }
         }
       }
@@ -8351,19 +8351,19 @@ WHERE
           {
             ?_system rdf:value ?systemValue .
             FILTER ( NOT EXISTS {?_system (aixm:uom | fixm:uom | plain:uom) ?systemUoM})
-            BIND(concat('val:',?systemValue) AS ?system)
+            BIND(concat(\'val:\',?systemValue) AS ?system)
           }
             UNION
           {
             ?_system
               rdf:value ?systemValue ;
               (aixm:uom | fixm:uom | plain:uom) ?systemUoM .
-            BIND(concat('xval:',STR(?systemValue),':',?systemUoM) AS ?system)
+            BIND(concat(\'xval:\',STR(?systemValue),\':\',?systemUoM) AS ?system)
           }
             UNION
           {
            ?_system  aixm:nilReason ?systemNilReason .
-           BIND(concat('nil:',?systemNilReason) AS ?system)
+           BIND(concat(\'nil:\',?systemNilReason) AS ?system)
           }
         }
       }
@@ -8396,7 +8396,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliport (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+SELECT ?graph ?airportHeliport ?timeSlice
 WHERE
   { GRAPH ?graph
     {
@@ -8407,7 +8407,7 @@ WHERE
 GROUP BY ?graph ?airportHeliport
 
       '
-,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
+,row(Graph,AirportHeliport,TimeSlice),[]).
 
 % fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting?, PredictedAirspeed?, PredictedGroundspeed?, MetData?, Point?, TrajectoryChange*, TrajectoryChangeType*, ReferencePoint?)
 
@@ -8432,7 +8432,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point (GROUP_CONCAT(DISTINCT ?trajectoryChange;SEPARATOR=",") AS ?trajectoryChangeConcat) (GROUP_CONCAT(DISTINCT ?trajectoryChangeType;SEPARATOR=",") AS ?trajectoryChangeTypeConcat) ?referencePoint
+SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?trajectoryChange ?trajectoryChangeType ?referencePoint
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -8446,19 +8446,19 @@ WHERE
           {
             ?_altimeterSetting rdf:value ?altimeterSettingValue .
             FILTER ( NOT EXISTS {?_altimeterSetting (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM})
-            BIND(concat('val:',?altimeterSettingValue) AS ?altimeterSetting)
+            BIND(concat(\'val:\',?altimeterSettingValue) AS ?altimeterSetting)
           }
             UNION
           {
             ?_altimeterSetting
               rdf:value ?altimeterSettingValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM .
-            BIND(concat('xval:',STR(?altimeterSettingValue),':',?altimeterSettingUoM) AS ?altimeterSetting)
+            BIND(concat(\'xval:\',STR(?altimeterSettingValue),\':\',?altimeterSettingUoM) AS ?altimeterSetting)
           }
             UNION
           {
            ?_altimeterSetting  aixm:nilReason ?altimeterSettingNilReason .
-           BIND(concat('nil:',?altimeterSettingNilReason) AS ?altimeterSetting)
+           BIND(concat(\'nil:\',?altimeterSettingNilReason) AS ?altimeterSetting)
           }
         }
       }
@@ -8467,19 +8467,19 @@ WHERE
           {
             ?_predictedAirspeed rdf:value ?predictedAirspeedValue .
             FILTER ( NOT EXISTS {?_predictedAirspeed (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM})
-            BIND(concat('val:',?predictedAirspeedValue) AS ?predictedAirspeed)
+            BIND(concat(\'val:\',?predictedAirspeedValue) AS ?predictedAirspeed)
           }
             UNION
           {
             ?_predictedAirspeed
               rdf:value ?predictedAirspeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM .
-            BIND(concat('xval:',STR(?predictedAirspeedValue),':',?predictedAirspeedUoM) AS ?predictedAirspeed)
+            BIND(concat(\'xval:\',STR(?predictedAirspeedValue),\':\',?predictedAirspeedUoM) AS ?predictedAirspeed)
           }
             UNION
           {
            ?_predictedAirspeed  aixm:nilReason ?predictedAirspeedNilReason .
-           BIND(concat('nil:',?predictedAirspeedNilReason) AS ?predictedAirspeed)
+           BIND(concat(\'nil:\',?predictedAirspeedNilReason) AS ?predictedAirspeed)
           }
         }
       }
@@ -8488,19 +8488,19 @@ WHERE
           {
             ?_predictedGroundspeed rdf:value ?predictedGroundspeedValue .
             FILTER ( NOT EXISTS {?_predictedGroundspeed (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM})
-            BIND(concat('val:',?predictedGroundspeedValue) AS ?predictedGroundspeed)
+            BIND(concat(\'val:\',?predictedGroundspeedValue) AS ?predictedGroundspeed)
           }
             UNION
           {
             ?_predictedGroundspeed
               rdf:value ?predictedGroundspeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM .
-            BIND(concat('xval:',STR(?predictedGroundspeedValue),':',?predictedGroundspeedUoM) AS ?predictedGroundspeed)
+            BIND(concat(\'xval:\',STR(?predictedGroundspeedValue),\':\',?predictedGroundspeedUoM) AS ?predictedGroundspeed)
           }
             UNION
           {
            ?_predictedGroundspeed  aixm:nilReason ?predictedGroundspeedNilReason .
-           BIND(concat('nil:',?predictedGroundspeedNilReason) AS ?predictedGroundspeed)
+           BIND(concat(\'nil:\',?predictedGroundspeedNilReason) AS ?predictedGroundspeed)
           }
         }
       }
@@ -8512,19 +8512,19 @@ WHERE
           {
             ?_trajectoryChangeType rdf:value ?trajectoryChangeTypeValue .
             FILTER ( NOT EXISTS {?_trajectoryChangeType (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM})
-            BIND(concat('val:',?trajectoryChangeTypeValue) AS ?trajectoryChangeType)
+            BIND(concat(\'val:\',?trajectoryChangeTypeValue) AS ?trajectoryChangeType)
           }
             UNION
           {
             ?_trajectoryChangeType
               rdf:value ?trajectoryChangeTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM .
-            BIND(concat('xval:',STR(?trajectoryChangeTypeValue),':',?trajectoryChangeTypeUoM) AS ?trajectoryChangeType)
+            BIND(concat(\'xval:\',STR(?trajectoryChangeTypeValue),\':\',?trajectoryChangeTypeUoM) AS ?trajectoryChangeType)
           }
             UNION
           {
            ?_trajectoryChangeType  aixm:nilReason ?trajectoryChangeTypeNilReason .
-           BIND(concat('nil:',?trajectoryChangeTypeNilReason) AS ?trajectoryChangeType)
+           BIND(concat(\'nil:\',?trajectoryChangeTypeNilReason) AS ?trajectoryChangeType)
           }
         }
       }
@@ -8535,7 +8535,7 @@ WHERE
 GROUP BY ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?referencePoint
 
       '
-,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList).
+,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChange,TrajectoryChangeType,ReferencePoint),[]).
 
 % fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier?, DistanceFromTakeOff?, EfplEstimatedSpeed?, ElapsedTime?, GrossWeight?, TrajectoryPointType?, TrajectoryPointRole?, InboundSegment?)
 
@@ -8571,19 +8571,19 @@ WHERE
           {
             ?_distanceFromTakeOff rdf:value ?distanceFromTakeOffValue .
             FILTER ( NOT EXISTS {?_distanceFromTakeOff (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM})
-            BIND(concat('val:',?distanceFromTakeOffValue) AS ?distanceFromTakeOff)
+            BIND(concat(\'val:\',?distanceFromTakeOffValue) AS ?distanceFromTakeOff)
           }
             UNION
           {
             ?_distanceFromTakeOff
               rdf:value ?distanceFromTakeOffValue ;
               (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM .
-            BIND(concat('xval:',STR(?distanceFromTakeOffValue),':',?distanceFromTakeOffUoM) AS ?distanceFromTakeOff)
+            BIND(concat(\'xval:\',STR(?distanceFromTakeOffValue),\':\',?distanceFromTakeOffUoM) AS ?distanceFromTakeOff)
           }
             UNION
           {
            ?_distanceFromTakeOff  aixm:nilReason ?distanceFromTakeOffNilReason .
-           BIND(concat('nil:',?distanceFromTakeOffNilReason) AS ?distanceFromTakeOff)
+           BIND(concat(\'nil:\',?distanceFromTakeOffNilReason) AS ?distanceFromTakeOff)
           }
         }
       }
@@ -8592,19 +8592,19 @@ WHERE
           {
             ?_efplEstimatedSpeed rdf:value ?efplEstimatedSpeedValue .
             FILTER ( NOT EXISTS {?_efplEstimatedSpeed (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM})
-            BIND(concat('val:',?efplEstimatedSpeedValue) AS ?efplEstimatedSpeed)
+            BIND(concat(\'val:\',?efplEstimatedSpeedValue) AS ?efplEstimatedSpeed)
           }
             UNION
           {
             ?_efplEstimatedSpeed
               rdf:value ?efplEstimatedSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM .
-            BIND(concat('xval:',STR(?efplEstimatedSpeedValue),':',?efplEstimatedSpeedUoM) AS ?efplEstimatedSpeed)
+            BIND(concat(\'xval:\',STR(?efplEstimatedSpeedValue),\':\',?efplEstimatedSpeedUoM) AS ?efplEstimatedSpeed)
           }
             UNION
           {
            ?_efplEstimatedSpeed  aixm:nilReason ?efplEstimatedSpeedNilReason .
-           BIND(concat('nil:',?efplEstimatedSpeedNilReason) AS ?efplEstimatedSpeed)
+           BIND(concat(\'nil:\',?efplEstimatedSpeedNilReason) AS ?efplEstimatedSpeed)
           }
         }
       }
@@ -8613,19 +8613,19 @@ WHERE
           {
             ?_elapsedTime rdf:value ?elapsedTimeValue .
             FILTER ( NOT EXISTS {?_elapsedTime (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM})
-            BIND(concat('val:',?elapsedTimeValue) AS ?elapsedTime)
+            BIND(concat(\'val:\',?elapsedTimeValue) AS ?elapsedTime)
           }
             UNION
           {
             ?_elapsedTime
               rdf:value ?elapsedTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM .
-            BIND(concat('xval:',STR(?elapsedTimeValue),':',?elapsedTimeUoM) AS ?elapsedTime)
+            BIND(concat(\'xval:\',STR(?elapsedTimeValue),\':\',?elapsedTimeUoM) AS ?elapsedTime)
           }
             UNION
           {
            ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
-           BIND(concat('nil:',?elapsedTimeNilReason) AS ?elapsedTime)
+           BIND(concat(\'nil:\',?elapsedTimeNilReason) AS ?elapsedTime)
           }
         }
       }
@@ -8634,19 +8634,19 @@ WHERE
           {
             ?_grossWeight rdf:value ?grossWeightValue .
             FILTER ( NOT EXISTS {?_grossWeight (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM})
-            BIND(concat('val:',?grossWeightValue) AS ?grossWeight)
+            BIND(concat(\'val:\',?grossWeightValue) AS ?grossWeight)
           }
             UNION
           {
             ?_grossWeight
               rdf:value ?grossWeightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM .
-            BIND(concat('xval:',STR(?grossWeightValue),':',?grossWeightUoM) AS ?grossWeight)
+            BIND(concat(\'xval:\',STR(?grossWeightValue),\':\',?grossWeightUoM) AS ?grossWeight)
           }
             UNION
           {
            ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
-           BIND(concat('nil:',?grossWeightNilReason) AS ?grossWeight)
+           BIND(concat(\'nil:\',?grossWeightNilReason) AS ?grossWeight)
           }
         }
       }
@@ -8655,19 +8655,19 @@ WHERE
           {
             ?_trajectoryPointType rdf:value ?trajectoryPointTypeValue .
             FILTER ( NOT EXISTS {?_trajectoryPointType (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM})
-            BIND(concat('val:',?trajectoryPointTypeValue) AS ?trajectoryPointType)
+            BIND(concat(\'val:\',?trajectoryPointTypeValue) AS ?trajectoryPointType)
           }
             UNION
           {
             ?_trajectoryPointType
               rdf:value ?trajectoryPointTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM .
-            BIND(concat('xval:',STR(?trajectoryPointTypeValue),':',?trajectoryPointTypeUoM) AS ?trajectoryPointType)
+            BIND(concat(\'xval:\',STR(?trajectoryPointTypeValue),\':\',?trajectoryPointTypeUoM) AS ?trajectoryPointType)
           }
             UNION
           {
            ?_trajectoryPointType  aixm:nilReason ?trajectoryPointTypeNilReason .
-           BIND(concat('nil:',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
+           BIND(concat(\'nil:\',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
           }
         }
       }
@@ -8712,19 +8712,19 @@ WHERE
           {
             ?_controlTemperature rdf:value ?controlTemperatureValue .
             FILTER ( NOT EXISTS {?_controlTemperature (aixm:uom | fixm:uom | plain:uom) ?controlTemperatureUoM})
-            BIND(concat('val:',?controlTemperatureValue) AS ?controlTemperature)
+            BIND(concat(\'val:\',?controlTemperatureValue) AS ?controlTemperature)
           }
             UNION
           {
             ?_controlTemperature
               rdf:value ?controlTemperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?controlTemperatureUoM .
-            BIND(concat('xval:',STR(?controlTemperatureValue),':',?controlTemperatureUoM) AS ?controlTemperature)
+            BIND(concat(\'xval:\',STR(?controlTemperatureValue),\':\',?controlTemperatureUoM) AS ?controlTemperature)
           }
             UNION
           {
            ?_controlTemperature  aixm:nilReason ?controlTemperatureNilReason .
-           BIND(concat('nil:',?controlTemperatureNilReason) AS ?controlTemperature)
+           BIND(concat(\'nil:\',?controlTemperatureNilReason) AS ?controlTemperature)
           }
         }
       }
@@ -8733,19 +8733,19 @@ WHERE
           {
             ?_emergencyTemperature rdf:value ?emergencyTemperatureValue .
             FILTER ( NOT EXISTS {?_emergencyTemperature (aixm:uom | fixm:uom | plain:uom) ?emergencyTemperatureUoM})
-            BIND(concat('val:',?emergencyTemperatureValue) AS ?emergencyTemperature)
+            BIND(concat(\'val:\',?emergencyTemperatureValue) AS ?emergencyTemperature)
           }
             UNION
           {
             ?_emergencyTemperature
               rdf:value ?emergencyTemperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?emergencyTemperatureUoM .
-            BIND(concat('xval:',STR(?emergencyTemperatureValue),':',?emergencyTemperatureUoM) AS ?emergencyTemperature)
+            BIND(concat(\'xval:\',STR(?emergencyTemperatureValue),\':\',?emergencyTemperatureUoM) AS ?emergencyTemperature)
           }
             UNION
           {
            ?_emergencyTemperature  aixm:nilReason ?emergencyTemperatureNilReason .
-           BIND(concat('nil:',?emergencyTemperatureNilReason) AS ?emergencyTemperature)
+           BIND(concat(\'nil:\',?emergencyTemperatureNilReason) AS ?emergencyTemperature)
           }
         }
       }
@@ -8754,19 +8754,19 @@ WHERE
           {
             ?_flashpointTemperature rdf:value ?flashpointTemperatureValue .
             FILTER ( NOT EXISTS {?_flashpointTemperature (aixm:uom | fixm:uom | plain:uom) ?flashpointTemperatureUoM})
-            BIND(concat('val:',?flashpointTemperatureValue) AS ?flashpointTemperature)
+            BIND(concat(\'val:\',?flashpointTemperatureValue) AS ?flashpointTemperature)
           }
             UNION
           {
             ?_flashpointTemperature
               rdf:value ?flashpointTemperatureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?flashpointTemperatureUoM .
-            BIND(concat('xval:',STR(?flashpointTemperatureValue),':',?flashpointTemperatureUoM) AS ?flashpointTemperature)
+            BIND(concat(\'xval:\',STR(?flashpointTemperatureValue),\':\',?flashpointTemperatureUoM) AS ?flashpointTemperature)
           }
             UNION
           {
            ?_flashpointTemperature  aixm:nilReason ?flashpointTemperatureNilReason .
-           BIND(concat('nil:',?flashpointTemperatureNilReason) AS ?flashpointTemperature)
+           BIND(concat(\'nil:\',?flashpointTemperatureNilReason) AS ?flashpointTemperature)
           }
         }
       }
@@ -8809,19 +8809,19 @@ WHERE
           {
             ?_segmentIdentifier rdf:value ?segmentIdentifierValue .
             FILTER ( NOT EXISTS {?_segmentIdentifier (aixm:uom | fixm:uom | plain:uom) ?segmentIdentifierUoM})
-            BIND(concat('val:',?segmentIdentifierValue) AS ?segmentIdentifier)
+            BIND(concat(\'val:\',?segmentIdentifierValue) AS ?segmentIdentifier)
           }
             UNION
           {
             ?_segmentIdentifier
               rdf:value ?segmentIdentifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?segmentIdentifierUoM .
-            BIND(concat('xval:',STR(?segmentIdentifierValue),':',?segmentIdentifierUoM) AS ?segmentIdentifier)
+            BIND(concat(\'xval:\',STR(?segmentIdentifierValue),\':\',?segmentIdentifierUoM) AS ?segmentIdentifier)
           }
             UNION
           {
            ?_segmentIdentifier  aixm:nilReason ?segmentIdentifierNilReason .
-           BIND(concat('nil:',?segmentIdentifierNilReason) AS ?segmentIdentifier)
+           BIND(concat(\'nil:\',?segmentIdentifierNilReason) AS ?segmentIdentifier)
           }
         }
       }
@@ -8830,19 +8830,19 @@ WHERE
           {
             ?_segmentType rdf:value ?segmentTypeValue .
             FILTER ( NOT EXISTS {?_segmentType (aixm:uom | fixm:uom | plain:uom) ?segmentTypeUoM})
-            BIND(concat('val:',?segmentTypeValue) AS ?segmentType)
+            BIND(concat(\'val:\',?segmentTypeValue) AS ?segmentType)
           }
             UNION
           {
             ?_segmentType
               rdf:value ?segmentTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?segmentTypeUoM .
-            BIND(concat('xval:',STR(?segmentTypeValue),':',?segmentTypeUoM) AS ?segmentType)
+            BIND(concat(\'xval:\',STR(?segmentTypeValue),\':\',?segmentTypeUoM) AS ?segmentType)
           }
             UNION
           {
            ?_segmentType  aixm:nilReason ?segmentTypeNilReason .
-           BIND(concat('nil:',?segmentTypeNilReason) AS ?segmentType)
+           BIND(concat(\'nil:\',?segmentTypeNilReason) AS ?segmentType)
           }
         }
       }
@@ -8885,19 +8885,19 @@ WHERE
           {
             ?_runwayName rdf:value ?runwayNameValue .
             FILTER ( NOT EXISTS {?_runwayName (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM})
-            BIND(concat('val:',?runwayNameValue) AS ?runwayName)
+            BIND(concat(\'val:\',?runwayNameValue) AS ?runwayName)
           }
             UNION
           {
             ?_runwayName
               rdf:value ?runwayNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM .
-            BIND(concat('xval:',STR(?runwayNameValue),':',?runwayNameUoM) AS ?runwayName)
+            BIND(concat(\'xval:\',STR(?runwayNameValue),\':\',?runwayNameUoM) AS ?runwayName)
           }
             UNION
           {
            ?_runwayName  aixm:nilReason ?runwayNameNilReason .
-           BIND(concat('nil:',?runwayNameNilReason) AS ?runwayName)
+           BIND(concat(\'nil:\',?runwayNameNilReason) AS ?runwayName)
           }
         }
       }
@@ -8971,7 +8971,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier (GROUP_CONCAT(DISTINCT ?marketingCarrierFlightIdentifier;SEPARATOR=",") AS ?marketingCarrierFlightIdentifierConcat)
+SELECT ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier ?marketingCarrierFlightIdentifier
 WHERE
   { GRAPH ?graph
     {
@@ -8981,19 +8981,19 @@ WHERE
           {
             ?_aircraftIdentification rdf:value ?aircraftIdentificationValue .
             FILTER ( NOT EXISTS {?_aircraftIdentification (aixm:uom | fixm:uom | plain:uom) ?aircraftIdentificationUoM})
-            BIND(concat('val:',?aircraftIdentificationValue) AS ?aircraftIdentification)
+            BIND(concat(\'val:\',?aircraftIdentificationValue) AS ?aircraftIdentification)
           }
             UNION
           {
             ?_aircraftIdentification
               rdf:value ?aircraftIdentificationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftIdentificationUoM .
-            BIND(concat('xval:',STR(?aircraftIdentificationValue),':',?aircraftIdentificationUoM) AS ?aircraftIdentification)
+            BIND(concat(\'xval:\',STR(?aircraftIdentificationValue),\':\',?aircraftIdentificationUoM) AS ?aircraftIdentification)
           }
             UNION
           {
            ?_aircraftIdentification  aixm:nilReason ?aircraftIdentificationNilReason .
-           BIND(concat('nil:',?aircraftIdentificationNilReason) AS ?aircraftIdentification)
+           BIND(concat(\'nil:\',?aircraftIdentificationNilReason) AS ?aircraftIdentification)
           }
         }
       }
@@ -9002,19 +9002,19 @@ WHERE
           {
             ?_majorCarrierIdentifier rdf:value ?majorCarrierIdentifierValue .
             FILTER ( NOT EXISTS {?_majorCarrierIdentifier (aixm:uom | fixm:uom | plain:uom) ?majorCarrierIdentifierUoM})
-            BIND(concat('val:',?majorCarrierIdentifierValue) AS ?majorCarrierIdentifier)
+            BIND(concat(\'val:\',?majorCarrierIdentifierValue) AS ?majorCarrierIdentifier)
           }
             UNION
           {
             ?_majorCarrierIdentifier
               rdf:value ?majorCarrierIdentifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?majorCarrierIdentifierUoM .
-            BIND(concat('xval:',STR(?majorCarrierIdentifierValue),':',?majorCarrierIdentifierUoM) AS ?majorCarrierIdentifier)
+            BIND(concat(\'xval:\',STR(?majorCarrierIdentifierValue),\':\',?majorCarrierIdentifierUoM) AS ?majorCarrierIdentifier)
           }
             UNION
           {
            ?_majorCarrierIdentifier  aixm:nilReason ?majorCarrierIdentifierNilReason .
-           BIND(concat('nil:',?majorCarrierIdentifierNilReason) AS ?majorCarrierIdentifier)
+           BIND(concat(\'nil:\',?majorCarrierIdentifierNilReason) AS ?majorCarrierIdentifier)
           }
         }
       }
@@ -9023,19 +9023,19 @@ WHERE
           {
             ?_marketingCarrierFlightIdentifier rdf:value ?marketingCarrierFlightIdentifierValue .
             FILTER ( NOT EXISTS {?_marketingCarrierFlightIdentifier (aixm:uom | fixm:uom | plain:uom) ?marketingCarrierFlightIdentifierUoM})
-            BIND(concat('val:',?marketingCarrierFlightIdentifierValue) AS ?marketingCarrierFlightIdentifier)
+            BIND(concat(\'val:\',?marketingCarrierFlightIdentifierValue) AS ?marketingCarrierFlightIdentifier)
           }
             UNION
           {
             ?_marketingCarrierFlightIdentifier
               rdf:value ?marketingCarrierFlightIdentifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?marketingCarrierFlightIdentifierUoM .
-            BIND(concat('xval:',STR(?marketingCarrierFlightIdentifierValue),':',?marketingCarrierFlightIdentifierUoM) AS ?marketingCarrierFlightIdentifier)
+            BIND(concat(\'xval:\',STR(?marketingCarrierFlightIdentifierValue),\':\',?marketingCarrierFlightIdentifierUoM) AS ?marketingCarrierFlightIdentifier)
           }
             UNION
           {
            ?_marketingCarrierFlightIdentifier  aixm:nilReason ?marketingCarrierFlightIdentifierNilReason .
-           BIND(concat('nil:',?marketingCarrierFlightIdentifierNilReason) AS ?marketingCarrierFlightIdentifier)
+           BIND(concat(\'nil:\',?marketingCarrierFlightIdentifierNilReason) AS ?marketingCarrierFlightIdentifier)
           }
         }
       }
@@ -9044,7 +9044,7 @@ WHERE
 GROUP BY ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier
 
       '
-,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifierConcat),[]), convert(MarketingCarrierFlightIdentifierConcat,MarketingCarrierFlightIdentifierList).
+,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifier),[]).
 
 % fixm_LastContact(Graph, LastContact, ContactFrequency?, LastContactTime?, LastContactUnit?, Position?)
 
@@ -9079,19 +9079,19 @@ WHERE
           {
             ?_contactFrequency rdf:value ?contactFrequencyValue .
             FILTER ( NOT EXISTS {?_contactFrequency (aixm:uom | fixm:uom | plain:uom) ?contactFrequencyUoM})
-            BIND(concat('val:',?contactFrequencyValue) AS ?contactFrequency)
+            BIND(concat(\'val:\',?contactFrequencyValue) AS ?contactFrequency)
           }
             UNION
           {
             ?_contactFrequency
               rdf:value ?contactFrequencyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?contactFrequencyUoM .
-            BIND(concat('xval:',STR(?contactFrequencyValue),':',?contactFrequencyUoM) AS ?contactFrequency)
+            BIND(concat(\'xval:\',STR(?contactFrequencyValue),\':\',?contactFrequencyUoM) AS ?contactFrequency)
           }
             UNION
           {
            ?_contactFrequency  aixm:nilReason ?contactFrequencyNilReason .
-           BIND(concat('nil:',?contactFrequencyNilReason) AS ?contactFrequency)
+           BIND(concat(\'nil:\',?contactFrequencyNilReason) AS ?contactFrequency)
           }
         }
       }
@@ -9100,19 +9100,19 @@ WHERE
           {
             ?_lastContactTime rdf:value ?lastContactTimeValue .
             FILTER ( NOT EXISTS {?_lastContactTime (aixm:uom | fixm:uom | plain:uom) ?lastContactTimeUoM})
-            BIND(concat('val:',?lastContactTimeValue) AS ?lastContactTime)
+            BIND(concat(\'val:\',?lastContactTimeValue) AS ?lastContactTime)
           }
             UNION
           {
             ?_lastContactTime
               rdf:value ?lastContactTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lastContactTimeUoM .
-            BIND(concat('xval:',STR(?lastContactTimeValue),':',?lastContactTimeUoM) AS ?lastContactTime)
+            BIND(concat(\'xval:\',STR(?lastContactTimeValue),\':\',?lastContactTimeUoM) AS ?lastContactTime)
           }
             UNION
           {
            ?_lastContactTime  aixm:nilReason ?lastContactTimeNilReason .
-           BIND(concat('nil:',?lastContactTimeNilReason) AS ?lastContactTime)
+           BIND(concat(\'nil:\',?lastContactTimeNilReason) AS ?lastContactTime)
           }
         }
       }
@@ -9121,19 +9121,19 @@ WHERE
           {
             ?_lastContactUnit rdf:value ?lastContactUnitValue .
             FILTER ( NOT EXISTS {?_lastContactUnit (aixm:uom | fixm:uom | plain:uom) ?lastContactUnitUoM})
-            BIND(concat('val:',?lastContactUnitValue) AS ?lastContactUnit)
+            BIND(concat(\'val:\',?lastContactUnitValue) AS ?lastContactUnit)
           }
             UNION
           {
             ?_lastContactUnit
               rdf:value ?lastContactUnitValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lastContactUnitUoM .
-            BIND(concat('xval:',STR(?lastContactUnitValue),':',?lastContactUnitUoM) AS ?lastContactUnit)
+            BIND(concat(\'xval:\',STR(?lastContactUnitValue),\':\',?lastContactUnitUoM) AS ?lastContactUnit)
           }
             UNION
           {
            ?_lastContactUnit  aixm:nilReason ?lastContactUnitNilReason .
-           BIND(concat('nil:',?lastContactUnitNilReason) AS ?lastContactUnit)
+           BIND(concat(\'nil:\',?lastContactUnitNilReason) AS ?lastContactUnit)
           }
         }
       }
@@ -9201,7 +9201,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surface ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?surface ?horizontalAccuracy ?annotation
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -9215,19 +9215,19 @@ WHERE
           {
             ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
             FILTER ( NOT EXISTS {?_horizontalAccuracy (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM})
-            BIND(concat('val:',?horizontalAccuracyValue) AS ?horizontalAccuracy)
+            BIND(concat(\'val:\',?horizontalAccuracyValue) AS ?horizontalAccuracy)
           }
             UNION
           {
             ?_horizontalAccuracy
               rdf:value ?horizontalAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM .
-            BIND(concat('xval:',STR(?horizontalAccuracyValue),':',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
+            BIND(concat(\'xval:\',STR(?horizontalAccuracyValue),\':\',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
           }
             UNION
           {
            ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
-           BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
+           BIND(concat(\'nil:\',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
           }
         }
       }
@@ -9238,7 +9238,7 @@ WHERE
 GROUP BY ?graph ?surface ?horizontalAccuracy
 
       '
-,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,Surface,HorizontalAccuracy,Annotation),[]).
 
 % gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition)
 
@@ -9273,19 +9273,19 @@ WHERE
           {
             ?_beginPosition rdf:value ?beginPositionValue .
             FILTER ( NOT EXISTS {?_beginPosition (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM})
-            BIND(concat('val:',?beginPositionValue) AS ?beginPosition)
+            BIND(concat(\'val:\',?beginPositionValue) AS ?beginPosition)
           }
 		     UNION
 		     {
             ?_beginPosition
               rdf:value ?beginPositionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM .
-              BIND(concat('xval:',STR(?beginPositionValue),':',?beginPositionUoM) AS ?beginPosition)
+              BIND(concat(\'xval:\',STR(?beginPositionValue),\':\',?beginPositionUoM) AS ?beginPosition)
           }
           UNION
           {
 		       ?_beginPosition  aixm:nilReason ?beginPositionNilReason .
-		       BIND(concat('nil:',?beginPositionNilReason) AS ?beginPosition)
+		       BIND(concat(\'nil:\',?beginPositionNilReason) AS ?beginPosition)
 		   }
       }
       ?timePeriod gml:endPosition  ?_endPosition .
@@ -9293,19 +9293,19 @@ WHERE
           {
             ?_endPosition rdf:value ?endPositionValue .
             FILTER ( NOT EXISTS {?_endPosition (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM})
-            BIND(concat('val:',?endPositionValue) AS ?endPosition)
+            BIND(concat(\'val:\',?endPositionValue) AS ?endPosition)
           }
 		     UNION
 		     {
             ?_endPosition
               rdf:value ?endPositionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM .
-              BIND(concat('xval:',STR(?endPositionValue),':',?endPositionUoM) AS ?endPosition)
+              BIND(concat(\'xval:\',STR(?endPositionValue),\':\',?endPositionUoM) AS ?endPosition)
           }
           UNION
           {
 		       ?_endPosition  aixm:nilReason ?endPositionNilReason .
-		       BIND(concat('nil:',?endPositionNilReason) AS ?endPosition)
+		       BIND(concat(\'nil:\',?endPositionNilReason) AS ?endPosition)
 		   }
       }
     }
@@ -9351,19 +9351,19 @@ WHERE
           {
             ?_standardCapabilities rdf:value ?standardCapabilitiesValue .
             FILTER ( NOT EXISTS {?_standardCapabilities (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM})
-            BIND(concat('val:',?standardCapabilitiesValue) AS ?standardCapabilities)
+            BIND(concat(\'val:\',?standardCapabilitiesValue) AS ?standardCapabilities)
           }
             UNION
           {
             ?_standardCapabilities
               rdf:value ?standardCapabilitiesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM .
-            BIND(concat('xval:',STR(?standardCapabilitiesValue),':',?standardCapabilitiesUoM) AS ?standardCapabilities)
+            BIND(concat(\'xval:\',STR(?standardCapabilitiesValue),\':\',?standardCapabilitiesUoM) AS ?standardCapabilities)
           }
             UNION
           {
            ?_standardCapabilities  aixm:nilReason ?standardCapabilitiesNilReason .
-           BIND(concat('nil:',?standardCapabilitiesNilReason) AS ?standardCapabilities)
+           BIND(concat(\'nil:\',?standardCapabilitiesNilReason) AS ?standardCapabilities)
           }
         }
       }
@@ -9406,19 +9406,19 @@ WHERE
           {
             ?_initialSpeed rdf:value ?initialSpeedValue .
             FILTER ( NOT EXISTS {?_initialSpeed (aixm:uom | fixm:uom | plain:uom) ?initialSpeedUoM})
-            BIND(concat('val:',?initialSpeedValue) AS ?initialSpeed)
+            BIND(concat(\'val:\',?initialSpeedValue) AS ?initialSpeed)
           }
             UNION
           {
             ?_initialSpeed
               rdf:value ?initialSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?initialSpeedUoM .
-            BIND(concat('xval:',STR(?initialSpeedValue),':',?initialSpeedUoM) AS ?initialSpeed)
+            BIND(concat(\'xval:\',STR(?initialSpeedValue),\':\',?initialSpeedUoM) AS ?initialSpeed)
           }
             UNION
           {
            ?_initialSpeed  aixm:nilReason ?initialSpeedNilReason .
-           BIND(concat('nil:',?initialSpeedNilReason) AS ?initialSpeed)
+           BIND(concat(\'nil:\',?initialSpeedNilReason) AS ?initialSpeed)
           }
         }
       }
@@ -9427,19 +9427,19 @@ WHERE
           {
             ?_subsequentSpeed rdf:value ?subsequentSpeedValue .
             FILTER ( NOT EXISTS {?_subsequentSpeed (aixm:uom | fixm:uom | plain:uom) ?subsequentSpeedUoM})
-            BIND(concat('val:',?subsequentSpeedValue) AS ?subsequentSpeed)
+            BIND(concat(\'val:\',?subsequentSpeedValue) AS ?subsequentSpeed)
           }
             UNION
           {
             ?_subsequentSpeed
               rdf:value ?subsequentSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?subsequentSpeedUoM .
-            BIND(concat('xval:',STR(?subsequentSpeedValue),':',?subsequentSpeedUoM) AS ?subsequentSpeed)
+            BIND(concat(\'xval:\',STR(?subsequentSpeedValue),\':\',?subsequentSpeedUoM) AS ?subsequentSpeed)
           }
             UNION
           {
            ?_subsequentSpeed  aixm:nilReason ?subsequentSpeedNilReason .
-           BIND(concat('nil:',?subsequentSpeedNilReason) AS ?subsequentSpeed)
+           BIND(concat(\'nil:\',?subsequentSpeedNilReason) AS ?subsequentSpeed)
           }
         }
       }
@@ -9472,7 +9472,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?relatedOrganisationAuthority;SEPARATOR=",") AS ?relatedOrganisationAuthorityConcat)
+SELECT ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military ?annotation ?contact ?relatedOrganisationAuthority
 WHERE
   { GRAPH ?graph
     {
@@ -9482,19 +9482,19 @@ WHERE
           {
             ?_name rdf:value ?nameValue .
             FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat('val:',?nameValue) AS ?name)
+            BIND(concat(\'val:\',?nameValue) AS ?name)
           }
             UNION
           {
             ?_name
               rdf:value ?nameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat('xval:',STR(?nameValue),':',?nameUoM) AS ?name)
+            BIND(concat(\'xval:\',STR(?nameValue),\':\',?nameUoM) AS ?name)
           }
             UNION
           {
            ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat('nil:',?nameNilReason) AS ?name)
+           BIND(concat(\'nil:\',?nameNilReason) AS ?name)
           }
         }
       }
@@ -9503,19 +9503,19 @@ WHERE
           {
             ?_designator rdf:value ?designatorValue .
             FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat('val:',?designatorValue) AS ?designator)
+            BIND(concat(\'val:\',?designatorValue) AS ?designator)
           }
             UNION
           {
             ?_designator
               rdf:value ?designatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-            BIND(concat('xval:',STR(?designatorValue),':',?designatorUoM) AS ?designator)
+            BIND(concat(\'xval:\',STR(?designatorValue),\':\',?designatorUoM) AS ?designator)
           }
             UNION
           {
            ?_designator  aixm:nilReason ?designatorNilReason .
-           BIND(concat('nil:',?designatorNilReason) AS ?designator)
+           BIND(concat(\'nil:\',?designatorNilReason) AS ?designator)
           }
         }
       }
@@ -9524,19 +9524,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -9545,19 +9545,19 @@ WHERE
           {
             ?_military rdf:value ?militaryValue .
             FILTER ( NOT EXISTS {?_military (aixm:uom | fixm:uom | plain:uom) ?militaryUoM})
-            BIND(concat('val:',?militaryValue) AS ?military)
+            BIND(concat(\'val:\',?militaryValue) AS ?military)
           }
             UNION
           {
             ?_military
               rdf:value ?militaryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?militaryUoM .
-            BIND(concat('xval:',STR(?militaryValue),':',?militaryUoM) AS ?military)
+            BIND(concat(\'xval:\',STR(?militaryValue),\':\',?militaryUoM) AS ?military)
           }
             UNION
           {
            ?_military  aixm:nilReason ?militaryNilReason .
-           BIND(concat('nil:',?militaryNilReason) AS ?military)
+           BIND(concat(\'nil:\',?militaryNilReason) AS ?military)
           }
         }
       }
@@ -9569,7 +9569,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military
 
       '
-,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,AnnotationConcat,ContactConcat,RelatedOrganisationAuthorityConcat),[]), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList), convert(RelatedOrganisationAuthorityConcat,RelatedOrganisationAuthorityList).
+,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,Annotation,Contact,RelatedOrganisationAuthority),[]).
 
 % fixm_EnRoute(Graph, EnRoute, AlternateAerodrome*, FleetPrioritization?, BoundaryCrossings*, CpdlcConnection?, BeaconCodeAssignment?, Cleared?, ControlElement*, Pointout?, Position?)
 
@@ -9594,7 +9594,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?enRoute (GROUP_CONCAT(DISTINCT ?alternateAerodrome;SEPARATOR=",") AS ?alternateAerodromeConcat) ?fleetPrioritization (GROUP_CONCAT(DISTINCT ?boundaryCrossings;SEPARATOR=",") AS ?boundaryCrossingsConcat) ?cpdlcConnection ?beaconCodeAssignment ?cleared (GROUP_CONCAT(DISTINCT ?controlElement;SEPARATOR=",") AS ?controlElementConcat) ?pointout ?position
+SELECT ?graph ?enRoute ?alternateAerodrome ?fleetPrioritization ?boundaryCrossings ?cpdlcConnection ?beaconCodeAssignment ?cleared ?controlElement ?pointout ?position
 WHERE
   { GRAPH ?graph
     {
@@ -9605,19 +9605,19 @@ WHERE
           {
             ?_fleetPrioritization rdf:value ?fleetPrioritizationValue .
             FILTER ( NOT EXISTS {?_fleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM})
-            BIND(concat('val:',?fleetPrioritizationValue) AS ?fleetPrioritization)
+            BIND(concat(\'val:\',?fleetPrioritizationValue) AS ?fleetPrioritization)
           }
             UNION
           {
             ?_fleetPrioritization
               rdf:value ?fleetPrioritizationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM .
-            BIND(concat('xval:',STR(?fleetPrioritizationValue),':',?fleetPrioritizationUoM) AS ?fleetPrioritization)
+            BIND(concat(\'xval:\',STR(?fleetPrioritizationValue),\':\',?fleetPrioritizationUoM) AS ?fleetPrioritization)
           }
             UNION
           {
            ?_fleetPrioritization  aixm:nilReason ?fleetPrioritizationNilReason .
-           BIND(concat('nil:',?fleetPrioritizationNilReason) AS ?fleetPrioritization)
+           BIND(concat(\'nil:\',?fleetPrioritizationNilReason) AS ?fleetPrioritization)
           }
         }
       }
@@ -9630,19 +9630,19 @@ WHERE
           {
             ?_controlElement rdf:value ?controlElementValue .
             FILTER ( NOT EXISTS {?_controlElement (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM})
-            BIND(concat('val:',?controlElementValue) AS ?controlElement)
+            BIND(concat(\'val:\',?controlElementValue) AS ?controlElement)
           }
             UNION
           {
             ?_controlElement
               rdf:value ?controlElementValue ;
               (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM .
-            BIND(concat('xval:',STR(?controlElementValue),':',?controlElementUoM) AS ?controlElement)
+            BIND(concat(\'xval:\',STR(?controlElementValue),\':\',?controlElementUoM) AS ?controlElement)
           }
             UNION
           {
            ?_controlElement  aixm:nilReason ?controlElementNilReason .
-           BIND(concat('nil:',?controlElementNilReason) AS ?controlElement)
+           BIND(concat(\'nil:\',?controlElementNilReason) AS ?controlElement)
           }
         }
       }
@@ -9653,7 +9653,7 @@ WHERE
 GROUP BY ?graph ?enRoute ?fleetPrioritization ?cpdlcConnection ?beaconCodeAssignment ?cleared ?pointout ?position
 
       '
-,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convert(ControlElementConcat,ControlElementList).
+,row(Graph,EnRoute,AlternateAerodrome,FleetPrioritization,BoundaryCrossings,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElement,Pointout,Position),[]).
 
 % fixm_FlightLevel(Graph, FlightLevel, Level?, Unit?)
 
@@ -9688,19 +9688,19 @@ WHERE
           {
             ?_level rdf:value ?levelValue .
             FILTER ( NOT EXISTS {?_level (aixm:uom | fixm:uom | plain:uom) ?levelUoM})
-            BIND(concat('val:',?levelValue) AS ?level)
+            BIND(concat(\'val:\',?levelValue) AS ?level)
           }
             UNION
           {
             ?_level
               rdf:value ?levelValue ;
               (aixm:uom | fixm:uom | plain:uom) ?levelUoM .
-            BIND(concat('xval:',STR(?levelValue),':',?levelUoM) AS ?level)
+            BIND(concat(\'xval:\',STR(?levelValue),\':\',?levelUoM) AS ?level)
           }
             UNION
           {
            ?_level  aixm:nilReason ?levelNilReason .
-           BIND(concat('nil:',?levelNilReason) AS ?level)
+           BIND(concat(\'nil:\',?levelNilReason) AS ?level)
           }
         }
       }
@@ -9709,19 +9709,19 @@ WHERE
           {
             ?_unit rdf:value ?unitValue .
             FILTER ( NOT EXISTS {?_unit (aixm:uom | fixm:uom | plain:uom) ?unitUoM})
-            BIND(concat('val:',?unitValue) AS ?unit)
+            BIND(concat(\'val:\',?unitValue) AS ?unit)
           }
             UNION
           {
             ?_unit
               rdf:value ?unitValue ;
               (aixm:uom | fixm:uom | plain:uom) ?unitUoM .
-            BIND(concat('xval:',STR(?unitValue),':',?unitUoM) AS ?unit)
+            BIND(concat(\'xval:\',STR(?unitValue),\':\',?unitUoM) AS ?unit)
           }
             UNION
           {
            ?_unit  aixm:nilReason ?unitNilReason .
-           BIND(concat('nil:',?unitNilReason) AS ?unit)
+           BIND(concat(\'nil:\',?unitNilReason) AS ?unit)
           }
         }
       }
@@ -9731,9 +9731,9 @@ WHERE
       '
 ,row(Graph,FlightLevel,Level,Unit),[]).
 
-% fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason?)
+% fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance*, OfftrackReason?)
 
-fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason) :-
+fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistanceList, OfftrackReason) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -9754,7 +9754,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?lateralOfftrack ?offtrackDistance ?offtrackReason
+SELECT ?graph ?lateralOfftrack (GROUP_CONCAT(DISTINCT ?offtrackDistance;SEPARATOR=",") AS ?offtrackDistanceConcat) ?offtrackReason
 WHERE
   { GRAPH ?graph
     {
@@ -9765,19 +9765,19 @@ WHERE
           {
             ?_offtrackReason rdf:value ?offtrackReasonValue .
             FILTER ( NOT EXISTS {?_offtrackReason (aixm:uom | fixm:uom | plain:uom) ?offtrackReasonUoM})
-            BIND(concat('val:',?offtrackReasonValue) AS ?offtrackReason)
+            BIND(concat(\'val:\',?offtrackReasonValue) AS ?offtrackReason)
           }
             UNION
           {
             ?_offtrackReason
               rdf:value ?offtrackReasonValue ;
               (aixm:uom | fixm:uom | plain:uom) ?offtrackReasonUoM .
-            BIND(concat('xval:',STR(?offtrackReasonValue),':',?offtrackReasonUoM) AS ?offtrackReason)
+            BIND(concat(\'xval:\',STR(?offtrackReasonValue),\':\',?offtrackReasonUoM) AS ?offtrackReason)
           }
             UNION
           {
            ?_offtrackReason  aixm:nilReason ?offtrackReasonNilReason .
-           BIND(concat('nil:',?offtrackReasonNilReason) AS ?offtrackReason)
+           BIND(concat(\'nil:\',?offtrackReasonNilReason) AS ?offtrackReason)
           }
         }
       }
@@ -9820,19 +9820,19 @@ WHERE
           {
             ?_earliest rdf:value ?earliestValue .
             FILTER ( NOT EXISTS {?_earliest (aixm:uom | fixm:uom | plain:uom) ?earliestUoM})
-            BIND(concat('val:',?earliestValue) AS ?earliest)
+            BIND(concat(\'val:\',?earliestValue) AS ?earliest)
           }
             UNION
           {
             ?_earliest
               rdf:value ?earliestValue ;
               (aixm:uom | fixm:uom | plain:uom) ?earliestUoM .
-            BIND(concat('xval:',STR(?earliestValue),':',?earliestUoM) AS ?earliest)
+            BIND(concat(\'xval:\',STR(?earliestValue),\':\',?earliestUoM) AS ?earliest)
           }
             UNION
           {
            ?_earliest  aixm:nilReason ?earliestNilReason .
-           BIND(concat('nil:',?earliestNilReason) AS ?earliest)
+           BIND(concat(\'nil:\',?earliestNilReason) AS ?earliest)
           }
         }
       }
@@ -9841,19 +9841,19 @@ WHERE
           {
             ?_latest rdf:value ?latestValue .
             FILTER ( NOT EXISTS {?_latest (aixm:uom | fixm:uom | plain:uom) ?latestUoM})
-            BIND(concat('val:',?latestValue) AS ?latest)
+            BIND(concat(\'val:\',?latestValue) AS ?latest)
           }
             UNION
           {
             ?_latest
               rdf:value ?latestValue ;
               (aixm:uom | fixm:uom | plain:uom) ?latestUoM .
-            BIND(concat('xval:',STR(?latestValue),':',?latestUoM) AS ?latest)
+            BIND(concat(\'xval:\',STR(?latestValue),\':\',?latestUoM) AS ?latest)
           }
             UNION
           {
            ?_latest  aixm:nilReason ?latestNilReason .
-           BIND(concat('nil:',?latestNilReason) AS ?latest)
+           BIND(concat(\'nil:\',?latestNilReason) AS ?latest)
           }
         }
       }
@@ -9896,19 +9896,19 @@ WHERE
           {
             ?_aircraftColours rdf:value ?aircraftColoursValue .
             FILTER ( NOT EXISTS {?_aircraftColours (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM})
-            BIND(concat('val:',?aircraftColoursValue) AS ?aircraftColours)
+            BIND(concat(\'val:\',?aircraftColoursValue) AS ?aircraftColours)
           }
             UNION
           {
             ?_aircraftColours
               rdf:value ?aircraftColoursValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM .
-            BIND(concat('xval:',STR(?aircraftColoursValue),':',?aircraftColoursUoM) AS ?aircraftColours)
+            BIND(concat(\'xval:\',STR(?aircraftColoursValue),\':\',?aircraftColoursUoM) AS ?aircraftColours)
           }
             UNION
           {
            ?_aircraftColours  aixm:nilReason ?aircraftColoursNilReason .
-           BIND(concat('nil:',?aircraftColoursNilReason) AS ?aircraftColours)
+           BIND(concat(\'nil:\',?aircraftColoursNilReason) AS ?aircraftColours)
           }
         }
       }
@@ -9917,19 +9917,19 @@ WHERE
           {
             ?_aircraftQuantity rdf:value ?aircraftQuantityValue .
             FILTER ( NOT EXISTS {?_aircraftQuantity (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM})
-            BIND(concat('val:',?aircraftQuantityValue) AS ?aircraftQuantity)
+            BIND(concat(\'val:\',?aircraftQuantityValue) AS ?aircraftQuantity)
           }
             UNION
           {
             ?_aircraftQuantity
               rdf:value ?aircraftQuantityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM .
-            BIND(concat('xval:',STR(?aircraftQuantityValue),':',?aircraftQuantityUoM) AS ?aircraftQuantity)
+            BIND(concat(\'xval:\',STR(?aircraftQuantityValue),\':\',?aircraftQuantityUoM) AS ?aircraftQuantity)
           }
             UNION
           {
            ?_aircraftQuantity  aixm:nilReason ?aircraftQuantityNilReason .
-           BIND(concat('nil:',?aircraftQuantityNilReason) AS ?aircraftQuantity)
+           BIND(concat(\'nil:\',?aircraftQuantityNilReason) AS ?aircraftQuantity)
           }
         }
       }
@@ -9938,19 +9938,19 @@ WHERE
           {
             ?_engineType rdf:value ?engineTypeValue .
             FILTER ( NOT EXISTS {?_engineType (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM})
-            BIND(concat('val:',?engineTypeValue) AS ?engineType)
+            BIND(concat(\'val:\',?engineTypeValue) AS ?engineType)
           }
             UNION
           {
             ?_engineType
               rdf:value ?engineTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM .
-            BIND(concat('xval:',STR(?engineTypeValue),':',?engineTypeUoM) AS ?engineType)
+            BIND(concat(\'xval:\',STR(?engineTypeValue),\':\',?engineTypeUoM) AS ?engineType)
           }
             UNION
           {
            ?_engineType  aixm:nilReason ?engineTypeNilReason .
-           BIND(concat('nil:',?engineTypeNilReason) AS ?engineType)
+           BIND(concat(\'nil:\',?engineTypeNilReason) AS ?engineType)
           }
         }
       }
@@ -9959,19 +9959,19 @@ WHERE
           {
             ?_aircraftAddress rdf:value ?aircraftAddressValue .
             FILTER ( NOT EXISTS {?_aircraftAddress (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM})
-            BIND(concat('val:',?aircraftAddressValue) AS ?aircraftAddress)
+            BIND(concat(\'val:\',?aircraftAddressValue) AS ?aircraftAddress)
           }
             UNION
           {
             ?_aircraftAddress
               rdf:value ?aircraftAddressValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM .
-            BIND(concat('xval:',STR(?aircraftAddressValue),':',?aircraftAddressUoM) AS ?aircraftAddress)
+            BIND(concat(\'xval:\',STR(?aircraftAddressValue),\':\',?aircraftAddressUoM) AS ?aircraftAddress)
           }
             UNION
           {
            ?_aircraftAddress  aixm:nilReason ?aircraftAddressNilReason .
-           BIND(concat('nil:',?aircraftAddressNilReason) AS ?aircraftAddress)
+           BIND(concat(\'nil:\',?aircraftAddressNilReason) AS ?aircraftAddress)
           }
         }
       }
@@ -9981,19 +9981,19 @@ WHERE
           {
             ?_registration rdf:value ?registrationValue .
             FILTER ( NOT EXISTS {?_registration (aixm:uom | fixm:uom | plain:uom) ?registrationUoM})
-            BIND(concat('val:',?registrationValue) AS ?registration)
+            BIND(concat(\'val:\',?registrationValue) AS ?registration)
           }
             UNION
           {
             ?_registration
               rdf:value ?registrationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?registrationUoM .
-            BIND(concat('xval:',STR(?registrationValue),':',?registrationUoM) AS ?registration)
+            BIND(concat(\'xval:\',STR(?registrationValue),\':\',?registrationUoM) AS ?registration)
           }
             UNION
           {
            ?_registration  aixm:nilReason ?registrationNilReason .
-           BIND(concat('nil:',?registrationNilReason) AS ?registration)
+           BIND(concat(\'nil:\',?registrationNilReason) AS ?registration)
           }
         }
       }
@@ -10002,19 +10002,19 @@ WHERE
           {
             ?_aircraftType rdf:value ?aircraftTypeValue .
             FILTER ( NOT EXISTS {?_aircraftType (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM})
-            BIND(concat('val:',?aircraftTypeValue) AS ?aircraftType)
+            BIND(concat(\'val:\',?aircraftTypeValue) AS ?aircraftType)
           }
             UNION
           {
             ?_aircraftType
               rdf:value ?aircraftTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM .
-            BIND(concat('xval:',STR(?aircraftTypeValue),':',?aircraftTypeUoM) AS ?aircraftType)
+            BIND(concat(\'xval:\',STR(?aircraftTypeValue),\':\',?aircraftTypeUoM) AS ?aircraftType)
           }
             UNION
           {
            ?_aircraftType  aixm:nilReason ?aircraftTypeNilReason .
-           BIND(concat('nil:',?aircraftTypeNilReason) AS ?aircraftType)
+           BIND(concat(\'nil:\',?aircraftTypeNilReason) AS ?aircraftType)
           }
         }
       }
@@ -10023,19 +10023,19 @@ WHERE
           {
             ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
             FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
-            BIND(concat('val:',?wakeTurbulenceValue) AS ?wakeTurbulence)
+            BIND(concat(\'val:\',?wakeTurbulenceValue) AS ?wakeTurbulence)
           }
             UNION
           {
             ?_wakeTurbulence
               rdf:value ?wakeTurbulenceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
-            BIND(concat('xval:',STR(?wakeTurbulenceValue),':',?wakeTurbulenceUoM) AS ?wakeTurbulence)
+            BIND(concat(\'xval:\',STR(?wakeTurbulenceValue),\':\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
           }
             UNION
           {
            ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
-           BIND(concat('nil:',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
+           BIND(concat(\'nil:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
           }
         }
       }
@@ -10044,19 +10044,19 @@ WHERE
           {
             ?_aircraftPerformance rdf:value ?aircraftPerformanceValue .
             FILTER ( NOT EXISTS {?_aircraftPerformance (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM})
-            BIND(concat('val:',?aircraftPerformanceValue) AS ?aircraftPerformance)
+            BIND(concat(\'val:\',?aircraftPerformanceValue) AS ?aircraftPerformance)
           }
             UNION
           {
             ?_aircraftPerformance
               rdf:value ?aircraftPerformanceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM .
-            BIND(concat('xval:',STR(?aircraftPerformanceValue),':',?aircraftPerformanceUoM) AS ?aircraftPerformance)
+            BIND(concat(\'xval:\',STR(?aircraftPerformanceValue),\':\',?aircraftPerformanceUoM) AS ?aircraftPerformance)
           }
             UNION
           {
            ?_aircraftPerformance  aixm:nilReason ?aircraftPerformanceNilReason .
-           BIND(concat('nil:',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
+           BIND(concat(\'nil:\',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
           }
         }
       }
@@ -10099,19 +10099,19 @@ WHERE
           {
             ?_email rdf:value ?emailValue .
             FILTER ( NOT EXISTS {?_email (aixm:uom | fixm:uom | plain:uom) ?emailUoM})
-            BIND(concat('val:',?emailValue) AS ?email)
+            BIND(concat(\'val:\',?emailValue) AS ?email)
           }
             UNION
           {
             ?_email
               rdf:value ?emailValue ;
               (aixm:uom | fixm:uom | plain:uom) ?emailUoM .
-            BIND(concat('xval:',STR(?emailValue),':',?emailUoM) AS ?email)
+            BIND(concat(\'xval:\',STR(?emailValue),\':\',?emailUoM) AS ?email)
           }
             UNION
           {
            ?_email  aixm:nilReason ?emailNilReason .
-           BIND(concat('nil:',?emailNilReason) AS ?email)
+           BIND(concat(\'nil:\',?emailNilReason) AS ?email)
           }
         }
       }
@@ -10154,19 +10154,19 @@ WHERE
           {
             ?_airspaceControlledEntryTime rdf:value ?airspaceControlledEntryTimeValue .
             FILTER ( NOT EXISTS {?_airspaceControlledEntryTime (aixm:uom | fixm:uom | plain:uom) ?airspaceControlledEntryTimeUoM})
-            BIND(concat('val:',?airspaceControlledEntryTimeValue) AS ?airspaceControlledEntryTime)
+            BIND(concat(\'val:\',?airspaceControlledEntryTimeValue) AS ?airspaceControlledEntryTime)
           }
             UNION
           {
             ?_airspaceControlledEntryTime
               rdf:value ?airspaceControlledEntryTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?airspaceControlledEntryTimeUoM .
-            BIND(concat('xval:',STR(?airspaceControlledEntryTimeValue),':',?airspaceControlledEntryTimeUoM) AS ?airspaceControlledEntryTime)
+            BIND(concat(\'xval:\',STR(?airspaceControlledEntryTimeValue),\':\',?airspaceControlledEntryTimeUoM) AS ?airspaceControlledEntryTime)
           }
             UNION
           {
            ?_airspaceControlledEntryTime  aixm:nilReason ?airspaceControlledEntryTimeNilReason .
-           BIND(concat('nil:',?airspaceControlledEntryTimeNilReason) AS ?airspaceControlledEntryTime)
+           BIND(concat(\'nil:\',?airspaceControlledEntryTimeNilReason) AS ?airspaceControlledEntryTime)
           }
         }
       }
@@ -10175,19 +10175,19 @@ WHERE
           {
             ?_constrainedAirspace rdf:value ?constrainedAirspaceValue .
             FILTER ( NOT EXISTS {?_constrainedAirspace (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM})
-            BIND(concat('val:',?constrainedAirspaceValue) AS ?constrainedAirspace)
+            BIND(concat(\'val:\',?constrainedAirspaceValue) AS ?constrainedAirspace)
           }
             UNION
           {
             ?_constrainedAirspace
               rdf:value ?constrainedAirspaceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM .
-            BIND(concat('xval:',STR(?constrainedAirspaceValue),':',?constrainedAirspaceUoM) AS ?constrainedAirspace)
+            BIND(concat(\'xval:\',STR(?constrainedAirspaceValue),\':\',?constrainedAirspaceUoM) AS ?constrainedAirspace)
           }
             UNION
           {
            ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
-           BIND(concat('nil:',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
+           BIND(concat(\'nil:\',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
           }
         }
       }
@@ -10269,19 +10269,19 @@ WHERE
           {
             ?_responsibleAgent rdf:value ?responsibleAgentValue .
             FILTER ( NOT EXISTS {?_responsibleAgent (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM})
-            BIND(concat('val:',?responsibleAgentValue) AS ?responsibleAgent)
+            BIND(concat(\'val:\',?responsibleAgentValue) AS ?responsibleAgent)
           }
             UNION
           {
             ?_responsibleAgent
               rdf:value ?responsibleAgentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM .
-            BIND(concat('xval:',STR(?responsibleAgentValue),':',?responsibleAgentUoM) AS ?responsibleAgent)
+            BIND(concat(\'xval:\',STR(?responsibleAgentValue),\':\',?responsibleAgentUoM) AS ?responsibleAgent)
           }
             UNION
           {
            ?_responsibleAgent  aixm:nilReason ?responsibleAgentNilReason .
-           BIND(concat('nil:',?responsibleAgentNilReason) AS ?responsibleAgent)
+           BIND(concat(\'nil:\',?responsibleAgentNilReason) AS ?responsibleAgent)
           }
         }
       }
@@ -10328,19 +10328,19 @@ WHERE
           {
             ?_sectorIdentifier rdf:value ?sectorIdentifierValue .
             FILTER ( NOT EXISTS {?_sectorIdentifier (aixm:uom | fixm:uom | plain:uom) ?sectorIdentifierUoM})
-            BIND(concat('val:',?sectorIdentifierValue) AS ?sectorIdentifier)
+            BIND(concat(\'val:\',?sectorIdentifierValue) AS ?sectorIdentifier)
           }
             UNION
           {
             ?_sectorIdentifier
               rdf:value ?sectorIdentifierValue ;
               (aixm:uom | fixm:uom | plain:uom) ?sectorIdentifierUoM .
-            BIND(concat('xval:',STR(?sectorIdentifierValue),':',?sectorIdentifierUoM) AS ?sectorIdentifier)
+            BIND(concat(\'xval:\',STR(?sectorIdentifierValue),\':\',?sectorIdentifierUoM) AS ?sectorIdentifier)
           }
             UNION
           {
            ?_sectorIdentifier  aixm:nilReason ?sectorIdentifierNilReason .
-           BIND(concat('nil:',?sectorIdentifierNilReason) AS ?sectorIdentifier)
+           BIND(concat(\'nil:\',?sectorIdentifierNilReason) AS ?sectorIdentifier)
           }
         }
       }
@@ -10349,19 +10349,19 @@ WHERE
           {
             ?_delegated rdf:value ?delegatedValue .
             FILTER ( NOT EXISTS {?_delegated (aixm:uom | fixm:uom | plain:uom) ?delegatedUoM})
-            BIND(concat('val:',?delegatedValue) AS ?delegated)
+            BIND(concat(\'val:\',?delegatedValue) AS ?delegated)
           }
             UNION
           {
             ?_delegated
               rdf:value ?delegatedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?delegatedUoM .
-            BIND(concat('xval:',STR(?delegatedValue),':',?delegatedUoM) AS ?delegated)
+            BIND(concat(\'xval:\',STR(?delegatedValue),\':\',?delegatedUoM) AS ?delegated)
           }
             UNION
           {
            ?_delegated  aixm:nilReason ?delegatedNilReason .
-           BIND(concat('nil:',?delegatedNilReason) AS ?delegated)
+           BIND(concat(\'nil:\',?delegatedNilReason) AS ?delegated)
           }
         }
       }
@@ -10429,7 +10429,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities (GROUP_CONCAT(DISTINCT ?surveillanceCode;SEPARATOR=",") AS ?surveillanceCodeConcat)
+SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities ?surveillanceCode
 WHERE
   { GRAPH ?graph
     {
@@ -10439,19 +10439,19 @@ WHERE
           {
             ?_otherSurveillanceCapabilities rdf:value ?otherSurveillanceCapabilitiesValue .
             FILTER ( NOT EXISTS {?_otherSurveillanceCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM})
-            BIND(concat('val:',?otherSurveillanceCapabilitiesValue) AS ?otherSurveillanceCapabilities)
+            BIND(concat(\'val:\',?otherSurveillanceCapabilitiesValue) AS ?otherSurveillanceCapabilities)
           }
             UNION
           {
             ?_otherSurveillanceCapabilities
               rdf:value ?otherSurveillanceCapabilitiesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM .
-            BIND(concat('xval:',STR(?otherSurveillanceCapabilitiesValue),':',?otherSurveillanceCapabilitiesUoM) AS ?otherSurveillanceCapabilities)
+            BIND(concat(\'xval:\',STR(?otherSurveillanceCapabilitiesValue),\':\',?otherSurveillanceCapabilitiesUoM) AS ?otherSurveillanceCapabilities)
           }
             UNION
           {
            ?_otherSurveillanceCapabilities  aixm:nilReason ?otherSurveillanceCapabilitiesNilReason .
-           BIND(concat('nil:',?otherSurveillanceCapabilitiesNilReason) AS ?otherSurveillanceCapabilities)
+           BIND(concat(\'nil:\',?otherSurveillanceCapabilitiesNilReason) AS ?otherSurveillanceCapabilities)
           }
         }
       }
@@ -10460,19 +10460,19 @@ WHERE
           {
             ?_surveillanceCode rdf:value ?surveillanceCodeValue .
             FILTER ( NOT EXISTS {?_surveillanceCode (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM})
-            BIND(concat('val:',?surveillanceCodeValue) AS ?surveillanceCode)
+            BIND(concat(\'val:\',?surveillanceCodeValue) AS ?surveillanceCode)
           }
             UNION
           {
             ?_surveillanceCode
               rdf:value ?surveillanceCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM .
-            BIND(concat('xval:',STR(?surveillanceCodeValue),':',?surveillanceCodeUoM) AS ?surveillanceCode)
+            BIND(concat(\'xval:\',STR(?surveillanceCodeValue),\':\',?surveillanceCodeUoM) AS ?surveillanceCode)
           }
             UNION
           {
            ?_surveillanceCode  aixm:nilReason ?surveillanceCodeNilReason .
-           BIND(concat('nil:',?surveillanceCodeNilReason) AS ?surveillanceCode)
+           BIND(concat(\'nil:\',?surveillanceCodeNilReason) AS ?surveillanceCode)
           }
         }
       }
@@ -10481,7 +10481,7 @@ WHERE
 GROUP BY ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities
 
       '
-,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convert(SurveillanceCodeConcat,SurveillanceCodeList).
+,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCode),[]).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 
@@ -10506,7 +10506,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?trajectory (GROUP_CONCAT(DISTINCT ?trajectoryPoint;SEPARATOR=",") AS ?trajectoryPointConcat)
+SELECT ?graph ?trajectory ?trajectoryPoint
 WHERE
   { GRAPH ?graph
     {
@@ -10517,7 +10517,7 @@ WHERE
 GROUP BY ?graph ?trajectory
 
       '
-,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList).
+,row(Graph,Trajectory,TrajectoryPoint),[]).
 
 % aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote?, IsPrimary?, Availability*, Annotation*)
 
@@ -10542,7 +10542,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary ?availability ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -10552,19 +10552,19 @@ WHERE
           {
             ?_isRemote rdf:value ?isRemoteValue .
             FILTER ( NOT EXISTS {?_isRemote (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM})
-            BIND(concat('val:',?isRemoteValue) AS ?isRemote)
+            BIND(concat(\'val:\',?isRemoteValue) AS ?isRemote)
           }
             UNION
           {
             ?_isRemote
               rdf:value ?isRemoteValue ;
               (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM .
-            BIND(concat('xval:',STR(?isRemoteValue),':',?isRemoteUoM) AS ?isRemote)
+            BIND(concat(\'xval:\',STR(?isRemoteValue),\':\',?isRemoteUoM) AS ?isRemote)
           }
             UNION
           {
            ?_isRemote  aixm:nilReason ?isRemoteNilReason .
-           BIND(concat('nil:',?isRemoteNilReason) AS ?isRemote)
+           BIND(concat(\'nil:\',?isRemoteNilReason) AS ?isRemote)
           }
         }
       }
@@ -10573,19 +10573,19 @@ WHERE
           {
             ?_isPrimary rdf:value ?isPrimaryValue .
             FILTER ( NOT EXISTS {?_isPrimary (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM})
-            BIND(concat('val:',?isPrimaryValue) AS ?isPrimary)
+            BIND(concat(\'val:\',?isPrimaryValue) AS ?isPrimary)
           }
             UNION
           {
             ?_isPrimary
               rdf:value ?isPrimaryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM .
-            BIND(concat('xval:',STR(?isPrimaryValue),':',?isPrimaryUoM) AS ?isPrimary)
+            BIND(concat(\'xval:\',STR(?isPrimaryValue),\':\',?isPrimaryUoM) AS ?isPrimary)
           }
             UNION
           {
            ?_isPrimary  aixm:nilReason ?isPrimaryNilReason .
-           BIND(concat('nil:',?isPrimaryNilReason) AS ?isPrimary)
+           BIND(concat(\'nil:\',?isPrimaryNilReason) AS ?isPrimary)
           }
         }
       }
@@ -10596,7 +10596,7 @@ WHERE
 GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
 
       '
-,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList).
+,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,Availability,Annotation),[]).
 
 % aixm_Point(Graph, Point, HorizontalAccuracy?, Annotation*)
 
@@ -10621,7 +10621,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?point ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?point ?horizontalAccuracy ?annotation
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -10635,19 +10635,19 @@ WHERE
           {
             ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
             FILTER ( NOT EXISTS {?_horizontalAccuracy (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM})
-            BIND(concat('val:',?horizontalAccuracyValue) AS ?horizontalAccuracy)
+            BIND(concat(\'val:\',?horizontalAccuracyValue) AS ?horizontalAccuracy)
           }
             UNION
           {
             ?_horizontalAccuracy
               rdf:value ?horizontalAccuracyValue ;
               (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM .
-            BIND(concat('xval:',STR(?horizontalAccuracyValue),':',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
+            BIND(concat(\'xval:\',STR(?horizontalAccuracyValue),\':\',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
           }
             UNION
           {
            ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
-           BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
+           BIND(concat(\'nil:\',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
           }
         }
       }
@@ -10658,7 +10658,7 @@ WHERE
 GROUP BY ?graph ?point ?horizontalAccuracy
 
       '
-,row(Graph,Point,HorizontalAccuracy,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,Point,HorizontalAccuracy,Annotation),[]).
 
 % aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type?, Engine?, NumberEngine?, TypeAircraftICAO?, AircraftLandingCategory?, WingSpan?, WingSpanInterpretation?, ClassWingSpan?, Weight?, WeightInterpretation?, Passengers?, PassengersInterpretation?, Speed?, SpeedInterpretation?, WakeTurbulence?, NavigationEquipment?, NavigationSpecification?, VerticalSeparationCapability?, AntiCollisionAndSeparationEquipment?, CommunicationEquipment?, SurveillanceEquipment?, Annotation*)
 
@@ -10683,7 +10683,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+SELECT ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment ?annotation
 WHERE
   { GRAPH ?graph
     {
@@ -10693,19 +10693,19 @@ WHERE
           {
             ?_type rdf:value ?typeValue .
             FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat('val:',?typeValue) AS ?type)
+            BIND(concat(\'val:\',?typeValue) AS ?type)
           }
             UNION
           {
             ?_type
               rdf:value ?typeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat('xval:',STR(?typeValue),':',?typeUoM) AS ?type)
+            BIND(concat(\'xval:\',STR(?typeValue),\':\',?typeUoM) AS ?type)
           }
             UNION
           {
            ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat('nil:',?typeNilReason) AS ?type)
+           BIND(concat(\'nil:\',?typeNilReason) AS ?type)
           }
         }
       }
@@ -10714,19 +10714,19 @@ WHERE
           {
             ?_engine rdf:value ?engineValue .
             FILTER ( NOT EXISTS {?_engine (aixm:uom | fixm:uom | plain:uom) ?engineUoM})
-            BIND(concat('val:',?engineValue) AS ?engine)
+            BIND(concat(\'val:\',?engineValue) AS ?engine)
           }
             UNION
           {
             ?_engine
               rdf:value ?engineValue ;
               (aixm:uom | fixm:uom | plain:uom) ?engineUoM .
-            BIND(concat('xval:',STR(?engineValue),':',?engineUoM) AS ?engine)
+            BIND(concat(\'xval:\',STR(?engineValue),\':\',?engineUoM) AS ?engine)
           }
             UNION
           {
            ?_engine  aixm:nilReason ?engineNilReason .
-           BIND(concat('nil:',?engineNilReason) AS ?engine)
+           BIND(concat(\'nil:\',?engineNilReason) AS ?engine)
           }
         }
       }
@@ -10735,19 +10735,19 @@ WHERE
           {
             ?_numberEngine rdf:value ?numberEngineValue .
             FILTER ( NOT EXISTS {?_numberEngine (aixm:uom | fixm:uom | plain:uom) ?numberEngineUoM})
-            BIND(concat('val:',?numberEngineValue) AS ?numberEngine)
+            BIND(concat(\'val:\',?numberEngineValue) AS ?numberEngine)
           }
             UNION
           {
             ?_numberEngine
               rdf:value ?numberEngineValue ;
               (aixm:uom | fixm:uom | plain:uom) ?numberEngineUoM .
-            BIND(concat('xval:',STR(?numberEngineValue),':',?numberEngineUoM) AS ?numberEngine)
+            BIND(concat(\'xval:\',STR(?numberEngineValue),\':\',?numberEngineUoM) AS ?numberEngine)
           }
             UNION
           {
            ?_numberEngine  aixm:nilReason ?numberEngineNilReason .
-           BIND(concat('nil:',?numberEngineNilReason) AS ?numberEngine)
+           BIND(concat(\'nil:\',?numberEngineNilReason) AS ?numberEngine)
           }
         }
       }
@@ -10756,19 +10756,19 @@ WHERE
           {
             ?_typeAircraftICAO rdf:value ?typeAircraftICAOValue .
             FILTER ( NOT EXISTS {?_typeAircraftICAO (aixm:uom | fixm:uom | plain:uom) ?typeAircraftICAOUoM})
-            BIND(concat('val:',?typeAircraftICAOValue) AS ?typeAircraftICAO)
+            BIND(concat(\'val:\',?typeAircraftICAOValue) AS ?typeAircraftICAO)
           }
             UNION
           {
             ?_typeAircraftICAO
               rdf:value ?typeAircraftICAOValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeAircraftICAOUoM .
-            BIND(concat('xval:',STR(?typeAircraftICAOValue),':',?typeAircraftICAOUoM) AS ?typeAircraftICAO)
+            BIND(concat(\'xval:\',STR(?typeAircraftICAOValue),\':\',?typeAircraftICAOUoM) AS ?typeAircraftICAO)
           }
             UNION
           {
            ?_typeAircraftICAO  aixm:nilReason ?typeAircraftICAONilReason .
-           BIND(concat('nil:',?typeAircraftICAONilReason) AS ?typeAircraftICAO)
+           BIND(concat(\'nil:\',?typeAircraftICAONilReason) AS ?typeAircraftICAO)
           }
         }
       }
@@ -10777,19 +10777,19 @@ WHERE
           {
             ?_aircraftLandingCategory rdf:value ?aircraftLandingCategoryValue .
             FILTER ( NOT EXISTS {?_aircraftLandingCategory (aixm:uom | fixm:uom | plain:uom) ?aircraftLandingCategoryUoM})
-            BIND(concat('val:',?aircraftLandingCategoryValue) AS ?aircraftLandingCategory)
+            BIND(concat(\'val:\',?aircraftLandingCategoryValue) AS ?aircraftLandingCategory)
           }
             UNION
           {
             ?_aircraftLandingCategory
               rdf:value ?aircraftLandingCategoryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?aircraftLandingCategoryUoM .
-            BIND(concat('xval:',STR(?aircraftLandingCategoryValue),':',?aircraftLandingCategoryUoM) AS ?aircraftLandingCategory)
+            BIND(concat(\'xval:\',STR(?aircraftLandingCategoryValue),\':\',?aircraftLandingCategoryUoM) AS ?aircraftLandingCategory)
           }
             UNION
           {
            ?_aircraftLandingCategory  aixm:nilReason ?aircraftLandingCategoryNilReason .
-           BIND(concat('nil:',?aircraftLandingCategoryNilReason) AS ?aircraftLandingCategory)
+           BIND(concat(\'nil:\',?aircraftLandingCategoryNilReason) AS ?aircraftLandingCategory)
           }
         }
       }
@@ -10798,19 +10798,19 @@ WHERE
           {
             ?_wingSpan rdf:value ?wingSpanValue .
             FILTER ( NOT EXISTS {?_wingSpan (aixm:uom | fixm:uom | plain:uom) ?wingSpanUoM})
-            BIND(concat('val:',?wingSpanValue) AS ?wingSpan)
+            BIND(concat(\'val:\',?wingSpanValue) AS ?wingSpan)
           }
             UNION
           {
             ?_wingSpan
               rdf:value ?wingSpanValue ;
               (aixm:uom | fixm:uom | plain:uom) ?wingSpanUoM .
-            BIND(concat('xval:',STR(?wingSpanValue),':',?wingSpanUoM) AS ?wingSpan)
+            BIND(concat(\'xval:\',STR(?wingSpanValue),\':\',?wingSpanUoM) AS ?wingSpan)
           }
             UNION
           {
            ?_wingSpan  aixm:nilReason ?wingSpanNilReason .
-           BIND(concat('nil:',?wingSpanNilReason) AS ?wingSpan)
+           BIND(concat(\'nil:\',?wingSpanNilReason) AS ?wingSpan)
           }
         }
       }
@@ -10819,19 +10819,19 @@ WHERE
           {
             ?_wingSpanInterpretation rdf:value ?wingSpanInterpretationValue .
             FILTER ( NOT EXISTS {?_wingSpanInterpretation (aixm:uom | fixm:uom | plain:uom) ?wingSpanInterpretationUoM})
-            BIND(concat('val:',?wingSpanInterpretationValue) AS ?wingSpanInterpretation)
+            BIND(concat(\'val:\',?wingSpanInterpretationValue) AS ?wingSpanInterpretation)
           }
             UNION
           {
             ?_wingSpanInterpretation
               rdf:value ?wingSpanInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?wingSpanInterpretationUoM .
-            BIND(concat('xval:',STR(?wingSpanInterpretationValue),':',?wingSpanInterpretationUoM) AS ?wingSpanInterpretation)
+            BIND(concat(\'xval:\',STR(?wingSpanInterpretationValue),\':\',?wingSpanInterpretationUoM) AS ?wingSpanInterpretation)
           }
             UNION
           {
            ?_wingSpanInterpretation  aixm:nilReason ?wingSpanInterpretationNilReason .
-           BIND(concat('nil:',?wingSpanInterpretationNilReason) AS ?wingSpanInterpretation)
+           BIND(concat(\'nil:\',?wingSpanInterpretationNilReason) AS ?wingSpanInterpretation)
           }
         }
       }
@@ -10840,19 +10840,19 @@ WHERE
           {
             ?_classWingSpan rdf:value ?classWingSpanValue .
             FILTER ( NOT EXISTS {?_classWingSpan (aixm:uom | fixm:uom | plain:uom) ?classWingSpanUoM})
-            BIND(concat('val:',?classWingSpanValue) AS ?classWingSpan)
+            BIND(concat(\'val:\',?classWingSpanValue) AS ?classWingSpan)
           }
             UNION
           {
             ?_classWingSpan
               rdf:value ?classWingSpanValue ;
               (aixm:uom | fixm:uom | plain:uom) ?classWingSpanUoM .
-            BIND(concat('xval:',STR(?classWingSpanValue),':',?classWingSpanUoM) AS ?classWingSpan)
+            BIND(concat(\'xval:\',STR(?classWingSpanValue),\':\',?classWingSpanUoM) AS ?classWingSpan)
           }
             UNION
           {
            ?_classWingSpan  aixm:nilReason ?classWingSpanNilReason .
-           BIND(concat('nil:',?classWingSpanNilReason) AS ?classWingSpan)
+           BIND(concat(\'nil:\',?classWingSpanNilReason) AS ?classWingSpan)
           }
         }
       }
@@ -10861,19 +10861,19 @@ WHERE
           {
             ?_weight rdf:value ?weightValue .
             FILTER ( NOT EXISTS {?_weight (aixm:uom | fixm:uom | plain:uom) ?weightUoM})
-            BIND(concat('val:',?weightValue) AS ?weight)
+            BIND(concat(\'val:\',?weightValue) AS ?weight)
           }
             UNION
           {
             ?_weight
               rdf:value ?weightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?weightUoM .
-            BIND(concat('xval:',STR(?weightValue),':',?weightUoM) AS ?weight)
+            BIND(concat(\'xval:\',STR(?weightValue),\':\',?weightUoM) AS ?weight)
           }
             UNION
           {
            ?_weight  aixm:nilReason ?weightNilReason .
-           BIND(concat('nil:',?weightNilReason) AS ?weight)
+           BIND(concat(\'nil:\',?weightNilReason) AS ?weight)
           }
         }
       }
@@ -10882,19 +10882,19 @@ WHERE
           {
             ?_weightInterpretation rdf:value ?weightInterpretationValue .
             FILTER ( NOT EXISTS {?_weightInterpretation (aixm:uom | fixm:uom | plain:uom) ?weightInterpretationUoM})
-            BIND(concat('val:',?weightInterpretationValue) AS ?weightInterpretation)
+            BIND(concat(\'val:\',?weightInterpretationValue) AS ?weightInterpretation)
           }
             UNION
           {
             ?_weightInterpretation
               rdf:value ?weightInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?weightInterpretationUoM .
-            BIND(concat('xval:',STR(?weightInterpretationValue),':',?weightInterpretationUoM) AS ?weightInterpretation)
+            BIND(concat(\'xval:\',STR(?weightInterpretationValue),\':\',?weightInterpretationUoM) AS ?weightInterpretation)
           }
             UNION
           {
            ?_weightInterpretation  aixm:nilReason ?weightInterpretationNilReason .
-           BIND(concat('nil:',?weightInterpretationNilReason) AS ?weightInterpretation)
+           BIND(concat(\'nil:\',?weightInterpretationNilReason) AS ?weightInterpretation)
           }
         }
       }
@@ -10903,19 +10903,19 @@ WHERE
           {
             ?_passengers rdf:value ?passengersValue .
             FILTER ( NOT EXISTS {?_passengers (aixm:uom | fixm:uom | plain:uom) ?passengersUoM})
-            BIND(concat('val:',?passengersValue) AS ?passengers)
+            BIND(concat(\'val:\',?passengersValue) AS ?passengers)
           }
             UNION
           {
             ?_passengers
               rdf:value ?passengersValue ;
               (aixm:uom | fixm:uom | plain:uom) ?passengersUoM .
-            BIND(concat('xval:',STR(?passengersValue),':',?passengersUoM) AS ?passengers)
+            BIND(concat(\'xval:\',STR(?passengersValue),\':\',?passengersUoM) AS ?passengers)
           }
             UNION
           {
            ?_passengers  aixm:nilReason ?passengersNilReason .
-           BIND(concat('nil:',?passengersNilReason) AS ?passengers)
+           BIND(concat(\'nil:\',?passengersNilReason) AS ?passengers)
           }
         }
       }
@@ -10924,19 +10924,19 @@ WHERE
           {
             ?_passengersInterpretation rdf:value ?passengersInterpretationValue .
             FILTER ( NOT EXISTS {?_passengersInterpretation (aixm:uom | fixm:uom | plain:uom) ?passengersInterpretationUoM})
-            BIND(concat('val:',?passengersInterpretationValue) AS ?passengersInterpretation)
+            BIND(concat(\'val:\',?passengersInterpretationValue) AS ?passengersInterpretation)
           }
             UNION
           {
             ?_passengersInterpretation
               rdf:value ?passengersInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?passengersInterpretationUoM .
-            BIND(concat('xval:',STR(?passengersInterpretationValue),':',?passengersInterpretationUoM) AS ?passengersInterpretation)
+            BIND(concat(\'xval:\',STR(?passengersInterpretationValue),\':\',?passengersInterpretationUoM) AS ?passengersInterpretation)
           }
             UNION
           {
            ?_passengersInterpretation  aixm:nilReason ?passengersInterpretationNilReason .
-           BIND(concat('nil:',?passengersInterpretationNilReason) AS ?passengersInterpretation)
+           BIND(concat(\'nil:\',?passengersInterpretationNilReason) AS ?passengersInterpretation)
           }
         }
       }
@@ -10945,19 +10945,19 @@ WHERE
           {
             ?_speed rdf:value ?speedValue .
             FILTER ( NOT EXISTS {?_speed (aixm:uom | fixm:uom | plain:uom) ?speedUoM})
-            BIND(concat('val:',?speedValue) AS ?speed)
+            BIND(concat(\'val:\',?speedValue) AS ?speed)
           }
             UNION
           {
             ?_speed
               rdf:value ?speedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?speedUoM .
-            BIND(concat('xval:',STR(?speedValue),':',?speedUoM) AS ?speed)
+            BIND(concat(\'xval:\',STR(?speedValue),\':\',?speedUoM) AS ?speed)
           }
             UNION
           {
            ?_speed  aixm:nilReason ?speedNilReason .
-           BIND(concat('nil:',?speedNilReason) AS ?speed)
+           BIND(concat(\'nil:\',?speedNilReason) AS ?speed)
           }
         }
       }
@@ -10966,19 +10966,19 @@ WHERE
           {
             ?_speedInterpretation rdf:value ?speedInterpretationValue .
             FILTER ( NOT EXISTS {?_speedInterpretation (aixm:uom | fixm:uom | plain:uom) ?speedInterpretationUoM})
-            BIND(concat('val:',?speedInterpretationValue) AS ?speedInterpretation)
+            BIND(concat(\'val:\',?speedInterpretationValue) AS ?speedInterpretation)
           }
             UNION
           {
             ?_speedInterpretation
               rdf:value ?speedInterpretationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?speedInterpretationUoM .
-            BIND(concat('xval:',STR(?speedInterpretationValue),':',?speedInterpretationUoM) AS ?speedInterpretation)
+            BIND(concat(\'xval:\',STR(?speedInterpretationValue),\':\',?speedInterpretationUoM) AS ?speedInterpretation)
           }
             UNION
           {
            ?_speedInterpretation  aixm:nilReason ?speedInterpretationNilReason .
-           BIND(concat('nil:',?speedInterpretationNilReason) AS ?speedInterpretation)
+           BIND(concat(\'nil:\',?speedInterpretationNilReason) AS ?speedInterpretation)
           }
         }
       }
@@ -10987,19 +10987,19 @@ WHERE
           {
             ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
             FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
-            BIND(concat('val:',?wakeTurbulenceValue) AS ?wakeTurbulence)
+            BIND(concat(\'val:\',?wakeTurbulenceValue) AS ?wakeTurbulence)
           }
             UNION
           {
             ?_wakeTurbulence
               rdf:value ?wakeTurbulenceValue ;
               (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
-            BIND(concat('xval:',STR(?wakeTurbulenceValue),':',?wakeTurbulenceUoM) AS ?wakeTurbulence)
+            BIND(concat(\'xval:\',STR(?wakeTurbulenceValue),\':\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
           }
             UNION
           {
            ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
-           BIND(concat('nil:',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
+           BIND(concat(\'nil:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
           }
         }
       }
@@ -11008,19 +11008,19 @@ WHERE
           {
             ?_navigationEquipment rdf:value ?navigationEquipmentValue .
             FILTER ( NOT EXISTS {?_navigationEquipment (aixm:uom | fixm:uom | plain:uom) ?navigationEquipmentUoM})
-            BIND(concat('val:',?navigationEquipmentValue) AS ?navigationEquipment)
+            BIND(concat(\'val:\',?navigationEquipmentValue) AS ?navigationEquipment)
           }
             UNION
           {
             ?_navigationEquipment
               rdf:value ?navigationEquipmentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?navigationEquipmentUoM .
-            BIND(concat('xval:',STR(?navigationEquipmentValue),':',?navigationEquipmentUoM) AS ?navigationEquipment)
+            BIND(concat(\'xval:\',STR(?navigationEquipmentValue),\':\',?navigationEquipmentUoM) AS ?navigationEquipment)
           }
             UNION
           {
            ?_navigationEquipment  aixm:nilReason ?navigationEquipmentNilReason .
-           BIND(concat('nil:',?navigationEquipmentNilReason) AS ?navigationEquipment)
+           BIND(concat(\'nil:\',?navigationEquipmentNilReason) AS ?navigationEquipment)
           }
         }
       }
@@ -11029,19 +11029,19 @@ WHERE
           {
             ?_navigationSpecification rdf:value ?navigationSpecificationValue .
             FILTER ( NOT EXISTS {?_navigationSpecification (aixm:uom | fixm:uom | plain:uom) ?navigationSpecificationUoM})
-            BIND(concat('val:',?navigationSpecificationValue) AS ?navigationSpecification)
+            BIND(concat(\'val:\',?navigationSpecificationValue) AS ?navigationSpecification)
           }
             UNION
           {
             ?_navigationSpecification
               rdf:value ?navigationSpecificationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?navigationSpecificationUoM .
-            BIND(concat('xval:',STR(?navigationSpecificationValue),':',?navigationSpecificationUoM) AS ?navigationSpecification)
+            BIND(concat(\'xval:\',STR(?navigationSpecificationValue),\':\',?navigationSpecificationUoM) AS ?navigationSpecification)
           }
             UNION
           {
            ?_navigationSpecification  aixm:nilReason ?navigationSpecificationNilReason .
-           BIND(concat('nil:',?navigationSpecificationNilReason) AS ?navigationSpecification)
+           BIND(concat(\'nil:\',?navigationSpecificationNilReason) AS ?navigationSpecification)
           }
         }
       }
@@ -11050,19 +11050,19 @@ WHERE
           {
             ?_verticalSeparationCapability rdf:value ?verticalSeparationCapabilityValue .
             FILTER ( NOT EXISTS {?_verticalSeparationCapability (aixm:uom | fixm:uom | plain:uom) ?verticalSeparationCapabilityUoM})
-            BIND(concat('val:',?verticalSeparationCapabilityValue) AS ?verticalSeparationCapability)
+            BIND(concat(\'val:\',?verticalSeparationCapabilityValue) AS ?verticalSeparationCapability)
           }
             UNION
           {
             ?_verticalSeparationCapability
               rdf:value ?verticalSeparationCapabilityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?verticalSeparationCapabilityUoM .
-            BIND(concat('xval:',STR(?verticalSeparationCapabilityValue),':',?verticalSeparationCapabilityUoM) AS ?verticalSeparationCapability)
+            BIND(concat(\'xval:\',STR(?verticalSeparationCapabilityValue),\':\',?verticalSeparationCapabilityUoM) AS ?verticalSeparationCapability)
           }
             UNION
           {
            ?_verticalSeparationCapability  aixm:nilReason ?verticalSeparationCapabilityNilReason .
-           BIND(concat('nil:',?verticalSeparationCapabilityNilReason) AS ?verticalSeparationCapability)
+           BIND(concat(\'nil:\',?verticalSeparationCapabilityNilReason) AS ?verticalSeparationCapability)
           }
         }
       }
@@ -11071,19 +11071,19 @@ WHERE
           {
             ?_antiCollisionAndSeparationEquipment rdf:value ?antiCollisionAndSeparationEquipmentValue .
             FILTER ( NOT EXISTS {?_antiCollisionAndSeparationEquipment (aixm:uom | fixm:uom | plain:uom) ?antiCollisionAndSeparationEquipmentUoM})
-            BIND(concat('val:',?antiCollisionAndSeparationEquipmentValue) AS ?antiCollisionAndSeparationEquipment)
+            BIND(concat(\'val:\',?antiCollisionAndSeparationEquipmentValue) AS ?antiCollisionAndSeparationEquipment)
           }
             UNION
           {
             ?_antiCollisionAndSeparationEquipment
               rdf:value ?antiCollisionAndSeparationEquipmentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?antiCollisionAndSeparationEquipmentUoM .
-            BIND(concat('xval:',STR(?antiCollisionAndSeparationEquipmentValue),':',?antiCollisionAndSeparationEquipmentUoM) AS ?antiCollisionAndSeparationEquipment)
+            BIND(concat(\'xval:\',STR(?antiCollisionAndSeparationEquipmentValue),\':\',?antiCollisionAndSeparationEquipmentUoM) AS ?antiCollisionAndSeparationEquipment)
           }
             UNION
           {
            ?_antiCollisionAndSeparationEquipment  aixm:nilReason ?antiCollisionAndSeparationEquipmentNilReason .
-           BIND(concat('nil:',?antiCollisionAndSeparationEquipmentNilReason) AS ?antiCollisionAndSeparationEquipment)
+           BIND(concat(\'nil:\',?antiCollisionAndSeparationEquipmentNilReason) AS ?antiCollisionAndSeparationEquipment)
           }
         }
       }
@@ -11092,19 +11092,19 @@ WHERE
           {
             ?_communicationEquipment rdf:value ?communicationEquipmentValue .
             FILTER ( NOT EXISTS {?_communicationEquipment (aixm:uom | fixm:uom | plain:uom) ?communicationEquipmentUoM})
-            BIND(concat('val:',?communicationEquipmentValue) AS ?communicationEquipment)
+            BIND(concat(\'val:\',?communicationEquipmentValue) AS ?communicationEquipment)
           }
             UNION
           {
             ?_communicationEquipment
               rdf:value ?communicationEquipmentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?communicationEquipmentUoM .
-            BIND(concat('xval:',STR(?communicationEquipmentValue),':',?communicationEquipmentUoM) AS ?communicationEquipment)
+            BIND(concat(\'xval:\',STR(?communicationEquipmentValue),\':\',?communicationEquipmentUoM) AS ?communicationEquipment)
           }
             UNION
           {
            ?_communicationEquipment  aixm:nilReason ?communicationEquipmentNilReason .
-           BIND(concat('nil:',?communicationEquipmentNilReason) AS ?communicationEquipment)
+           BIND(concat(\'nil:\',?communicationEquipmentNilReason) AS ?communicationEquipment)
           }
         }
       }
@@ -11113,19 +11113,19 @@ WHERE
           {
             ?_surveillanceEquipment rdf:value ?surveillanceEquipmentValue .
             FILTER ( NOT EXISTS {?_surveillanceEquipment (aixm:uom | fixm:uom | plain:uom) ?surveillanceEquipmentUoM})
-            BIND(concat('val:',?surveillanceEquipmentValue) AS ?surveillanceEquipment)
+            BIND(concat(\'val:\',?surveillanceEquipmentValue) AS ?surveillanceEquipment)
           }
             UNION
           {
             ?_surveillanceEquipment
               rdf:value ?surveillanceEquipmentValue ;
               (aixm:uom | fixm:uom | plain:uom) ?surveillanceEquipmentUoM .
-            BIND(concat('xval:',STR(?surveillanceEquipmentValue),':',?surveillanceEquipmentUoM) AS ?surveillanceEquipment)
+            BIND(concat(\'xval:\',STR(?surveillanceEquipmentValue),\':\',?surveillanceEquipmentUoM) AS ?surveillanceEquipment)
           }
             UNION
           {
            ?_surveillanceEquipment  aixm:nilReason ?surveillanceEquipmentNilReason .
-           BIND(concat('nil:',?surveillanceEquipmentNilReason) AS ?surveillanceEquipment)
+           BIND(concat(\'nil:\',?surveillanceEquipmentNilReason) AS ?surveillanceEquipment)
           }
         }
       }
@@ -11135,7 +11135,7 @@ WHERE
 GROUP BY ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment
 
       '
-,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
+,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,Annotation),[]).
 
 % aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
 
@@ -11170,19 +11170,19 @@ WHERE
           {
             ?_deliveryPoint rdf:value ?deliveryPointValue .
             FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
-            BIND(concat('val:',?deliveryPointValue) AS ?deliveryPoint)
+            BIND(concat(\'val:\',?deliveryPointValue) AS ?deliveryPoint)
           }
             UNION
           {
             ?_deliveryPoint
               rdf:value ?deliveryPointValue ;
               (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
-            BIND(concat('xval:',STR(?deliveryPointValue),':',?deliveryPointUoM) AS ?deliveryPoint)
+            BIND(concat(\'xval:\',STR(?deliveryPointValue),\':\',?deliveryPointUoM) AS ?deliveryPoint)
           }
             UNION
           {
            ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
-           BIND(concat('nil:',?deliveryPointNilReason) AS ?deliveryPoint)
+           BIND(concat(\'nil:\',?deliveryPointNilReason) AS ?deliveryPoint)
           }
         }
       }
@@ -11191,19 +11191,19 @@ WHERE
           {
             ?_city rdf:value ?cityValue .
             FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
-            BIND(concat('val:',?cityValue) AS ?city)
+            BIND(concat(\'val:\',?cityValue) AS ?city)
           }
             UNION
           {
             ?_city
               rdf:value ?cityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
-            BIND(concat('xval:',STR(?cityValue),':',?cityUoM) AS ?city)
+            BIND(concat(\'xval:\',STR(?cityValue),\':\',?cityUoM) AS ?city)
           }
             UNION
           {
            ?_city  aixm:nilReason ?cityNilReason .
-           BIND(concat('nil:',?cityNilReason) AS ?city)
+           BIND(concat(\'nil:\',?cityNilReason) AS ?city)
           }
         }
       }
@@ -11212,19 +11212,19 @@ WHERE
           {
             ?_administrativeArea rdf:value ?administrativeAreaValue .
             FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
-            BIND(concat('val:',?administrativeAreaValue) AS ?administrativeArea)
+            BIND(concat(\'val:\',?administrativeAreaValue) AS ?administrativeArea)
           }
             UNION
           {
             ?_administrativeArea
               rdf:value ?administrativeAreaValue ;
               (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
-            BIND(concat('xval:',STR(?administrativeAreaValue),':',?administrativeAreaUoM) AS ?administrativeArea)
+            BIND(concat(\'xval:\',STR(?administrativeAreaValue),\':\',?administrativeAreaUoM) AS ?administrativeArea)
           }
             UNION
           {
            ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
-           BIND(concat('nil:',?administrativeAreaNilReason) AS ?administrativeArea)
+           BIND(concat(\'nil:\',?administrativeAreaNilReason) AS ?administrativeArea)
           }
         }
       }
@@ -11233,19 +11233,19 @@ WHERE
           {
             ?_postalCode rdf:value ?postalCodeValue .
             FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
-            BIND(concat('val:',?postalCodeValue) AS ?postalCode)
+            BIND(concat(\'val:\',?postalCodeValue) AS ?postalCode)
           }
             UNION
           {
             ?_postalCode
               rdf:value ?postalCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
-            BIND(concat('xval:',STR(?postalCodeValue),':',?postalCodeUoM) AS ?postalCode)
+            BIND(concat(\'xval:\',STR(?postalCodeValue),\':\',?postalCodeUoM) AS ?postalCode)
           }
             UNION
           {
            ?_postalCode  aixm:nilReason ?postalCodeNilReason .
-           BIND(concat('nil:',?postalCodeNilReason) AS ?postalCode)
+           BIND(concat(\'nil:\',?postalCodeNilReason) AS ?postalCode)
           }
         }
       }
@@ -11254,19 +11254,19 @@ WHERE
           {
             ?_country rdf:value ?countryValue .
             FILTER ( NOT EXISTS {?_country (aixm:uom | fixm:uom | plain:uom) ?countryUoM})
-            BIND(concat('val:',?countryValue) AS ?country)
+            BIND(concat(\'val:\',?countryValue) AS ?country)
           }
             UNION
           {
             ?_country
               rdf:value ?countryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?countryUoM .
-            BIND(concat('xval:',STR(?countryValue),':',?countryUoM) AS ?country)
+            BIND(concat(\'xval:\',STR(?countryValue),\':\',?countryUoM) AS ?country)
           }
             UNION
           {
            ?_country  aixm:nilReason ?countryNilReason .
-           BIND(concat('nil:',?countryNilReason) AS ?country)
+           BIND(concat(\'nil:\',?countryNilReason) AS ?country)
           }
         }
       }
@@ -11276,9 +11276,9 @@ WHERE
       '
 ,row(Graph,PostalAddress,DeliveryPoint,City,AdministrativeArea,PostalCode,Country),[]).
 
-% fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass)
+% fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass*)
 
-fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity, PackageDimensions, PackingInstructionNumber, ProductName, ProperShippingName, ReportableQuantity, SupplementaryInformation, TechnicalName, TypeOfPackaging, UnNumber, DangerousGoodsLimitation, ShipmentType, AllPackedInOne, CompatibilityGroup, ShipmentDimensions, MarinePollutantIndicator, RadioactiveMaterials, HazardClass, PackingGroup, Temperatures, OverpackIndicator, SubsidiaryHazardClass) :-
+fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity, PackageDimensions, PackingInstructionNumber, ProductName, ProperShippingName, ReportableQuantity, SupplementaryInformation, TechnicalName, TypeOfPackaging, UnNumber, DangerousGoodsLimitation, ShipmentType, AllPackedInOne, CompatibilityGroup, ShipmentDimensions, MarinePollutantIndicator, RadioactiveMaterials, HazardClass, PackingGroup, Temperatures, OverpackIndicator, SubsidiaryHazardClassList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -11299,7 +11299,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator ?subsidiaryHazardClass
+SELECT ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator (GROUP_CONCAT(DISTINCT ?subsidiaryHazardClass;SEPARATOR=",") AS ?subsidiaryHazardClassConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -11309,19 +11309,19 @@ WHERE
           {
             ?_dangerousGoodsQuantity rdf:value ?dangerousGoodsQuantityValue .
             FILTER ( NOT EXISTS {?_dangerousGoodsQuantity (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsQuantityUoM})
-            BIND(concat('val:',?dangerousGoodsQuantityValue) AS ?dangerousGoodsQuantity)
+            BIND(concat(\'val:\',?dangerousGoodsQuantityValue) AS ?dangerousGoodsQuantity)
           }
             UNION
           {
             ?_dangerousGoodsQuantity
               rdf:value ?dangerousGoodsQuantityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsQuantityUoM .
-            BIND(concat('xval:',STR(?dangerousGoodsQuantityValue),':',?dangerousGoodsQuantityUoM) AS ?dangerousGoodsQuantity)
+            BIND(concat(\'xval:\',STR(?dangerousGoodsQuantityValue),\':\',?dangerousGoodsQuantityUoM) AS ?dangerousGoodsQuantity)
           }
             UNION
           {
            ?_dangerousGoodsQuantity  aixm:nilReason ?dangerousGoodsQuantityNilReason .
-           BIND(concat('nil:',?dangerousGoodsQuantityNilReason) AS ?dangerousGoodsQuantity)
+           BIND(concat(\'nil:\',?dangerousGoodsQuantityNilReason) AS ?dangerousGoodsQuantity)
           }
         }
       }
@@ -11331,19 +11331,19 @@ WHERE
           {
             ?_packingInstructionNumber rdf:value ?packingInstructionNumberValue .
             FILTER ( NOT EXISTS {?_packingInstructionNumber (aixm:uom | fixm:uom | plain:uom) ?packingInstructionNumberUoM})
-            BIND(concat('val:',?packingInstructionNumberValue) AS ?packingInstructionNumber)
+            BIND(concat(\'val:\',?packingInstructionNumberValue) AS ?packingInstructionNumber)
           }
             UNION
           {
             ?_packingInstructionNumber
               rdf:value ?packingInstructionNumberValue ;
               (aixm:uom | fixm:uom | plain:uom) ?packingInstructionNumberUoM .
-            BIND(concat('xval:',STR(?packingInstructionNumberValue),':',?packingInstructionNumberUoM) AS ?packingInstructionNumber)
+            BIND(concat(\'xval:\',STR(?packingInstructionNumberValue),\':\',?packingInstructionNumberUoM) AS ?packingInstructionNumber)
           }
             UNION
           {
            ?_packingInstructionNumber  aixm:nilReason ?packingInstructionNumberNilReason .
-           BIND(concat('nil:',?packingInstructionNumberNilReason) AS ?packingInstructionNumber)
+           BIND(concat(\'nil:\',?packingInstructionNumberNilReason) AS ?packingInstructionNumber)
           }
         }
       }
@@ -11352,19 +11352,19 @@ WHERE
           {
             ?_productName rdf:value ?productNameValue .
             FILTER ( NOT EXISTS {?_productName (aixm:uom | fixm:uom | plain:uom) ?productNameUoM})
-            BIND(concat('val:',?productNameValue) AS ?productName)
+            BIND(concat(\'val:\',?productNameValue) AS ?productName)
           }
             UNION
           {
             ?_productName
               rdf:value ?productNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?productNameUoM .
-            BIND(concat('xval:',STR(?productNameValue),':',?productNameUoM) AS ?productName)
+            BIND(concat(\'xval:\',STR(?productNameValue),\':\',?productNameUoM) AS ?productName)
           }
             UNION
           {
            ?_productName  aixm:nilReason ?productNameNilReason .
-           BIND(concat('nil:',?productNameNilReason) AS ?productName)
+           BIND(concat(\'nil:\',?productNameNilReason) AS ?productName)
           }
         }
       }
@@ -11373,19 +11373,19 @@ WHERE
           {
             ?_properShippingName rdf:value ?properShippingNameValue .
             FILTER ( NOT EXISTS {?_properShippingName (aixm:uom | fixm:uom | plain:uom) ?properShippingNameUoM})
-            BIND(concat('val:',?properShippingNameValue) AS ?properShippingName)
+            BIND(concat(\'val:\',?properShippingNameValue) AS ?properShippingName)
           }
             UNION
           {
             ?_properShippingName
               rdf:value ?properShippingNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?properShippingNameUoM .
-            BIND(concat('xval:',STR(?properShippingNameValue),':',?properShippingNameUoM) AS ?properShippingName)
+            BIND(concat(\'xval:\',STR(?properShippingNameValue),\':\',?properShippingNameUoM) AS ?properShippingName)
           }
             UNION
           {
            ?_properShippingName  aixm:nilReason ?properShippingNameNilReason .
-           BIND(concat('nil:',?properShippingNameNilReason) AS ?properShippingName)
+           BIND(concat(\'nil:\',?properShippingNameNilReason) AS ?properShippingName)
           }
         }
       }
@@ -11394,19 +11394,19 @@ WHERE
           {
             ?_reportableQuantity rdf:value ?reportableQuantityValue .
             FILTER ( NOT EXISTS {?_reportableQuantity (aixm:uom | fixm:uom | plain:uom) ?reportableQuantityUoM})
-            BIND(concat('val:',?reportableQuantityValue) AS ?reportableQuantity)
+            BIND(concat(\'val:\',?reportableQuantityValue) AS ?reportableQuantity)
           }
             UNION
           {
             ?_reportableQuantity
               rdf:value ?reportableQuantityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?reportableQuantityUoM .
-            BIND(concat('xval:',STR(?reportableQuantityValue),':',?reportableQuantityUoM) AS ?reportableQuantity)
+            BIND(concat(\'xval:\',STR(?reportableQuantityValue),\':\',?reportableQuantityUoM) AS ?reportableQuantity)
           }
             UNION
           {
            ?_reportableQuantity  aixm:nilReason ?reportableQuantityNilReason .
-           BIND(concat('nil:',?reportableQuantityNilReason) AS ?reportableQuantity)
+           BIND(concat(\'nil:\',?reportableQuantityNilReason) AS ?reportableQuantity)
           }
         }
       }
@@ -11415,19 +11415,19 @@ WHERE
           {
             ?_supplementaryInformation rdf:value ?supplementaryInformationValue .
             FILTER ( NOT EXISTS {?_supplementaryInformation (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM})
-            BIND(concat('val:',?supplementaryInformationValue) AS ?supplementaryInformation)
+            BIND(concat(\'val:\',?supplementaryInformationValue) AS ?supplementaryInformation)
           }
             UNION
           {
             ?_supplementaryInformation
               rdf:value ?supplementaryInformationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM .
-            BIND(concat('xval:',STR(?supplementaryInformationValue),':',?supplementaryInformationUoM) AS ?supplementaryInformation)
+            BIND(concat(\'xval:\',STR(?supplementaryInformationValue),\':\',?supplementaryInformationUoM) AS ?supplementaryInformation)
           }
             UNION
           {
            ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
-           BIND(concat('nil:',?supplementaryInformationNilReason) AS ?supplementaryInformation)
+           BIND(concat(\'nil:\',?supplementaryInformationNilReason) AS ?supplementaryInformation)
           }
         }
       }
@@ -11436,19 +11436,19 @@ WHERE
           {
             ?_technicalName rdf:value ?technicalNameValue .
             FILTER ( NOT EXISTS {?_technicalName (aixm:uom | fixm:uom | plain:uom) ?technicalNameUoM})
-            BIND(concat('val:',?technicalNameValue) AS ?technicalName)
+            BIND(concat(\'val:\',?technicalNameValue) AS ?technicalName)
           }
             UNION
           {
             ?_technicalName
               rdf:value ?technicalNameValue ;
               (aixm:uom | fixm:uom | plain:uom) ?technicalNameUoM .
-            BIND(concat('xval:',STR(?technicalNameValue),':',?technicalNameUoM) AS ?technicalName)
+            BIND(concat(\'xval:\',STR(?technicalNameValue),\':\',?technicalNameUoM) AS ?technicalName)
           }
             UNION
           {
            ?_technicalName  aixm:nilReason ?technicalNameNilReason .
-           BIND(concat('nil:',?technicalNameNilReason) AS ?technicalName)
+           BIND(concat(\'nil:\',?technicalNameNilReason) AS ?technicalName)
           }
         }
       }
@@ -11457,19 +11457,19 @@ WHERE
           {
             ?_typeOfPackaging rdf:value ?typeOfPackagingValue .
             FILTER ( NOT EXISTS {?_typeOfPackaging (aixm:uom | fixm:uom | plain:uom) ?typeOfPackagingUoM})
-            BIND(concat('val:',?typeOfPackagingValue) AS ?typeOfPackaging)
+            BIND(concat(\'val:\',?typeOfPackagingValue) AS ?typeOfPackaging)
           }
             UNION
           {
             ?_typeOfPackaging
               rdf:value ?typeOfPackagingValue ;
               (aixm:uom | fixm:uom | plain:uom) ?typeOfPackagingUoM .
-            BIND(concat('xval:',STR(?typeOfPackagingValue),':',?typeOfPackagingUoM) AS ?typeOfPackaging)
+            BIND(concat(\'xval:\',STR(?typeOfPackagingValue),\':\',?typeOfPackagingUoM) AS ?typeOfPackaging)
           }
             UNION
           {
            ?_typeOfPackaging  aixm:nilReason ?typeOfPackagingNilReason .
-           BIND(concat('nil:',?typeOfPackagingNilReason) AS ?typeOfPackaging)
+           BIND(concat(\'nil:\',?typeOfPackagingNilReason) AS ?typeOfPackaging)
           }
         }
       }
@@ -11478,19 +11478,19 @@ WHERE
           {
             ?_unNumber rdf:value ?unNumberValue .
             FILTER ( NOT EXISTS {?_unNumber (aixm:uom | fixm:uom | plain:uom) ?unNumberUoM})
-            BIND(concat('val:',?unNumberValue) AS ?unNumber)
+            BIND(concat(\'val:\',?unNumberValue) AS ?unNumber)
           }
             UNION
           {
             ?_unNumber
               rdf:value ?unNumberValue ;
               (aixm:uom | fixm:uom | plain:uom) ?unNumberUoM .
-            BIND(concat('xval:',STR(?unNumberValue),':',?unNumberUoM) AS ?unNumber)
+            BIND(concat(\'xval:\',STR(?unNumberValue),\':\',?unNumberUoM) AS ?unNumber)
           }
             UNION
           {
            ?_unNumber  aixm:nilReason ?unNumberNilReason .
-           BIND(concat('nil:',?unNumberNilReason) AS ?unNumber)
+           BIND(concat(\'nil:\',?unNumberNilReason) AS ?unNumber)
           }
         }
       }
@@ -11499,19 +11499,19 @@ WHERE
           {
             ?_dangerousGoodsLimitation rdf:value ?dangerousGoodsLimitationValue .
             FILTER ( NOT EXISTS {?_dangerousGoodsLimitation (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsLimitationUoM})
-            BIND(concat('val:',?dangerousGoodsLimitationValue) AS ?dangerousGoodsLimitation)
+            BIND(concat(\'val:\',?dangerousGoodsLimitationValue) AS ?dangerousGoodsLimitation)
           }
             UNION
           {
             ?_dangerousGoodsLimitation
               rdf:value ?dangerousGoodsLimitationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsLimitationUoM .
-            BIND(concat('xval:',STR(?dangerousGoodsLimitationValue),':',?dangerousGoodsLimitationUoM) AS ?dangerousGoodsLimitation)
+            BIND(concat(\'xval:\',STR(?dangerousGoodsLimitationValue),\':\',?dangerousGoodsLimitationUoM) AS ?dangerousGoodsLimitation)
           }
             UNION
           {
            ?_dangerousGoodsLimitation  aixm:nilReason ?dangerousGoodsLimitationNilReason .
-           BIND(concat('nil:',?dangerousGoodsLimitationNilReason) AS ?dangerousGoodsLimitation)
+           BIND(concat(\'nil:\',?dangerousGoodsLimitationNilReason) AS ?dangerousGoodsLimitation)
           }
         }
       }
@@ -11520,19 +11520,19 @@ WHERE
           {
             ?_shipmentType rdf:value ?shipmentTypeValue .
             FILTER ( NOT EXISTS {?_shipmentType (aixm:uom | fixm:uom | plain:uom) ?shipmentTypeUoM})
-            BIND(concat('val:',?shipmentTypeValue) AS ?shipmentType)
+            BIND(concat(\'val:\',?shipmentTypeValue) AS ?shipmentType)
           }
             UNION
           {
             ?_shipmentType
               rdf:value ?shipmentTypeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?shipmentTypeUoM .
-            BIND(concat('xval:',STR(?shipmentTypeValue),':',?shipmentTypeUoM) AS ?shipmentType)
+            BIND(concat(\'xval:\',STR(?shipmentTypeValue),\':\',?shipmentTypeUoM) AS ?shipmentType)
           }
             UNION
           {
            ?_shipmentType  aixm:nilReason ?shipmentTypeNilReason .
-           BIND(concat('nil:',?shipmentTypeNilReason) AS ?shipmentType)
+           BIND(concat(\'nil:\',?shipmentTypeNilReason) AS ?shipmentType)
           }
         }
       }
@@ -11542,19 +11542,19 @@ WHERE
           {
             ?_compatibilityGroup rdf:value ?compatibilityGroupValue .
             FILTER ( NOT EXISTS {?_compatibilityGroup (aixm:uom | fixm:uom | plain:uom) ?compatibilityGroupUoM})
-            BIND(concat('val:',?compatibilityGroupValue) AS ?compatibilityGroup)
+            BIND(concat(\'val:\',?compatibilityGroupValue) AS ?compatibilityGroup)
           }
             UNION
           {
             ?_compatibilityGroup
               rdf:value ?compatibilityGroupValue ;
               (aixm:uom | fixm:uom | plain:uom) ?compatibilityGroupUoM .
-            BIND(concat('xval:',STR(?compatibilityGroupValue),':',?compatibilityGroupUoM) AS ?compatibilityGroup)
+            BIND(concat(\'xval:\',STR(?compatibilityGroupValue),\':\',?compatibilityGroupUoM) AS ?compatibilityGroup)
           }
             UNION
           {
            ?_compatibilityGroup  aixm:nilReason ?compatibilityGroupNilReason .
-           BIND(concat('nil:',?compatibilityGroupNilReason) AS ?compatibilityGroup)
+           BIND(concat(\'nil:\',?compatibilityGroupNilReason) AS ?compatibilityGroup)
           }
         }
       }
@@ -11564,19 +11564,19 @@ WHERE
           {
             ?_marinePollutantIndicator rdf:value ?marinePollutantIndicatorValue .
             FILTER ( NOT EXISTS {?_marinePollutantIndicator (aixm:uom | fixm:uom | plain:uom) ?marinePollutantIndicatorUoM})
-            BIND(concat('val:',?marinePollutantIndicatorValue) AS ?marinePollutantIndicator)
+            BIND(concat(\'val:\',?marinePollutantIndicatorValue) AS ?marinePollutantIndicator)
           }
             UNION
           {
             ?_marinePollutantIndicator
               rdf:value ?marinePollutantIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?marinePollutantIndicatorUoM .
-            BIND(concat('xval:',STR(?marinePollutantIndicatorValue),':',?marinePollutantIndicatorUoM) AS ?marinePollutantIndicator)
+            BIND(concat(\'xval:\',STR(?marinePollutantIndicatorValue),\':\',?marinePollutantIndicatorUoM) AS ?marinePollutantIndicator)
           }
             UNION
           {
            ?_marinePollutantIndicator  aixm:nilReason ?marinePollutantIndicatorNilReason .
-           BIND(concat('nil:',?marinePollutantIndicatorNilReason) AS ?marinePollutantIndicator)
+           BIND(concat(\'nil:\',?marinePollutantIndicatorNilReason) AS ?marinePollutantIndicator)
           }
         }
       }
@@ -11586,19 +11586,19 @@ WHERE
           {
             ?_hazardClass rdf:value ?hazardClassValue .
             FILTER ( NOT EXISTS {?_hazardClass (aixm:uom | fixm:uom | plain:uom) ?hazardClassUoM})
-            BIND(concat('val:',?hazardClassValue) AS ?hazardClass)
+            BIND(concat(\'val:\',?hazardClassValue) AS ?hazardClass)
           }
             UNION
           {
             ?_hazardClass
               rdf:value ?hazardClassValue ;
               (aixm:uom | fixm:uom | plain:uom) ?hazardClassUoM .
-            BIND(concat('xval:',STR(?hazardClassValue),':',?hazardClassUoM) AS ?hazardClass)
+            BIND(concat(\'xval:\',STR(?hazardClassValue),\':\',?hazardClassUoM) AS ?hazardClass)
           }
             UNION
           {
            ?_hazardClass  aixm:nilReason ?hazardClassNilReason .
-           BIND(concat('nil:',?hazardClassNilReason) AS ?hazardClass)
+           BIND(concat(\'nil:\',?hazardClassNilReason) AS ?hazardClass)
           }
         }
       }
@@ -11607,19 +11607,19 @@ WHERE
           {
             ?_packingGroup rdf:value ?packingGroupValue .
             FILTER ( NOT EXISTS {?_packingGroup (aixm:uom | fixm:uom | plain:uom) ?packingGroupUoM})
-            BIND(concat('val:',?packingGroupValue) AS ?packingGroup)
+            BIND(concat(\'val:\',?packingGroupValue) AS ?packingGroup)
           }
             UNION
           {
             ?_packingGroup
               rdf:value ?packingGroupValue ;
               (aixm:uom | fixm:uom | plain:uom) ?packingGroupUoM .
-            BIND(concat('xval:',STR(?packingGroupValue),':',?packingGroupUoM) AS ?packingGroup)
+            BIND(concat(\'xval:\',STR(?packingGroupValue),\':\',?packingGroupUoM) AS ?packingGroup)
           }
             UNION
           {
            ?_packingGroup  aixm:nilReason ?packingGroupNilReason .
-           BIND(concat('nil:',?packingGroupNilReason) AS ?packingGroup)
+           BIND(concat(\'nil:\',?packingGroupNilReason) AS ?packingGroup)
           }
         }
       }
@@ -11629,19 +11629,19 @@ WHERE
           {
             ?_overpackIndicator rdf:value ?overpackIndicatorValue .
             FILTER ( NOT EXISTS {?_overpackIndicator (aixm:uom | fixm:uom | plain:uom) ?overpackIndicatorUoM})
-            BIND(concat('val:',?overpackIndicatorValue) AS ?overpackIndicator)
+            BIND(concat(\'val:\',?overpackIndicatorValue) AS ?overpackIndicator)
           }
             UNION
           {
             ?_overpackIndicator
               rdf:value ?overpackIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?overpackIndicatorUoM .
-            BIND(concat('xval:',STR(?overpackIndicatorValue),':',?overpackIndicatorUoM) AS ?overpackIndicator)
+            BIND(concat(\'xval:\',STR(?overpackIndicatorValue),\':\',?overpackIndicatorUoM) AS ?overpackIndicator)
           }
             UNION
           {
            ?_overpackIndicator  aixm:nilReason ?overpackIndicatorNilReason .
-           BIND(concat('nil:',?overpackIndicatorNilReason) AS ?overpackIndicator)
+           BIND(concat(\'nil:\',?overpackIndicatorNilReason) AS ?overpackIndicator)
           }
         }
       }
@@ -11650,19 +11650,19 @@ WHERE
           {
             ?_subsidiaryHazardClass rdf:value ?subsidiaryHazardClassValue .
             FILTER ( NOT EXISTS {?_subsidiaryHazardClass (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassUoM})
-            BIND(concat('val:',?subsidiaryHazardClassValue) AS ?subsidiaryHazardClass)
+            BIND(concat(\'val:\',?subsidiaryHazardClassValue) AS ?subsidiaryHazardClass)
           }
             UNION
           {
             ?_subsidiaryHazardClass
               rdf:value ?subsidiaryHazardClassValue ;
               (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassUoM .
-            BIND(concat('xval:',STR(?subsidiaryHazardClassValue),':',?subsidiaryHazardClassUoM) AS ?subsidiaryHazardClass)
+            BIND(concat(\'xval:\',STR(?subsidiaryHazardClassValue),\':\',?subsidiaryHazardClassUoM) AS ?subsidiaryHazardClass)
           }
             UNION
           {
            ?_subsidiaryHazardClass  aixm:nilReason ?subsidiaryHazardClassNilReason .
-           BIND(concat('nil:',?subsidiaryHazardClassNilReason) AS ?subsidiaryHazardClass)
+           BIND(concat(\'nil:\',?subsidiaryHazardClassNilReason) AS ?subsidiaryHazardClass)
           }
         }
       }
@@ -11705,19 +11705,19 @@ WHERE
           {
             ?_determinationMethod rdf:value ?determinationMethodValue .
             FILTER ( NOT EXISTS {?_determinationMethod (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM})
-            BIND(concat('val:',?determinationMethodValue) AS ?determinationMethod)
+            BIND(concat(\'val:\',?determinationMethodValue) AS ?determinationMethod)
           }
             UNION
           {
             ?_determinationMethod
               rdf:value ?determinationMethodValue ;
               (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM .
-            BIND(concat('xval:',STR(?determinationMethodValue),':',?determinationMethodUoM) AS ?determinationMethod)
+            BIND(concat(\'xval:\',STR(?determinationMethodValue),\':\',?determinationMethodUoM) AS ?determinationMethod)
           }
             UNION
           {
            ?_determinationMethod  aixm:nilReason ?determinationMethodNilReason .
-           BIND(concat('nil:',?determinationMethodNilReason) AS ?determinationMethod)
+           BIND(concat(\'nil:\',?determinationMethodNilReason) AS ?determinationMethod)
           }
         }
       }
@@ -11727,19 +11727,19 @@ WHERE
           {
             ?_timeAtPosition rdf:value ?timeAtPositionValue .
             FILTER ( NOT EXISTS {?_timeAtPosition (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM})
-            BIND(concat('val:',?timeAtPositionValue) AS ?timeAtPosition)
+            BIND(concat(\'val:\',?timeAtPositionValue) AS ?timeAtPosition)
           }
             UNION
           {
             ?_timeAtPosition
               rdf:value ?timeAtPositionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM .
-            BIND(concat('xval:',STR(?timeAtPositionValue),':',?timeAtPositionUoM) AS ?timeAtPosition)
+            BIND(concat(\'xval:\',STR(?timeAtPositionValue),\':\',?timeAtPositionUoM) AS ?timeAtPosition)
           }
             UNION
           {
            ?_timeAtPosition  aixm:nilReason ?timeAtPositionNilReason .
-           BIND(concat('nil:',?timeAtPositionNilReason) AS ?timeAtPosition)
+           BIND(concat(\'nil:\',?timeAtPositionNilReason) AS ?timeAtPosition)
           }
         }
       }
@@ -11782,19 +11782,19 @@ WHERE
           {
             ?_operationalStatus rdf:value ?operationalStatusValue .
             FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
-            BIND(concat('val:',?operationalStatusValue) AS ?operationalStatus)
+            BIND(concat(\'val:\',?operationalStatusValue) AS ?operationalStatus)
           }
             UNION
           {
             ?_operationalStatus
               rdf:value ?operationalStatusValue ;
               (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
-            BIND(concat('xval:',STR(?operationalStatusValue),':',?operationalStatusUoM) AS ?operationalStatus)
+            BIND(concat(\'xval:\',STR(?operationalStatusValue),\':\',?operationalStatusUoM) AS ?operationalStatus)
           }
             UNION
           {
            ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
-           BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
+           BIND(concat(\'nil:\',?operationalStatusNilReason) AS ?operationalStatus)
           }
         }
       }
@@ -11837,19 +11837,19 @@ WHERE
           {
             ?_grossWeight rdf:value ?grossWeightValue .
             FILTER ( NOT EXISTS {?_grossWeight (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM})
-            BIND(concat('val:',?grossWeightValue) AS ?grossWeight)
+            BIND(concat(\'val:\',?grossWeightValue) AS ?grossWeight)
           }
             UNION
           {
             ?_grossWeight
               rdf:value ?grossWeightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM .
-            BIND(concat('xval:',STR(?grossWeightValue),':',?grossWeightUoM) AS ?grossWeight)
+            BIND(concat(\'xval:\',STR(?grossWeightValue),\':\',?grossWeightUoM) AS ?grossWeight)
           }
             UNION
           {
            ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
-           BIND(concat('nil:',?grossWeightNilReason) AS ?grossWeight)
+           BIND(concat(\'nil:\',?grossWeightNilReason) AS ?grossWeight)
           }
         }
       }
@@ -11858,19 +11858,19 @@ WHERE
           {
             ?_netWeight rdf:value ?netWeightValue .
             FILTER ( NOT EXISTS {?_netWeight (aixm:uom | fixm:uom | plain:uom) ?netWeightUoM})
-            BIND(concat('val:',?netWeightValue) AS ?netWeight)
+            BIND(concat(\'val:\',?netWeightValue) AS ?netWeight)
           }
             UNION
           {
             ?_netWeight
               rdf:value ?netWeightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?netWeightUoM .
-            BIND(concat('xval:',STR(?netWeightValue),':',?netWeightUoM) AS ?netWeight)
+            BIND(concat(\'xval:\',STR(?netWeightValue),\':\',?netWeightUoM) AS ?netWeight)
           }
             UNION
           {
            ?_netWeight  aixm:nilReason ?netWeightNilReason .
-           BIND(concat('nil:',?netWeightNilReason) AS ?netWeight)
+           BIND(concat(\'nil:\',?netWeightNilReason) AS ?netWeight)
           }
         }
       }
@@ -11879,19 +11879,19 @@ WHERE
           {
             ?_volume rdf:value ?volumeValue .
             FILTER ( NOT EXISTS {?_volume (aixm:uom | fixm:uom | plain:uom) ?volumeUoM})
-            BIND(concat('val:',?volumeValue) AS ?volume)
+            BIND(concat(\'val:\',?volumeValue) AS ?volume)
           }
             UNION
           {
             ?_volume
               rdf:value ?volumeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?volumeUoM .
-            BIND(concat('xval:',STR(?volumeValue),':',?volumeUoM) AS ?volume)
+            BIND(concat(\'xval:\',STR(?volumeValue),\':\',?volumeUoM) AS ?volume)
           }
             UNION
           {
            ?_volume  aixm:nilReason ?volumeNilReason .
-           BIND(concat('nil:',?volumeNilReason) AS ?volume)
+           BIND(concat(\'nil:\',?volumeNilReason) AS ?volume)
           }
         }
       }
@@ -11934,19 +11934,19 @@ WHERE
           {
             ?_efplFlightRules rdf:value ?efplFlightRulesValue .
             FILTER ( NOT EXISTS {?_efplFlightRules (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM})
-            BIND(concat('val:',?efplFlightRulesValue) AS ?efplFlightRules)
+            BIND(concat(\'val:\',?efplFlightRulesValue) AS ?efplFlightRules)
           }
             UNION
           {
             ?_efplFlightRules
               rdf:value ?efplFlightRulesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM .
-            BIND(concat('xval:',STR(?efplFlightRulesValue),':',?efplFlightRulesUoM) AS ?efplFlightRules)
+            BIND(concat(\'xval:\',STR(?efplFlightRulesValue),\':\',?efplFlightRulesUoM) AS ?efplFlightRules)
           }
             UNION
           {
            ?_efplFlightRules  aixm:nilReason ?efplFlightRulesNilReason .
-           BIND(concat('nil:',?efplFlightRulesNilReason) AS ?efplFlightRules)
+           BIND(concat(\'nil:\',?efplFlightRulesNilReason) AS ?efplFlightRules)
           }
         }
       }
@@ -11989,19 +11989,19 @@ WHERE
           {
             ?_abrogationReason rdf:value ?abrogationReasonValue .
             FILTER ( NOT EXISTS {?_abrogationReason (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM})
-            BIND(concat('val:',?abrogationReasonValue) AS ?abrogationReason)
+            BIND(concat(\'val:\',?abrogationReasonValue) AS ?abrogationReason)
           }
             UNION
           {
             ?_abrogationReason
               rdf:value ?abrogationReasonValue ;
               (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM .
-            BIND(concat('xval:',STR(?abrogationReasonValue),':',?abrogationReasonUoM) AS ?abrogationReason)
+            BIND(concat(\'xval:\',STR(?abrogationReasonValue),\':\',?abrogationReasonUoM) AS ?abrogationReason)
           }
             UNION
           {
            ?_abrogationReason  aixm:nilReason ?abrogationReasonNilReason .
-           BIND(concat('nil:',?abrogationReasonNilReason) AS ?abrogationReason)
+           BIND(concat(\'nil:\',?abrogationReasonNilReason) AS ?abrogationReason)
           }
         }
       }
@@ -12010,19 +12010,19 @@ WHERE
           {
             ?_coordinationStatus rdf:value ?coordinationStatusValue .
             FILTER ( NOT EXISTS {?_coordinationStatus (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM})
-            BIND(concat('val:',?coordinationStatusValue) AS ?coordinationStatus)
+            BIND(concat(\'val:\',?coordinationStatusValue) AS ?coordinationStatus)
           }
             UNION
           {
             ?_coordinationStatus
               rdf:value ?coordinationStatusValue ;
               (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM .
-            BIND(concat('xval:',STR(?coordinationStatusValue),':',?coordinationStatusUoM) AS ?coordinationStatus)
+            BIND(concat(\'xval:\',STR(?coordinationStatusValue),\':\',?coordinationStatusUoM) AS ?coordinationStatus)
           }
             UNION
           {
            ?_coordinationStatus  aixm:nilReason ?coordinationStatusNilReason .
-           BIND(concat('nil:',?coordinationStatusNilReason) AS ?coordinationStatus)
+           BIND(concat(\'nil:\',?coordinationStatusNilReason) AS ?coordinationStatus)
           }
         }
       }
@@ -12031,19 +12031,19 @@ WHERE
           {
             ?_nonStandardCommunicationReason rdf:value ?nonStandardCommunicationReasonValue .
             FILTER ( NOT EXISTS {?_nonStandardCommunicationReason (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM})
-            BIND(concat('val:',?nonStandardCommunicationReasonValue) AS ?nonStandardCommunicationReason)
+            BIND(concat(\'val:\',?nonStandardCommunicationReasonValue) AS ?nonStandardCommunicationReason)
           }
             UNION
           {
             ?_nonStandardCommunicationReason
               rdf:value ?nonStandardCommunicationReasonValue ;
               (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM .
-            BIND(concat('xval:',STR(?nonStandardCommunicationReasonValue),':',?nonStandardCommunicationReasonUoM) AS ?nonStandardCommunicationReason)
+            BIND(concat(\'xval:\',STR(?nonStandardCommunicationReasonValue),\':\',?nonStandardCommunicationReasonUoM) AS ?nonStandardCommunicationReason)
           }
             UNION
           {
            ?_nonStandardCommunicationReason  aixm:nilReason ?nonStandardCommunicationReasonNilReason .
-           BIND(concat('nil:',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
+           BIND(concat(\'nil:\',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
           }
         }
       }
@@ -12052,19 +12052,19 @@ WHERE
           {
             ?_releaseConditions rdf:value ?releaseConditionsValue .
             FILTER ( NOT EXISTS {?_releaseConditions (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM})
-            BIND(concat('val:',?releaseConditionsValue) AS ?releaseConditions)
+            BIND(concat(\'val:\',?releaseConditionsValue) AS ?releaseConditions)
           }
             UNION
           {
             ?_releaseConditions
               rdf:value ?releaseConditionsValue ;
               (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM .
-            BIND(concat('xval:',STR(?releaseConditionsValue),':',?releaseConditionsUoM) AS ?releaseConditions)
+            BIND(concat(\'xval:\',STR(?releaseConditionsValue),\':\',?releaseConditionsUoM) AS ?releaseConditions)
           }
             UNION
           {
            ?_releaseConditions  aixm:nilReason ?releaseConditionsNilReason .
-           BIND(concat('nil:',?releaseConditionsNilReason) AS ?releaseConditions)
+           BIND(concat(\'nil:\',?releaseConditionsNilReason) AS ?releaseConditions)
           }
         }
       }
@@ -12107,19 +12107,19 @@ WHERE
           {
             ?_altitude rdf:value ?altitudeValue .
             FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat('val:',?altitudeValue) AS ?altitude)
+            BIND(concat(\'val:\',?altitudeValue) AS ?altitude)
           }
             UNION
           {
             ?_altitude
               rdf:value ?altitudeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-            BIND(concat('xval:',STR(?altitudeValue),':',?altitudeUoM) AS ?altitude)
+            BIND(concat(\'xval:\',STR(?altitudeValue),\':\',?altitudeUoM) AS ?altitude)
           }
             UNION
           {
            ?_altitude  aixm:nilReason ?altitudeNilReason .
-           BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
+           BIND(concat(\'nil:\',?altitudeNilReason) AS ?altitude)
           }
         }
       }
@@ -12129,19 +12129,19 @@ WHERE
           {
             ?_crossingSpeed rdf:value ?crossingSpeedValue .
             FILTER ( NOT EXISTS {?_crossingSpeed (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM})
-            BIND(concat('val:',?crossingSpeedValue) AS ?crossingSpeed)
+            BIND(concat(\'val:\',?crossingSpeedValue) AS ?crossingSpeed)
           }
             UNION
           {
             ?_crossingSpeed
               rdf:value ?crossingSpeedValue ;
               (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM .
-            BIND(concat('xval:',STR(?crossingSpeedValue),':',?crossingSpeedUoM) AS ?crossingSpeed)
+            BIND(concat(\'xval:\',STR(?crossingSpeedValue),\':\',?crossingSpeedUoM) AS ?crossingSpeed)
           }
             UNION
           {
            ?_crossingSpeed  aixm:nilReason ?crossingSpeedNilReason .
-           BIND(concat('nil:',?crossingSpeedNilReason) AS ?crossingSpeed)
+           BIND(concat(\'nil:\',?crossingSpeedNilReason) AS ?crossingSpeed)
           }
         }
       }
@@ -12150,19 +12150,19 @@ WHERE
           {
             ?_crossingTime rdf:value ?crossingTimeValue .
             FILTER ( NOT EXISTS {?_crossingTime (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM})
-            BIND(concat('val:',?crossingTimeValue) AS ?crossingTime)
+            BIND(concat(\'val:\',?crossingTimeValue) AS ?crossingTime)
           }
             UNION
           {
             ?_crossingTime
               rdf:value ?crossingTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM .
-            BIND(concat('xval:',STR(?crossingTimeValue),':',?crossingTimeUoM) AS ?crossingTime)
+            BIND(concat(\'xval:\',STR(?crossingTimeValue),\':\',?crossingTimeUoM) AS ?crossingTime)
           }
             UNION
           {
            ?_crossingTime  aixm:nilReason ?crossingTimeNilReason .
-           BIND(concat('nil:',?crossingTimeNilReason) AS ?crossingTime)
+           BIND(concat(\'nil:\',?crossingTimeNilReason) AS ?crossingTime)
           }
         }
       }
@@ -12172,19 +12172,19 @@ WHERE
           {
             ?_altitudeInTransition rdf:value ?altitudeInTransitionValue .
             FILTER ( NOT EXISTS {?_altitudeInTransition (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM})
-            BIND(concat('val:',?altitudeInTransitionValue) AS ?altitudeInTransition)
+            BIND(concat(\'val:\',?altitudeInTransitionValue) AS ?altitudeInTransition)
           }
             UNION
           {
             ?_altitudeInTransition
               rdf:value ?altitudeInTransitionValue ;
               (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM .
-            BIND(concat('xval:',STR(?altitudeInTransitionValue),':',?altitudeInTransitionUoM) AS ?altitudeInTransition)
+            BIND(concat(\'xval:\',STR(?altitudeInTransitionValue),\':\',?altitudeInTransitionUoM) AS ?altitudeInTransition)
           }
             UNION
           {
            ?_altitudeInTransition  aixm:nilReason ?altitudeInTransitionNilReason .
-           BIND(concat('nil:',?altitudeInTransitionNilReason) AS ?altitudeInTransition)
+           BIND(concat(\'nil:\',?altitudeInTransitionNilReason) AS ?altitudeInTransition)
           }
         }
       }
@@ -12227,19 +12227,19 @@ WHERE
           {
             ?_code rdf:value ?codeValue .
             FILTER ( NOT EXISTS {?_code (aixm:uom | fixm:uom | plain:uom) ?codeUoM})
-            BIND(concat('val:',?codeValue) AS ?code)
+            BIND(concat(\'val:\',?codeValue) AS ?code)
           }
             UNION
           {
             ?_code
               rdf:value ?codeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?codeUoM .
-            BIND(concat('xval:',STR(?codeValue),':',?codeUoM) AS ?code)
+            BIND(concat(\'xval:\',STR(?codeValue),\':\',?codeUoM) AS ?code)
           }
             UNION
           {
            ?_code  aixm:nilReason ?codeNilReason .
-           BIND(concat('nil:',?codeNilReason) AS ?code)
+           BIND(concat(\'nil:\',?codeNilReason) AS ?code)
           }
         }
       }
@@ -12282,19 +12282,19 @@ WHERE
           {
             ?_radioFailureRemarks rdf:value ?radioFailureRemarksValue .
             FILTER ( NOT EXISTS {?_radioFailureRemarks (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM})
-            BIND(concat('val:',?radioFailureRemarksValue) AS ?radioFailureRemarks)
+            BIND(concat(\'val:\',?radioFailureRemarksValue) AS ?radioFailureRemarks)
           }
             UNION
           {
             ?_radioFailureRemarks
               rdf:value ?radioFailureRemarksValue ;
               (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM .
-            BIND(concat('xval:',STR(?radioFailureRemarksValue),':',?radioFailureRemarksUoM) AS ?radioFailureRemarks)
+            BIND(concat(\'xval:\',STR(?radioFailureRemarksValue),\':\',?radioFailureRemarksUoM) AS ?radioFailureRemarks)
           }
             UNION
           {
            ?_radioFailureRemarks  aixm:nilReason ?radioFailureRemarksNilReason .
-           BIND(concat('nil:',?radioFailureRemarksNilReason) AS ?radioFailureRemarks)
+           BIND(concat(\'nil:\',?radioFailureRemarksNilReason) AS ?radioFailureRemarks)
           }
         }
       }
@@ -12303,19 +12303,19 @@ WHERE
           {
             ?_remainingComCapability rdf:value ?remainingComCapabilityValue .
             FILTER ( NOT EXISTS {?_remainingComCapability (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM})
-            BIND(concat('val:',?remainingComCapabilityValue) AS ?remainingComCapability)
+            BIND(concat(\'val:\',?remainingComCapabilityValue) AS ?remainingComCapability)
           }
             UNION
           {
             ?_remainingComCapability
               rdf:value ?remainingComCapabilityValue ;
               (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM .
-            BIND(concat('xval:',STR(?remainingComCapabilityValue),':',?remainingComCapabilityUoM) AS ?remainingComCapability)
+            BIND(concat(\'xval:\',STR(?remainingComCapabilityValue),\':\',?remainingComCapabilityUoM) AS ?remainingComCapability)
           }
             UNION
           {
            ?_remainingComCapability  aixm:nilReason ?remainingComCapabilityNilReason .
-           BIND(concat('nil:',?remainingComCapabilityNilReason) AS ?remainingComCapability)
+           BIND(concat(\'nil:\',?remainingComCapabilityNilReason) AS ?remainingComCapability)
           }
         }
       }
@@ -12349,7 +12349,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?usage;SEPARATOR=",") AS ?usageConcat)
+SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning ?usage
 WHERE
   { GRAPH ?graph
     {
@@ -12359,19 +12359,19 @@ WHERE
           {
             ?_operationalStatus rdf:value ?operationalStatusValue .
             FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
-            BIND(concat('val:',?operationalStatusValue) AS ?operationalStatus)
+            BIND(concat(\'val:\',?operationalStatusValue) AS ?operationalStatus)
           }
             UNION
           {
             ?_operationalStatus
               rdf:value ?operationalStatusValue ;
               (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
-            BIND(concat('xval:',STR(?operationalStatusValue),':',?operationalStatusUoM) AS ?operationalStatus)
+            BIND(concat(\'xval:\',STR(?operationalStatusValue),\':\',?operationalStatusUoM) AS ?operationalStatus)
           }
             UNION
           {
            ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
-           BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
+           BIND(concat(\'nil:\',?operationalStatusNilReason) AS ?operationalStatus)
           }
         }
       }
@@ -12380,19 +12380,19 @@ WHERE
           {
             ?_warning rdf:value ?warningValue .
             FILTER ( NOT EXISTS {?_warning (aixm:uom | fixm:uom | plain:uom) ?warningUoM})
-            BIND(concat('val:',?warningValue) AS ?warning)
+            BIND(concat(\'val:\',?warningValue) AS ?warning)
           }
             UNION
           {
             ?_warning
               rdf:value ?warningValue ;
               (aixm:uom | fixm:uom | plain:uom) ?warningUoM .
-            BIND(concat('xval:',STR(?warningValue),':',?warningUoM) AS ?warning)
+            BIND(concat(\'xval:\',STR(?warningValue),\':\',?warningUoM) AS ?warning)
           }
             UNION
           {
            ?_warning  aixm:nilReason ?warningNilReason .
-           BIND(concat('nil:',?warningNilReason) AS ?warning)
+           BIND(concat(\'nil:\',?warningNilReason) AS ?warning)
           }
         }
       }
@@ -12402,7 +12402,7 @@ WHERE
 GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
 
       '
-,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convert(UsageConcat,UsageList).
+,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,Usage),[]).
 
 % fixm_FlightArrival(Graph, FlightArrival, ApproachFix?, ApproachTime?, ArrivalAerodrome?, ArrivalAerodromeAlternate*, ArrivalAerodromeOriginal?, ArrivalFix?, ArrivalFixTime?, ArrivalFleetPrioritization?, ArrivalSequenceNumber?, EarliestInBlockTime?, FiledRevisedDestinationAerodrome?, FiledRevisedDestinationStar?, RunwayPositionAndTime?, StandardInstrumentArrival?, StandPositionAndTime?, LandingLimits?)
 
@@ -12427,7 +12427,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome (GROUP_CONCAT(DISTINCT ?arrivalAerodromeAlternate;SEPARATOR=",") AS ?arrivalAerodromeAlternateConcat) ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
+SELECT ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arrivalAerodromeAlternate ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
 WHERE
   { GRAPH ?graph
     {
@@ -12444,19 +12444,19 @@ WHERE
           {
             ?_arrivalFleetPrioritization rdf:value ?arrivalFleetPrioritizationValue .
             FILTER ( NOT EXISTS {?_arrivalFleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?arrivalFleetPrioritizationUoM})
-            BIND(concat('val:',?arrivalFleetPrioritizationValue) AS ?arrivalFleetPrioritization)
+            BIND(concat(\'val:\',?arrivalFleetPrioritizationValue) AS ?arrivalFleetPrioritization)
           }
             UNION
           {
             ?_arrivalFleetPrioritization
               rdf:value ?arrivalFleetPrioritizationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?arrivalFleetPrioritizationUoM .
-            BIND(concat('xval:',STR(?arrivalFleetPrioritizationValue),':',?arrivalFleetPrioritizationUoM) AS ?arrivalFleetPrioritization)
+            BIND(concat(\'xval:\',STR(?arrivalFleetPrioritizationValue),\':\',?arrivalFleetPrioritizationUoM) AS ?arrivalFleetPrioritization)
           }
             UNION
           {
            ?_arrivalFleetPrioritization  aixm:nilReason ?arrivalFleetPrioritizationNilReason .
-           BIND(concat('nil:',?arrivalFleetPrioritizationNilReason) AS ?arrivalFleetPrioritization)
+           BIND(concat(\'nil:\',?arrivalFleetPrioritizationNilReason) AS ?arrivalFleetPrioritization)
           }
         }
       }
@@ -12465,19 +12465,19 @@ WHERE
           {
             ?_arrivalSequenceNumber rdf:value ?arrivalSequenceNumberValue .
             FILTER ( NOT EXISTS {?_arrivalSequenceNumber (aixm:uom | fixm:uom | plain:uom) ?arrivalSequenceNumberUoM})
-            BIND(concat('val:',?arrivalSequenceNumberValue) AS ?arrivalSequenceNumber)
+            BIND(concat(\'val:\',?arrivalSequenceNumberValue) AS ?arrivalSequenceNumber)
           }
             UNION
           {
             ?_arrivalSequenceNumber
               rdf:value ?arrivalSequenceNumberValue ;
               (aixm:uom | fixm:uom | plain:uom) ?arrivalSequenceNumberUoM .
-            BIND(concat('xval:',STR(?arrivalSequenceNumberValue),':',?arrivalSequenceNumberUoM) AS ?arrivalSequenceNumber)
+            BIND(concat(\'xval:\',STR(?arrivalSequenceNumberValue),\':\',?arrivalSequenceNumberUoM) AS ?arrivalSequenceNumber)
           }
             UNION
           {
            ?_arrivalSequenceNumber  aixm:nilReason ?arrivalSequenceNumberNilReason .
-           BIND(concat('nil:',?arrivalSequenceNumberNilReason) AS ?arrivalSequenceNumber)
+           BIND(concat(\'nil:\',?arrivalSequenceNumberNilReason) AS ?arrivalSequenceNumber)
           }
         }
       }
@@ -12486,19 +12486,19 @@ WHERE
           {
             ?_earliestInBlockTime rdf:value ?earliestInBlockTimeValue .
             FILTER ( NOT EXISTS {?_earliestInBlockTime (aixm:uom | fixm:uom | plain:uom) ?earliestInBlockTimeUoM})
-            BIND(concat('val:',?earliestInBlockTimeValue) AS ?earliestInBlockTime)
+            BIND(concat(\'val:\',?earliestInBlockTimeValue) AS ?earliestInBlockTime)
           }
             UNION
           {
             ?_earliestInBlockTime
               rdf:value ?earliestInBlockTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?earliestInBlockTimeUoM .
-            BIND(concat('xval:',STR(?earliestInBlockTimeValue),':',?earliestInBlockTimeUoM) AS ?earliestInBlockTime)
+            BIND(concat(\'xval:\',STR(?earliestInBlockTimeValue),\':\',?earliestInBlockTimeUoM) AS ?earliestInBlockTime)
           }
             UNION
           {
            ?_earliestInBlockTime  aixm:nilReason ?earliestInBlockTimeNilReason .
-           BIND(concat('nil:',?earliestInBlockTimeNilReason) AS ?earliestInBlockTime)
+           BIND(concat(\'nil:\',?earliestInBlockTimeNilReason) AS ?earliestInBlockTime)
           }
         }
       }
@@ -12508,19 +12508,19 @@ WHERE
           {
             ?_filedRevisedDestinationStar rdf:value ?filedRevisedDestinationStarValue .
             FILTER ( NOT EXISTS {?_filedRevisedDestinationStar (aixm:uom | fixm:uom | plain:uom) ?filedRevisedDestinationStarUoM})
-            BIND(concat('val:',?filedRevisedDestinationStarValue) AS ?filedRevisedDestinationStar)
+            BIND(concat(\'val:\',?filedRevisedDestinationStarValue) AS ?filedRevisedDestinationStar)
           }
             UNION
           {
             ?_filedRevisedDestinationStar
               rdf:value ?filedRevisedDestinationStarValue ;
               (aixm:uom | fixm:uom | plain:uom) ?filedRevisedDestinationStarUoM .
-            BIND(concat('xval:',STR(?filedRevisedDestinationStarValue),':',?filedRevisedDestinationStarUoM) AS ?filedRevisedDestinationStar)
+            BIND(concat(\'xval:\',STR(?filedRevisedDestinationStarValue),\':\',?filedRevisedDestinationStarUoM) AS ?filedRevisedDestinationStar)
           }
             UNION
           {
            ?_filedRevisedDestinationStar  aixm:nilReason ?filedRevisedDestinationStarNilReason .
-           BIND(concat('nil:',?filedRevisedDestinationStarNilReason) AS ?filedRevisedDestinationStar)
+           BIND(concat(\'nil:\',?filedRevisedDestinationStarNilReason) AS ?filedRevisedDestinationStar)
           }
         }
       }
@@ -12530,19 +12530,19 @@ WHERE
           {
             ?_standardInstrumentArrival rdf:value ?standardInstrumentArrivalValue .
             FILTER ( NOT EXISTS {?_standardInstrumentArrival (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentArrivalUoM})
-            BIND(concat('val:',?standardInstrumentArrivalValue) AS ?standardInstrumentArrival)
+            BIND(concat(\'val:\',?standardInstrumentArrivalValue) AS ?standardInstrumentArrival)
           }
             UNION
           {
             ?_standardInstrumentArrival
               rdf:value ?standardInstrumentArrivalValue ;
               (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentArrivalUoM .
-            BIND(concat('xval:',STR(?standardInstrumentArrivalValue),':',?standardInstrumentArrivalUoM) AS ?standardInstrumentArrival)
+            BIND(concat(\'xval:\',STR(?standardInstrumentArrivalValue),\':\',?standardInstrumentArrivalUoM) AS ?standardInstrumentArrival)
           }
             UNION
           {
            ?_standardInstrumentArrival  aixm:nilReason ?standardInstrumentArrivalNilReason .
-           BIND(concat('nil:',?standardInstrumentArrivalNilReason) AS ?standardInstrumentArrival)
+           BIND(concat(\'nil:\',?standardInstrumentArrivalNilReason) AS ?standardInstrumentArrival)
           }
         }
       }
@@ -12552,19 +12552,19 @@ WHERE
           {
             ?_landingLimits rdf:value ?landingLimitsValue .
             FILTER ( NOT EXISTS {?_landingLimits (aixm:uom | fixm:uom | plain:uom) ?landingLimitsUoM})
-            BIND(concat('val:',?landingLimitsValue) AS ?landingLimits)
+            BIND(concat(\'val:\',?landingLimitsValue) AS ?landingLimits)
           }
             UNION
           {
             ?_landingLimits
               rdf:value ?landingLimitsValue ;
               (aixm:uom | fixm:uom | plain:uom) ?landingLimitsUoM .
-            BIND(concat('xval:',STR(?landingLimitsValue),':',?landingLimitsUoM) AS ?landingLimits)
+            BIND(concat(\'xval:\',STR(?landingLimitsValue),\':\',?landingLimitsUoM) AS ?landingLimits)
           }
             UNION
           {
            ?_landingLimits  aixm:nilReason ?landingLimitsNilReason .
-           BIND(concat('nil:',?landingLimitsNilReason) AS ?landingLimits)
+           BIND(concat(\'nil:\',?landingLimitsNilReason) AS ?landingLimits)
           }
         }
       }
@@ -12573,7 +12573,7 @@ WHERE
 GROUP BY ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
 
       '
-,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternateConcat,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]), convert(ArrivalAerodromeAlternateConcat,ArrivalAerodromeAlternateList).
+,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternate,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]).
 
 % fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex?, TransportIndex?, FissileExceptedIndicator?, Category?, Radionuclide?)
 
@@ -12608,19 +12608,19 @@ WHERE
           {
             ?_criticalitySafetyIndex rdf:value ?criticalitySafetyIndexValue .
             FILTER ( NOT EXISTS {?_criticalitySafetyIndex (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM})
-            BIND(concat('val:',?criticalitySafetyIndexValue) AS ?criticalitySafetyIndex)
+            BIND(concat(\'val:\',?criticalitySafetyIndexValue) AS ?criticalitySafetyIndex)
           }
             UNION
           {
             ?_criticalitySafetyIndex
               rdf:value ?criticalitySafetyIndexValue ;
               (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM .
-            BIND(concat('xval:',STR(?criticalitySafetyIndexValue),':',?criticalitySafetyIndexUoM) AS ?criticalitySafetyIndex)
+            BIND(concat(\'xval:\',STR(?criticalitySafetyIndexValue),\':\',?criticalitySafetyIndexUoM) AS ?criticalitySafetyIndex)
           }
             UNION
           {
            ?_criticalitySafetyIndex  aixm:nilReason ?criticalitySafetyIndexNilReason .
-           BIND(concat('nil:',?criticalitySafetyIndexNilReason) AS ?criticalitySafetyIndex)
+           BIND(concat(\'nil:\',?criticalitySafetyIndexNilReason) AS ?criticalitySafetyIndex)
           }
         }
       }
@@ -12629,19 +12629,19 @@ WHERE
           {
             ?_transportIndex rdf:value ?transportIndexValue .
             FILTER ( NOT EXISTS {?_transportIndex (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM})
-            BIND(concat('val:',?transportIndexValue) AS ?transportIndex)
+            BIND(concat(\'val:\',?transportIndexValue) AS ?transportIndex)
           }
             UNION
           {
             ?_transportIndex
               rdf:value ?transportIndexValue ;
               (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM .
-            BIND(concat('xval:',STR(?transportIndexValue),':',?transportIndexUoM) AS ?transportIndex)
+            BIND(concat(\'xval:\',STR(?transportIndexValue),\':\',?transportIndexUoM) AS ?transportIndex)
           }
             UNION
           {
            ?_transportIndex  aixm:nilReason ?transportIndexNilReason .
-           BIND(concat('nil:',?transportIndexNilReason) AS ?transportIndex)
+           BIND(concat(\'nil:\',?transportIndexNilReason) AS ?transportIndex)
           }
         }
       }
@@ -12650,19 +12650,19 @@ WHERE
           {
             ?_fissileExceptedIndicator rdf:value ?fissileExceptedIndicatorValue .
             FILTER ( NOT EXISTS {?_fissileExceptedIndicator (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM})
-            BIND(concat('val:',?fissileExceptedIndicatorValue) AS ?fissileExceptedIndicator)
+            BIND(concat(\'val:\',?fissileExceptedIndicatorValue) AS ?fissileExceptedIndicator)
           }
             UNION
           {
             ?_fissileExceptedIndicator
               rdf:value ?fissileExceptedIndicatorValue ;
               (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM .
-            BIND(concat('xval:',STR(?fissileExceptedIndicatorValue),':',?fissileExceptedIndicatorUoM) AS ?fissileExceptedIndicator)
+            BIND(concat(\'xval:\',STR(?fissileExceptedIndicatorValue),\':\',?fissileExceptedIndicatorUoM) AS ?fissileExceptedIndicator)
           }
             UNION
           {
            ?_fissileExceptedIndicator  aixm:nilReason ?fissileExceptedIndicatorNilReason .
-           BIND(concat('nil:',?fissileExceptedIndicatorNilReason) AS ?fissileExceptedIndicator)
+           BIND(concat(\'nil:\',?fissileExceptedIndicatorNilReason) AS ?fissileExceptedIndicator)
           }
         }
       }
@@ -12671,19 +12671,19 @@ WHERE
           {
             ?_category rdf:value ?categoryValue .
             FILTER ( NOT EXISTS {?_category (aixm:uom | fixm:uom | plain:uom) ?categoryUoM})
-            BIND(concat('val:',?categoryValue) AS ?category)
+            BIND(concat(\'val:\',?categoryValue) AS ?category)
           }
             UNION
           {
             ?_category
               rdf:value ?categoryValue ;
               (aixm:uom | fixm:uom | plain:uom) ?categoryUoM .
-            BIND(concat('xval:',STR(?categoryValue),':',?categoryUoM) AS ?category)
+            BIND(concat(\'xval:\',STR(?categoryValue),\':\',?categoryUoM) AS ?category)
           }
             UNION
           {
            ?_category  aixm:nilReason ?categoryNilReason .
-           BIND(concat('nil:',?categoryNilReason) AS ?category)
+           BIND(concat(\'nil:\',?categoryNilReason) AS ?category)
           }
         }
       }
@@ -12835,19 +12835,19 @@ WHERE
           {
             ?_numberOfPackages rdf:value ?numberOfPackagesValue .
             FILTER ( NOT EXISTS {?_numberOfPackages (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM})
-            BIND(concat('val:',?numberOfPackagesValue) AS ?numberOfPackages)
+            BIND(concat(\'val:\',?numberOfPackagesValue) AS ?numberOfPackages)
           }
             UNION
           {
             ?_numberOfPackages
               rdf:value ?numberOfPackagesValue ;
               (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM .
-            BIND(concat('xval:',STR(?numberOfPackagesValue),':',?numberOfPackagesUoM) AS ?numberOfPackages)
+            BIND(concat(\'xval:\',STR(?numberOfPackagesValue),\':\',?numberOfPackagesUoM) AS ?numberOfPackages)
           }
             UNION
           {
            ?_numberOfPackages  aixm:nilReason ?numberOfPackagesNilReason .
-           BIND(concat('nil:',?numberOfPackagesNilReason) AS ?numberOfPackages)
+           BIND(concat(\'nil:\',?numberOfPackagesNilReason) AS ?numberOfPackages)
           }
         }
       }
@@ -12856,19 +12856,19 @@ WHERE
           {
             ?_qValue rdf:value ?qValueValue .
             FILTER ( NOT EXISTS {?_qValue (aixm:uom | fixm:uom | plain:uom) ?qValueUoM})
-            BIND(concat('val:',?qValueValue) AS ?qValue)
+            BIND(concat(\'val:\',?qValueValue) AS ?qValue)
           }
             UNION
           {
             ?_qValue
               rdf:value ?qValueValue ;
               (aixm:uom | fixm:uom | plain:uom) ?qValueUoM .
-            BIND(concat('xval:',STR(?qValueValue),':',?qValueUoM) AS ?qValue)
+            BIND(concat(\'xval:\',STR(?qValueValue),\':\',?qValueUoM) AS ?qValue)
           }
             UNION
           {
            ?_qValue  aixm:nilReason ?qValueNilReason .
-           BIND(concat('nil:',?qValueNilReason) AS ?qValue)
+           BIND(concat(\'nil:\',?qValueNilReason) AS ?qValue)
           }
         }
       }
@@ -12901,7 +12901,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?altimeterSource (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+SELECT ?graph ?altimeterSource ?timeSlice
 WHERE
   { GRAPH ?graph
     {
@@ -12912,7 +12912,7 @@ WHERE
 GROUP BY ?graph ?altimeterSource
 
       '
-,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
+,row(Graph,AltimeterSource,TimeSlice),[]).
 
 % fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks?, DinghyInformation?, EmergencyRadioCode*, LifeJacketCode*, SurvivalEquipmentCode*)
 
@@ -12937,7 +12937,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation (GROUP_CONCAT(DISTINCT ?emergencyRadioCode;SEPARATOR=",") AS ?emergencyRadioCodeConcat) (GROUP_CONCAT(DISTINCT ?lifeJacketCode;SEPARATOR=",") AS ?lifeJacketCodeConcat) (GROUP_CONCAT(DISTINCT ?survivalEquipmentCode;SEPARATOR=",") AS ?survivalEquipmentCodeConcat)
+SELECT ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation ?emergencyRadioCode ?lifeJacketCode ?survivalEquipmentCode
 WHERE
   { GRAPH ?graph
     {
@@ -12947,19 +12947,19 @@ WHERE
           {
             ?_survivalEquipmentRemarks rdf:value ?survivalEquipmentRemarksValue .
             FILTER ( NOT EXISTS {?_survivalEquipmentRemarks (aixm:uom | fixm:uom | plain:uom) ?survivalEquipmentRemarksUoM})
-            BIND(concat('val:',?survivalEquipmentRemarksValue) AS ?survivalEquipmentRemarks)
+            BIND(concat(\'val:\',?survivalEquipmentRemarksValue) AS ?survivalEquipmentRemarks)
           }
             UNION
           {
             ?_survivalEquipmentRemarks
               rdf:value ?survivalEquipmentRemarksValue ;
               (aixm:uom | fixm:uom | plain:uom) ?survivalEquipmentRemarksUoM .
-            BIND(concat('xval:',STR(?survivalEquipmentRemarksValue),':',?survivalEquipmentRemarksUoM) AS ?survivalEquipmentRemarks)
+            BIND(concat(\'xval:\',STR(?survivalEquipmentRemarksValue),\':\',?survivalEquipmentRemarksUoM) AS ?survivalEquipmentRemarks)
           }
             UNION
           {
            ?_survivalEquipmentRemarks  aixm:nilReason ?survivalEquipmentRemarksNilReason .
-           BIND(concat('nil:',?survivalEquipmentRemarksNilReason) AS ?survivalEquipmentRemarks)
+           BIND(concat(\'nil:\',?survivalEquipmentRemarksNilReason) AS ?survivalEquipmentRemarks)
           }
         }
       }
@@ -12969,19 +12969,19 @@ WHERE
           {
             ?_emergencyRadioCode rdf:value ?emergencyRadioCodeValue .
             FILTER ( NOT EXISTS {?_emergencyRadioCode (aixm:uom | fixm:uom | plain:uom) ?emergencyRadioCodeUoM})
-            BIND(concat('val:',?emergencyRadioCodeValue) AS ?emergencyRadioCode)
+            BIND(concat(\'val:\',?emergencyRadioCodeValue) AS ?emergencyRadioCode)
           }
             UNION
           {
             ?_emergencyRadioCode
               rdf:value ?emergencyRadioCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?emergencyRadioCodeUoM .
-            BIND(concat('xval:',STR(?emergencyRadioCodeValue),':',?emergencyRadioCodeUoM) AS ?emergencyRadioCode)
+            BIND(concat(\'xval:\',STR(?emergencyRadioCodeValue),\':\',?emergencyRadioCodeUoM) AS ?emergencyRadioCode)
           }
             UNION
           {
            ?_emergencyRadioCode  aixm:nilReason ?emergencyRadioCodeNilReason .
-           BIND(concat('nil:',?emergencyRadioCodeNilReason) AS ?emergencyRadioCode)
+           BIND(concat(\'nil:\',?emergencyRadioCodeNilReason) AS ?emergencyRadioCode)
           }
         }
       }
@@ -12990,19 +12990,19 @@ WHERE
           {
             ?_lifeJacketCode rdf:value ?lifeJacketCodeValue .
             FILTER ( NOT EXISTS {?_lifeJacketCode (aixm:uom | fixm:uom | plain:uom) ?lifeJacketCodeUoM})
-            BIND(concat('val:',?lifeJacketCodeValue) AS ?lifeJacketCode)
+            BIND(concat(\'val:\',?lifeJacketCodeValue) AS ?lifeJacketCode)
           }
             UNION
           {
             ?_lifeJacketCode
               rdf:value ?lifeJacketCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?lifeJacketCodeUoM .
-            BIND(concat('xval:',STR(?lifeJacketCodeValue),':',?lifeJacketCodeUoM) AS ?lifeJacketCode)
+            BIND(concat(\'xval:\',STR(?lifeJacketCodeValue),\':\',?lifeJacketCodeUoM) AS ?lifeJacketCode)
           }
             UNION
           {
            ?_lifeJacketCode  aixm:nilReason ?lifeJacketCodeNilReason .
-           BIND(concat('nil:',?lifeJacketCodeNilReason) AS ?lifeJacketCode)
+           BIND(concat(\'nil:\',?lifeJacketCodeNilReason) AS ?lifeJacketCode)
           }
         }
       }
@@ -13011,19 +13011,19 @@ WHERE
           {
             ?_survivalEquipmentCode rdf:value ?survivalEquipmentCodeValue .
             FILTER ( NOT EXISTS {?_survivalEquipmentCode (aixm:uom | fixm:uom | plain:uom) ?survivalEquipmentCodeUoM})
-            BIND(concat('val:',?survivalEquipmentCodeValue) AS ?survivalEquipmentCode)
+            BIND(concat(\'val:\',?survivalEquipmentCodeValue) AS ?survivalEquipmentCode)
           }
             UNION
           {
             ?_survivalEquipmentCode
               rdf:value ?survivalEquipmentCodeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?survivalEquipmentCodeUoM .
-            BIND(concat('xval:',STR(?survivalEquipmentCodeValue),':',?survivalEquipmentCodeUoM) AS ?survivalEquipmentCode)
+            BIND(concat(\'xval:\',STR(?survivalEquipmentCodeValue),\':\',?survivalEquipmentCodeUoM) AS ?survivalEquipmentCode)
           }
             UNION
           {
            ?_survivalEquipmentCode  aixm:nilReason ?survivalEquipmentCodeNilReason .
-           BIND(concat('nil:',?survivalEquipmentCodeNilReason) AS ?survivalEquipmentCode)
+           BIND(concat(\'nil:\',?survivalEquipmentCodeNilReason) AS ?survivalEquipmentCode)
           }
         }
       }
@@ -13032,7 +13032,7 @@ WHERE
 GROUP BY ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation
 
       '
-,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCodeConcat,LifeJacketCodeConcat,SurvivalEquipmentCodeConcat),[]), convert(EmergencyRadioCodeConcat,EmergencyRadioCodeList), convert(LifeJacketCodeConcat,LifeJacketCodeList), convert(SurvivalEquipmentCodeConcat,SurvivalEquipmentCodeList).
+,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCode,LifeJacketCode,SurvivalEquipmentCode),[]).
 
 % fixm_DirectRouting(Graph, DirectRouting, From?, To?)
 
@@ -13167,7 +13167,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime (GROUP_CONCAT(DISTINCT ?takeoffAlternateAerodrome;SEPARATOR=",") AS ?takeoffAlternateAerodromeConcat) ?takeoffWeight ?departureTimes
+SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffAlternateAerodrome ?takeoffWeight ?departureTimes
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -13184,19 +13184,19 @@ WHERE
           {
             ?_departureFleetPrioritization rdf:value ?departureFleetPrioritizationValue .
             FILTER ( NOT EXISTS {?_departureFleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM})
-            BIND(concat('val:',?departureFleetPrioritizationValue) AS ?departureFleetPrioritization)
+            BIND(concat(\'val:\',?departureFleetPrioritizationValue) AS ?departureFleetPrioritization)
           }
             UNION
           {
             ?_departureFleetPrioritization
               rdf:value ?departureFleetPrioritizationValue ;
               (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM .
-            BIND(concat('xval:',STR(?departureFleetPrioritizationValue),':',?departureFleetPrioritizationUoM) AS ?departureFleetPrioritization)
+            BIND(concat(\'xval:\',STR(?departureFleetPrioritizationValue),\':\',?departureFleetPrioritizationUoM) AS ?departureFleetPrioritization)
           }
             UNION
           {
            ?_departureFleetPrioritization  aixm:nilReason ?departureFleetPrioritizationNilReason .
-           BIND(concat('nil:',?departureFleetPrioritizationNilReason) AS ?departureFleetPrioritization)
+           BIND(concat(\'nil:\',?departureFleetPrioritizationNilReason) AS ?departureFleetPrioritization)
           }
         }
       }
@@ -13205,19 +13205,19 @@ WHERE
           {
             ?_departureSlot rdf:value ?departureSlotValue .
             FILTER ( NOT EXISTS {?_departureSlot (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM})
-            BIND(concat('val:',?departureSlotValue) AS ?departureSlot)
+            BIND(concat(\'val:\',?departureSlotValue) AS ?departureSlot)
           }
             UNION
           {
             ?_departureSlot
               rdf:value ?departureSlotValue ;
               (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM .
-            BIND(concat('xval:',STR(?departureSlotValue),':',?departureSlotUoM) AS ?departureSlot)
+            BIND(concat(\'xval:\',STR(?departureSlotValue),\':\',?departureSlotUoM) AS ?departureSlot)
           }
             UNION
           {
            ?_departureSlot  aixm:nilReason ?departureSlotNilReason .
-           BIND(concat('nil:',?departureSlotNilReason) AS ?departureSlot)
+           BIND(concat(\'nil:\',?departureSlotNilReason) AS ?departureSlot)
           }
         }
       }
@@ -13226,19 +13226,19 @@ WHERE
           {
             ?_earliestOffBlockTime rdf:value ?earliestOffBlockTimeValue .
             FILTER ( NOT EXISTS {?_earliestOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM})
-            BIND(concat('val:',?earliestOffBlockTimeValue) AS ?earliestOffBlockTime)
+            BIND(concat(\'val:\',?earliestOffBlockTimeValue) AS ?earliestOffBlockTime)
           }
             UNION
           {
             ?_earliestOffBlockTime
               rdf:value ?earliestOffBlockTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM .
-            BIND(concat('xval:',STR(?earliestOffBlockTimeValue),':',?earliestOffBlockTimeUoM) AS ?earliestOffBlockTime)
+            BIND(concat(\'xval:\',STR(?earliestOffBlockTimeValue),\':\',?earliestOffBlockTimeUoM) AS ?earliestOffBlockTime)
           }
             UNION
           {
            ?_earliestOffBlockTime  aixm:nilReason ?earliestOffBlockTimeNilReason .
-           BIND(concat('nil:',?earliestOffBlockTimeNilReason) AS ?earliestOffBlockTime)
+           BIND(concat(\'nil:\',?earliestOffBlockTimeNilReason) AS ?earliestOffBlockTime)
           }
         }
       }
@@ -13249,19 +13249,19 @@ WHERE
           {
             ?_standardInstrumentDeparture rdf:value ?standardInstrumentDepartureValue .
             FILTER ( NOT EXISTS {?_standardInstrumentDeparture (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM})
-            BIND(concat('val:',?standardInstrumentDepartureValue) AS ?standardInstrumentDeparture)
+            BIND(concat(\'val:\',?standardInstrumentDepartureValue) AS ?standardInstrumentDeparture)
           }
             UNION
           {
             ?_standardInstrumentDeparture
               rdf:value ?standardInstrumentDepartureValue ;
               (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM .
-            BIND(concat('xval:',STR(?standardInstrumentDepartureValue),':',?standardInstrumentDepartureUoM) AS ?standardInstrumentDeparture)
+            BIND(concat(\'xval:\',STR(?standardInstrumentDepartureValue),\':\',?standardInstrumentDepartureUoM) AS ?standardInstrumentDeparture)
           }
             UNION
           {
            ?_standardInstrumentDeparture  aixm:nilReason ?standardInstrumentDepartureNilReason .
-           BIND(concat('nil:',?standardInstrumentDepartureNilReason) AS ?standardInstrumentDeparture)
+           BIND(concat(\'nil:\',?standardInstrumentDepartureNilReason) AS ?standardInstrumentDeparture)
           }
         }
       }
@@ -13272,19 +13272,19 @@ WHERE
           {
             ?_takeoffWeight rdf:value ?takeoffWeightValue .
             FILTER ( NOT EXISTS {?_takeoffWeight (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM})
-            BIND(concat('val:',?takeoffWeightValue) AS ?takeoffWeight)
+            BIND(concat(\'val:\',?takeoffWeightValue) AS ?takeoffWeight)
           }
             UNION
           {
             ?_takeoffWeight
               rdf:value ?takeoffWeightValue ;
               (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM .
-            BIND(concat('xval:',STR(?takeoffWeightValue),':',?takeoffWeightUoM) AS ?takeoffWeight)
+            BIND(concat(\'xval:\',STR(?takeoffWeightValue),\':\',?takeoffWeightUoM) AS ?takeoffWeight)
           }
             UNION
           {
            ?_takeoffWeight  aixm:nilReason ?takeoffWeightNilReason .
-           BIND(concat('nil:',?takeoffWeightNilReason) AS ?takeoffWeight)
+           BIND(concat(\'nil:\',?takeoffWeightNilReason) AS ?takeoffWeight)
           }
         }
       }
@@ -13295,7 +13295,7 @@ WHERE
 GROUP BY ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffWeight ?departureTimes
 
       '
-,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList).
+,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodrome,TakeoffWeight,DepartureTimes),[]).
 
 % fixm_AerodromeReference(Graph, AerodromeReference)
 
@@ -13369,19 +13369,19 @@ WHERE
           {
             ?_estimatedOffBlockTime rdf:value ?estimatedOffBlockTimeValue .
             FILTER ( NOT EXISTS {?_estimatedOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM})
-            BIND(concat('val:',?estimatedOffBlockTimeValue) AS ?estimatedOffBlockTime)
+            BIND(concat(\'val:\',?estimatedOffBlockTimeValue) AS ?estimatedOffBlockTime)
           }
             UNION
           {
             ?_estimatedOffBlockTime
               rdf:value ?estimatedOffBlockTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM .
-            BIND(concat('xval:',STR(?estimatedOffBlockTimeValue),':',?estimatedOffBlockTimeUoM) AS ?estimatedOffBlockTime)
+            BIND(concat(\'xval:\',STR(?estimatedOffBlockTimeValue),\':\',?estimatedOffBlockTimeUoM) AS ?estimatedOffBlockTime)
           }
             UNION
           {
            ?_estimatedOffBlockTime  aixm:nilReason ?estimatedOffBlockTimeNilReason .
-           BIND(concat('nil:',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
+           BIND(concat(\'nil:\',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
           }
         }
       }
@@ -13390,19 +13390,19 @@ WHERE
           {
             ?_taxiTime rdf:value ?taxiTimeValue .
             FILTER ( NOT EXISTS {?_taxiTime (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM})
-            BIND(concat('val:',?taxiTimeValue) AS ?taxiTime)
+            BIND(concat(\'val:\',?taxiTimeValue) AS ?taxiTime)
           }
             UNION
           {
             ?_taxiTime
               rdf:value ?taxiTimeValue ;
               (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM .
-            BIND(concat('xval:',STR(?taxiTimeValue),':',?taxiTimeUoM) AS ?taxiTime)
+            BIND(concat(\'xval:\',STR(?taxiTimeValue),\':\',?taxiTimeUoM) AS ?taxiTime)
           }
             UNION
           {
            ?_taxiTime  aixm:nilReason ?taxiTimeNilReason .
-           BIND(concat('nil:',?taxiTimeNilReason) AS ?taxiTime)
+           BIND(concat(\'nil:\',?taxiTimeNilReason) AS ?taxiTime)
           }
         }
       }
@@ -13414,7 +13414,7 @@ WHERE
 
 % aixm_UsageCondition(Graph, UsageCondition, Type?, PriorPermission?, Selection?, Annotation*, Contact*)
 
-aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, AnnotationList, ContactList) :-
+aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Annotation, Contact) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -13435,7 +13435,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?usageCondition ?type ?priorPermission ?selection (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat)
+SELECT ?graph ?usageCondition ?type ?priorPermission ?selection ?annotation ?contact
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -13495,7 +13495,7 @@ WHERE
 GROUP BY ?graph ?usageCondition ?type ?priorPermission ?selection
 
       '
-,row(Graph,UsageCondition,Type,PriorPermission,Selection,AnnotationConcat,ContactConcat),[]), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList).
+,row(Graph,UsageCondition,Type,PriorPermission,Selection,Annotation,Contact),[]).
 
 fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, Constraint) :-
   fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, Constraint),
@@ -13503,7 +13503,7 @@ fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, Dela
 
 aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) .
+  aixm_Surface_Combined(Graph, ElevatedSurface, Patch, HorizontalAccuracy, Annotation) .
 
 aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval, LogicalOperator, Flight, Aircraft, Weather, SubCondition) :-
   aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, Aircraft, Weather, SubCondition),
@@ -13511,11 +13511,11 @@ aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, Spec
 
 aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Point_Combined(Graph, Point, HorizontalAccuracy, Annotation) .
+  aixm_Point_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation) .
 
 fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, Altitude, Time, PointRange, FlightLevel) :-
   fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel),
-  fixm_Point4D_Combined(Graph, GeographicLocation, Pos, SrsName, Altitude, Time, PointRange) .
+  fixm_Point4D_Combined(Graph, EfplPoint4D, Pos, SrsName, Altitude, Time, PointRange) .
 
 fixm_EfplTrajectoryRoutePair_Combined(Graph, EfplTrajectoryRoutePair, Trajectory, Route) :-
   fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair),
@@ -13535,7 +13535,7 @@ fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber,
 
 fixm_Point4D_Combined(Graph, Point4D, Pos, SrsName, Altitude, Time, PointRange) :-
   fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange),
-  fixm_GeographicLocation(Graph, Point4D, Pos, SrsName) .
+  fixm_GeographicLocation(Graph, Point4D, PosList, SrsName) .
 
 fixm_FlightEmergency_Combined(Graph, FlightEmergency, Provenance, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact) :-
   fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact),
@@ -13567,7 +13567,7 @@ fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDurat
 
 fixm_EfplFlight_Combined(Graph, EfplFlight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
   fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
-  fixm_Flight_Combined(Graph, Feature, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
+  fixm_Flight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
 
 fixm_FlightStatus_Combined(Graph, FlightStatus, Provenance, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended) :-
   fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended),
@@ -13603,7 +13603,7 @@ fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, Last
 
 aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) :-
   aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation),
-  gml_Surface_Combined(Graph, SurfacePatch, Patch) .
+  gml_Surface_Combined(Graph, Surface, Patch) .
 
 fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
   fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position),
@@ -13631,7 +13631,7 @@ aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, Annotation, Sp
 
 fixm_EfplRoute_Combined(Graph, EfplRoute, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment, EfplFlightRules) :-
   fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules),
-  fixm_Route_Combined(Graph, Feature, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
+  fixm_Route_Combined(Graph, EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
 
 fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
   fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
@@ -13651,7 +13651,7 @@ fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, Appro
 
 fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Target, Controlled, Initial) :-
   fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
-  fixm_TargetMultiTime_Combined(Graph, MultiTime, Actual, Estimated, Target) .
+  fixm_TargetMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target) .
 
 fixm_TargetMultiTime_Combined(Graph, TargetMultiTime, Actual, Estimated, Target) :-
   fixm_TargetMultiTime(Graph, TargetMultiTime, Target),
@@ -13663,5 +13663,5 @@ fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerod
 
 fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
   fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, TaxiTime),
-  fixm_FlightDeparture_Combined(Graph, Feature, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
+  fixm_FlightDeparture_Combined(Graph, EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
 

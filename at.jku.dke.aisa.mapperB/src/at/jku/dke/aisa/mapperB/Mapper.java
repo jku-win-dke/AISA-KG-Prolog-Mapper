@@ -134,7 +134,7 @@ public class Mapper {
 		fact += resolvePrefixMapping(querySolution.get("?graph")) != null ? resolvePrefixMapping(querySolution.get("?graph")) : ("\'" + querySolution.get("?graph") + "\'");
 		fact += resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName)) != null ? (", " +resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName))) : (", \'" + querySolution.get("?" + schemaForGeneratingFacts.predicateName) + "\'");
 		for(KnowledgeGraphProperty property : schemaForGeneratingFacts.getKnowledgeGraphProperties()) {
-			if(property.maxCount == 0) {
+			if(property.maxCount > 1) {
 				RDFNode node = querySolution.get("?" + property.getName() + "Concat");
 				if(node != null) {
 					fact += ", [";
@@ -380,7 +380,7 @@ public class Mapper {
 			}
 		}
 		if(subClass != null) {
-			String properties = "Graph, " + StringUtils.capitalize(superClass.predicateName);
+			String properties = "Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName); //StringUtils.capitalize(superClass.predicateName);
 			for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
 				properties += ", " + StringUtils.capitalize(property.getName());
 			}

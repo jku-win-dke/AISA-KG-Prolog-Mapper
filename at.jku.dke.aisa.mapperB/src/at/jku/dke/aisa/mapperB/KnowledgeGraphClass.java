@@ -72,7 +72,7 @@ public class KnowledgeGraphClass {
 		String lists = "";
 		endPartOfPrologRule = ",row(Graph," + StringUtils.capitalize(predicateName);
 		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
-			if(knowledgeGraphProperty.maxCount != 1) {
+			if(knowledgeGraphProperty.maxCount > 1) {
 				String propertyName = StringUtils.capitalize(knowledgeGraphProperty.getName());
 				endPartOfPrologRule += "," + propertyName + "Concat";
 				lists += ", convert(" + propertyName + "Concat," + propertyName + "List" + ")";
@@ -151,7 +151,7 @@ public class KnowledgeGraphClass {
 		String groupBy = "";
 		for(KnowledgeGraphProperty knowledgeGraphPropery : knowledgeGraphProperties) {
 			where += knowledgeGraphPropery.getWhereFragment();
-			if(knowledgeGraphPropery.maxCount == 0) {
+			if(knowledgeGraphPropery.maxCount == -1) {
 				groupByNeeded = true;
 			}
 			if(knowledgeGraphPropery.maxCount == 1) {
@@ -200,7 +200,11 @@ public class KnowledgeGraphClass {
 	public String generatePrologRule(String joinedName) {
 		String rule = getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + (joinedName == null ? StringUtils.capitalize(predicateName) : joinedName);
 		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
-			rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
+			if(knowledgeGraphProperty.maxCount > 1) {
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "List";				
+			} else {
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
+			}
 		}
 		rule += ")";
 		return rule;
