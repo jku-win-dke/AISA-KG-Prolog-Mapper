@@ -60,7 +60,7 @@ public class KnowledgeGraphProperty {
 	 * e.g.: (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 	 */
 	private void createSelectFragment() {
-		if(maxCount > 1) {
+		if(maxCount > 1 || maxCount == -1) {
 			this.selectFragment = "(GROUP_CONCAT(DISTINCT ?" + name + ";SEPARATOR=\",\") AS ?" + name + "Concat)";
 		} else {
 			this.selectFragment = "?" + name;

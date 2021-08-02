@@ -1,3 +1,18 @@
+/* use the new RDF-DB library 
+https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */
+:- use_module(library(semweb/rdf11)).
+
+/* for writing/reading RDF files in Turtle format we use the Turtle library
+https://www.swi-prolog.org/pldoc/man?section=turtle */
+:- use_module(library(semweb/turtle)). 
+
+/* do not output bindings for anonymous variables (e.g., _X) in query results 
+https://www.swi-prolog.org/pldoc/man?section=flags#flag:toplevel_print_anon */
+:- set_prolog_flag(toplevel_print_anon, false).
+
+:- use_module(library(semweb/sparql_client)).
+:- sparql_set_server([host(localhost),port(3030),path('/test/sparql')]).
+
 convert(ConcatenatedString,ListOfAtoms) :-
   ConcatenatedString = literal(XConcatenatedString),
   split_string(XConcatenatedString, ',', '', ListOfStrings),
@@ -170,7 +185,7 @@ WHERE
 
 % fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilities?, PerformanceBasedCode*, NavigationCode*)
 
-fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilities, PerformanceBasedCode, NavigationCode) :-
+fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilities, PerformanceBasedCodeList, NavigationCodeList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -191,7 +206,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?navigationCapabilities ?otherNavigationCapabilities ?performanceBasedCode ?navigationCode
+SELECT ?graph ?navigationCapabilities ?otherNavigationCapabilities (GROUP_CONCAT(DISTINCT ?performanceBasedCode;SEPARATOR=",") AS ?performanceBasedCodeConcat) (GROUP_CONCAT(DISTINCT ?navigationCode;SEPARATOR=",") AS ?navigationCodeConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -264,7 +279,7 @@ WHERE
 GROUP BY ?graph ?navigationCapabilities ?otherNavigationCapabilities
 
       '
-,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCode,NavigationCode),[]).
+,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCodeConcat,NavigationCodeConcat),[]), convert(PerformanceBasedCodeConcat,PerformanceBasedCodeList), convert(NavigationCodeConcat,NavigationCodeList).
 
 % fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed?, UpperSpeed?)
 
@@ -344,7 +359,7 @@ WHERE
 
 % aixm_Note(Graph, Note, PropertyName?, Purpose?, TranslatedNote*)
 
-aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
+aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNoteList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -365,7 +380,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?note ?propertyName ?purpose ?translatedNote
+SELECT ?graph ?note ?propertyName ?purpose (GROUP_CONCAT(DISTINCT ?translatedNote;SEPARATOR=",") AS ?translatedNoteConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -418,11 +433,11 @@ WHERE
 GROUP BY ?graph ?note ?propertyName ?purpose
 
       '
-,row(Graph,Note,PropertyName,Purpose,TranslatedNote),[]).
+,row(Graph,Note,PropertyName,Purpose,TranslatedNoteConcat),[]), convert(TranslatedNoteConcat,TranslatedNoteList).
 
 % fixm_Pointout(Graph, Pointout, OriginatingUnit?, ReceivingUnit*)
 
-fixm_Pointout(Graph, Pointout, OriginatingUnit, ReceivingUnit) :-
+fixm_Pointout(Graph, Pointout, OriginatingUnit, ReceivingUnitList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -443,7 +458,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?pointout ?originatingUnit ?receivingUnit
+SELECT ?graph ?pointout ?originatingUnit (GROUP_CONCAT(DISTINCT ?receivingUnit;SEPARATOR=",") AS ?receivingUnitConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -455,7 +470,7 @@ WHERE
 GROUP BY ?graph ?pointout ?originatingUnit
 
       '
-,row(Graph,Pointout,OriginatingUnit,ReceivingUnit),[]).
+,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convert(ReceivingUnitConcat,ReceivingUnitList).
 
 % fixm_VerticalRange(Graph, VerticalRange, LowerBound?, UpperBound?)
 
@@ -535,7 +550,7 @@ WHERE
 
 % fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel?, EstimatedTime?, Constraint*)
 
-fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, Constraint) :-
+fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -556,7 +571,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime ?constraint
+SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -609,7 +624,7 @@ WHERE
 GROUP BY ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime
 
       '
-,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,Constraint),[]).
+,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList).
 
 % aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
 
@@ -961,7 +976,7 @@ WHERE
 
 % aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator?, Flight*, Aircraft*, Weather*, SubCondition*)
 
-aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, Aircraft, Weather, SubCondition) :-
+aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -982,7 +997,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?conditionCombination ?logicalOperator ?flight ?aircraft ?weather ?subCondition
+SELECT ?graph ?conditionCombination ?logicalOperator (GROUP_CONCAT(DISTINCT ?flight;SEPARATOR=",") AS ?flightConcat) (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat) (GROUP_CONCAT(DISTINCT ?weather;SEPARATOR=",") AS ?weatherConcat) (GROUP_CONCAT(DISTINCT ?subCondition;SEPARATOR=",") AS ?subConditionConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -1017,11 +1032,11 @@ WHERE
 GROUP BY ?graph ?conditionCombination ?logicalOperator
 
       '
-,row(Graph,ConditionCombination,LogicalOperator,Flight,Aircraft,Weather,SubCondition),[]).
+,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList).
 
 % aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder?, Type?, Extent*, Annotation*)
 
-aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Type, Extent, Annotation) :-
+aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Type, ExtentList, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1042,7 +1057,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type ?extent ?annotation
+SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type (GROUP_CONCAT(DISTINCT ?extent;SEPARATOR=",") AS ?extentConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -1096,7 +1111,7 @@ WHERE
 GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
 
       '
-,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,Extent,Annotation),[]).
+,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList).
 
 % fixm_Organization(Graph, Organization, Name?, OtherOrganization?, Contact?)
 
@@ -1177,7 +1192,7 @@ WHERE
 
 % aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, Type?, Annotation*, TheOrganisationAuthority)
 
-aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, Type, Annotation, TheOrganisationAuthority) :-
+aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, Type, AnnotationList, TheOrganisationAuthority) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1198,7 +1213,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthorityAssociation ?type ?annotation ?theOrganisationAuthority
+SELECT ?graph ?organisationAuthorityAssociation ?type (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?theOrganisationAuthority
 WHERE
   { GRAPH ?graph
     {
@@ -1231,7 +1246,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityAssociation ?type ?theOrganisationAuthority
 
       '
-,row(Graph,OrganisationAuthorityAssociation,Type,Annotation,TheOrganisationAuthority),[]).
+,row(Graph,OrganisationAuthorityAssociation,Type,AnnotationConcat,TheOrganisationAuthority),[]), convert(AnnotationConcat,AnnotationList).
 
 % aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
 
@@ -1537,7 +1552,7 @@ WHERE
 
 % fixm_RoutePoint(Graph, RoutePoint, Constraint*)
 
-fixm_RoutePoint(Graph, RoutePoint, Constraint) :-
+fixm_RoutePoint(Graph, RoutePoint, ConstraintList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1558,7 +1573,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?routePoint ?constraint
+SELECT ?graph ?routePoint (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -1569,7 +1584,7 @@ WHERE
 GROUP BY ?graph ?routePoint
 
       '
-,row(Graph,RoutePoint,Constraint),[]).
+,row(Graph,RoutePoint,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList).
 
 % fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode?, PreviousBeaconCode?, ReassignedBeaconCode?, ReassigningUnit?)
 
@@ -1671,7 +1686,7 @@ WHERE
 
 % fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfile*, DescentProfile*)
 
-fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfile, DescentProfile) :-
+fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfileList, DescentProfileList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1692,7 +1707,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightPerformanceData ?climbProfile ?descentProfile
+SELECT ?graph ?flightPerformanceData (GROUP_CONCAT(DISTINCT ?climbProfile;SEPARATOR=",") AS ?climbProfileConcat) (GROUP_CONCAT(DISTINCT ?descentProfile;SEPARATOR=",") AS ?descentProfileConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -1704,11 +1719,11 @@ WHERE
 GROUP BY ?graph ?flightPerformanceData
 
       '
-,row(Graph,FlightPerformanceData,ClimbProfile,DescentProfile),[]).
+,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList).
 
 % fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint*)
 
-fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint) :-
+fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePointList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1729,7 +1744,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?expandedRoute ?routePoint
+SELECT ?graph ?expandedRoute (GROUP_CONCAT(DISTINCT ?routePoint;SEPARATOR=",") AS ?routePointConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -1740,7 +1755,7 @@ WHERE
 GROUP BY ?graph ?expandedRoute
 
       '
-,row(Graph,ExpandedRoute,RoutePoint),[]).
+,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList).
 
 % fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintType?)
 
@@ -2103,6 +2118,7 @@ WHERE
     }
   }
 }
+GROUP BY ?graph ?geographicLocation ?srsName
 
       '
 ,row(Graph,GeographicLocation,PosConcat,SrsName),[]), convert(PosConcat,PosList).
@@ -2164,7 +2180,7 @@ WHERE
 
 % aixm_Meteorology(Graph, Meteorology, FlightConditions?, Visibility?, VisibilityInterpretation?, RunwayVisualRange?, RunwayVisualRangeInterpretation?, Annotation*)
 
-aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInterpretation, RunwayVisualRange, RunwayVisualRangeInterpretation, Annotation) :-
+aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInterpretation, RunwayVisualRange, RunwayVisualRangeInterpretation, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -2185,7 +2201,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation ?annotation
+SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -2301,7 +2317,7 @@ WHERE
 GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
 
       '
-,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,Annotation),[]).
+,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % fixm_PointRange(Graph, PointRange, LateralRange?, VerticalRange?, TemporalRange?)
 
@@ -2342,7 +2358,7 @@ WHERE
 
 % aixm_City(Graph, City, Name?, Annotation*)
 
-aixm_City(Graph, City, Name, Annotation) :-
+aixm_City(Graph, City, Name, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -2363,7 +2379,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?city ?name ?annotation
+SELECT ?graph ?city ?name (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -2395,7 +2411,7 @@ WHERE
 GROUP BY ?graph ?city ?name
 
       '
-,row(Graph,City,Name,Annotation),[]).
+,row(Graph,City,Name,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role?, TheOrganisationAuthority)
 
@@ -2852,7 +2868,7 @@ WHERE
 
 % fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicationCapabilities?, OtherDataLinkCapabilities?, DataLinkCode*, SelectiveCallingCode?, CommunicationCode*)
 
-fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicationCapabilities, OtherDataLinkCapabilities, DataLinkCode, SelectiveCallingCode, CommunicationCode) :-
+fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicationCapabilities, OtherDataLinkCapabilities, DataLinkCodeList, SelectiveCallingCode, CommunicationCodeList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -2873,7 +2889,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities ?dataLinkCode ?selectiveCallingCode ?communicationCode
+SELECT ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities (GROUP_CONCAT(DISTINCT ?dataLinkCode;SEPARATOR=",") AS ?dataLinkCodeConcat) ?selectiveCallingCode (GROUP_CONCAT(DISTINCT ?communicationCode;SEPARATOR=",") AS ?communicationCodeConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -2988,7 +3004,7 @@ WHERE
 GROUP BY ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities ?selectiveCallingCode
 
       '
-,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCode,SelectiveCallingCode,CommunicationCode),[]).
+,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCodeConcat,SelectiveCallingCode,CommunicationCodeConcat),[]), convert(DataLinkCodeConcat,DataLinkCodeList), convert(CommunicationCodeConcat,CommunicationCodeList).
 
 % fixm_Dinghy(Graph, Dinghy, Quantity?, TotalCapacity?, Covered?, Colour?)
 
@@ -3110,7 +3126,7 @@ WHERE
 
 % aixm_ContactInformation(Graph, ContactInformation, Name?, Title?, Annotation*, NetworkNode*, Address*, PhoneFax*)
 
-aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, NetworkNode, Address, PhoneFax) :-
+aixm_ContactInformation(Graph, ContactInformation, Name, Title, AnnotationList, NetworkNodeList, AddressList, PhoneFaxList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -3131,7 +3147,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?contactInformation ?name ?title ?annotation ?networkNode ?address ?phoneFax
+SELECT ?graph ?contactInformation ?name ?title (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?networkNode;SEPARATOR=",") AS ?networkNodeConcat) (GROUP_CONCAT(DISTINCT ?address;SEPARATOR=",") AS ?addressConcat) (GROUP_CONCAT(DISTINCT ?phoneFax;SEPARATOR=",") AS ?phoneFaxConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -3187,7 +3203,7 @@ WHERE
 GROUP BY ?graph ?contactInformation ?name ?title
 
       '
-,row(Graph,ContactInformation,Name,Title,Annotation,NetworkNode,Address,PhoneFax),[]).
+,row(Graph,ContactInformation,Name,Title,AnnotationConcat,NetworkNodeConcat,AddressConcat,PhoneFaxConcat),[]), convert(AnnotationConcat,AnnotationList), convert(NetworkNodeConcat,NetworkNodeList), convert(AddressConcat,AddressList), convert(PhoneFaxConcat,PhoneFaxList).
 
 % fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position?, PositionAltitude?, PositionEstimatedTime?)
 
@@ -3379,7 +3395,7 @@ WHERE
 
 % fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber?, OnboardLocation?, HandlingInformation?, AircraftLimitation?, AirWayBill?, Shipment?, PackageGroup*, ShippingInformation?)
 
-fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroup, ShippingInformation) :-
+fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -3400,7 +3416,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment ?packageGroup ?shippingInformation
+SELECT ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment (GROUP_CONCAT(DISTINCT ?packageGroup;SEPARATOR=",") AS ?packageGroupConcat) ?shippingInformation
 WHERE
   { GRAPH ?graph
     {
@@ -3518,11 +3534,11 @@ WHERE
 GROUP BY ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment ?shippingInformation
 
       '
-,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroup,ShippingInformation),[]).
+,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroupConcat,ShippingInformation),[]), convert(PackageGroupConcat,PackageGroupList).
 
 % fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions?, DangerousGoodsPackage*, ShipmentUseIndicator?)
 
-fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions, DangerousGoodsPackage, ShipmentUseIndicator) :-
+fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions, DangerousGoodsPackageList, ShipmentUseIndicator) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -3543,7 +3559,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?dangerousGoodsPackage ?shipmentUseIndicator
+SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions (GROUP_CONCAT(DISTINCT ?dangerousGoodsPackage;SEPARATOR=",") AS ?dangerousGoodsPackageConcat) ?shipmentUseIndicator
 WHERE
   { GRAPH ?graph
     {
@@ -3576,7 +3592,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?shipmentUseIndicator
 
       '
-,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackage,ShipmentUseIndicator),[]).
+,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList).
 
 % fixm_OfftrackDistance(Graph, OfftrackDistance, Distance?, Direction?)
 
@@ -3853,7 +3869,7 @@ WHERE
 
 % aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator?, Name?, LocationIndicatorICAO?, DesignatorIATA?, Type?, CertifiedICAO?, PrivateUse?, ControlType?, FieldElevation?, FieldElevationAccuracy?, VerticalDatum?, MagneticVariation?, MagneticVariationAccuracy?, DateMagneticVariation?, MagneticVariationChange?, ReferenceTemperature?, AltimeterCheckLocation?, SecondaryPowerSupply?, WindDirectionIndicator?, LandingDirectionIndicator?, TransitionAltitude?, TransitionLevel?, LowestTemperature?, Abandoned?, CertificationDate?, CertificationExpirationDate?, Contact*, Annotation*, ARP?, AltimeterSource*, Contaminant*, ServedCity*, ResponsibleOrganisation?, AviationBoundary?, Availability*)
 
-aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name, LocationIndicatorICAO, DesignatorIATA, Type, CertifiedICAO, PrivateUse, ControlType, FieldElevation, FieldElevationAccuracy, VerticalDatum, MagneticVariation, MagneticVariationAccuracy, DateMagneticVariation, MagneticVariationChange, ReferenceTemperature, AltimeterCheckLocation, SecondaryPowerSupply, WindDirectionIndicator, LandingDirectionIndicator, TransitionAltitude, TransitionLevel, LowestTemperature, Abandoned, CertificationDate, CertificationExpirationDate, Contact, Annotation, ARP, AltimeterSource, Contaminant, ServedCity, ResponsibleOrganisation, AviationBoundary, Availability) :-
+aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name, LocationIndicatorICAO, DesignatorIATA, Type, CertifiedICAO, PrivateUse, ControlType, FieldElevation, FieldElevationAccuracy, VerticalDatum, MagneticVariation, MagneticVariationAccuracy, DateMagneticVariation, MagneticVariationChange, ReferenceTemperature, AltimeterCheckLocation, SecondaryPowerSupply, WindDirectionIndicator, LandingDirectionIndicator, TransitionAltitude, TransitionLevel, LowestTemperature, Abandoned, CertificationDate, CertificationExpirationDate, ContactList, AnnotationList, ARP, AltimeterSourceList, ContaminantList, ServedCityList, ResponsibleOrganisation, AviationBoundary, AvailabilityList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -3874,7 +3890,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?contact ?annotation ?ARP ?altimeterSource ?contaminant ?servedCity ?responsibleOrganisation ?aviationBoundary ?availability
+SELECT ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) ?ARP (GROUP_CONCAT(DISTINCT ?altimeterSource;SEPARATOR=",") AS ?altimeterSourceConcat) (GROUP_CONCAT(DISTINCT ?contaminant;SEPARATOR=",") AS ?contaminantConcat) (GROUP_CONCAT(DISTINCT ?servedCity;SEPARATOR=",") AS ?servedCityConcat) ?responsibleOrganisation ?aviationBoundary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -4439,7 +4455,7 @@ WHERE
 GROUP BY ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?ARP ?responsibleOrganisation ?aviationBoundary
 
       '
-,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,Contact,Annotation,ARP,AltimeterSource,Contaminant,ServedCity,ResponsibleOrganisation,AviationBoundary,Availability),[]).
+,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,ContactConcat,AnnotationConcat,ARP,AltimeterSourceConcat,ContaminantConcat,ServedCityConcat,ResponsibleOrganisation,AviationBoundary,AvailabilityConcat),[]), convert(ContactConcat,ContactList), convert(AnnotationConcat,AnnotationList), convert(AltimeterSourceConcat,AltimeterSourceList), convert(ContaminantConcat,ContaminantList), convert(ServedCityConcat,ServedCityList), convert(AvailabilityConcat,AvailabilityList).
 
 % fixm_Point4D(Graph, Point4D, Altitude?, Time?, PointRange?)
 
@@ -4649,7 +4665,7 @@ WHERE
 
 % aixm_Ridge(Graph, Ridge, Side?, Distance?, Depth?, Annotation*)
 
-aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
+aixm_Ridge(Graph, Ridge, Side, Distance, Depth, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -4670,7 +4686,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?ridge ?side ?distance ?depth ?annotation
+SELECT ?graph ?ridge ?side ?distance ?depth (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -4744,7 +4760,7 @@ WHERE
 GROUP BY ?graph ?ridge ?side ?distance ?depth
 
       '
-,row(Graph,Ridge,Side,Distance,Depth,Annotation),[]).
+,row(Graph,Ridge,Side,Distance,Depth,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTime?, DeIcingTime?, GroundHandlingTime?, StartupTime?)
 
@@ -5058,7 +5074,7 @@ WHERE
 
 % fixm_Flight(Graph, Flight, ControllingUnit?, Extensions*, FlightFiler?, Gufi?, Remarks?, AircraftDescription?, DangerousGoods*, RankedTrajectories*, RouteToRevisedDestination?, Negotiating?, Agreed?, Arrival?, Departure?, Emergency?, RadioCommunicationFailure?, EnRoute?, Operator?, EnRouteDiversion?, FlightType?, FlightStatus?, Originator?, SupplementalData?, FlightIdentification?, SpecialHandling*)
 
-fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) :-
+fixm_Flight(Graph, Flight, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5079,7 +5095,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flight ?controllingUnit ?extensions ?flightFiler ?gufi ?remarks ?aircraftDescription ?dangerousGoods ?rankedTrajectories ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification ?specialHandling
+SELECT ?graph ?flight ?controllingUnit (GROUP_CONCAT(DISTINCT ?extensions;SEPARATOR=",") AS ?extensionsConcat) ?flightFiler ?gufi ?remarks ?aircraftDescription (GROUP_CONCAT(DISTINCT ?dangerousGoods;SEPARATOR=",") AS ?dangerousGoodsConcat) (GROUP_CONCAT(DISTINCT ?rankedTrajectories;SEPARATOR=",") AS ?rankedTrajectoriesConcat) ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification (GROUP_CONCAT(DISTINCT ?specialHandling;SEPARATOR=",") AS ?specialHandlingConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5238,11 +5254,11 @@ WHERE
 GROUP BY ?graph ?flight ?controllingUnit ?flightFiler ?gufi ?remarks ?aircraftDescription ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification
 
       '
-,row(Graph,Flight,ControllingUnit,Extensions,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoods,RankedTrajectories,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandling),[]).
+,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convert(ExtensionsConcat,ExtensionsList), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convert(SpecialHandlingConcat,SpecialHandlingList).
 
 % aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation*, SpecialDateAuthority*, TimeInterval*)
 
-aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation, SpecialDateAuthority, TimeInterval) :-
+aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5263,7 +5279,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?propertiesWithSchedule ?annotation ?specialDateAuthority ?timeInterval
+SELECT ?graph ?propertiesWithSchedule (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?specialDateAuthority;SEPARATOR=",") AS ?specialDateAuthorityConcat) (GROUP_CONCAT(DISTINCT ?timeInterval;SEPARATOR=",") AS ?timeIntervalConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5281,11 +5297,11 @@ WHERE
 GROUP BY ?graph ?propertiesWithSchedule
 
       '
-,row(Graph,PropertiesWithSchedule,Annotation,SpecialDateAuthority,TimeInterval),[]).
+,row(Graph,PropertiesWithSchedule,AnnotationConcat,SpecialDateAuthorityConcat,TimeIntervalConcat),[]), convert(AnnotationConcat,AnnotationList), convert(SpecialDateAuthorityConcat,SpecialDateAuthorityList), convert(TimeIntervalConcat,TimeIntervalList).
 
 % gml_Surface(Graph, Surface, Patch+)
 
-gml_Surface(Graph, Surface, Patch) :-
+gml_Surface(Graph, Surface, PatchList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5306,7 +5322,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surface ?patch
+SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?patch;SEPARATOR=",") AS ?patchConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5322,7 +5338,7 @@ WHERE
 GROUP BY ?graph ?surface
 
       '
-,row(Graph,Surface,Patch),[]).
+,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList).
 
 % fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevel?, ClearedSpeed?, Heading?, OfftrackClearance?, RateOfClimbDescend?, DirectRouting?)
 
@@ -5547,7 +5563,7 @@ WHERE
 
 % aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime?, Depth?, FrictionCoefficient?, FrictionEstimation?, FrictionDevice?, ObscuredLights?, FurtherClearanceTime?, FurtherTotalClearance?, NextObservationTime?, Proportion?, CriticalRidge*, Annotation*, Layer*)
 
-aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidge, Annotation, Layer) :-
+aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidgeList, AnnotationList, LayerList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5568,7 +5584,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion ?criticalRidge ?annotation ?layer
+SELECT ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion (GROUP_CONCAT(DISTINCT ?criticalRidge;SEPARATOR=",") AS ?criticalRidgeConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?layer;SEPARATOR=",") AS ?layerConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -5796,7 +5812,7 @@ WHERE
 GROUP BY ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion
 
       '
-,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidge,Annotation,Layer),[]).
+,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidgeConcat,AnnotationConcat,LayerConcat),[]), convert(CriticalRidgeConcat,CriticalRidgeList), convert(AnnotationConcat,AnnotationList), convert(LayerConcat,LayerList).
 
 % fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature?, WindDirection?, WindSpeed?)
 
@@ -5897,7 +5913,7 @@ WHERE
 
 % aixm_OrganisationAuthority(Graph, OrganisationAuthority, TimeSlice*)
 
-aixm_OrganisationAuthority(Graph, OrganisationAuthority, TimeSlice) :-
+aixm_OrganisationAuthority(Graph, OrganisationAuthority, TimeSliceList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5918,7 +5934,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthority ?timeSlice
+SELECT ?graph ?organisationAuthority (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -5929,7 +5945,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthority
 
       '
-,row(Graph,OrganisationAuthority,TimeSlice),[]).
+,row(Graph,OrganisationAuthority,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
 
 % fixm_TelephoneContact(Graph, TelephoneContact, Voice?, Facimile?)
 
@@ -6009,7 +6025,7 @@ WHERE
 
 % fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading?, AerodromeOfUnloading?, DangerousGoodsScreeningLocation?, DepartureCountry?, DestinationCountry?, OriginCountry?, ShipmentAuthorizations?, SubsidiaryHazardClassAndDivision?, SupplementaryInformation?, TransferAerodromes*, DeclarationText?, Consignee?, Shipper?)
 
-fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, AerodromeOfUnloading, DangerousGoodsScreeningLocation, DepartureCountry, DestinationCountry, OriginCountry, ShipmentAuthorizations, SubsidiaryHazardClassAndDivision, SupplementaryInformation, TransferAerodromes, DeclarationText, Consignee, Shipper) :-
+fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, AerodromeOfUnloading, DangerousGoodsScreeningLocation, DepartureCountry, DestinationCountry, OriginCountry, ShipmentAuthorizations, SubsidiaryHazardClassAndDivision, SupplementaryInformation, TransferAerodromesList, DeclarationText, Consignee, Shipper) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -6030,7 +6046,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?transferAerodromes ?declarationText ?consignee ?shipper
+SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation (GROUP_CONCAT(DISTINCT ?transferAerodromes;SEPARATOR=",") AS ?transferAerodromesConcat) ?declarationText ?consignee ?shipper
 WHERE
   { GRAPH ?graph
     {
@@ -6213,7 +6229,7 @@ WHERE
 GROUP BY ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?declarationText ?consignee ?shipper
 
       '
-,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromes,DeclarationText,Consignee,Shipper),[]).
+,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convert(TransferAerodromesConcat,TransferAerodromesList).
 
 % aixm_AirportHeliportContamination(Graph, AirportHeliportContamination)
 
@@ -6597,7 +6613,7 @@ WHERE
 
 % fixm_Route(Graph, Route, AirfileRouteStartTime?, FlightDuration?, InitialCruisingSpeed?, InitialFlightRules?, RequestedAltitude?, RouteText?, EstimatedElapsedTime*, ExpandedRoute?, ClimbSchedule?, DescentSchedule?, Segment*)
 
-fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) :-
+fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -6618,7 +6634,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?estimatedElapsedTime ?expandedRoute ?climbSchedule ?descentSchedule ?segment
+SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText (GROUP_CONCAT(DISTINCT ?estimatedElapsedTime;SEPARATOR=",") AS ?estimatedElapsedTimeConcat) ?expandedRoute ?climbSchedule ?descentSchedule (GROUP_CONCAT(DISTINCT ?segment;SEPARATOR=",") AS ?segmentConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -6764,7 +6780,7 @@ WHERE
 GROUP BY ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?expandedRoute ?climbSchedule ?descentSchedule
 
       '
-,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTime,ExpandedRoute,ClimbSchedule,DescentSchedule,Segment),[]).
+,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convert(SegmentConcat,SegmentList).
 
 % fixm_Person(Graph, Person, Name?, Contact?)
 
@@ -7664,7 +7680,7 @@ WHERE
 
 % aixm_Timesheet(Graph, Timesheet, TimeReference?, StartDate?, EndDate?, Day?, DayTil?, StartTime?, StartEvent?, StartTimeRelativeEvent?, StartEventInterpretation?, EndTime?, EndEvent?, EndTimeRelativeEvent?, EndEventInterpretation?, DaylightSavingAdjust?, Excluded?, Annotation*)
 
-aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil, StartTime, StartEvent, StartTimeRelativeEvent, StartEventInterpretation, EndTime, EndEvent, EndTimeRelativeEvent, EndEventInterpretation, DaylightSavingAdjust, Excluded, Annotation) :-
+aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil, StartTime, StartEvent, StartTimeRelativeEvent, StartEventInterpretation, EndTime, EndEvent, EndTimeRelativeEvent, EndEventInterpretation, DaylightSavingAdjust, Excluded, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -7685,7 +7701,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded ?annotation
+SELECT ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -8011,7 +8027,7 @@ WHERE
 GROUP BY ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded
 
       '
-,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,Annotation),[]).
+,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % gml_SurfacePatch(Graph, SurfacePatch)
 
@@ -8095,7 +8111,7 @@ WHERE
 
 % aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type?, Rule?, Status?, Military?, Origin?, Purpose?, Annotation*)
 
-aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Military, Origin, Purpose, Annotation) :-
+aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Military, Origin, Purpose, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -8116,7 +8132,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose ?annotation
+SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -8253,7 +8269,7 @@ WHERE
 GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
 
       '
-,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,Annotation),[]).
+,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % fixm_Provenance(Graph, Provenance, Timestamp?, Centre?, Source?, System?)
 
@@ -8375,7 +8391,7 @@ WHERE
 
 % aixm_AirportHeliport(Graph, AirportHeliport, TimeSlice*)
 
-aixm_AirportHeliport(Graph, AirportHeliport, TimeSlice) :-
+aixm_AirportHeliport(Graph, AirportHeliport, TimeSliceList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -8396,7 +8412,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliport ?timeSlice
+SELECT ?graph ?airportHeliport (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -8407,11 +8423,11 @@ WHERE
 GROUP BY ?graph ?airportHeliport
 
       '
-,row(Graph,AirportHeliport,TimeSlice),[]).
+,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
 
 % fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting?, PredictedAirspeed?, PredictedGroundspeed?, MetData?, Point?, TrajectoryChange*, TrajectoryChangeType*, ReferencePoint?)
 
-fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint) :-
+fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -8432,7 +8448,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?trajectoryChange ?trajectoryChangeType ?referencePoint
+SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point (GROUP_CONCAT(DISTINCT ?trajectoryChange;SEPARATOR=",") AS ?trajectoryChangeConcat) (GROUP_CONCAT(DISTINCT ?trajectoryChangeType;SEPARATOR=",") AS ?trajectoryChangeTypeConcat) ?referencePoint
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -8535,7 +8551,7 @@ WHERE
 GROUP BY ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?referencePoint
 
       '
-,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChange,TrajectoryChangeType,ReferencePoint),[]).
+,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList).
 
 % fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier?, DistanceFromTakeOff?, EfplEstimatedSpeed?, ElapsedTime?, GrossWeight?, TrajectoryPointType?, TrajectoryPointRole?, InboundSegment?)
 
@@ -8950,7 +8966,7 @@ WHERE
 
 % fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification?, MajorCarrierIdentifier?, MarketingCarrierFlightIdentifier*)
 
-fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, MajorCarrierIdentifier, MarketingCarrierFlightIdentifier) :-
+fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, MajorCarrierIdentifier, MarketingCarrierFlightIdentifierList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -8971,7 +8987,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier ?marketingCarrierFlightIdentifier
+SELECT ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier (GROUP_CONCAT(DISTINCT ?marketingCarrierFlightIdentifier;SEPARATOR=",") AS ?marketingCarrierFlightIdentifierConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -9044,7 +9060,7 @@ WHERE
 GROUP BY ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier
 
       '
-,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifier),[]).
+,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifierConcat),[]), convert(MarketingCarrierFlightIdentifierConcat,MarketingCarrierFlightIdentifierList).
 
 % fixm_LastContact(Graph, LastContact, ContactFrequency?, LastContactTime?, LastContactUnit?, Position?)
 
@@ -9180,7 +9196,7 @@ WHERE
 
 % aixm_Surface(Graph, Surface, HorizontalAccuracy?, Annotation*)
 
-aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation) :-
+aixm_Surface(Graph, Surface, HorizontalAccuracy, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -9201,7 +9217,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surface ?horizontalAccuracy ?annotation
+SELECT ?graph ?surface ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -9238,7 +9254,7 @@ WHERE
 GROUP BY ?graph ?surface ?horizontalAccuracy
 
       '
-,row(Graph,Surface,HorizontalAccuracy,Annotation),[]).
+,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition)
 
@@ -9451,7 +9467,7 @@ WHERE
 
 % aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name?, Designator?, Type?, Military?, Annotation*, Contact*, RelatedOrganisationAuthority*)
 
-aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name, Designator, Type, Military, Annotation, Contact, RelatedOrganisationAuthority) :-
+aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name, Designator, Type, Military, AnnotationList, ContactList, RelatedOrganisationAuthorityList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -9472,7 +9488,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military ?annotation ?contact ?relatedOrganisationAuthority
+SELECT ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat) (GROUP_CONCAT(DISTINCT ?relatedOrganisationAuthority;SEPARATOR=",") AS ?relatedOrganisationAuthorityConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -9569,11 +9585,11 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military
 
       '
-,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,Annotation,Contact,RelatedOrganisationAuthority),[]).
+,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,AnnotationConcat,ContactConcat,RelatedOrganisationAuthorityConcat),[]), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList), convert(RelatedOrganisationAuthorityConcat,RelatedOrganisationAuthorityList).
 
 % fixm_EnRoute(Graph, EnRoute, AlternateAerodrome*, FleetPrioritization?, BoundaryCrossings*, CpdlcConnection?, BeaconCodeAssignment?, Cleared?, ControlElement*, Pointout?, Position?)
 
-fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
+fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritization, BoundaryCrossingsList, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElementList, Pointout, Position) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -9594,7 +9610,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?enRoute ?alternateAerodrome ?fleetPrioritization ?boundaryCrossings ?cpdlcConnection ?beaconCodeAssignment ?cleared ?controlElement ?pointout ?position
+SELECT ?graph ?enRoute (GROUP_CONCAT(DISTINCT ?alternateAerodrome;SEPARATOR=",") AS ?alternateAerodromeConcat) ?fleetPrioritization (GROUP_CONCAT(DISTINCT ?boundaryCrossings;SEPARATOR=",") AS ?boundaryCrossingsConcat) ?cpdlcConnection ?beaconCodeAssignment ?cleared (GROUP_CONCAT(DISTINCT ?controlElement;SEPARATOR=",") AS ?controlElementConcat) ?pointout ?position
 WHERE
   { GRAPH ?graph
     {
@@ -9653,7 +9669,7 @@ WHERE
 GROUP BY ?graph ?enRoute ?fleetPrioritization ?cpdlcConnection ?beaconCodeAssignment ?cleared ?pointout ?position
 
       '
-,row(Graph,EnRoute,AlternateAerodrome,FleetPrioritization,BoundaryCrossings,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElement,Pointout,Position),[]).
+,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convert(ControlElementConcat,ControlElementList).
 
 % fixm_FlightLevel(Graph, FlightLevel, Level?, Unit?)
 
@@ -9783,6 +9799,7 @@ WHERE
       }
     }
   }
+GROUP BY ?graph ?lateralOfftrack ?offtrackReason
 
       '
 ,row(Graph,LateralOfftrack,OfftrackDistanceConcat,OfftrackReason),[]), convert(OfftrackDistanceConcat,OfftrackDistanceList).
@@ -10408,7 +10425,7 @@ WHERE
 
 % fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
 
-fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities, SurveillanceCode) :-
+fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities, SurveillanceCodeList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10429,7 +10446,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities ?surveillanceCode
+SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities (GROUP_CONCAT(DISTINCT ?surveillanceCode;SEPARATOR=",") AS ?surveillanceCodeConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -10481,11 +10498,11 @@ WHERE
 GROUP BY ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities
 
       '
-,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCode),[]).
+,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convert(SurveillanceCodeConcat,SurveillanceCodeList).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 
-fixm_Trajectory(Graph, Trajectory, TrajectoryPoint) :-
+fixm_Trajectory(Graph, Trajectory, TrajectoryPointList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10506,7 +10523,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?trajectory ?trajectoryPoint
+SELECT ?graph ?trajectory (GROUP_CONCAT(DISTINCT ?trajectoryPoint;SEPARATOR=",") AS ?trajectoryPointConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -10517,11 +10534,11 @@ WHERE
 GROUP BY ?graph ?trajectory
 
       '
-,row(Graph,Trajectory,TrajectoryPoint),[]).
+,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList).
 
 % aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote?, IsPrimary?, Availability*, Annotation*)
 
-aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrimary, Availability, Annotation) :-
+aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrimary, AvailabilityList, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10542,7 +10559,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary ?availability ?annotation
+SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -10596,11 +10613,11 @@ WHERE
 GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
 
       '
-,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,Availability,Annotation),[]).
+,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList).
 
 % aixm_Point(Graph, Point, HorizontalAccuracy?, Annotation*)
 
-aixm_Point(Graph, Point, HorizontalAccuracy, Annotation) :-
+aixm_Point(Graph, Point, HorizontalAccuracy, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10621,7 +10638,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?point ?horizontalAccuracy ?annotation
+SELECT ?graph ?point ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -10658,11 +10675,11 @@ WHERE
 GROUP BY ?graph ?point ?horizontalAccuracy
 
       '
-,row(Graph,Point,HorizontalAccuracy,Annotation),[]).
+,row(Graph,Point,HorizontalAccuracy,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type?, Engine?, NumberEngine?, TypeAircraftICAO?, AircraftLandingCategory?, WingSpan?, WingSpanInterpretation?, ClassWingSpan?, Weight?, WeightInterpretation?, Passengers?, PassengersInterpretation?, Speed?, SpeedInterpretation?, WakeTurbulence?, NavigationEquipment?, NavigationSpecification?, VerticalSeparationCapability?, AntiCollisionAndSeparationEquipment?, CommunicationEquipment?, SurveillanceEquipment?, Annotation*)
 
-aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberEngine, TypeAircraftICAO, AircraftLandingCategory, WingSpan, WingSpanInterpretation, ClassWingSpan, Weight, WeightInterpretation, Passengers, PassengersInterpretation, Speed, SpeedInterpretation, WakeTurbulence, NavigationEquipment, NavigationSpecification, VerticalSeparationCapability, AntiCollisionAndSeparationEquipment, CommunicationEquipment, SurveillanceEquipment, Annotation) :-
+aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberEngine, TypeAircraftICAO, AircraftLandingCategory, WingSpan, WingSpanInterpretation, ClassWingSpan, Weight, WeightInterpretation, Passengers, PassengersInterpretation, Speed, SpeedInterpretation, WakeTurbulence, NavigationEquipment, NavigationSpecification, VerticalSeparationCapability, AntiCollisionAndSeparationEquipment, CommunicationEquipment, SurveillanceEquipment, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10683,7 +10700,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment ?annotation
+SELECT ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -11135,7 +11152,7 @@ WHERE
 GROUP BY ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment
 
       '
-,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,Annotation),[]).
+,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,AnnotationConcat),[]), convert(AnnotationConcat,AnnotationList).
 
 % aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
 
@@ -11668,6 +11685,7 @@ WHERE
       }
     }
   }
+GROUP BY ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator
 
       '
 ,row(Graph,DangerousGoodsPackage,DangerousGoodsQuantity,PackageDimensions,PackingInstructionNumber,ProductName,ProperShippingName,ReportableQuantity,SupplementaryInformation,TechnicalName,TypeOfPackaging,UnNumber,DangerousGoodsLimitation,ShipmentType,AllPackedInOne,CompatibilityGroup,ShipmentDimensions,MarinePollutantIndicator,RadioactiveMaterials,HazardClass,PackingGroup,Temperatures,OverpackIndicator,SubsidiaryHazardClassConcat),[]), convert(SubsidiaryHazardClassConcat,SubsidiaryHazardClassList).
@@ -12328,7 +12346,7 @@ WHERE
 
 % aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus?, Warning?, Usage*)
 
-aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, Usage) :-
+aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, UsageList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -12349,7 +12367,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning ?usage
+SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?usage;SEPARATOR=",") AS ?usageConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -12402,11 +12420,11 @@ WHERE
 GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
 
       '
-,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,Usage),[]).
+,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convert(UsageConcat,UsageList).
 
 % fixm_FlightArrival(Graph, FlightArrival, ApproachFix?, ApproachTime?, ArrivalAerodrome?, ArrivalAerodromeAlternate*, ArrivalAerodromeOriginal?, ArrivalFix?, ArrivalFixTime?, ArrivalFleetPrioritization?, ArrivalSequenceNumber?, EarliestInBlockTime?, FiledRevisedDestinationAerodrome?, FiledRevisedDestinationStar?, RunwayPositionAndTime?, StandardInstrumentArrival?, StandPositionAndTime?, LandingLimits?)
 
-fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
+fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -12427,7 +12445,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arrivalAerodromeAlternate ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
+SELECT ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome (GROUP_CONCAT(DISTINCT ?arrivalAerodromeAlternate;SEPARATOR=",") AS ?arrivalAerodromeAlternateConcat) ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
 WHERE
   { GRAPH ?graph
     {
@@ -12573,7 +12591,7 @@ WHERE
 GROUP BY ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
 
       '
-,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternate,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]).
+,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternateConcat,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]), convert(ArrivalAerodromeAlternateConcat,ArrivalAerodromeAlternateList).
 
 % fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex?, TransportIndex?, FissileExceptedIndicator?, Category?, Radionuclide?)
 
@@ -12880,7 +12898,7 @@ WHERE
 
 % aixm_AltimeterSource(Graph, AltimeterSource, TimeSlice*)
 
-aixm_AltimeterSource(Graph, AltimeterSource, TimeSlice) :-
+aixm_AltimeterSource(Graph, AltimeterSource, TimeSliceList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -12901,7 +12919,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?altimeterSource ?timeSlice
+SELECT ?graph ?altimeterSource (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -12912,11 +12930,11 @@ WHERE
 GROUP BY ?graph ?altimeterSource
 
       '
-,row(Graph,AltimeterSource,TimeSlice),[]).
+,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
 
 % fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks?, DinghyInformation?, EmergencyRadioCode*, LifeJacketCode*, SurvivalEquipmentCode*)
 
-fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks, DinghyInformation, EmergencyRadioCode, LifeJacketCode, SurvivalEquipmentCode) :-
+fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks, DinghyInformation, EmergencyRadioCodeList, LifeJacketCodeList, SurvivalEquipmentCodeList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -12937,7 +12955,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation ?emergencyRadioCode ?lifeJacketCode ?survivalEquipmentCode
+SELECT ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation (GROUP_CONCAT(DISTINCT ?emergencyRadioCode;SEPARATOR=",") AS ?emergencyRadioCodeConcat) (GROUP_CONCAT(DISTINCT ?lifeJacketCode;SEPARATOR=",") AS ?lifeJacketCodeConcat) (GROUP_CONCAT(DISTINCT ?survivalEquipmentCode;SEPARATOR=",") AS ?survivalEquipmentCodeConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -13032,7 +13050,7 @@ WHERE
 GROUP BY ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation
 
       '
-,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCode,LifeJacketCode,SurvivalEquipmentCode),[]).
+,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCodeConcat,LifeJacketCodeConcat,SurvivalEquipmentCodeConcat),[]), convert(EmergencyRadioCodeConcat,EmergencyRadioCodeList), convert(LifeJacketCodeConcat,LifeJacketCodeList), convert(SurvivalEquipmentCodeConcat,SurvivalEquipmentCodeList).
 
 % fixm_DirectRouting(Graph, DirectRouting, From?, To?)
 
@@ -13146,7 +13164,7 @@ WHERE
 
 % fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome?, DepartureFix?, DepartureFixTime?, DepartureFleetPrioritization?, DepartureSlot?, EarliestOffBlockTime?, OffBlockReadyTime?, RunwayPositionAndTime?, StandardInstrumentDeparture?, StandPositionAndTime?, TakeoffAlternateAerodrome*, TakeoffWeight?, DepartureTimes?)
 
-fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) :-
+fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -13167,7 +13185,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffAlternateAerodrome ?takeoffWeight ?departureTimes
+SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime (GROUP_CONCAT(DISTINCT ?takeoffAlternateAerodrome;SEPARATOR=",") AS ?takeoffAlternateAerodromeConcat) ?takeoffWeight ?departureTimes
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -13295,7 +13313,7 @@ WHERE
 GROUP BY ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffWeight ?departureTimes
 
       '
-,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodrome,TakeoffWeight,DepartureTimes),[]).
+,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList).
 
 % fixm_AerodromeReference(Graph, AerodromeReference)
 
@@ -13414,7 +13432,7 @@ WHERE
 
 % aixm_UsageCondition(Graph, UsageCondition, Type?, PriorPermission?, Selection?, Annotation*, Contact*)
 
-aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Annotation, Contact) :-
+aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, AnnotationList, ContactList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -13435,7 +13453,7 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?usageCondition ?type ?priorPermission ?selection ?annotation ?contact
+SELECT ?graph ?usageCondition ?type ?priorPermission ?selection (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat) (GROUP_CONCAT(DISTINCT ?contact;SEPARATOR=",") AS ?contactConcat)
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -13495,45 +13513,45 @@ WHERE
 GROUP BY ?graph ?usageCondition ?type ?priorPermission ?selection
 
       '
-,row(Graph,UsageCondition,Type,PriorPermission,Selection,Annotation,Contact),[]).
+,row(Graph,UsageCondition,Type,PriorPermission,Selection,AnnotationConcat,ContactConcat),[]), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList).
 
-fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, Constraint) :-
-  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, Constraint),
+fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, ConstraintList) :-
+  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList),
   fixm_AbstractRoutePoint(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
 
-aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
+aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Surface_Combined(Graph, ElevatedSurface, Patch, HorizontalAccuracy, Annotation) .
+  aixm_Surface_Combined(Graph,ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList) .
 
-aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval, LogicalOperator, Flight, Aircraft, Weather, SubCondition) :-
-  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, Aircraft, Weather, SubCondition),
-  aixm_PropertiesWithSchedule(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval) .
+aixm_ConditionCombination_Combined(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList) :-
+  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList),
+  aixm_PropertiesWithSchedule(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
+aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Point_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation) .
+  aixm_Point_Combined(Graph,ElevatedPoint, HorizontalAccuracy, AnnotationList) .
 
-fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, Altitude, Time, PointRange, FlightLevel) :-
+fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, PosList, SrsName, Altitude, Time, PointRange, Altitude, Time, PointRange, FlightLevel) :-
   fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel),
-  fixm_Point4D_Combined(Graph, EfplPoint4D, Pos, SrsName, Altitude, Time, PointRange) .
+  fixm_Point4D_Combined(Graph,EfplPoint4D, PosList, SrsName, Altitude, Time, PointRange) .
 
 fixm_EfplTrajectoryRoutePair_Combined(Graph, EfplTrajectoryRoutePair, Trajectory, Route) :-
   fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair),
   fixm_TrajectoryRoutePair(Graph, EfplTrajectoryRoutePair, Trajectory, Route) .
 
-fixm_RoutePoint_Combined(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, Constraint) :-
-  fixm_RoutePoint(Graph, RoutePoint, Constraint),
+fixm_RoutePoint_Combined(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, ConstraintList) :-
+  fixm_RoutePoint(Graph, RoutePoint, ConstraintList),
   fixm_AbstractRoutePoint(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
 
-aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval, Role, TheOrganisationAuthority) :-
+aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Role, TheOrganisationAuthority) :-
   aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority),
-  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroup, ShippingInformation) :-
-  fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroup, ShippingInformation),
+fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation) :-
+  fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation),
   fixm_Feature(Graph, DangerousGoods, Provenance) .
 
-fixm_Point4D_Combined(Graph, Point4D, Pos, SrsName, Altitude, Time, PointRange) :-
+fixm_Point4D_Combined(Graph, Point4D, PosList, SrsName, Altitude, Time, PointRange) :-
   fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange),
   fixm_GeographicLocation(Graph, Point4D, PosList, SrsName) .
 
@@ -13541,33 +13559,33 @@ fixm_FlightEmergency_Combined(Graph, FlightEmergency, Provenance, ActionTaken, E
   fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact),
   fixm_Feature(Graph, FlightEmergency, Provenance) .
 
-fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) :-
-  fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling),
+fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) :-
+  fixm_Flight(Graph, Flight, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList),
   fixm_Feature(Graph, Flight, Provenance) .
 
-gml_Surface_Combined(Graph, Surface, Patch) :-
-  gml_Surface(Graph, Surface, Patch),
+gml_Surface_Combined(Graph, Surface, PatchList) :-
+  gml_Surface(Graph, Surface, PatchList),
   gml_SurfacePatch(Graph, Surface) .
 
 fixm_UnitBoundary_Combined(Graph, UnitBoundary, SectorIdentifier, Delegated, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator) :-
   fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator),
   fixm_AtcUnitReference(Graph, UnitBoundary, SectorIdentifier, Delegated) .
 
-aixm_AirportHeliportContamination_Combined(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidge, Annotation, Layer) :-
+aixm_AirportHeliportContamination_Combined(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidgeList, AnnotationList, LayerList) :-
   aixm_AirportHeliportContamination(Graph, AirportHeliportContamination),
-  aixm_SurfaceContamination(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidge, Annotation, Layer) .
+  aixm_SurfaceContamination(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidgeList, AnnotationList, LayerList) .
 
-aixm_TelephoneContact_Combined(Graph, TelephoneContact, Annotation, SpecialDateAuthority, TimeInterval, Voice, Facsimile) :-
+aixm_TelephoneContact_Combined(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Voice, Facsimile) :-
   aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile),
-  aixm_PropertiesWithSchedule(Graph, TelephoneContact, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) :-
-  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment),
+fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) :-
+  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList),
   fixm_Feature(Graph, Route, Provenance) .
 
-fixm_EfplFlight_Combined(Graph, EfplFlight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
+fixm_EfplFlight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
   fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
-  fixm_Flight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
+  fixm_Flight_Combined(Graph,EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) .
 
 fixm_FlightStatus_Combined(Graph, FlightStatus, Provenance, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended) :-
   fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended),
@@ -13577,9 +13595,9 @@ fixm_IdentifiedUnitReference_Combined(Graph, IdentifiedUnitReference, SectorIden
   fixm_IdentifiedUnitReference(Graph, IdentifiedUnitReference, UnitIdentifier),
   fixm_AtcUnitReference(Graph, IdentifiedUnitReference, SectorIdentifier, Delegated) .
 
-aixm_OnlineContact_Combined(Graph, OnlineContact, Annotation, SpecialDateAuthority, TimeInterval, Network, Linkage, Protocol, EMail) :-
+aixm_OnlineContact_Combined(Graph, OnlineContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Network, Linkage, Protocol, EMail) :-
   aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail),
-  aixm_PropertiesWithSchedule(Graph, OnlineContact, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, OnlineContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
 fixm_StructuredPostalAddress_Combined(Graph, StructuredPostalAddress, Name, Title, OnlineContact, PhoneFax, Address) :-
   fixm_StructuredPostalAddress(Graph, StructuredPostalAddress),
@@ -13589,24 +13607,24 @@ fixm_AircraftPosition_Combined(Graph, AircraftPosition, Provenance, Altitude, Po
   fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition),
   fixm_Feature(Graph, AircraftPosition, Provenance) .
 
-aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, Annotation, Contact, Operation) :-
+aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList, Operation) :-
   aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation),
-  aixm_UsageCondition(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, Annotation, Contact) .
+  aixm_UsageCondition(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList) .
 
-fixm_EfplTrajectoryPoint_Combined(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment) :-
+fixm_EfplTrajectoryPoint_Combined(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment) :-
   fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment),
-  fixm_TrajectoryPoint(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint) .
+  fixm_TrajectoryPoint(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint) .
 
 fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, LastContactTime, LastContactUnit, Position) :-
   fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastContactUnit, Position),
   fixm_Feature(Graph, LastContact, Provenance) .
 
-aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) :-
-  aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation),
-  gml_Surface_Combined(Graph, Surface, Patch) .
+aixm_Surface_Combined(Graph, Surface, PatchList, PatchList, HorizontalAccuracy, AnnotationList) :-
+  aixm_Surface(Graph, Surface, HorizontalAccuracy, AnnotationList),
+  gml_Surface_Combined(Graph,Surface, PatchList) .
 
-fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
-  fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position),
+fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodromeList, FleetPrioritization, BoundaryCrossingsList, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElementList, Pointout, Position) :-
+  fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritization, BoundaryCrossingsList, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElementList, Pointout, Position),
   fixm_Feature(Graph, EnRoute, Provenance) .
 
 fixm_Aircraft_Combined(Graph, Aircraft, Provenance, AircraftColours, AircraftQuantity, EngineType, AircraftAddress, Capabilities, Registration, AircraftType, WakeTurbulence, AircraftPerformance) :-
@@ -13617,21 +13635,21 @@ fixm_Extension_Combined(Graph, Extension, Provenance) :-
   fixm_Extension(Graph, Extension),
   fixm_Feature(Graph, Extension, Provenance) .
 
-aixm_Point_Combined(Graph, Point, HorizontalAccuracy, Annotation) :-
-  aixm_Point(Graph, Point, HorizontalAccuracy, Annotation),
+aixm_Point_Combined(Graph, Point, HorizontalAccuracy, AnnotationList) :-
+  aixm_Point(Graph, Point, HorizontalAccuracy, AnnotationList),
   gml_Point(Graph, Point) .
 
-aixm_PostalAddress_Combined(Graph, PostalAddress, Annotation, SpecialDateAuthority, TimeInterval, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
+aixm_PostalAddress_Combined(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
   aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea, PostalCode, Country),
-  aixm_PropertiesWithSchedule(Graph, PostalAddress, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, Annotation, SpecialDateAuthority, TimeInterval, OperationalStatus) :-
+aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, OperationalStatus) :-
   aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus),
-  aixm_PropertiesWithSchedule(Graph, AltimeterSourceStatus, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, AltimeterSourceStatus, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_EfplRoute_Combined(Graph, EfplRoute, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment, EfplFlightRules) :-
+fixm_EfplRoute_Combined(Graph, EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList, EfplFlightRules) :-
   fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules),
-  fixm_Route_Combined(Graph, EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
+  fixm_Route_Combined(Graph,EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) .
 
 fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
   fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
@@ -13641,27 +13659,27 @@ fixm_RadioCommunicationFailure_Combined(Graph, RadioCommunicationFailure, Proven
   fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarks, RemainingComCapability, Contact),
   fixm_Feature(Graph, RadioCommunicationFailure, Provenance) .
 
-aixm_AirportHeliportAvailability_Combined(Graph, AirportHeliportAvailability, Annotation, SpecialDateAuthority, TimeInterval, OperationalStatus, Warning, Usage) :-
-  aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, Usage),
-  aixm_PropertiesWithSchedule(Graph, AirportHeliportAvailability, Annotation, SpecialDateAuthority, TimeInterval) .
+aixm_AirportHeliportAvailability_Combined(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, OperationalStatus, Warning, UsageList) :-
+  aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, UsageList),
+  aixm_PropertiesWithSchedule(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
-  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
+fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
+  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
   fixm_Feature(Graph, FlightArrival, Provenance) .
 
-fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Target, Controlled, Initial) :-
+fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target, Target, Controlled, Initial) :-
   fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
-  fixm_TargetMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target) .
+  fixm_TargetMultiTime_Combined(Graph,ExtendedMultiTime, Actual, Estimated, Target) .
 
 fixm_TargetMultiTime_Combined(Graph, TargetMultiTime, Actual, Estimated, Target) :-
   fixm_TargetMultiTime(Graph, TargetMultiTime, Target),
   fixm_MultiTime(Graph, TargetMultiTime, Actual, Estimated) .
 
-fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) :-
-  fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes),
+fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) :-
+  fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes),
   fixm_Feature(Graph, FlightDeparture, Provenance) .
 
-fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
+fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
   fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, TaxiTime),
-  fixm_FlightDeparture_Combined(Graph, EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
+  fixm_FlightDeparture_Combined(Graph,EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) .
 

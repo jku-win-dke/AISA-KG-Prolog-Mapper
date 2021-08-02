@@ -74,13 +74,6 @@ public class Mapper {
 		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=flags#flag:toplevel_print_anon */");
 		printWriter.println(":- set_prolog_flag(toplevel_print_anon, false).");
 		printWriter.println();
-		printWriter.println("/* PREFIX HANDLING ");
-		printWriter.println("see: https://www.swi-prolog.org/pldoc/doc/_SWI_/library/semweb/rdf_prefixes.pl");
-		printWriter.println("*/");
-		printWriter.println();
-		printWriter.println("/* declare namespace prefixes - in addition to predeclared ones ");
-		printWriter.println("https://www.swi-prolog.org/pldoc/doc_for?object=rdf_register_prefix/2");
-		printWriter.println("*/");
 	}
 	
 	/**
@@ -134,7 +127,7 @@ public class Mapper {
 		fact += resolvePrefixMapping(querySolution.get("?graph")) != null ? resolvePrefixMapping(querySolution.get("?graph")) : ("\'" + querySolution.get("?graph") + "\'");
 		fact += resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName)) != null ? (", " +resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName))) : (", \'" + querySolution.get("?" + schemaForGeneratingFacts.predicateName) + "\'");
 		for(KnowledgeGraphProperty property : schemaForGeneratingFacts.getKnowledgeGraphProperties()) {
-			if(property.maxCount > 1) {
+			if(property.maxCount > 1 || property.maxCount == -1) {
 				RDFNode node = querySolution.get("?" + property.getName() + "Concat");
 				if(node != null) {
 					fact += ", [";
@@ -275,6 +268,13 @@ public class Mapper {
 	 * @param printWriter
 	 */
 	public void printPrefixRegistration(PrintWriter printWriter) {
+		printWriter.println("/* PREFIX HANDLING ");
+		printWriter.println("see: https://www.swi-prolog.org/pldoc/doc/_SWI_/library/semweb/rdf_prefixes.pl");
+		printWriter.println("*/");
+		printWriter.println();
+		printWriter.println("/* declare namespace prefixes - in addition to predeclared ones ");
+		printWriter.println("https://www.swi-prolog.org/pldoc/doc_for?object=rdf_register_prefix/2");
+		printWriter.println("*/");
 		for(Entry<String, String> entry : orderedPrefixes.entrySet()) {
 			printWriter.println(":- rdf_register_prefix(" + entry.getKey() + ",\'" + entry.getValue() + "\').");
 		}
@@ -334,19 +334,45 @@ public class Mapper {
 				}
 			}
 			if(subClass != null) {
-				String properties = "Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
+				String properties = "";
 				for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
-					properties += ", " + StringUtils.capitalize(property.getName());
+					if(property.maxCount > 1 || property.maxCount == -1) {
+						properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+					} else {
+						properties += ", " + StringUtils.capitalize(property.getName());
+					}
 				}
 				for(KnowledgeGraphProperty property : knowledgeGraphClass.getKnowledgeGraphProperties()) {
-					properties += ", " + StringUtils.capitalize(property.getName());
+					if(property.maxCount > 1 || property.maxCount == -1) {
+						properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+					} else {
+						properties += ", " + StringUtils.capitalize(property.getName());
+					}
 				}
-				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
+//				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
+//				
+//				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
+//				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
+//				printWriter.println();
 				
-				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-				//printWriter.println("  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .");
-				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
+				
+				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
+				String rule = "  " + knowledgeGraphClass.generatePrologRule(null) + "," + "\n";
+				
+				String otherProperties = generateSuperClassPart(superClass, knowledgeGraphClass);
+				if(otherProperties != null) {
+					rule += "  " + superClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph," + StringUtils.capitalize(knowledgeGraphClass.predicateName) + otherProperties + ")" + " .";
+					headRule += otherProperties;
+				} else {
+					rule += "  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .";
+				}
+				headRule += properties;
+				
+//				rule += "  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .";
+				headRule += ") :-" + "\n";
+				printWriter.println(headRule + rule);
 				printWriter.println();
+				
 			}
 		}
 	}
@@ -380,16 +406,24 @@ public class Mapper {
 			}
 		}
 		if(subClass != null) {
-			String properties = "Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName); //StringUtils.capitalize(superClass.predicateName);
+			String properties = "";//StringUtils.capitalize(knowledgeGraphClass.predicateName); //StringUtils.capitalize(superClass.predicateName);
 			for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
-				properties += ", " + StringUtils.capitalize(property.getName());
+				if(property.maxCount > 1 || property.maxCount == -1) {
+					properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+				} else {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
 			}
 			for(KnowledgeGraphProperty property : originalSuperClass.getKnowledgeGraphProperties()) {
-				properties += ", " + StringUtils.capitalize(property.getName());
+				if(property.maxCount > 1 || property.maxCount == -1) {
+					properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+				} else {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
 			}
-			return originalSuperClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ")";
+			return properties;
 		} else {
-			return originalSuperClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName));
+			return null;
 		}
 	}
 	
@@ -418,7 +452,7 @@ public class Mapper {
 	 * 
 	 * @param printWriter
 	 */
-	public void generateStaticContent(PrintWriter printWriter) {
+	public void generateStaticContent(PrintWriter printWriter) {		
 		printWriter.println("convert(ConcatenatedString,ListOfAtoms) :-");
 		printWriter.println("  ConcatenatedString = literal(XConcatenatedString),");
 		printWriter.println("  split_string(XConcatenatedString, ',', '', ListOfStrings),");
@@ -449,5 +483,11 @@ public class Mapper {
 			printWriter.println(knowledgeGraphClass.getEndPartOfPrologRule());
 			printWriter.println();
 		}
+	}
+	
+	public void generatePrologModulesForQuerying(PrintWriter printWriter, int port, String path) {
+		printWriter.println(":- use_module(library(semweb/sparql_client)).");
+		printWriter.println(":- sparql_set_server([host(localhost),port(" + port + "),path('" + path +"')]).");
+		printWriter.println();
 	}
 }

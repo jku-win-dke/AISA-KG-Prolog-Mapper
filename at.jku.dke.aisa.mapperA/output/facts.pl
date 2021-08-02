@@ -1558,16 +1558,16 @@ fixm_Aircraft(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESA
 % fixm_Extension(Graph, Extension)
 
 % fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
-fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
 fixm_SurveillanceCapabilities(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
 fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
+fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
+fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 fixm_Trajectory(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_021', ['https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_022']).
