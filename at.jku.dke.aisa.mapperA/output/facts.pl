@@ -122,7 +122,7 @@ see: https://www.swi-prolog.org/pldoc/man?predicate=rdf_meta/1
   % fixm_ReportedTime(Graph, ReportedTime, Provenance?, Time?)
   ,fixm_ReportedTime(r,r,t,t)
 
-  % fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName?)
+  % fixm_GeographicLocation(Graph, GeographicLocation, Pos*, SrsName?)
   ,fixm_GeographicLocation(r,r,t,t)
 
   % aixm_LinguisticNote(Graph, LinguisticNote, Note?)
@@ -356,7 +356,7 @@ see: https://www.swi-prolog.org/pldoc/man?predicate=rdf_meta/1
   % fixm_FlightLevel(Graph, FlightLevel, Level?, Unit?)
   ,fixm_FlightLevel(r,r,t,t)
 
-  % fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason?)
+  % fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance*, OfftrackReason?)
   ,fixm_LateralOfftrack(r,r,t,t)
 
   % fixm_TemporalRange(Graph, TemporalRange, Earliest?, Latest?)
@@ -401,7 +401,7 @@ see: https://www.swi-prolog.org/pldoc/man?predicate=rdf_meta/1
   % aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
   ,aixm_PostalAddress(r,r,t,t,t,t,t)
 
-  % fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass)
+  % fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass*)
   ,fixm_DangerousGoodsPackage(r,r,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t)
 
   % fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod?, Position?, TimeAtPosition?)
@@ -723,67 +723,57 @@ fixm_FlightPerformanceData(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/
 
 % fixm_ReportedTime(Graph, ReportedTime, Provenance?, Time?)
 
-% fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName?)
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
-fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', '$null$', val('urn:ogc:def:crs:EPSG::4326')).
+% fixm_GeographicLocation(Graph, GeographicLocation, Pos*, SrsName?)
+fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_033', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_036', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_024', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_039', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
+fixm_GeographicLocation(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_030', [], val('urn:ogc:def:crs:EPSG::4326')).
 
 % aixm_LinguisticNote(Graph, LinguisticNote, Note?)
 aixm_LinguisticNote(graph:'0_donlon-data.ttl', s1:'ln002', val('Geoid undulation at ELEV PSN is 9 M')).
@@ -1529,7 +1519,7 @@ fixm_FlightLevel(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/S
 fixm_FlightLevel(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_037', '$null$', val('SM')).
 fixm_FlightLevel(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_034', '$null$', val('SM')).
 
-% fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason?)
+% fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance*, OfftrackReason?)
 
 % fixm_TemporalRange(Graph, TemporalRange, Earliest?, Latest?)
 
@@ -1558,16 +1548,16 @@ fixm_Aircraft(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESA
 % fixm_Extension(Graph, Extension)
 
 % fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
-fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:D1', 'val:L']).
 fixm_SurveillanceCapabilities(graph:'5_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
-fixm_SurveillanceCapabilities(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
-fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:L', 'val:D1']).
-fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:B1', 'val:D1', 'val:L']).
+fixm_SurveillanceCapabilities(graph:'6_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'8_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:D1', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'7_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'9_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'2_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:L', 'val:B1']).
+fixm_SurveillanceCapabilities(graph:'4_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:L', 'val:B1', 'val:D1']).
+fixm_SurveillanceCapabilities(graph:'1_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', ['val:D1', 'val:B1', 'val:L']).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 fixm_Trajectory(graph:'3_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_021', ['https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_022']).
@@ -1599,7 +1589,7 @@ aixm_Point(graph:'0_donlon-data.ttl', s1:'elpoint1EADH', '$null$', []).
 
 % aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
 
-% fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass)
+% fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass*)
 
 % fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod?, Position?, TimeAtPosition?)
 
@@ -1819,77 +1809,77 @@ aixm_UsageCondition(graph:'7_donlon-data.ttl', s2:'ID_ACT_14', val('PERMIT'), '$
 aixm_UsageCondition(graph:'2_donlon-data.ttl', s1:'AHU_EADH_PERMIT', val('PERMIT'), '$null$', s1:'agtayyat', [s1:'annotation1'], []).
 aixm_UsageCondition(graph:'9_donlon-data.ttl', s2:'ID_ACT_14', val('PERMIT'), '$null$', s2:'ID_ACT_15', [], []).
 
-fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, Constraint) :-
-  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, Constraint),
+fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, ConstraintList) :-
+  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList),
   fixm_AbstractRoutePoint(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
 
-aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
+aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) .
+  aixm_Surface_Combined(Graph,ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList) .
 
-aixm_ConditionCombination_Combined(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval, LogicalOperator, Flight, Aircraft, Weather, SubCondition) :-
-  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, Aircraft, Weather, SubCondition),
-  aixm_PropertiesWithSchedule(Graph, ConditionCombination, Annotation, SpecialDateAuthority, TimeInterval) .
+aixm_ConditionCombination_Combined(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList) :-
+  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList),
+  aixm_PropertiesWithSchedule(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, Annotation, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
+aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Point_Combined(Graph, Point, HorizontalAccuracy, Annotation) .
+  aixm_Point_Combined(Graph,ElevatedPoint, HorizontalAccuracy, AnnotationList) .
 
-fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, Altitude, Time, PointRange, FlightLevel) :-
+fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, PosList, SrsName, Altitude, Time, PointRange, Altitude, Time, PointRange, FlightLevel) :-
   fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel),
-  fixm_Point4D_Combined(Graph, GeographicLocation, Pos, SrsName, Altitude, Time, PointRange) .
+  fixm_Point4D_Combined(Graph,EfplPoint4D, PosList, SrsName, Altitude, Time, PointRange) .
 
 fixm_EfplTrajectoryRoutePair_Combined(Graph, EfplTrajectoryRoutePair, Trajectory, Route) :-
   fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair),
   fixm_TrajectoryRoutePair(Graph, EfplTrajectoryRoutePair, Trajectory, Route) .
 
-fixm_RoutePoint_Combined(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, Constraint) :-
-  fixm_RoutePoint(Graph, RoutePoint, Constraint),
+fixm_RoutePoint_Combined(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, ConstraintList) :-
+  fixm_RoutePoint(Graph, RoutePoint, ConstraintList),
   fixm_AbstractRoutePoint(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
 
-aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval, Role, TheOrganisationAuthority) :-
+aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Role, TheOrganisationAuthority) :-
   aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority),
-  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroup, ShippingInformation) :-
-  fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroup, ShippingInformation),
+fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation) :-
+  fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation),
   fixm_Feature(Graph, DangerousGoods, Provenance) .
 
-fixm_Point4D_Combined(Graph, Point4D, Pos, SrsName, Altitude, Time, PointRange) :-
+fixm_Point4D_Combined(Graph, Point4D, PosList, SrsName, Altitude, Time, PointRange) :-
   fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange),
-  fixm_GeographicLocation(Graph, Point4D, Pos, SrsName) .
+  fixm_GeographicLocation(Graph, Point4D, PosList, SrsName) .
 
 fixm_FlightEmergency_Combined(Graph, FlightEmergency, Provenance, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact) :-
   fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact),
   fixm_Feature(Graph, FlightEmergency, Provenance) .
 
-fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) :-
-  fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling),
+fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) :-
+  fixm_Flight(Graph, Flight, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList),
   fixm_Feature(Graph, Flight, Provenance) .
 
-gml_Surface_Combined(Graph, Surface, Patch) :-
-  gml_Surface(Graph, Surface, Patch),
+gml_Surface_Combined(Graph, Surface, PatchList) :-
+  gml_Surface(Graph, Surface, PatchList),
   gml_SurfacePatch(Graph, Surface) .
 
 fixm_UnitBoundary_Combined(Graph, UnitBoundary, SectorIdentifier, Delegated, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator) :-
   fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator),
   fixm_AtcUnitReference(Graph, UnitBoundary, SectorIdentifier, Delegated) .
 
-aixm_AirportHeliportContamination_Combined(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidge, Annotation, Layer) :-
+aixm_AirportHeliportContamination_Combined(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidgeList, AnnotationList, LayerList) :-
   aixm_AirportHeliportContamination(Graph, AirportHeliportContamination),
-  aixm_SurfaceContamination(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidge, Annotation, Layer) .
+  aixm_SurfaceContamination(Graph, AirportHeliportContamination, ObservationTime, Depth, FrictionCoefficient, FrictionEstimation, FrictionDevice, ObscuredLights, FurtherClearanceTime, FurtherTotalClearance, NextObservationTime, Proportion, CriticalRidgeList, AnnotationList, LayerList) .
 
-aixm_TelephoneContact_Combined(Graph, TelephoneContact, Annotation, SpecialDateAuthority, TimeInterval, Voice, Facsimile) :-
+aixm_TelephoneContact_Combined(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Voice, Facsimile) :-
   aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile),
-  aixm_PropertiesWithSchedule(Graph, TelephoneContact, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) :-
-  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment),
+fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) :-
+  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList),
   fixm_Feature(Graph, Route, Provenance) .
 
-fixm_EfplFlight_Combined(Graph, EfplFlight, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
+fixm_EfplFlight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
   fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
-  fixm_Flight_Combined(Graph, Feature, Provenance, ControllingUnit, Extensions, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoods, RankedTrajectories, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandling) .
+  fixm_Flight_Combined(Graph,EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) .
 
 fixm_FlightStatus_Combined(Graph, FlightStatus, Provenance, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended) :-
   fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended),
@@ -1899,9 +1889,9 @@ fixm_IdentifiedUnitReference_Combined(Graph, IdentifiedUnitReference, SectorIden
   fixm_IdentifiedUnitReference(Graph, IdentifiedUnitReference, UnitIdentifier),
   fixm_AtcUnitReference(Graph, IdentifiedUnitReference, SectorIdentifier, Delegated) .
 
-aixm_OnlineContact_Combined(Graph, OnlineContact, Annotation, SpecialDateAuthority, TimeInterval, Network, Linkage, Protocol, EMail) :-
+aixm_OnlineContact_Combined(Graph, OnlineContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Network, Linkage, Protocol, EMail) :-
   aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail),
-  aixm_PropertiesWithSchedule(Graph, OnlineContact, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, OnlineContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
 fixm_StructuredPostalAddress_Combined(Graph, StructuredPostalAddress, Name, Title, OnlineContact, PhoneFax, Address) :-
   fixm_StructuredPostalAddress(Graph, StructuredPostalAddress),
@@ -1911,24 +1901,24 @@ fixm_AircraftPosition_Combined(Graph, AircraftPosition, Provenance, Altitude, Po
   fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition),
   fixm_Feature(Graph, AircraftPosition, Provenance) .
 
-aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, Annotation, Contact, Operation) :-
+aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList, Operation) :-
   aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation),
-  aixm_UsageCondition(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, Annotation, Contact) .
+  aixm_UsageCondition(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList) .
 
-fixm_EfplTrajectoryPoint_Combined(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment) :-
+fixm_EfplTrajectoryPoint_Combined(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment) :-
   fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment),
-  fixm_TrajectoryPoint(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint) .
+  fixm_TrajectoryPoint(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint) .
 
 fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, LastContactTime, LastContactUnit, Position) :-
   fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastContactUnit, Position),
   fixm_Feature(Graph, LastContact, Provenance) .
 
-aixm_Surface_Combined(Graph, Surface, Patch, HorizontalAccuracy, Annotation) :-
-  aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation),
-  gml_Surface_Combined(Graph, SurfacePatch, Patch) .
+aixm_Surface_Combined(Graph, Surface, PatchList, PatchList, HorizontalAccuracy, AnnotationList) :-
+  aixm_Surface(Graph, Surface, HorizontalAccuracy, AnnotationList),
+  gml_Surface_Combined(Graph,Surface, PatchList) .
 
-fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
-  fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position),
+fixm_EnRoute_Combined(Graph, EnRoute, Provenance, AlternateAerodromeList, FleetPrioritization, BoundaryCrossingsList, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElementList, Pointout, Position) :-
+  fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritization, BoundaryCrossingsList, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElementList, Pointout, Position),
   fixm_Feature(Graph, EnRoute, Provenance) .
 
 fixm_Aircraft_Combined(Graph, Aircraft, Provenance, AircraftColours, AircraftQuantity, EngineType, AircraftAddress, Capabilities, Registration, AircraftType, WakeTurbulence, AircraftPerformance) :-
@@ -1939,21 +1929,21 @@ fixm_Extension_Combined(Graph, Extension, Provenance) :-
   fixm_Extension(Graph, Extension),
   fixm_Feature(Graph, Extension, Provenance) .
 
-aixm_Point_Combined(Graph, Point, HorizontalAccuracy, Annotation) :-
-  aixm_Point(Graph, Point, HorizontalAccuracy, Annotation),
+aixm_Point_Combined(Graph, Point, HorizontalAccuracy, AnnotationList) :-
+  aixm_Point(Graph, Point, HorizontalAccuracy, AnnotationList),
   gml_Point(Graph, Point) .
 
-aixm_PostalAddress_Combined(Graph, PostalAddress, Annotation, SpecialDateAuthority, TimeInterval, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
+aixm_PostalAddress_Combined(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
   aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea, PostalCode, Country),
-  aixm_PropertiesWithSchedule(Graph, PostalAddress, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, Annotation, SpecialDateAuthority, TimeInterval, OperationalStatus) :-
+aixm_AltimeterSourceStatus_Combined(Graph, AltimeterSourceStatus, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, OperationalStatus) :-
   aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus),
-  aixm_PropertiesWithSchedule(Graph, AltimeterSourceStatus, Annotation, SpecialDateAuthority, TimeInterval) .
+  aixm_PropertiesWithSchedule(Graph, AltimeterSourceStatus, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_EfplRoute_Combined(Graph, EfplRoute, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment, EfplFlightRules) :-
+fixm_EfplRoute_Combined(Graph, EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList, EfplFlightRules) :-
   fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules),
-  fixm_Route_Combined(Graph, Feature, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTime, ExpandedRoute, ClimbSchedule, DescentSchedule, Segment) .
+  fixm_Route_Combined(Graph,EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) .
 
 fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
   fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
@@ -1963,27 +1953,27 @@ fixm_RadioCommunicationFailure_Combined(Graph, RadioCommunicationFailure, Proven
   fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarks, RemainingComCapability, Contact),
   fixm_Feature(Graph, RadioCommunicationFailure, Provenance) .
 
-aixm_AirportHeliportAvailability_Combined(Graph, AirportHeliportAvailability, Annotation, SpecialDateAuthority, TimeInterval, OperationalStatus, Warning, Usage) :-
-  aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, Usage),
-  aixm_PropertiesWithSchedule(Graph, AirportHeliportAvailability, Annotation, SpecialDateAuthority, TimeInterval) .
+aixm_AirportHeliportAvailability_Combined(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, OperationalStatus, Warning, UsageList) :-
+  aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, UsageList),
+  aixm_PropertiesWithSchedule(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
 
-fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
-  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
+fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
+  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
   fixm_Feature(Graph, FlightArrival, Provenance) .
 
-fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Target, Controlled, Initial) :-
+fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target, Target, Controlled, Initial) :-
   fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
-  fixm_TargetMultiTime_Combined(Graph, MultiTime, Actual, Estimated, Target) .
+  fixm_TargetMultiTime_Combined(Graph,ExtendedMultiTime, Actual, Estimated, Target) .
 
 fixm_TargetMultiTime_Combined(Graph, TargetMultiTime, Actual, Estimated, Target) :-
   fixm_TargetMultiTime(Graph, TargetMultiTime, Target),
   fixm_MultiTime(Graph, TargetMultiTime, Actual, Estimated) .
 
-fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) :-
-  fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes),
+fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) :-
+  fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes),
   fixm_Feature(Graph, FlightDeparture, Provenance) .
 
-fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
+fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
   fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, TaxiTime),
-  fixm_FlightDeparture_Combined(Graph, Feature, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodrome, TakeoffWeight, DepartureTimes) .
+  fixm_FlightDeparture_Combined(Graph,EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) .
 

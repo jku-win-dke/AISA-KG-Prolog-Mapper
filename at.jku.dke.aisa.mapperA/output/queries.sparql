@@ -1809,7 +1809,7 @@ PREFIX file: <https://www.jena.com/plain#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
-SELECT ?graph ?geographicLocation ?pos ?srsName
+SELECT ?graph ?geographicLocation (GROUP_CONCAT(DISTINCT ?pos;SEPARATOR=",") AS ?posConcat) ?srsName
 WHERE
  {
   GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
@@ -1863,6 +1863,7 @@ WHERE
     }
   }
 }
+GROUP BY ?graph ?geographicLocation ?srsName
 
 
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -8890,7 +8891,7 @@ PREFIX file: <https://www.jena.com/plain#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
-SELECT ?graph ?lateralOfftrack ?offtrackDistance ?offtrackReason
+SELECT ?graph ?lateralOfftrack (GROUP_CONCAT(DISTINCT ?offtrackDistance;SEPARATOR=",") AS ?offtrackDistanceConcat) ?offtrackReason
 WHERE
   { GRAPH ?graph
     {
@@ -8919,6 +8920,7 @@ WHERE
       }
     }
   }
+GROUP BY ?graph ?lateralOfftrack ?offtrackReason
 
 
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -10315,7 +10317,7 @@ PREFIX file: <https://www.jena.com/plain#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
-SELECT ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator ?subsidiaryHazardClass
+SELECT ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator (GROUP_CONCAT(DISTINCT ?subsidiaryHazardClass;SEPARATOR=",") AS ?subsidiaryHazardClassConcat)
 WHERE
   { GRAPH ?graph
     {
@@ -10684,6 +10686,7 @@ WHERE
       }
     }
   }
+GROUP BY ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator
 
 
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>

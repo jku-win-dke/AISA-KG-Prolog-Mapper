@@ -1,0 +1,8 @@
+Current time milliseconds;Mapping Variant;Number of data copies;Jena Fuseki connection establishment;Loading shacl schema files;Loading data files;Fetching shacl schema;Creating KnowledgeGraphClasses and KnowledgeGraphProperties;Creating SPARQL file;Executing SPARQL queries and creating Prolog facts;Consult Program;Invoke run/0 in Prolog;Invoke save/0 in Prolog;Load saved results to Fuseki;Execution time in milliseconds
+1627907848354;A;10;748;1375;512;1039;128;25;3909;463;2;102;8312
+1627907880467;A;10;759;1842;571;1098;198;29;4092;433;1;78;9108
+1627909369569;A;10;625;1342;550;990;130;26;4179;366;2;75;8295
+1627911189143;A;10;597;1226;528;955;117;22;3808;338;3;86;7700
+1627911799158;A;10;1504;1371;571;1144;148;24;4088;362;2;82;9304
+1627917506550;A;10;695;1456;691;1169;170;40;4292;459;2;83;9071
+1627933440621;A;10;598;1368;513;908;154;35;3871;641;4;144;8277

@@ -1,0 +1,1 @@
+Main-Class: target.classes.at.jku.dke.aisa.mapperA.Shacl2PrologLauncher

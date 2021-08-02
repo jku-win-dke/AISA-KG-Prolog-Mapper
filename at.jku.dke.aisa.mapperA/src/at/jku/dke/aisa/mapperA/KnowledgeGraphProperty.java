@@ -60,7 +60,7 @@ public class KnowledgeGraphProperty {
 	 * e.g.: (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 	 */
 	private void createSelectFragment() {
-		if(maxCount == 0) {
+		if(maxCount > 1 || maxCount == -1) {
 			this.selectFragment = "(GROUP_CONCAT(DISTINCT ?" + name + ";SEPARATOR=\",\") AS ?" + name + "Concat)";
 		} else {
 			this.selectFragment = "?" + name;
@@ -149,7 +149,7 @@ public class KnowledgeGraphProperty {
 	 * @return
 	 */
 	private int getMaxCount() {
-		int max = 0;
+		int max = -1;
 		ExtendedIterator<Triple> triplesWithMaxCount = property.getShapeGraph().find(property.getShapeNode(), ShaclUtil.shaclMaxOrderAsNode(), null);
 		while(triplesWithMaxCount.hasNext()) {
 			Triple maxCount = triplesWithMaxCount.next();
@@ -183,13 +183,13 @@ public class KnowledgeGraphProperty {
 	 * @return
 	 */
 	public String getCardinality() {
-		if(minCount == 0 && maxCount == 0) {
+		if(minCount == 0 && (maxCount == -1 || maxCount > 1)) {
 			return "*";
 		} else if(minCount == 1 && maxCount == 1) {
 			return "";
 		} else if(minCount == 0 && maxCount == 1) {
 			return "?";
-		} else if(minCount == 1 && maxCount == 0) {
+		} else if(minCount == 1 && (maxCount == -1 || maxCount > 1)) {
 			return "+";
 		}
 		return "";
