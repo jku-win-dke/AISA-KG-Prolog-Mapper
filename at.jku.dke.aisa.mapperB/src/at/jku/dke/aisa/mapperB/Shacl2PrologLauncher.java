@@ -2,6 +2,7 @@ package at.jku.dke.aisa.mapperB;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -23,6 +24,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Shacl2PrologLauncher {
 
+	private static final String PERFORMANCE__RESULTS_CSV = "output/performance_results.csv";
+	
 	private static final int JENA_FUSEKI_PORT = 3030;
 	private static final String JENA_FUSEKI_PATH = "/test/sparql";
 	
@@ -95,7 +98,7 @@ public class Shacl2PrologLauncher {
 		// create SPARQL file
 		File sparqlFile = createFile(PROLOG_FILE);
 		try(PrintWriter printWriter = new PrintWriter(sparqlFile)) {
-		
+			
 			mapper.printStaticContent(printWriter);
 			mapper.generatePrologModulesForQuerying(printWriter, JENA_FUSEKI_PORT, JENA_FUSEKI_PATH);
 			mapper.generateStaticContent(printWriter);
@@ -144,24 +147,50 @@ public class Shacl2PrologLauncher {
         
         fuseki.fetch("http://ex.org/new").write(System.out, "TURTLE");
         
-
-        /* in ein Log-File schreiben und dann in z.B. Excel auswerten */
-        System.out.println(
-        		System.currentTimeMillis()
-        		+ ";B"
-        		+ ";" + NUMBER_OF_DATA_COPIES
-        		+ ";" + (time_one - startTime)
-           		+ ";" + (time_two - time_one)
-           		+ ";" + (time_three - time_two)
-           		+ ";" + (time_four - time_three)
-           		+ ";" + (time_five - time_four)
-           		+ ";" + (time_six - time_five)
-           		+ ";" + (time_seven - time_six)
-           		+ ";" + (time_eight - time_seven)
-           		+ ";" + (time_nine - time_eight)
-           		+ ";" + timeElapsed);
-        
-        
+        File performance_results_csv_file = new File(PERFORMANCE__RESULTS_CSV);
+        boolean isFileNewlyCreated = false;
+        try {
+        	isFileNewlyCreated = performance_results_csv_file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(performance_results_csv_file, true))) {
+            if(isFileNewlyCreated) {
+            	pw.println(
+            			"Current time milliseconds" //
+            			+ ";" + "Mapping Variant" //
+            			+ ";" + "Number of data copies" //
+            			+ ";" + "Jena Fuseki connection establishment" //
+            			+ ";" + "Loading shacl schema files" //
+            			+ ";" + "Loading data files" //
+            			+ ";" + "Fetching shacl schema" //
+            			+ ";" + "Creating KnowledgeGraphClasses and KnowledgeGraphProperties" //
+            			+ ";" + "Creating Prolog file with embedded SPARQL queries" //
+            			+ ";" + "Consult Program" //
+            			+ ";" + "Invoke run/0 in Prolog" //
+            			+ ";" + "Invoke save/0 in Prolog" //
+            			+ ";" + "Load saved results to Fuseki" //
+            			+ ";" + "Execution time in milliseconds" //
+            			);
+            }
+        	pw.println(System.currentTimeMillis()
+            		+ ";A"
+            		+ ";" + NUMBER_OF_DATA_COPIES
+            		+ ";" + (time_one - startTime)
+               		+ ";" + (time_two - time_one)
+               		+ ";" + (time_three - time_two)
+               		+ ";" + (time_four - time_three)
+               		+ ";" + (time_five - time_four)
+               		+ ";" + (time_six - time_five)
+               		+ ";" + (time_seven - time_six)
+               		+ ";" + (time_eight - time_seven)
+               		+ ";" + (time_nine - time_eight)
+               		+ ";" + timeElapsed);
+        } catch (FileNotFoundException e) {
+			String message = String.format("File %s could not be found.", PERFORMANCE__RESULTS_CSV);
+			LOGGER.debug(message);
+		}
 	}
 
 	/**

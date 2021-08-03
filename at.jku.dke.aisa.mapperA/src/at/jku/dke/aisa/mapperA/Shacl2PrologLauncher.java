@@ -250,16 +250,16 @@ public class Shacl2PrologLauncher {
 		}
 	}
 
-	private static Process startJenaFuseki() throws IOException {
-		// can be configured to start jena fuseki server otherwise just start jena fuseki manually
-		ProcessBuilder builder = new ProcessBuilder("java", "-Xmx1200M", "-jar", "fuseki-server.jar", "--config", "AISA-config-mem.ttl");
-		builder.directory( new File("apache-jena-fuseki-3.16.0") );
-		builder.redirectErrorStream(true); // so we can ignore the error stream
-		
-		Process process = builder.start();
-		
-		return process;
-	}
+//	private static Process startJenaFuseki() throws IOException {
+//		// can be configured to start jena fuseki server otherwise just start jena fuseki manually
+//		ProcessBuilder builder = new ProcessBuilder("java", "-Xmx1200M", "-jar", "fuseki-server.jar", "--config", "AISA-config-mem.ttl");
+//		builder.directory( new File("apache-jena-fuseki-3.16.0") );
+//		builder.redirectErrorStream(true); // so we can ignore the error stream
+//		
+//		Process process = builder.start();
+//		
+//		return process;
+//	}
 
 	/**
 	 * Creates a new File and deletes old content if the File already exists.
