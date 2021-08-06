@@ -117,10 +117,12 @@ public class Shacl2PrologLauncher {
 			mapper.printPrefixRegistration(printWriter);
 			mapper.printLoadDataSet(printWriter);
 			mapper.printRDFMeta(printWriter);
+			mapper.printSubClassOfRules(printWriter, SCHEMA_GRAPH_NAME);
 			
 			// TODO query executer durch mapping rule generation
 //			QueryExecuter queryExecuter = new QueryExecuter(SPARQL_FILE, fuseki, mapper, printWriter);
 //			queryExecuter.execute();
+			mapper.generateFactRule(printWriter);
 			
 			mapper.printInheritanceRules(printWriter);
 			

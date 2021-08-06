@@ -2,6 +2,7 @@ package at.jku.dke.aisa.mapperC;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.Shapes;
+import org.apache.jena.shacl.engine.Target;
 import org.apache.jena.shacl.parser.Shape;
 import org.apache.jena.shared.PrefixMapping;
 import org.apache.jena.util.iterator.ExtendedIterator;
@@ -89,10 +91,51 @@ public class Mapper {
 	 */
 	private void generateClassesAndProperties() {
 		for(Shape rootShape : shapes.getTargetShapes()) {
+			
+			for(Entry entry : subNodeOfSuperNode.entrySet()) {
+				if(getNameOfTargetsWithPrefixShortAndUnderScore(rootShape).equals(entry.getKey())) {
+					System.out.println(subNodeOfSuperNode + " is subnode");
+				}
+			}
+			if(subNodeOfSuperNode.containsKey(getPrefixMapping(null, rootShape))) {
+				System.out.println(subNodeOfSuperNode + " is subnode");
+			}
+			
 			boolean isSuperClass = superClasses.contains(rootShape.getShapeNode());
 			KnowledgeGraphClass knowledgeGraphClass = new KnowledgeGraphClass(shaclGraph, rootShape, isSuperClass, graphName);
 			knowledgeGraphClasses.add(knowledgeGraphClass);
 		}
+	}
+	
+	/**
+	 * Returns the name of the target with short prefix of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: aixm:Point
+	 * 
+	 * @return
+	 */
+	public String getNameOfTargetsWithPrefixShortAndUnderScore(Shape rootShape) {
+		String target = "";
+		Collection<Target> targetCollection = rootShape.getTargets();
+		for(Target t : targetCollection) {
+			 target += getPrefixMapping(t.getObject(), rootShape);
+		}
+		String[] split = target.split(":");
+		return split[0] + "_" + split[1];
+	}
+	
+	/**
+	 * Returns the name of the node including the prefix mapping.
+	 * 
+	 * e.g.: x:person
+	 * 
+	 * @param node
+	 * @param rootShape
+	 * @return
+	 */
+	private String getPrefixMapping(Node node, Shape rootShape) {
+		String prefixMapping = node.toString(rootShape.getShapeGraph().getPrefixMapping());
+		return node.toString().equals(prefixMapping) ? "<" + node.toString() + ">" : prefixMapping;
 	}
 	
 	/**
@@ -134,7 +177,7 @@ public class Mapper {
 		fact += resolvePrefixMapping(querySolution.get("?graph")) != null ? resolvePrefixMapping(querySolution.get("?graph")) : ("\'" + querySolution.get("?graph") + "\'");
 		fact += resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName)) != null ? (", " +resolvePrefixMapping(querySolution.get("?" + schemaForGeneratingFacts.predicateName))) : (", \'" + querySolution.get("?" + schemaForGeneratingFacts.predicateName) + "\'");
 		for(KnowledgeGraphProperty property : schemaForGeneratingFacts.getKnowledgeGraphProperties()) {
-			if(property.maxCount == 0) {
+			if(property.maxCount > 1 || property.maxCount == -1) {
 				RDFNode node = querySolution.get("?" + property.getName() + "Concat");
 				if(node != null) {
 					fact += ", [";
@@ -294,7 +337,8 @@ public class Mapper {
 		printWriter.println("/* for prefix handling: declare predicates that have RDF terms as arguments");
 		printWriter.println("see: https://www.swi-prolog.org/pldoc/man?predicate=rdf_meta/1");
 		printWriter.println("*/");
-		printWriter.print(":- rdf_meta"); 
+		printWriter.println(":- rdf_meta"); 
+		printWriter.println("  subClassOf(r,r)");
 		for(int i = 0; i < knowledgeGraphClasses.size(); i++) {
 			printWriter.println();
 			printWriter.println("  " + knowledgeGraphClasses.get(i).generateComment());
@@ -302,11 +346,7 @@ public class Mapper {
 			for(int j = 0; j<knowledgeGraphClasses.get(i).getKnowledgeGraphProperties().size(); j++) {
 				properties += ",t";
 			}
-			if(i == 0 ) {
-				printWriter.println("  " + knowledgeGraphClasses.get(i).getNameOfTargetsWithPrefixShortAndUnderScore() + "(r,r" + properties + ")");				
-			} else {
-				printWriter.println("  ," + knowledgeGraphClasses.get(i).getNameOfTargetsWithPrefixShortAndUnderScore() + "(r,r" + properties + ")");
-			}
+			printWriter.println("  ," + knowledgeGraphClasses.get(i).getNameOfTargetsWithPrefixShortAndUnderScore() + "(r,r" + properties + ")");
 		}
 		printWriter.println(".");
 		printWriter.println();
@@ -334,19 +374,45 @@ public class Mapper {
 				}
 			}
 			if(subClass != null) {
-				String properties = "Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
+				String properties = "";
 				for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
-					properties += ", " + StringUtils.capitalize(property.getName());
+					if(property.maxCount > 1 || property.maxCount == -1) {
+						properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+					} else {
+						properties += ", " + StringUtils.capitalize(property.getName());
+					}
 				}
 				for(KnowledgeGraphProperty property : knowledgeGraphClass.getKnowledgeGraphProperties()) {
-					properties += ", " + StringUtils.capitalize(property.getName());
+					if(property.maxCount > 1 || property.maxCount == -1) {
+						properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+					} else {
+						properties += ", " + StringUtils.capitalize(property.getName());
+					}
 				}
-				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
+//				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
+//				
+//				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
+//				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
+//				printWriter.println();
 				
-				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-				//printWriter.println("  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .");
-				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
+				
+				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
+				String rule = "  " + knowledgeGraphClass.generatePrologRule(null) + "," + "\n";
+				
+				String otherProperties = generateSuperClassPart(superClass, knowledgeGraphClass);
+				if(otherProperties != null) {
+					rule += "  " + superClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph," + StringUtils.capitalize(knowledgeGraphClass.predicateName) + otherProperties + ")" + " .";
+					headRule += otherProperties;
+				} else {
+					rule += "  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .";
+				}
+				headRule += properties;
+				
+//				rule += "  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .";
+				headRule += ") :-" + "\n";
+				printWriter.println(headRule + rule);
 				printWriter.println();
+				
 			}
 		}
 	}
@@ -380,16 +446,24 @@ public class Mapper {
 			}
 		}
 		if(subClass != null) {
-			String properties = "Graph, " + StringUtils.capitalize(superClass.predicateName);
+			String properties = "";//StringUtils.capitalize(knowledgeGraphClass.predicateName); //StringUtils.capitalize(superClass.predicateName);
 			for(KnowledgeGraphProperty property : superClass.getKnowledgeGraphProperties()) {
-				properties += ", " + StringUtils.capitalize(property.getName());
+				if(property.maxCount > 1 || property.maxCount == -1) {
+					properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+				} else {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
 			}
 			for(KnowledgeGraphProperty property : originalSuperClass.getKnowledgeGraphProperties()) {
-				properties += ", " + StringUtils.capitalize(property.getName());
+				if(property.maxCount > 1 || property.maxCount == -1) {
+					properties += ", " + StringUtils.capitalize(property.getName()) + "List";
+				} else {
+					properties += ", " + StringUtils.capitalize(property.getName());
+				}
 			}
-			return originalSuperClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ")";
+			return properties;
 		} else {
-			return originalSuperClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName));
+			return null;
 		}
 	}
 	
@@ -416,5 +490,27 @@ public class Mapper {
 	public void printLoadDataSet(PrintWriter printWriter) {
 		printWriter.println(":- rdf_load('dataset.trig') .");
 		printWriter.println();
+	}
+	
+	public void printSubClassOfRules(PrintWriter printWriter, String schemaGraphName) {
+		printWriter.println("subClassOf(X,Y) :-");
+		printWriter.println("  rdf(X,rdfs:subClassOf,Y,'"+ schemaGraphName +"') .");
+		printWriter.println();
+		printWriter.println("subClassOf(X,X) :-");
+		printWriter.println("  rdf(_,rdf:type,X,_) .");
+		printWriter.println();
+		printWriter.println("subClassOf(X,Y) :-");
+		printWriter.println("  rdf(X,rdfs:subClassOf,Z,'" + schemaGraphName + "'),");
+		printWriter.println("  subClassOf(Z,Y) .");
+		printWriter.println();
+	}
+
+	public void generateFactRule(PrintWriter printWriter) {
+		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
+			printWriter.println(knowledgeGraphClass.generatePrologRule(null) + " :-");
+			if(knowledgeGraphClass.isSuperClass) {
+				printWriter.println();
+			}
+		}
 	}
 }
