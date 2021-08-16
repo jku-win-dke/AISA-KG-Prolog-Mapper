@@ -90,17 +90,7 @@ public class Mapper {
 	 * This method is called at creation time of the mapper.
 	 */
 	private void generateClassesAndProperties() {
-		for(Shape rootShape : shapes.getTargetShapes()) {
-			
-			for(Entry entry : subNodeOfSuperNode.entrySet()) {
-				if(getNameOfTargetsWithPrefixShortAndUnderScore(rootShape).equals(entry.getKey())) {
-					System.out.println(subNodeOfSuperNode + " is subnode");
-				}
-			}
-			if(subNodeOfSuperNode.containsKey(getPrefixMapping(null, rootShape))) {
-				System.out.println(subNodeOfSuperNode + " is subnode");
-			}
-			
+		for(Shape rootShape : shapes.getTargetShapes()) {			
 			boolean isSuperClass = superClasses.contains(rootShape.getShapeNode());
 			KnowledgeGraphClass knowledgeGraphClass = new KnowledgeGraphClass(shaclGraph, rootShape, isSuperClass, graphName);
 			knowledgeGraphClasses.add(knowledgeGraphClass);
@@ -509,8 +499,28 @@ public class Mapper {
 		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
 			printWriter.println(knowledgeGraphClass.generatePrologRule(null) + " :-");
 			if(knowledgeGraphClass.isSuperClass) {
-				printWriter.println();
+				printWriter.println("  subClassOf(T," + knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndQuotation() + ")");
+				printWriter.print("  ,rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphClass.getShapeType() + ",T,Graph)");
+			} else {
+				printWriter.print("  rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphClass.getShapeType() + "," + knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndQuotation() + ",Graph)");
 			}
+			for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphClass.getKnowledgeGraphProperties()) {
+				printWriter.println();
+				if(!knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
+					printWriter.print("  ,rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph)");
+				} else if(knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
+					printWriter.println("  ,((" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "='$null$',\\+ rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",_" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph))");
+					printWriter.println("  ,(rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,Graph))");
+					printWriter.println("  ,rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph)");
+					printWriter.print("  ," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=val(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value))");
+				} else if(!knowledgeGraphProperty.isOptional && knowledgeGraphProperty.isList) {
+					printWriter.print("  ,findall(A, rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",A,Graph), " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ")");
+				} else if(knowledgeGraphProperty.isOptional && knowledgeGraphProperty.isList) {
+					printWriter.println("TODO");
+				}
+			}
+			printWriter.println(" .");
+			printWriter.println();
 		}
 	}
 }

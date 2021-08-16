@@ -44,7 +44,13 @@ public class Shacl2PrologLauncher {
 	
 	public static void main(String[] args) {
 		
-		System.out.println(args);
+		int data_copies = NUMBER_OF_DATA_COPIES;
+		
+		System.out.println(args[0]);
+		if(args != null) {
+			data_copies = Integer.parseInt(args[0]);
+		}
+		System.out.println("Number of data copies: " + data_copies);
 		
 		// Start Jena Fuseki manually and close it after execution.
 		// Running Jena Fuseki at runtime works, however, the performance decreases heavily. 
@@ -73,7 +79,7 @@ public class Shacl2PrologLauncher {
 		
 		long time_two = System.currentTimeMillis();
 		
-		for(int j = 0 ; j<NUMBER_OF_DATA_COPIES ; j++) {
+		for(int j = 0 ; j<data_copies ; j++) {
 			File dir2 = new File(INPUT_DATA);     
 			File[] files2 = dir2.listFiles();
 			for (int i = 0; i < files2.length; i++) {
@@ -189,7 +195,7 @@ public class Shacl2PrologLauncher {
         System.out.println(
         		System.currentTimeMillis()
         		+ ";A"
-        		+ ";" + NUMBER_OF_DATA_COPIES
+        		+ ";" + data_copies
         		+ ";" + (time_one - startTime)
            		+ ";" + (time_two - time_one)
            		+ ";" + (time_three - time_two)
@@ -232,7 +238,7 @@ public class Shacl2PrologLauncher {
             }
         	pw.println(System.currentTimeMillis()
             		+ ";A"
-            		+ ";" + NUMBER_OF_DATA_COPIES
+            		+ ";" + data_copies
             		+ ";" + (time_one - startTime)
                		+ ";" + (time_two - time_one)
                		+ ";" + (time_three - time_two)

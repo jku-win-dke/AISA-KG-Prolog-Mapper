@@ -16,6 +16,9 @@ public class KnowledgeGraphProperty {
 	private KnowledgeGraphClass knowledgeGraphClass;
 	private PropertyShape property;
 	private String name;
+	public boolean isOptional;
+	public boolean isList;
+	
 	public int minCount;
 	public int maxCount;
 	private String nameOfPathWithShortPrefix;
@@ -36,6 +39,8 @@ public class KnowledgeGraphProperty {
 		this.name = getNameOfPath(property.getPath());
 		this.minCount = getMinCount();
 		this.maxCount = getMaxCount();
+		this.isOptional = minCount <= 0;
+		this.isList = maxCount != 1;
 		this.nameOfPathWithShortPrefix = getNameOfPathWithShortPrefix();
 		this.isShaclClass = checkIfPropertyIsShaclClass();
 		
@@ -262,5 +267,13 @@ public class KnowledgeGraphProperty {
 	private String getPrefixMapping(Node node, Shape rootShape) {
 		String prefixMapping = node.toString(rootShape.getShapeGraph().getPrefixMapping());
 		return node.toString().equals(prefixMapping) ? "<" + node.toString() + ">" : prefixMapping;
+	}
+	
+	public String getNameOfPathWithShortPrefixAndQuotation() {
+		String[] mapping = nameOfPathWithShortPrefix.split(":");
+		if(mapping.length == 2) {
+			return mapping[0] + ":'" + mapping[1] + "'";
+		}
+		return nameOfPathWithShortPrefix;
 	}
 }

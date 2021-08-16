@@ -194,7 +194,7 @@ public class KnowledgeGraphClass {
 	 * 
 	 * @return
 	 */
-	private String getShapeType() {
+	public String getShapeType() {
 		String result = "";
 		ExtendedIterator<Triple> tripleIterator = rootShape.getShapeGraph().find(rootShape.getShapeNode(), null, ShaclUtil.shaclNodeShapeAsNode());
 		while(tripleIterator.hasNext()) {
@@ -320,5 +320,22 @@ public class KnowledgeGraphClass {
 	 */
 	public List<KnowledgeGraphProperty> getKnowledgeGraphProperties() {
 		return this.knowledgeGraphProperties;
+	}
+	
+	/**
+	 * Returns the name of the target with short prefix of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: aixm:'Point'
+	 * 
+	 * @return
+	 */
+	public String getNameOfTargetsWithPrefixShortAndQuotation() {
+		String target = "";
+		Collection<Target> targetCollection = rootShape.getTargets();
+		for(Target t : targetCollection) {
+			 target += getPrefixMapping(t.getObject(), rootShape);
+		}
+		String[] split = target.split(":");
+		return split[0] + ":'" + split[1] + "'";
 	}
 }
