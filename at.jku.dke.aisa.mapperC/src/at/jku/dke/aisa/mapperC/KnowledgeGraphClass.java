@@ -188,6 +188,22 @@ public class KnowledgeGraphClass {
 	}
 	
 	/**
+	 * Generates the Prolog rule of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: city(Graph, City, Name, Annotation)
+	 * 
+	 * @return
+	 */
+	public String generatePrologRuleWithoutList(String joinedName) {
+		String rule = getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + (joinedName == null ? StringUtils.capitalize(predicateName) : joinedName);
+		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
+			rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
+		}
+		rule += ")";
+		return rule;
+	}	
+	
+	/**
 	 * Returns the shape type of this KnowledgeGraphClass.
 	 * 
 	 * e.g.: rdf:type

@@ -47,6 +47,14 @@ public class Shacl2PrologLauncher {
 	
 	public static void main(String[] args) {
 		
+		int data_copies = NUMBER_OF_DATA_COPIES;
+		
+		System.out.println(args[0]);
+		if(args != null) {
+			data_copies = Integer.parseInt(args[0]);
+		}
+		System.out.println("Number of data copies: " + data_copies);
+		
 		// can be configured to start jena fuseki server otherwise just start jena fuseki manually
 //		ProcessBuilder builder = new ProcessBuilder("cmd", "/c", this.floraBatchFileInWorkingDir);
 //		builder.directory( new File(this.workingDir) );
@@ -72,7 +80,7 @@ public class Shacl2PrologLauncher {
 		
 		long time_two = System.currentTimeMillis();
 		
-		for(int j = 0 ; j<NUMBER_OF_DATA_COPIES ; j++) {
+		for(int j = 0 ; j<data_copies ; j++) {
 			File dir2 = new File(INPUT_DATA);     
 			File[] files2 = dir2.listFiles();
 			for (int i = 0; i < files2.length; i++) {
@@ -176,7 +184,7 @@ public class Shacl2PrologLauncher {
             }
         	pw.println(System.currentTimeMillis()
             		+ ";B"
-            		+ ";" + NUMBER_OF_DATA_COPIES
+            		+ ";" + data_copies
             		+ ";" + (time_one - startTime)
                		+ ";" + (time_two - time_one)
                		+ ";" + (time_three - time_two)

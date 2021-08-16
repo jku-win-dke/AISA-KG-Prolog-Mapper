@@ -497,7 +497,7 @@ public class Mapper {
 
 	public void generateFactRule(PrintWriter printWriter) {
 		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
-			printWriter.println(knowledgeGraphClass.generatePrologRule(null) + " :-");
+			printWriter.println(knowledgeGraphClass.generatePrologRuleWithoutList(null) + " :-");
 			if(knowledgeGraphClass.isSuperClass) {
 				printWriter.println("  subClassOf(T," + knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndQuotation() + ")");
 				printWriter.print("  ,rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphClass.getShapeType() + ",T,Graph)");
@@ -513,10 +513,8 @@ public class Mapper {
 					printWriter.println("  ,(rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,Graph))");
 					printWriter.println("  ,rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph)");
 					printWriter.print("  ," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=val(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value))");
-				} else if(!knowledgeGraphProperty.isOptional && knowledgeGraphProperty.isList) {
+				} else if(knowledgeGraphProperty.isList) {
 					printWriter.print("  ,findall(A, rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",A,Graph), " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ")");
-				} else if(knowledgeGraphProperty.isOptional && knowledgeGraphProperty.isList) {
-					printWriter.println("TODO");
 				}
 			}
 			printWriter.println(" .");
