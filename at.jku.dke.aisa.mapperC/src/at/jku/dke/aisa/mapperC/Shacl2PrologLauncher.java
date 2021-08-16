@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Shacl2PrologLauncher {
 
+	private static final String PERFORMANCE__RESULTS_CSV = "output/performance_results.csv";
+	
 	private static final int NUMBER_OF_DATA_COPIES = 1;
 	private static final String INPUT_DATA = "input/data";
 	private static final String INPUT_SCHEMA = "input/schema";
@@ -46,6 +48,13 @@ public class Shacl2PrologLauncher {
 	private final static String FACTS_FILE = "output/facts.pl";
 	
 	public static void main(String[] args) {
+		
+		int data_copies = NUMBER_OF_DATA_COPIES;
+		
+		if(args != null && args.length > 0) {
+			data_copies = Integer.parseInt(args[0]);
+		}
+		System.out.println("Number of data copies: " + data_copies);
 		
 		// can be configured to start jena fuseki server otherwise just start jena fuseki manually
 //		ProcessBuilder builder = new ProcessBuilder("cmd", "/c", this.floraBatchFileInWorkingDir);
@@ -72,7 +81,7 @@ public class Shacl2PrologLauncher {
 		
 		long time_two = System.currentTimeMillis();
 		
-		for(int j = 0 ; j<NUMBER_OF_DATA_COPIES ; j++) {
+		for(int j = 0 ; j<data_copies ; j++) {
 			File dir2 = new File(INPUT_DATA);     
 			File[] files2 = dir2.listFiles();
 			for (int i = 0; i < files2.length; i++) {
@@ -90,7 +99,7 @@ public class Shacl2PrologLauncher {
 		
 		Dataset data = fuseki.fetchDataset();
 		
-		try(FileOutputStream fileOutputStream = new FileOutputStream("output/dataset.trig", true)) {
+		try(FileOutputStream fileOutputStream = new FileOutputStream("output/dataset.trig", false)) {
 
 			RDFDataMgr.write(fileOutputStream, data,  Lang.TRIG);
 			
@@ -119,9 +128,6 @@ public class Shacl2PrologLauncher {
 			mapper.printRDFMeta(printWriter);
 			mapper.printSubClassOfRules(printWriter, SCHEMA_GRAPH_NAME);
 			
-			// TODO query executer durch mapping rule generation
-//			QueryExecuter queryExecuter = new QueryExecuter(SPARQL_FILE, fuseki, mapper, printWriter);
-//			queryExecuter.execute();
 			mapper.generateFactRule(printWriter);
 			
 			mapper.printInheritanceRules(printWriter);
@@ -132,25 +138,21 @@ public class Shacl2PrologLauncher {
 		} finally {
 			LOGGER.debug("SPARQL2Prolog mapping completed. Result can be found in " + FACTS_FILE);
 		}
-		/*
-		long time_seven = System.currentTimeMillis();
-
+		
+		long time_six = System.currentTimeMillis();
         
 		new Query("consult('output/program.pl')").hasSolution();
 		
-		long time_eight = System.currentTimeMillis();
+		long time_seven = System.currentTimeMillis();
 		
 		new Query("run").hasSolution();
 		
-		long time_nine = System.currentTimeMillis();
+		long time_eight = System.currentTimeMillis();
 		
 		new Query("save").hasSolution();
-
-		long time_ten = System.currentTimeMillis();
-
-
 		
-		
+		long time_nine = System.currentTimeMillis();
+				
 		fuseki.load("http://ex.org/new", "output/output.ttl");
 
         long endTime = System.currentTimeMillis();        
@@ -161,12 +163,11 @@ public class Shacl2PrologLauncher {
         System.out.println("Loading data files: " + (time_three - time_two));
         System.out.println("Fetching shacl schema: " + (time_four - time_three));
         System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_five - time_four));
-        System.out.println("Creating SPARQL file: " + (time_six - time_five));
-        System.out.println("Executing SPARQL queries and creating Prolog facts: " + (time_seven - time_six));
-        System.out.println("Consult Program: " + (time_eight - time_seven));
-        System.out.println("Invoke run/0 in Prolog: " + (time_nine - time_eight));
-        System.out.println("Invoke save/0 in Prolog: " + (time_ten - time_nine));
-        System.out.println("Load saved results to Fuseki: " + (endTime - time_ten));
+        System.out.println("Creating facts file: " + (time_six - time_five));
+        System.out.println("Consult Program: " + (time_seven - time_six));
+        System.out.println("Invoke run/0 in Prolog: " + (time_eight - time_seven));
+        System.out.println("Invoke save/0 in Prolog: " + (time_nine - time_eight));
+        System.out.println("Load saved results to Fuseki: " + (endTime - time_nine));
         System.out.println();
         System.out.println("Execution time in milliseconds: " + timeElapsed);        
         
@@ -174,24 +175,50 @@ public class Shacl2PrologLauncher {
         fuseki.fetch("http://ex.org/new").write(System.out, "TURTLE");
         
 
-        /* in ein Log-File schreiben und dann in z.B. Excel auswerten 
-        System.out.println(
-        		System.currentTimeMillis()
-        		+ ";A"
-        		+ ";" + NUMBER_OF_DATA_COPIES
-        		+ ";" + (time_one - startTime)
-           		+ ";" + (time_two - time_one)
-           		+ ";" + (time_three - time_two)
-           		+ ";" + (time_four - time_three)
-           		+ ";" + (time_five - time_four)
-           		+ ";" + (time_six - time_five)
-           		+ ";" + (time_seven - time_six)
-           		+ ";" + (time_eight - time_seven)
-           		+ ";" + (time_nine - time_eight)
-           		+ ";" + (time_ten - time_nine)
-           		+ ";" + timeElapsed);
-        
-        */
+        File performance_results_csv_file = new File(PERFORMANCE__RESULTS_CSV);
+        boolean isFileNewlyCreated = false;
+        try {
+        	isFileNewlyCreated = performance_results_csv_file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(performance_results_csv_file, true))) {
+            if(isFileNewlyCreated) {
+            	pw.println(
+            			"Current time milliseconds" //
+            			+ ";" + "Mapping Variant" //
+            			+ ";" + "Number of data copies" //
+            			+ ";" + "Jena Fuseki connection establishment" //
+            			+ ";" + "Loading shacl schema files" //
+            			+ ";" + "Loading data files" //
+            			+ ";" + "Fetching shacl schema" //
+            			+ ";" + "Creating KnowledgeGraphClasses and KnowledgeGraphProperties" //
+            			+ ";" + "Creating facts file" //
+            			+ ";" + "Consult Program" //
+            			+ ";" + "Invoke run/0 in Prolog" //
+            			+ ";" + "Invoke save/0 in Prolog" //
+            			+ ";" + "Load saved results to Fuseki" //
+            			+ ";" + "Execution time in milliseconds" //
+            			);
+            }
+        	pw.println(System.currentTimeMillis()
+            		+ ";C"
+            		+ ";" + data_copies
+            		+ ";" + (time_one - startTime)
+               		+ ";" + (time_two - time_one)
+               		+ ";" + (time_three - time_two)
+               		+ ";" + (time_four - time_three)
+               		+ ";" + (time_five - time_four)
+               		+ ";" + (time_six - time_five)
+               		+ ";" + (time_seven - time_six)
+               		+ ";" + (time_eight - time_seven)
+               		+ ";" + (time_nine - time_eight)
+               		+ ";" + timeElapsed);
+        } catch (FileNotFoundException e) {
+			String message = String.format("File %s could not be found.", PERFORMANCE__RESULTS_CSV);
+			LOGGER.debug(message);
+		}
 	}
 
 	/**
@@ -205,21 +232,6 @@ public class Shacl2PrologLauncher {
 				// delete old content of generated file
 				new PrintWriter(name).close();
 			}
-		} catch (FileNotFoundException e) {
-			String message = String.format("File %s coult not be found.", name);
-			LOGGER.debug(message);
-		} catch (IOException e) {
-			String message = String.format("Error when creating %s.", name);
-			LOGGER.debug(message);
-		}
-		return file;
-	}
-	
-	private static FileOutputStream createFileOutputStream(String name) throws FileNotFoundException {
-		FileOutputStream file = new FileOutputStream(name);
-		try {
-			// delete old content of generated file
-			new PrintWriter(name).close();
 		} catch (FileNotFoundException e) {
 			String message = String.format("File %s coult not be found.", name);
 			LOGGER.debug(message);

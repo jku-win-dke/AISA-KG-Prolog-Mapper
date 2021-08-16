@@ -9,4 +9,4 @@ run :-
   .
   
 save :- 
-  rdf_save_turtle( 'C:/Users/neumayr/git/AISA-KG-Prolog-Mapper/at.jku.dke.aisa.mapperA/output/output.ttl', [graph('http://ex.org/output')] ).
+  rdf_save_turtle( 'output/output.ttl', [graph('http://ex.org/output')] ).
