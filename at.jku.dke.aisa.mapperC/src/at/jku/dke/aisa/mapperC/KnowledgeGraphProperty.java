@@ -22,7 +22,7 @@ public class KnowledgeGraphProperty {
 	public int minCount;
 	public int maxCount;
 	private String nameOfPathWithShortPrefix;
-	private boolean isShaclClass;
+	public boolean isShaclClass;
 	
 	private String selectFragment;
 	private String whereFragment;

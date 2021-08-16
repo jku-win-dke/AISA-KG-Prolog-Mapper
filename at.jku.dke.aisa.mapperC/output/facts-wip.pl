@@ -507,8 +507,30 @@ aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibil
        )
      )
      
-   ) 
+   )
+    ,(
+    ( rdf( AirportHeliportResponsibilityOrganisation,aixm:'theOrganisationAuthority',_TheOrganisationAuthority,Graph )
+    );
+  ( rdf( TheOrganisationAuthority,aixm:'theOrganisationAuthority',TheOrganisationAuthorityNode,Graph )),
+      (
+        (
+          rdf(TheOrganisationAuthorityNode,rdf:value,TheOrganisationAuthorityValue,Graph),
+         \+ ( rdf( TheOrganisationAuthorityNode, aixm:uom, _TheOrganisationAuthorityUOM, Graph ); rdf( TheOrganisationAuthorityNode, fixm:uom, _TheOrganisationAuthorityUOM, Graph ); rdf( TheOrganisationAuthorityNode, plain:uom, _TheOrganisationAuthorityUOM, Graph ) ),
+          TheOrganisationAuthority=val(TheOrganisationAuthorityValue)
+        );
+        (
+          rdf( TheOrganisationAuthorityNode,rdf:value,TheOrganisationAuthorityValue,Graph ),
+          ( rdf( TheOrganisationAuthorityNode, aixm:uom, UOM, Graph ); rdf( TheOrganisationAuthorityNode, fixm:uom, UOM, Graph ); rdf( TheOrganisationAuthorityNode, plain:uom, UOM, Graph ) ),
+          TheOrganisationAuthority=xval(TheOrganisationAuthorityValue,UOM)
+        );
+        (
+          rdf( TheOrganisationAuthorityNode,aixm:nilReason, NilReason, Graph ),
+          TheOrganisationAuthority=nil(NilReason)
+        )
+      )
+  )
 .
+  
   
 subClassOf(X,Y) :-
   rdf(X,rdfs:subClassOf,Y,'https://github.com/jku-win-dke/aisa/graphs/schema') .
