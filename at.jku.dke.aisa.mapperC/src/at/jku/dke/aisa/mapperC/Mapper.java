@@ -509,10 +509,42 @@ public class Mapper {
 				if(!knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
 					printWriter.print("  ,rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph)");
 				} else if(knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
+					
+					printWriter.println("  ,(");
+					printWriter.println("    ( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "='$null$',");
+					printWriter.println("      \\+ rdf( " + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",_" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph )");
+					printWriter.println("    );");
+					printWriter.println("  ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,Graph )),");
+					printWriter.println("      (");
+					
+					printWriter.println("        (");
+					printWriter.println("          rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph),");
+					printWriter.println("         \\+ ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, _" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, _" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, _" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ) ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=val(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value)");
+					printWriter.println("        );");
+					
+					printWriter.println("        (");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph ),");
+					printWriter.println("          ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, UOM, Graph ) ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=xval(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,UOM)");
+					printWriter.println("        );");
+					
+					printWriter.println("        (");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, NilReason, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(NilReason)");
+					printWriter.println("        )");
+					
+					printWriter.println("      )");
+					printWriter.print("  )");
+					
+					/*
 					printWriter.println("  ,((" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "='$null$',\\+ rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",_" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph))");
 					printWriter.println("  ,(rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,Graph))");
 					printWriter.println("  ,rdf(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph)");
 					printWriter.print("  ," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=val(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value))");
+					*/
+					
+					
 				} else if(knowledgeGraphProperty.isList) {
 					printWriter.print("  ,findall(A, rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ",A,Graph), " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ")");
 				}

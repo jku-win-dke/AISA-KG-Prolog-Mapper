@@ -484,10 +484,31 @@ see: https://www.swi-prolog.org/pldoc/man?predicate=rdf_meta/1
 aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority) :-
   rdf(AirportHeliportResponsibilityOrganisation,aixm:'theOrganisationAuthority',TheOrganisationAuthority,Graph),
   rdf(AirportHeliportResponsibilityOrganisation,rdf:type,aixm:'AirportHeliportResponsibilityOrganisation',Graph),
-  ((Role='$null$',\+ rdf(AirportHeliportResponsibilityOrganisation,aixm:'role',_Role,Graph));
-  (rdf(AirportHeliportResponsibilityOrganisation,aixm:'role',RoleNode,Graph)),
-  rdf(RoleNode,rdf:value,RoleValue,Graph),
-  Role=val(RoleValue)) .
+  
+  ( 
+   ( Role='$null$',
+     \+ rdf(AirportHeliportResponsibilityOrganisation, aixm:'role', _Role, Graph )
+   );
+   ( rdf( AirportHeliportResponsibilityOrganisation, aixm:'role', RoleNode, Graph )),
+     (
+       (   
+         rdf( RoleNode, rdf:value, RoleValue, Graph ),
+         \+ ( rdf( RoleNode, aixm:uom, _UOM, Graph ); rdf( RoleNode, fixm:uom, _UOM, Graph ); rdf( RoleNode, plain:uom, _UOM, Graph ) ), 
+         Role = val(RoleValue)
+       );
+       (   
+         rdf( RoleNode, rdf:value, RoleValue, Graph ),
+         ( rdf( RoleNode, aixm:uom, UOM, Graph ); rdf( RoleNode, fixm:uom, UOM, Graph ); rdf( RoleNode, plain:uom, UOM, Graph ) ), 
+         Role = xval(RoleValue,UOM)
+       );
+       (   
+         rdf( RoleNode, aixm:nilReason, NilReason, Graph ),
+         Role = nil(NilReason)
+       )
+     )
+     
+   ) 
+.
   
 subClassOf(X,Y) :-
   rdf(X,rdfs:subClassOf,Y,'https://github.com/jku-win-dke/aisa/graphs/schema') .
@@ -502,6 +523,6 @@ subClassOf(X,Y) :-
 aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation, SpecialDateAuthority, TimeInterval) :-
   subClassOf(T,aixm:'PropertiesWithSchedule'),
   rdf(PropertiesWithSchedule,rdf:type,T,Graph),
-  (SpecialDateAuthority='$null$'),
-  (TimeInterval='$null$'),
+  findall(A, rdf(PropertiesWithSchedule,aixm:'specialDateAuthority',A,Graph), SpecialDateAuthority),
+  findall(A, rdf(PropertiesWithSchedule,aixm:'timeInterval',A,Graph), TimeInterval),
   findall(A, rdf(PropertiesWithSchedule,aixm:'annotation',A,Graph), Annotation) .
