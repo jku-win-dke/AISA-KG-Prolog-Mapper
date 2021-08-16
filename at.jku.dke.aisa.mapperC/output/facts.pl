@@ -746,18 +746,14 @@ aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
         )
       )
   )
-  ,( TranslatedNote='$null$',
-    \+ rdf( Note,aixm:'translatedNote', _TranslatedNote, Graph )
-  ) .
+  ,findall(A, rdf(Note,aixm:'translatedNote',A,Graph), TranslatedNote) .
 
 fixm_Pointout(Graph, Pointout, OriginatingUnit, ReceivingUnit) :-
   rdf(Pointout,rdf:type,fixm:'Pointout',Graph)
   ,( OriginatingUnit='$null$',
     \+ rdf( Pointout,fixm:'originatingUnit', _OriginatingUnit, Graph )
   )
-  ,( ReceivingUnit='$null$',
-    \+ rdf( Pointout,fixm:'receivingUnit', _ReceivingUnit, Graph )
-  ) .
+  ,findall(A, rdf(Pointout,fixm:'receivingUnit',A,Graph), ReceivingUnit) .
 
 fixm_VerticalRange(Graph, VerticalRange, LowerBound, UpperBound) :-
   rdf(VerticalRange,rdf:type,fixm:'VerticalRange',Graph)
@@ -852,9 +848,7 @@ fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime
         )
       )
   )
-  ,( Constraint='$null$',
-    \+ rdf( ExpandedRoutePoint,fixm:'constraint', _Constraint, Graph )
-  ) .
+  ,findall(A, rdf(ExpandedRoutePoint,fixm:'constraint',A,Graph), Constraint) .
 
 aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   rdf(ElevatedSurface,rdf:type,aixm:'ElevatedSurface',Graph)
@@ -1118,18 +1112,10 @@ aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, 
         )
       )
   )
-  ,( Flight='$null$',
-    \+ rdf( ConditionCombination,aixm:'flight', _Flight, Graph )
-  )
-  ,( Aircraft='$null$',
-    \+ rdf( ConditionCombination,aixm:'aircraft', _Aircraft, Graph )
-  )
-  ,( Weather='$null$',
-    \+ rdf( ConditionCombination,aixm:'weather', _Weather, Graph )
-  )
-  ,( SubCondition='$null$',
-    \+ rdf( ConditionCombination,aixm:'subCondition', _SubCondition, Graph )
-  ) .
+  ,findall(A, rdf(ConditionCombination,aixm:'flight',A,Graph), Flight)
+  ,findall(A, rdf(ConditionCombination,aixm:'aircraft',A,Graph), Aircraft)
+  ,findall(A, rdf(ConditionCombination,aixm:'weather',A,Graph), Weather)
+  ,findall(A, rdf(ConditionCombination,aixm:'subCondition',A,Graph), SubCondition) .
 
 aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Type, Extent, Annotation) :-
   rdf(SurfaceContaminationLayer,rdf:type,aixm:'SurfaceContaminationLayer',Graph)
@@ -1177,12 +1163,8 @@ aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Typ
         )
       )
   )
-  ,( Extent='$null$',
-    \+ rdf( SurfaceContaminationLayer,aixm:'extent', _Extent, Graph )
-  )
-  ,( Annotation='$null$',
-    \+ rdf( SurfaceContaminationLayer,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(SurfaceContaminationLayer,aixm:'extent',A,Graph), Extent)
+  ,findall(A, rdf(SurfaceContaminationLayer,aixm:'annotation',A,Graph), Annotation) .
 
 fixm_Organization(Graph, Organization, Name, OtherOrganization, Contact) :-
   rdf(Organization,rdf:type,fixm:'Organization',Graph)
@@ -1258,9 +1240,7 @@ aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, T
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( OrganisationAuthorityAssociation,aixm:'annotation', _Annotation, Graph )
-  )
+  ,findall(A, rdf(OrganisationAuthorityAssociation,aixm:'annotation',A,Graph), Annotation)
   ,rdf(OrganisationAuthorityAssociation,aixm:'theOrganisationAuthority',TheOrganisationAuthority,Graph) .
 
 aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
@@ -1416,9 +1396,7 @@ fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair) :-
 
 fixm_RoutePoint(Graph, RoutePoint, Constraint) :-
   rdf(RoutePoint,rdf:type,fixm:'RoutePoint',Graph)
-  ,( Constraint='$null$',
-    \+ rdf( RoutePoint,fixm:'constraint', _Constraint, Graph )
-  ) .
+  ,findall(A, rdf(RoutePoint,fixm:'constraint',A,Graph), Constraint) .
 
 fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, PreviousBeaconCode, ReassignedBeaconCode, ReassigningUnit) :-
   rdf(BeaconCodeAssignment,rdf:type,fixm:'BeaconCodeAssignment',Graph)
@@ -1494,18 +1472,12 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
 
 fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfile, DescentProfile) :-
   rdf(FlightPerformanceData,rdf:type,fixm:'FlightPerformanceData',Graph)
-  ,( ClimbProfile='$null$',
-    \+ rdf( FlightPerformanceData,fixm:'climbProfile', _ClimbProfile, Graph )
-  )
-  ,( DescentProfile='$null$',
-    \+ rdf( FlightPerformanceData,fixm:'descentProfile', _DescentProfile, Graph )
-  ) .
+  ,findall(A, rdf(FlightPerformanceData,fixm:'climbProfile',A,Graph), ClimbProfile)
+  ,findall(A, rdf(FlightPerformanceData,fixm:'descentProfile',A,Graph), DescentProfile) .
 
 fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint) :-
   rdf(ExpandedRoute,rdf:type,fixm:'ExpandedRoute',Graph)
-  ,( RoutePoint='$null$',
-    \+ rdf( ExpandedRoute,fixm:'routePoint', _RoutePoint, Graph )
-  ) .
+  ,findall(A, rdf(ExpandedRoute,fixm:'routePoint',A,Graph), RoutePoint) .
 
 fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintType) :-
   rdf(RouteConstraintOrPreference,rdf:type,fixm:'RouteConstraintOrPreference',Graph)
@@ -1840,9 +1812,7 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( Meteorology,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(Meteorology,aixm:'annotation',A,Graph), Annotation) .
 
 fixm_PointRange(Graph, PointRange, LateralRange, VerticalRange, TemporalRange) :-
   rdf(PointRange,rdf:type,fixm:'PointRange',Graph)
@@ -1880,9 +1850,7 @@ aixm_City(Graph, City, Name, Annotation) :-
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( City,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(City,aixm:'annotation',A,Graph), Annotation) .
 
 aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority) :-
   rdf(AirportHeliportResponsibilityOrganisation,rdf:type,aixm:'AirportHeliportResponsibilityOrganisation',Graph)
@@ -2438,18 +2406,10 @@ aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, Netw
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( ContactInformation,aixm:'annotation', _Annotation, Graph )
-  )
-  ,( NetworkNode='$null$',
-    \+ rdf( ContactInformation,aixm:'networkNode', _NetworkNode, Graph )
-  )
-  ,( Address='$null$',
-    \+ rdf( ContactInformation,aixm:'address', _Address, Graph )
-  )
-  ,( PhoneFax='$null$',
-    \+ rdf( ContactInformation,aixm:'phoneFax', _PhoneFax, Graph )
-  ) .
+  ,findall(A, rdf(ContactInformation,aixm:'annotation',A,Graph), Annotation)
+  ,findall(A, rdf(ContactInformation,aixm:'networkNode',A,Graph), NetworkNode)
+  ,findall(A, rdf(ContactInformation,aixm:'address',A,Graph), Address)
+  ,findall(A, rdf(ContactInformation,aixm:'phoneFax',A,Graph), PhoneFax) .
 
 fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position, PositionAltitude, PositionEstimatedTime) :-
   rdf(PlannedReportingPosition,rdf:type,fixm:'PlannedReportingPosition',Graph)
@@ -2669,9 +2629,7 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         )
       )
   )
-  ,( PackageGroup='$null$',
-    \+ rdf( DangerousGoods,fixm:'packageGroup', _PackageGroup, Graph )
-  )
+  ,findall(A, rdf(DangerousGoods,fixm:'packageGroup',A,Graph), PackageGroup)
   ,( ShippingInformation='$null$',
     \+ rdf( DangerousGoods,fixm:'shippingInformation', _ShippingInformation, Graph )
   ) .
@@ -2681,9 +2639,7 @@ fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimen
   ,( ShipmentDimensions='$null$',
     \+ rdf( DangerousGoodsPackageGroup,fixm:'shipmentDimensions', _ShipmentDimensions, Graph )
   )
-  ,( DangerousGoodsPackage='$null$',
-    \+ rdf( DangerousGoodsPackageGroup,fixm:'dangerousGoodsPackage', _DangerousGoodsPackage, Graph )
-  )
+  ,findall(A, rdf(DangerousGoodsPackageGroup,fixm:'dangerousGoodsPackage',A,Graph), DangerousGoodsPackage)
   ,(
     ( ShipmentUseIndicator='$null$',
       \+ rdf( DangerousGoodsPackageGroup,fixm:'shipmentUseIndicator',_ShipmentUseIndicator,Graph )
@@ -3444,33 +3400,21 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         )
       )
   )
-  ,( Contact='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'contact', _Contact, Graph )
-  )
-  ,( Annotation='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'annotation', _Annotation, Graph )
-  )
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'contact',A,Graph), Contact)
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'annotation',A,Graph), Annotation)
   ,( ARP='$null$',
     \+ rdf( AirportHeliportTimeSlice,aixm:'ARP', _ARP, Graph )
   )
-  ,( AltimeterSource='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'altimeterSource', _AltimeterSource, Graph )
-  )
-  ,( Contaminant='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'contaminant', _Contaminant, Graph )
-  )
-  ,( ServedCity='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'servedCity', _ServedCity, Graph )
-  )
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'altimeterSource',A,Graph), AltimeterSource)
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'contaminant',A,Graph), Contaminant)
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'servedCity',A,Graph), ServedCity)
   ,( ResponsibleOrganisation='$null$',
     \+ rdf( AirportHeliportTimeSlice,aixm:'responsibleOrganisation', _ResponsibleOrganisation, Graph )
   )
   ,( AviationBoundary='$null$',
     \+ rdf( AirportHeliportTimeSlice,aixm:'aviationBoundary', _AviationBoundary, Graph )
   )
-  ,( Availability='$null$',
-    \+ rdf( AirportHeliportTimeSlice,aixm:'availability', _Availability, Graph )
-  ) .
+  ,findall(A, rdf(AirportHeliportTimeSlice,aixm:'availability',A,Graph), Availability) .
 
 fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange) :-
   subClassOf(T,fixm:'Point4D')
@@ -3686,9 +3630,7 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( Ridge,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(Ridge,aixm:'annotation',A,Graph), Annotation) .
 
 fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTime, DeIcingTime, GroundHandlingTime, StartupTime) :-
   rdf(DepartureActivityTimes,rdf:type,fixm:'DepartureActivityTimes',Graph)
@@ -3902,9 +3844,7 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
   ,( ControllingUnit='$null$',
     \+ rdf( Flight,fixm:'controllingUnit', _ControllingUnit, Graph )
   )
-  ,( Extensions='$null$',
-    \+ rdf( Flight,fixm:'extensions', _Extensions, Graph )
-  )
+  ,findall(A, rdf(Flight,fixm:'extensions',A,Graph), Extensions)
   ,(
     ( FlightFiler='$null$',
       \+ rdf( Flight,fixm:'flightFiler',_FlightFiler,Graph )
@@ -3974,12 +3914,8 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
   ,( AircraftDescription='$null$',
     \+ rdf( Flight,fixm:'aircraftDescription', _AircraftDescription, Graph )
   )
-  ,( DangerousGoods='$null$',
-    \+ rdf( Flight,fixm:'dangerousGoods', _DangerousGoods, Graph )
-  )
-  ,( RankedTrajectories='$null$',
-    \+ rdf( Flight,fixm:'rankedTrajectories', _RankedTrajectories, Graph )
-  )
+  ,findall(A, rdf(Flight,fixm:'dangerousGoods',A,Graph), DangerousGoods)
+  ,findall(A, rdf(Flight,fixm:'rankedTrajectories',A,Graph), RankedTrajectories)
   ,( RouteToRevisedDestination='$null$',
     \+ rdf( Flight,fixm:'routeToRevisedDestination', _RouteToRevisedDestination, Graph )
   )
@@ -4068,20 +4004,14 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
 aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation, SpecialDateAuthority, TimeInterval) :-
   subClassOf(T,aixm:'PropertiesWithSchedule')
   ,rdf(PropertiesWithSchedule,rdf:type,T,Graph)
-  ,( Annotation='$null$',
-    \+ rdf( PropertiesWithSchedule,aixm:'annotation', _Annotation, Graph )
-  )
-  ,( SpecialDateAuthority='$null$',
-    \+ rdf( PropertiesWithSchedule,aixm:'specialDateAuthority', _SpecialDateAuthority, Graph )
-  )
-  ,( TimeInterval='$null$',
-    \+ rdf( PropertiesWithSchedule,aixm:'timeInterval', _TimeInterval, Graph )
-  ) .
+  ,findall(A, rdf(PropertiesWithSchedule,aixm:'annotation',A,Graph), Annotation)
+  ,findall(A, rdf(PropertiesWithSchedule,aixm:'specialDateAuthority',A,Graph), SpecialDateAuthority)
+  ,findall(A, rdf(PropertiesWithSchedule,aixm:'timeInterval',A,Graph), TimeInterval) .
 
 gml_Surface(Graph, Surface, Patch) :-
   subClassOf(T,gml:'Surface')
   ,rdf(Surface,rdf:type,T,Graph)
-  ,rdf(Surface,aixm:'patch',Patch,Graph) .
+  ,findall(A, rdf(Surface,aixm:'patch',A,Graph), Patch) .
 
 fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevel, ClearedSpeed, Heading, OfftrackClearance, RateOfClimbDescend, DirectRouting) :-
   rdf(ClearedFlightInformation,rdf:type,fixm:'ClearedFlightInformation',Graph)
@@ -4453,15 +4383,9 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         )
       )
   )
-  ,( CriticalRidge='$null$',
-    \+ rdf( SurfaceContamination,aixm:'criticalRidge', _CriticalRidge, Graph )
-  )
-  ,( Annotation='$null$',
-    \+ rdf( SurfaceContamination,aixm:'annotation', _Annotation, Graph )
-  )
-  ,( Layer='$null$',
-    \+ rdf( SurfaceContamination,aixm:'layer', _Layer, Graph )
-  ) .
+  ,findall(A, rdf(SurfaceContamination,aixm:'criticalRidge',A,Graph), CriticalRidge)
+  ,findall(A, rdf(SurfaceContamination,aixm:'annotation',A,Graph), Annotation)
+  ,findall(A, rdf(SurfaceContamination,aixm:'layer',A,Graph), Layer) .
 
 fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, WindSpeed) :-
   rdf(MeteorologicalData,rdf:type,fixm:'MeteorologicalData',Graph)
@@ -4534,9 +4458,7 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
 
 aixm_OrganisationAuthority(Graph, OrganisationAuthority, TimeSlice) :-
   rdf(OrganisationAuthority,rdf:type,aixm:'OrganisationAuthority',Graph)
-  ,( TimeSlice='$null$',
-    \+ rdf( OrganisationAuthority,aixm:'timeSlice', _TimeSlice, Graph )
-  ) .
+  ,findall(A, rdf(OrganisationAuthority,aixm:'timeSlice',A,Graph), TimeSlice) .
 
 fixm_TelephoneContact(Graph, TelephoneContact, Voice, Facimile) :-
   rdf(TelephoneContact,rdf:type,fixm:'TelephoneContact',Graph)
@@ -5128,9 +5050,7 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         )
       )
   )
-  ,( EstimatedElapsedTime='$null$',
-    \+ rdf( Route,fixm:'estimatedElapsedTime', _EstimatedElapsedTime, Graph )
-  )
+  ,findall(A, rdf(Route,fixm:'estimatedElapsedTime',A,Graph), EstimatedElapsedTime)
   ,( ExpandedRoute='$null$',
     \+ rdf( Route,fixm:'expandedRoute', _ExpandedRoute, Graph )
   )
@@ -5140,9 +5060,7 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
   ,( DescentSchedule='$null$',
     \+ rdf( Route,fixm:'descentSchedule', _DescentSchedule, Graph )
   )
-  ,( Segment='$null$',
-    \+ rdf( Route,fixm:'segment', _Segment, Graph )
-  ) .
+  ,findall(A, rdf(Route,fixm:'segment',A,Graph), Segment) .
 
 fixm_Person(Graph, Person, Name, Contact) :-
   rdf(Person,rdf:type,fixm:'Person',Graph)
@@ -6108,9 +6026,7 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( Timesheet,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(Timesheet,aixm:'annotation',A,Graph), Annotation) .
 
 gml_SurfacePatch(Graph, SurfacePatch) :-
   subClassOf(T,gml:'SurfacePatch')
@@ -6260,9 +6176,7 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( FlightCharacteristic,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(FlightCharacteristic,aixm:'annotation',A,Graph), Annotation) .
 
 fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
   rdf(Provenance,rdf:type,fixm:'Provenance',Graph)
@@ -6357,9 +6271,7 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
 
 aixm_AirportHeliport(Graph, AirportHeliport, TimeSlice) :-
   rdf(AirportHeliport,rdf:type,aixm:'AirportHeliport',Graph)
-  ,( TimeSlice='$null$',
-    \+ rdf( AirportHeliport,aixm:'timeSlice', _TimeSlice, Graph )
-  ) .
+  ,findall(A, rdf(AirportHeliport,aixm:'timeSlice',A,Graph), TimeSlice) .
 
 fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChange, TrajectoryChangeType, ReferencePoint) :-
   subClassOf(T,fixm:'TrajectoryPoint')
@@ -6436,9 +6348,7 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
   ,( Point='$null$',
     \+ rdf( TrajectoryPoint,fixm:'point', _Point, Graph )
   )
-  ,( TrajectoryChange='$null$',
-    \+ rdf( TrajectoryPoint,fixm:'trajectoryChange', _TrajectoryChange, Graph )
-  )
+  ,findall(A, rdf(TrajectoryPoint,fixm:'trajectoryChange',A,Graph), TrajectoryChange)
   ,findall(A, rdf(TrajectoryPoint,fixm:'trajectoryChangeType',A,Graph), TrajectoryChangeType)
   ,( ReferencePoint='$null$',
     \+ rdf( TrajectoryPoint,fixm:'referencePoint', _ReferencePoint, Graph )
@@ -6865,9 +6775,7 @@ aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation) :-
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( Surface,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(Surface,aixm:'annotation',A,Graph), Annotation) .
 
 gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition) :-
   rdf(TimePeriod,rdf:type,gml:'TimePeriod',Graph)
@@ -7084,21 +6992,13 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( OrganisationAuthorityTimeSlice,aixm:'annotation', _Annotation, Graph )
-  )
-  ,( Contact='$null$',
-    \+ rdf( OrganisationAuthorityTimeSlice,aixm:'contact', _Contact, Graph )
-  )
-  ,( RelatedOrganisationAuthority='$null$',
-    \+ rdf( OrganisationAuthorityTimeSlice,aixm:'relatedOrganisationAuthority', _RelatedOrganisationAuthority, Graph )
-  ) .
+  ,findall(A, rdf(OrganisationAuthorityTimeSlice,aixm:'annotation',A,Graph), Annotation)
+  ,findall(A, rdf(OrganisationAuthorityTimeSlice,aixm:'contact',A,Graph), Contact)
+  ,findall(A, rdf(OrganisationAuthorityTimeSlice,aixm:'relatedOrganisationAuthority',A,Graph), RelatedOrganisationAuthority) .
 
 fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCrossings, CpdlcConnection, BeaconCodeAssignment, Cleared, ControlElement, Pointout, Position) :-
   rdf(EnRoute,rdf:type,fixm:'EnRoute',Graph)
-  ,( AlternateAerodrome='$null$',
-    \+ rdf( EnRoute,fixm:'alternateAerodrome', _AlternateAerodrome, Graph )
-  )
+  ,findall(A, rdf(EnRoute,fixm:'alternateAerodrome',A,Graph), AlternateAerodrome)
   ,(
     ( FleetPrioritization='$null$',
       \+ rdf( EnRoute,fixm:'fleetPrioritization',_FleetPrioritization,Graph )
@@ -7121,9 +7021,7 @@ fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCr
         )
       )
   )
-  ,( BoundaryCrossings='$null$',
-    \+ rdf( EnRoute,fixm:'boundaryCrossings', _BoundaryCrossings, Graph )
-  )
+  ,findall(A, rdf(EnRoute,fixm:'boundaryCrossings',A,Graph), BoundaryCrossings)
   ,( CpdlcConnection='$null$',
     \+ rdf( EnRoute,fixm:'cpdlcConnection', _CpdlcConnection, Graph )
   )
@@ -7190,9 +7088,7 @@ fixm_FlightLevel(Graph, FlightLevel, Level, Unit) :-
 
 fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason) :-
   rdf(LateralOfftrack,rdf:type,fixm:'LateralOfftrack',Graph)
-  ,( OfftrackDistance='$null$',
-    \+ rdf( LateralOfftrack,fixm:'offtrackDistance', _OfftrackDistance, Graph )
-  )
+  ,findall(A, rdf(LateralOfftrack,fixm:'offtrackDistance',A,Graph), OfftrackDistance)
   ,(
     ( OfftrackReason='$null$',
       \+ rdf( LateralOfftrack,fixm:'offtrackReason',_OfftrackReason,Graph )
@@ -7639,9 +7535,7 @@ fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillance
 
 fixm_Trajectory(Graph, Trajectory, TrajectoryPoint) :-
   rdf(Trajectory,rdf:type,fixm:'Trajectory',Graph)
-  ,( TrajectoryPoint='$null$',
-    \+ rdf( Trajectory,fixm:'trajectoryPoint', _TrajectoryPoint, Graph )
-  ) .
+  ,findall(A, rdf(Trajectory,fixm:'trajectoryPoint',A,Graph), TrajectoryPoint) .
 
 aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrimary, Availability, Annotation) :-
   rdf(AltimeterSourceTimeSlice,rdf:type,aixm:'AltimeterSourceTimeSlice',Graph)
@@ -7689,12 +7583,8 @@ aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrima
         )
       )
   )
-  ,( Availability='$null$',
-    \+ rdf( AltimeterSourceTimeSlice,aixm:'availability', _Availability, Graph )
-  )
-  ,( Annotation='$null$',
-    \+ rdf( AltimeterSourceTimeSlice,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(AltimeterSourceTimeSlice,aixm:'availability',A,Graph), Availability)
+  ,findall(A, rdf(AltimeterSourceTimeSlice,aixm:'annotation',A,Graph), Annotation) .
 
 aixm_Point(Graph, Point, HorizontalAccuracy, Annotation) :-
   subClassOf(T,aixm:'Point')
@@ -7721,9 +7611,7 @@ aixm_Point(Graph, Point, HorizontalAccuracy, Annotation) :-
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( Point,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(Point,aixm:'annotation',A,Graph), Annotation) .
 
 aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberEngine, TypeAircraftICAO, AircraftLandingCategory, WingSpan, WingSpanInterpretation, ClassWingSpan, Weight, WeightInterpretation, Passengers, PassengersInterpretation, Speed, SpeedInterpretation, WakeTurbulence, NavigationEquipment, NavigationSpecification, VerticalSeparationCapability, AntiCollisionAndSeparationEquipment, CommunicationEquipment, SurveillanceEquipment, Annotation) :-
   rdf(AircraftCharacteristic,rdf:type,aixm:'AircraftCharacteristic',Graph)
@@ -8189,9 +8077,7 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         )
       )
   )
-  ,( Annotation='$null$',
-    \+ rdf( AircraftCharacteristic,aixm:'annotation', _Annotation, Graph )
-  ) .
+  ,findall(A, rdf(AircraftCharacteristic,aixm:'annotation',A,Graph), Annotation) .
 
 aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
   rdf(PostalAddress,rdf:type,aixm:'PostalAddress',Graph)
@@ -9155,9 +9041,7 @@ aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, Operational
         )
       )
   )
-  ,( Usage='$null$',
-    \+ rdf( AirportHeliportAvailability,aixm:'usage', _Usage, Graph )
-  ) .
+  ,findall(A, rdf(AirportHeliportAvailability,aixm:'usage',A,Graph), Usage) .
 
 fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternate, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
   rdf(FlightArrival,rdf:type,fixm:'FlightArrival',Graph)
@@ -9170,9 +9054,7 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
   ,( ArrivalAerodrome='$null$',
     \+ rdf( FlightArrival,fixm:'arrivalAerodrome', _ArrivalAerodrome, Graph )
   )
-  ,( ArrivalAerodromeAlternate='$null$',
-    \+ rdf( FlightArrival,fixm:'arrivalAerodromeAlternate', _ArrivalAerodromeAlternate, Graph )
-  )
+  ,findall(A, rdf(FlightArrival,fixm:'arrivalAerodromeAlternate',A,Graph), ArrivalAerodromeAlternate)
   ,( ArrivalAerodromeOriginal='$null$',
     \+ rdf( FlightArrival,fixm:'arrivalAerodromeOriginal', _ArrivalAerodromeOriginal, Graph )
   )
@@ -9494,9 +9376,7 @@ fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages, QValue) :-
 
 aixm_AltimeterSource(Graph, AltimeterSource, TimeSlice) :-
   rdf(AltimeterSource,rdf:type,aixm:'AltimeterSource',Graph)
-  ,( TimeSlice='$null$',
-    \+ rdf( AltimeterSource,aixm:'timeSlice', _TimeSlice, Graph )
-  ) .
+  ,findall(A, rdf(AltimeterSource,aixm:'timeSlice',A,Graph), TimeSlice) .
 
 fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks, DinghyInformation, EmergencyRadioCode, LifeJacketCode, SurvivalEquipmentCode) :-
   rdf(SurvivalCapabilities,rdf:type,fixm:'SurvivalCapabilities',Graph)
@@ -9657,9 +9537,7 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
   ,( StandPositionAndTime='$null$',
     \+ rdf( FlightDeparture,fixm:'standPositionAndTime', _StandPositionAndTime, Graph )
   )
-  ,( TakeoffAlternateAerodrome='$null$',
-    \+ rdf( FlightDeparture,fixm:'takeoffAlternateAerodrome', _TakeoffAlternateAerodrome, Graph )
-  )
+  ,findall(A, rdf(FlightDeparture,fixm:'takeoffAlternateAerodrome',A,Graph), TakeoffAlternateAerodrome)
   ,(
     ( TakeoffWeight='$null$',
       \+ rdf( FlightDeparture,fixm:'takeoffWeight',_TakeoffWeight,Graph )
@@ -9787,12 +9665,8 @@ aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Ann
   ,( Selection='$null$',
     \+ rdf( UsageCondition,aixm:'selection', _Selection, Graph )
   )
-  ,( Annotation='$null$',
-    \+ rdf( UsageCondition,aixm:'annotation', _Annotation, Graph )
-  )
-  ,( Contact='$null$',
-    \+ rdf( UsageCondition,aixm:'contact', _Contact, Graph )
-  ) .
+  ,findall(A, rdf(UsageCondition,aixm:'annotation',A,Graph), Annotation)
+  ,findall(A, rdf(UsageCondition,aixm:'contact',A,Graph), Contact) .
 
 fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, Constraint) :-
   fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, Constraint),

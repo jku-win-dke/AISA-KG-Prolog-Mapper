@@ -507,11 +507,11 @@ public class Mapper {
 			for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphClass.getKnowledgeGraphProperties()) {
 				printWriter.println();
 				
-				if(knowledgeGraphProperty.isShaclClass && knowledgeGraphProperty.isOptional) {
+				if(knowledgeGraphProperty.isShaclClass && knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
 					printWriter.println("  ,( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=\'$null$\',");
 					printWriter.println("    \\+ rdf( " + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + ", _" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ", Graph )");
 					printWriter.print("  )");
-				} else if(knowledgeGraphProperty.isShaclClass && !knowledgeGraphProperty.isOptional) {
+				} else if(knowledgeGraphProperty.isShaclClass && !knowledgeGraphProperty.isOptional && !knowledgeGraphProperty.isList) {
 					printWriter.print("  ,rdf(" + StringUtils.capitalize(knowledgeGraphClass.predicateName) + "," + knowledgeGraphProperty.getNameOfPathWithShortPrefixAndQuotation() + "," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + ",Graph)");
 				}
 				
