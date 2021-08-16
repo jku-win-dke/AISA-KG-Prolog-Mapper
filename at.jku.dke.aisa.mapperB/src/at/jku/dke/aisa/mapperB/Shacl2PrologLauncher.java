@@ -175,7 +175,7 @@ public class Shacl2PrologLauncher {
             			);
             }
         	pw.println(System.currentTimeMillis()
-            		+ ";A"
+            		+ ";B"
             		+ ";" + NUMBER_OF_DATA_COPIES
             		+ ";" + (time_one - startTime)
                		+ ";" + (time_two - time_one)
