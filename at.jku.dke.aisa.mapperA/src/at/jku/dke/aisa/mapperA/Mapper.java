@@ -1,13 +1,26 @@
 package at.jku.dke.aisa.mapperA;
 
 import java.io.PrintWriter;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Graph;
@@ -141,7 +154,17 @@ public class Mapper {
 					String[] listItems = node.toString().split(",");
 					for(int i = 0; i<listItems.length; i++) {
 						String nodeWithPrefixMapping = node != null ? resolvePrefixMapping(listItems[i]) : null;
-						if(nodeWithPrefixMapping != null) {
+						if(listItems[i].contains("http://www.w3.org/2001/XMLSchema#")) {
+							String[] partsOfLiteral = listItems[i].split(":");
+							if(node.toString().startsWith("nil:")) {
+								fact += "nil(\'" + listItems[i].substring(new String("nil:").length()) + "\')";							
+							} else if(node.toString().startsWith("val:")) {
+								fact += handleVal2(partsOfLiteral);
+							} else if(node.toString().startsWith("xval:")) {
+								fact += handleXVal2(partsOfLiteral);
+							}
+						}
+						else if(nodeWithPrefixMapping != null) {
 							fact += nodeWithPrefixMapping;
 						} else {
 							fact += "\'" + listItems[i] + "\'";
@@ -159,13 +182,13 @@ public class Mapper {
 				String nodeWithPrefixMapping = node != null ? resolvePrefixMapping(node) : null;
 				if(node != null) {
 					if(node.isLiteral()) {
+						String[] partsOfLiteral = node.toString().split(":");
 						if(node.toString().startsWith("nil:")) {
 							fact += ", nil(\'" + node.toString().substring(new String("nil:").length()) + "\')";							
 						} else if(node.toString().startsWith("val:")) {
-							fact += ", val(\'" + node.toString().substring(new String("val:").length()) + "\')";
+							fact += ", " + handleVal2(partsOfLiteral);
 						} else if(node.toString().startsWith("xval:")) {
-							String[] xval = node.toString().split(":");
-							fact += ", "+ xval[0] + "(\'" + xval[1] + "\',\'" + xval[2] + "\')";
+							fact += ", " + handleXVal2(partsOfLiteral);
 						}
 					} else {
 						if(nodeWithPrefixMapping != null) {
@@ -180,6 +203,131 @@ public class Mapper {
 			}
 		}
 		fact += ").";
+		return fact;
+	}
+	
+	private String handleVal(String[] partsOfLiteral) {
+		String fact = ", val(\"";
+		int index = 1;
+		for(; index < partsOfLiteral.length; index++) {
+			if(partsOfLiteral[index].startsWith("http")) {
+				fact += "\"^^\'";
+				break;
+			}
+			if(index > 1) {
+				fact += ":";
+			}
+			fact += partsOfLiteral[index];
+		}
+		for(; index < partsOfLiteral.length; index++) {
+			fact += partsOfLiteral[index];
+			if(partsOfLiteral[index].startsWith("http")) {
+				fact += ":";
+			}
+		}
+		fact += "\')";
+		return fact;
+	}
+	
+	private String handleVal2(String[] partsOfLiteral) {
+		String dataType = "";
+		String value = "";
+		int index = 1;
+		for(; index < partsOfLiteral.length; index++) {
+			if(partsOfLiteral[index].startsWith("http")) {
+				break;
+			}
+			if(index > 1) {
+				value += ":";
+			}
+			value += partsOfLiteral[index];
+		}
+		for(; index < partsOfLiteral.length; index++) {
+			dataType += partsOfLiteral[index];
+			if(partsOfLiteral[index].startsWith("http")) {
+				dataType += ":";
+			}
+		}
+		return handleDataType(value, dataType);
+	}
+	
+	private String handleDataType(String value, String dataType) {
+		if("http://www.w3.org/2001/XMLSchema#integer".equals(dataType)) {
+			return "val(" + value + "^^xsd:\'integer\')";
+		} else if("http://www.w3.org/2001/XMLSchema#decimal".equals(dataType)) {
+			return "val(" + value + "^^xsd:\'decimal\')";
+		} else if("http://www.w3.org/2001/XMLSchema#unsignedInt".equals(dataType)) {
+			return "val(" + value + "^^xsd:\'unsignedint\')";
+		} else if("http://www.w3.org/2001/XMLSchema#dateTime".equals(dataType)) {
+			return "dateTime(" + parseDateTime(value) + ")^^xsd:\'dateTime\')";
+		} else {
+			return "val(\"" + value + "\"^^xsd:\'string\')";
+		}
+	}
+	
+	 //2018-05-11T10:00:00Z
+	private String parseDateTime(String dateTime) {
+		DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
+		ZonedDateTime zdt = ZonedDateTime.parse(dateTime, dtf);
+		return zdt.getYear() + ", " + zdt.getMonthValue() + ", " + zdt.getDayOfMonth() + ", " + zdt.getHour() + ", " + zdt.getMinute() + ", " + zdt.getSecond() + ", " + zdt.getNano();
+	}
+	
+	private String handleXVal2(String[] partsOfLiteral) {
+		String value = "";
+		String dataType = "";
+		String uom = partsOfLiteral[partsOfLiteral.length-1];
+		
+		int index = 1;
+		for(; index < partsOfLiteral.length-1; index++) {
+			if(partsOfLiteral[index].startsWith("http")) {
+				break;
+			}
+			if(index > 1) {
+				value += ":";
+			}
+			value += partsOfLiteral[index];
+		}
+		for(; index < partsOfLiteral.length-1; index++) {
+			dataType += partsOfLiteral[index];
+			if(partsOfLiteral[index].startsWith("http")) {
+				dataType += ":";
+			}
+		}
+		return handleDataType(value, dataType, uom);
+	}
+	
+	private String handleDataType(String value, String dataType, String uom) {
+		if("http://www.w3.org/2001/XMLSchema#integer".equals(dataType)) {
+			return "xval(" + value + "^^xsd:\'integer\',\'" + uom + "\')";
+		} else if("http://www.w3.org/2001/XMLSchema#decimal".equals(dataType)) {
+			return "xval(" + value + "^^xsd:\'decimal\',\'" + uom + "\')";
+		} else if("http://www.w3.org/2001/XMLSchema#unsignedInt".equals(dataType)) {
+			return "xval(" + value + "^^xsd:\'unsignedInt\',\'" + uom + "\')";
+		} else {
+			return "xval(\"" + value + "\"^^xsd:\'string\',\'" + uom + "\')";
+		}
+	}
+	
+	private String handleXVal(String[] partsOfLiteral) {
+		String fact  = ", "+ partsOfLiteral[0] + "(\"";
+		int index = 1;
+		for(; index < partsOfLiteral.length-1; index++) {
+			if(partsOfLiteral[index].startsWith("http")) {
+				fact += "\"^^\'";
+				break;
+			}
+			if(index > 1) {
+				fact += ":";
+			}
+			fact += partsOfLiteral[index];
+		}
+		for(; index < partsOfLiteral.length-1; index++) {
+			fact += partsOfLiteral[index];
+			if(partsOfLiteral[index].startsWith("http")) {
+				fact += ":";
+			}
+		}
+		fact += "\',\'" + partsOfLiteral[partsOfLiteral.length-1] + "\')";
 		return fact;
 	}
 	

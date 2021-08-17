@@ -93,14 +93,14 @@ public class KnowledgeGraphProperty {
 					+ "          {" + '\n' //
 					+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
 					+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
-					+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
+					+ "            BIND(concat('val:',STR(?" + name + "Value),':',STR(DATATYPE(?" + name + "Value))) AS ?" + name + ")" + '\n' //
 					+ "          }" + '\n' //
 					+ "		     UNION" + '\n' //
 					+ "		     {" + '\n' //
 					+ "            ?_" + name + "\n" //
 					+ "              rdf:value ?" + name + "Value ;" + '\n' //
 					+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
-					+ "              BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
+					+ "              BIND(concat('xval:',STR(?" + name + "Value),':',STR(DATATYPE(?" + name + "Value)),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
 					+ "          }" + '\n' //
 					+ "          UNION" + '\n' //
 					+ "          {" + '\n' //
@@ -114,14 +114,14 @@ public class KnowledgeGraphProperty {
 							+ "          {" + '\n' //
 							+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
 							+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
-							+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
+							+ "            BIND(concat('val:',STR(?" + name + "Value),':',STR(DATATYPE(?" + name + "Value))) AS ?" + name + ")" + '\n' //
 							+ "          }" + '\n' //
 							+ "            UNION" + '\n' //
 							+ "          {" + '\n' //
 							+ "            ?_" + name + "\n" //
 							+ "              rdf:value ?" + name + "Value ;" + '\n' //
 							+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
-							+ "            BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
+							+ "            BIND(concat('xval:',STR(?" + name + "Value),':',STR(DATATYPE(?" + name + "Value)),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
 							+ "          }" + '\n' //
 							+ "            UNION" + '\n' //
 							+ "          {" + '\n' //
