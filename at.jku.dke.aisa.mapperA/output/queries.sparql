@@ -39,6 +39,11 @@ WHERE
            ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
            BIND(concat('nil:',?administrativeAreaNilReason) AS ?administrativeArea)
           }
+          UNION
+          {
+		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?administrativeArea)
+          }
         }
       }
       OPTIONAL { ?postalAddress fixm:postalCode ?_postalCode .
@@ -59,6 +64,11 @@ WHERE
           {
            ?_postalCode  aixm:nilReason ?postalCodeNilReason .
            BIND(concat('nil:',?postalCodeNilReason) AS ?postalCode)
+          }
+          UNION
+          {
+		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?postalCode)
           }
         }
       }
@@ -81,6 +91,11 @@ WHERE
            ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
            BIND(concat('nil:',?deliveryPointNilReason) AS ?deliveryPoint)
           }
+          UNION
+          {
+		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?deliveryPoint)
+          }
         }
       }
       OPTIONAL { ?postalAddress fixm:countryCode ?_countryCode .
@@ -101,6 +116,11 @@ WHERE
           {
            ?_countryCode  aixm:nilReason ?countryCodeNilReason .
            BIND(concat('nil:',?countryCodeNilReason) AS ?countryCode)
+          }
+          UNION
+          {
+		       ?_countryCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?countryCode)
           }
         }
       }
@@ -123,6 +143,11 @@ WHERE
            ?_countryName  aixm:nilReason ?countryNameNilReason .
            BIND(concat('nil:',?countryNameNilReason) AS ?countryName)
           }
+          UNION
+          {
+		       ?_countryName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?countryName)
+          }
         }
       }
       OPTIONAL { ?postalAddress fixm:city ?_city .
@@ -143,6 +168,11 @@ WHERE
           {
            ?_city  aixm:nilReason ?cityNilReason .
            BIND(concat('nil:',?cityNilReason) AS ?city)
+          }
+          UNION
+          {
+		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?city)
           }
         }
       }
@@ -191,6 +221,11 @@ WHERE
            ?_otherNavigationCapabilities  aixm:nilReason ?otherNavigationCapabilitiesNilReason .
            BIND(concat('nil:',?otherNavigationCapabilitiesNilReason) AS ?otherNavigationCapabilities)
           }
+          UNION
+          {
+		       ?_otherNavigationCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherNavigationCapabilities)
+          }
         }
       }
       OPTIONAL { ?navigationCapabilities fixm:performanceBasedCode ?_performanceBasedCode .
@@ -212,6 +247,11 @@ WHERE
            ?_performanceBasedCode  aixm:nilReason ?performanceBasedCodeNilReason .
            BIND(concat('nil:',?performanceBasedCodeNilReason) AS ?performanceBasedCode)
           }
+          UNION
+          {
+		       ?_performanceBasedCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?performanceBasedCode)
+          }
         }
       }
       OPTIONAL { ?navigationCapabilities fixm:navigationCode ?_navigationCode .
@@ -232,6 +272,11 @@ WHERE
           {
            ?_navigationCode  aixm:nilReason ?navigationCodeNilReason .
            BIND(concat('nil:',?navigationCodeNilReason) AS ?navigationCode)
+          }
+          UNION
+          {
+		       ?_navigationCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?navigationCode)
           }
         }
       }
@@ -281,6 +326,11 @@ WHERE
            ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
            BIND(concat('nil:',?lowerSpeedNilReason) AS ?lowerSpeed)
           }
+          UNION
+          {
+		       ?_lowerSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lowerSpeed)
+          }
         }
       }
       OPTIONAL { ?groundspeedRange fixm:upperSpeed ?_upperSpeed .
@@ -301,6 +351,11 @@ WHERE
           {
            ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
            BIND(concat('nil:',?upperSpeedNilReason) AS ?upperSpeed)
+          }
+          UNION
+          {
+		       ?_upperSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?upperSpeed)
           }
         }
       }
@@ -349,6 +404,11 @@ WHERE
            ?_propertyName  aixm:nilReason ?propertyNameNilReason .
            BIND(concat('nil:',?propertyNameNilReason) AS ?propertyName)
           }
+          UNION
+          {
+		       ?_propertyName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?propertyName)
+          }
         }
       }
       OPTIONAL { ?note aixm:purpose ?_purpose .
@@ -369,6 +429,11 @@ WHERE
           {
            ?_purpose  aixm:nilReason ?purposeNilReason .
            BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+          }
+          UNION
+          {
+		       ?_purpose  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?purpose)
           }
         }
       }
@@ -448,6 +513,11 @@ WHERE
            ?_lowerBound  aixm:nilReason ?lowerBoundNilReason .
            BIND(concat('nil:',?lowerBoundNilReason) AS ?lowerBound)
           }
+          UNION
+          {
+		       ?_lowerBound  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lowerBound)
+          }
         }
       }
       OPTIONAL { ?verticalRange fixm:upperBound ?_upperBound .
@@ -468,6 +538,11 @@ WHERE
           {
            ?_upperBound  aixm:nilReason ?upperBoundNilReason .
            BIND(concat('nil:',?upperBoundNilReason) AS ?upperBound)
+          }
+          UNION
+          {
+		       ?_upperBound  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?upperBound)
           }
         }
       }
@@ -516,6 +591,11 @@ WHERE
            ?_estimatedLevel  aixm:nilReason ?estimatedLevelNilReason .
            BIND(concat('nil:',?estimatedLevelNilReason) AS ?estimatedLevel)
           }
+          UNION
+          {
+		       ?_estimatedLevel  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?estimatedLevel)
+          }
         }
       }
       OPTIONAL { ?expandedRoutePoint fixm:estimatedTime ?_estimatedTime .
@@ -536,6 +616,11 @@ WHERE
           {
            ?_estimatedTime  aixm:nilReason ?estimatedTimeNilReason .
            BIND(concat('nil:',?estimatedTimeNilReason) AS ?estimatedTime)
+          }
+          UNION
+          {
+		       ?_estimatedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?estimatedTime)
           }
         }
       }
@@ -586,6 +671,11 @@ WHERE
            ?_elevation  aixm:nilReason ?elevationNilReason .
            BIND(concat('nil:',?elevationNilReason) AS ?elevation)
           }
+          UNION
+          {
+		       ?_elevation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?elevation)
+          }
         }
       }
       OPTIONAL { ?elevatedSurface aixm:geoidUndulation ?_geoidUndulation .
@@ -606,6 +696,11 @@ WHERE
           {
            ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
            BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+          }
+          UNION
+          {
+		       ?_geoidUndulation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?geoidUndulation)
           }
         }
       }
@@ -628,6 +723,11 @@ WHERE
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
            BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
           }
+          UNION
+          {
+		       ?_verticalDatum  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalDatum)
+          }
         }
       }
       OPTIONAL { ?elevatedSurface aixm:verticalAccuracy ?_verticalAccuracy .
@@ -648,6 +748,11 @@ WHERE
           {
            ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
            BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+          }
+          UNION
+          {
+		       ?_verticalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalAccuracy)
           }
         }
       }
@@ -696,6 +801,11 @@ WHERE
            ?_height  aixm:nilReason ?heightNilReason .
            BIND(concat('nil:',?heightNilReason) AS ?height)
           }
+          UNION
+          {
+		       ?_height  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?height)
+          }
         }
       }
       OPTIONAL { ?dimensions fixm:length ?_length .
@@ -717,6 +827,11 @@ WHERE
            ?_length  aixm:nilReason ?lengthNilReason .
            BIND(concat('nil:',?lengthNilReason) AS ?length)
           }
+          UNION
+          {
+		       ?_length  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?length)
+          }
         }
       }
       OPTIONAL { ?dimensions fixm:width ?_width .
@@ -737,6 +852,11 @@ WHERE
           {
            ?_width  aixm:nilReason ?widthNilReason .
            BIND(concat('nil:',?widthNilReason) AS ?width)
+          }
+          UNION
+          {
+		       ?_width  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?width)
           }
         }
       }
@@ -785,6 +905,11 @@ WHERE
            ?_standName  aixm:nilReason ?standNameNilReason .
            BIND(concat('nil:',?standNameNilReason) AS ?standName)
           }
+          UNION
+          {
+		       ?_standName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?standName)
+          }
         }
       }
       OPTIONAL {?standPositionAndTime fixm:standTime ?standTime .}
@@ -806,6 +931,11 @@ WHERE
           {
            ?_terminalName  aixm:nilReason ?terminalNameNilReason .
            BIND(concat('nil:',?terminalNameNilReason) AS ?terminalName)
+          }
+          UNION
+          {
+		       ?_terminalName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?terminalName)
           }
         }
       }
@@ -854,6 +984,11 @@ WHERE
            ?_airway  aixm:nilReason ?airwayNilReason .
            BIND(concat('nil:',?airwayNilReason) AS ?airway)
           }
+          UNION
+          {
+		       ?_airway  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airway)
+          }
         }
       }
       OPTIONAL {?routeSegment fixm:routePoint ?routePoint .}
@@ -901,6 +1036,11 @@ WHERE
           {
            ?_logicalOperator  aixm:nilReason ?logicalOperatorNilReason .
            BIND(concat('nil:',?logicalOperatorNilReason) AS ?logicalOperator)
+          }
+          UNION
+          {
+		       ?_logicalOperator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?logicalOperator)
           }
         }
       }
@@ -954,6 +1094,11 @@ WHERE
            ?_layerOrder  aixm:nilReason ?layerOrderNilReason .
            BIND(concat('nil:',?layerOrderNilReason) AS ?layerOrder)
           }
+          UNION
+          {
+		       ?_layerOrder  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?layerOrder)
+          }
         }
       }
       OPTIONAL { ?surfaceContaminationLayer aixm:type ?_type .
@@ -974,6 +1119,11 @@ WHERE
           {
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
           }
         }
       }
@@ -1025,6 +1175,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL { ?organization fixm:otherOrganization ?_otherOrganization .
@@ -1045,6 +1200,11 @@ WHERE
           {
            ?_otherOrganization  aixm:nilReason ?otherOrganizationNilReason .
            BIND(concat('nil:',?otherOrganizationNilReason) AS ?otherOrganization)
+          }
+          UNION
+          {
+		       ?_otherOrganization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherOrganization)
           }
         }
       }
@@ -1093,6 +1253,11 @@ WHERE
           {
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
+          }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
           }
         }
       }
@@ -1144,6 +1309,11 @@ WHERE
            ?_elevation  aixm:nilReason ?elevationNilReason .
            BIND(concat('nil:',?elevationNilReason) AS ?elevation)
           }
+          UNION
+          {
+		       ?_elevation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?elevation)
+          }
         }
       }
       OPTIONAL { ?elevatedPoint aixm:geoidUndulation ?_geoidUndulation .
@@ -1164,6 +1334,11 @@ WHERE
           {
            ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
            BIND(concat('nil:',?geoidUndulationNilReason) AS ?geoidUndulation)
+          }
+          UNION
+          {
+		       ?_geoidUndulation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?geoidUndulation)
           }
         }
       }
@@ -1186,6 +1361,11 @@ WHERE
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
            BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
           }
+          UNION
+          {
+		       ?_verticalDatum  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalDatum)
+          }
         }
       }
       OPTIONAL { ?elevatedPoint aixm:verticalAccuracy ?_verticalAccuracy .
@@ -1206,6 +1386,11 @@ WHERE
           {
            ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
            BIND(concat('nil:',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+          }
+          UNION
+          {
+		       ?_verticalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalAccuracy)
           }
         }
       }
@@ -1281,6 +1466,11 @@ WHERE
            ?_operatingOrganization  aixm:nilReason ?operatingOrganizationNilReason .
            BIND(concat('nil:',?operatingOrganizationNilReason) AS ?operatingOrganization)
           }
+          UNION
+          {
+		       ?_operatingOrganization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?operatingOrganization)
+          }
         }
       }
       OPTIONAL { ?aircraftOperator fixm:operatorCategory ?_operatorCategory .
@@ -1301,6 +1491,11 @@ WHERE
           {
            ?_operatorCategory  aixm:nilReason ?operatorCategoryNilReason .
            BIND(concat('nil:',?operatorCategoryNilReason) AS ?operatorCategory)
+          }
+          UNION
+          {
+		       ?_operatorCategory  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?operatorCategory)
           }
         }
       }
@@ -1434,6 +1629,11 @@ WHERE
            ?_currentBeaconCode  aixm:nilReason ?currentBeaconCodeNilReason .
            BIND(concat('nil:',?currentBeaconCodeNilReason) AS ?currentBeaconCode)
           }
+          UNION
+          {
+		       ?_currentBeaconCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?currentBeaconCode)
+          }
         }
       }
       OPTIONAL { ?beaconCodeAssignment fixm:previousBeaconCode ?_previousBeaconCode .
@@ -1455,6 +1655,11 @@ WHERE
            ?_previousBeaconCode  aixm:nilReason ?previousBeaconCodeNilReason .
            BIND(concat('nil:',?previousBeaconCodeNilReason) AS ?previousBeaconCode)
           }
+          UNION
+          {
+		       ?_previousBeaconCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?previousBeaconCode)
+          }
         }
       }
       OPTIONAL { ?beaconCodeAssignment fixm:reassignedBeaconCode ?_reassignedBeaconCode .
@@ -1475,6 +1680,11 @@ WHERE
           {
            ?_reassignedBeaconCode  aixm:nilReason ?reassignedBeaconCodeNilReason .
            BIND(concat('nil:',?reassignedBeaconCodeNilReason) AS ?reassignedBeaconCode)
+          }
+          UNION
+          {
+		       ?_reassignedBeaconCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?reassignedBeaconCode)
           }
         }
       }
@@ -1581,6 +1791,11 @@ WHERE
            ?_constraintType  aixm:nilReason ?constraintTypeNilReason .
            BIND(concat('nil:',?constraintTypeNilReason) AS ?constraintType)
           }
+          UNION
+          {
+		       ?_constraintType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?constraintType)
+          }
         }
       }
     }
@@ -1628,6 +1843,11 @@ WHERE
            ?_compliance  aixm:nilReason ?complianceNilReason .
            BIND(concat('nil:',?complianceNilReason) AS ?compliance)
           }
+          UNION
+          {
+		       ?_compliance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?compliance)
+          }
         }
       }
       OPTIONAL { ?declarationText fixm:consignor ?_consignor .
@@ -1649,6 +1869,11 @@ WHERE
            ?_consignor  aixm:nilReason ?consignorNilReason .
            BIND(concat('nil:',?consignorNilReason) AS ?consignor)
           }
+          UNION
+          {
+		       ?_consignor  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?consignor)
+          }
         }
       }
       OPTIONAL { ?declarationText fixm:shipper ?_shipper .
@@ -1669,6 +1894,11 @@ WHERE
           {
            ?_shipper  aixm:nilReason ?shipperNilReason .
            BIND(concat('nil:',?shipperNilReason) AS ?shipper)
+          }
+          UNION
+          {
+		       ?_shipper  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?shipper)
           }
         }
       }
@@ -1717,6 +1947,11 @@ WHERE
            ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
            BIND(concat('nil:',?elapsedTimeNilReason) AS ?elapsedTime)
           }
+          UNION
+          {
+		       ?_elapsedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?elapsedTime)
+          }
         }
       }
       OPTIONAL { ?estimatedElapsedTime fixm:location ?_location .
@@ -1737,6 +1972,11 @@ WHERE
           {
            ?_location  aixm:nilReason ?locationNilReason .
            BIND(concat('nil:',?locationNilReason) AS ?location)
+          }
+          UNION
+          {
+		       ?_location  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?location)
           }
         }
       }
@@ -1785,6 +2025,11 @@ WHERE
           {
            ?_time  aixm:nilReason ?timeNilReason .
            BIND(concat('nil:',?timeNilReason) AS ?time)
+          }
+          UNION
+          {
+		       ?_time  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?time)
           }
         }
       }
@@ -1837,6 +2082,11 @@ WHERE
            ?_pos  aixm:nilReason ?posNilReason .
            BIND(concat('nil:',?posNilReason) AS ?pos)
           }
+          UNION
+          {
+		       ?_pos  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?pos)
+          }
         }
       }
       OPTIONAL { ?geographicLocation fixm:srsName ?_srsName .
@@ -1857,6 +2107,11 @@ WHERE
           {
            ?_srsName  aixm:nilReason ?srsNameNilReason .
            BIND(concat('nil:',?srsNameNilReason) AS ?srsName)
+          }
+          UNION
+          {
+		       ?_srsName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?srsName)
           }
         }
       }
@@ -1907,6 +2162,11 @@ WHERE
            ?_note  aixm:nilReason ?noteNilReason .
            BIND(concat('nil:',?noteNilReason) AS ?note)
           }
+          UNION
+          {
+		       ?_note  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?note)
+          }
         }
       }
     }
@@ -1954,6 +2214,11 @@ WHERE
            ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
            BIND(concat('nil:',?flightConditionsNilReason) AS ?flightConditions)
           }
+          UNION
+          {
+		       ?_flightConditions  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightConditions)
+          }
         }
       }
       OPTIONAL { ?meteorology aixm:visibility ?_visibility .
@@ -1974,6 +2239,11 @@ WHERE
           {
            ?_visibility  aixm:nilReason ?visibilityNilReason .
            BIND(concat('nil:',?visibilityNilReason) AS ?visibility)
+          }
+          UNION
+          {
+		       ?_visibility  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?visibility)
           }
         }
       }
@@ -1996,6 +2266,11 @@ WHERE
            ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
            BIND(concat('nil:',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
           }
+          UNION
+          {
+		       ?_visibilityInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?visibilityInterpretation)
+          }
         }
       }
       OPTIONAL { ?meteorology aixm:runwayVisualRange ?_runwayVisualRange .
@@ -2017,6 +2292,11 @@ WHERE
            ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
            BIND(concat('nil:',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
           }
+          UNION
+          {
+		       ?_runwayVisualRange  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?runwayVisualRange)
+          }
         }
       }
       OPTIONAL { ?meteorology aixm:runwayVisualRangeInterpretation ?_runwayVisualRangeInterpretation .
@@ -2037,6 +2317,11 @@ WHERE
           {
            ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
            BIND(concat('nil:',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
+          }
+          UNION
+          {
+		       ?_runwayVisualRangeInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?runwayVisualRangeInterpretation)
           }
         }
       }
@@ -2116,6 +2401,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL {?city aixm:annotation ?annotation .}
@@ -2165,6 +2455,11 @@ WHERE
            ?_role  aixm:nilReason ?roleNilReason .
            BIND(concat('nil:',?roleNilReason) AS ?role)
           }
+          UNION
+          {
+		       ?_role  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?role)
+          }
         }
       }
       ?airportHeliportResponsibilityOrganisation aixm:theOrganisationAuthority ?theOrganisationAuthority .
@@ -2213,6 +2508,11 @@ WHERE
            ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
            BIND(concat('nil:',?lowerSpeedNilReason) AS ?lowerSpeed)
           }
+          UNION
+          {
+		       ?_lowerSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lowerSpeed)
+          }
         }
       }
       OPTIONAL { ?airspeedRange fixm:upperSpeed ?_upperSpeed .
@@ -2233,6 +2533,11 @@ WHERE
           {
            ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
            BIND(concat('nil:',?upperSpeedNilReason) AS ?upperSpeed)
+          }
+          UNION
+          {
+		       ?_upperSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?upperSpeed)
           }
         }
       }
@@ -2281,6 +2586,11 @@ WHERE
            ?_identifier  aixm:nilReason ?identifierNilReason .
            BIND(concat('nil:',?identifierNilReason) AS ?identifier)
           }
+          UNION
+          {
+		       ?_identifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?identifier)
+          }
         }
       }
       OPTIONAL { ?rankedTrajectory fixm:maximumAcceptableDelay ?_maximumAcceptableDelay .
@@ -2302,6 +2612,11 @@ WHERE
            ?_maximumAcceptableDelay  aixm:nilReason ?maximumAcceptableDelayNilReason .
            BIND(concat('nil:',?maximumAcceptableDelayNilReason) AS ?maximumAcceptableDelay)
           }
+          UNION
+          {
+		       ?_maximumAcceptableDelay  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?maximumAcceptableDelay)
+          }
         }
       }
       OPTIONAL { ?rankedTrajectory fixm:assignedIndicator ?_assignedIndicator .
@@ -2322,6 +2637,11 @@ WHERE
           {
            ?_assignedIndicator  aixm:nilReason ?assignedIndicatorNilReason .
            BIND(concat('nil:',?assignedIndicatorNilReason) AS ?assignedIndicator)
+          }
+          UNION
+          {
+		       ?_assignedIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?assignedIndicator)
           }
         }
       }
@@ -2371,6 +2691,11 @@ WHERE
            ?_bottomOfClimb  aixm:nilReason ?bottomOfClimbNilReason .
            BIND(concat('nil:',?bottomOfClimbNilReason) AS ?bottomOfClimb)
           }
+          UNION
+          {
+		       ?_bottomOfClimb  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?bottomOfClimb)
+          }
         }
       }
       OPTIONAL { ?trajectoryPointRole fixm:bottomOfDescent ?_bottomOfDescent .
@@ -2391,6 +2716,11 @@ WHERE
           {
            ?_bottomOfDescent  aixm:nilReason ?bottomOfDescentNilReason .
            BIND(concat('nil:',?bottomOfDescentNilReason) AS ?bottomOfDescent)
+          }
+          UNION
+          {
+		       ?_bottomOfDescent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?bottomOfDescent)
           }
         }
       }
@@ -2413,6 +2743,11 @@ WHERE
            ?_boundaryPoint  aixm:nilReason ?boundaryPointNilReason .
            BIND(concat('nil:',?boundaryPointNilReason) AS ?boundaryPoint)
           }
+          UNION
+          {
+		       ?_boundaryPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?boundaryPoint)
+          }
         }
       }
       OPTIONAL { ?trajectoryPointRole fixm:fromGATToOAT ?_fromGATToOAT .
@@ -2433,6 +2768,11 @@ WHERE
           {
            ?_fromGATToOAT  aixm:nilReason ?fromGATToOATNilReason .
            BIND(concat('nil:',?fromGATToOATNilReason) AS ?fromGATToOAT)
+          }
+          UNION
+          {
+		       ?_fromGATToOAT  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fromGATToOAT)
           }
         }
       }
@@ -2455,6 +2795,11 @@ WHERE
            ?_fromIFRToVFR  aixm:nilReason ?fromIFRToVFRNilReason .
            BIND(concat('nil:',?fromIFRToVFRNilReason) AS ?fromIFRToVFR)
           }
+          UNION
+          {
+		       ?_fromIFRToVFR  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fromIFRToVFR)
+          }
         }
       }
       OPTIONAL { ?trajectoryPointRole fixm:fromOATToGat ?_fromOATToGat .
@@ -2475,6 +2820,11 @@ WHERE
           {
            ?_fromOATToGat  aixm:nilReason ?fromOATToGatNilReason .
            BIND(concat('nil:',?fromOATToGatNilReason) AS ?fromOATToGat)
+          }
+          UNION
+          {
+		       ?_fromOATToGat  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fromOATToGat)
           }
         }
       }
@@ -2497,6 +2847,11 @@ WHERE
            ?_fromVFRToIFR  aixm:nilReason ?fromVFRToIFRNilReason .
            BIND(concat('nil:',?fromVFRToIFRNilReason) AS ?fromVFRToIFR)
           }
+          UNION
+          {
+		       ?_fromVFRToIFR  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fromVFRToIFR)
+          }
         }
       }
       OPTIONAL { ?trajectoryPointRole fixm:topOfClimb ?_topOfClimb .
@@ -2518,6 +2873,11 @@ WHERE
            ?_topOfClimb  aixm:nilReason ?topOfClimbNilReason .
            BIND(concat('nil:',?topOfClimbNilReason) AS ?topOfClimb)
           }
+          UNION
+          {
+		       ?_topOfClimb  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?topOfClimb)
+          }
         }
       }
       OPTIONAL { ?trajectoryPointRole fixm:topOfDescent ?_topOfDescent .
@@ -2538,6 +2898,11 @@ WHERE
           {
            ?_topOfDescent  aixm:nilReason ?topOfDescentNilReason .
            BIND(concat('nil:',?topOfDescentNilReason) AS ?topOfDescent)
+          }
+          UNION
+          {
+		       ?_topOfDescent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?topOfDescent)
           }
         }
       }
@@ -2586,6 +2951,11 @@ WHERE
            ?_otherCommunicationCapabilities  aixm:nilReason ?otherCommunicationCapabilitiesNilReason .
            BIND(concat('nil:',?otherCommunicationCapabilitiesNilReason) AS ?otherCommunicationCapabilities)
           }
+          UNION
+          {
+		       ?_otherCommunicationCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherCommunicationCapabilities)
+          }
         }
       }
       OPTIONAL { ?communicationCapabilities fixm:otherDataLinkCapabilities ?_otherDataLinkCapabilities .
@@ -2606,6 +2976,11 @@ WHERE
           {
            ?_otherDataLinkCapabilities  aixm:nilReason ?otherDataLinkCapabilitiesNilReason .
            BIND(concat('nil:',?otherDataLinkCapabilitiesNilReason) AS ?otherDataLinkCapabilities)
+          }
+          UNION
+          {
+		       ?_otherDataLinkCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherDataLinkCapabilities)
           }
         }
       }
@@ -2628,6 +3003,11 @@ WHERE
            ?_dataLinkCode  aixm:nilReason ?dataLinkCodeNilReason .
            BIND(concat('nil:',?dataLinkCodeNilReason) AS ?dataLinkCode)
           }
+          UNION
+          {
+		       ?_dataLinkCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dataLinkCode)
+          }
         }
       }
       OPTIONAL { ?communicationCapabilities fixm:selectiveCallingCode ?_selectiveCallingCode .
@@ -2649,6 +3029,11 @@ WHERE
            ?_selectiveCallingCode  aixm:nilReason ?selectiveCallingCodeNilReason .
            BIND(concat('nil:',?selectiveCallingCodeNilReason) AS ?selectiveCallingCode)
           }
+          UNION
+          {
+		       ?_selectiveCallingCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?selectiveCallingCode)
+          }
         }
       }
       OPTIONAL { ?communicationCapabilities fixm:communicationCode ?_communicationCode .
@@ -2669,6 +3054,11 @@ WHERE
           {
            ?_communicationCode  aixm:nilReason ?communicationCodeNilReason .
            BIND(concat('nil:',?communicationCodeNilReason) AS ?communicationCode)
+          }
+          UNION
+          {
+		       ?_communicationCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?communicationCode)
           }
         }
       }
@@ -2718,6 +3108,11 @@ WHERE
            ?_quantity  aixm:nilReason ?quantityNilReason .
            BIND(concat('nil:',?quantityNilReason) AS ?quantity)
           }
+          UNION
+          {
+		       ?_quantity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?quantity)
+          }
         }
       }
       OPTIONAL { ?dinghy fixm:totalCapacity ?_totalCapacity .
@@ -2738,6 +3133,11 @@ WHERE
           {
            ?_totalCapacity  aixm:nilReason ?totalCapacityNilReason .
            BIND(concat('nil:',?totalCapacityNilReason) AS ?totalCapacity)
+          }
+          UNION
+          {
+		       ?_totalCapacity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?totalCapacity)
           }
         }
       }
@@ -2760,6 +3160,11 @@ WHERE
            ?_covered  aixm:nilReason ?coveredNilReason .
            BIND(concat('nil:',?coveredNilReason) AS ?covered)
           }
+          UNION
+          {
+		       ?_covered  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?covered)
+          }
         }
       }
       OPTIONAL { ?dinghy fixm:colour ?_colour .
@@ -2780,6 +3185,11 @@ WHERE
           {
            ?_colour  aixm:nilReason ?colourNilReason .
            BIND(concat('nil:',?colourNilReason) AS ?colour)
+          }
+          UNION
+          {
+		       ?_colour  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?colour)
           }
         }
       }
@@ -2828,6 +3238,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL { ?contactInformation aixm:title ?_title .
@@ -2848,6 +3263,11 @@ WHERE
           {
            ?_title  aixm:nilReason ?titleNilReason .
            BIND(concat('nil:',?titleNilReason) AS ?title)
+          }
+          UNION
+          {
+		       ?_title  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?title)
           }
         }
       }
@@ -2902,6 +3322,11 @@ WHERE
            ?_positionAltitude  aixm:nilReason ?positionAltitudeNilReason .
            BIND(concat('nil:',?positionAltitudeNilReason) AS ?positionAltitude)
           }
+          UNION
+          {
+		       ?_positionAltitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?positionAltitude)
+          }
         }
       }
       OPTIONAL { ?plannedReportingPosition fixm:positionEstimatedTime ?_positionEstimatedTime .
@@ -2922,6 +3347,11 @@ WHERE
           {
            ?_positionEstimatedTime  aixm:nilReason ?positionEstimatedTimeNilReason .
            BIND(concat('nil:',?positionEstimatedTimeNilReason) AS ?positionEstimatedTime)
+          }
+          UNION
+          {
+		       ?_positionEstimatedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?positionEstimatedTime)
           }
         }
       }
@@ -2996,6 +3426,11 @@ WHERE
            ?_fuelEndurance  aixm:nilReason ?fuelEnduranceNilReason .
            BIND(concat('nil:',?fuelEnduranceNilReason) AS ?fuelEndurance)
           }
+          UNION
+          {
+		       ?_fuelEndurance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fuelEndurance)
+          }
         }
       }
       OPTIONAL { ?supplementalData fixm:personsOnBoard ?_personsOnBoard .
@@ -3016,6 +3451,11 @@ WHERE
           {
            ?_personsOnBoard  aixm:nilReason ?personsOnBoardNilReason .
            BIND(concat('nil:',?personsOnBoardNilReason) AS ?personsOnBoard)
+          }
+          UNION
+          {
+		       ?_personsOnBoard  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?personsOnBoard)
           }
         }
       }
@@ -3065,6 +3505,11 @@ WHERE
            ?_guidebookNumber  aixm:nilReason ?guidebookNumberNilReason .
            BIND(concat('nil:',?guidebookNumberNilReason) AS ?guidebookNumber)
           }
+          UNION
+          {
+		       ?_guidebookNumber  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?guidebookNumber)
+          }
         }
       }
       OPTIONAL { ?dangerousGoods fixm:onboardLocation ?_onboardLocation .
@@ -3085,6 +3530,11 @@ WHERE
           {
            ?_onboardLocation  aixm:nilReason ?onboardLocationNilReason .
            BIND(concat('nil:',?onboardLocationNilReason) AS ?onboardLocation)
+          }
+          UNION
+          {
+		       ?_onboardLocation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?onboardLocation)
           }
         }
       }
@@ -3108,6 +3558,11 @@ WHERE
            ?_aircraftLimitation  aixm:nilReason ?aircraftLimitationNilReason .
            BIND(concat('nil:',?aircraftLimitationNilReason) AS ?aircraftLimitation)
           }
+          UNION
+          {
+		       ?_aircraftLimitation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftLimitation)
+          }
         }
       }
       OPTIONAL { ?dangerousGoods fixm:airWayBill ?_airWayBill .
@@ -3129,6 +3584,11 @@ WHERE
            ?_airWayBill  aixm:nilReason ?airWayBillNilReason .
            BIND(concat('nil:',?airWayBillNilReason) AS ?airWayBill)
           }
+          UNION
+          {
+		       ?_airWayBill  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airWayBill)
+          }
         }
       }
       OPTIONAL { ?dangerousGoods fixm:shipment ?_shipment .
@@ -3149,6 +3609,11 @@ WHERE
           {
            ?_shipment  aixm:nilReason ?shipmentNilReason .
            BIND(concat('nil:',?shipmentNilReason) AS ?shipment)
+          }
+          UNION
+          {
+		       ?_shipment  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?shipment)
           }
         }
       }
@@ -3202,6 +3667,11 @@ WHERE
            ?_shipmentUseIndicator  aixm:nilReason ?shipmentUseIndicatorNilReason .
            BIND(concat('nil:',?shipmentUseIndicatorNilReason) AS ?shipmentUseIndicator)
           }
+          UNION
+          {
+		       ?_shipmentUseIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?shipmentUseIndicator)
+          }
         }
       }
     }
@@ -3250,6 +3720,11 @@ WHERE
            ?_distance  aixm:nilReason ?distanceNilReason .
            BIND(concat('nil:',?distanceNilReason) AS ?distance)
           }
+          UNION
+          {
+		       ?_distance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?distance)
+          }
         }
       }
       OPTIONAL { ?offtrackDistance fixm:direction ?_direction .
@@ -3270,6 +3745,11 @@ WHERE
           {
            ?_direction  aixm:nilReason ?directionNilReason .
            BIND(concat('nil:',?directionNilReason) AS ?direction)
+          }
+          UNION
+          {
+		       ?_direction  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?direction)
           }
         }
       }
@@ -3347,6 +3827,11 @@ WHERE
            ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
            BIND(concat('nil:',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
           }
+          UNION
+          {
+		       ?_constrainedAirspace  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?constrainedAirspace)
+          }
         }
       }
       OPTIONAL { ?trajectoryChange fixm:specialActivityAirspace ?_specialActivityAirspace .
@@ -3367,6 +3852,11 @@ WHERE
           {
            ?_specialActivityAirspace  aixm:nilReason ?specialActivityAirspaceNilReason .
            BIND(concat('nil:',?specialActivityAirspaceNilReason) AS ?specialActivityAirspace)
+          }
+          UNION
+          {
+		       ?_specialActivityAirspace  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?specialActivityAirspace)
           }
         }
       }
@@ -3419,6 +3909,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL { ?contactInformation fixm:title ?_title .
@@ -3439,6 +3934,11 @@ WHERE
           {
            ?_title  aixm:nilReason ?titleNilReason .
            BIND(concat('nil:',?titleNilReason) AS ?title)
+          }
+          UNION
+          {
+		       ?_title  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?title)
           }
         }
       }
@@ -3491,6 +3991,11 @@ WHERE
            ?_designator  aixm:nilReason ?designatorNilReason .
            BIND(concat('nil:',?designatorNilReason) AS ?designator)
           }
+          UNION
+          {
+		       ?_designator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?designator)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:name ?_name .
@@ -3511,6 +4016,11 @@ WHERE
           {
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
+          }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
           }
         }
       }
@@ -3533,6 +4043,11 @@ WHERE
            ?_locationIndicatorICAO  aixm:nilReason ?locationIndicatorICAONilReason .
            BIND(concat('nil:',?locationIndicatorICAONilReason) AS ?locationIndicatorICAO)
           }
+          UNION
+          {
+		       ?_locationIndicatorICAO  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?locationIndicatorICAO)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:designatorIATA ?_designatorIATA .
@@ -3553,6 +4068,11 @@ WHERE
           {
            ?_designatorIATA  aixm:nilReason ?designatorIATANilReason .
            BIND(concat('nil:',?designatorIATANilReason) AS ?designatorIATA)
+          }
+          UNION
+          {
+		       ?_designatorIATA  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?designatorIATA)
           }
         }
       }
@@ -3575,6 +4095,11 @@ WHERE
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
           }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:certifiedICAO ?_certifiedICAO .
@@ -3595,6 +4120,11 @@ WHERE
           {
            ?_certifiedICAO  aixm:nilReason ?certifiedICAONilReason .
            BIND(concat('nil:',?certifiedICAONilReason) AS ?certifiedICAO)
+          }
+          UNION
+          {
+		       ?_certifiedICAO  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?certifiedICAO)
           }
         }
       }
@@ -3617,6 +4147,11 @@ WHERE
            ?_privateUse  aixm:nilReason ?privateUseNilReason .
            BIND(concat('nil:',?privateUseNilReason) AS ?privateUse)
           }
+          UNION
+          {
+		       ?_privateUse  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?privateUse)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:controlType ?_controlType .
@@ -3637,6 +4172,11 @@ WHERE
           {
            ?_controlType  aixm:nilReason ?controlTypeNilReason .
            BIND(concat('nil:',?controlTypeNilReason) AS ?controlType)
+          }
+          UNION
+          {
+		       ?_controlType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?controlType)
           }
         }
       }
@@ -3659,6 +4199,11 @@ WHERE
            ?_fieldElevation  aixm:nilReason ?fieldElevationNilReason .
            BIND(concat('nil:',?fieldElevationNilReason) AS ?fieldElevation)
           }
+          UNION
+          {
+		       ?_fieldElevation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fieldElevation)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:fieldElevationAccuracy ?_fieldElevationAccuracy .
@@ -3679,6 +4224,11 @@ WHERE
           {
            ?_fieldElevationAccuracy  aixm:nilReason ?fieldElevationAccuracyNilReason .
            BIND(concat('nil:',?fieldElevationAccuracyNilReason) AS ?fieldElevationAccuracy)
+          }
+          UNION
+          {
+		       ?_fieldElevationAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fieldElevationAccuracy)
           }
         }
       }
@@ -3701,6 +4251,11 @@ WHERE
            ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
            BIND(concat('nil:',?verticalDatumNilReason) AS ?verticalDatum)
           }
+          UNION
+          {
+		       ?_verticalDatum  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalDatum)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:magneticVariation ?_magneticVariation .
@@ -3721,6 +4276,11 @@ WHERE
           {
            ?_magneticVariation  aixm:nilReason ?magneticVariationNilReason .
            BIND(concat('nil:',?magneticVariationNilReason) AS ?magneticVariation)
+          }
+          UNION
+          {
+		       ?_magneticVariation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?magneticVariation)
           }
         }
       }
@@ -3743,6 +4303,11 @@ WHERE
            ?_magneticVariationAccuracy  aixm:nilReason ?magneticVariationAccuracyNilReason .
            BIND(concat('nil:',?magneticVariationAccuracyNilReason) AS ?magneticVariationAccuracy)
           }
+          UNION
+          {
+		       ?_magneticVariationAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?magneticVariationAccuracy)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:dateMagneticVariation ?_dateMagneticVariation .
@@ -3763,6 +4328,11 @@ WHERE
           {
            ?_dateMagneticVariation  aixm:nilReason ?dateMagneticVariationNilReason .
            BIND(concat('nil:',?dateMagneticVariationNilReason) AS ?dateMagneticVariation)
+          }
+          UNION
+          {
+		       ?_dateMagneticVariation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dateMagneticVariation)
           }
         }
       }
@@ -3785,6 +4355,11 @@ WHERE
            ?_magneticVariationChange  aixm:nilReason ?magneticVariationChangeNilReason .
            BIND(concat('nil:',?magneticVariationChangeNilReason) AS ?magneticVariationChange)
           }
+          UNION
+          {
+		       ?_magneticVariationChange  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?magneticVariationChange)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:referenceTemperature ?_referenceTemperature .
@@ -3805,6 +4380,11 @@ WHERE
           {
            ?_referenceTemperature  aixm:nilReason ?referenceTemperatureNilReason .
            BIND(concat('nil:',?referenceTemperatureNilReason) AS ?referenceTemperature)
+          }
+          UNION
+          {
+		       ?_referenceTemperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?referenceTemperature)
           }
         }
       }
@@ -3827,6 +4407,11 @@ WHERE
            ?_altimeterCheckLocation  aixm:nilReason ?altimeterCheckLocationNilReason .
            BIND(concat('nil:',?altimeterCheckLocationNilReason) AS ?altimeterCheckLocation)
           }
+          UNION
+          {
+		       ?_altimeterCheckLocation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altimeterCheckLocation)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:secondaryPowerSupply ?_secondaryPowerSupply .
@@ -3847,6 +4432,11 @@ WHERE
           {
            ?_secondaryPowerSupply  aixm:nilReason ?secondaryPowerSupplyNilReason .
            BIND(concat('nil:',?secondaryPowerSupplyNilReason) AS ?secondaryPowerSupply)
+          }
+          UNION
+          {
+		       ?_secondaryPowerSupply  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?secondaryPowerSupply)
           }
         }
       }
@@ -3869,6 +4459,11 @@ WHERE
            ?_windDirectionIndicator  aixm:nilReason ?windDirectionIndicatorNilReason .
            BIND(concat('nil:',?windDirectionIndicatorNilReason) AS ?windDirectionIndicator)
           }
+          UNION
+          {
+		       ?_windDirectionIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?windDirectionIndicator)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:landingDirectionIndicator ?_landingDirectionIndicator .
@@ -3889,6 +4484,11 @@ WHERE
           {
            ?_landingDirectionIndicator  aixm:nilReason ?landingDirectionIndicatorNilReason .
            BIND(concat('nil:',?landingDirectionIndicatorNilReason) AS ?landingDirectionIndicator)
+          }
+          UNION
+          {
+		       ?_landingDirectionIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?landingDirectionIndicator)
           }
         }
       }
@@ -3911,6 +4511,11 @@ WHERE
            ?_transitionAltitude  aixm:nilReason ?transitionAltitudeNilReason .
            BIND(concat('nil:',?transitionAltitudeNilReason) AS ?transitionAltitude)
           }
+          UNION
+          {
+		       ?_transitionAltitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?transitionAltitude)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:transitionLevel ?_transitionLevel .
@@ -3931,6 +4536,11 @@ WHERE
           {
            ?_transitionLevel  aixm:nilReason ?transitionLevelNilReason .
            BIND(concat('nil:',?transitionLevelNilReason) AS ?transitionLevel)
+          }
+          UNION
+          {
+		       ?_transitionLevel  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?transitionLevel)
           }
         }
       }
@@ -3953,6 +4563,11 @@ WHERE
            ?_lowestTemperature  aixm:nilReason ?lowestTemperatureNilReason .
            BIND(concat('nil:',?lowestTemperatureNilReason) AS ?lowestTemperature)
           }
+          UNION
+          {
+		       ?_lowestTemperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lowestTemperature)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:abandoned ?_abandoned .
@@ -3973,6 +4588,11 @@ WHERE
           {
            ?_abandoned  aixm:nilReason ?abandonedNilReason .
            BIND(concat('nil:',?abandonedNilReason) AS ?abandoned)
+          }
+          UNION
+          {
+		       ?_abandoned  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?abandoned)
           }
         }
       }
@@ -3995,6 +4615,11 @@ WHERE
            ?_certificationDate  aixm:nilReason ?certificationDateNilReason .
            BIND(concat('nil:',?certificationDateNilReason) AS ?certificationDate)
           }
+          UNION
+          {
+		       ?_certificationDate  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?certificationDate)
+          }
         }
       }
       OPTIONAL { ?airportHeliportTimeSlice aixm:certificationExpirationDate ?_certificationExpirationDate .
@@ -4015,6 +4640,11 @@ WHERE
           {
            ?_certificationExpirationDate  aixm:nilReason ?certificationExpirationDateNilReason .
            BIND(concat('nil:',?certificationExpirationDateNilReason) AS ?certificationExpirationDate)
+          }
+          UNION
+          {
+		       ?_certificationExpirationDate  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?certificationExpirationDate)
           }
         }
       }
@@ -4077,6 +4707,11 @@ WHERE
            ?_altitude  aixm:nilReason ?altitudeNilReason .
            BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
           }
+          UNION
+          {
+		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altitude)
+          }
         }
       }
       OPTIONAL { ?point4D fixm:time ?_time .
@@ -4097,6 +4732,11 @@ WHERE
           {
            ?_time  aixm:nilReason ?timeNilReason .
            BIND(concat('nil:',?timeNilReason) AS ?time)
+          }
+          UNION
+          {
+		       ?_time  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?time)
           }
         }
       }
@@ -4151,6 +4791,11 @@ WHERE
            ?_airTrafficType  aixm:nilReason ?airTrafficTypeNilReason .
            BIND(concat('nil:',?airTrafficTypeNilReason) AS ?airTrafficType)
           }
+          UNION
+          {
+		       ?_airTrafficType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airTrafficType)
+          }
         }
       }
       OPTIONAL { ?abstractRoutePoint fixm:delayAtPoint ?_delayAtPoint .
@@ -4171,6 +4816,11 @@ WHERE
           {
            ?_delayAtPoint  aixm:nilReason ?delayAtPointNilReason .
            BIND(concat('nil:',?delayAtPointNilReason) AS ?delayAtPoint)
+          }
+          UNION
+          {
+		       ?_delayAtPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?delayAtPoint)
           }
         }
       }
@@ -4193,6 +4843,11 @@ WHERE
            ?_flightRules  aixm:nilReason ?flightRulesNilReason .
            BIND(concat('nil:',?flightRulesNilReason) AS ?flightRules)
           }
+          UNION
+          {
+		       ?_flightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightRules)
+          }
         }
       }
       OPTIONAL {?abstractRoutePoint fixm:point ?point .}
@@ -4214,6 +4869,11 @@ WHERE
           {
            ?_clearanceLimit  aixm:nilReason ?clearanceLimitNilReason .
            BIND(concat('nil:',?clearanceLimitNilReason) AS ?clearanceLimit)
+          }
+          UNION
+          {
+		       ?_clearanceLimit  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?clearanceLimit)
           }
         }
       }
@@ -4263,6 +4923,11 @@ WHERE
            ?_side  aixm:nilReason ?sideNilReason .
            BIND(concat('nil:',?sideNilReason) AS ?side)
           }
+          UNION
+          {
+		       ?_side  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?side)
+          }
         }
       }
       OPTIONAL { ?ridge aixm:distance ?_distance .
@@ -4284,6 +4949,11 @@ WHERE
            ?_distance  aixm:nilReason ?distanceNilReason .
            BIND(concat('nil:',?distanceNilReason) AS ?distance)
           }
+          UNION
+          {
+		       ?_distance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?distance)
+          }
         }
       }
       OPTIONAL { ?ridge aixm:depth ?_depth .
@@ -4304,6 +4974,11 @@ WHERE
           {
            ?_depth  aixm:nilReason ?depthNilReason .
            BIND(concat('nil:',?depthNilReason) AS ?depth)
+          }
+          UNION
+          {
+		       ?_depth  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?depth)
           }
         }
       }
@@ -4384,6 +5059,11 @@ WHERE
            ?_diversionRecoveryInformation  aixm:nilReason ?diversionRecoveryInformationNilReason .
            BIND(concat('nil:',?diversionRecoveryInformationNilReason) AS ?diversionRecoveryInformation)
           }
+          UNION
+          {
+		       ?_diversionRecoveryInformation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?diversionRecoveryInformation)
+          }
         }
       }
     }
@@ -4431,6 +5111,11 @@ WHERE
            ?_calculated  aixm:nilReason ?calculatedNilReason .
            BIND(concat('nil:',?calculatedNilReason) AS ?calculated)
           }
+          UNION
+          {
+		       ?_calculated  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?calculated)
+          }
         }
       }
       OPTIONAL { ?actualSpeed fixm:pilotReported ?_pilotReported .
@@ -4452,6 +5137,11 @@ WHERE
            ?_pilotReported  aixm:nilReason ?pilotReportedNilReason .
            BIND(concat('nil:',?pilotReportedNilReason) AS ?pilotReported)
           }
+          UNION
+          {
+		       ?_pilotReported  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?pilotReported)
+          }
         }
       }
       OPTIONAL { ?actualSpeed fixm:surveillance ?_surveillance .
@@ -4472,6 +5162,11 @@ WHERE
           {
            ?_surveillance  aixm:nilReason ?surveillanceNilReason .
            BIND(concat('nil:',?surveillanceNilReason) AS ?surveillance)
+          }
+          UNION
+          {
+		       ?_surveillance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?surveillance)
           }
         }
       }
@@ -4520,6 +5215,11 @@ WHERE
            ?_actionTaken  aixm:nilReason ?actionTakenNilReason .
            BIND(concat('nil:',?actionTakenNilReason) AS ?actionTaken)
           }
+          UNION
+          {
+		       ?_actionTaken  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?actionTaken)
+          }
         }
       }
       OPTIONAL { ?flightEmergency fixm:emergencyDescription ?_emergencyDescription .
@@ -4540,6 +5240,11 @@ WHERE
           {
            ?_emergencyDescription  aixm:nilReason ?emergencyDescriptionNilReason .
            BIND(concat('nil:',?emergencyDescriptionNilReason) AS ?emergencyDescription)
+          }
+          UNION
+          {
+		       ?_emergencyDescription  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?emergencyDescription)
           }
         }
       }
@@ -4563,6 +5268,11 @@ WHERE
            ?_otherInformation  aixm:nilReason ?otherInformationNilReason .
            BIND(concat('nil:',?otherInformationNilReason) AS ?otherInformation)
           }
+          UNION
+          {
+		       ?_otherInformation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherInformation)
+          }
         }
       }
       OPTIONAL { ?flightEmergency fixm:phase ?_phase .
@@ -4583,6 +5293,11 @@ WHERE
           {
            ?_phase  aixm:nilReason ?phaseNilReason .
            BIND(concat('nil:',?phaseNilReason) AS ?phase)
+          }
+          UNION
+          {
+		       ?_phase  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?phase)
           }
         }
       }
@@ -4638,6 +5353,11 @@ WHERE
            ?_flightFiler  aixm:nilReason ?flightFilerNilReason .
            BIND(concat('nil:',?flightFilerNilReason) AS ?flightFiler)
           }
+          UNION
+          {
+		       ?_flightFiler  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightFiler)
+          }
         }
       }
       OPTIONAL { ?flight fixm:gufi ?_gufi .
@@ -4659,6 +5379,11 @@ WHERE
            ?_gufi  aixm:nilReason ?gufiNilReason .
            BIND(concat('nil:',?gufiNilReason) AS ?gufi)
           }
+          UNION
+          {
+		       ?_gufi  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?gufi)
+          }
         }
       }
       OPTIONAL { ?flight fixm:remarks ?_remarks .
@@ -4679,6 +5404,11 @@ WHERE
           {
            ?_remarks  aixm:nilReason ?remarksNilReason .
            BIND(concat('nil:',?remarksNilReason) AS ?remarks)
+          }
+          UNION
+          {
+		       ?_remarks  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?remarks)
           }
         }
       }
@@ -4714,6 +5444,11 @@ WHERE
            ?_flightType  aixm:nilReason ?flightTypeNilReason .
            BIND(concat('nil:',?flightTypeNilReason) AS ?flightType)
           }
+          UNION
+          {
+		       ?_flightType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightType)
+          }
         }
       }
       OPTIONAL {?flight fixm:flightStatus ?flightStatus .}
@@ -4735,6 +5470,11 @@ WHERE
           {
            ?_originator  aixm:nilReason ?originatorNilReason .
            BIND(concat('nil:',?originatorNilReason) AS ?originator)
+          }
+          UNION
+          {
+		       ?_originator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?originator)
           }
         }
       }
@@ -4758,6 +5498,11 @@ WHERE
           {
            ?_specialHandling  aixm:nilReason ?specialHandlingNilReason .
            BIND(concat('nil:',?specialHandlingNilReason) AS ?specialHandling)
+          }
+          UNION
+          {
+		       ?_specialHandling  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?specialHandling)
           }
         }
       }
@@ -4876,6 +5621,11 @@ WHERE
            ?_clearedFlightLevel  aixm:nilReason ?clearedFlightLevelNilReason .
            BIND(concat('nil:',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
           }
+          UNION
+          {
+		       ?_clearedFlightLevel  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?clearedFlightLevel)
+          }
         }
       }
       OPTIONAL { ?clearedFlightInformation fixm:clearedSpeed ?_clearedSpeed .
@@ -4896,6 +5646,11 @@ WHERE
           {
            ?_clearedSpeed  aixm:nilReason ?clearedSpeedNilReason .
            BIND(concat('nil:',?clearedSpeedNilReason) AS ?clearedSpeed)
+          }
+          UNION
+          {
+		       ?_clearedSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?clearedSpeed)
           }
         }
       }
@@ -4918,6 +5673,11 @@ WHERE
            ?_heading  aixm:nilReason ?headingNilReason .
            BIND(concat('nil:',?headingNilReason) AS ?heading)
           }
+          UNION
+          {
+		       ?_heading  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?heading)
+          }
         }
       }
       OPTIONAL {?clearedFlightInformation fixm:offtrackClearance ?offtrackClearance .}
@@ -4939,6 +5699,11 @@ WHERE
           {
            ?_rateOfClimbDescend  aixm:nilReason ?rateOfClimbDescendNilReason .
            BIND(concat('nil:',?rateOfClimbDescendNilReason) AS ?rateOfClimbDescend)
+          }
+          UNION
+          {
+		       ?_rateOfClimbDescend  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?rateOfClimbDescend)
           }
         }
       }
@@ -5026,6 +5791,11 @@ WHERE
            ?_unitBoundaryIndicator  aixm:nilReason ?unitBoundaryIndicatorNilReason .
            BIND(concat('nil:',?unitBoundaryIndicatorNilReason) AS ?unitBoundaryIndicator)
           }
+          UNION
+          {
+		       ?_unitBoundaryIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?unitBoundaryIndicator)
+          }
         }
       }
     }
@@ -5077,6 +5847,11 @@ WHERE
            ?_observationTime  aixm:nilReason ?observationTimeNilReason .
            BIND(concat('nil:',?observationTimeNilReason) AS ?observationTime)
           }
+          UNION
+          {
+		       ?_observationTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?observationTime)
+          }
         }
       }
       OPTIONAL { ?surfaceContamination aixm:depth ?_depth .
@@ -5097,6 +5872,11 @@ WHERE
           {
            ?_depth  aixm:nilReason ?depthNilReason .
            BIND(concat('nil:',?depthNilReason) AS ?depth)
+          }
+          UNION
+          {
+		       ?_depth  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?depth)
           }
         }
       }
@@ -5119,6 +5899,11 @@ WHERE
            ?_frictionCoefficient  aixm:nilReason ?frictionCoefficientNilReason .
            BIND(concat('nil:',?frictionCoefficientNilReason) AS ?frictionCoefficient)
           }
+          UNION
+          {
+		       ?_frictionCoefficient  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?frictionCoefficient)
+          }
         }
       }
       OPTIONAL { ?surfaceContamination aixm:frictionEstimation ?_frictionEstimation .
@@ -5139,6 +5924,11 @@ WHERE
           {
            ?_frictionEstimation  aixm:nilReason ?frictionEstimationNilReason .
            BIND(concat('nil:',?frictionEstimationNilReason) AS ?frictionEstimation)
+          }
+          UNION
+          {
+		       ?_frictionEstimation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?frictionEstimation)
           }
         }
       }
@@ -5161,6 +5951,11 @@ WHERE
            ?_frictionDevice  aixm:nilReason ?frictionDeviceNilReason .
            BIND(concat('nil:',?frictionDeviceNilReason) AS ?frictionDevice)
           }
+          UNION
+          {
+		       ?_frictionDevice  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?frictionDevice)
+          }
         }
       }
       OPTIONAL { ?surfaceContamination aixm:obscuredLights ?_obscuredLights .
@@ -5181,6 +5976,11 @@ WHERE
           {
            ?_obscuredLights  aixm:nilReason ?obscuredLightsNilReason .
            BIND(concat('nil:',?obscuredLightsNilReason) AS ?obscuredLights)
+          }
+          UNION
+          {
+		       ?_obscuredLights  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?obscuredLights)
           }
         }
       }
@@ -5203,6 +6003,11 @@ WHERE
            ?_furtherClearanceTime  aixm:nilReason ?furtherClearanceTimeNilReason .
            BIND(concat('nil:',?furtherClearanceTimeNilReason) AS ?furtherClearanceTime)
           }
+          UNION
+          {
+		       ?_furtherClearanceTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?furtherClearanceTime)
+          }
         }
       }
       OPTIONAL { ?surfaceContamination aixm:furtherTotalClearance ?_furtherTotalClearance .
@@ -5223,6 +6028,11 @@ WHERE
           {
            ?_furtherTotalClearance  aixm:nilReason ?furtherTotalClearanceNilReason .
            BIND(concat('nil:',?furtherTotalClearanceNilReason) AS ?furtherTotalClearance)
+          }
+          UNION
+          {
+		       ?_furtherTotalClearance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?furtherTotalClearance)
           }
         }
       }
@@ -5245,6 +6055,11 @@ WHERE
            ?_nextObservationTime  aixm:nilReason ?nextObservationTimeNilReason .
            BIND(concat('nil:',?nextObservationTimeNilReason) AS ?nextObservationTime)
           }
+          UNION
+          {
+		       ?_nextObservationTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?nextObservationTime)
+          }
         }
       }
       OPTIONAL { ?surfaceContamination aixm:proportion ?_proportion .
@@ -5265,6 +6080,11 @@ WHERE
           {
            ?_proportion  aixm:nilReason ?proportionNilReason .
            BIND(concat('nil:',?proportionNilReason) AS ?proportion)
+          }
+          UNION
+          {
+		       ?_proportion  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?proportion)
           }
         }
       }
@@ -5318,6 +6138,11 @@ WHERE
            ?_temperature  aixm:nilReason ?temperatureNilReason .
            BIND(concat('nil:',?temperatureNilReason) AS ?temperature)
           }
+          UNION
+          {
+		       ?_temperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?temperature)
+          }
         }
       }
       OPTIONAL { ?meteorologicalData fixm:windDirection ?_windDirection .
@@ -5339,6 +6164,11 @@ WHERE
            ?_windDirection  aixm:nilReason ?windDirectionNilReason .
            BIND(concat('nil:',?windDirectionNilReason) AS ?windDirection)
           }
+          UNION
+          {
+		       ?_windDirection  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?windDirection)
+          }
         }
       }
       OPTIONAL { ?meteorologicalData fixm:windSpeed ?_windSpeed .
@@ -5359,6 +6189,11 @@ WHERE
           {
            ?_windSpeed  aixm:nilReason ?windSpeedNilReason .
            BIND(concat('nil:',?windSpeedNilReason) AS ?windSpeed)
+          }
+          UNION
+          {
+		       ?_windSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?windSpeed)
           }
         }
       }
@@ -5435,6 +6270,11 @@ WHERE
            ?_voice  aixm:nilReason ?voiceNilReason .
            BIND(concat('nil:',?voiceNilReason) AS ?voice)
           }
+          UNION
+          {
+		       ?_voice  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?voice)
+          }
         }
       }
       OPTIONAL { ?telephoneContact fixm:facimile ?_facimile .
@@ -5455,6 +6295,11 @@ WHERE
           {
            ?_facimile  aixm:nilReason ?facimileNilReason .
            BIND(concat('nil:',?facimileNilReason) AS ?facimile)
+          }
+          UNION
+          {
+		       ?_facimile  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?facimile)
           }
         }
       }
@@ -5505,6 +6350,11 @@ WHERE
            ?_dangerousGoodsScreeningLocation  aixm:nilReason ?dangerousGoodsScreeningLocationNilReason .
            BIND(concat('nil:',?dangerousGoodsScreeningLocationNilReason) AS ?dangerousGoodsScreeningLocation)
           }
+          UNION
+          {
+		       ?_dangerousGoodsScreeningLocation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dangerousGoodsScreeningLocation)
+          }
         }
       }
       OPTIONAL { ?shippingInformation fixm:departureCountry ?_departureCountry .
@@ -5525,6 +6375,11 @@ WHERE
           {
            ?_departureCountry  aixm:nilReason ?departureCountryNilReason .
            BIND(concat('nil:',?departureCountryNilReason) AS ?departureCountry)
+          }
+          UNION
+          {
+		       ?_departureCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?departureCountry)
           }
         }
       }
@@ -5547,6 +6402,11 @@ WHERE
            ?_destinationCountry  aixm:nilReason ?destinationCountryNilReason .
            BIND(concat('nil:',?destinationCountryNilReason) AS ?destinationCountry)
           }
+          UNION
+          {
+		       ?_destinationCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?destinationCountry)
+          }
         }
       }
       OPTIONAL { ?shippingInformation fixm:originCountry ?_originCountry .
@@ -5567,6 +6427,11 @@ WHERE
           {
            ?_originCountry  aixm:nilReason ?originCountryNilReason .
            BIND(concat('nil:',?originCountryNilReason) AS ?originCountry)
+          }
+          UNION
+          {
+		       ?_originCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?originCountry)
           }
         }
       }
@@ -5589,6 +6454,11 @@ WHERE
            ?_shipmentAuthorizations  aixm:nilReason ?shipmentAuthorizationsNilReason .
            BIND(concat('nil:',?shipmentAuthorizationsNilReason) AS ?shipmentAuthorizations)
           }
+          UNION
+          {
+		       ?_shipmentAuthorizations  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?shipmentAuthorizations)
+          }
         }
       }
       OPTIONAL { ?shippingInformation fixm:subsidiaryHazardClassAndDivision ?_subsidiaryHazardClassAndDivision .
@@ -5609,6 +6479,11 @@ WHERE
           {
            ?_subsidiaryHazardClassAndDivision  aixm:nilReason ?subsidiaryHazardClassAndDivisionNilReason .
            BIND(concat('nil:',?subsidiaryHazardClassAndDivisionNilReason) AS ?subsidiaryHazardClassAndDivision)
+          }
+          UNION
+          {
+		       ?_subsidiaryHazardClassAndDivision  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?subsidiaryHazardClassAndDivision)
           }
         }
       }
@@ -5631,6 +6506,11 @@ WHERE
            ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
            BIND(concat('nil:',?supplementaryInformationNilReason) AS ?supplementaryInformation)
           }
+          UNION
+          {
+		       ?_supplementaryInformation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?supplementaryInformation)
+          }
         }
       }
       OPTIONAL { ?shippingInformation fixm:transferAerodromes ?_transferAerodromes .
@@ -5651,6 +6531,11 @@ WHERE
           {
            ?_transferAerodromes  aixm:nilReason ?transferAerodromesNilReason .
            BIND(concat('nil:',?transferAerodromesNilReason) AS ?transferAerodromes)
+          }
+          UNION
+          {
+		       ?_transferAerodromes  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?transferAerodromes)
           }
         }
       }
@@ -5729,6 +6614,11 @@ WHERE
            ?_replacementFlightPlanIndicator  aixm:nilReason ?replacementFlightPlanIndicatorNilReason .
            BIND(concat('nil:',?replacementFlightPlanIndicatorNilReason) AS ?replacementFlightPlanIndicator)
           }
+          UNION
+          {
+		       ?_replacementFlightPlanIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?replacementFlightPlanIndicator)
+          }
         }
       }
       OPTIONAL { ?otherInformation fixm:runwayVisualRange ?_runwayVisualRange .
@@ -5749,6 +6639,11 @@ WHERE
           {
            ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
            BIND(concat('nil:',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
+          }
+          UNION
+          {
+		       ?_runwayVisualRange  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?runwayVisualRange)
           }
         }
       }
@@ -5823,6 +6718,11 @@ WHERE
            ?_receivingUnitFrequency  aixm:nilReason ?receivingUnitFrequencyNilReason .
            BIND(concat('nil:',?receivingUnitFrequencyNilReason) AS ?receivingUnitFrequency)
           }
+          UNION
+          {
+		       ?_receivingUnitFrequency  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?receivingUnitFrequency)
+          }
         }
       }
       OPTIONAL { ?cpdlcConnection fixm:atnLogonParameters ?_atnLogonParameters .
@@ -5843,6 +6743,11 @@ WHERE
           {
            ?_atnLogonParameters  aixm:nilReason ?atnLogonParametersNilReason .
            BIND(concat('nil:',?atnLogonParametersNilReason) AS ?atnLogonParameters)
+          }
+          UNION
+          {
+		       ?_atnLogonParameters  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?atnLogonParameters)
           }
         }
       }
@@ -5865,6 +6770,11 @@ WHERE
            ?_sendCpldcIndicator  aixm:nilReason ?sendCpldcIndicatorNilReason .
            BIND(concat('nil:',?sendCpldcIndicatorNilReason) AS ?sendCpldcIndicator)
           }
+          UNION
+          {
+		       ?_sendCpldcIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?sendCpldcIndicator)
+          }
         }
       }
       OPTIONAL { ?cpdlcConnection fixm:connectionStatus ?_connectionStatus .
@@ -5885,6 +6795,11 @@ WHERE
           {
            ?_connectionStatus  aixm:nilReason ?connectionStatusNilReason .
            BIND(concat('nil:',?connectionStatusNilReason) AS ?connectionStatus)
+          }
+          UNION
+          {
+		       ?_connectionStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?connectionStatus)
           }
         }
       }
@@ -5907,6 +6822,11 @@ WHERE
            ?_frequencyUsage  aixm:nilReason ?frequencyUsageNilReason .
            BIND(concat('nil:',?frequencyUsageNilReason) AS ?frequencyUsage)
           }
+          UNION
+          {
+		       ?_frequencyUsage  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?frequencyUsage)
+          }
         }
       }
       OPTIONAL { ?cpdlcConnection fixm:fans1ALogonParameters ?_fans1ALogonParameters .
@@ -5927,6 +6847,11 @@ WHERE
           {
            ?_fans1ALogonParameters  aixm:nilReason ?fans1ALogonParametersNilReason .
            BIND(concat('nil:',?fans1ALogonParametersNilReason) AS ?fans1ALogonParameters)
+          }
+          UNION
+          {
+		       ?_fans1ALogonParameters  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fans1ALogonParameters)
           }
         }
       }
@@ -5975,6 +6900,11 @@ WHERE
            ?_voice  aixm:nilReason ?voiceNilReason .
            BIND(concat('nil:',?voiceNilReason) AS ?voice)
           }
+          UNION
+          {
+		       ?_voice  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?voice)
+          }
         }
       }
       OPTIONAL { ?telephoneContact aixm:facsimile ?_facsimile .
@@ -5995,6 +6925,11 @@ WHERE
           {
            ?_facsimile  aixm:nilReason ?facsimileNilReason .
            BIND(concat('nil:',?facsimileNilReason) AS ?facsimile)
+          }
+          UNION
+          {
+		       ?_facsimile  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?facsimile)
           }
         }
       }
@@ -6047,6 +6982,11 @@ WHERE
            ?_airfileRouteStartTime  aixm:nilReason ?airfileRouteStartTimeNilReason .
            BIND(concat('nil:',?airfileRouteStartTimeNilReason) AS ?airfileRouteStartTime)
           }
+          UNION
+          {
+		       ?_airfileRouteStartTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airfileRouteStartTime)
+          }
         }
       }
       OPTIONAL { ?route fixm:flightDuration ?_flightDuration .
@@ -6067,6 +7007,11 @@ WHERE
           {
            ?_flightDuration  aixm:nilReason ?flightDurationNilReason .
            BIND(concat('nil:',?flightDurationNilReason) AS ?flightDuration)
+          }
+          UNION
+          {
+		       ?_flightDuration  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightDuration)
           }
         }
       }
@@ -6089,6 +7034,11 @@ WHERE
            ?_initialCruisingSpeed  aixm:nilReason ?initialCruisingSpeedNilReason .
            BIND(concat('nil:',?initialCruisingSpeedNilReason) AS ?initialCruisingSpeed)
           }
+          UNION
+          {
+		       ?_initialCruisingSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?initialCruisingSpeed)
+          }
         }
       }
       OPTIONAL { ?route fixm:initialFlightRules ?_initialFlightRules .
@@ -6109,6 +7059,11 @@ WHERE
           {
            ?_initialFlightRules  aixm:nilReason ?initialFlightRulesNilReason .
            BIND(concat('nil:',?initialFlightRulesNilReason) AS ?initialFlightRules)
+          }
+          UNION
+          {
+		       ?_initialFlightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?initialFlightRules)
           }
         }
       }
@@ -6131,6 +7086,11 @@ WHERE
            ?_requestedAltitude  aixm:nilReason ?requestedAltitudeNilReason .
            BIND(concat('nil:',?requestedAltitudeNilReason) AS ?requestedAltitude)
           }
+          UNION
+          {
+		       ?_requestedAltitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?requestedAltitude)
+          }
         }
       }
       OPTIONAL { ?route fixm:routeText ?_routeText .
@@ -6151,6 +7111,11 @@ WHERE
           {
            ?_routeText  aixm:nilReason ?routeTextNilReason .
            BIND(concat('nil:',?routeTextNilReason) AS ?routeText)
+          }
+          UNION
+          {
+		       ?_routeText  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?routeText)
           }
         }
       }
@@ -6206,6 +7171,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL {?person fixm:contact ?contact .}
@@ -6254,6 +7224,11 @@ WHERE
            ?_ifplId  aixm:nilReason ?ifplIdNilReason .
            BIND(concat('nil:',?ifplIdNilReason) AS ?ifplId)
           }
+          UNION
+          {
+		       ?_ifplId  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?ifplId)
+          }
         }
       }
       OPTIONAL { ?efplFlight fixm:totalEstimatedElapsedTime ?_totalEstimatedElapsedTime .
@@ -6274,6 +7249,11 @@ WHERE
           {
            ?_totalEstimatedElapsedTime  aixm:nilReason ?totalEstimatedElapsedTimeNilReason .
            BIND(concat('nil:',?totalEstimatedElapsedTimeNilReason) AS ?totalEstimatedElapsedTime)
+          }
+          UNION
+          {
+		       ?_totalEstimatedElapsedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?totalEstimatedElapsedTime)
           }
         }
       }
@@ -6296,6 +7276,11 @@ WHERE
           {
            ?_efplSpecialHandling  aixm:nilReason ?efplSpecialHandlingNilReason .
            BIND(concat('nil:',?efplSpecialHandlingNilReason) AS ?efplSpecialHandling)
+          }
+          UNION
+          {
+		       ?_efplSpecialHandling  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?efplSpecialHandling)
           }
         }
       }
@@ -6374,6 +7359,11 @@ WHERE
            ?_airborneHold  aixm:nilReason ?airborneHoldNilReason .
            BIND(concat('nil:',?airborneHoldNilReason) AS ?airborneHold)
           }
+          UNION
+          {
+		       ?_airborneHold  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airborneHold)
+          }
         }
       }
       OPTIONAL { ?flightStatus fixm:airfile ?_airfile .
@@ -6394,6 +7384,11 @@ WHERE
           {
            ?_airfile  aixm:nilReason ?airfileNilReason .
            BIND(concat('nil:',?airfileNilReason) AS ?airfile)
+          }
+          UNION
+          {
+		       ?_airfile  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airfile)
           }
         }
       }
@@ -6416,6 +7411,11 @@ WHERE
            ?_accepted  aixm:nilReason ?acceptedNilReason .
            BIND(concat('nil:',?acceptedNilReason) AS ?accepted)
           }
+          UNION
+          {
+		       ?_accepted  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?accepted)
+          }
         }
       }
       OPTIONAL { ?flightStatus fixm:flightCycle ?_flightCycle .
@@ -6436,6 +7436,11 @@ WHERE
           {
            ?_flightCycle  aixm:nilReason ?flightCycleNilReason .
            BIND(concat('nil:',?flightCycleNilReason) AS ?flightCycle)
+          }
+          UNION
+          {
+		       ?_flightCycle  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flightCycle)
           }
         }
       }
@@ -6458,6 +7463,11 @@ WHERE
            ?_missedApproach  aixm:nilReason ?missedApproachNilReason .
            BIND(concat('nil:',?missedApproachNilReason) AS ?missedApproach)
           }
+          UNION
+          {
+		       ?_missedApproach  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?missedApproach)
+          }
         }
       }
       OPTIONAL { ?flightStatus fixm:suspended ?_suspended .
@@ -6478,6 +7488,11 @@ WHERE
           {
            ?_suspended  aixm:nilReason ?suspendedNilReason .
            BIND(concat('nil:',?suspendedNilReason) AS ?suspended)
+          }
+          UNION
+          {
+		       ?_suspended  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?suspended)
           }
         }
       }
@@ -6526,6 +7541,11 @@ WHERE
            ?_unitIdentifier  aixm:nilReason ?unitIdentifierNilReason .
            BIND(concat('nil:',?unitIdentifierNilReason) AS ?unitIdentifier)
           }
+          UNION
+          {
+		       ?_unitIdentifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?unitIdentifier)
+          }
         }
       }
     }
@@ -6573,6 +7593,11 @@ WHERE
            ?_physicalChemicalForm  aixm:nilReason ?physicalChemicalFormNilReason .
            BIND(concat('nil:',?physicalChemicalFormNilReason) AS ?physicalChemicalForm)
           }
+          UNION
+          {
+		       ?_physicalChemicalForm  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?physicalChemicalForm)
+          }
         }
       }
       OPTIONAL { ?radionuclide fixm:radionuclideId ?_radionuclideId .
@@ -6593,6 +7618,11 @@ WHERE
           {
            ?_radionuclideId  aixm:nilReason ?radionuclideIdNilReason .
            BIND(concat('nil:',?radionuclideIdNilReason) AS ?radionuclideId)
+          }
+          UNION
+          {
+		       ?_radionuclideId  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?radionuclideId)
           }
         }
       }
@@ -6615,6 +7645,11 @@ WHERE
            ?_radionuclideName  aixm:nilReason ?radionuclideNameNilReason .
            BIND(concat('nil:',?radionuclideNameNilReason) AS ?radionuclideName)
           }
+          UNION
+          {
+		       ?_radionuclideName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?radionuclideName)
+          }
         }
       }
       OPTIONAL { ?radionuclide fixm:lowDispersibleMaterialIndicator ?_lowDispersibleMaterialIndicator .
@@ -6635,6 +7670,11 @@ WHERE
           {
            ?_lowDispersibleMaterialIndicator  aixm:nilReason ?lowDispersibleMaterialIndicatorNilReason .
            BIND(concat('nil:',?lowDispersibleMaterialIndicatorNilReason) AS ?lowDispersibleMaterialIndicator)
+          }
+          UNION
+          {
+		       ?_lowDispersibleMaterialIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lowDispersibleMaterialIndicator)
           }
         }
       }
@@ -6657,6 +7697,11 @@ WHERE
            ?_activity  aixm:nilReason ?activityNilReason .
            BIND(concat('nil:',?activityNilReason) AS ?activity)
           }
+          UNION
+          {
+		       ?_activity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?activity)
+          }
         }
       }
       OPTIONAL { ?radionuclide fixm:specialFormIndicator ?_specialFormIndicator .
@@ -6677,6 +7722,11 @@ WHERE
           {
            ?_specialFormIndicator  aixm:nilReason ?specialFormIndicatorNilReason .
            BIND(concat('nil:',?specialFormIndicatorNilReason) AS ?specialFormIndicator)
+          }
+          UNION
+          {
+		       ?_specialFormIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?specialFormIndicator)
           }
         }
       }
@@ -6725,6 +7775,11 @@ WHERE
            ?_network  aixm:nilReason ?networkNilReason .
            BIND(concat('nil:',?networkNilReason) AS ?network)
           }
+          UNION
+          {
+		       ?_network  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?network)
+          }
         }
       }
       OPTIONAL { ?onlineContact aixm:linkage ?_linkage .
@@ -6745,6 +7800,11 @@ WHERE
           {
            ?_linkage  aixm:nilReason ?linkageNilReason .
            BIND(concat('nil:',?linkageNilReason) AS ?linkage)
+          }
+          UNION
+          {
+		       ?_linkage  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?linkage)
           }
         }
       }
@@ -6767,6 +7827,11 @@ WHERE
            ?_protocol  aixm:nilReason ?protocolNilReason .
            BIND(concat('nil:',?protocolNilReason) AS ?protocol)
           }
+          UNION
+          {
+		       ?_protocol  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?protocol)
+          }
         }
       }
       OPTIONAL { ?onlineContact aixm:eMail ?_eMail .
@@ -6787,6 +7852,11 @@ WHERE
           {
            ?_eMail  aixm:nilReason ?eMailNilReason .
            BIND(concat('nil:',?eMailNilReason) AS ?eMail)
+          }
+          UNION
+          {
+		       ?_eMail  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?eMail)
           }
         }
       }
@@ -6861,6 +7931,11 @@ WHERE
            ?_altitude  aixm:nilReason ?altitudeNilReason .
            BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
           }
+          UNION
+          {
+		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altitude)
+          }
         }
       }
       OPTIONAL {?aircraftPosition fixm:position ?position .}
@@ -6883,6 +7958,11 @@ WHERE
            ?_positionTime  aixm:nilReason ?positionTimeNilReason .
            BIND(concat('nil:',?positionTimeNilReason) AS ?positionTime)
           }
+          UNION
+          {
+		       ?_positionTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?positionTime)
+          }
         }
       }
       OPTIONAL { ?aircraftPosition fixm:track ?_track .
@@ -6903,6 +7983,11 @@ WHERE
           {
            ?_track  aixm:nilReason ?trackNilReason .
            BIND(concat('nil:',?trackNilReason) AS ?track)
+          }
+          UNION
+          {
+		       ?_track  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?track)
           }
         }
       }
@@ -6926,6 +8011,11 @@ WHERE
           {
            ?_reportSource  aixm:nilReason ?reportSourceNilReason .
            BIND(concat('nil:',?reportSourceNilReason) AS ?reportSource)
+          }
+          UNION
+          {
+		       ?_reportSource  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?reportSource)
           }
         }
       }
@@ -6975,6 +8065,11 @@ WHERE
            ?_operation  aixm:nilReason ?operationNilReason .
            BIND(concat('nil:',?operationNilReason) AS ?operation)
           }
+          UNION
+          {
+		       ?_operation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?operation)
+          }
         }
       }
     }
@@ -7022,6 +8117,11 @@ WHERE
            ?_timeReference  aixm:nilReason ?timeReferenceNilReason .
            BIND(concat('nil:',?timeReferenceNilReason) AS ?timeReference)
           }
+          UNION
+          {
+		       ?_timeReference  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?timeReference)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:startDate ?_startDate .
@@ -7042,6 +8142,11 @@ WHERE
           {
            ?_startDate  aixm:nilReason ?startDateNilReason .
            BIND(concat('nil:',?startDateNilReason) AS ?startDate)
+          }
+          UNION
+          {
+		       ?_startDate  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?startDate)
           }
         }
       }
@@ -7064,6 +8169,11 @@ WHERE
            ?_endDate  aixm:nilReason ?endDateNilReason .
            BIND(concat('nil:',?endDateNilReason) AS ?endDate)
           }
+          UNION
+          {
+		       ?_endDate  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endDate)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:day ?_day .
@@ -7084,6 +8194,11 @@ WHERE
           {
            ?_day  aixm:nilReason ?dayNilReason .
            BIND(concat('nil:',?dayNilReason) AS ?day)
+          }
+          UNION
+          {
+		       ?_day  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?day)
           }
         }
       }
@@ -7106,6 +8221,11 @@ WHERE
            ?_dayTil  aixm:nilReason ?dayTilNilReason .
            BIND(concat('nil:',?dayTilNilReason) AS ?dayTil)
           }
+          UNION
+          {
+		       ?_dayTil  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dayTil)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:startTime ?_startTime .
@@ -7126,6 +8246,11 @@ WHERE
           {
            ?_startTime  aixm:nilReason ?startTimeNilReason .
            BIND(concat('nil:',?startTimeNilReason) AS ?startTime)
+          }
+          UNION
+          {
+		       ?_startTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?startTime)
           }
         }
       }
@@ -7148,6 +8273,11 @@ WHERE
            ?_startEvent  aixm:nilReason ?startEventNilReason .
            BIND(concat('nil:',?startEventNilReason) AS ?startEvent)
           }
+          UNION
+          {
+		       ?_startEvent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?startEvent)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:startTimeRelativeEvent ?_startTimeRelativeEvent .
@@ -7168,6 +8298,11 @@ WHERE
           {
            ?_startTimeRelativeEvent  aixm:nilReason ?startTimeRelativeEventNilReason .
            BIND(concat('nil:',?startTimeRelativeEventNilReason) AS ?startTimeRelativeEvent)
+          }
+          UNION
+          {
+		       ?_startTimeRelativeEvent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?startTimeRelativeEvent)
           }
         }
       }
@@ -7190,6 +8325,11 @@ WHERE
            ?_startEventInterpretation  aixm:nilReason ?startEventInterpretationNilReason .
            BIND(concat('nil:',?startEventInterpretationNilReason) AS ?startEventInterpretation)
           }
+          UNION
+          {
+		       ?_startEventInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?startEventInterpretation)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:endTime ?_endTime .
@@ -7210,6 +8350,11 @@ WHERE
           {
            ?_endTime  aixm:nilReason ?endTimeNilReason .
            BIND(concat('nil:',?endTimeNilReason) AS ?endTime)
+          }
+          UNION
+          {
+		       ?_endTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endTime)
           }
         }
       }
@@ -7232,6 +8377,11 @@ WHERE
            ?_endEvent  aixm:nilReason ?endEventNilReason .
            BIND(concat('nil:',?endEventNilReason) AS ?endEvent)
           }
+          UNION
+          {
+		       ?_endEvent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endEvent)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:endTimeRelativeEvent ?_endTimeRelativeEvent .
@@ -7252,6 +8402,11 @@ WHERE
           {
            ?_endTimeRelativeEvent  aixm:nilReason ?endTimeRelativeEventNilReason .
            BIND(concat('nil:',?endTimeRelativeEventNilReason) AS ?endTimeRelativeEvent)
+          }
+          UNION
+          {
+		       ?_endTimeRelativeEvent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endTimeRelativeEvent)
           }
         }
       }
@@ -7274,6 +8429,11 @@ WHERE
            ?_endEventInterpretation  aixm:nilReason ?endEventInterpretationNilReason .
            BIND(concat('nil:',?endEventInterpretationNilReason) AS ?endEventInterpretation)
           }
+          UNION
+          {
+		       ?_endEventInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endEventInterpretation)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:daylightSavingAdjust ?_daylightSavingAdjust .
@@ -7295,6 +8455,11 @@ WHERE
            ?_daylightSavingAdjust  aixm:nilReason ?daylightSavingAdjustNilReason .
            BIND(concat('nil:',?daylightSavingAdjustNilReason) AS ?daylightSavingAdjust)
           }
+          UNION
+          {
+		       ?_daylightSavingAdjust  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?daylightSavingAdjust)
+          }
         }
       }
       OPTIONAL { ?timesheet aixm:excluded ?_excluded .
@@ -7315,6 +8480,11 @@ WHERE
           {
            ?_excluded  aixm:nilReason ?excludedNilReason .
            BIND(concat('nil:',?excludedNilReason) AS ?excluded)
+          }
+          UNION
+          {
+		       ?_excluded  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?excluded)
           }
         }
       }
@@ -7429,6 +8599,11 @@ WHERE
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
           }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
+          }
         }
       }
       OPTIONAL { ?flightCharacteristic aixm:rule ?_rule .
@@ -7449,6 +8624,11 @@ WHERE
           {
            ?_rule  aixm:nilReason ?ruleNilReason .
            BIND(concat('nil:',?ruleNilReason) AS ?rule)
+          }
+          UNION
+          {
+		       ?_rule  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?rule)
           }
         }
       }
@@ -7471,6 +8651,11 @@ WHERE
            ?_status  aixm:nilReason ?statusNilReason .
            BIND(concat('nil:',?statusNilReason) AS ?status)
           }
+          UNION
+          {
+		       ?_status  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?status)
+          }
         }
       }
       OPTIONAL { ?flightCharacteristic aixm:military ?_military .
@@ -7491,6 +8676,11 @@ WHERE
           {
            ?_military  aixm:nilReason ?militaryNilReason .
            BIND(concat('nil:',?militaryNilReason) AS ?military)
+          }
+          UNION
+          {
+		       ?_military  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?military)
           }
         }
       }
@@ -7513,6 +8703,11 @@ WHERE
            ?_origin  aixm:nilReason ?originNilReason .
            BIND(concat('nil:',?originNilReason) AS ?origin)
           }
+          UNION
+          {
+		       ?_origin  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?origin)
+          }
         }
       }
       OPTIONAL { ?flightCharacteristic aixm:purpose ?_purpose .
@@ -7533,6 +8728,11 @@ WHERE
           {
            ?_purpose  aixm:nilReason ?purposeNilReason .
            BIND(concat('nil:',?purposeNilReason) AS ?purpose)
+          }
+          UNION
+          {
+		       ?_purpose  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?purpose)
           }
         }
       }
@@ -7583,6 +8783,11 @@ WHERE
            ?_timestamp  aixm:nilReason ?timestampNilReason .
            BIND(concat('nil:',?timestampNilReason) AS ?timestamp)
           }
+          UNION
+          {
+		       ?_timestamp  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?timestamp)
+          }
         }
       }
       OPTIONAL { ?provenance fixm:centre ?_centre .
@@ -7603,6 +8808,11 @@ WHERE
           {
            ?_centre  aixm:nilReason ?centreNilReason .
            BIND(concat('nil:',?centreNilReason) AS ?centre)
+          }
+          UNION
+          {
+		       ?_centre  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?centre)
           }
         }
       }
@@ -7625,6 +8835,11 @@ WHERE
            ?_source  aixm:nilReason ?sourceNilReason .
            BIND(concat('nil:',?sourceNilReason) AS ?source)
           }
+          UNION
+          {
+		       ?_source  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?source)
+          }
         }
       }
       OPTIONAL { ?provenance fixm:system ?_system .
@@ -7645,6 +8860,11 @@ WHERE
           {
            ?_system  aixm:nilReason ?systemNilReason .
            BIND(concat('nil:',?systemNilReason) AS ?system)
+          }
+          UNION
+          {
+		       ?_system  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?system)
           }
         }
       }
@@ -7725,6 +8945,11 @@ WHERE
            ?_altimeterSetting  aixm:nilReason ?altimeterSettingNilReason .
            BIND(concat('nil:',?altimeterSettingNilReason) AS ?altimeterSetting)
           }
+          UNION
+          {
+		       ?_altimeterSetting  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altimeterSetting)
+          }
         }
       }
       OPTIONAL { ?trajectoryPoint fixm:predictedAirspeed ?_predictedAirspeed .
@@ -7746,6 +8971,11 @@ WHERE
            ?_predictedAirspeed  aixm:nilReason ?predictedAirspeedNilReason .
            BIND(concat('nil:',?predictedAirspeedNilReason) AS ?predictedAirspeed)
           }
+          UNION
+          {
+		       ?_predictedAirspeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?predictedAirspeed)
+          }
         }
       }
       OPTIONAL { ?trajectoryPoint fixm:predictedGroundspeed ?_predictedGroundspeed .
@@ -7766,6 +8996,11 @@ WHERE
           {
            ?_predictedGroundspeed  aixm:nilReason ?predictedGroundspeedNilReason .
            BIND(concat('nil:',?predictedGroundspeedNilReason) AS ?predictedGroundspeed)
+          }
+          UNION
+          {
+		       ?_predictedGroundspeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?predictedGroundspeed)
           }
         }
       }
@@ -7790,6 +9025,11 @@ WHERE
           {
            ?_trajectoryChangeType  aixm:nilReason ?trajectoryChangeTypeNilReason .
            BIND(concat('nil:',?trajectoryChangeTypeNilReason) AS ?trajectoryChangeType)
+          }
+          UNION
+          {
+		       ?_trajectoryChangeType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?trajectoryChangeType)
           }
         }
       }
@@ -7842,6 +9082,11 @@ WHERE
            ?_distanceFromTakeOff  aixm:nilReason ?distanceFromTakeOffNilReason .
            BIND(concat('nil:',?distanceFromTakeOffNilReason) AS ?distanceFromTakeOff)
           }
+          UNION
+          {
+		       ?_distanceFromTakeOff  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?distanceFromTakeOff)
+          }
         }
       }
       OPTIONAL { ?efplTrajectoryPoint fixm:efplEstimatedSpeed ?_efplEstimatedSpeed .
@@ -7862,6 +9107,11 @@ WHERE
           {
            ?_efplEstimatedSpeed  aixm:nilReason ?efplEstimatedSpeedNilReason .
            BIND(concat('nil:',?efplEstimatedSpeedNilReason) AS ?efplEstimatedSpeed)
+          }
+          UNION
+          {
+		       ?_efplEstimatedSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?efplEstimatedSpeed)
           }
         }
       }
@@ -7884,6 +9134,11 @@ WHERE
            ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
            BIND(concat('nil:',?elapsedTimeNilReason) AS ?elapsedTime)
           }
+          UNION
+          {
+		       ?_elapsedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?elapsedTime)
+          }
         }
       }
       OPTIONAL { ?efplTrajectoryPoint fixm:grossWeight ?_grossWeight .
@@ -7905,6 +9160,11 @@ WHERE
            ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
            BIND(concat('nil:',?grossWeightNilReason) AS ?grossWeight)
           }
+          UNION
+          {
+		       ?_grossWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?grossWeight)
+          }
         }
       }
       OPTIONAL { ?efplTrajectoryPoint fixm:trajectoryPointType ?_trajectoryPointType .
@@ -7925,6 +9185,11 @@ WHERE
           {
            ?_trajectoryPointType  aixm:nilReason ?trajectoryPointTypeNilReason .
            BIND(concat('nil:',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
+          }
+          UNION
+          {
+		       ?_trajectoryPointType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?trajectoryPointType)
           }
         }
       }
@@ -7975,6 +9240,11 @@ WHERE
            ?_controlTemperature  aixm:nilReason ?controlTemperatureNilReason .
            BIND(concat('nil:',?controlTemperatureNilReason) AS ?controlTemperature)
           }
+          UNION
+          {
+		       ?_controlTemperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?controlTemperature)
+          }
         }
       }
       OPTIONAL { ?temperatures fixm:emergencyTemperature ?_emergencyTemperature .
@@ -7996,6 +9266,11 @@ WHERE
            ?_emergencyTemperature  aixm:nilReason ?emergencyTemperatureNilReason .
            BIND(concat('nil:',?emergencyTemperatureNilReason) AS ?emergencyTemperature)
           }
+          UNION
+          {
+		       ?_emergencyTemperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?emergencyTemperature)
+          }
         }
       }
       OPTIONAL { ?temperatures fixm:flashpointTemperature ?_flashpointTemperature .
@@ -8016,6 +9291,11 @@ WHERE
           {
            ?_flashpointTemperature  aixm:nilReason ?flashpointTemperatureNilReason .
            BIND(concat('nil:',?flashpointTemperatureNilReason) AS ?flashpointTemperature)
+          }
+          UNION
+          {
+		       ?_flashpointTemperature  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?flashpointTemperature)
           }
         }
       }
@@ -8064,6 +9344,11 @@ WHERE
            ?_segmentIdentifier  aixm:nilReason ?segmentIdentifierNilReason .
            BIND(concat('nil:',?segmentIdentifierNilReason) AS ?segmentIdentifier)
           }
+          UNION
+          {
+		       ?_segmentIdentifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?segmentIdentifier)
+          }
         }
       }
       OPTIONAL { ?trajectorySegment fixm:segmentType ?_segmentType .
@@ -8084,6 +9369,11 @@ WHERE
           {
            ?_segmentType  aixm:nilReason ?segmentTypeNilReason .
            BIND(concat('nil:',?segmentTypeNilReason) AS ?segmentType)
+          }
+          UNION
+          {
+		       ?_segmentType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?segmentType)
           }
         }
       }
@@ -8131,6 +9421,11 @@ WHERE
           {
            ?_runwayName  aixm:nilReason ?runwayNameNilReason .
            BIND(concat('nil:',?runwayNameNilReason) AS ?runwayName)
+          }
+          UNION
+          {
+		       ?_runwayName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?runwayName)
           }
         }
       }
@@ -8212,6 +9507,11 @@ WHERE
            ?_aircraftIdentification  aixm:nilReason ?aircraftIdentificationNilReason .
            BIND(concat('nil:',?aircraftIdentificationNilReason) AS ?aircraftIdentification)
           }
+          UNION
+          {
+		       ?_aircraftIdentification  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftIdentification)
+          }
         }
       }
       OPTIONAL { ?flightIdentification fixm:majorCarrierIdentifier ?_majorCarrierIdentifier .
@@ -8233,6 +9533,11 @@ WHERE
            ?_majorCarrierIdentifier  aixm:nilReason ?majorCarrierIdentifierNilReason .
            BIND(concat('nil:',?majorCarrierIdentifierNilReason) AS ?majorCarrierIdentifier)
           }
+          UNION
+          {
+		       ?_majorCarrierIdentifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?majorCarrierIdentifier)
+          }
         }
       }
       OPTIONAL { ?flightIdentification fixm:marketingCarrierFlightIdentifier ?_marketingCarrierFlightIdentifier .
@@ -8253,6 +9558,11 @@ WHERE
           {
            ?_marketingCarrierFlightIdentifier  aixm:nilReason ?marketingCarrierFlightIdentifierNilReason .
            BIND(concat('nil:',?marketingCarrierFlightIdentifierNilReason) AS ?marketingCarrierFlightIdentifier)
+          }
+          UNION
+          {
+		       ?_marketingCarrierFlightIdentifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?marketingCarrierFlightIdentifier)
           }
         }
       }
@@ -8302,6 +9612,11 @@ WHERE
            ?_contactFrequency  aixm:nilReason ?contactFrequencyNilReason .
            BIND(concat('nil:',?contactFrequencyNilReason) AS ?contactFrequency)
           }
+          UNION
+          {
+		       ?_contactFrequency  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?contactFrequency)
+          }
         }
       }
       OPTIONAL { ?lastContact fixm:lastContactTime ?_lastContactTime .
@@ -8323,6 +9638,11 @@ WHERE
            ?_lastContactTime  aixm:nilReason ?lastContactTimeNilReason .
            BIND(concat('nil:',?lastContactTimeNilReason) AS ?lastContactTime)
           }
+          UNION
+          {
+		       ?_lastContactTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lastContactTime)
+          }
         }
       }
       OPTIONAL { ?lastContact fixm:lastContactUnit ?_lastContactUnit .
@@ -8343,6 +9663,11 @@ WHERE
           {
            ?_lastContactUnit  aixm:nilReason ?lastContactUnitNilReason .
            BIND(concat('nil:',?lastContactUnitNilReason) AS ?lastContactUnit)
+          }
+          UNION
+          {
+		       ?_lastContactUnit  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lastContactUnit)
           }
         }
       }
@@ -8422,6 +9747,11 @@ WHERE
            ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
            BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
           }
+          UNION
+          {
+		       ?_horizontalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?horizontalAccuracy)
+          }
         }
       }
       OPTIONAL {?surface aixm:annotation ?annotation .}
@@ -8471,8 +9801,13 @@ WHERE
           {
 		       ?_beginPosition  aixm:nilReason ?beginPositionNilReason .
 		       BIND(concat('nil:',?beginPositionNilReason) AS ?beginPosition)
-		   }
-      }
+		     }
+          UNION
+          {
+		       ?_beginPosition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?beginPosition)
+          }
+        }
       ?timePeriod gml:endPosition  ?_endPosition .
         {
           {
@@ -8491,8 +9826,13 @@ WHERE
           {
 		       ?_endPosition  aixm:nilReason ?endPositionNilReason .
 		       BIND(concat('nil:',?endPositionNilReason) AS ?endPosition)
-		   }
-      }
+		     }
+          UNION
+          {
+		       ?_endPosition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?endPosition)
+          }
+        }
     }
   }
 
@@ -8542,6 +9882,11 @@ WHERE
            ?_standardCapabilities  aixm:nilReason ?standardCapabilitiesNilReason .
            BIND(concat('nil:',?standardCapabilitiesNilReason) AS ?standardCapabilities)
           }
+          UNION
+          {
+		       ?_standardCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?standardCapabilities)
+          }
         }
       }
     }
@@ -8589,6 +9934,11 @@ WHERE
            ?_initialSpeed  aixm:nilReason ?initialSpeedNilReason .
            BIND(concat('nil:',?initialSpeedNilReason) AS ?initialSpeed)
           }
+          UNION
+          {
+		       ?_initialSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?initialSpeed)
+          }
         }
       }
       OPTIONAL { ?speedSchedule fixm:subsequentSpeed ?_subsequentSpeed .
@@ -8609,6 +9959,11 @@ WHERE
           {
            ?_subsequentSpeed  aixm:nilReason ?subsequentSpeedNilReason .
            BIND(concat('nil:',?subsequentSpeedNilReason) AS ?subsequentSpeed)
+          }
+          UNION
+          {
+		       ?_subsequentSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?subsequentSpeed)
           }
         }
       }
@@ -8657,6 +10012,11 @@ WHERE
            ?_name  aixm:nilReason ?nameNilReason .
            BIND(concat('nil:',?nameNilReason) AS ?name)
           }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?name)
+          }
         }
       }
       OPTIONAL { ?organisationAuthorityTimeSlice aixm:designator ?_designator .
@@ -8677,6 +10037,11 @@ WHERE
           {
            ?_designator  aixm:nilReason ?designatorNilReason .
            BIND(concat('nil:',?designatorNilReason) AS ?designator)
+          }
+          UNION
+          {
+		       ?_designator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?designator)
           }
         }
       }
@@ -8699,6 +10064,11 @@ WHERE
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
           }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
+          }
         }
       }
       OPTIONAL { ?organisationAuthorityTimeSlice aixm:military ?_military .
@@ -8719,6 +10089,11 @@ WHERE
           {
            ?_military  aixm:nilReason ?militaryNilReason .
            BIND(concat('nil:',?militaryNilReason) AS ?military)
+          }
+          UNION
+          {
+		       ?_military  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?military)
           }
         }
       }
@@ -8772,6 +10147,11 @@ WHERE
            ?_fleetPrioritization  aixm:nilReason ?fleetPrioritizationNilReason .
            BIND(concat('nil:',?fleetPrioritizationNilReason) AS ?fleetPrioritization)
           }
+          UNION
+          {
+		       ?_fleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fleetPrioritization)
+          }
         }
       }
       OPTIONAL {?enRoute fixm:boundaryCrossings ?boundaryCrossings .}
@@ -8796,6 +10176,11 @@ WHERE
           {
            ?_controlElement  aixm:nilReason ?controlElementNilReason .
            BIND(concat('nil:',?controlElementNilReason) AS ?controlElement)
+          }
+          UNION
+          {
+		       ?_controlElement  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?controlElement)
           }
         }
       }
@@ -8847,6 +10232,11 @@ WHERE
            ?_level  aixm:nilReason ?levelNilReason .
            BIND(concat('nil:',?levelNilReason) AS ?level)
           }
+          UNION
+          {
+		       ?_level  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?level)
+          }
         }
       }
       OPTIONAL { ?flightLevel fixm:unit ?_unit .
@@ -8867,6 +10257,11 @@ WHERE
           {
            ?_unit  aixm:nilReason ?unitNilReason .
            BIND(concat('nil:',?unitNilReason) AS ?unit)
+          }
+          UNION
+          {
+		       ?_unit  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?unit)
           }
         }
       }
@@ -8916,6 +10311,11 @@ WHERE
            ?_offtrackReason  aixm:nilReason ?offtrackReasonNilReason .
            BIND(concat('nil:',?offtrackReasonNilReason) AS ?offtrackReason)
           }
+          UNION
+          {
+		       ?_offtrackReason  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?offtrackReason)
+          }
         }
       }
     }
@@ -8964,6 +10364,11 @@ WHERE
            ?_earliest  aixm:nilReason ?earliestNilReason .
            BIND(concat('nil:',?earliestNilReason) AS ?earliest)
           }
+          UNION
+          {
+		       ?_earliest  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?earliest)
+          }
         }
       }
       OPTIONAL { ?temporalRange fixm:latest ?_latest .
@@ -8984,6 +10389,11 @@ WHERE
           {
            ?_latest  aixm:nilReason ?latestNilReason .
            BIND(concat('nil:',?latestNilReason) AS ?latest)
+          }
+          UNION
+          {
+		       ?_latest  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?latest)
           }
         }
       }
@@ -9032,6 +10442,11 @@ WHERE
            ?_aircraftColours  aixm:nilReason ?aircraftColoursNilReason .
            BIND(concat('nil:',?aircraftColoursNilReason) AS ?aircraftColours)
           }
+          UNION
+          {
+		       ?_aircraftColours  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftColours)
+          }
         }
       }
       OPTIONAL { ?aircraft fixm:aircraftQuantity ?_aircraftQuantity .
@@ -9052,6 +10467,11 @@ WHERE
           {
            ?_aircraftQuantity  aixm:nilReason ?aircraftQuantityNilReason .
            BIND(concat('nil:',?aircraftQuantityNilReason) AS ?aircraftQuantity)
+          }
+          UNION
+          {
+		       ?_aircraftQuantity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftQuantity)
           }
         }
       }
@@ -9074,6 +10494,11 @@ WHERE
            ?_engineType  aixm:nilReason ?engineTypeNilReason .
            BIND(concat('nil:',?engineTypeNilReason) AS ?engineType)
           }
+          UNION
+          {
+		       ?_engineType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?engineType)
+          }
         }
       }
       OPTIONAL { ?aircraft fixm:aircraftAddress ?_aircraftAddress .
@@ -9094,6 +10519,11 @@ WHERE
           {
            ?_aircraftAddress  aixm:nilReason ?aircraftAddressNilReason .
            BIND(concat('nil:',?aircraftAddressNilReason) AS ?aircraftAddress)
+          }
+          UNION
+          {
+		       ?_aircraftAddress  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftAddress)
           }
         }
       }
@@ -9117,6 +10547,11 @@ WHERE
            ?_registration  aixm:nilReason ?registrationNilReason .
            BIND(concat('nil:',?registrationNilReason) AS ?registration)
           }
+          UNION
+          {
+		       ?_registration  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?registration)
+          }
         }
       }
       OPTIONAL { ?aircraft fixm:aircraftType ?_aircraftType .
@@ -9137,6 +10572,11 @@ WHERE
           {
            ?_aircraftType  aixm:nilReason ?aircraftTypeNilReason .
            BIND(concat('nil:',?aircraftTypeNilReason) AS ?aircraftType)
+          }
+          UNION
+          {
+		       ?_aircraftType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftType)
           }
         }
       }
@@ -9159,6 +10599,11 @@ WHERE
            ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
            BIND(concat('nil:',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
           }
+          UNION
+          {
+		       ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?wakeTurbulence)
+          }
         }
       }
       OPTIONAL { ?aircraft fixm:aircraftPerformance ?_aircraftPerformance .
@@ -9179,6 +10624,11 @@ WHERE
           {
            ?_aircraftPerformance  aixm:nilReason ?aircraftPerformanceNilReason .
            BIND(concat('nil:',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
+          }
+          UNION
+          {
+		       ?_aircraftPerformance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftPerformance)
           }
         }
       }
@@ -9227,6 +10677,11 @@ WHERE
            ?_email  aixm:nilReason ?emailNilReason .
            BIND(concat('nil:',?emailNilReason) AS ?email)
           }
+          UNION
+          {
+		       ?_email  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?email)
+          }
         }
       }
     }
@@ -9274,6 +10729,11 @@ WHERE
            ?_airspaceControlledEntryTime  aixm:nilReason ?airspaceControlledEntryTimeNilReason .
            BIND(concat('nil:',?airspaceControlledEntryTimeNilReason) AS ?airspaceControlledEntryTime)
           }
+          UNION
+          {
+		       ?_airspaceControlledEntryTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?airspaceControlledEntryTime)
+          }
         }
       }
       OPTIONAL { ?airspaceConstraint fixm:constrainedAirspace ?_constrainedAirspace .
@@ -9294,6 +10754,11 @@ WHERE
           {
            ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
            BIND(concat('nil:',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
+          }
+          UNION
+          {
+		       ?_constrainedAirspace  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?constrainedAirspace)
           }
         }
       }
@@ -9373,6 +10838,11 @@ WHERE
            ?_responsibleAgent  aixm:nilReason ?responsibleAgentNilReason .
            BIND(concat('nil:',?responsibleAgentNilReason) AS ?responsibleAgent)
           }
+          UNION
+          {
+		       ?_responsibleAgent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?responsibleAgent)
+          }
         }
       }
     }
@@ -9424,6 +10894,11 @@ WHERE
            ?_sectorIdentifier  aixm:nilReason ?sectorIdentifierNilReason .
            BIND(concat('nil:',?sectorIdentifierNilReason) AS ?sectorIdentifier)
           }
+          UNION
+          {
+		       ?_sectorIdentifier  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?sectorIdentifier)
+          }
         }
       }
       OPTIONAL { ?atcUnitReference fixm:delegated ?_delegated .
@@ -9444,6 +10919,11 @@ WHERE
           {
            ?_delegated  aixm:nilReason ?delegatedNilReason .
            BIND(concat('nil:',?delegatedNilReason) AS ?delegated)
+          }
+          UNION
+          {
+		       ?_delegated  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?delegated)
           }
         }
       }
@@ -9519,6 +10999,11 @@ WHERE
            ?_otherSurveillanceCapabilities  aixm:nilReason ?otherSurveillanceCapabilitiesNilReason .
            BIND(concat('nil:',?otherSurveillanceCapabilitiesNilReason) AS ?otherSurveillanceCapabilities)
           }
+          UNION
+          {
+		       ?_otherSurveillanceCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?otherSurveillanceCapabilities)
+          }
         }
       }
       OPTIONAL { ?surveillanceCapabilities fixm:surveillanceCode ?_surveillanceCode .
@@ -9539,6 +11024,11 @@ WHERE
           {
            ?_surveillanceCode  aixm:nilReason ?surveillanceCodeNilReason .
            BIND(concat('nil:',?surveillanceCodeNilReason) AS ?surveillanceCode)
+          }
+          UNION
+          {
+		       ?_surveillanceCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?surveillanceCode)
           }
         }
       }
@@ -9616,6 +11106,11 @@ WHERE
            ?_isRemote  aixm:nilReason ?isRemoteNilReason .
            BIND(concat('nil:',?isRemoteNilReason) AS ?isRemote)
           }
+          UNION
+          {
+		       ?_isRemote  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?isRemote)
+          }
         }
       }
       OPTIONAL { ?altimeterSourceTimeSlice aixm:isPrimary ?_isPrimary .
@@ -9636,6 +11131,11 @@ WHERE
           {
            ?_isPrimary  aixm:nilReason ?isPrimaryNilReason .
            BIND(concat('nil:',?isPrimaryNilReason) AS ?isPrimary)
+          }
+          UNION
+          {
+		       ?_isPrimary  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?isPrimary)
           }
         }
       }
@@ -9691,6 +11191,11 @@ WHERE
            ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
            BIND(concat('nil:',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
           }
+          UNION
+          {
+		       ?_horizontalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?horizontalAccuracy)
+          }
         }
       }
       OPTIONAL {?point aixm:annotation ?annotation .}
@@ -9741,6 +11246,11 @@ WHERE
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
           }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:engine ?_engine .
@@ -9761,6 +11271,11 @@ WHERE
           {
            ?_engine  aixm:nilReason ?engineNilReason .
            BIND(concat('nil:',?engineNilReason) AS ?engine)
+          }
+          UNION
+          {
+		       ?_engine  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?engine)
           }
         }
       }
@@ -9783,6 +11298,11 @@ WHERE
            ?_numberEngine  aixm:nilReason ?numberEngineNilReason .
            BIND(concat('nil:',?numberEngineNilReason) AS ?numberEngine)
           }
+          UNION
+          {
+		       ?_numberEngine  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?numberEngine)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:typeAircraftICAO ?_typeAircraftICAO .
@@ -9803,6 +11323,11 @@ WHERE
           {
            ?_typeAircraftICAO  aixm:nilReason ?typeAircraftICAONilReason .
            BIND(concat('nil:',?typeAircraftICAONilReason) AS ?typeAircraftICAO)
+          }
+          UNION
+          {
+		       ?_typeAircraftICAO  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?typeAircraftICAO)
           }
         }
       }
@@ -9825,6 +11350,11 @@ WHERE
            ?_aircraftLandingCategory  aixm:nilReason ?aircraftLandingCategoryNilReason .
            BIND(concat('nil:',?aircraftLandingCategoryNilReason) AS ?aircraftLandingCategory)
           }
+          UNION
+          {
+		       ?_aircraftLandingCategory  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?aircraftLandingCategory)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:wingSpan ?_wingSpan .
@@ -9845,6 +11375,11 @@ WHERE
           {
            ?_wingSpan  aixm:nilReason ?wingSpanNilReason .
            BIND(concat('nil:',?wingSpanNilReason) AS ?wingSpan)
+          }
+          UNION
+          {
+		       ?_wingSpan  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?wingSpan)
           }
         }
       }
@@ -9867,6 +11402,11 @@ WHERE
            ?_wingSpanInterpretation  aixm:nilReason ?wingSpanInterpretationNilReason .
            BIND(concat('nil:',?wingSpanInterpretationNilReason) AS ?wingSpanInterpretation)
           }
+          UNION
+          {
+		       ?_wingSpanInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?wingSpanInterpretation)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:classWingSpan ?_classWingSpan .
@@ -9887,6 +11427,11 @@ WHERE
           {
            ?_classWingSpan  aixm:nilReason ?classWingSpanNilReason .
            BIND(concat('nil:',?classWingSpanNilReason) AS ?classWingSpan)
+          }
+          UNION
+          {
+		       ?_classWingSpan  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?classWingSpan)
           }
         }
       }
@@ -9909,6 +11454,11 @@ WHERE
            ?_weight  aixm:nilReason ?weightNilReason .
            BIND(concat('nil:',?weightNilReason) AS ?weight)
           }
+          UNION
+          {
+		       ?_weight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?weight)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:weightInterpretation ?_weightInterpretation .
@@ -9929,6 +11479,11 @@ WHERE
           {
            ?_weightInterpretation  aixm:nilReason ?weightInterpretationNilReason .
            BIND(concat('nil:',?weightInterpretationNilReason) AS ?weightInterpretation)
+          }
+          UNION
+          {
+		       ?_weightInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?weightInterpretation)
           }
         }
       }
@@ -9951,6 +11506,11 @@ WHERE
            ?_passengers  aixm:nilReason ?passengersNilReason .
            BIND(concat('nil:',?passengersNilReason) AS ?passengers)
           }
+          UNION
+          {
+		       ?_passengers  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?passengers)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:passengersInterpretation ?_passengersInterpretation .
@@ -9971,6 +11531,11 @@ WHERE
           {
            ?_passengersInterpretation  aixm:nilReason ?passengersInterpretationNilReason .
            BIND(concat('nil:',?passengersInterpretationNilReason) AS ?passengersInterpretation)
+          }
+          UNION
+          {
+		       ?_passengersInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?passengersInterpretation)
           }
         }
       }
@@ -9993,6 +11558,11 @@ WHERE
            ?_speed  aixm:nilReason ?speedNilReason .
            BIND(concat('nil:',?speedNilReason) AS ?speed)
           }
+          UNION
+          {
+		       ?_speed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?speed)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:speedInterpretation ?_speedInterpretation .
@@ -10013,6 +11583,11 @@ WHERE
           {
            ?_speedInterpretation  aixm:nilReason ?speedInterpretationNilReason .
            BIND(concat('nil:',?speedInterpretationNilReason) AS ?speedInterpretation)
+          }
+          UNION
+          {
+		       ?_speedInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?speedInterpretation)
           }
         }
       }
@@ -10035,6 +11610,11 @@ WHERE
            ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
            BIND(concat('nil:',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
           }
+          UNION
+          {
+		       ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?wakeTurbulence)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:navigationEquipment ?_navigationEquipment .
@@ -10055,6 +11635,11 @@ WHERE
           {
            ?_navigationEquipment  aixm:nilReason ?navigationEquipmentNilReason .
            BIND(concat('nil:',?navigationEquipmentNilReason) AS ?navigationEquipment)
+          }
+          UNION
+          {
+		       ?_navigationEquipment  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?navigationEquipment)
           }
         }
       }
@@ -10077,6 +11662,11 @@ WHERE
            ?_navigationSpecification  aixm:nilReason ?navigationSpecificationNilReason .
            BIND(concat('nil:',?navigationSpecificationNilReason) AS ?navigationSpecification)
           }
+          UNION
+          {
+		       ?_navigationSpecification  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?navigationSpecification)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:verticalSeparationCapability ?_verticalSeparationCapability .
@@ -10097,6 +11687,11 @@ WHERE
           {
            ?_verticalSeparationCapability  aixm:nilReason ?verticalSeparationCapabilityNilReason .
            BIND(concat('nil:',?verticalSeparationCapabilityNilReason) AS ?verticalSeparationCapability)
+          }
+          UNION
+          {
+		       ?_verticalSeparationCapability  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?verticalSeparationCapability)
           }
         }
       }
@@ -10119,6 +11714,11 @@ WHERE
            ?_antiCollisionAndSeparationEquipment  aixm:nilReason ?antiCollisionAndSeparationEquipmentNilReason .
            BIND(concat('nil:',?antiCollisionAndSeparationEquipmentNilReason) AS ?antiCollisionAndSeparationEquipment)
           }
+          UNION
+          {
+		       ?_antiCollisionAndSeparationEquipment  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?antiCollisionAndSeparationEquipment)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:communicationEquipment ?_communicationEquipment .
@@ -10140,6 +11740,11 @@ WHERE
            ?_communicationEquipment  aixm:nilReason ?communicationEquipmentNilReason .
            BIND(concat('nil:',?communicationEquipmentNilReason) AS ?communicationEquipment)
           }
+          UNION
+          {
+		       ?_communicationEquipment  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?communicationEquipment)
+          }
         }
       }
       OPTIONAL { ?aircraftCharacteristic aixm:surveillanceEquipment ?_surveillanceEquipment .
@@ -10160,6 +11765,11 @@ WHERE
           {
            ?_surveillanceEquipment  aixm:nilReason ?surveillanceEquipmentNilReason .
            BIND(concat('nil:',?surveillanceEquipmentNilReason) AS ?surveillanceEquipment)
+          }
+          UNION
+          {
+		       ?_surveillanceEquipment  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?surveillanceEquipment)
           }
         }
       }
@@ -10210,6 +11820,11 @@ WHERE
            ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
            BIND(concat('nil:',?deliveryPointNilReason) AS ?deliveryPoint)
           }
+          UNION
+          {
+		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?deliveryPoint)
+          }
         }
       }
       OPTIONAL { ?postalAddress aixm:city ?_city .
@@ -10230,6 +11845,11 @@ WHERE
           {
            ?_city  aixm:nilReason ?cityNilReason .
            BIND(concat('nil:',?cityNilReason) AS ?city)
+          }
+          UNION
+          {
+		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?city)
           }
         }
       }
@@ -10252,6 +11872,11 @@ WHERE
            ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
            BIND(concat('nil:',?administrativeAreaNilReason) AS ?administrativeArea)
           }
+          UNION
+          {
+		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?administrativeArea)
+          }
         }
       }
       OPTIONAL { ?postalAddress aixm:postalCode ?_postalCode .
@@ -10273,6 +11898,11 @@ WHERE
            ?_postalCode  aixm:nilReason ?postalCodeNilReason .
            BIND(concat('nil:',?postalCodeNilReason) AS ?postalCode)
           }
+          UNION
+          {
+		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?postalCode)
+          }
         }
       }
       OPTIONAL { ?postalAddress aixm:country ?_country .
@@ -10293,6 +11923,11 @@ WHERE
           {
            ?_country  aixm:nilReason ?countryNilReason .
            BIND(concat('nil:',?countryNilReason) AS ?country)
+          }
+          UNION
+          {
+		       ?_country  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?country)
           }
         }
       }
@@ -10341,6 +11976,11 @@ WHERE
            ?_dangerousGoodsQuantity  aixm:nilReason ?dangerousGoodsQuantityNilReason .
            BIND(concat('nil:',?dangerousGoodsQuantityNilReason) AS ?dangerousGoodsQuantity)
           }
+          UNION
+          {
+		       ?_dangerousGoodsQuantity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dangerousGoodsQuantity)
+          }
         }
       }
       OPTIONAL {?dangerousGoodsPackage fixm:packageDimensions ?packageDimensions .}
@@ -10363,6 +12003,11 @@ WHERE
            ?_packingInstructionNumber  aixm:nilReason ?packingInstructionNumberNilReason .
            BIND(concat('nil:',?packingInstructionNumberNilReason) AS ?packingInstructionNumber)
           }
+          UNION
+          {
+		       ?_packingInstructionNumber  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?packingInstructionNumber)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:productName ?_productName .
@@ -10383,6 +12028,11 @@ WHERE
           {
            ?_productName  aixm:nilReason ?productNameNilReason .
            BIND(concat('nil:',?productNameNilReason) AS ?productName)
+          }
+          UNION
+          {
+		       ?_productName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?productName)
           }
         }
       }
@@ -10405,6 +12055,11 @@ WHERE
            ?_properShippingName  aixm:nilReason ?properShippingNameNilReason .
            BIND(concat('nil:',?properShippingNameNilReason) AS ?properShippingName)
           }
+          UNION
+          {
+		       ?_properShippingName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?properShippingName)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:reportableQuantity ?_reportableQuantity .
@@ -10425,6 +12080,11 @@ WHERE
           {
            ?_reportableQuantity  aixm:nilReason ?reportableQuantityNilReason .
            BIND(concat('nil:',?reportableQuantityNilReason) AS ?reportableQuantity)
+          }
+          UNION
+          {
+		       ?_reportableQuantity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?reportableQuantity)
           }
         }
       }
@@ -10447,6 +12107,11 @@ WHERE
            ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
            BIND(concat('nil:',?supplementaryInformationNilReason) AS ?supplementaryInformation)
           }
+          UNION
+          {
+		       ?_supplementaryInformation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?supplementaryInformation)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:technicalName ?_technicalName .
@@ -10467,6 +12132,11 @@ WHERE
           {
            ?_technicalName  aixm:nilReason ?technicalNameNilReason .
            BIND(concat('nil:',?technicalNameNilReason) AS ?technicalName)
+          }
+          UNION
+          {
+		       ?_technicalName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?technicalName)
           }
         }
       }
@@ -10489,6 +12159,11 @@ WHERE
            ?_typeOfPackaging  aixm:nilReason ?typeOfPackagingNilReason .
            BIND(concat('nil:',?typeOfPackagingNilReason) AS ?typeOfPackaging)
           }
+          UNION
+          {
+		       ?_typeOfPackaging  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?typeOfPackaging)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:unNumber ?_unNumber .
@@ -10509,6 +12184,11 @@ WHERE
           {
            ?_unNumber  aixm:nilReason ?unNumberNilReason .
            BIND(concat('nil:',?unNumberNilReason) AS ?unNumber)
+          }
+          UNION
+          {
+		       ?_unNumber  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?unNumber)
           }
         }
       }
@@ -10531,6 +12211,11 @@ WHERE
            ?_dangerousGoodsLimitation  aixm:nilReason ?dangerousGoodsLimitationNilReason .
            BIND(concat('nil:',?dangerousGoodsLimitationNilReason) AS ?dangerousGoodsLimitation)
           }
+          UNION
+          {
+		       ?_dangerousGoodsLimitation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?dangerousGoodsLimitation)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:shipmentType ?_shipmentType .
@@ -10551,6 +12236,11 @@ WHERE
           {
            ?_shipmentType  aixm:nilReason ?shipmentTypeNilReason .
            BIND(concat('nil:',?shipmentTypeNilReason) AS ?shipmentType)
+          }
+          UNION
+          {
+		       ?_shipmentType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?shipmentType)
           }
         }
       }
@@ -10574,6 +12264,11 @@ WHERE
            ?_compatibilityGroup  aixm:nilReason ?compatibilityGroupNilReason .
            BIND(concat('nil:',?compatibilityGroupNilReason) AS ?compatibilityGroup)
           }
+          UNION
+          {
+		       ?_compatibilityGroup  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?compatibilityGroup)
+          }
         }
       }
       OPTIONAL {?dangerousGoodsPackage fixm:shipmentDimensions ?shipmentDimensions .}
@@ -10595,6 +12290,11 @@ WHERE
           {
            ?_marinePollutantIndicator  aixm:nilReason ?marinePollutantIndicatorNilReason .
            BIND(concat('nil:',?marinePollutantIndicatorNilReason) AS ?marinePollutantIndicator)
+          }
+          UNION
+          {
+		       ?_marinePollutantIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?marinePollutantIndicator)
           }
         }
       }
@@ -10618,6 +12318,11 @@ WHERE
            ?_hazardClass  aixm:nilReason ?hazardClassNilReason .
            BIND(concat('nil:',?hazardClassNilReason) AS ?hazardClass)
           }
+          UNION
+          {
+		       ?_hazardClass  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?hazardClass)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:packingGroup ?_packingGroup .
@@ -10638,6 +12343,11 @@ WHERE
           {
            ?_packingGroup  aixm:nilReason ?packingGroupNilReason .
            BIND(concat('nil:',?packingGroupNilReason) AS ?packingGroup)
+          }
+          UNION
+          {
+		       ?_packingGroup  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?packingGroup)
           }
         }
       }
@@ -10661,6 +12371,11 @@ WHERE
            ?_overpackIndicator  aixm:nilReason ?overpackIndicatorNilReason .
            BIND(concat('nil:',?overpackIndicatorNilReason) AS ?overpackIndicator)
           }
+          UNION
+          {
+		       ?_overpackIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?overpackIndicator)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsPackage fixm:subsidiaryHazardClass ?_subsidiaryHazardClass .
@@ -10681,6 +12396,11 @@ WHERE
           {
            ?_subsidiaryHazardClass  aixm:nilReason ?subsidiaryHazardClassNilReason .
            BIND(concat('nil:',?subsidiaryHazardClassNilReason) AS ?subsidiaryHazardClass)
+          }
+          UNION
+          {
+		       ?_subsidiaryHazardClass  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?subsidiaryHazardClass)
           }
         }
       }
@@ -10730,6 +12450,11 @@ WHERE
            ?_determinationMethod  aixm:nilReason ?determinationMethodNilReason .
            BIND(concat('nil:',?determinationMethodNilReason) AS ?determinationMethod)
           }
+          UNION
+          {
+		       ?_determinationMethod  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?determinationMethod)
+          }
         }
       }
       OPTIONAL {?lastPositionReport fixm:position ?position .}
@@ -10751,6 +12476,11 @@ WHERE
           {
            ?_timeAtPosition  aixm:nilReason ?timeAtPositionNilReason .
            BIND(concat('nil:',?timeAtPositionNilReason) AS ?timeAtPosition)
+          }
+          UNION
+          {
+		       ?_timeAtPosition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?timeAtPosition)
           }
         }
       }
@@ -10799,6 +12529,11 @@ WHERE
            ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
            BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
           }
+          UNION
+          {
+		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?operationalStatus)
+          }
         }
       }
     }
@@ -10846,6 +12581,11 @@ WHERE
            ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
            BIND(concat('nil:',?grossWeightNilReason) AS ?grossWeight)
           }
+          UNION
+          {
+		       ?_grossWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?grossWeight)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsDimensions fixm:netWeight ?_netWeight .
@@ -10867,6 +12607,11 @@ WHERE
            ?_netWeight  aixm:nilReason ?netWeightNilReason .
            BIND(concat('nil:',?netWeightNilReason) AS ?netWeight)
           }
+          UNION
+          {
+		       ?_netWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?netWeight)
+          }
         }
       }
       OPTIONAL { ?dangerousGoodsDimensions fixm:volume ?_volume .
@@ -10887,6 +12632,11 @@ WHERE
           {
            ?_volume  aixm:nilReason ?volumeNilReason .
            BIND(concat('nil:',?volumeNilReason) AS ?volume)
+          }
+          UNION
+          {
+		       ?_volume  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?volume)
           }
         }
       }
@@ -10935,6 +12685,11 @@ WHERE
            ?_efplFlightRules  aixm:nilReason ?efplFlightRulesNilReason .
            BIND(concat('nil:',?efplFlightRulesNilReason) AS ?efplFlightRules)
           }
+          UNION
+          {
+		       ?_efplFlightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?efplFlightRules)
+          }
         }
       }
     }
@@ -10982,6 +12737,11 @@ WHERE
            ?_abrogationReason  aixm:nilReason ?abrogationReasonNilReason .
            BIND(concat('nil:',?abrogationReasonNilReason) AS ?abrogationReason)
           }
+          UNION
+          {
+		       ?_abrogationReason  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?abrogationReason)
+          }
         }
       }
       OPTIONAL { ?coordinationStatus fixm:coordinationStatus ?_coordinationStatus .
@@ -11002,6 +12762,11 @@ WHERE
           {
            ?_coordinationStatus  aixm:nilReason ?coordinationStatusNilReason .
            BIND(concat('nil:',?coordinationStatusNilReason) AS ?coordinationStatus)
+          }
+          UNION
+          {
+		       ?_coordinationStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?coordinationStatus)
           }
         }
       }
@@ -11024,6 +12789,11 @@ WHERE
            ?_nonStandardCommunicationReason  aixm:nilReason ?nonStandardCommunicationReasonNilReason .
            BIND(concat('nil:',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
           }
+          UNION
+          {
+		       ?_nonStandardCommunicationReason  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?nonStandardCommunicationReason)
+          }
         }
       }
       OPTIONAL { ?coordinationStatus fixm:releaseConditions ?_releaseConditions .
@@ -11044,6 +12814,11 @@ WHERE
           {
            ?_releaseConditions  aixm:nilReason ?releaseConditionsNilReason .
            BIND(concat('nil:',?releaseConditionsNilReason) AS ?releaseConditions)
+          }
+          UNION
+          {
+		       ?_releaseConditions  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?releaseConditions)
           }
         }
       }
@@ -11092,6 +12867,11 @@ WHERE
            ?_altitude  aixm:nilReason ?altitudeNilReason .
            BIND(concat('nil:',?altitudeNilReason) AS ?altitude)
           }
+          UNION
+          {
+		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altitude)
+          }
         }
       }
       OPTIONAL {?boundaryCrossing fixm:crossingPoint ?crossingPoint .}
@@ -11114,6 +12894,11 @@ WHERE
            ?_crossingSpeed  aixm:nilReason ?crossingSpeedNilReason .
            BIND(concat('nil:',?crossingSpeedNilReason) AS ?crossingSpeed)
           }
+          UNION
+          {
+		       ?_crossingSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?crossingSpeed)
+          }
         }
       }
       OPTIONAL { ?boundaryCrossing fixm:crossingTime ?_crossingTime .
@@ -11134,6 +12919,11 @@ WHERE
           {
            ?_crossingTime  aixm:nilReason ?crossingTimeNilReason .
            BIND(concat('nil:',?crossingTimeNilReason) AS ?crossingTime)
+          }
+          UNION
+          {
+		       ?_crossingTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?crossingTime)
           }
         }
       }
@@ -11156,6 +12946,11 @@ WHERE
           {
            ?_altitudeInTransition  aixm:nilReason ?altitudeInTransitionNilReason .
            BIND(concat('nil:',?altitudeInTransitionNilReason) AS ?altitudeInTransition)
+          }
+          UNION
+          {
+		       ?_altitudeInTransition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?altitudeInTransition)
           }
         }
       }
@@ -11204,6 +12999,11 @@ WHERE
            ?_code  aixm:nilReason ?codeNilReason .
            BIND(concat('nil:',?codeNilReason) AS ?code)
           }
+          UNION
+          {
+		       ?_code  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?code)
+          }
         }
       }
     }
@@ -11251,6 +13051,11 @@ WHERE
            ?_radioFailureRemarks  aixm:nilReason ?radioFailureRemarksNilReason .
            BIND(concat('nil:',?radioFailureRemarksNilReason) AS ?radioFailureRemarks)
           }
+          UNION
+          {
+		       ?_radioFailureRemarks  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?radioFailureRemarks)
+          }
         }
       }
       OPTIONAL { ?radioCommunicationFailure fixm:remainingComCapability ?_remainingComCapability .
@@ -11271,6 +13076,11 @@ WHERE
           {
            ?_remainingComCapability  aixm:nilReason ?remainingComCapabilityNilReason .
            BIND(concat('nil:',?remainingComCapabilityNilReason) AS ?remainingComCapability)
+          }
+          UNION
+          {
+		       ?_remainingComCapability  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?remainingComCapability)
           }
         }
       }
@@ -11320,6 +13130,11 @@ WHERE
            ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
            BIND(concat('nil:',?operationalStatusNilReason) AS ?operationalStatus)
           }
+          UNION
+          {
+		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?operationalStatus)
+          }
         }
       }
       OPTIONAL { ?airportHeliportAvailability aixm:warning ?_warning .
@@ -11340,6 +13155,11 @@ WHERE
           {
            ?_warning  aixm:nilReason ?warningNilReason .
            BIND(concat('nil:',?warningNilReason) AS ?warning)
+          }
+          UNION
+          {
+		       ?_warning  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?warning)
           }
         }
       }
@@ -11397,6 +13217,11 @@ WHERE
            ?_arrivalFleetPrioritization  aixm:nilReason ?arrivalFleetPrioritizationNilReason .
            BIND(concat('nil:',?arrivalFleetPrioritizationNilReason) AS ?arrivalFleetPrioritization)
           }
+          UNION
+          {
+		       ?_arrivalFleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?arrivalFleetPrioritization)
+          }
         }
       }
       OPTIONAL { ?flightArrival fixm:arrivalSequenceNumber ?_arrivalSequenceNumber .
@@ -11418,6 +13243,11 @@ WHERE
            ?_arrivalSequenceNumber  aixm:nilReason ?arrivalSequenceNumberNilReason .
            BIND(concat('nil:',?arrivalSequenceNumberNilReason) AS ?arrivalSequenceNumber)
           }
+          UNION
+          {
+		       ?_arrivalSequenceNumber  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?arrivalSequenceNumber)
+          }
         }
       }
       OPTIONAL { ?flightArrival fixm:earliestInBlockTime ?_earliestInBlockTime .
@@ -11438,6 +13268,11 @@ WHERE
           {
            ?_earliestInBlockTime  aixm:nilReason ?earliestInBlockTimeNilReason .
            BIND(concat('nil:',?earliestInBlockTimeNilReason) AS ?earliestInBlockTime)
+          }
+          UNION
+          {
+		       ?_earliestInBlockTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?earliestInBlockTime)
           }
         }
       }
@@ -11461,6 +13296,11 @@ WHERE
            ?_filedRevisedDestinationStar  aixm:nilReason ?filedRevisedDestinationStarNilReason .
            BIND(concat('nil:',?filedRevisedDestinationStarNilReason) AS ?filedRevisedDestinationStar)
           }
+          UNION
+          {
+		       ?_filedRevisedDestinationStar  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?filedRevisedDestinationStar)
+          }
         }
       }
       OPTIONAL {?flightArrival fixm:runwayPositionAndTime ?runwayPositionAndTime .}
@@ -11483,6 +13323,11 @@ WHERE
            ?_standardInstrumentArrival  aixm:nilReason ?standardInstrumentArrivalNilReason .
            BIND(concat('nil:',?standardInstrumentArrivalNilReason) AS ?standardInstrumentArrival)
           }
+          UNION
+          {
+		       ?_standardInstrumentArrival  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?standardInstrumentArrival)
+          }
         }
       }
       OPTIONAL {?flightArrival fixm:standPositionAndTime ?standPositionAndTime .}
@@ -11504,6 +13349,11 @@ WHERE
           {
            ?_landingLimits  aixm:nilReason ?landingLimitsNilReason .
            BIND(concat('nil:',?landingLimitsNilReason) AS ?landingLimits)
+          }
+          UNION
+          {
+		       ?_landingLimits  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?landingLimits)
           }
         }
       }
@@ -11553,6 +13403,11 @@ WHERE
            ?_criticalitySafetyIndex  aixm:nilReason ?criticalitySafetyIndexNilReason .
            BIND(concat('nil:',?criticalitySafetyIndexNilReason) AS ?criticalitySafetyIndex)
           }
+          UNION
+          {
+		       ?_criticalitySafetyIndex  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?criticalitySafetyIndex)
+          }
         }
       }
       OPTIONAL { ?radioactiveMaterial fixm:transportIndex ?_transportIndex .
@@ -11573,6 +13428,11 @@ WHERE
           {
            ?_transportIndex  aixm:nilReason ?transportIndexNilReason .
            BIND(concat('nil:',?transportIndexNilReason) AS ?transportIndex)
+          }
+          UNION
+          {
+		       ?_transportIndex  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?transportIndex)
           }
         }
       }
@@ -11595,6 +13455,11 @@ WHERE
            ?_fissileExceptedIndicator  aixm:nilReason ?fissileExceptedIndicatorNilReason .
            BIND(concat('nil:',?fissileExceptedIndicatorNilReason) AS ?fissileExceptedIndicator)
           }
+          UNION
+          {
+		       ?_fissileExceptedIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?fissileExceptedIndicator)
+          }
         }
       }
       OPTIONAL { ?radioactiveMaterial fixm:category ?_category .
@@ -11615,6 +13480,11 @@ WHERE
           {
            ?_category  aixm:nilReason ?categoryNilReason .
            BIND(concat('nil:',?categoryNilReason) AS ?category)
+          }
+          UNION
+          {
+		       ?_category  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?category)
           }
         }
       }
@@ -11748,6 +13618,11 @@ WHERE
            ?_numberOfPackages  aixm:nilReason ?numberOfPackagesNilReason .
            BIND(concat('nil:',?numberOfPackagesNilReason) AS ?numberOfPackages)
           }
+          UNION
+          {
+		       ?_numberOfPackages  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?numberOfPackages)
+          }
         }
       }
       OPTIONAL { ?allPackedInOne fixm:qValue ?_qValue .
@@ -11768,6 +13643,11 @@ WHERE
           {
            ?_qValue  aixm:nilReason ?qValueNilReason .
            BIND(concat('nil:',?qValueNilReason) AS ?qValue)
+          }
+          UNION
+          {
+		       ?_qValue  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?qValue)
           }
         }
       }
@@ -11844,6 +13724,11 @@ WHERE
            ?_survivalEquipmentRemarks  aixm:nilReason ?survivalEquipmentRemarksNilReason .
            BIND(concat('nil:',?survivalEquipmentRemarksNilReason) AS ?survivalEquipmentRemarks)
           }
+          UNION
+          {
+		       ?_survivalEquipmentRemarks  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?survivalEquipmentRemarks)
+          }
         }
       }
       OPTIONAL {?survivalCapabilities fixm:dinghyInformation ?dinghyInformation .}
@@ -11866,6 +13751,11 @@ WHERE
            ?_emergencyRadioCode  aixm:nilReason ?emergencyRadioCodeNilReason .
            BIND(concat('nil:',?emergencyRadioCodeNilReason) AS ?emergencyRadioCode)
           }
+          UNION
+          {
+		       ?_emergencyRadioCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?emergencyRadioCode)
+          }
         }
       }
       OPTIONAL { ?survivalCapabilities fixm:lifeJacketCode ?_lifeJacketCode .
@@ -11887,6 +13777,11 @@ WHERE
            ?_lifeJacketCode  aixm:nilReason ?lifeJacketCodeNilReason .
            BIND(concat('nil:',?lifeJacketCodeNilReason) AS ?lifeJacketCode)
           }
+          UNION
+          {
+		       ?_lifeJacketCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?lifeJacketCode)
+          }
         }
       }
       OPTIONAL { ?survivalCapabilities fixm:survivalEquipmentCode ?_survivalEquipmentCode .
@@ -11907,6 +13802,11 @@ WHERE
           {
            ?_survivalEquipmentCode  aixm:nilReason ?survivalEquipmentCodeNilReason .
            BIND(concat('nil:',?survivalEquipmentCodeNilReason) AS ?survivalEquipmentCode)
+          }
+          UNION
+          {
+		       ?_survivalEquipmentCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?survivalEquipmentCode)
           }
         }
       }
@@ -12049,6 +13949,11 @@ WHERE
            ?_departureFleetPrioritization  aixm:nilReason ?departureFleetPrioritizationNilReason .
            BIND(concat('nil:',?departureFleetPrioritizationNilReason) AS ?departureFleetPrioritization)
           }
+          UNION
+          {
+		       ?_departureFleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?departureFleetPrioritization)
+          }
         }
       }
       OPTIONAL { ?flightDeparture fixm:departureSlot ?_departureSlot .
@@ -12070,6 +13975,11 @@ WHERE
            ?_departureSlot  aixm:nilReason ?departureSlotNilReason .
            BIND(concat('nil:',?departureSlotNilReason) AS ?departureSlot)
           }
+          UNION
+          {
+		       ?_departureSlot  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?departureSlot)
+          }
         }
       }
       OPTIONAL { ?flightDeparture fixm:earliestOffBlockTime ?_earliestOffBlockTime .
@@ -12090,6 +14000,11 @@ WHERE
           {
            ?_earliestOffBlockTime  aixm:nilReason ?earliestOffBlockTimeNilReason .
            BIND(concat('nil:',?earliestOffBlockTimeNilReason) AS ?earliestOffBlockTime)
+          }
+          UNION
+          {
+		       ?_earliestOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?earliestOffBlockTime)
           }
         }
       }
@@ -12114,6 +14029,11 @@ WHERE
            ?_standardInstrumentDeparture  aixm:nilReason ?standardInstrumentDepartureNilReason .
            BIND(concat('nil:',?standardInstrumentDepartureNilReason) AS ?standardInstrumentDeparture)
           }
+          UNION
+          {
+		       ?_standardInstrumentDeparture  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?standardInstrumentDeparture)
+          }
         }
       }
       OPTIONAL {?flightDeparture fixm:standPositionAndTime ?standPositionAndTime .}
@@ -12136,6 +14056,11 @@ WHERE
           {
            ?_takeoffWeight  aixm:nilReason ?takeoffWeightNilReason .
            BIND(concat('nil:',?takeoffWeightNilReason) AS ?takeoffWeight)
+          }
+          UNION
+          {
+		       ?_takeoffWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?takeoffWeight)
           }
         }
       }
@@ -12218,6 +14143,11 @@ WHERE
            ?_estimatedOffBlockTime  aixm:nilReason ?estimatedOffBlockTimeNilReason .
            BIND(concat('nil:',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
           }
+          UNION
+          {
+		       ?_estimatedOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?estimatedOffBlockTime)
+          }
         }
       }
       OPTIONAL { ?efplFlightDeparture fixm:taxiTime ?_taxiTime .
@@ -12238,6 +14168,11 @@ WHERE
           {
            ?_taxiTime  aixm:nilReason ?taxiTimeNilReason .
            BIND(concat('nil:',?taxiTimeNilReason) AS ?taxiTime)
+          }
+          UNION
+          {
+		       ?_taxiTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?taxiTime)
           }
         }
       }
@@ -12290,6 +14225,11 @@ WHERE
            ?_type  aixm:nilReason ?typeNilReason .
            BIND(concat('nil:',?typeNilReason) AS ?type)
           }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?type)
+          }
         }
       }
       OPTIONAL { ?usageCondition aixm:priorPermission ?_priorPermission .
@@ -12310,6 +14250,11 @@ WHERE
           {
            ?_priorPermission  aixm:nilReason ?priorPermissionNilReason .
            BIND(concat('nil:',?priorPermissionNilReason) AS ?priorPermission)
+          }
+          UNION
+          {
+		       ?_priorPermission  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?priorPermission)
           }
         }
       }

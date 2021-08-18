@@ -29,7 +29,7 @@ public class Shacl2PrologLauncher {
 	private static final int JENA_FUSEKI_PORT = 3030;
 	private static final String JENA_FUSEKI_PATH = "/test/sparql";
 	
-	private static final int NUMBER_OF_DATA_COPIES = 10;
+	private static final int NUMBER_OF_DATA_COPIES = 1;
 	private static final String INPUT_DATA = "input/data";
 	private static final String INPUT_SCHEMA = "input/schema";
 
@@ -49,8 +49,7 @@ public class Shacl2PrologLauncher {
 		
 		int data_copies = NUMBER_OF_DATA_COPIES;
 		
-		System.out.println(args[0]);
-		if(args != null) {
+		if(args != null && args.length > 0) {
 			data_copies = Integer.parseInt(args[0]);
 		}
 		System.out.println("Number of data copies: " + data_copies);

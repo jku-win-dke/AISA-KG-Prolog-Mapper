@@ -76,6 +76,10 @@ public class KnowledgeGraphClass {
 				String propertyName = StringUtils.capitalize(knowledgeGraphProperty.getName());
 				endPartOfPrologRule += "," + propertyName + "Concat";
 				lists += ", convert(" + propertyName + "Concat," + propertyName + "List" + ")";
+			} else if(knowledgeGraphProperty.maxCount == 1) {
+				String propertyName = StringUtils.capitalize(knowledgeGraphProperty.getName());
+				lists += ", convVal(" + propertyName + "," + propertyName + "Val" + ")";
+				endPartOfPrologRule += "," + StringUtils.capitalize(knowledgeGraphProperty.getName());
 			} else {
 				endPartOfPrologRule += "," + StringUtils.capitalize(knowledgeGraphProperty.getName());
 			}
@@ -201,7 +205,29 @@ public class KnowledgeGraphClass {
 		String rule = getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + (joinedName == null ? StringUtils.capitalize(predicateName) : joinedName);
 		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
 			if(knowledgeGraphProperty.maxCount > 1 || knowledgeGraphProperty.maxCount == -1) {
-				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "List";				
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "List";
+			} else if(knowledgeGraphProperty.maxCount == 1) {
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Val";
+			} else {
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
+			}
+		}
+		rule += ")";
+		return rule;
+	}
+	
+	/**
+	 * Generates the Prolog rule of this KnowledgeGraphClass.
+	 * 
+	 * e.g.: city(Graph, City, Name, Annotation)
+	 * 
+	 * @return
+	 */
+	public String generatePrologRuleForCombined(String joinedName) {
+		String rule = getNameOfTargetsWithPrefixShortAndUnderScore() + "(Graph, " + (joinedName == null ? StringUtils.capitalize(predicateName) : joinedName);
+		for(KnowledgeGraphProperty knowledgeGraphProperty : knowledgeGraphProperties) {
+			if(knowledgeGraphProperty.maxCount > 1 || knowledgeGraphProperty.maxCount == -1) {
+				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "List";
 			} else {
 				rule += ", " + StringUtils.capitalize(knowledgeGraphProperty.getName());
 			}

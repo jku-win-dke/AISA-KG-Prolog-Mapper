@@ -512,6 +512,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( AdministrativeAreaNode,aixm:nilReason, NilReason, Graph ),
           AdministrativeArea=nil(NilReason)
+        );
+        (
+          rdf( AdministrativeAreaNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AdministrativeArea=indeterminate(Indeterminate)
         )
       )
   )
@@ -534,6 +538,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( PostalCodeNode,aixm:nilReason, NilReason, Graph ),
           PostalCode=nil(NilReason)
+        );
+        (
+          rdf( PostalCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PostalCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -556,6 +564,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( DeliveryPointNode,aixm:nilReason, NilReason, Graph ),
           DeliveryPoint=nil(NilReason)
+        );
+        (
+          rdf( DeliveryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DeliveryPoint=indeterminate(Indeterminate)
         )
       )
   )
@@ -578,6 +590,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( CountryCodeNode,aixm:nilReason, NilReason, Graph ),
           CountryCode=nil(NilReason)
+        );
+        (
+          rdf( CountryCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CountryCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -600,6 +616,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( CountryNameNode,aixm:nilReason, NilReason, Graph ),
           CountryName=nil(NilReason)
+        );
+        (
+          rdf( CountryNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CountryName=indeterminate(Indeterminate)
         )
       )
   )
@@ -622,6 +642,10 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         (
           rdf( CityNode,aixm:nilReason, NilReason, Graph ),
           City=nil(NilReason)
+        );
+        (
+          rdf( CityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          City=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -647,6 +671,10 @@ fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabi
         (
           rdf( OtherNavigationCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
           OtherNavigationCapabilities=nil(NilReason)
+        );
+        (
+          rdf( OtherNavigationCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherNavigationCapabilities=indeterminate(Indeterminate)
         )
       )
   )
@@ -674,6 +702,10 @@ fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed, UpperSpeed) :-
         (
           rdf( LowerSpeedNode,aixm:nilReason, NilReason, Graph ),
           LowerSpeed=nil(NilReason)
+        );
+        (
+          rdf( LowerSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LowerSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -696,6 +728,10 @@ fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed, UpperSpeed) :-
         (
           rdf( UpperSpeedNode,aixm:nilReason, NilReason, Graph ),
           UpperSpeed=nil(NilReason)
+        );
+        (
+          rdf( UpperSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UpperSpeed=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -721,6 +757,10 @@ aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
         (
           rdf( PropertyNameNode,aixm:nilReason, NilReason, Graph ),
           PropertyName=nil(NilReason)
+        );
+        (
+          rdf( PropertyNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PropertyName=indeterminate(Indeterminate)
         )
       )
   )
@@ -743,6 +783,10 @@ aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
         (
           rdf( PurposeNode,aixm:nilReason, NilReason, Graph ),
           Purpose=nil(NilReason)
+        );
+        (
+          rdf( PurposeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Purpose=indeterminate(Indeterminate)
         )
       )
   )
@@ -776,6 +820,10 @@ fixm_VerticalRange(Graph, VerticalRange, LowerBound, UpperBound) :-
         (
           rdf( LowerBoundNode,aixm:nilReason, NilReason, Graph ),
           LowerBound=nil(NilReason)
+        );
+        (
+          rdf( LowerBoundNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LowerBound=indeterminate(Indeterminate)
         )
       )
   )
@@ -798,6 +846,10 @@ fixm_VerticalRange(Graph, VerticalRange, LowerBound, UpperBound) :-
         (
           rdf( UpperBoundNode,aixm:nilReason, NilReason, Graph ),
           UpperBound=nil(NilReason)
+        );
+        (
+          rdf( UpperBoundNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UpperBound=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -823,6 +875,10 @@ fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime
         (
           rdf( EstimatedLevelNode,aixm:nilReason, NilReason, Graph ),
           EstimatedLevel=nil(NilReason)
+        );
+        (
+          rdf( EstimatedLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EstimatedLevel=indeterminate(Indeterminate)
         )
       )
   )
@@ -845,6 +901,10 @@ fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime
         (
           rdf( EstimatedTimeNode,aixm:nilReason, NilReason, Graph ),
           EstimatedTime=nil(NilReason)
+        );
+        (
+          rdf( EstimatedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EstimatedTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -871,6 +931,10 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         (
           rdf( ElevationNode,aixm:nilReason, NilReason, Graph ),
           Elevation=nil(NilReason)
+        );
+        (
+          rdf( ElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Elevation=indeterminate(Indeterminate)
         )
       )
   )
@@ -893,6 +957,10 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         (
           rdf( GeoidUndulationNode,aixm:nilReason, NilReason, Graph ),
           GeoidUndulation=nil(NilReason)
+        );
+        (
+          rdf( GeoidUndulationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          GeoidUndulation=indeterminate(Indeterminate)
         )
       )
   )
@@ -915,6 +983,10 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         (
           rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
           VerticalDatum=nil(NilReason)
+        );
+        (
+          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalDatum=indeterminate(Indeterminate)
         )
       )
   )
@@ -937,6 +1009,10 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         (
           rdf( VerticalAccuracyNode,aixm:nilReason, NilReason, Graph ),
           VerticalAccuracy=nil(NilReason)
+        );
+        (
+          rdf( VerticalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalAccuracy=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -962,6 +1038,10 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         (
           rdf( HeightNode,aixm:nilReason, NilReason, Graph ),
           Height=nil(NilReason)
+        );
+        (
+          rdf( HeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Height=indeterminate(Indeterminate)
         )
       )
   )
@@ -984,6 +1064,10 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         (
           rdf( LengthNode,aixm:nilReason, NilReason, Graph ),
           Length=nil(NilReason)
+        );
+        (
+          rdf( LengthNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Length=indeterminate(Indeterminate)
         )
       )
   )
@@ -1006,6 +1090,10 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         (
           rdf( WidthNode,aixm:nilReason, NilReason, Graph ),
           Width=nil(NilReason)
+        );
+        (
+          rdf( WidthNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Width=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1031,6 +1119,10 @@ fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandName, StandTime, Ter
         (
           rdf( StandNameNode,aixm:nilReason, NilReason, Graph ),
           StandName=nil(NilReason)
+        );
+        (
+          rdf( StandNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StandName=indeterminate(Indeterminate)
         )
       )
   )
@@ -1056,6 +1148,10 @@ fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandName, StandTime, Ter
         (
           rdf( TerminalNameNode,aixm:nilReason, NilReason, Graph ),
           TerminalName=nil(NilReason)
+        );
+        (
+          rdf( TerminalNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TerminalName=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1081,6 +1177,10 @@ fixm_RouteSegment(Graph, RouteSegment, Airway, RoutePoint) :-
         (
           rdf( AirwayNode,aixm:nilReason, NilReason, Graph ),
           Airway=nil(NilReason)
+        );
+        (
+          rdf( AirwayNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Airway=indeterminate(Indeterminate)
         )
       )
   )
@@ -1109,6 +1209,10 @@ aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, 
         (
           rdf( LogicalOperatorNode,aixm:nilReason, NilReason, Graph ),
           LogicalOperator=nil(NilReason)
+        );
+        (
+          rdf( LogicalOperatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LogicalOperator=indeterminate(Indeterminate)
         )
       )
   )
@@ -1138,6 +1242,10 @@ aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Typ
         (
           rdf( LayerOrderNode,aixm:nilReason, NilReason, Graph ),
           LayerOrder=nil(NilReason)
+        );
+        (
+          rdf( LayerOrderNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LayerOrder=indeterminate(Indeterminate)
         )
       )
   )
@@ -1160,6 +1268,10 @@ aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Typ
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -1187,6 +1299,10 @@ fixm_Organization(Graph, Organization, Name, OtherOrganization, Contact) :-
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -1209,6 +1325,10 @@ fixm_Organization(Graph, Organization, Name, OtherOrganization, Contact) :-
         (
           rdf( OtherOrganizationNode,aixm:nilReason, NilReason, Graph ),
           OtherOrganization=nil(NilReason)
+        );
+        (
+          rdf( OtherOrganizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherOrganization=indeterminate(Indeterminate)
         )
       )
   )
@@ -1237,6 +1357,10 @@ aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, T
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -1264,6 +1388,10 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         (
           rdf( ElevationNode,aixm:nilReason, NilReason, Graph ),
           Elevation=nil(NilReason)
+        );
+        (
+          rdf( ElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Elevation=indeterminate(Indeterminate)
         )
       )
   )
@@ -1286,6 +1414,10 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         (
           rdf( GeoidUndulationNode,aixm:nilReason, NilReason, Graph ),
           GeoidUndulation=nil(NilReason)
+        );
+        (
+          rdf( GeoidUndulationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          GeoidUndulation=indeterminate(Indeterminate)
         )
       )
   )
@@ -1308,6 +1440,10 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         (
           rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
           VerticalDatum=nil(NilReason)
+        );
+        (
+          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalDatum=indeterminate(Indeterminate)
         )
       )
   )
@@ -1330,6 +1466,10 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         (
           rdf( VerticalAccuracyNode,aixm:nilReason, NilReason, Graph ),
           VerticalAccuracy=nil(NilReason)
+        );
+        (
+          rdf( VerticalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalAccuracy=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1361,6 +1501,10 @@ fixm_AircraftOperator(Graph, AircraftOperator, OperatingOrganization, OperatorCa
         (
           rdf( OperatingOrganizationNode,aixm:nilReason, NilReason, Graph ),
           OperatingOrganization=nil(NilReason)
+        );
+        (
+          rdf( OperatingOrganizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OperatingOrganization=indeterminate(Indeterminate)
         )
       )
   )
@@ -1383,6 +1527,10 @@ fixm_AircraftOperator(Graph, AircraftOperator, OperatingOrganization, OperatorCa
         (
           rdf( OperatorCategoryNode,aixm:nilReason, NilReason, Graph ),
           OperatorCategory=nil(NilReason)
+        );
+        (
+          rdf( OperatorCategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OperatorCategory=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1419,6 +1567,10 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         (
           rdf( CurrentBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
           CurrentBeaconCode=nil(NilReason)
+        );
+        (
+          rdf( CurrentBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CurrentBeaconCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -1441,6 +1593,10 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         (
           rdf( PreviousBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
           PreviousBeaconCode=nil(NilReason)
+        );
+        (
+          rdf( PreviousBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PreviousBeaconCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -1463,6 +1619,10 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         (
           rdf( ReassignedBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
           ReassignedBeaconCode=nil(NilReason)
+        );
+        (
+          rdf( ReassignedBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReassignedBeaconCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -1500,6 +1660,10 @@ fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintT
         (
           rdf( ConstraintTypeNode,aixm:nilReason, NilReason, Graph ),
           ConstraintType=nil(NilReason)
+        );
+        (
+          rdf( ConstraintTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ConstraintType=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1525,6 +1689,10 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         (
           rdf( ComplianceNode,aixm:nilReason, NilReason, Graph ),
           Compliance=nil(NilReason)
+        );
+        (
+          rdf( ComplianceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Compliance=indeterminate(Indeterminate)
         )
       )
   )
@@ -1547,6 +1715,10 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         (
           rdf( ConsignorNode,aixm:nilReason, NilReason, Graph ),
           Consignor=nil(NilReason)
+        );
+        (
+          rdf( ConsignorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Consignor=indeterminate(Indeterminate)
         )
       )
   )
@@ -1569,6 +1741,10 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         (
           rdf( ShipperNode,aixm:nilReason, NilReason, Graph ),
           Shipper=nil(NilReason)
+        );
+        (
+          rdf( ShipperNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Shipper=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1594,6 +1770,10 @@ fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTime, Location) :-
         (
           rdf( ElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
           ElapsedTime=nil(NilReason)
+        );
+        (
+          rdf( ElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ElapsedTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -1616,6 +1796,10 @@ fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTime, Location) :-
         (
           rdf( LocationNode,aixm:nilReason, NilReason, Graph ),
           Location=nil(NilReason)
+        );
+        (
+          rdf( LocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Location=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1644,6 +1828,10 @@ fixm_ReportedTime(Graph, ReportedTime, Provenance, Time) :-
         (
           rdf( TimeNode,aixm:nilReason, NilReason, Graph ),
           Time=nil(NilReason)
+        );
+        (
+          rdf( TimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Time=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1671,6 +1859,10 @@ fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName) :-
         (
           rdf( SrsNameNode,aixm:nilReason, NilReason, Graph ),
           SrsName=nil(NilReason)
+        );
+        (
+          rdf( SrsNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SrsName=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1696,6 +1888,10 @@ aixm_LinguisticNote(Graph, LinguisticNote, Note) :-
         (
           rdf( NoteNode,aixm:nilReason, NilReason, Graph ),
           Note=nil(NilReason)
+        );
+        (
+          rdf( NoteNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Note=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1721,6 +1917,10 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         (
           rdf( FlightConditionsNode,aixm:nilReason, NilReason, Graph ),
           FlightConditions=nil(NilReason)
+        );
+        (
+          rdf( FlightConditionsNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightConditions=indeterminate(Indeterminate)
         )
       )
   )
@@ -1743,6 +1943,10 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         (
           rdf( VisibilityNode,aixm:nilReason, NilReason, Graph ),
           Visibility=nil(NilReason)
+        );
+        (
+          rdf( VisibilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Visibility=indeterminate(Indeterminate)
         )
       )
   )
@@ -1765,6 +1969,10 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         (
           rdf( VisibilityInterpretationNode,aixm:nilReason, NilReason, Graph ),
           VisibilityInterpretation=nil(NilReason)
+        );
+        (
+          rdf( VisibilityInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VisibilityInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -1787,6 +1995,10 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         (
           rdf( RunwayVisualRangeNode,aixm:nilReason, NilReason, Graph ),
           RunwayVisualRange=nil(NilReason)
+        );
+        (
+          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RunwayVisualRange=indeterminate(Indeterminate)
         )
       )
   )
@@ -1809,6 +2021,10 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         (
           rdf( RunwayVisualRangeInterpretationNode,aixm:nilReason, NilReason, Graph ),
           RunwayVisualRangeInterpretation=nil(NilReason)
+        );
+        (
+          rdf( RunwayVisualRangeInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RunwayVisualRangeInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -1847,6 +2063,10 @@ aixm_City(Graph, City, Name, Annotation) :-
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -1873,6 +2093,10 @@ aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibil
         (
           rdf( RoleNode,aixm:nilReason, NilReason, Graph ),
           Role=nil(NilReason)
+        );
+        (
+          rdf( RoleNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Role=indeterminate(Indeterminate)
         )
       )
   )
@@ -1899,6 +2123,10 @@ fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeed, UpperSpeed) :-
         (
           rdf( LowerSpeedNode,aixm:nilReason, NilReason, Graph ),
           LowerSpeed=nil(NilReason)
+        );
+        (
+          rdf( LowerSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LowerSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -1921,6 +2149,10 @@ fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeed, UpperSpeed) :-
         (
           rdf( UpperSpeedNode,aixm:nilReason, NilReason, Graph ),
           UpperSpeed=nil(NilReason)
+        );
+        (
+          rdf( UpperSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UpperSpeed=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -1946,6 +2178,10 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         (
           rdf( IdentifierNode,aixm:nilReason, NilReason, Graph ),
           Identifier=nil(NilReason)
+        );
+        (
+          rdf( IdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Identifier=indeterminate(Indeterminate)
         )
       )
   )
@@ -1968,6 +2204,10 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         (
           rdf( MaximumAcceptableDelayNode,aixm:nilReason, NilReason, Graph ),
           MaximumAcceptableDelay=nil(NilReason)
+        );
+        (
+          rdf( MaximumAcceptableDelayNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MaximumAcceptableDelay=indeterminate(Indeterminate)
         )
       )
   )
@@ -1990,6 +2230,10 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         (
           rdf( AssignedIndicatorNode,aixm:nilReason, NilReason, Graph ),
           AssignedIndicator=nil(NilReason)
+        );
+        (
+          rdf( AssignedIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AssignedIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -2018,6 +2262,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( BottomOfClimbNode,aixm:nilReason, NilReason, Graph ),
           BottomOfClimb=nil(NilReason)
+        );
+        (
+          rdf( BottomOfClimbNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          BottomOfClimb=indeterminate(Indeterminate)
         )
       )
   )
@@ -2040,6 +2288,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( BottomOfDescentNode,aixm:nilReason, NilReason, Graph ),
           BottomOfDescent=nil(NilReason)
+        );
+        (
+          rdf( BottomOfDescentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          BottomOfDescent=indeterminate(Indeterminate)
         )
       )
   )
@@ -2062,6 +2314,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( BoundaryPointNode,aixm:nilReason, NilReason, Graph ),
           BoundaryPoint=nil(NilReason)
+        );
+        (
+          rdf( BoundaryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          BoundaryPoint=indeterminate(Indeterminate)
         )
       )
   )
@@ -2084,6 +2340,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( FromGATToOATNode,aixm:nilReason, NilReason, Graph ),
           FromGATToOAT=nil(NilReason)
+        );
+        (
+          rdf( FromGATToOATNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FromGATToOAT=indeterminate(Indeterminate)
         )
       )
   )
@@ -2106,6 +2366,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( FromIFRToVFRNode,aixm:nilReason, NilReason, Graph ),
           FromIFRToVFR=nil(NilReason)
+        );
+        (
+          rdf( FromIFRToVFRNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FromIFRToVFR=indeterminate(Indeterminate)
         )
       )
   )
@@ -2128,6 +2392,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( FromOATToGatNode,aixm:nilReason, NilReason, Graph ),
           FromOATToGat=nil(NilReason)
+        );
+        (
+          rdf( FromOATToGatNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FromOATToGat=indeterminate(Indeterminate)
         )
       )
   )
@@ -2150,6 +2418,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( FromVFRToIFRNode,aixm:nilReason, NilReason, Graph ),
           FromVFRToIFR=nil(NilReason)
+        );
+        (
+          rdf( FromVFRToIFRNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FromVFRToIFR=indeterminate(Indeterminate)
         )
       )
   )
@@ -2172,6 +2444,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( TopOfClimbNode,aixm:nilReason, NilReason, Graph ),
           TopOfClimb=nil(NilReason)
+        );
+        (
+          rdf( TopOfClimbNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TopOfClimb=indeterminate(Indeterminate)
         )
       )
   )
@@ -2194,6 +2470,10 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         (
           rdf( TopOfDescentNode,aixm:nilReason, NilReason, Graph ),
           TopOfDescent=nil(NilReason)
+        );
+        (
+          rdf( TopOfDescentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TopOfDescent=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2219,6 +2499,10 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         (
           rdf( OtherCommunicationCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
           OtherCommunicationCapabilities=nil(NilReason)
+        );
+        (
+          rdf( OtherCommunicationCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherCommunicationCapabilities=indeterminate(Indeterminate)
         )
       )
   )
@@ -2241,6 +2525,10 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         (
           rdf( OtherDataLinkCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
           OtherDataLinkCapabilities=nil(NilReason)
+        );
+        (
+          rdf( OtherDataLinkCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherDataLinkCapabilities=indeterminate(Indeterminate)
         )
       )
   )
@@ -2264,6 +2552,10 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         (
           rdf( SelectiveCallingCodeNode,aixm:nilReason, NilReason, Graph ),
           SelectiveCallingCode=nil(NilReason)
+        );
+        (
+          rdf( SelectiveCallingCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SelectiveCallingCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -2290,6 +2582,10 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         (
           rdf( QuantityNode,aixm:nilReason, NilReason, Graph ),
           Quantity=nil(NilReason)
+        );
+        (
+          rdf( QuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Quantity=indeterminate(Indeterminate)
         )
       )
   )
@@ -2312,6 +2608,10 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         (
           rdf( TotalCapacityNode,aixm:nilReason, NilReason, Graph ),
           TotalCapacity=nil(NilReason)
+        );
+        (
+          rdf( TotalCapacityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TotalCapacity=indeterminate(Indeterminate)
         )
       )
   )
@@ -2334,6 +2634,10 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         (
           rdf( CoveredNode,aixm:nilReason, NilReason, Graph ),
           Covered=nil(NilReason)
+        );
+        (
+          rdf( CoveredNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Covered=indeterminate(Indeterminate)
         )
       )
   )
@@ -2356,6 +2660,10 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         (
           rdf( ColourNode,aixm:nilReason, NilReason, Graph ),
           Colour=nil(NilReason)
+        );
+        (
+          rdf( ColourNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Colour=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2381,6 +2689,10 @@ aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, Netw
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -2403,6 +2715,10 @@ aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, Netw
         (
           rdf( TitleNode,aixm:nilReason, NilReason, Graph ),
           Title=nil(NilReason)
+        );
+        (
+          rdf( TitleNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Title=indeterminate(Indeterminate)
         )
       )
   )
@@ -2435,6 +2751,10 @@ fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position, Positio
         (
           rdf( PositionAltitudeNode,aixm:nilReason, NilReason, Graph ),
           PositionAltitude=nil(NilReason)
+        );
+        (
+          rdf( PositionAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PositionAltitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -2457,6 +2777,10 @@ fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position, Positio
         (
           rdf( PositionEstimatedTimeNode,aixm:nilReason, NilReason, Graph ),
           PositionEstimatedTime=nil(NilReason)
+        );
+        (
+          rdf( PositionEstimatedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PositionEstimatedTime=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2485,6 +2809,10 @@ fixm_SupplementalData(Graph, SupplementalData, FuelEndurance, PersonsOnBoard, Pi
         (
           rdf( FuelEnduranceNode,aixm:nilReason, NilReason, Graph ),
           FuelEndurance=nil(NilReason)
+        );
+        (
+          rdf( FuelEnduranceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FuelEndurance=indeterminate(Indeterminate)
         )
       )
   )
@@ -2507,6 +2835,10 @@ fixm_SupplementalData(Graph, SupplementalData, FuelEndurance, PersonsOnBoard, Pi
         (
           rdf( PersonsOnBoardNode,aixm:nilReason, NilReason, Graph ),
           PersonsOnBoard=nil(NilReason)
+        );
+        (
+          rdf( PersonsOnBoardNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PersonsOnBoard=indeterminate(Indeterminate)
         )
       )
   )
@@ -2535,6 +2867,10 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         (
           rdf( GuidebookNumberNode,aixm:nilReason, NilReason, Graph ),
           GuidebookNumber=nil(NilReason)
+        );
+        (
+          rdf( GuidebookNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          GuidebookNumber=indeterminate(Indeterminate)
         )
       )
   )
@@ -2557,6 +2893,10 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         (
           rdf( OnboardLocationNode,aixm:nilReason, NilReason, Graph ),
           OnboardLocation=nil(NilReason)
+        );
+        (
+          rdf( OnboardLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OnboardLocation=indeterminate(Indeterminate)
         )
       )
   )
@@ -2582,6 +2922,10 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         (
           rdf( AircraftLimitationNode,aixm:nilReason, NilReason, Graph ),
           AircraftLimitation=nil(NilReason)
+        );
+        (
+          rdf( AircraftLimitationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftLimitation=indeterminate(Indeterminate)
         )
       )
   )
@@ -2604,6 +2948,10 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         (
           rdf( AirWayBillNode,aixm:nilReason, NilReason, Graph ),
           AirWayBill=nil(NilReason)
+        );
+        (
+          rdf( AirWayBillNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AirWayBill=indeterminate(Indeterminate)
         )
       )
   )
@@ -2626,6 +2974,10 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         (
           rdf( ShipmentNode,aixm:nilReason, NilReason, Graph ),
           Shipment=nil(NilReason)
+        );
+        (
+          rdf( ShipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Shipment=indeterminate(Indeterminate)
         )
       )
   )
@@ -2659,6 +3011,10 @@ fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimen
         (
           rdf( ShipmentUseIndicatorNode,aixm:nilReason, NilReason, Graph ),
           ShipmentUseIndicator=nil(NilReason)
+        );
+        (
+          rdf( ShipmentUseIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ShipmentUseIndicator=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2684,6 +3040,10 @@ fixm_OfftrackDistance(Graph, OfftrackDistance, Distance, Direction) :-
         (
           rdf( DistanceNode,aixm:nilReason, NilReason, Graph ),
           Distance=nil(NilReason)
+        );
+        (
+          rdf( DistanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Distance=indeterminate(Indeterminate)
         )
       )
   )
@@ -2706,6 +3066,10 @@ fixm_OfftrackDistance(Graph, OfftrackDistance, Distance, Direction) :-
         (
           rdf( DirectionNode,aixm:nilReason, NilReason, Graph ),
           Direction=nil(NilReason)
+        );
+        (
+          rdf( DirectionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Direction=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2743,6 +3107,10 @@ fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace, SpecialActiv
         (
           rdf( ConstrainedAirspaceNode,aixm:nilReason, NilReason, Graph ),
           ConstrainedAirspace=nil(NilReason)
+        );
+        (
+          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ConstrainedAirspace=indeterminate(Indeterminate)
         )
       )
   )
@@ -2765,6 +3133,10 @@ fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace, SpecialActiv
         (
           rdf( SpecialActivityAirspaceNode,aixm:nilReason, NilReason, Graph ),
           SpecialActivityAirspace=nil(NilReason)
+        );
+        (
+          rdf( SpecialActivityAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SpecialActivityAirspace=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -2791,6 +3163,10 @@ fixm_ContactInformation(Graph, ContactInformation, Name, Title, OnlineContact, P
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -2813,6 +3189,10 @@ fixm_ContactInformation(Graph, ContactInformation, Name, Title, OnlineContact, P
         (
           rdf( TitleNode,aixm:nilReason, NilReason, Graph ),
           Title=nil(NilReason)
+        );
+        (
+          rdf( TitleNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Title=indeterminate(Indeterminate)
         )
       )
   )
@@ -2847,6 +3227,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( DesignatorNode,aixm:nilReason, NilReason, Graph ),
           Designator=nil(NilReason)
+        );
+        (
+          rdf( DesignatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Designator=indeterminate(Indeterminate)
         )
       )
   )
@@ -2869,6 +3253,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -2891,6 +3279,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( LocationIndicatorICAONode,aixm:nilReason, NilReason, Graph ),
           LocationIndicatorICAO=nil(NilReason)
+        );
+        (
+          rdf( LocationIndicatorICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LocationIndicatorICAO=indeterminate(Indeterminate)
         )
       )
   )
@@ -2913,6 +3305,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( DesignatorIATANode,aixm:nilReason, NilReason, Graph ),
           DesignatorIATA=nil(NilReason)
+        );
+        (
+          rdf( DesignatorIATANode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DesignatorIATA=indeterminate(Indeterminate)
         )
       )
   )
@@ -2935,6 +3331,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -2957,6 +3357,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( CertifiedICAONode,aixm:nilReason, NilReason, Graph ),
           CertifiedICAO=nil(NilReason)
+        );
+        (
+          rdf( CertifiedICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CertifiedICAO=indeterminate(Indeterminate)
         )
       )
   )
@@ -2979,6 +3383,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( PrivateUseNode,aixm:nilReason, NilReason, Graph ),
           PrivateUse=nil(NilReason)
+        );
+        (
+          rdf( PrivateUseNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PrivateUse=indeterminate(Indeterminate)
         )
       )
   )
@@ -3001,6 +3409,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( ControlTypeNode,aixm:nilReason, NilReason, Graph ),
           ControlType=nil(NilReason)
+        );
+        (
+          rdf( ControlTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ControlType=indeterminate(Indeterminate)
         )
       )
   )
@@ -3023,6 +3435,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( FieldElevationNode,aixm:nilReason, NilReason, Graph ),
           FieldElevation=nil(NilReason)
+        );
+        (
+          rdf( FieldElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FieldElevation=indeterminate(Indeterminate)
         )
       )
   )
@@ -3045,6 +3461,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( FieldElevationAccuracyNode,aixm:nilReason, NilReason, Graph ),
           FieldElevationAccuracy=nil(NilReason)
+        );
+        (
+          rdf( FieldElevationAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FieldElevationAccuracy=indeterminate(Indeterminate)
         )
       )
   )
@@ -3067,6 +3487,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
           VerticalDatum=nil(NilReason)
+        );
+        (
+          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalDatum=indeterminate(Indeterminate)
         )
       )
   )
@@ -3089,6 +3513,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( MagneticVariationNode,aixm:nilReason, NilReason, Graph ),
           MagneticVariation=nil(NilReason)
+        );
+        (
+          rdf( MagneticVariationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MagneticVariation=indeterminate(Indeterminate)
         )
       )
   )
@@ -3111,6 +3539,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( MagneticVariationAccuracyNode,aixm:nilReason, NilReason, Graph ),
           MagneticVariationAccuracy=nil(NilReason)
+        );
+        (
+          rdf( MagneticVariationAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MagneticVariationAccuracy=indeterminate(Indeterminate)
         )
       )
   )
@@ -3133,6 +3565,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( DateMagneticVariationNode,aixm:nilReason, NilReason, Graph ),
           DateMagneticVariation=nil(NilReason)
+        );
+        (
+          rdf( DateMagneticVariationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DateMagneticVariation=indeterminate(Indeterminate)
         )
       )
   )
@@ -3155,6 +3591,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( MagneticVariationChangeNode,aixm:nilReason, NilReason, Graph ),
           MagneticVariationChange=nil(NilReason)
+        );
+        (
+          rdf( MagneticVariationChangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MagneticVariationChange=indeterminate(Indeterminate)
         )
       )
   )
@@ -3177,6 +3617,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( ReferenceTemperatureNode,aixm:nilReason, NilReason, Graph ),
           ReferenceTemperature=nil(NilReason)
+        );
+        (
+          rdf( ReferenceTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReferenceTemperature=indeterminate(Indeterminate)
         )
       )
   )
@@ -3199,6 +3643,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( AltimeterCheckLocationNode,aixm:nilReason, NilReason, Graph ),
           AltimeterCheckLocation=nil(NilReason)
+        );
+        (
+          rdf( AltimeterCheckLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AltimeterCheckLocation=indeterminate(Indeterminate)
         )
       )
   )
@@ -3221,6 +3669,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( SecondaryPowerSupplyNode,aixm:nilReason, NilReason, Graph ),
           SecondaryPowerSupply=nil(NilReason)
+        );
+        (
+          rdf( SecondaryPowerSupplyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SecondaryPowerSupply=indeterminate(Indeterminate)
         )
       )
   )
@@ -3243,6 +3695,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( WindDirectionIndicatorNode,aixm:nilReason, NilReason, Graph ),
           WindDirectionIndicator=nil(NilReason)
+        );
+        (
+          rdf( WindDirectionIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WindDirectionIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -3265,6 +3721,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( LandingDirectionIndicatorNode,aixm:nilReason, NilReason, Graph ),
           LandingDirectionIndicator=nil(NilReason)
+        );
+        (
+          rdf( LandingDirectionIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LandingDirectionIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -3287,6 +3747,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( TransitionAltitudeNode,aixm:nilReason, NilReason, Graph ),
           TransitionAltitude=nil(NilReason)
+        );
+        (
+          rdf( TransitionAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TransitionAltitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -3309,6 +3773,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( TransitionLevelNode,aixm:nilReason, NilReason, Graph ),
           TransitionLevel=nil(NilReason)
+        );
+        (
+          rdf( TransitionLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TransitionLevel=indeterminate(Indeterminate)
         )
       )
   )
@@ -3331,6 +3799,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( LowestTemperatureNode,aixm:nilReason, NilReason, Graph ),
           LowestTemperature=nil(NilReason)
+        );
+        (
+          rdf( LowestTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LowestTemperature=indeterminate(Indeterminate)
         )
       )
   )
@@ -3353,6 +3825,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( AbandonedNode,aixm:nilReason, NilReason, Graph ),
           Abandoned=nil(NilReason)
+        );
+        (
+          rdf( AbandonedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Abandoned=indeterminate(Indeterminate)
         )
       )
   )
@@ -3375,6 +3851,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( CertificationDateNode,aixm:nilReason, NilReason, Graph ),
           CertificationDate=nil(NilReason)
+        );
+        (
+          rdf( CertificationDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CertificationDate=indeterminate(Indeterminate)
         )
       )
   )
@@ -3397,6 +3877,10 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         (
           rdf( CertificationExpirationDateNode,aixm:nilReason, NilReason, Graph ),
           CertificationExpirationDate=nil(NilReason)
+        );
+        (
+          rdf( CertificationExpirationDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CertificationExpirationDate=indeterminate(Indeterminate)
         )
       )
   )
@@ -3438,6 +3922,10 @@ fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange) :-
         (
           rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
           Altitude=nil(NilReason)
+        );
+        (
+          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Altitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -3460,6 +3948,10 @@ fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange) :-
         (
           rdf( TimeNode,aixm:nilReason, NilReason, Graph ),
           Time=nil(NilReason)
+        );
+        (
+          rdf( TimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Time=indeterminate(Indeterminate)
         )
       )
   )
@@ -3489,6 +3981,10 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         (
           rdf( AirTrafficTypeNode,aixm:nilReason, NilReason, Graph ),
           AirTrafficType=nil(NilReason)
+        );
+        (
+          rdf( AirTrafficTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AirTrafficType=indeterminate(Indeterminate)
         )
       )
   )
@@ -3511,6 +4007,10 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         (
           rdf( DelayAtPointNode,aixm:nilReason, NilReason, Graph ),
           DelayAtPoint=nil(NilReason)
+        );
+        (
+          rdf( DelayAtPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DelayAtPoint=indeterminate(Indeterminate)
         )
       )
   )
@@ -3533,6 +4033,10 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         (
           rdf( FlightRulesNode,aixm:nilReason, NilReason, Graph ),
           FlightRules=nil(NilReason)
+        );
+        (
+          rdf( FlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightRules=indeterminate(Indeterminate)
         )
       )
   )
@@ -3558,6 +4062,10 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         (
           rdf( ClearanceLimitNode,aixm:nilReason, NilReason, Graph ),
           ClearanceLimit=nil(NilReason)
+        );
+        (
+          rdf( ClearanceLimitNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ClearanceLimit=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -3583,6 +4091,10 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         (
           rdf( SideNode,aixm:nilReason, NilReason, Graph ),
           Side=nil(NilReason)
+        );
+        (
+          rdf( SideNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Side=indeterminate(Indeterminate)
         )
       )
   )
@@ -3605,6 +4117,10 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         (
           rdf( DistanceNode,aixm:nilReason, NilReason, Graph ),
           Distance=nil(NilReason)
+        );
+        (
+          rdf( DistanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Distance=indeterminate(Indeterminate)
         )
       )
   )
@@ -3627,6 +4143,10 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         (
           rdf( DepthNode,aixm:nilReason, NilReason, Graph ),
           Depth=nil(NilReason)
+        );
+        (
+          rdf( DepthNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Depth=indeterminate(Indeterminate)
         )
       )
   )
@@ -3668,6 +4188,10 @@ fixm_EnRouteDiversion(Graph, EnRouteDiversion, DiversionRecoveryInformation) :-
         (
           rdf( DiversionRecoveryInformationNode,aixm:nilReason, NilReason, Graph ),
           DiversionRecoveryInformation=nil(NilReason)
+        );
+        (
+          rdf( DiversionRecoveryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DiversionRecoveryInformation=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -3693,6 +4217,10 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         (
           rdf( CalculatedNode,aixm:nilReason, NilReason, Graph ),
           Calculated=nil(NilReason)
+        );
+        (
+          rdf( CalculatedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Calculated=indeterminate(Indeterminate)
         )
       )
   )
@@ -3715,6 +4243,10 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         (
           rdf( PilotReportedNode,aixm:nilReason, NilReason, Graph ),
           PilotReported=nil(NilReason)
+        );
+        (
+          rdf( PilotReportedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PilotReported=indeterminate(Indeterminate)
         )
       )
   )
@@ -3737,6 +4269,10 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         (
           rdf( SurveillanceNode,aixm:nilReason, NilReason, Graph ),
           Surveillance=nil(NilReason)
+        );
+        (
+          rdf( SurveillanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Surveillance=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -3762,6 +4298,10 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         (
           rdf( ActionTakenNode,aixm:nilReason, NilReason, Graph ),
           ActionTaken=nil(NilReason)
+        );
+        (
+          rdf( ActionTakenNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ActionTaken=indeterminate(Indeterminate)
         )
       )
   )
@@ -3784,6 +4324,10 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         (
           rdf( EmergencyDescriptionNode,aixm:nilReason, NilReason, Graph ),
           EmergencyDescription=nil(NilReason)
+        );
+        (
+          rdf( EmergencyDescriptionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EmergencyDescription=indeterminate(Indeterminate)
         )
       )
   )
@@ -3809,6 +4353,10 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         (
           rdf( OtherInformationNode,aixm:nilReason, NilReason, Graph ),
           OtherInformation=nil(NilReason)
+        );
+        (
+          rdf( OtherInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherInformation=indeterminate(Indeterminate)
         )
       )
   )
@@ -3831,6 +4379,10 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         (
           rdf( PhaseNode,aixm:nilReason, NilReason, Graph ),
           Phase=nil(NilReason)
+        );
+        (
+          rdf( PhaseNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Phase=indeterminate(Indeterminate)
         )
       )
   )
@@ -3864,6 +4416,10 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         (
           rdf( FlightFilerNode,aixm:nilReason, NilReason, Graph ),
           FlightFiler=nil(NilReason)
+        );
+        (
+          rdf( FlightFilerNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightFiler=indeterminate(Indeterminate)
         )
       )
   )
@@ -3886,6 +4442,10 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         (
           rdf( GufiNode,aixm:nilReason, NilReason, Graph ),
           Gufi=nil(NilReason)
+        );
+        (
+          rdf( GufiNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Gufi=indeterminate(Indeterminate)
         )
       )
   )
@@ -3908,6 +4468,10 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         (
           rdf( RemarksNode,aixm:nilReason, NilReason, Graph ),
           Remarks=nil(NilReason)
+        );
+        (
+          rdf( RemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Remarks=indeterminate(Indeterminate)
         )
       )
   )
@@ -3965,6 +4529,10 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         (
           rdf( FlightTypeNode,aixm:nilReason, NilReason, Graph ),
           FlightType=nil(NilReason)
+        );
+        (
+          rdf( FlightTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightType=indeterminate(Indeterminate)
         )
       )
   )
@@ -3990,6 +4558,10 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         (
           rdf( OriginatorNode,aixm:nilReason, NilReason, Graph ),
           Originator=nil(NilReason)
+        );
+        (
+          rdf( OriginatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Originator=indeterminate(Indeterminate)
         )
       )
   )
@@ -4034,6 +4606,10 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         (
           rdf( ClearedFlightLevelNode,aixm:nilReason, NilReason, Graph ),
           ClearedFlightLevel=nil(NilReason)
+        );
+        (
+          rdf( ClearedFlightLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ClearedFlightLevel=indeterminate(Indeterminate)
         )
       )
   )
@@ -4056,6 +4632,10 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         (
           rdf( ClearedSpeedNode,aixm:nilReason, NilReason, Graph ),
           ClearedSpeed=nil(NilReason)
+        );
+        (
+          rdf( ClearedSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ClearedSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -4078,6 +4658,10 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         (
           rdf( HeadingNode,aixm:nilReason, NilReason, Graph ),
           Heading=nil(NilReason)
+        );
+        (
+          rdf( HeadingNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Heading=indeterminate(Indeterminate)
         )
       )
   )
@@ -4103,6 +4687,10 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         (
           rdf( RateOfClimbDescendNode,aixm:nilReason, NilReason, Graph ),
           RateOfClimbDescend=nil(NilReason)
+        );
+        (
+          rdf( RateOfClimbDescendNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RateOfClimbDescend=indeterminate(Indeterminate)
         )
       )
   )
@@ -4156,6 +4744,10 @@ fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnit, UpstreamUnit, BoundaryCro
         (
           rdf( UnitBoundaryIndicatorNode,aixm:nilReason, NilReason, Graph ),
           UnitBoundaryIndicator=nil(NilReason)
+        );
+        (
+          rdf( UnitBoundaryIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UnitBoundaryIndicator=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4182,6 +4774,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( ObservationTimeNode,aixm:nilReason, NilReason, Graph ),
           ObservationTime=nil(NilReason)
+        );
+        (
+          rdf( ObservationTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ObservationTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -4204,6 +4800,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( DepthNode,aixm:nilReason, NilReason, Graph ),
           Depth=nil(NilReason)
+        );
+        (
+          rdf( DepthNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Depth=indeterminate(Indeterminate)
         )
       )
   )
@@ -4226,6 +4826,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( FrictionCoefficientNode,aixm:nilReason, NilReason, Graph ),
           FrictionCoefficient=nil(NilReason)
+        );
+        (
+          rdf( FrictionCoefficientNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FrictionCoefficient=indeterminate(Indeterminate)
         )
       )
   )
@@ -4248,6 +4852,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( FrictionEstimationNode,aixm:nilReason, NilReason, Graph ),
           FrictionEstimation=nil(NilReason)
+        );
+        (
+          rdf( FrictionEstimationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FrictionEstimation=indeterminate(Indeterminate)
         )
       )
   )
@@ -4270,6 +4878,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( FrictionDeviceNode,aixm:nilReason, NilReason, Graph ),
           FrictionDevice=nil(NilReason)
+        );
+        (
+          rdf( FrictionDeviceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FrictionDevice=indeterminate(Indeterminate)
         )
       )
   )
@@ -4292,6 +4904,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( ObscuredLightsNode,aixm:nilReason, NilReason, Graph ),
           ObscuredLights=nil(NilReason)
+        );
+        (
+          rdf( ObscuredLightsNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ObscuredLights=indeterminate(Indeterminate)
         )
       )
   )
@@ -4314,6 +4930,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( FurtherClearanceTimeNode,aixm:nilReason, NilReason, Graph ),
           FurtherClearanceTime=nil(NilReason)
+        );
+        (
+          rdf( FurtherClearanceTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FurtherClearanceTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -4336,6 +4956,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( FurtherTotalClearanceNode,aixm:nilReason, NilReason, Graph ),
           FurtherTotalClearance=nil(NilReason)
+        );
+        (
+          rdf( FurtherTotalClearanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FurtherTotalClearance=indeterminate(Indeterminate)
         )
       )
   )
@@ -4358,6 +4982,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( NextObservationTimeNode,aixm:nilReason, NilReason, Graph ),
           NextObservationTime=nil(NilReason)
+        );
+        (
+          rdf( NextObservationTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NextObservationTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -4380,6 +5008,10 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         (
           rdf( ProportionNode,aixm:nilReason, NilReason, Graph ),
           Proportion=nil(NilReason)
+        );
+        (
+          rdf( ProportionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Proportion=indeterminate(Indeterminate)
         )
       )
   )
@@ -4408,6 +5040,10 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         (
           rdf( TemperatureNode,aixm:nilReason, NilReason, Graph ),
           Temperature=nil(NilReason)
+        );
+        (
+          rdf( TemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Temperature=indeterminate(Indeterminate)
         )
       )
   )
@@ -4430,6 +5066,10 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         (
           rdf( WindDirectionNode,aixm:nilReason, NilReason, Graph ),
           WindDirection=nil(NilReason)
+        );
+        (
+          rdf( WindDirectionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WindDirection=indeterminate(Indeterminate)
         )
       )
   )
@@ -4452,6 +5092,10 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         (
           rdf( WindSpeedNode,aixm:nilReason, NilReason, Graph ),
           WindSpeed=nil(NilReason)
+        );
+        (
+          rdf( WindSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WindSpeed=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4481,6 +5125,10 @@ fixm_TelephoneContact(Graph, TelephoneContact, Voice, Facimile) :-
         (
           rdf( VoiceNode,aixm:nilReason, NilReason, Graph ),
           Voice=nil(NilReason)
+        );
+        (
+          rdf( VoiceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Voice=indeterminate(Indeterminate)
         )
       )
   )
@@ -4503,6 +5151,10 @@ fixm_TelephoneContact(Graph, TelephoneContact, Voice, Facimile) :-
         (
           rdf( FacimileNode,aixm:nilReason, NilReason, Graph ),
           Facimile=nil(NilReason)
+        );
+        (
+          rdf( FacimileNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Facimile=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4534,6 +5186,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( DangerousGoodsScreeningLocationNode,aixm:nilReason, NilReason, Graph ),
           DangerousGoodsScreeningLocation=nil(NilReason)
+        );
+        (
+          rdf( DangerousGoodsScreeningLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DangerousGoodsScreeningLocation=indeterminate(Indeterminate)
         )
       )
   )
@@ -4556,6 +5212,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( DepartureCountryNode,aixm:nilReason, NilReason, Graph ),
           DepartureCountry=nil(NilReason)
+        );
+        (
+          rdf( DepartureCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DepartureCountry=indeterminate(Indeterminate)
         )
       )
   )
@@ -4578,6 +5238,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( DestinationCountryNode,aixm:nilReason, NilReason, Graph ),
           DestinationCountry=nil(NilReason)
+        );
+        (
+          rdf( DestinationCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DestinationCountry=indeterminate(Indeterminate)
         )
       )
   )
@@ -4600,6 +5264,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( OriginCountryNode,aixm:nilReason, NilReason, Graph ),
           OriginCountry=nil(NilReason)
+        );
+        (
+          rdf( OriginCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OriginCountry=indeterminate(Indeterminate)
         )
       )
   )
@@ -4622,6 +5290,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( ShipmentAuthorizationsNode,aixm:nilReason, NilReason, Graph ),
           ShipmentAuthorizations=nil(NilReason)
+        );
+        (
+          rdf( ShipmentAuthorizationsNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ShipmentAuthorizations=indeterminate(Indeterminate)
         )
       )
   )
@@ -4644,6 +5316,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( SubsidiaryHazardClassAndDivisionNode,aixm:nilReason, NilReason, Graph ),
           SubsidiaryHazardClassAndDivision=nil(NilReason)
+        );
+        (
+          rdf( SubsidiaryHazardClassAndDivisionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SubsidiaryHazardClassAndDivision=indeterminate(Indeterminate)
         )
       )
   )
@@ -4666,6 +5342,10 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         (
           rdf( SupplementaryInformationNode,aixm:nilReason, NilReason, Graph ),
           SupplementaryInformation=nil(NilReason)
+        );
+        (
+          rdf( SupplementaryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SupplementaryInformation=indeterminate(Indeterminate)
         )
       )
   )
@@ -4704,6 +5384,10 @@ fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicator, R
         (
           rdf( ReplacementFlightPlanIndicatorNode,aixm:nilReason, NilReason, Graph ),
           ReplacementFlightPlanIndicator=nil(NilReason)
+        );
+        (
+          rdf( ReplacementFlightPlanIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReplacementFlightPlanIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -4726,6 +5410,10 @@ fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicator, R
         (
           rdf( RunwayVisualRangeNode,aixm:nilReason, NilReason, Graph ),
           RunwayVisualRange=nil(NilReason)
+        );
+        (
+          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RunwayVisualRange=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4754,6 +5442,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( ReceivingUnitFrequencyNode,aixm:nilReason, NilReason, Graph ),
           ReceivingUnitFrequency=nil(NilReason)
+        );
+        (
+          rdf( ReceivingUnitFrequencyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReceivingUnitFrequency=indeterminate(Indeterminate)
         )
       )
   )
@@ -4776,6 +5468,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( AtnLogonParametersNode,aixm:nilReason, NilReason, Graph ),
           AtnLogonParameters=nil(NilReason)
+        );
+        (
+          rdf( AtnLogonParametersNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AtnLogonParameters=indeterminate(Indeterminate)
         )
       )
   )
@@ -4798,6 +5494,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( SendCpldcIndicatorNode,aixm:nilReason, NilReason, Graph ),
           SendCpldcIndicator=nil(NilReason)
+        );
+        (
+          rdf( SendCpldcIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SendCpldcIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -4820,6 +5520,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( ConnectionStatusNode,aixm:nilReason, NilReason, Graph ),
           ConnectionStatus=nil(NilReason)
+        );
+        (
+          rdf( ConnectionStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ConnectionStatus=indeterminate(Indeterminate)
         )
       )
   )
@@ -4842,6 +5546,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( FrequencyUsageNode,aixm:nilReason, NilReason, Graph ),
           FrequencyUsage=nil(NilReason)
+        );
+        (
+          rdf( FrequencyUsageNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FrequencyUsage=indeterminate(Indeterminate)
         )
       )
   )
@@ -4864,6 +5572,10 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         (
           rdf( Fans1ALogonParametersNode,aixm:nilReason, NilReason, Graph ),
           Fans1ALogonParameters=nil(NilReason)
+        );
+        (
+          rdf( Fans1ALogonParametersNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Fans1ALogonParameters=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4889,6 +5601,10 @@ aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile) :-
         (
           rdf( VoiceNode,aixm:nilReason, NilReason, Graph ),
           Voice=nil(NilReason)
+        );
+        (
+          rdf( VoiceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Voice=indeterminate(Indeterminate)
         )
       )
   )
@@ -4911,6 +5627,10 @@ aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile) :-
         (
           rdf( FacsimileNode,aixm:nilReason, NilReason, Graph ),
           Facsimile=nil(NilReason)
+        );
+        (
+          rdf( FacsimileNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Facsimile=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -4937,6 +5657,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( AirfileRouteStartTimeNode,aixm:nilReason, NilReason, Graph ),
           AirfileRouteStartTime=nil(NilReason)
+        );
+        (
+          rdf( AirfileRouteStartTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AirfileRouteStartTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -4959,6 +5683,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( FlightDurationNode,aixm:nilReason, NilReason, Graph ),
           FlightDuration=nil(NilReason)
+        );
+        (
+          rdf( FlightDurationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightDuration=indeterminate(Indeterminate)
         )
       )
   )
@@ -4981,6 +5709,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( InitialCruisingSpeedNode,aixm:nilReason, NilReason, Graph ),
           InitialCruisingSpeed=nil(NilReason)
+        );
+        (
+          rdf( InitialCruisingSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          InitialCruisingSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -5003,6 +5735,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( InitialFlightRulesNode,aixm:nilReason, NilReason, Graph ),
           InitialFlightRules=nil(NilReason)
+        );
+        (
+          rdf( InitialFlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          InitialFlightRules=indeterminate(Indeterminate)
         )
       )
   )
@@ -5025,6 +5761,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( RequestedAltitudeNode,aixm:nilReason, NilReason, Graph ),
           RequestedAltitude=nil(NilReason)
+        );
+        (
+          rdf( RequestedAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RequestedAltitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -5047,6 +5787,10 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         (
           rdf( RouteTextNode,aixm:nilReason, NilReason, Graph ),
           RouteText=nil(NilReason)
+        );
+        (
+          rdf( RouteTextNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RouteText=indeterminate(Indeterminate)
         )
       )
   )
@@ -5083,6 +5827,10 @@ fixm_Person(Graph, Person, Name, Contact) :-
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -5111,6 +5859,10 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         (
           rdf( IfplIdNode,aixm:nilReason, NilReason, Graph ),
           IfplId=nil(NilReason)
+        );
+        (
+          rdf( IfplIdNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          IfplId=indeterminate(Indeterminate)
         )
       )
   )
@@ -5133,6 +5885,10 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         (
           rdf( TotalEstimatedElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
           TotalEstimatedElapsedTime=nil(NilReason)
+        );
+        (
+          rdf( TotalEstimatedElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TotalEstimatedElapsedTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -5158,6 +5914,10 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         (
           rdf( EfplSpecialHandlingNode,aixm:nilReason, NilReason, Graph ),
           EfplSpecialHandling=nil(NilReason)
+        );
+        (
+          rdf( EfplSpecialHandlingNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EfplSpecialHandling=indeterminate(Indeterminate)
         )
       )
   )
@@ -5198,6 +5958,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( AirborneHoldNode,aixm:nilReason, NilReason, Graph ),
           AirborneHold=nil(NilReason)
+        );
+        (
+          rdf( AirborneHoldNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AirborneHold=indeterminate(Indeterminate)
         )
       )
   )
@@ -5220,6 +5984,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( AirfileNode,aixm:nilReason, NilReason, Graph ),
           Airfile=nil(NilReason)
+        );
+        (
+          rdf( AirfileNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Airfile=indeterminate(Indeterminate)
         )
       )
   )
@@ -5242,6 +6010,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( AcceptedNode,aixm:nilReason, NilReason, Graph ),
           Accepted=nil(NilReason)
+        );
+        (
+          rdf( AcceptedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Accepted=indeterminate(Indeterminate)
         )
       )
   )
@@ -5264,6 +6036,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( FlightCycleNode,aixm:nilReason, NilReason, Graph ),
           FlightCycle=nil(NilReason)
+        );
+        (
+          rdf( FlightCycleNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlightCycle=indeterminate(Indeterminate)
         )
       )
   )
@@ -5286,6 +6062,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( MissedApproachNode,aixm:nilReason, NilReason, Graph ),
           MissedApproach=nil(NilReason)
+        );
+        (
+          rdf( MissedApproachNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MissedApproach=indeterminate(Indeterminate)
         )
       )
   )
@@ -5308,6 +6088,10 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         (
           rdf( SuspendedNode,aixm:nilReason, NilReason, Graph ),
           Suspended=nil(NilReason)
+        );
+        (
+          rdf( SuspendedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Suspended=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -5333,6 +6117,10 @@ fixm_IdentifiedUnitReference(Graph, IdentifiedUnitReference, UnitIdentifier) :-
         (
           rdf( UnitIdentifierNode,aixm:nilReason, NilReason, Graph ),
           UnitIdentifier=nil(NilReason)
+        );
+        (
+          rdf( UnitIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UnitIdentifier=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -5358,6 +6146,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( PhysicalChemicalFormNode,aixm:nilReason, NilReason, Graph ),
           PhysicalChemicalForm=nil(NilReason)
+        );
+        (
+          rdf( PhysicalChemicalFormNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PhysicalChemicalForm=indeterminate(Indeterminate)
         )
       )
   )
@@ -5380,6 +6172,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( RadionuclideIdNode,aixm:nilReason, NilReason, Graph ),
           RadionuclideId=nil(NilReason)
+        );
+        (
+          rdf( RadionuclideIdNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RadionuclideId=indeterminate(Indeterminate)
         )
       )
   )
@@ -5402,6 +6198,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( RadionuclideNameNode,aixm:nilReason, NilReason, Graph ),
           RadionuclideName=nil(NilReason)
+        );
+        (
+          rdf( RadionuclideNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RadionuclideName=indeterminate(Indeterminate)
         )
       )
   )
@@ -5424,6 +6224,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( LowDispersibleMaterialIndicatorNode,aixm:nilReason, NilReason, Graph ),
           LowDispersibleMaterialIndicator=nil(NilReason)
+        );
+        (
+          rdf( LowDispersibleMaterialIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LowDispersibleMaterialIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -5446,6 +6250,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( ActivityNode,aixm:nilReason, NilReason, Graph ),
           Activity=nil(NilReason)
+        );
+        (
+          rdf( ActivityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Activity=indeterminate(Indeterminate)
         )
       )
   )
@@ -5468,6 +6276,10 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         (
           rdf( SpecialFormIndicatorNode,aixm:nilReason, NilReason, Graph ),
           SpecialFormIndicator=nil(NilReason)
+        );
+        (
+          rdf( SpecialFormIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SpecialFormIndicator=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -5493,6 +6305,10 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         (
           rdf( NetworkNode,aixm:nilReason, NilReason, Graph ),
           Network=nil(NilReason)
+        );
+        (
+          rdf( NetworkNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Network=indeterminate(Indeterminate)
         )
       )
   )
@@ -5515,6 +6331,10 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         (
           rdf( LinkageNode,aixm:nilReason, NilReason, Graph ),
           Linkage=nil(NilReason)
+        );
+        (
+          rdf( LinkageNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Linkage=indeterminate(Indeterminate)
         )
       )
   )
@@ -5537,6 +6357,10 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         (
           rdf( ProtocolNode,aixm:nilReason, NilReason, Graph ),
           Protocol=nil(NilReason)
+        );
+        (
+          rdf( ProtocolNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Protocol=indeterminate(Indeterminate)
         )
       )
   )
@@ -5559,6 +6383,10 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         (
           rdf( EMailNode,aixm:nilReason, NilReason, Graph ),
           EMail=nil(NilReason)
+        );
+        (
+          rdf( EMailNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EMail=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -5587,6 +6415,10 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         (
           rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
           Altitude=nil(NilReason)
+        );
+        (
+          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Altitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -5612,6 +6444,10 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         (
           rdf( PositionTimeNode,aixm:nilReason, NilReason, Graph ),
           PositionTime=nil(NilReason)
+        );
+        (
+          rdf( PositionTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PositionTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -5634,6 +6470,10 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         (
           rdf( TrackNode,aixm:nilReason, NilReason, Graph ),
           Track=nil(NilReason)
+        );
+        (
+          rdf( TrackNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Track=indeterminate(Indeterminate)
         )
       )
   )
@@ -5662,6 +6502,10 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         (
           rdf( ReportSourceNode,aixm:nilReason, NilReason, Graph ),
           ReportSource=nil(NilReason)
+        );
+        (
+          rdf( ReportSourceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReportSource=indeterminate(Indeterminate)
         )
       )
   )
@@ -5690,6 +6534,10 @@ aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation) :-
         (
           rdf( OperationNode,aixm:nilReason, NilReason, Graph ),
           Operation=nil(NilReason)
+        );
+        (
+          rdf( OperationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Operation=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -5715,6 +6563,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( TimeReferenceNode,aixm:nilReason, NilReason, Graph ),
           TimeReference=nil(NilReason)
+        );
+        (
+          rdf( TimeReferenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TimeReference=indeterminate(Indeterminate)
         )
       )
   )
@@ -5737,6 +6589,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( StartDateNode,aixm:nilReason, NilReason, Graph ),
           StartDate=nil(NilReason)
+        );
+        (
+          rdf( StartDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StartDate=indeterminate(Indeterminate)
         )
       )
   )
@@ -5759,6 +6615,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( EndDateNode,aixm:nilReason, NilReason, Graph ),
           EndDate=nil(NilReason)
+        );
+        (
+          rdf( EndDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndDate=indeterminate(Indeterminate)
         )
       )
   )
@@ -5781,6 +6641,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( DayNode,aixm:nilReason, NilReason, Graph ),
           Day=nil(NilReason)
+        );
+        (
+          rdf( DayNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Day=indeterminate(Indeterminate)
         )
       )
   )
@@ -5803,6 +6667,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( DayTilNode,aixm:nilReason, NilReason, Graph ),
           DayTil=nil(NilReason)
+        );
+        (
+          rdf( DayTilNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DayTil=indeterminate(Indeterminate)
         )
       )
   )
@@ -5825,6 +6693,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( StartTimeNode,aixm:nilReason, NilReason, Graph ),
           StartTime=nil(NilReason)
+        );
+        (
+          rdf( StartTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StartTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -5847,6 +6719,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( StartEventNode,aixm:nilReason, NilReason, Graph ),
           StartEvent=nil(NilReason)
+        );
+        (
+          rdf( StartEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StartEvent=indeterminate(Indeterminate)
         )
       )
   )
@@ -5869,6 +6745,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( StartTimeRelativeEventNode,aixm:nilReason, NilReason, Graph ),
           StartTimeRelativeEvent=nil(NilReason)
+        );
+        (
+          rdf( StartTimeRelativeEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StartTimeRelativeEvent=indeterminate(Indeterminate)
         )
       )
   )
@@ -5891,6 +6771,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( StartEventInterpretationNode,aixm:nilReason, NilReason, Graph ),
           StartEventInterpretation=nil(NilReason)
+        );
+        (
+          rdf( StartEventInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StartEventInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -5913,6 +6797,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( EndTimeNode,aixm:nilReason, NilReason, Graph ),
           EndTime=nil(NilReason)
+        );
+        (
+          rdf( EndTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -5935,6 +6823,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( EndEventNode,aixm:nilReason, NilReason, Graph ),
           EndEvent=nil(NilReason)
+        );
+        (
+          rdf( EndEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndEvent=indeterminate(Indeterminate)
         )
       )
   )
@@ -5957,6 +6849,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( EndTimeRelativeEventNode,aixm:nilReason, NilReason, Graph ),
           EndTimeRelativeEvent=nil(NilReason)
+        );
+        (
+          rdf( EndTimeRelativeEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndTimeRelativeEvent=indeterminate(Indeterminate)
         )
       )
   )
@@ -5979,6 +6875,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( EndEventInterpretationNode,aixm:nilReason, NilReason, Graph ),
           EndEventInterpretation=nil(NilReason)
+        );
+        (
+          rdf( EndEventInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndEventInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -6001,6 +6901,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( DaylightSavingAdjustNode,aixm:nilReason, NilReason, Graph ),
           DaylightSavingAdjust=nil(NilReason)
+        );
+        (
+          rdf( DaylightSavingAdjustNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DaylightSavingAdjust=indeterminate(Indeterminate)
         )
       )
   )
@@ -6023,6 +6927,10 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         (
           rdf( ExcludedNode,aixm:nilReason, NilReason, Graph ),
           Excluded=nil(NilReason)
+        );
+        (
+          rdf( ExcludedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Excluded=indeterminate(Indeterminate)
         )
       )
   )
@@ -6063,6 +6971,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -6085,6 +6997,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( RuleNode,aixm:nilReason, NilReason, Graph ),
           Rule=nil(NilReason)
+        );
+        (
+          rdf( RuleNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Rule=indeterminate(Indeterminate)
         )
       )
   )
@@ -6107,6 +7023,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( StatusNode,aixm:nilReason, NilReason, Graph ),
           Status=nil(NilReason)
+        );
+        (
+          rdf( StatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Status=indeterminate(Indeterminate)
         )
       )
   )
@@ -6129,6 +7049,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( MilitaryNode,aixm:nilReason, NilReason, Graph ),
           Military=nil(NilReason)
+        );
+        (
+          rdf( MilitaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Military=indeterminate(Indeterminate)
         )
       )
   )
@@ -6151,6 +7075,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( OriginNode,aixm:nilReason, NilReason, Graph ),
           Origin=nil(NilReason)
+        );
+        (
+          rdf( OriginNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Origin=indeterminate(Indeterminate)
         )
       )
   )
@@ -6173,6 +7101,10 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         (
           rdf( PurposeNode,aixm:nilReason, NilReason, Graph ),
           Purpose=nil(NilReason)
+        );
+        (
+          rdf( PurposeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Purpose=indeterminate(Indeterminate)
         )
       )
   )
@@ -6199,6 +7131,10 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         (
           rdf( TimestampNode,aixm:nilReason, NilReason, Graph ),
           Timestamp=nil(NilReason)
+        );
+        (
+          rdf( TimestampNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Timestamp=indeterminate(Indeterminate)
         )
       )
   )
@@ -6221,6 +7157,10 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         (
           rdf( CentreNode,aixm:nilReason, NilReason, Graph ),
           Centre=nil(NilReason)
+        );
+        (
+          rdf( CentreNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Centre=indeterminate(Indeterminate)
         )
       )
   )
@@ -6243,6 +7183,10 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         (
           rdf( SourceNode,aixm:nilReason, NilReason, Graph ),
           Source=nil(NilReason)
+        );
+        (
+          rdf( SourceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Source=indeterminate(Indeterminate)
         )
       )
   )
@@ -6265,6 +7209,10 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         (
           rdf( SystemNode,aixm:nilReason, NilReason, Graph ),
           System=nil(NilReason)
+        );
+        (
+          rdf( SystemNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          System=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6295,6 +7243,10 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         (
           rdf( AltimeterSettingNode,aixm:nilReason, NilReason, Graph ),
           AltimeterSetting=nil(NilReason)
+        );
+        (
+          rdf( AltimeterSettingNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AltimeterSetting=indeterminate(Indeterminate)
         )
       )
   )
@@ -6317,6 +7269,10 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         (
           rdf( PredictedAirspeedNode,aixm:nilReason, NilReason, Graph ),
           PredictedAirspeed=nil(NilReason)
+        );
+        (
+          rdf( PredictedAirspeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PredictedAirspeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -6339,6 +7295,10 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         (
           rdf( PredictedGroundspeedNode,aixm:nilReason, NilReason, Graph ),
           PredictedGroundspeed=nil(NilReason)
+        );
+        (
+          rdf( PredictedGroundspeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PredictedGroundspeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -6378,6 +7338,10 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         (
           rdf( DistanceFromTakeOffNode,aixm:nilReason, NilReason, Graph ),
           DistanceFromTakeOff=nil(NilReason)
+        );
+        (
+          rdf( DistanceFromTakeOffNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DistanceFromTakeOff=indeterminate(Indeterminate)
         )
       )
   )
@@ -6400,6 +7364,10 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         (
           rdf( EfplEstimatedSpeedNode,aixm:nilReason, NilReason, Graph ),
           EfplEstimatedSpeed=nil(NilReason)
+        );
+        (
+          rdf( EfplEstimatedSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EfplEstimatedSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -6422,6 +7390,10 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         (
           rdf( ElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
           ElapsedTime=nil(NilReason)
+        );
+        (
+          rdf( ElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ElapsedTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -6444,6 +7416,10 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         (
           rdf( GrossWeightNode,aixm:nilReason, NilReason, Graph ),
           GrossWeight=nil(NilReason)
+        );
+        (
+          rdf( GrossWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          GrossWeight=indeterminate(Indeterminate)
         )
       )
   )
@@ -6466,6 +7442,10 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         (
           rdf( TrajectoryPointTypeNode,aixm:nilReason, NilReason, Graph ),
           TrajectoryPointType=nil(NilReason)
+        );
+        (
+          rdf( TrajectoryPointTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TrajectoryPointType=indeterminate(Indeterminate)
         )
       )
   )
@@ -6497,6 +7477,10 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         (
           rdf( ControlTemperatureNode,aixm:nilReason, NilReason, Graph ),
           ControlTemperature=nil(NilReason)
+        );
+        (
+          rdf( ControlTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ControlTemperature=indeterminate(Indeterminate)
         )
       )
   )
@@ -6519,6 +7503,10 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         (
           rdf( EmergencyTemperatureNode,aixm:nilReason, NilReason, Graph ),
           EmergencyTemperature=nil(NilReason)
+        );
+        (
+          rdf( EmergencyTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EmergencyTemperature=indeterminate(Indeterminate)
         )
       )
   )
@@ -6541,6 +7529,10 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         (
           rdf( FlashpointTemperatureNode,aixm:nilReason, NilReason, Graph ),
           FlashpointTemperature=nil(NilReason)
+        );
+        (
+          rdf( FlashpointTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FlashpointTemperature=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6566,6 +7558,10 @@ fixm_TrajectorySegment(Graph, TrajectorySegment, SegmentIdentifier, SegmentType)
         (
           rdf( SegmentIdentifierNode,aixm:nilReason, NilReason, Graph ),
           SegmentIdentifier=nil(NilReason)
+        );
+        (
+          rdf( SegmentIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SegmentIdentifier=indeterminate(Indeterminate)
         )
       )
   )
@@ -6588,6 +7584,10 @@ fixm_TrajectorySegment(Graph, TrajectorySegment, SegmentIdentifier, SegmentType)
         (
           rdf( SegmentTypeNode,aixm:nilReason, NilReason, Graph ),
           SegmentType=nil(NilReason)
+        );
+        (
+          rdf( SegmentTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SegmentType=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6613,6 +7613,10 @@ fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayName, RunwayTime)
         (
           rdf( RunwayNameNode,aixm:nilReason, NilReason, Graph ),
           RunwayName=nil(NilReason)
+        );
+        (
+          rdf( RunwayNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RunwayName=indeterminate(Indeterminate)
         )
       )
   )
@@ -6648,6 +7652,10 @@ fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, M
         (
           rdf( AircraftIdentificationNode,aixm:nilReason, NilReason, Graph ),
           AircraftIdentification=nil(NilReason)
+        );
+        (
+          rdf( AircraftIdentificationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftIdentification=indeterminate(Indeterminate)
         )
       )
   )
@@ -6670,6 +7678,10 @@ fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, M
         (
           rdf( MajorCarrierIdentifierNode,aixm:nilReason, NilReason, Graph ),
           MajorCarrierIdentifier=nil(NilReason)
+        );
+        (
+          rdf( MajorCarrierIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MajorCarrierIdentifier=indeterminate(Indeterminate)
         )
       )
   )
@@ -6696,6 +7708,10 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         (
           rdf( ContactFrequencyNode,aixm:nilReason, NilReason, Graph ),
           ContactFrequency=nil(NilReason)
+        );
+        (
+          rdf( ContactFrequencyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ContactFrequency=indeterminate(Indeterminate)
         )
       )
   )
@@ -6718,6 +7734,10 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         (
           rdf( LastContactTimeNode,aixm:nilReason, NilReason, Graph ),
           LastContactTime=nil(NilReason)
+        );
+        (
+          rdf( LastContactTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LastContactTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -6740,6 +7760,10 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         (
           rdf( LastContactUnitNode,aixm:nilReason, NilReason, Graph ),
           LastContactUnit=nil(NilReason)
+        );
+        (
+          rdf( LastContactUnitNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LastContactUnit=indeterminate(Indeterminate)
         )
       )
   )
@@ -6772,6 +7796,10 @@ aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation) :-
         (
           rdf( HorizontalAccuracyNode,aixm:nilReason, NilReason, Graph ),
           HorizontalAccuracy=nil(NilReason)
+        );
+        (
+          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          HorizontalAccuracy=indeterminate(Indeterminate)
         )
       )
   )
@@ -6795,6 +7823,10 @@ gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition) :-
         (
           rdf( BeginPositionNode,aixm:nilReason, NilReason, Graph ),
           BeginPosition=nil(NilReason)
+        );
+        (
+          rdf( BeginPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          BeginPosition=indeterminate(Indeterminate)
         )
       )
   )
@@ -6814,6 +7846,10 @@ gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition) :-
         (
           rdf( EndPositionNode,aixm:nilReason, NilReason, Graph ),
           EndPosition=nil(NilReason)
+        );
+        (
+          rdf( EndPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EndPosition=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6851,6 +7887,10 @@ fixm_AircraftCapabilities(Graph, AircraftCapabilities, Survival, Communication, 
         (
           rdf( StandardCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
           StandardCapabilities=nil(NilReason)
+        );
+        (
+          rdf( StandardCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StandardCapabilities=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6876,6 +7916,10 @@ fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeed, SubsequentSpeed) :-
         (
           rdf( InitialSpeedNode,aixm:nilReason, NilReason, Graph ),
           InitialSpeed=nil(NilReason)
+        );
+        (
+          rdf( InitialSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          InitialSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -6898,6 +7942,10 @@ fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeed, SubsequentSpeed) :-
         (
           rdf( SubsequentSpeedNode,aixm:nilReason, NilReason, Graph ),
           SubsequentSpeed=nil(NilReason)
+        );
+        (
+          rdf( SubsequentSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SubsequentSpeed=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -6923,6 +7971,10 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         (
           rdf( NameNode,aixm:nilReason, NilReason, Graph ),
           Name=nil(NilReason)
+        );
+        (
+          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Name=indeterminate(Indeterminate)
         )
       )
   )
@@ -6945,6 +7997,10 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         (
           rdf( DesignatorNode,aixm:nilReason, NilReason, Graph ),
           Designator=nil(NilReason)
+        );
+        (
+          rdf( DesignatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Designator=indeterminate(Indeterminate)
         )
       )
   )
@@ -6967,6 +8023,10 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -6989,6 +8049,10 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         (
           rdf( MilitaryNode,aixm:nilReason, NilReason, Graph ),
           Military=nil(NilReason)
+        );
+        (
+          rdf( MilitaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Military=indeterminate(Indeterminate)
         )
       )
   )
@@ -7018,6 +8082,10 @@ fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCr
         (
           rdf( FleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
           FleetPrioritization=nil(NilReason)
+        );
+        (
+          rdf( FleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FleetPrioritization=indeterminate(Indeterminate)
         )
       )
   )
@@ -7060,6 +8128,10 @@ fixm_FlightLevel(Graph, FlightLevel, Level, Unit) :-
         (
           rdf( LevelNode,aixm:nilReason, NilReason, Graph ),
           Level=nil(NilReason)
+        );
+        (
+          rdf( LevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Level=indeterminate(Indeterminate)
         )
       )
   )
@@ -7082,6 +8154,10 @@ fixm_FlightLevel(Graph, FlightLevel, Level, Unit) :-
         (
           rdf( UnitNode,aixm:nilReason, NilReason, Graph ),
           Unit=nil(NilReason)
+        );
+        (
+          rdf( UnitNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Unit=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7108,6 +8184,10 @@ fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason) :
         (
           rdf( OfftrackReasonNode,aixm:nilReason, NilReason, Graph ),
           OfftrackReason=nil(NilReason)
+        );
+        (
+          rdf( OfftrackReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OfftrackReason=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7133,6 +8213,10 @@ fixm_TemporalRange(Graph, TemporalRange, Earliest, Latest) :-
         (
           rdf( EarliestNode,aixm:nilReason, NilReason, Graph ),
           Earliest=nil(NilReason)
+        );
+        (
+          rdf( EarliestNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Earliest=indeterminate(Indeterminate)
         )
       )
   )
@@ -7155,6 +8239,10 @@ fixm_TemporalRange(Graph, TemporalRange, Earliest, Latest) :-
         (
           rdf( LatestNode,aixm:nilReason, NilReason, Graph ),
           Latest=nil(NilReason)
+        );
+        (
+          rdf( LatestNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Latest=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7180,6 +8268,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( AircraftColoursNode,aixm:nilReason, NilReason, Graph ),
           AircraftColours=nil(NilReason)
+        );
+        (
+          rdf( AircraftColoursNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftColours=indeterminate(Indeterminate)
         )
       )
   )
@@ -7202,6 +8294,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( AircraftQuantityNode,aixm:nilReason, NilReason, Graph ),
           AircraftQuantity=nil(NilReason)
+        );
+        (
+          rdf( AircraftQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftQuantity=indeterminate(Indeterminate)
         )
       )
   )
@@ -7224,6 +8320,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( EngineTypeNode,aixm:nilReason, NilReason, Graph ),
           EngineType=nil(NilReason)
+        );
+        (
+          rdf( EngineTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EngineType=indeterminate(Indeterminate)
         )
       )
   )
@@ -7246,6 +8346,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( AircraftAddressNode,aixm:nilReason, NilReason, Graph ),
           AircraftAddress=nil(NilReason)
+        );
+        (
+          rdf( AircraftAddressNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftAddress=indeterminate(Indeterminate)
         )
       )
   )
@@ -7271,6 +8375,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( RegistrationNode,aixm:nilReason, NilReason, Graph ),
           Registration=nil(NilReason)
+        );
+        (
+          rdf( RegistrationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Registration=indeterminate(Indeterminate)
         )
       )
   )
@@ -7293,6 +8401,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( AircraftTypeNode,aixm:nilReason, NilReason, Graph ),
           AircraftType=nil(NilReason)
+        );
+        (
+          rdf( AircraftTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftType=indeterminate(Indeterminate)
         )
       )
   )
@@ -7315,6 +8427,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( WakeTurbulenceNode,aixm:nilReason, NilReason, Graph ),
           WakeTurbulence=nil(NilReason)
+        );
+        (
+          rdf( WakeTurbulenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WakeTurbulence=indeterminate(Indeterminate)
         )
       )
   )
@@ -7337,6 +8453,10 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         (
           rdf( AircraftPerformanceNode,aixm:nilReason, NilReason, Graph ),
           AircraftPerformance=nil(NilReason)
+        );
+        (
+          rdf( AircraftPerformanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftPerformance=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7362,6 +8482,10 @@ fixm_OnlineContact(Graph, OnlineContact, Email) :-
         (
           rdf( EmailNode,aixm:nilReason, NilReason, Graph ),
           Email=nil(NilReason)
+        );
+        (
+          rdf( EmailNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Email=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7387,6 +8511,10 @@ fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTime, 
         (
           rdf( AirspaceControlledEntryTimeNode,aixm:nilReason, NilReason, Graph ),
           AirspaceControlledEntryTime=nil(NilReason)
+        );
+        (
+          rdf( AirspaceControlledEntryTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AirspaceControlledEntryTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -7409,6 +8537,10 @@ fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTime, 
         (
           rdf( ConstrainedAirspaceNode,aixm:nilReason, NilReason, Graph ),
           ConstrainedAirspace=nil(NilReason)
+        );
+        (
+          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ConstrainedAirspace=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7452,6 +8584,10 @@ fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, Respons
         (
           rdf( ResponsibleAgentNode,aixm:nilReason, NilReason, Graph ),
           ResponsibleAgent=nil(NilReason)
+        );
+        (
+          rdf( ResponsibleAgentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ResponsibleAgent=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7478,6 +8614,10 @@ fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifier, Delegated) :-
         (
           rdf( SectorIdentifierNode,aixm:nilReason, NilReason, Graph ),
           SectorIdentifier=nil(NilReason)
+        );
+        (
+          rdf( SectorIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SectorIdentifier=indeterminate(Indeterminate)
         )
       )
   )
@@ -7500,6 +8640,10 @@ fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifier, Delegated) :-
         (
           rdf( DelegatedNode,aixm:nilReason, NilReason, Graph ),
           Delegated=nil(NilReason)
+        );
+        (
+          rdf( DelegatedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Delegated=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -7528,6 +8672,10 @@ fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillance
         (
           rdf( OtherSurveillanceCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
           OtherSurveillanceCapabilities=nil(NilReason)
+        );
+        (
+          rdf( OtherSurveillanceCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OtherSurveillanceCapabilities=indeterminate(Indeterminate)
         )
       )
   )
@@ -7558,6 +8706,10 @@ aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrima
         (
           rdf( IsRemoteNode,aixm:nilReason, NilReason, Graph ),
           IsRemote=nil(NilReason)
+        );
+        (
+          rdf( IsRemoteNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          IsRemote=indeterminate(Indeterminate)
         )
       )
   )
@@ -7580,6 +8732,10 @@ aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrima
         (
           rdf( IsPrimaryNode,aixm:nilReason, NilReason, Graph ),
           IsPrimary=nil(NilReason)
+        );
+        (
+          rdf( IsPrimaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          IsPrimary=indeterminate(Indeterminate)
         )
       )
   )
@@ -7608,6 +8764,10 @@ aixm_Point(Graph, Point, HorizontalAccuracy, Annotation) :-
         (
           rdf( HorizontalAccuracyNode,aixm:nilReason, NilReason, Graph ),
           HorizontalAccuracy=nil(NilReason)
+        );
+        (
+          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          HorizontalAccuracy=indeterminate(Indeterminate)
         )
       )
   )
@@ -7634,6 +8794,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -7656,6 +8820,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( EngineNode,aixm:nilReason, NilReason, Graph ),
           Engine=nil(NilReason)
+        );
+        (
+          rdf( EngineNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Engine=indeterminate(Indeterminate)
         )
       )
   )
@@ -7678,6 +8846,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( NumberEngineNode,aixm:nilReason, NilReason, Graph ),
           NumberEngine=nil(NilReason)
+        );
+        (
+          rdf( NumberEngineNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NumberEngine=indeterminate(Indeterminate)
         )
       )
   )
@@ -7700,6 +8872,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( TypeAircraftICAONode,aixm:nilReason, NilReason, Graph ),
           TypeAircraftICAO=nil(NilReason)
+        );
+        (
+          rdf( TypeAircraftICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TypeAircraftICAO=indeterminate(Indeterminate)
         )
       )
   )
@@ -7722,6 +8898,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( AircraftLandingCategoryNode,aixm:nilReason, NilReason, Graph ),
           AircraftLandingCategory=nil(NilReason)
+        );
+        (
+          rdf( AircraftLandingCategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AircraftLandingCategory=indeterminate(Indeterminate)
         )
       )
   )
@@ -7744,6 +8924,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( WingSpanNode,aixm:nilReason, NilReason, Graph ),
           WingSpan=nil(NilReason)
+        );
+        (
+          rdf( WingSpanNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WingSpan=indeterminate(Indeterminate)
         )
       )
   )
@@ -7766,6 +8950,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( WingSpanInterpretationNode,aixm:nilReason, NilReason, Graph ),
           WingSpanInterpretation=nil(NilReason)
+        );
+        (
+          rdf( WingSpanInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WingSpanInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -7788,6 +8976,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( ClassWingSpanNode,aixm:nilReason, NilReason, Graph ),
           ClassWingSpan=nil(NilReason)
+        );
+        (
+          rdf( ClassWingSpanNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ClassWingSpan=indeterminate(Indeterminate)
         )
       )
   )
@@ -7810,6 +9002,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( WeightNode,aixm:nilReason, NilReason, Graph ),
           Weight=nil(NilReason)
+        );
+        (
+          rdf( WeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Weight=indeterminate(Indeterminate)
         )
       )
   )
@@ -7832,6 +9028,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( WeightInterpretationNode,aixm:nilReason, NilReason, Graph ),
           WeightInterpretation=nil(NilReason)
+        );
+        (
+          rdf( WeightInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WeightInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -7854,6 +9054,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( PassengersNode,aixm:nilReason, NilReason, Graph ),
           Passengers=nil(NilReason)
+        );
+        (
+          rdf( PassengersNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Passengers=indeterminate(Indeterminate)
         )
       )
   )
@@ -7876,6 +9080,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( PassengersInterpretationNode,aixm:nilReason, NilReason, Graph ),
           PassengersInterpretation=nil(NilReason)
+        );
+        (
+          rdf( PassengersInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PassengersInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -7898,6 +9106,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( SpeedNode,aixm:nilReason, NilReason, Graph ),
           Speed=nil(NilReason)
+        );
+        (
+          rdf( SpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Speed=indeterminate(Indeterminate)
         )
       )
   )
@@ -7920,6 +9132,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( SpeedInterpretationNode,aixm:nilReason, NilReason, Graph ),
           SpeedInterpretation=nil(NilReason)
+        );
+        (
+          rdf( SpeedInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SpeedInterpretation=indeterminate(Indeterminate)
         )
       )
   )
@@ -7942,6 +9158,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( WakeTurbulenceNode,aixm:nilReason, NilReason, Graph ),
           WakeTurbulence=nil(NilReason)
+        );
+        (
+          rdf( WakeTurbulenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          WakeTurbulence=indeterminate(Indeterminate)
         )
       )
   )
@@ -7964,6 +9184,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( NavigationEquipmentNode,aixm:nilReason, NilReason, Graph ),
           NavigationEquipment=nil(NilReason)
+        );
+        (
+          rdf( NavigationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NavigationEquipment=indeterminate(Indeterminate)
         )
       )
   )
@@ -7986,6 +9210,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( NavigationSpecificationNode,aixm:nilReason, NilReason, Graph ),
           NavigationSpecification=nil(NilReason)
+        );
+        (
+          rdf( NavigationSpecificationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NavigationSpecification=indeterminate(Indeterminate)
         )
       )
   )
@@ -8008,6 +9236,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( VerticalSeparationCapabilityNode,aixm:nilReason, NilReason, Graph ),
           VerticalSeparationCapability=nil(NilReason)
+        );
+        (
+          rdf( VerticalSeparationCapabilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          VerticalSeparationCapability=indeterminate(Indeterminate)
         )
       )
   )
@@ -8030,6 +9262,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( AntiCollisionAndSeparationEquipmentNode,aixm:nilReason, NilReason, Graph ),
           AntiCollisionAndSeparationEquipment=nil(NilReason)
+        );
+        (
+          rdf( AntiCollisionAndSeparationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AntiCollisionAndSeparationEquipment=indeterminate(Indeterminate)
         )
       )
   )
@@ -8052,6 +9288,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( CommunicationEquipmentNode,aixm:nilReason, NilReason, Graph ),
           CommunicationEquipment=nil(NilReason)
+        );
+        (
+          rdf( CommunicationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CommunicationEquipment=indeterminate(Indeterminate)
         )
       )
   )
@@ -8074,6 +9314,10 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         (
           rdf( SurveillanceEquipmentNode,aixm:nilReason, NilReason, Graph ),
           SurveillanceEquipment=nil(NilReason)
+        );
+        (
+          rdf( SurveillanceEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SurveillanceEquipment=indeterminate(Indeterminate)
         )
       )
   )
@@ -8100,6 +9344,10 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         (
           rdf( DeliveryPointNode,aixm:nilReason, NilReason, Graph ),
           DeliveryPoint=nil(NilReason)
+        );
+        (
+          rdf( DeliveryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DeliveryPoint=indeterminate(Indeterminate)
         )
       )
   )
@@ -8122,6 +9370,10 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         (
           rdf( CityNode,aixm:nilReason, NilReason, Graph ),
           City=nil(NilReason)
+        );
+        (
+          rdf( CityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          City=indeterminate(Indeterminate)
         )
       )
   )
@@ -8144,6 +9396,10 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         (
           rdf( AdministrativeAreaNode,aixm:nilReason, NilReason, Graph ),
           AdministrativeArea=nil(NilReason)
+        );
+        (
+          rdf( AdministrativeAreaNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AdministrativeArea=indeterminate(Indeterminate)
         )
       )
   )
@@ -8166,6 +9422,10 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         (
           rdf( PostalCodeNode,aixm:nilReason, NilReason, Graph ),
           PostalCode=nil(NilReason)
+        );
+        (
+          rdf( PostalCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PostalCode=indeterminate(Indeterminate)
         )
       )
   )
@@ -8188,6 +9448,10 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         (
           rdf( CountryNode,aixm:nilReason, NilReason, Graph ),
           Country=nil(NilReason)
+        );
+        (
+          rdf( CountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Country=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8213,6 +9477,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( DangerousGoodsQuantityNode,aixm:nilReason, NilReason, Graph ),
           DangerousGoodsQuantity=nil(NilReason)
+        );
+        (
+          rdf( DangerousGoodsQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DangerousGoodsQuantity=indeterminate(Indeterminate)
         )
       )
   )
@@ -8238,6 +9506,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( PackingInstructionNumberNode,aixm:nilReason, NilReason, Graph ),
           PackingInstructionNumber=nil(NilReason)
+        );
+        (
+          rdf( PackingInstructionNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PackingInstructionNumber=indeterminate(Indeterminate)
         )
       )
   )
@@ -8260,6 +9532,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( ProductNameNode,aixm:nilReason, NilReason, Graph ),
           ProductName=nil(NilReason)
+        );
+        (
+          rdf( ProductNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ProductName=indeterminate(Indeterminate)
         )
       )
   )
@@ -8282,6 +9558,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( ProperShippingNameNode,aixm:nilReason, NilReason, Graph ),
           ProperShippingName=nil(NilReason)
+        );
+        (
+          rdf( ProperShippingNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ProperShippingName=indeterminate(Indeterminate)
         )
       )
   )
@@ -8304,6 +9584,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( ReportableQuantityNode,aixm:nilReason, NilReason, Graph ),
           ReportableQuantity=nil(NilReason)
+        );
+        (
+          rdf( ReportableQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReportableQuantity=indeterminate(Indeterminate)
         )
       )
   )
@@ -8326,6 +9610,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( SupplementaryInformationNode,aixm:nilReason, NilReason, Graph ),
           SupplementaryInformation=nil(NilReason)
+        );
+        (
+          rdf( SupplementaryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SupplementaryInformation=indeterminate(Indeterminate)
         )
       )
   )
@@ -8348,6 +9636,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( TechnicalNameNode,aixm:nilReason, NilReason, Graph ),
           TechnicalName=nil(NilReason)
+        );
+        (
+          rdf( TechnicalNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TechnicalName=indeterminate(Indeterminate)
         )
       )
   )
@@ -8370,6 +9662,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( TypeOfPackagingNode,aixm:nilReason, NilReason, Graph ),
           TypeOfPackaging=nil(NilReason)
+        );
+        (
+          rdf( TypeOfPackagingNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TypeOfPackaging=indeterminate(Indeterminate)
         )
       )
   )
@@ -8392,6 +9688,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( UnNumberNode,aixm:nilReason, NilReason, Graph ),
           UnNumber=nil(NilReason)
+        );
+        (
+          rdf( UnNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          UnNumber=indeterminate(Indeterminate)
         )
       )
   )
@@ -8414,6 +9714,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( DangerousGoodsLimitationNode,aixm:nilReason, NilReason, Graph ),
           DangerousGoodsLimitation=nil(NilReason)
+        );
+        (
+          rdf( DangerousGoodsLimitationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DangerousGoodsLimitation=indeterminate(Indeterminate)
         )
       )
   )
@@ -8436,6 +9740,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( ShipmentTypeNode,aixm:nilReason, NilReason, Graph ),
           ShipmentType=nil(NilReason)
+        );
+        (
+          rdf( ShipmentTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ShipmentType=indeterminate(Indeterminate)
         )
       )
   )
@@ -8461,6 +9769,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( CompatibilityGroupNode,aixm:nilReason, NilReason, Graph ),
           CompatibilityGroup=nil(NilReason)
+        );
+        (
+          rdf( CompatibilityGroupNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CompatibilityGroup=indeterminate(Indeterminate)
         )
       )
   )
@@ -8486,6 +9798,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( MarinePollutantIndicatorNode,aixm:nilReason, NilReason, Graph ),
           MarinePollutantIndicator=nil(NilReason)
+        );
+        (
+          rdf( MarinePollutantIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          MarinePollutantIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -8511,6 +9827,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( HazardClassNode,aixm:nilReason, NilReason, Graph ),
           HazardClass=nil(NilReason)
+        );
+        (
+          rdf( HazardClassNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          HazardClass=indeterminate(Indeterminate)
         )
       )
   )
@@ -8533,6 +9853,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( PackingGroupNode,aixm:nilReason, NilReason, Graph ),
           PackingGroup=nil(NilReason)
+        );
+        (
+          rdf( PackingGroupNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PackingGroup=indeterminate(Indeterminate)
         )
       )
   )
@@ -8558,6 +9882,10 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         (
           rdf( OverpackIndicatorNode,aixm:nilReason, NilReason, Graph ),
           OverpackIndicator=nil(NilReason)
+        );
+        (
+          rdf( OverpackIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OverpackIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -8584,6 +9912,10 @@ fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod, Position
         (
           rdf( DeterminationMethodNode,aixm:nilReason, NilReason, Graph ),
           DeterminationMethod=nil(NilReason)
+        );
+        (
+          rdf( DeterminationMethodNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DeterminationMethod=indeterminate(Indeterminate)
         )
       )
   )
@@ -8609,6 +9941,10 @@ fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod, Position
         (
           rdf( TimeAtPositionNode,aixm:nilReason, NilReason, Graph ),
           TimeAtPosition=nil(NilReason)
+        );
+        (
+          rdf( TimeAtPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TimeAtPosition=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8634,6 +9970,10 @@ aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus) :-
         (
           rdf( OperationalStatusNode,aixm:nilReason, NilReason, Graph ),
           OperationalStatus=nil(NilReason)
+        );
+        (
+          rdf( OperationalStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OperationalStatus=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8659,6 +9999,10 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         (
           rdf( GrossWeightNode,aixm:nilReason, NilReason, Graph ),
           GrossWeight=nil(NilReason)
+        );
+        (
+          rdf( GrossWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          GrossWeight=indeterminate(Indeterminate)
         )
       )
   )
@@ -8681,6 +10025,10 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         (
           rdf( NetWeightNode,aixm:nilReason, NilReason, Graph ),
           NetWeight=nil(NilReason)
+        );
+        (
+          rdf( NetWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NetWeight=indeterminate(Indeterminate)
         )
       )
   )
@@ -8703,6 +10051,10 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         (
           rdf( VolumeNode,aixm:nilReason, NilReason, Graph ),
           Volume=nil(NilReason)
+        );
+        (
+          rdf( VolumeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Volume=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8728,6 +10080,10 @@ fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules) :-
         (
           rdf( EfplFlightRulesNode,aixm:nilReason, NilReason, Graph ),
           EfplFlightRules=nil(NilReason)
+        );
+        (
+          rdf( EfplFlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EfplFlightRules=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8753,6 +10109,10 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         (
           rdf( AbrogationReasonNode,aixm:nilReason, NilReason, Graph ),
           AbrogationReason=nil(NilReason)
+        );
+        (
+          rdf( AbrogationReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AbrogationReason=indeterminate(Indeterminate)
         )
       )
   )
@@ -8775,6 +10135,10 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         (
           rdf( CoordinationStatusNode,aixm:nilReason, NilReason, Graph ),
           CoordinationStatus=nil(NilReason)
+        );
+        (
+          rdf( CoordinationStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CoordinationStatus=indeterminate(Indeterminate)
         )
       )
   )
@@ -8797,6 +10161,10 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         (
           rdf( NonStandardCommunicationReasonNode,aixm:nilReason, NilReason, Graph ),
           NonStandardCommunicationReason=nil(NilReason)
+        );
+        (
+          rdf( NonStandardCommunicationReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NonStandardCommunicationReason=indeterminate(Indeterminate)
         )
       )
   )
@@ -8819,6 +10187,10 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         (
           rdf( ReleaseConditionsNode,aixm:nilReason, NilReason, Graph ),
           ReleaseConditions=nil(NilReason)
+        );
+        (
+          rdf( ReleaseConditionsNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ReleaseConditions=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8844,6 +10216,10 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         (
           rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
           Altitude=nil(NilReason)
+        );
+        (
+          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Altitude=indeterminate(Indeterminate)
         )
       )
   )
@@ -8869,6 +10245,10 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         (
           rdf( CrossingSpeedNode,aixm:nilReason, NilReason, Graph ),
           CrossingSpeed=nil(NilReason)
+        );
+        (
+          rdf( CrossingSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CrossingSpeed=indeterminate(Indeterminate)
         )
       )
   )
@@ -8891,6 +10271,10 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         (
           rdf( CrossingTimeNode,aixm:nilReason, NilReason, Graph ),
           CrossingTime=nil(NilReason)
+        );
+        (
+          rdf( CrossingTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CrossingTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -8916,6 +10300,10 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         (
           rdf( AltitudeInTransitionNode,aixm:nilReason, NilReason, Graph ),
           AltitudeInTransition=nil(NilReason)
+        );
+        (
+          rdf( AltitudeInTransitionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          AltitudeInTransition=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8941,6 +10329,10 @@ fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code) :-
         (
           rdf( CodeNode,aixm:nilReason, NilReason, Graph ),
           Code=nil(NilReason)
+        );
+        (
+          rdf( CodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Code=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -8966,6 +10358,10 @@ fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRem
         (
           rdf( RadioFailureRemarksNode,aixm:nilReason, NilReason, Graph ),
           RadioFailureRemarks=nil(NilReason)
+        );
+        (
+          rdf( RadioFailureRemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RadioFailureRemarks=indeterminate(Indeterminate)
         )
       )
   )
@@ -8988,6 +10384,10 @@ fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRem
         (
           rdf( RemainingComCapabilityNode,aixm:nilReason, NilReason, Graph ),
           RemainingComCapability=nil(NilReason)
+        );
+        (
+          rdf( RemainingComCapabilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          RemainingComCapability=indeterminate(Indeterminate)
         )
       )
   )
@@ -9016,6 +10416,10 @@ aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, Operational
         (
           rdf( OperationalStatusNode,aixm:nilReason, NilReason, Graph ),
           OperationalStatus=nil(NilReason)
+        );
+        (
+          rdf( OperationalStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          OperationalStatus=indeterminate(Indeterminate)
         )
       )
   )
@@ -9038,6 +10442,10 @@ aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, Operational
         (
           rdf( WarningNode,aixm:nilReason, NilReason, Graph ),
           Warning=nil(NilReason)
+        );
+        (
+          rdf( WarningNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Warning=indeterminate(Indeterminate)
         )
       )
   )
@@ -9083,6 +10491,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( ArrivalFleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
           ArrivalFleetPrioritization=nil(NilReason)
+        );
+        (
+          rdf( ArrivalFleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ArrivalFleetPrioritization=indeterminate(Indeterminate)
         )
       )
   )
@@ -9105,6 +10517,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( ArrivalSequenceNumberNode,aixm:nilReason, NilReason, Graph ),
           ArrivalSequenceNumber=nil(NilReason)
+        );
+        (
+          rdf( ArrivalSequenceNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          ArrivalSequenceNumber=indeterminate(Indeterminate)
         )
       )
   )
@@ -9127,6 +10543,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( EarliestInBlockTimeNode,aixm:nilReason, NilReason, Graph ),
           EarliestInBlockTime=nil(NilReason)
+        );
+        (
+          rdf( EarliestInBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EarliestInBlockTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -9152,6 +10572,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( FiledRevisedDestinationStarNode,aixm:nilReason, NilReason, Graph ),
           FiledRevisedDestinationStar=nil(NilReason)
+        );
+        (
+          rdf( FiledRevisedDestinationStarNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FiledRevisedDestinationStar=indeterminate(Indeterminate)
         )
       )
   )
@@ -9177,6 +10601,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( StandardInstrumentArrivalNode,aixm:nilReason, NilReason, Graph ),
           StandardInstrumentArrival=nil(NilReason)
+        );
+        (
+          rdf( StandardInstrumentArrivalNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StandardInstrumentArrival=indeterminate(Indeterminate)
         )
       )
   )
@@ -9202,6 +10630,10 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         (
           rdf( LandingLimitsNode,aixm:nilReason, NilReason, Graph ),
           LandingLimits=nil(NilReason)
+        );
+        (
+          rdf( LandingLimitsNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          LandingLimits=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -9227,6 +10659,10 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         (
           rdf( CriticalitySafetyIndexNode,aixm:nilReason, NilReason, Graph ),
           CriticalitySafetyIndex=nil(NilReason)
+        );
+        (
+          rdf( CriticalitySafetyIndexNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          CriticalitySafetyIndex=indeterminate(Indeterminate)
         )
       )
   )
@@ -9249,6 +10685,10 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         (
           rdf( TransportIndexNode,aixm:nilReason, NilReason, Graph ),
           TransportIndex=nil(NilReason)
+        );
+        (
+          rdf( TransportIndexNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TransportIndex=indeterminate(Indeterminate)
         )
       )
   )
@@ -9271,6 +10711,10 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         (
           rdf( FissileExceptedIndicatorNode,aixm:nilReason, NilReason, Graph ),
           FissileExceptedIndicator=nil(NilReason)
+        );
+        (
+          rdf( FissileExceptedIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          FissileExceptedIndicator=indeterminate(Indeterminate)
         )
       )
   )
@@ -9293,6 +10737,10 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         (
           rdf( CategoryNode,aixm:nilReason, NilReason, Graph ),
           Category=nil(NilReason)
+        );
+        (
+          rdf( CategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Category=indeterminate(Indeterminate)
         )
       )
   )
@@ -9348,6 +10796,10 @@ fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages, QValue) :-
         (
           rdf( NumberOfPackagesNode,aixm:nilReason, NilReason, Graph ),
           NumberOfPackages=nil(NilReason)
+        );
+        (
+          rdf( NumberOfPackagesNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          NumberOfPackages=indeterminate(Indeterminate)
         )
       )
   )
@@ -9370,6 +10822,10 @@ fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages, QValue) :-
         (
           rdf( QValueNode,aixm:nilReason, NilReason, Graph ),
           QValue=nil(NilReason)
+        );
+        (
+          rdf( QValueNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          QValue=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -9399,6 +10855,10 @@ fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks,
         (
           rdf( SurvivalEquipmentRemarksNode,aixm:nilReason, NilReason, Graph ),
           SurvivalEquipmentRemarks=nil(NilReason)
+        );
+        (
+          rdf( SurvivalEquipmentRemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          SurvivalEquipmentRemarks=indeterminate(Indeterminate)
         )
       )
   )
@@ -9459,6 +10919,10 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         (
           rdf( DepartureFleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
           DepartureFleetPrioritization=nil(NilReason)
+        );
+        (
+          rdf( DepartureFleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DepartureFleetPrioritization=indeterminate(Indeterminate)
         )
       )
   )
@@ -9481,6 +10945,10 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         (
           rdf( DepartureSlotNode,aixm:nilReason, NilReason, Graph ),
           DepartureSlot=nil(NilReason)
+        );
+        (
+          rdf( DepartureSlotNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          DepartureSlot=indeterminate(Indeterminate)
         )
       )
   )
@@ -9503,6 +10971,10 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         (
           rdf( EarliestOffBlockTimeNode,aixm:nilReason, NilReason, Graph ),
           EarliestOffBlockTime=nil(NilReason)
+        );
+        (
+          rdf( EarliestOffBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EarliestOffBlockTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -9531,6 +11003,10 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         (
           rdf( StandardInstrumentDepartureNode,aixm:nilReason, NilReason, Graph ),
           StandardInstrumentDeparture=nil(NilReason)
+        );
+        (
+          rdf( StandardInstrumentDepartureNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          StandardInstrumentDeparture=indeterminate(Indeterminate)
         )
       )
   )
@@ -9557,6 +11033,10 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         (
           rdf( TakeoffWeightNode,aixm:nilReason, NilReason, Graph ),
           TakeoffWeight=nil(NilReason)
+        );
+        (
+          rdf( TakeoffWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TakeoffWeight=indeterminate(Indeterminate)
         )
       )
   )
@@ -9589,6 +11069,10 @@ fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, Taxi
         (
           rdf( EstimatedOffBlockTimeNode,aixm:nilReason, NilReason, Graph ),
           EstimatedOffBlockTime=nil(NilReason)
+        );
+        (
+          rdf( EstimatedOffBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          EstimatedOffBlockTime=indeterminate(Indeterminate)
         )
       )
   )
@@ -9611,6 +11095,10 @@ fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, Taxi
         (
           rdf( TaxiTimeNode,aixm:nilReason, NilReason, Graph ),
           TaxiTime=nil(NilReason)
+        );
+        (
+          rdf( TaxiTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          TaxiTime=indeterminate(Indeterminate)
         )
       )
   ) .
@@ -9637,6 +11125,10 @@ aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Ann
         (
           rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
           Type=nil(NilReason)
+        );
+        (
+          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          Type=indeterminate(Indeterminate)
         )
       )
   )
@@ -9659,6 +11151,10 @@ aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Ann
         (
           rdf( PriorPermissionNode,aixm:nilReason, NilReason, Graph ),
           PriorPermission=nil(NilReason)
+        );
+        (
+          rdf( PriorPermissionNode,gml:indeterminatePosition, Indeterminate, Graph ),
+          PriorPermission=indeterminate(Indeterminate)
         )
       )
   )

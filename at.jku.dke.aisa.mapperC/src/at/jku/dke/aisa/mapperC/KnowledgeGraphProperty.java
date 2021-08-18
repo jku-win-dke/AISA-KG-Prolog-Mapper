@@ -111,7 +111,12 @@ public class KnowledgeGraphProperty {
 					+ "          {" + '\n' //
 					+ "		       ?_" + name + "  aixm:nilReason ?" + name + "NilReason ." + '\n'
 					+ "		       BIND(concat('nil:',?" + name + "NilReason) AS ?" + name + ")" + '\n' //
-					+ "		   }" + '\n' //
+					+ "		     }" + '\n' //
+					+ "          UNION" + '\n' //
+					+ "          {" + '\n' //
+					+ "		       ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
+					+ "		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?" + name + ")" + '\n' //
+					+ "		     }" + '\n' //
 					+ "      }" + '\n'; //
 		} else {
 			whereFragment = "      OPTIONAL { ?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + " ?_" + name + " ." + '\n' //
@@ -133,6 +138,11 @@ public class KnowledgeGraphProperty {
 							+ "           ?_" + name + "  aixm:nilReason ?" + name + "NilReason ." + '\n'
 							+ "           BIND(concat('nil:',?" + name + "NilReason) AS ?" + name + ")" + '\n' //
 							+ "          }" + '\n' //
+							+ "          UNION" + '\n' //
+							+ "          {" + '\n' //
+							+ "		       ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
+							+ "		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?" + name + ")" + '\n' //
+							+ "		     }" + '\n' //
 							+ "        }" + '\n' //
 							+ "      }" + '\n';
 

@@ -157,7 +157,9 @@ public class Mapper {
 						if(listItems[i].contains("http://www.w3.org/2001/XMLSchema#")) {
 							String[] partsOfLiteral = listItems[i].split(":");
 							if(node.toString().startsWith("nil:")) {
-								fact += "nil(\'" + listItems[i].substring(new String("nil:").length()) + "\')";							
+								fact += "nil(\'" + listItems[i].substring(new String("nil:").length()) + "\')";
+							} else if(node.toString().startsWith("indeterminate:")) {
+								fact += "indeterminate(" + listItems[i].substring(new String("indeterminate:").length()) + ")";
 							} else if(node.toString().startsWith("val:")) {
 								fact += handleVal2(partsOfLiteral);
 							} else if(node.toString().startsWith("xval:")) {
@@ -184,7 +186,9 @@ public class Mapper {
 					if(node.isLiteral()) {
 						String[] partsOfLiteral = node.toString().split(":");
 						if(node.toString().startsWith("nil:")) {
-							fact += ", nil(\'" + node.toString().substring(new String("nil:").length()) + "\')";							
+							fact += ", nil(\'" + node.toString().substring(new String("nil:").length()) + "\')";
+						} else if(node.toString().startsWith("indeterminate:")) {
+							fact += ", indeterminate(" + node.toString().substring(new String("indeterminate:").length()) + ")";
 						} else if(node.toString().startsWith("val:")) {
 							fact += ", " + handleVal2(partsOfLiteral);
 						} else if(node.toString().startsWith("xval:")) {
@@ -259,7 +263,7 @@ public class Mapper {
 		} else if("http://www.w3.org/2001/XMLSchema#unsignedInt".equals(dataType)) {
 			return "val(" + value + "^^xsd:\'unsignedint\')";
 		} else if("http://www.w3.org/2001/XMLSchema#dateTime".equals(dataType)) {
-			return "dateTime(" + parseDateTime(value) + ")^^xsd:\'dateTime\')";
+			return "val(date_time(" + parseDateTime(value) + "), xsd:\'dateTime\')";
 		} else {
 			return "val(\"" + value + "\"^^xsd:\'string\')";
 		}

@@ -535,6 +535,11 @@ public class Mapper {
 					printWriter.println("        (");
 					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, NilReason, Graph ),");
 			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(NilReason)");
+					printWriter.println("        );");
+					
+					printWriter.println("        (");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, Indeterminate, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(Indeterminate)");
 					printWriter.println("        )");
 					
 					printWriter.println("      )");
@@ -563,6 +568,11 @@ public class Mapper {
 					printWriter.println("        (");
 					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, NilReason, Graph ),");
 			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(NilReason)");
+					printWriter.println("        );");
+					
+					printWriter.println("        (");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, Indeterminate, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(Indeterminate)");
 					printWriter.println("        )");
 					
 					printWriter.println("      )");

@@ -357,14 +357,14 @@ public class Mapper {
 				
 				
 				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
-				String rule = "  " + knowledgeGraphClass.generatePrologRule(null) + "," + "\n";
+				String rule = "  " + knowledgeGraphClass.generatePrologRuleForCombined(null) + "," + "\n";
 				
 				String otherProperties = generateSuperClassPart(superClass, knowledgeGraphClass);
 				if(otherProperties != null) {
 					rule += "  " + superClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph," + StringUtils.capitalize(knowledgeGraphClass.predicateName) + otherProperties + ")" + " .";
 					headRule += otherProperties;
 				} else {
-					rule += "  " + superClass.generatePrologRule(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .";
+					rule += "  " + superClass.generatePrologRuleForCombined(StringUtils.capitalize(knowledgeGraphClass.predicateName)) + " .";
 				}
 				headRule += properties;
 				
@@ -456,12 +456,51 @@ public class Mapper {
 		printWriter.println("convert(ConcatenatedString,ListOfAtoms) :-");
 		printWriter.println("  ConcatenatedString = literal(XConcatenatedString),");
 		printWriter.println("  split_string(XConcatenatedString, ',', '', ListOfStrings),");
-		printWriter.println("  maplist(string_atom, ListOfStrings, ListOfAtoms).");
+		printWriter.println("  maplist(convVal, ListOfStrings, ListOfAtoms).");
 		printWriter.println();
 		printWriter.println("convert(Null,[]) :-");
 		printWriter.println("  Null = '$null$'.");
 		printWriter.println();
 		printWriter.println("string_atom(X,Y) :- atom_string(Y,X).");
+		printWriter.println();
+		printWriter.println("convVal(String,Value) :-");
+		printWriter.println("  String \\= \"$null$\",");
+		printWriter.println("  ( String = literal(XString) ; ( (\\+ String = literal(_)), XString = String ) ),");
+		printWriter.println("  re_split(\":/:\",XString,List),");
+		printWriter.println("  ( ( List = [X], string_atom(X,Value) ) ; ");
+		printWriter.println("    ( List = [\"nil\",_,NilReason], string_atom(NilReason,NilReasonAtom), Value = nil(NilReasonAtom) ) ;");
+		printWriter.println("    ( List = [\"indeterminate\",_,Indeterminate], string_atom(Indeterminate,IndeterminateAtom), Value = indeterminate(IndeterminateAtom) ) ;");
+		printWriter.println("    (");
+		printWriter.println("      (");
+		printWriter.println("        ( List = [\"val\",_,Val,_,TypeS], Value = val(CastVal,Type) ) ;");
+		printWriter.println("        ( List = [\"xval\",_,Val,_,TypeS,_,UomS], string_atom(UomS,Uom), Value = xval(CastVal,Type,Uom) )");
+		printWriter.println("      ) ,");
+		printWriter.println("      string_atom(TypeS,Type) ,");
+		printWriter.println("    (");
+		printWriter.println("    % Numeric Type");
+		printWriter.println("      ( ( Type = 'http://www.w3.org/2001/XMLSchema#integer';");
+		printWriter.println("          Type = 'http://www.w3.org/2001/XMLSchema#decimal';");
+		printWriter.println("          Type = 'http://www.w3.org/2001/XMLSchema#unsignedInt' ),");
+		printWriter.println("        number_string(CastVal,Val)  ");
+		printWriter.println("      );");
+		printWriter.println("      ( Type = 'http://www.w3.org/2001/XMLSchema#dateTime',");
+		printWriter.println("        CastVal = date_time(Year,Month,Day,Hour,Minute,Second,0),");
+		printWriter.println("        sub_string(Val, 0, 4, _, YearString), number_string(Year,YearString),");
+		printWriter.println("        sub_string(Val, 5, 2, _, MonthString), number_string(Month,MonthString),");
+		printWriter.println("        sub_string(Val, 8, 2, _, DayString), number_string(Day,DayString),");
+		printWriter.println("        sub_string(Val, 11, 2, _, HourString), number_string(Hour,HourString),");
+		printWriter.println("        sub_string(Val, 14, 2, _, MinuteString), number_string(Minute,MinuteString),");
+		printWriter.println("        sub_string(Val, 17, 2, _, SecondString), number_string(Second,SecondString)");
+		printWriter.println("      );");
+		printWriter.println("      % ELSE (e.g. TYPE = String)");
+		printWriter.println("      ( Type \\= 'http://www.w3.org/2001/XMLSchema#integer',");
+		printWriter.println("        Type \\= 'http://www.w3.org/2001/XMLSchema#decimal',");
+		printWriter.println("        Type \\= 'http://www.w3.org/2001/XMLSchema#unsignedInt',");
+		printWriter.println("        Type \\= 'http://www.w3.org/2001/XMLSchema#dateTime',");
+		printWriter.println("        CastVal = Val )");
+		printWriter.println("      )");
+		printWriter.println("    )");   
+		printWriter.println("  ).");
 		printWriter.println();
 	}
 
