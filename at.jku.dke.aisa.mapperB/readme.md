@@ -1,6 +1,8 @@
 # Mapping Method B
-Mapping method B generates a set of Prolog rules with embedded SPARQL queries from the RDFS/SHACL schema. 
-These rules are written to a file and that file can be loaded into Prolog and executed to get the respective facts.
+The Java program generates a Prolog module from the RDFS/SHACL schema
+with the predicates that are linked to the respective SPARQL queries by means
+of Prolog rules. The SPARQL queries for filling the predicates are only executed
+from Prolog at runtime.
 
 ## How to start the mapper
 1. Add all prefixes, data and shacl files, which should be mapped, to the input folder.
@@ -37,3 +39,16 @@ The mapper outputs a file with Prolog rules, which can be found in the output fo
 ### Prolog rules
 The Prolog rules are generated and saved to a file at runtime by using the given shacl schema and the prefix mapping defined in the prefix file.\
 Example file: /output/facts.pl
+### Performance result
+At the end of the execution of the mapping, the execution time is saved to a file.
+Next to the overall execution time and the execution time of separate parts of the mapping, also the number of data copies and the mapping variant is saved to the performance result.
+The number of data copies can be changed in the Shacl2PrologLauncher if required. (Default value=1)
+Example file: /output/performance_results.csv
+
+## How to start the performance tests
+1. Go to Eclipse File->Export->Runnable Jar File.
+2. Chose the main class of the mapping variant and the dedicated name (MapperA.jar|MapperB.jar|MappperC.jar)
+ and select library handling 'Package required libraries into generated JAR'.
+3. Export the jar file into the project folder of the respective mapping variant. (e.g.: /AISA-KG-Prolog-Mapper/at.jku.dke.aisa.mapperA/MapperA.jar)
+3. Start start_performance_test.bat.
+4. The results can be found in the output folder of the dedicated mapping variant.
