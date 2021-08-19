@@ -1,4 +1,4 @@
-:- [sparql].
+:- [facts].
 
 airportorg_annotation(Graph,AirportHeliportResponsibilityOrganisation, Annotation) :- 
   aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, Annotations, _,_,_,_), member(Annotation, Annotations).

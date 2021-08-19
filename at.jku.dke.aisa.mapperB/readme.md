@@ -1,8 +1,6 @@
 # Mapping Method B
-Mapping method A generates with the help of SPARQL a set of Prolog predicates from the RDFS/SHACL schema 
-and a SPARQL query for each predicate. 
-The result of executing the SPARQL query gives the facts for the respective predicate. 
-These facts are written to a file and that file can be loaded into Prolog.
+Mapping method B generates a set of Prolog rules with embedded SPARQL queries from the RDFS/SHACL schema. 
+These rules are written to a file and that file can be loaded into Prolog and executed to get the respective facts.
 
 ## How to start the mapper
 1. Add all prefixes, data and shacl files, which should be mapped, to the input folder.
@@ -34,12 +32,8 @@ These prefixes are mainly required to replace the URIs in the resulting fact fil
 Example file: /input/prefixes.ttl
 
 ## Output Files
-The mapper outputs 2 different files, which can be found in the output folder: the sparql queries and the Prolog facts.
+The mapper outputs a file with Prolog rules, which can be found in the output folder.
 
-### SPARQL queries
-The SPARQL queries are generated at runtime, saved to a file and executed.
-The results of the query execution are used for Prolog facts generation.\
-Example file: /output/queries.sparql
-### Prolog facts
-The Prolog facts are generated and saved to a file at runtime by processing the results of the SPARQL queries and using the prefix mapping defined in the prefix file.\
+### Prolog rules
+The Prolog rules are generated and saved to a file at runtime by using the given shacl schema and the prefix mapping defined in the prefix file.\
 Example file: /output/facts.pl

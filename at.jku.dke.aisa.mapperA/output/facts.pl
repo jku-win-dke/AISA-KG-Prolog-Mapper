@@ -1,4 +1,4 @@
-:- module(a,[]).
+% :- module(a,[]).
 
 /* use the new RDF-DB library 
 https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */
@@ -754,11 +754,11 @@ fixm_FlightIdentification(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/r
 % aixm_Surface(Graph, Surface, HorizontalAccuracy?, Annotation*)
 
 % gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition)
-gml_TimePeriod(graph:'0_donlon-data.ttl', s2:'ID_ACT_12', val(date_time(2018, 5, 11, 10, 0, 0, 0)^^xsd:'dateTime'), val(date_time(2018, 5, 11, 18, 0, 0, 0)^^xsd:'dateTime')).
 gml_TimePeriod(graph:'0_donlon-data.ttl', s2:'IDE_ACT_23', val(date_time(2018, 5, 11, 10, 0, 0, 0)^^xsd:'dateTime'), val(date_time(2018, 5, 11, 18, 0, 0, 0)^^xsd:'dateTime')).
 gml_TimePeriod(graph:'0_donlon-data.ttl', s2:'IDE_ACT_24', val(date_time(2018, 5, 11, 10, 0, 0, 0)^^xsd:'dateTime'), val(date_time(2018, 5, 11, 18, 0, 0, 0)^^xsd:'dateTime')).
-gml_TimePeriod(graph:'0_donlon-data.ttl', s1:'ltnull0', val(date_time(2009, 1, 1, 0, 0, 0, 0)^^xsd:'dateTime'), indeterminate("unknown"^^xsd:'string')).
+gml_TimePeriod(graph:'0_donlon-data.ttl', s2:'ID_ACT_12', val(date_time(2018, 5, 11, 10, 0, 0, 0)^^xsd:'dateTime'), val(date_time(2018, 5, 11, 18, 0, 0, 0)^^xsd:'dateTime')).
 gml_TimePeriod(graph:'0_donlon-data.ttl', s1:'vtnull0', val(date_time(2009, 1, 1, 0, 0, 0, 0)^^xsd:'dateTime'), indeterminate("unknown"^^xsd:'string')).
+gml_TimePeriod(graph:'0_donlon-data.ttl', s1:'ltnull0', val(date_time(2009, 1, 1, 0, 0, 0, 0)^^xsd:'dateTime'), indeterminate("unknown"^^xsd:'string')).
 
 % fixm_AircraftCapabilities(Graph, AircraftCapabilities, Survival?, Communication?, Navigation?, Surveillance?, StandardCapabilities?)
 fixm_AircraftCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_012', '$null$', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_013', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_014', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$').
@@ -796,7 +796,7 @@ fixm_Aircraft(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESA
 % fixm_Extension(Graph, Extension)
 
 % fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
-fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', [val("L"^^xsd:'string'), val("B1"^^xsd:'string'), val("D1"^^xsd:'string')]).
+fixm_SurveillanceCapabilities(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_015', '$null$', [val("B1"^^xsd:'string'), val("L"^^xsd:'string'), val("D1"^^xsd:'string')]).
 
 % fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
 fixm_Trajectory(graph:'0_FIXM_EDDF-VHHH.ttl', 'https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_021', ['https://www.fixm.aero/releases/SESAR_Ext-1.0/SESAR_E-FPL_Extension_v1.0_beta.zip/EDDF-VHHH_FIXMCreationRequest.xml#ID_022']).

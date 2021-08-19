@@ -42,7 +42,7 @@ public class Shacl2PrologLauncher {
 	private final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
 	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";
 	
-	private final static String PROLOG_FILE = "output/sparql.pl";
+	private final static String PROLOG_FILE = "output/facts.pl";
 	
 	public static void main(String[] args) {
 		
