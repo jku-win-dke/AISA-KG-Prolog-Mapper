@@ -109,9 +109,9 @@ public class KnowledgeGraphProperty {
 					+ "		     }" + '\n' //
 					+ "          UNION" + '\n' //
 					+ "          {" + '\n' //
-					+ "		       ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
-					+ "		       BIND(concat(\\'indeterminate:/:\\',?indeterminatePosition) AS ?" + name + ")" + '\n' //
-					+ "		     }" + '\n' //
+					+ "            ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
+					+ "            BIND(concat(\\'indeterminate:/:\\',?indeterminatePosition) AS ?" + name + ")" + '\n' //
+					+ "	         }" + '\n' //
 					+ "      }" + '\n'; //
 		} else {
 			whereFragment = "      OPTIONAL { ?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + " ?_" + name + " ." + '\n' //

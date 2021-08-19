@@ -1,3 +1,5 @@
+:- module(c,[]).
+
 /* use the new RDF-DB library 
 https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */
 :- use_module(library(semweb/rdf11)).
@@ -506,16 +508,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( AdministrativeAreaNode,rdf:value,AdministrativeAreaValue,Graph ),
-          ( rdf( AdministrativeAreaNode, aixm:uom, UOM, Graph ); rdf( AdministrativeAreaNode, fixm:uom, UOM, Graph ); rdf( AdministrativeAreaNode, plain:uom, UOM, Graph ) ),
-          AdministrativeArea=xval(AdministrativeAreaValue,UOM)
+          ( rdf( AdministrativeAreaNode, aixm:uom, AdministrativeAreaUOM, Graph ); rdf( AdministrativeAreaNode, fixm:uom, AdministrativeAreaUOM, Graph ); rdf( AdministrativeAreaNode, plain:uom, AdministrativeAreaUOM, Graph ) ),
+          AdministrativeArea=xval(AdministrativeAreaValue,AdministrativeAreaUOM)
         );
         (
-          rdf( AdministrativeAreaNode,aixm:nilReason, NilReason, Graph ),
-          AdministrativeArea=nil(NilReason)
+          rdf( AdministrativeAreaNode,aixm:nilReason, AdministrativeAreaNilReason, Graph ),
+          AdministrativeArea=nil(AdministrativeAreaNilReason)
         );
         (
-          rdf( AdministrativeAreaNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AdministrativeArea=indeterminate(Indeterminate)
+          rdf( AdministrativeAreaNode,gml:indeterminatePosition, AdministrativeAreaIndeterminate, Graph ),
+          AdministrativeArea=indeterminate(AdministrativeAreaIndeterminate)
         )
       )
   )
@@ -532,16 +534,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( PostalCodeNode,rdf:value,PostalCodeValue,Graph ),
-          ( rdf( PostalCodeNode, aixm:uom, UOM, Graph ); rdf( PostalCodeNode, fixm:uom, UOM, Graph ); rdf( PostalCodeNode, plain:uom, UOM, Graph ) ),
-          PostalCode=xval(PostalCodeValue,UOM)
+          ( rdf( PostalCodeNode, aixm:uom, PostalCodeUOM, Graph ); rdf( PostalCodeNode, fixm:uom, PostalCodeUOM, Graph ); rdf( PostalCodeNode, plain:uom, PostalCodeUOM, Graph ) ),
+          PostalCode=xval(PostalCodeValue,PostalCodeUOM)
         );
         (
-          rdf( PostalCodeNode,aixm:nilReason, NilReason, Graph ),
-          PostalCode=nil(NilReason)
+          rdf( PostalCodeNode,aixm:nilReason, PostalCodeNilReason, Graph ),
+          PostalCode=nil(PostalCodeNilReason)
         );
         (
-          rdf( PostalCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PostalCode=indeterminate(Indeterminate)
+          rdf( PostalCodeNode,gml:indeterminatePosition, PostalCodeIndeterminate, Graph ),
+          PostalCode=indeterminate(PostalCodeIndeterminate)
         )
       )
   )
@@ -558,16 +560,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( DeliveryPointNode,rdf:value,DeliveryPointValue,Graph ),
-          ( rdf( DeliveryPointNode, aixm:uom, UOM, Graph ); rdf( DeliveryPointNode, fixm:uom, UOM, Graph ); rdf( DeliveryPointNode, plain:uom, UOM, Graph ) ),
-          DeliveryPoint=xval(DeliveryPointValue,UOM)
+          ( rdf( DeliveryPointNode, aixm:uom, DeliveryPointUOM, Graph ); rdf( DeliveryPointNode, fixm:uom, DeliveryPointUOM, Graph ); rdf( DeliveryPointNode, plain:uom, DeliveryPointUOM, Graph ) ),
+          DeliveryPoint=xval(DeliveryPointValue,DeliveryPointUOM)
         );
         (
-          rdf( DeliveryPointNode,aixm:nilReason, NilReason, Graph ),
-          DeliveryPoint=nil(NilReason)
+          rdf( DeliveryPointNode,aixm:nilReason, DeliveryPointNilReason, Graph ),
+          DeliveryPoint=nil(DeliveryPointNilReason)
         );
         (
-          rdf( DeliveryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DeliveryPoint=indeterminate(Indeterminate)
+          rdf( DeliveryPointNode,gml:indeterminatePosition, DeliveryPointIndeterminate, Graph ),
+          DeliveryPoint=indeterminate(DeliveryPointIndeterminate)
         )
       )
   )
@@ -584,16 +586,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( CountryCodeNode,rdf:value,CountryCodeValue,Graph ),
-          ( rdf( CountryCodeNode, aixm:uom, UOM, Graph ); rdf( CountryCodeNode, fixm:uom, UOM, Graph ); rdf( CountryCodeNode, plain:uom, UOM, Graph ) ),
-          CountryCode=xval(CountryCodeValue,UOM)
+          ( rdf( CountryCodeNode, aixm:uom, CountryCodeUOM, Graph ); rdf( CountryCodeNode, fixm:uom, CountryCodeUOM, Graph ); rdf( CountryCodeNode, plain:uom, CountryCodeUOM, Graph ) ),
+          CountryCode=xval(CountryCodeValue,CountryCodeUOM)
         );
         (
-          rdf( CountryCodeNode,aixm:nilReason, NilReason, Graph ),
-          CountryCode=nil(NilReason)
+          rdf( CountryCodeNode,aixm:nilReason, CountryCodeNilReason, Graph ),
+          CountryCode=nil(CountryCodeNilReason)
         );
         (
-          rdf( CountryCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CountryCode=indeterminate(Indeterminate)
+          rdf( CountryCodeNode,gml:indeterminatePosition, CountryCodeIndeterminate, Graph ),
+          CountryCode=indeterminate(CountryCodeIndeterminate)
         )
       )
   )
@@ -610,16 +612,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( CountryNameNode,rdf:value,CountryNameValue,Graph ),
-          ( rdf( CountryNameNode, aixm:uom, UOM, Graph ); rdf( CountryNameNode, fixm:uom, UOM, Graph ); rdf( CountryNameNode, plain:uom, UOM, Graph ) ),
-          CountryName=xval(CountryNameValue,UOM)
+          ( rdf( CountryNameNode, aixm:uom, CountryNameUOM, Graph ); rdf( CountryNameNode, fixm:uom, CountryNameUOM, Graph ); rdf( CountryNameNode, plain:uom, CountryNameUOM, Graph ) ),
+          CountryName=xval(CountryNameValue,CountryNameUOM)
         );
         (
-          rdf( CountryNameNode,aixm:nilReason, NilReason, Graph ),
-          CountryName=nil(NilReason)
+          rdf( CountryNameNode,aixm:nilReason, CountryNameNilReason, Graph ),
+          CountryName=nil(CountryNameNilReason)
         );
         (
-          rdf( CountryNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CountryName=indeterminate(Indeterminate)
+          rdf( CountryNameNode,gml:indeterminatePosition, CountryNameIndeterminate, Graph ),
+          CountryName=indeterminate(CountryNameIndeterminate)
         )
       )
   )
@@ -636,16 +638,16 @@ fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea, PostalCode, Deliver
         );
         (
           rdf( CityNode,rdf:value,CityValue,Graph ),
-          ( rdf( CityNode, aixm:uom, UOM, Graph ); rdf( CityNode, fixm:uom, UOM, Graph ); rdf( CityNode, plain:uom, UOM, Graph ) ),
-          City=xval(CityValue,UOM)
+          ( rdf( CityNode, aixm:uom, CityUOM, Graph ); rdf( CityNode, fixm:uom, CityUOM, Graph ); rdf( CityNode, plain:uom, CityUOM, Graph ) ),
+          City=xval(CityValue,CityUOM)
         );
         (
-          rdf( CityNode,aixm:nilReason, NilReason, Graph ),
-          City=nil(NilReason)
+          rdf( CityNode,aixm:nilReason, CityNilReason, Graph ),
+          City=nil(CityNilReason)
         );
         (
-          rdf( CityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          City=indeterminate(Indeterminate)
+          rdf( CityNode,gml:indeterminatePosition, CityIndeterminate, Graph ),
+          City=indeterminate(CityIndeterminate)
         )
       )
   ) .
@@ -665,16 +667,16 @@ fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabi
         );
         (
           rdf( OtherNavigationCapabilitiesNode,rdf:value,OtherNavigationCapabilitiesValue,Graph ),
-          ( rdf( OtherNavigationCapabilitiesNode, aixm:uom, UOM, Graph ); rdf( OtherNavigationCapabilitiesNode, fixm:uom, UOM, Graph ); rdf( OtherNavigationCapabilitiesNode, plain:uom, UOM, Graph ) ),
-          OtherNavigationCapabilities=xval(OtherNavigationCapabilitiesValue,UOM)
+          ( rdf( OtherNavigationCapabilitiesNode, aixm:uom, OtherNavigationCapabilitiesUOM, Graph ); rdf( OtherNavigationCapabilitiesNode, fixm:uom, OtherNavigationCapabilitiesUOM, Graph ); rdf( OtherNavigationCapabilitiesNode, plain:uom, OtherNavigationCapabilitiesUOM, Graph ) ),
+          OtherNavigationCapabilities=xval(OtherNavigationCapabilitiesValue,OtherNavigationCapabilitiesUOM)
         );
         (
-          rdf( OtherNavigationCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
-          OtherNavigationCapabilities=nil(NilReason)
+          rdf( OtherNavigationCapabilitiesNode,aixm:nilReason, OtherNavigationCapabilitiesNilReason, Graph ),
+          OtherNavigationCapabilities=nil(OtherNavigationCapabilitiesNilReason)
         );
         (
-          rdf( OtherNavigationCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherNavigationCapabilities=indeterminate(Indeterminate)
+          rdf( OtherNavigationCapabilitiesNode,gml:indeterminatePosition, OtherNavigationCapabilitiesIndeterminate, Graph ),
+          OtherNavigationCapabilities=indeterminate(OtherNavigationCapabilitiesIndeterminate)
         )
       )
   )
@@ -696,16 +698,16 @@ fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed, UpperSpeed) :-
         );
         (
           rdf( LowerSpeedNode,rdf:value,LowerSpeedValue,Graph ),
-          ( rdf( LowerSpeedNode, aixm:uom, UOM, Graph ); rdf( LowerSpeedNode, fixm:uom, UOM, Graph ); rdf( LowerSpeedNode, plain:uom, UOM, Graph ) ),
-          LowerSpeed=xval(LowerSpeedValue,UOM)
+          ( rdf( LowerSpeedNode, aixm:uom, LowerSpeedUOM, Graph ); rdf( LowerSpeedNode, fixm:uom, LowerSpeedUOM, Graph ); rdf( LowerSpeedNode, plain:uom, LowerSpeedUOM, Graph ) ),
+          LowerSpeed=xval(LowerSpeedValue,LowerSpeedUOM)
         );
         (
-          rdf( LowerSpeedNode,aixm:nilReason, NilReason, Graph ),
-          LowerSpeed=nil(NilReason)
+          rdf( LowerSpeedNode,aixm:nilReason, LowerSpeedNilReason, Graph ),
+          LowerSpeed=nil(LowerSpeedNilReason)
         );
         (
-          rdf( LowerSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LowerSpeed=indeterminate(Indeterminate)
+          rdf( LowerSpeedNode,gml:indeterminatePosition, LowerSpeedIndeterminate, Graph ),
+          LowerSpeed=indeterminate(LowerSpeedIndeterminate)
         )
       )
   )
@@ -722,16 +724,16 @@ fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed, UpperSpeed) :-
         );
         (
           rdf( UpperSpeedNode,rdf:value,UpperSpeedValue,Graph ),
-          ( rdf( UpperSpeedNode, aixm:uom, UOM, Graph ); rdf( UpperSpeedNode, fixm:uom, UOM, Graph ); rdf( UpperSpeedNode, plain:uom, UOM, Graph ) ),
-          UpperSpeed=xval(UpperSpeedValue,UOM)
+          ( rdf( UpperSpeedNode, aixm:uom, UpperSpeedUOM, Graph ); rdf( UpperSpeedNode, fixm:uom, UpperSpeedUOM, Graph ); rdf( UpperSpeedNode, plain:uom, UpperSpeedUOM, Graph ) ),
+          UpperSpeed=xval(UpperSpeedValue,UpperSpeedUOM)
         );
         (
-          rdf( UpperSpeedNode,aixm:nilReason, NilReason, Graph ),
-          UpperSpeed=nil(NilReason)
+          rdf( UpperSpeedNode,aixm:nilReason, UpperSpeedNilReason, Graph ),
+          UpperSpeed=nil(UpperSpeedNilReason)
         );
         (
-          rdf( UpperSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UpperSpeed=indeterminate(Indeterminate)
+          rdf( UpperSpeedNode,gml:indeterminatePosition, UpperSpeedIndeterminate, Graph ),
+          UpperSpeed=indeterminate(UpperSpeedIndeterminate)
         )
       )
   ) .
@@ -751,16 +753,16 @@ aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
         );
         (
           rdf( PropertyNameNode,rdf:value,PropertyNameValue,Graph ),
-          ( rdf( PropertyNameNode, aixm:uom, UOM, Graph ); rdf( PropertyNameNode, fixm:uom, UOM, Graph ); rdf( PropertyNameNode, plain:uom, UOM, Graph ) ),
-          PropertyName=xval(PropertyNameValue,UOM)
+          ( rdf( PropertyNameNode, aixm:uom, PropertyNameUOM, Graph ); rdf( PropertyNameNode, fixm:uom, PropertyNameUOM, Graph ); rdf( PropertyNameNode, plain:uom, PropertyNameUOM, Graph ) ),
+          PropertyName=xval(PropertyNameValue,PropertyNameUOM)
         );
         (
-          rdf( PropertyNameNode,aixm:nilReason, NilReason, Graph ),
-          PropertyName=nil(NilReason)
+          rdf( PropertyNameNode,aixm:nilReason, PropertyNameNilReason, Graph ),
+          PropertyName=nil(PropertyNameNilReason)
         );
         (
-          rdf( PropertyNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PropertyName=indeterminate(Indeterminate)
+          rdf( PropertyNameNode,gml:indeterminatePosition, PropertyNameIndeterminate, Graph ),
+          PropertyName=indeterminate(PropertyNameIndeterminate)
         )
       )
   )
@@ -777,16 +779,16 @@ aixm_Note(Graph, Note, PropertyName, Purpose, TranslatedNote) :-
         );
         (
           rdf( PurposeNode,rdf:value,PurposeValue,Graph ),
-          ( rdf( PurposeNode, aixm:uom, UOM, Graph ); rdf( PurposeNode, fixm:uom, UOM, Graph ); rdf( PurposeNode, plain:uom, UOM, Graph ) ),
-          Purpose=xval(PurposeValue,UOM)
+          ( rdf( PurposeNode, aixm:uom, PurposeUOM, Graph ); rdf( PurposeNode, fixm:uom, PurposeUOM, Graph ); rdf( PurposeNode, plain:uom, PurposeUOM, Graph ) ),
+          Purpose=xval(PurposeValue,PurposeUOM)
         );
         (
-          rdf( PurposeNode,aixm:nilReason, NilReason, Graph ),
-          Purpose=nil(NilReason)
+          rdf( PurposeNode,aixm:nilReason, PurposeNilReason, Graph ),
+          Purpose=nil(PurposeNilReason)
         );
         (
-          rdf( PurposeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Purpose=indeterminate(Indeterminate)
+          rdf( PurposeNode,gml:indeterminatePosition, PurposeIndeterminate, Graph ),
+          Purpose=indeterminate(PurposeIndeterminate)
         )
       )
   )
@@ -814,16 +816,16 @@ fixm_VerticalRange(Graph, VerticalRange, LowerBound, UpperBound) :-
         );
         (
           rdf( LowerBoundNode,rdf:value,LowerBoundValue,Graph ),
-          ( rdf( LowerBoundNode, aixm:uom, UOM, Graph ); rdf( LowerBoundNode, fixm:uom, UOM, Graph ); rdf( LowerBoundNode, plain:uom, UOM, Graph ) ),
-          LowerBound=xval(LowerBoundValue,UOM)
+          ( rdf( LowerBoundNode, aixm:uom, LowerBoundUOM, Graph ); rdf( LowerBoundNode, fixm:uom, LowerBoundUOM, Graph ); rdf( LowerBoundNode, plain:uom, LowerBoundUOM, Graph ) ),
+          LowerBound=xval(LowerBoundValue,LowerBoundUOM)
         );
         (
-          rdf( LowerBoundNode,aixm:nilReason, NilReason, Graph ),
-          LowerBound=nil(NilReason)
+          rdf( LowerBoundNode,aixm:nilReason, LowerBoundNilReason, Graph ),
+          LowerBound=nil(LowerBoundNilReason)
         );
         (
-          rdf( LowerBoundNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LowerBound=indeterminate(Indeterminate)
+          rdf( LowerBoundNode,gml:indeterminatePosition, LowerBoundIndeterminate, Graph ),
+          LowerBound=indeterminate(LowerBoundIndeterminate)
         )
       )
   )
@@ -840,16 +842,16 @@ fixm_VerticalRange(Graph, VerticalRange, LowerBound, UpperBound) :-
         );
         (
           rdf( UpperBoundNode,rdf:value,UpperBoundValue,Graph ),
-          ( rdf( UpperBoundNode, aixm:uom, UOM, Graph ); rdf( UpperBoundNode, fixm:uom, UOM, Graph ); rdf( UpperBoundNode, plain:uom, UOM, Graph ) ),
-          UpperBound=xval(UpperBoundValue,UOM)
+          ( rdf( UpperBoundNode, aixm:uom, UpperBoundUOM, Graph ); rdf( UpperBoundNode, fixm:uom, UpperBoundUOM, Graph ); rdf( UpperBoundNode, plain:uom, UpperBoundUOM, Graph ) ),
+          UpperBound=xval(UpperBoundValue,UpperBoundUOM)
         );
         (
-          rdf( UpperBoundNode,aixm:nilReason, NilReason, Graph ),
-          UpperBound=nil(NilReason)
+          rdf( UpperBoundNode,aixm:nilReason, UpperBoundNilReason, Graph ),
+          UpperBound=nil(UpperBoundNilReason)
         );
         (
-          rdf( UpperBoundNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UpperBound=indeterminate(Indeterminate)
+          rdf( UpperBoundNode,gml:indeterminatePosition, UpperBoundIndeterminate, Graph ),
+          UpperBound=indeterminate(UpperBoundIndeterminate)
         )
       )
   ) .
@@ -869,16 +871,16 @@ fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime
         );
         (
           rdf( EstimatedLevelNode,rdf:value,EstimatedLevelValue,Graph ),
-          ( rdf( EstimatedLevelNode, aixm:uom, UOM, Graph ); rdf( EstimatedLevelNode, fixm:uom, UOM, Graph ); rdf( EstimatedLevelNode, plain:uom, UOM, Graph ) ),
-          EstimatedLevel=xval(EstimatedLevelValue,UOM)
+          ( rdf( EstimatedLevelNode, aixm:uom, EstimatedLevelUOM, Graph ); rdf( EstimatedLevelNode, fixm:uom, EstimatedLevelUOM, Graph ); rdf( EstimatedLevelNode, plain:uom, EstimatedLevelUOM, Graph ) ),
+          EstimatedLevel=xval(EstimatedLevelValue,EstimatedLevelUOM)
         );
         (
-          rdf( EstimatedLevelNode,aixm:nilReason, NilReason, Graph ),
-          EstimatedLevel=nil(NilReason)
+          rdf( EstimatedLevelNode,aixm:nilReason, EstimatedLevelNilReason, Graph ),
+          EstimatedLevel=nil(EstimatedLevelNilReason)
         );
         (
-          rdf( EstimatedLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EstimatedLevel=indeterminate(Indeterminate)
+          rdf( EstimatedLevelNode,gml:indeterminatePosition, EstimatedLevelIndeterminate, Graph ),
+          EstimatedLevel=indeterminate(EstimatedLevelIndeterminate)
         )
       )
   )
@@ -895,16 +897,16 @@ fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime
         );
         (
           rdf( EstimatedTimeNode,rdf:value,EstimatedTimeValue,Graph ),
-          ( rdf( EstimatedTimeNode, aixm:uom, UOM, Graph ); rdf( EstimatedTimeNode, fixm:uom, UOM, Graph ); rdf( EstimatedTimeNode, plain:uom, UOM, Graph ) ),
-          EstimatedTime=xval(EstimatedTimeValue,UOM)
+          ( rdf( EstimatedTimeNode, aixm:uom, EstimatedTimeUOM, Graph ); rdf( EstimatedTimeNode, fixm:uom, EstimatedTimeUOM, Graph ); rdf( EstimatedTimeNode, plain:uom, EstimatedTimeUOM, Graph ) ),
+          EstimatedTime=xval(EstimatedTimeValue,EstimatedTimeUOM)
         );
         (
-          rdf( EstimatedTimeNode,aixm:nilReason, NilReason, Graph ),
-          EstimatedTime=nil(NilReason)
+          rdf( EstimatedTimeNode,aixm:nilReason, EstimatedTimeNilReason, Graph ),
+          EstimatedTime=nil(EstimatedTimeNilReason)
         );
         (
-          rdf( EstimatedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EstimatedTime=indeterminate(Indeterminate)
+          rdf( EstimatedTimeNode,gml:indeterminatePosition, EstimatedTimeIndeterminate, Graph ),
+          EstimatedTime=indeterminate(EstimatedTimeIndeterminate)
         )
       )
   )
@@ -925,16 +927,16 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         );
         (
           rdf( ElevationNode,rdf:value,ElevationValue,Graph ),
-          ( rdf( ElevationNode, aixm:uom, UOM, Graph ); rdf( ElevationNode, fixm:uom, UOM, Graph ); rdf( ElevationNode, plain:uom, UOM, Graph ) ),
-          Elevation=xval(ElevationValue,UOM)
+          ( rdf( ElevationNode, aixm:uom, ElevationUOM, Graph ); rdf( ElevationNode, fixm:uom, ElevationUOM, Graph ); rdf( ElevationNode, plain:uom, ElevationUOM, Graph ) ),
+          Elevation=xval(ElevationValue,ElevationUOM)
         );
         (
-          rdf( ElevationNode,aixm:nilReason, NilReason, Graph ),
-          Elevation=nil(NilReason)
+          rdf( ElevationNode,aixm:nilReason, ElevationNilReason, Graph ),
+          Elevation=nil(ElevationNilReason)
         );
         (
-          rdf( ElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Elevation=indeterminate(Indeterminate)
+          rdf( ElevationNode,gml:indeterminatePosition, ElevationIndeterminate, Graph ),
+          Elevation=indeterminate(ElevationIndeterminate)
         )
       )
   )
@@ -951,16 +953,16 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         );
         (
           rdf( GeoidUndulationNode,rdf:value,GeoidUndulationValue,Graph ),
-          ( rdf( GeoidUndulationNode, aixm:uom, UOM, Graph ); rdf( GeoidUndulationNode, fixm:uom, UOM, Graph ); rdf( GeoidUndulationNode, plain:uom, UOM, Graph ) ),
-          GeoidUndulation=xval(GeoidUndulationValue,UOM)
+          ( rdf( GeoidUndulationNode, aixm:uom, GeoidUndulationUOM, Graph ); rdf( GeoidUndulationNode, fixm:uom, GeoidUndulationUOM, Graph ); rdf( GeoidUndulationNode, plain:uom, GeoidUndulationUOM, Graph ) ),
+          GeoidUndulation=xval(GeoidUndulationValue,GeoidUndulationUOM)
         );
         (
-          rdf( GeoidUndulationNode,aixm:nilReason, NilReason, Graph ),
-          GeoidUndulation=nil(NilReason)
+          rdf( GeoidUndulationNode,aixm:nilReason, GeoidUndulationNilReason, Graph ),
+          GeoidUndulation=nil(GeoidUndulationNilReason)
         );
         (
-          rdf( GeoidUndulationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          GeoidUndulation=indeterminate(Indeterminate)
+          rdf( GeoidUndulationNode,gml:indeterminatePosition, GeoidUndulationIndeterminate, Graph ),
+          GeoidUndulation=indeterminate(GeoidUndulationIndeterminate)
         )
       )
   )
@@ -977,16 +979,16 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         );
         (
           rdf( VerticalDatumNode,rdf:value,VerticalDatumValue,Graph ),
-          ( rdf( VerticalDatumNode, aixm:uom, UOM, Graph ); rdf( VerticalDatumNode, fixm:uom, UOM, Graph ); rdf( VerticalDatumNode, plain:uom, UOM, Graph ) ),
-          VerticalDatum=xval(VerticalDatumValue,UOM)
+          ( rdf( VerticalDatumNode, aixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, fixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, plain:uom, VerticalDatumUOM, Graph ) ),
+          VerticalDatum=xval(VerticalDatumValue,VerticalDatumUOM)
         );
         (
-          rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
-          VerticalDatum=nil(NilReason)
+          rdf( VerticalDatumNode,aixm:nilReason, VerticalDatumNilReason, Graph ),
+          VerticalDatum=nil(VerticalDatumNilReason)
         );
         (
-          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalDatum=indeterminate(Indeterminate)
+          rdf( VerticalDatumNode,gml:indeterminatePosition, VerticalDatumIndeterminate, Graph ),
+          VerticalDatum=indeterminate(VerticalDatumIndeterminate)
         )
       )
   )
@@ -1003,16 +1005,16 @@ aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, Vertica
         );
         (
           rdf( VerticalAccuracyNode,rdf:value,VerticalAccuracyValue,Graph ),
-          ( rdf( VerticalAccuracyNode, aixm:uom, UOM, Graph ); rdf( VerticalAccuracyNode, fixm:uom, UOM, Graph ); rdf( VerticalAccuracyNode, plain:uom, UOM, Graph ) ),
-          VerticalAccuracy=xval(VerticalAccuracyValue,UOM)
+          ( rdf( VerticalAccuracyNode, aixm:uom, VerticalAccuracyUOM, Graph ); rdf( VerticalAccuracyNode, fixm:uom, VerticalAccuracyUOM, Graph ); rdf( VerticalAccuracyNode, plain:uom, VerticalAccuracyUOM, Graph ) ),
+          VerticalAccuracy=xval(VerticalAccuracyValue,VerticalAccuracyUOM)
         );
         (
-          rdf( VerticalAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          VerticalAccuracy=nil(NilReason)
+          rdf( VerticalAccuracyNode,aixm:nilReason, VerticalAccuracyNilReason, Graph ),
+          VerticalAccuracy=nil(VerticalAccuracyNilReason)
         );
         (
-          rdf( VerticalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalAccuracy=indeterminate(Indeterminate)
+          rdf( VerticalAccuracyNode,gml:indeterminatePosition, VerticalAccuracyIndeterminate, Graph ),
+          VerticalAccuracy=indeterminate(VerticalAccuracyIndeterminate)
         )
       )
   ) .
@@ -1032,16 +1034,16 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         );
         (
           rdf( HeightNode,rdf:value,HeightValue,Graph ),
-          ( rdf( HeightNode, aixm:uom, UOM, Graph ); rdf( HeightNode, fixm:uom, UOM, Graph ); rdf( HeightNode, plain:uom, UOM, Graph ) ),
-          Height=xval(HeightValue,UOM)
+          ( rdf( HeightNode, aixm:uom, HeightUOM, Graph ); rdf( HeightNode, fixm:uom, HeightUOM, Graph ); rdf( HeightNode, plain:uom, HeightUOM, Graph ) ),
+          Height=xval(HeightValue,HeightUOM)
         );
         (
-          rdf( HeightNode,aixm:nilReason, NilReason, Graph ),
-          Height=nil(NilReason)
+          rdf( HeightNode,aixm:nilReason, HeightNilReason, Graph ),
+          Height=nil(HeightNilReason)
         );
         (
-          rdf( HeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Height=indeterminate(Indeterminate)
+          rdf( HeightNode,gml:indeterminatePosition, HeightIndeterminate, Graph ),
+          Height=indeterminate(HeightIndeterminate)
         )
       )
   )
@@ -1058,16 +1060,16 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         );
         (
           rdf( LengthNode,rdf:value,LengthValue,Graph ),
-          ( rdf( LengthNode, aixm:uom, UOM, Graph ); rdf( LengthNode, fixm:uom, UOM, Graph ); rdf( LengthNode, plain:uom, UOM, Graph ) ),
-          Length=xval(LengthValue,UOM)
+          ( rdf( LengthNode, aixm:uom, LengthUOM, Graph ); rdf( LengthNode, fixm:uom, LengthUOM, Graph ); rdf( LengthNode, plain:uom, LengthUOM, Graph ) ),
+          Length=xval(LengthValue,LengthUOM)
         );
         (
-          rdf( LengthNode,aixm:nilReason, NilReason, Graph ),
-          Length=nil(NilReason)
+          rdf( LengthNode,aixm:nilReason, LengthNilReason, Graph ),
+          Length=nil(LengthNilReason)
         );
         (
-          rdf( LengthNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Length=indeterminate(Indeterminate)
+          rdf( LengthNode,gml:indeterminatePosition, LengthIndeterminate, Graph ),
+          Length=indeterminate(LengthIndeterminate)
         )
       )
   )
@@ -1084,16 +1086,16 @@ fixm_Dimensions(Graph, Dimensions, Height, Length, Width) :-
         );
         (
           rdf( WidthNode,rdf:value,WidthValue,Graph ),
-          ( rdf( WidthNode, aixm:uom, UOM, Graph ); rdf( WidthNode, fixm:uom, UOM, Graph ); rdf( WidthNode, plain:uom, UOM, Graph ) ),
-          Width=xval(WidthValue,UOM)
+          ( rdf( WidthNode, aixm:uom, WidthUOM, Graph ); rdf( WidthNode, fixm:uom, WidthUOM, Graph ); rdf( WidthNode, plain:uom, WidthUOM, Graph ) ),
+          Width=xval(WidthValue,WidthUOM)
         );
         (
-          rdf( WidthNode,aixm:nilReason, NilReason, Graph ),
-          Width=nil(NilReason)
+          rdf( WidthNode,aixm:nilReason, WidthNilReason, Graph ),
+          Width=nil(WidthNilReason)
         );
         (
-          rdf( WidthNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Width=indeterminate(Indeterminate)
+          rdf( WidthNode,gml:indeterminatePosition, WidthIndeterminate, Graph ),
+          Width=indeterminate(WidthIndeterminate)
         )
       )
   ) .
@@ -1113,16 +1115,16 @@ fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandName, StandTime, Ter
         );
         (
           rdf( StandNameNode,rdf:value,StandNameValue,Graph ),
-          ( rdf( StandNameNode, aixm:uom, UOM, Graph ); rdf( StandNameNode, fixm:uom, UOM, Graph ); rdf( StandNameNode, plain:uom, UOM, Graph ) ),
-          StandName=xval(StandNameValue,UOM)
+          ( rdf( StandNameNode, aixm:uom, StandNameUOM, Graph ); rdf( StandNameNode, fixm:uom, StandNameUOM, Graph ); rdf( StandNameNode, plain:uom, StandNameUOM, Graph ) ),
+          StandName=xval(StandNameValue,StandNameUOM)
         );
         (
-          rdf( StandNameNode,aixm:nilReason, NilReason, Graph ),
-          StandName=nil(NilReason)
+          rdf( StandNameNode,aixm:nilReason, StandNameNilReason, Graph ),
+          StandName=nil(StandNameNilReason)
         );
         (
-          rdf( StandNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StandName=indeterminate(Indeterminate)
+          rdf( StandNameNode,gml:indeterminatePosition, StandNameIndeterminate, Graph ),
+          StandName=indeterminate(StandNameIndeterminate)
         )
       )
   )
@@ -1142,16 +1144,16 @@ fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandName, StandTime, Ter
         );
         (
           rdf( TerminalNameNode,rdf:value,TerminalNameValue,Graph ),
-          ( rdf( TerminalNameNode, aixm:uom, UOM, Graph ); rdf( TerminalNameNode, fixm:uom, UOM, Graph ); rdf( TerminalNameNode, plain:uom, UOM, Graph ) ),
-          TerminalName=xval(TerminalNameValue,UOM)
+          ( rdf( TerminalNameNode, aixm:uom, TerminalNameUOM, Graph ); rdf( TerminalNameNode, fixm:uom, TerminalNameUOM, Graph ); rdf( TerminalNameNode, plain:uom, TerminalNameUOM, Graph ) ),
+          TerminalName=xval(TerminalNameValue,TerminalNameUOM)
         );
         (
-          rdf( TerminalNameNode,aixm:nilReason, NilReason, Graph ),
-          TerminalName=nil(NilReason)
+          rdf( TerminalNameNode,aixm:nilReason, TerminalNameNilReason, Graph ),
+          TerminalName=nil(TerminalNameNilReason)
         );
         (
-          rdf( TerminalNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TerminalName=indeterminate(Indeterminate)
+          rdf( TerminalNameNode,gml:indeterminatePosition, TerminalNameIndeterminate, Graph ),
+          TerminalName=indeterminate(TerminalNameIndeterminate)
         )
       )
   ) .
@@ -1171,16 +1173,16 @@ fixm_RouteSegment(Graph, RouteSegment, Airway, RoutePoint) :-
         );
         (
           rdf( AirwayNode,rdf:value,AirwayValue,Graph ),
-          ( rdf( AirwayNode, aixm:uom, UOM, Graph ); rdf( AirwayNode, fixm:uom, UOM, Graph ); rdf( AirwayNode, plain:uom, UOM, Graph ) ),
-          Airway=xval(AirwayValue,UOM)
+          ( rdf( AirwayNode, aixm:uom, AirwayUOM, Graph ); rdf( AirwayNode, fixm:uom, AirwayUOM, Graph ); rdf( AirwayNode, plain:uom, AirwayUOM, Graph ) ),
+          Airway=xval(AirwayValue,AirwayUOM)
         );
         (
-          rdf( AirwayNode,aixm:nilReason, NilReason, Graph ),
-          Airway=nil(NilReason)
+          rdf( AirwayNode,aixm:nilReason, AirwayNilReason, Graph ),
+          Airway=nil(AirwayNilReason)
         );
         (
-          rdf( AirwayNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Airway=indeterminate(Indeterminate)
+          rdf( AirwayNode,gml:indeterminatePosition, AirwayIndeterminate, Graph ),
+          Airway=indeterminate(AirwayIndeterminate)
         )
       )
   )
@@ -1203,16 +1205,16 @@ aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, Flight, 
         );
         (
           rdf( LogicalOperatorNode,rdf:value,LogicalOperatorValue,Graph ),
-          ( rdf( LogicalOperatorNode, aixm:uom, UOM, Graph ); rdf( LogicalOperatorNode, fixm:uom, UOM, Graph ); rdf( LogicalOperatorNode, plain:uom, UOM, Graph ) ),
-          LogicalOperator=xval(LogicalOperatorValue,UOM)
+          ( rdf( LogicalOperatorNode, aixm:uom, LogicalOperatorUOM, Graph ); rdf( LogicalOperatorNode, fixm:uom, LogicalOperatorUOM, Graph ); rdf( LogicalOperatorNode, plain:uom, LogicalOperatorUOM, Graph ) ),
+          LogicalOperator=xval(LogicalOperatorValue,LogicalOperatorUOM)
         );
         (
-          rdf( LogicalOperatorNode,aixm:nilReason, NilReason, Graph ),
-          LogicalOperator=nil(NilReason)
+          rdf( LogicalOperatorNode,aixm:nilReason, LogicalOperatorNilReason, Graph ),
+          LogicalOperator=nil(LogicalOperatorNilReason)
         );
         (
-          rdf( LogicalOperatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LogicalOperator=indeterminate(Indeterminate)
+          rdf( LogicalOperatorNode,gml:indeterminatePosition, LogicalOperatorIndeterminate, Graph ),
+          LogicalOperator=indeterminate(LogicalOperatorIndeterminate)
         )
       )
   )
@@ -1236,16 +1238,16 @@ aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Typ
         );
         (
           rdf( LayerOrderNode,rdf:value,LayerOrderValue,Graph ),
-          ( rdf( LayerOrderNode, aixm:uom, UOM, Graph ); rdf( LayerOrderNode, fixm:uom, UOM, Graph ); rdf( LayerOrderNode, plain:uom, UOM, Graph ) ),
-          LayerOrder=xval(LayerOrderValue,UOM)
+          ( rdf( LayerOrderNode, aixm:uom, LayerOrderUOM, Graph ); rdf( LayerOrderNode, fixm:uom, LayerOrderUOM, Graph ); rdf( LayerOrderNode, plain:uom, LayerOrderUOM, Graph ) ),
+          LayerOrder=xval(LayerOrderValue,LayerOrderUOM)
         );
         (
-          rdf( LayerOrderNode,aixm:nilReason, NilReason, Graph ),
-          LayerOrder=nil(NilReason)
+          rdf( LayerOrderNode,aixm:nilReason, LayerOrderNilReason, Graph ),
+          LayerOrder=nil(LayerOrderNilReason)
         );
         (
-          rdf( LayerOrderNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LayerOrder=indeterminate(Indeterminate)
+          rdf( LayerOrderNode,gml:indeterminatePosition, LayerOrderIndeterminate, Graph ),
+          LayerOrder=indeterminate(LayerOrderIndeterminate)
         )
       )
   )
@@ -1262,16 +1264,16 @@ aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder, Typ
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -1293,16 +1295,16 @@ fixm_Organization(Graph, Organization, Name, OtherOrganization, Contact) :-
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -1319,16 +1321,16 @@ fixm_Organization(Graph, Organization, Name, OtherOrganization, Contact) :-
         );
         (
           rdf( OtherOrganizationNode,rdf:value,OtherOrganizationValue,Graph ),
-          ( rdf( OtherOrganizationNode, aixm:uom, UOM, Graph ); rdf( OtherOrganizationNode, fixm:uom, UOM, Graph ); rdf( OtherOrganizationNode, plain:uom, UOM, Graph ) ),
-          OtherOrganization=xval(OtherOrganizationValue,UOM)
+          ( rdf( OtherOrganizationNode, aixm:uom, OtherOrganizationUOM, Graph ); rdf( OtherOrganizationNode, fixm:uom, OtherOrganizationUOM, Graph ); rdf( OtherOrganizationNode, plain:uom, OtherOrganizationUOM, Graph ) ),
+          OtherOrganization=xval(OtherOrganizationValue,OtherOrganizationUOM)
         );
         (
-          rdf( OtherOrganizationNode,aixm:nilReason, NilReason, Graph ),
-          OtherOrganization=nil(NilReason)
+          rdf( OtherOrganizationNode,aixm:nilReason, OtherOrganizationNilReason, Graph ),
+          OtherOrganization=nil(OtherOrganizationNilReason)
         );
         (
-          rdf( OtherOrganizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherOrganization=indeterminate(Indeterminate)
+          rdf( OtherOrganizationNode,gml:indeterminatePosition, OtherOrganizationIndeterminate, Graph ),
+          OtherOrganization=indeterminate(OtherOrganizationIndeterminate)
         )
       )
   )
@@ -1351,16 +1353,16 @@ aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, T
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -1382,16 +1384,16 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         );
         (
           rdf( ElevationNode,rdf:value,ElevationValue,Graph ),
-          ( rdf( ElevationNode, aixm:uom, UOM, Graph ); rdf( ElevationNode, fixm:uom, UOM, Graph ); rdf( ElevationNode, plain:uom, UOM, Graph ) ),
-          Elevation=xval(ElevationValue,UOM)
+          ( rdf( ElevationNode, aixm:uom, ElevationUOM, Graph ); rdf( ElevationNode, fixm:uom, ElevationUOM, Graph ); rdf( ElevationNode, plain:uom, ElevationUOM, Graph ) ),
+          Elevation=xval(ElevationValue,ElevationUOM)
         );
         (
-          rdf( ElevationNode,aixm:nilReason, NilReason, Graph ),
-          Elevation=nil(NilReason)
+          rdf( ElevationNode,aixm:nilReason, ElevationNilReason, Graph ),
+          Elevation=nil(ElevationNilReason)
         );
         (
-          rdf( ElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Elevation=indeterminate(Indeterminate)
+          rdf( ElevationNode,gml:indeterminatePosition, ElevationIndeterminate, Graph ),
+          Elevation=indeterminate(ElevationIndeterminate)
         )
       )
   )
@@ -1408,16 +1410,16 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         );
         (
           rdf( GeoidUndulationNode,rdf:value,GeoidUndulationValue,Graph ),
-          ( rdf( GeoidUndulationNode, aixm:uom, UOM, Graph ); rdf( GeoidUndulationNode, fixm:uom, UOM, Graph ); rdf( GeoidUndulationNode, plain:uom, UOM, Graph ) ),
-          GeoidUndulation=xval(GeoidUndulationValue,UOM)
+          ( rdf( GeoidUndulationNode, aixm:uom, GeoidUndulationUOM, Graph ); rdf( GeoidUndulationNode, fixm:uom, GeoidUndulationUOM, Graph ); rdf( GeoidUndulationNode, plain:uom, GeoidUndulationUOM, Graph ) ),
+          GeoidUndulation=xval(GeoidUndulationValue,GeoidUndulationUOM)
         );
         (
-          rdf( GeoidUndulationNode,aixm:nilReason, NilReason, Graph ),
-          GeoidUndulation=nil(NilReason)
+          rdf( GeoidUndulationNode,aixm:nilReason, GeoidUndulationNilReason, Graph ),
+          GeoidUndulation=nil(GeoidUndulationNilReason)
         );
         (
-          rdf( GeoidUndulationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          GeoidUndulation=indeterminate(Indeterminate)
+          rdf( GeoidUndulationNode,gml:indeterminatePosition, GeoidUndulationIndeterminate, Graph ),
+          GeoidUndulation=indeterminate(GeoidUndulationIndeterminate)
         )
       )
   )
@@ -1434,16 +1436,16 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         );
         (
           rdf( VerticalDatumNode,rdf:value,VerticalDatumValue,Graph ),
-          ( rdf( VerticalDatumNode, aixm:uom, UOM, Graph ); rdf( VerticalDatumNode, fixm:uom, UOM, Graph ); rdf( VerticalDatumNode, plain:uom, UOM, Graph ) ),
-          VerticalDatum=xval(VerticalDatumValue,UOM)
+          ( rdf( VerticalDatumNode, aixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, fixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, plain:uom, VerticalDatumUOM, Graph ) ),
+          VerticalDatum=xval(VerticalDatumValue,VerticalDatumUOM)
         );
         (
-          rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
-          VerticalDatum=nil(NilReason)
+          rdf( VerticalDatumNode,aixm:nilReason, VerticalDatumNilReason, Graph ),
+          VerticalDatum=nil(VerticalDatumNilReason)
         );
         (
-          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalDatum=indeterminate(Indeterminate)
+          rdf( VerticalDatumNode,gml:indeterminatePosition, VerticalDatumIndeterminate, Graph ),
+          VerticalDatum=indeterminate(VerticalDatumIndeterminate)
         )
       )
   )
@@ -1460,16 +1462,16 @@ aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDat
         );
         (
           rdf( VerticalAccuracyNode,rdf:value,VerticalAccuracyValue,Graph ),
-          ( rdf( VerticalAccuracyNode, aixm:uom, UOM, Graph ); rdf( VerticalAccuracyNode, fixm:uom, UOM, Graph ); rdf( VerticalAccuracyNode, plain:uom, UOM, Graph ) ),
-          VerticalAccuracy=xval(VerticalAccuracyValue,UOM)
+          ( rdf( VerticalAccuracyNode, aixm:uom, VerticalAccuracyUOM, Graph ); rdf( VerticalAccuracyNode, fixm:uom, VerticalAccuracyUOM, Graph ); rdf( VerticalAccuracyNode, plain:uom, VerticalAccuracyUOM, Graph ) ),
+          VerticalAccuracy=xval(VerticalAccuracyValue,VerticalAccuracyUOM)
         );
         (
-          rdf( VerticalAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          VerticalAccuracy=nil(NilReason)
+          rdf( VerticalAccuracyNode,aixm:nilReason, VerticalAccuracyNilReason, Graph ),
+          VerticalAccuracy=nil(VerticalAccuracyNilReason)
         );
         (
-          rdf( VerticalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalAccuracy=indeterminate(Indeterminate)
+          rdf( VerticalAccuracyNode,gml:indeterminatePosition, VerticalAccuracyIndeterminate, Graph ),
+          VerticalAccuracy=indeterminate(VerticalAccuracyIndeterminate)
         )
       )
   ) .
@@ -1495,16 +1497,16 @@ fixm_AircraftOperator(Graph, AircraftOperator, OperatingOrganization, OperatorCa
         );
         (
           rdf( OperatingOrganizationNode,rdf:value,OperatingOrganizationValue,Graph ),
-          ( rdf( OperatingOrganizationNode, aixm:uom, UOM, Graph ); rdf( OperatingOrganizationNode, fixm:uom, UOM, Graph ); rdf( OperatingOrganizationNode, plain:uom, UOM, Graph ) ),
-          OperatingOrganization=xval(OperatingOrganizationValue,UOM)
+          ( rdf( OperatingOrganizationNode, aixm:uom, OperatingOrganizationUOM, Graph ); rdf( OperatingOrganizationNode, fixm:uom, OperatingOrganizationUOM, Graph ); rdf( OperatingOrganizationNode, plain:uom, OperatingOrganizationUOM, Graph ) ),
+          OperatingOrganization=xval(OperatingOrganizationValue,OperatingOrganizationUOM)
         );
         (
-          rdf( OperatingOrganizationNode,aixm:nilReason, NilReason, Graph ),
-          OperatingOrganization=nil(NilReason)
+          rdf( OperatingOrganizationNode,aixm:nilReason, OperatingOrganizationNilReason, Graph ),
+          OperatingOrganization=nil(OperatingOrganizationNilReason)
         );
         (
-          rdf( OperatingOrganizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OperatingOrganization=indeterminate(Indeterminate)
+          rdf( OperatingOrganizationNode,gml:indeterminatePosition, OperatingOrganizationIndeterminate, Graph ),
+          OperatingOrganization=indeterminate(OperatingOrganizationIndeterminate)
         )
       )
   )
@@ -1521,16 +1523,16 @@ fixm_AircraftOperator(Graph, AircraftOperator, OperatingOrganization, OperatorCa
         );
         (
           rdf( OperatorCategoryNode,rdf:value,OperatorCategoryValue,Graph ),
-          ( rdf( OperatorCategoryNode, aixm:uom, UOM, Graph ); rdf( OperatorCategoryNode, fixm:uom, UOM, Graph ); rdf( OperatorCategoryNode, plain:uom, UOM, Graph ) ),
-          OperatorCategory=xval(OperatorCategoryValue,UOM)
+          ( rdf( OperatorCategoryNode, aixm:uom, OperatorCategoryUOM, Graph ); rdf( OperatorCategoryNode, fixm:uom, OperatorCategoryUOM, Graph ); rdf( OperatorCategoryNode, plain:uom, OperatorCategoryUOM, Graph ) ),
+          OperatorCategory=xval(OperatorCategoryValue,OperatorCategoryUOM)
         );
         (
-          rdf( OperatorCategoryNode,aixm:nilReason, NilReason, Graph ),
-          OperatorCategory=nil(NilReason)
+          rdf( OperatorCategoryNode,aixm:nilReason, OperatorCategoryNilReason, Graph ),
+          OperatorCategory=nil(OperatorCategoryNilReason)
         );
         (
-          rdf( OperatorCategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OperatorCategory=indeterminate(Indeterminate)
+          rdf( OperatorCategoryNode,gml:indeterminatePosition, OperatorCategoryIndeterminate, Graph ),
+          OperatorCategory=indeterminate(OperatorCategoryIndeterminate)
         )
       )
   ) .
@@ -1561,16 +1563,16 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         );
         (
           rdf( CurrentBeaconCodeNode,rdf:value,CurrentBeaconCodeValue,Graph ),
-          ( rdf( CurrentBeaconCodeNode, aixm:uom, UOM, Graph ); rdf( CurrentBeaconCodeNode, fixm:uom, UOM, Graph ); rdf( CurrentBeaconCodeNode, plain:uom, UOM, Graph ) ),
-          CurrentBeaconCode=xval(CurrentBeaconCodeValue,UOM)
+          ( rdf( CurrentBeaconCodeNode, aixm:uom, CurrentBeaconCodeUOM, Graph ); rdf( CurrentBeaconCodeNode, fixm:uom, CurrentBeaconCodeUOM, Graph ); rdf( CurrentBeaconCodeNode, plain:uom, CurrentBeaconCodeUOM, Graph ) ),
+          CurrentBeaconCode=xval(CurrentBeaconCodeValue,CurrentBeaconCodeUOM)
         );
         (
-          rdf( CurrentBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
-          CurrentBeaconCode=nil(NilReason)
+          rdf( CurrentBeaconCodeNode,aixm:nilReason, CurrentBeaconCodeNilReason, Graph ),
+          CurrentBeaconCode=nil(CurrentBeaconCodeNilReason)
         );
         (
-          rdf( CurrentBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CurrentBeaconCode=indeterminate(Indeterminate)
+          rdf( CurrentBeaconCodeNode,gml:indeterminatePosition, CurrentBeaconCodeIndeterminate, Graph ),
+          CurrentBeaconCode=indeterminate(CurrentBeaconCodeIndeterminate)
         )
       )
   )
@@ -1587,16 +1589,16 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         );
         (
           rdf( PreviousBeaconCodeNode,rdf:value,PreviousBeaconCodeValue,Graph ),
-          ( rdf( PreviousBeaconCodeNode, aixm:uom, UOM, Graph ); rdf( PreviousBeaconCodeNode, fixm:uom, UOM, Graph ); rdf( PreviousBeaconCodeNode, plain:uom, UOM, Graph ) ),
-          PreviousBeaconCode=xval(PreviousBeaconCodeValue,UOM)
+          ( rdf( PreviousBeaconCodeNode, aixm:uom, PreviousBeaconCodeUOM, Graph ); rdf( PreviousBeaconCodeNode, fixm:uom, PreviousBeaconCodeUOM, Graph ); rdf( PreviousBeaconCodeNode, plain:uom, PreviousBeaconCodeUOM, Graph ) ),
+          PreviousBeaconCode=xval(PreviousBeaconCodeValue,PreviousBeaconCodeUOM)
         );
         (
-          rdf( PreviousBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
-          PreviousBeaconCode=nil(NilReason)
+          rdf( PreviousBeaconCodeNode,aixm:nilReason, PreviousBeaconCodeNilReason, Graph ),
+          PreviousBeaconCode=nil(PreviousBeaconCodeNilReason)
         );
         (
-          rdf( PreviousBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PreviousBeaconCode=indeterminate(Indeterminate)
+          rdf( PreviousBeaconCodeNode,gml:indeterminatePosition, PreviousBeaconCodeIndeterminate, Graph ),
+          PreviousBeaconCode=indeterminate(PreviousBeaconCodeIndeterminate)
         )
       )
   )
@@ -1613,16 +1615,16 @@ fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCode, Previo
         );
         (
           rdf( ReassignedBeaconCodeNode,rdf:value,ReassignedBeaconCodeValue,Graph ),
-          ( rdf( ReassignedBeaconCodeNode, aixm:uom, UOM, Graph ); rdf( ReassignedBeaconCodeNode, fixm:uom, UOM, Graph ); rdf( ReassignedBeaconCodeNode, plain:uom, UOM, Graph ) ),
-          ReassignedBeaconCode=xval(ReassignedBeaconCodeValue,UOM)
+          ( rdf( ReassignedBeaconCodeNode, aixm:uom, ReassignedBeaconCodeUOM, Graph ); rdf( ReassignedBeaconCodeNode, fixm:uom, ReassignedBeaconCodeUOM, Graph ); rdf( ReassignedBeaconCodeNode, plain:uom, ReassignedBeaconCodeUOM, Graph ) ),
+          ReassignedBeaconCode=xval(ReassignedBeaconCodeValue,ReassignedBeaconCodeUOM)
         );
         (
-          rdf( ReassignedBeaconCodeNode,aixm:nilReason, NilReason, Graph ),
-          ReassignedBeaconCode=nil(NilReason)
+          rdf( ReassignedBeaconCodeNode,aixm:nilReason, ReassignedBeaconCodeNilReason, Graph ),
+          ReassignedBeaconCode=nil(ReassignedBeaconCodeNilReason)
         );
         (
-          rdf( ReassignedBeaconCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReassignedBeaconCode=indeterminate(Indeterminate)
+          rdf( ReassignedBeaconCodeNode,gml:indeterminatePosition, ReassignedBeaconCodeIndeterminate, Graph ),
+          ReassignedBeaconCode=indeterminate(ReassignedBeaconCodeIndeterminate)
         )
       )
   )
@@ -1654,16 +1656,16 @@ fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintT
         );
         (
           rdf( ConstraintTypeNode,rdf:value,ConstraintTypeValue,Graph ),
-          ( rdf( ConstraintTypeNode, aixm:uom, UOM, Graph ); rdf( ConstraintTypeNode, fixm:uom, UOM, Graph ); rdf( ConstraintTypeNode, plain:uom, UOM, Graph ) ),
-          ConstraintType=xval(ConstraintTypeValue,UOM)
+          ( rdf( ConstraintTypeNode, aixm:uom, ConstraintTypeUOM, Graph ); rdf( ConstraintTypeNode, fixm:uom, ConstraintTypeUOM, Graph ); rdf( ConstraintTypeNode, plain:uom, ConstraintTypeUOM, Graph ) ),
+          ConstraintType=xval(ConstraintTypeValue,ConstraintTypeUOM)
         );
         (
-          rdf( ConstraintTypeNode,aixm:nilReason, NilReason, Graph ),
-          ConstraintType=nil(NilReason)
+          rdf( ConstraintTypeNode,aixm:nilReason, ConstraintTypeNilReason, Graph ),
+          ConstraintType=nil(ConstraintTypeNilReason)
         );
         (
-          rdf( ConstraintTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ConstraintType=indeterminate(Indeterminate)
+          rdf( ConstraintTypeNode,gml:indeterminatePosition, ConstraintTypeIndeterminate, Graph ),
+          ConstraintType=indeterminate(ConstraintTypeIndeterminate)
         )
       )
   ) .
@@ -1683,16 +1685,16 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         );
         (
           rdf( ComplianceNode,rdf:value,ComplianceValue,Graph ),
-          ( rdf( ComplianceNode, aixm:uom, UOM, Graph ); rdf( ComplianceNode, fixm:uom, UOM, Graph ); rdf( ComplianceNode, plain:uom, UOM, Graph ) ),
-          Compliance=xval(ComplianceValue,UOM)
+          ( rdf( ComplianceNode, aixm:uom, ComplianceUOM, Graph ); rdf( ComplianceNode, fixm:uom, ComplianceUOM, Graph ); rdf( ComplianceNode, plain:uom, ComplianceUOM, Graph ) ),
+          Compliance=xval(ComplianceValue,ComplianceUOM)
         );
         (
-          rdf( ComplianceNode,aixm:nilReason, NilReason, Graph ),
-          Compliance=nil(NilReason)
+          rdf( ComplianceNode,aixm:nilReason, ComplianceNilReason, Graph ),
+          Compliance=nil(ComplianceNilReason)
         );
         (
-          rdf( ComplianceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Compliance=indeterminate(Indeterminate)
+          rdf( ComplianceNode,gml:indeterminatePosition, ComplianceIndeterminate, Graph ),
+          Compliance=indeterminate(ComplianceIndeterminate)
         )
       )
   )
@@ -1709,16 +1711,16 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         );
         (
           rdf( ConsignorNode,rdf:value,ConsignorValue,Graph ),
-          ( rdf( ConsignorNode, aixm:uom, UOM, Graph ); rdf( ConsignorNode, fixm:uom, UOM, Graph ); rdf( ConsignorNode, plain:uom, UOM, Graph ) ),
-          Consignor=xval(ConsignorValue,UOM)
+          ( rdf( ConsignorNode, aixm:uom, ConsignorUOM, Graph ); rdf( ConsignorNode, fixm:uom, ConsignorUOM, Graph ); rdf( ConsignorNode, plain:uom, ConsignorUOM, Graph ) ),
+          Consignor=xval(ConsignorValue,ConsignorUOM)
         );
         (
-          rdf( ConsignorNode,aixm:nilReason, NilReason, Graph ),
-          Consignor=nil(NilReason)
+          rdf( ConsignorNode,aixm:nilReason, ConsignorNilReason, Graph ),
+          Consignor=nil(ConsignorNilReason)
         );
         (
-          rdf( ConsignorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Consignor=indeterminate(Indeterminate)
+          rdf( ConsignorNode,gml:indeterminatePosition, ConsignorIndeterminate, Graph ),
+          Consignor=indeterminate(ConsignorIndeterminate)
         )
       )
   )
@@ -1735,16 +1737,16 @@ fixm_DeclarationText(Graph, DeclarationText, Compliance, Consignor, Shipper) :-
         );
         (
           rdf( ShipperNode,rdf:value,ShipperValue,Graph ),
-          ( rdf( ShipperNode, aixm:uom, UOM, Graph ); rdf( ShipperNode, fixm:uom, UOM, Graph ); rdf( ShipperNode, plain:uom, UOM, Graph ) ),
-          Shipper=xval(ShipperValue,UOM)
+          ( rdf( ShipperNode, aixm:uom, ShipperUOM, Graph ); rdf( ShipperNode, fixm:uom, ShipperUOM, Graph ); rdf( ShipperNode, plain:uom, ShipperUOM, Graph ) ),
+          Shipper=xval(ShipperValue,ShipperUOM)
         );
         (
-          rdf( ShipperNode,aixm:nilReason, NilReason, Graph ),
-          Shipper=nil(NilReason)
+          rdf( ShipperNode,aixm:nilReason, ShipperNilReason, Graph ),
+          Shipper=nil(ShipperNilReason)
         );
         (
-          rdf( ShipperNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Shipper=indeterminate(Indeterminate)
+          rdf( ShipperNode,gml:indeterminatePosition, ShipperIndeterminate, Graph ),
+          Shipper=indeterminate(ShipperIndeterminate)
         )
       )
   ) .
@@ -1764,16 +1766,16 @@ fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTime, Location) :-
         );
         (
           rdf( ElapsedTimeNode,rdf:value,ElapsedTimeValue,Graph ),
-          ( rdf( ElapsedTimeNode, aixm:uom, UOM, Graph ); rdf( ElapsedTimeNode, fixm:uom, UOM, Graph ); rdf( ElapsedTimeNode, plain:uom, UOM, Graph ) ),
-          ElapsedTime=xval(ElapsedTimeValue,UOM)
+          ( rdf( ElapsedTimeNode, aixm:uom, ElapsedTimeUOM, Graph ); rdf( ElapsedTimeNode, fixm:uom, ElapsedTimeUOM, Graph ); rdf( ElapsedTimeNode, plain:uom, ElapsedTimeUOM, Graph ) ),
+          ElapsedTime=xval(ElapsedTimeValue,ElapsedTimeUOM)
         );
         (
-          rdf( ElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
-          ElapsedTime=nil(NilReason)
+          rdf( ElapsedTimeNode,aixm:nilReason, ElapsedTimeNilReason, Graph ),
+          ElapsedTime=nil(ElapsedTimeNilReason)
         );
         (
-          rdf( ElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ElapsedTime=indeterminate(Indeterminate)
+          rdf( ElapsedTimeNode,gml:indeterminatePosition, ElapsedTimeIndeterminate, Graph ),
+          ElapsedTime=indeterminate(ElapsedTimeIndeterminate)
         )
       )
   )
@@ -1790,16 +1792,16 @@ fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTime, Location) :-
         );
         (
           rdf( LocationNode,rdf:value,LocationValue,Graph ),
-          ( rdf( LocationNode, aixm:uom, UOM, Graph ); rdf( LocationNode, fixm:uom, UOM, Graph ); rdf( LocationNode, plain:uom, UOM, Graph ) ),
-          Location=xval(LocationValue,UOM)
+          ( rdf( LocationNode, aixm:uom, LocationUOM, Graph ); rdf( LocationNode, fixm:uom, LocationUOM, Graph ); rdf( LocationNode, plain:uom, LocationUOM, Graph ) ),
+          Location=xval(LocationValue,LocationUOM)
         );
         (
-          rdf( LocationNode,aixm:nilReason, NilReason, Graph ),
-          Location=nil(NilReason)
+          rdf( LocationNode,aixm:nilReason, LocationNilReason, Graph ),
+          Location=nil(LocationNilReason)
         );
         (
-          rdf( LocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Location=indeterminate(Indeterminate)
+          rdf( LocationNode,gml:indeterminatePosition, LocationIndeterminate, Graph ),
+          Location=indeterminate(LocationIndeterminate)
         )
       )
   ) .
@@ -1822,16 +1824,16 @@ fixm_ReportedTime(Graph, ReportedTime, Provenance, Time) :-
         );
         (
           rdf( TimeNode,rdf:value,TimeValue,Graph ),
-          ( rdf( TimeNode, aixm:uom, UOM, Graph ); rdf( TimeNode, fixm:uom, UOM, Graph ); rdf( TimeNode, plain:uom, UOM, Graph ) ),
-          Time=xval(TimeValue,UOM)
+          ( rdf( TimeNode, aixm:uom, TimeUOM, Graph ); rdf( TimeNode, fixm:uom, TimeUOM, Graph ); rdf( TimeNode, plain:uom, TimeUOM, Graph ) ),
+          Time=xval(TimeValue,TimeUOM)
         );
         (
-          rdf( TimeNode,aixm:nilReason, NilReason, Graph ),
-          Time=nil(NilReason)
+          rdf( TimeNode,aixm:nilReason, TimeNilReason, Graph ),
+          Time=nil(TimeNilReason)
         );
         (
-          rdf( TimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Time=indeterminate(Indeterminate)
+          rdf( TimeNode,gml:indeterminatePosition, TimeIndeterminate, Graph ),
+          Time=indeterminate(TimeIndeterminate)
         )
       )
   ) .
@@ -1853,16 +1855,16 @@ fixm_GeographicLocation(Graph, GeographicLocation, Pos, SrsName) :-
         );
         (
           rdf( SrsNameNode,rdf:value,SrsNameValue,Graph ),
-          ( rdf( SrsNameNode, aixm:uom, UOM, Graph ); rdf( SrsNameNode, fixm:uom, UOM, Graph ); rdf( SrsNameNode, plain:uom, UOM, Graph ) ),
-          SrsName=xval(SrsNameValue,UOM)
+          ( rdf( SrsNameNode, aixm:uom, SrsNameUOM, Graph ); rdf( SrsNameNode, fixm:uom, SrsNameUOM, Graph ); rdf( SrsNameNode, plain:uom, SrsNameUOM, Graph ) ),
+          SrsName=xval(SrsNameValue,SrsNameUOM)
         );
         (
-          rdf( SrsNameNode,aixm:nilReason, NilReason, Graph ),
-          SrsName=nil(NilReason)
+          rdf( SrsNameNode,aixm:nilReason, SrsNameNilReason, Graph ),
+          SrsName=nil(SrsNameNilReason)
         );
         (
-          rdf( SrsNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SrsName=indeterminate(Indeterminate)
+          rdf( SrsNameNode,gml:indeterminatePosition, SrsNameIndeterminate, Graph ),
+          SrsName=indeterminate(SrsNameIndeterminate)
         )
       )
   ) .
@@ -1882,16 +1884,16 @@ aixm_LinguisticNote(Graph, LinguisticNote, Note) :-
         );
         (
           rdf( NoteNode,rdf:value,NoteValue,Graph ),
-          ( rdf( NoteNode, aixm:uom, UOM, Graph ); rdf( NoteNode, fixm:uom, UOM, Graph ); rdf( NoteNode, plain:uom, UOM, Graph ) ),
-          Note=xval(NoteValue,UOM)
+          ( rdf( NoteNode, aixm:uom, NoteUOM, Graph ); rdf( NoteNode, fixm:uom, NoteUOM, Graph ); rdf( NoteNode, plain:uom, NoteUOM, Graph ) ),
+          Note=xval(NoteValue,NoteUOM)
         );
         (
-          rdf( NoteNode,aixm:nilReason, NilReason, Graph ),
-          Note=nil(NilReason)
+          rdf( NoteNode,aixm:nilReason, NoteNilReason, Graph ),
+          Note=nil(NoteNilReason)
         );
         (
-          rdf( NoteNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Note=indeterminate(Indeterminate)
+          rdf( NoteNode,gml:indeterminatePosition, NoteIndeterminate, Graph ),
+          Note=indeterminate(NoteIndeterminate)
         )
       )
   ) .
@@ -1911,16 +1913,16 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         );
         (
           rdf( FlightConditionsNode,rdf:value,FlightConditionsValue,Graph ),
-          ( rdf( FlightConditionsNode, aixm:uom, UOM, Graph ); rdf( FlightConditionsNode, fixm:uom, UOM, Graph ); rdf( FlightConditionsNode, plain:uom, UOM, Graph ) ),
-          FlightConditions=xval(FlightConditionsValue,UOM)
+          ( rdf( FlightConditionsNode, aixm:uom, FlightConditionsUOM, Graph ); rdf( FlightConditionsNode, fixm:uom, FlightConditionsUOM, Graph ); rdf( FlightConditionsNode, plain:uom, FlightConditionsUOM, Graph ) ),
+          FlightConditions=xval(FlightConditionsValue,FlightConditionsUOM)
         );
         (
-          rdf( FlightConditionsNode,aixm:nilReason, NilReason, Graph ),
-          FlightConditions=nil(NilReason)
+          rdf( FlightConditionsNode,aixm:nilReason, FlightConditionsNilReason, Graph ),
+          FlightConditions=nil(FlightConditionsNilReason)
         );
         (
-          rdf( FlightConditionsNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightConditions=indeterminate(Indeterminate)
+          rdf( FlightConditionsNode,gml:indeterminatePosition, FlightConditionsIndeterminate, Graph ),
+          FlightConditions=indeterminate(FlightConditionsIndeterminate)
         )
       )
   )
@@ -1937,16 +1939,16 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         );
         (
           rdf( VisibilityNode,rdf:value,VisibilityValue,Graph ),
-          ( rdf( VisibilityNode, aixm:uom, UOM, Graph ); rdf( VisibilityNode, fixm:uom, UOM, Graph ); rdf( VisibilityNode, plain:uom, UOM, Graph ) ),
-          Visibility=xval(VisibilityValue,UOM)
+          ( rdf( VisibilityNode, aixm:uom, VisibilityUOM, Graph ); rdf( VisibilityNode, fixm:uom, VisibilityUOM, Graph ); rdf( VisibilityNode, plain:uom, VisibilityUOM, Graph ) ),
+          Visibility=xval(VisibilityValue,VisibilityUOM)
         );
         (
-          rdf( VisibilityNode,aixm:nilReason, NilReason, Graph ),
-          Visibility=nil(NilReason)
+          rdf( VisibilityNode,aixm:nilReason, VisibilityNilReason, Graph ),
+          Visibility=nil(VisibilityNilReason)
         );
         (
-          rdf( VisibilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Visibility=indeterminate(Indeterminate)
+          rdf( VisibilityNode,gml:indeterminatePosition, VisibilityIndeterminate, Graph ),
+          Visibility=indeterminate(VisibilityIndeterminate)
         )
       )
   )
@@ -1963,16 +1965,16 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         );
         (
           rdf( VisibilityInterpretationNode,rdf:value,VisibilityInterpretationValue,Graph ),
-          ( rdf( VisibilityInterpretationNode, aixm:uom, UOM, Graph ); rdf( VisibilityInterpretationNode, fixm:uom, UOM, Graph ); rdf( VisibilityInterpretationNode, plain:uom, UOM, Graph ) ),
-          VisibilityInterpretation=xval(VisibilityInterpretationValue,UOM)
+          ( rdf( VisibilityInterpretationNode, aixm:uom, VisibilityInterpretationUOM, Graph ); rdf( VisibilityInterpretationNode, fixm:uom, VisibilityInterpretationUOM, Graph ); rdf( VisibilityInterpretationNode, plain:uom, VisibilityInterpretationUOM, Graph ) ),
+          VisibilityInterpretation=xval(VisibilityInterpretationValue,VisibilityInterpretationUOM)
         );
         (
-          rdf( VisibilityInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          VisibilityInterpretation=nil(NilReason)
+          rdf( VisibilityInterpretationNode,aixm:nilReason, VisibilityInterpretationNilReason, Graph ),
+          VisibilityInterpretation=nil(VisibilityInterpretationNilReason)
         );
         (
-          rdf( VisibilityInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VisibilityInterpretation=indeterminate(Indeterminate)
+          rdf( VisibilityInterpretationNode,gml:indeterminatePosition, VisibilityInterpretationIndeterminate, Graph ),
+          VisibilityInterpretation=indeterminate(VisibilityInterpretationIndeterminate)
         )
       )
   )
@@ -1989,16 +1991,16 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         );
         (
           rdf( RunwayVisualRangeNode,rdf:value,RunwayVisualRangeValue,Graph ),
-          ( rdf( RunwayVisualRangeNode, aixm:uom, UOM, Graph ); rdf( RunwayVisualRangeNode, fixm:uom, UOM, Graph ); rdf( RunwayVisualRangeNode, plain:uom, UOM, Graph ) ),
-          RunwayVisualRange=xval(RunwayVisualRangeValue,UOM)
+          ( rdf( RunwayVisualRangeNode, aixm:uom, RunwayVisualRangeUOM, Graph ); rdf( RunwayVisualRangeNode, fixm:uom, RunwayVisualRangeUOM, Graph ); rdf( RunwayVisualRangeNode, plain:uom, RunwayVisualRangeUOM, Graph ) ),
+          RunwayVisualRange=xval(RunwayVisualRangeValue,RunwayVisualRangeUOM)
         );
         (
-          rdf( RunwayVisualRangeNode,aixm:nilReason, NilReason, Graph ),
-          RunwayVisualRange=nil(NilReason)
+          rdf( RunwayVisualRangeNode,aixm:nilReason, RunwayVisualRangeNilReason, Graph ),
+          RunwayVisualRange=nil(RunwayVisualRangeNilReason)
         );
         (
-          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RunwayVisualRange=indeterminate(Indeterminate)
+          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, RunwayVisualRangeIndeterminate, Graph ),
+          RunwayVisualRange=indeterminate(RunwayVisualRangeIndeterminate)
         )
       )
   )
@@ -2015,16 +2017,16 @@ aixm_Meteorology(Graph, Meteorology, FlightConditions, Visibility, VisibilityInt
         );
         (
           rdf( RunwayVisualRangeInterpretationNode,rdf:value,RunwayVisualRangeInterpretationValue,Graph ),
-          ( rdf( RunwayVisualRangeInterpretationNode, aixm:uom, UOM, Graph ); rdf( RunwayVisualRangeInterpretationNode, fixm:uom, UOM, Graph ); rdf( RunwayVisualRangeInterpretationNode, plain:uom, UOM, Graph ) ),
-          RunwayVisualRangeInterpretation=xval(RunwayVisualRangeInterpretationValue,UOM)
+          ( rdf( RunwayVisualRangeInterpretationNode, aixm:uom, RunwayVisualRangeInterpretationUOM, Graph ); rdf( RunwayVisualRangeInterpretationNode, fixm:uom, RunwayVisualRangeInterpretationUOM, Graph ); rdf( RunwayVisualRangeInterpretationNode, plain:uom, RunwayVisualRangeInterpretationUOM, Graph ) ),
+          RunwayVisualRangeInterpretation=xval(RunwayVisualRangeInterpretationValue,RunwayVisualRangeInterpretationUOM)
         );
         (
-          rdf( RunwayVisualRangeInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          RunwayVisualRangeInterpretation=nil(NilReason)
+          rdf( RunwayVisualRangeInterpretationNode,aixm:nilReason, RunwayVisualRangeInterpretationNilReason, Graph ),
+          RunwayVisualRangeInterpretation=nil(RunwayVisualRangeInterpretationNilReason)
         );
         (
-          rdf( RunwayVisualRangeInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RunwayVisualRangeInterpretation=indeterminate(Indeterminate)
+          rdf( RunwayVisualRangeInterpretationNode,gml:indeterminatePosition, RunwayVisualRangeInterpretationIndeterminate, Graph ),
+          RunwayVisualRangeInterpretation=indeterminate(RunwayVisualRangeInterpretationIndeterminate)
         )
       )
   )
@@ -2057,16 +2059,16 @@ aixm_City(Graph, City, Name, Annotation) :-
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -2087,16 +2089,16 @@ aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibil
         );
         (
           rdf( RoleNode,rdf:value,RoleValue,Graph ),
-          ( rdf( RoleNode, aixm:uom, UOM, Graph ); rdf( RoleNode, fixm:uom, UOM, Graph ); rdf( RoleNode, plain:uom, UOM, Graph ) ),
-          Role=xval(RoleValue,UOM)
+          ( rdf( RoleNode, aixm:uom, RoleUOM, Graph ); rdf( RoleNode, fixm:uom, RoleUOM, Graph ); rdf( RoleNode, plain:uom, RoleUOM, Graph ) ),
+          Role=xval(RoleValue,RoleUOM)
         );
         (
-          rdf( RoleNode,aixm:nilReason, NilReason, Graph ),
-          Role=nil(NilReason)
+          rdf( RoleNode,aixm:nilReason, RoleNilReason, Graph ),
+          Role=nil(RoleNilReason)
         );
         (
-          rdf( RoleNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Role=indeterminate(Indeterminate)
+          rdf( RoleNode,gml:indeterminatePosition, RoleIndeterminate, Graph ),
+          Role=indeterminate(RoleIndeterminate)
         )
       )
   )
@@ -2117,16 +2119,16 @@ fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeed, UpperSpeed) :-
         );
         (
           rdf( LowerSpeedNode,rdf:value,LowerSpeedValue,Graph ),
-          ( rdf( LowerSpeedNode, aixm:uom, UOM, Graph ); rdf( LowerSpeedNode, fixm:uom, UOM, Graph ); rdf( LowerSpeedNode, plain:uom, UOM, Graph ) ),
-          LowerSpeed=xval(LowerSpeedValue,UOM)
+          ( rdf( LowerSpeedNode, aixm:uom, LowerSpeedUOM, Graph ); rdf( LowerSpeedNode, fixm:uom, LowerSpeedUOM, Graph ); rdf( LowerSpeedNode, plain:uom, LowerSpeedUOM, Graph ) ),
+          LowerSpeed=xval(LowerSpeedValue,LowerSpeedUOM)
         );
         (
-          rdf( LowerSpeedNode,aixm:nilReason, NilReason, Graph ),
-          LowerSpeed=nil(NilReason)
+          rdf( LowerSpeedNode,aixm:nilReason, LowerSpeedNilReason, Graph ),
+          LowerSpeed=nil(LowerSpeedNilReason)
         );
         (
-          rdf( LowerSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LowerSpeed=indeterminate(Indeterminate)
+          rdf( LowerSpeedNode,gml:indeterminatePosition, LowerSpeedIndeterminate, Graph ),
+          LowerSpeed=indeterminate(LowerSpeedIndeterminate)
         )
       )
   )
@@ -2143,16 +2145,16 @@ fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeed, UpperSpeed) :-
         );
         (
           rdf( UpperSpeedNode,rdf:value,UpperSpeedValue,Graph ),
-          ( rdf( UpperSpeedNode, aixm:uom, UOM, Graph ); rdf( UpperSpeedNode, fixm:uom, UOM, Graph ); rdf( UpperSpeedNode, plain:uom, UOM, Graph ) ),
-          UpperSpeed=xval(UpperSpeedValue,UOM)
+          ( rdf( UpperSpeedNode, aixm:uom, UpperSpeedUOM, Graph ); rdf( UpperSpeedNode, fixm:uom, UpperSpeedUOM, Graph ); rdf( UpperSpeedNode, plain:uom, UpperSpeedUOM, Graph ) ),
+          UpperSpeed=xval(UpperSpeedValue,UpperSpeedUOM)
         );
         (
-          rdf( UpperSpeedNode,aixm:nilReason, NilReason, Graph ),
-          UpperSpeed=nil(NilReason)
+          rdf( UpperSpeedNode,aixm:nilReason, UpperSpeedNilReason, Graph ),
+          UpperSpeed=nil(UpperSpeedNilReason)
         );
         (
-          rdf( UpperSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UpperSpeed=indeterminate(Indeterminate)
+          rdf( UpperSpeedNode,gml:indeterminatePosition, UpperSpeedIndeterminate, Graph ),
+          UpperSpeed=indeterminate(UpperSpeedIndeterminate)
         )
       )
   ) .
@@ -2172,16 +2174,16 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         );
         (
           rdf( IdentifierNode,rdf:value,IdentifierValue,Graph ),
-          ( rdf( IdentifierNode, aixm:uom, UOM, Graph ); rdf( IdentifierNode, fixm:uom, UOM, Graph ); rdf( IdentifierNode, plain:uom, UOM, Graph ) ),
-          Identifier=xval(IdentifierValue,UOM)
+          ( rdf( IdentifierNode, aixm:uom, IdentifierUOM, Graph ); rdf( IdentifierNode, fixm:uom, IdentifierUOM, Graph ); rdf( IdentifierNode, plain:uom, IdentifierUOM, Graph ) ),
+          Identifier=xval(IdentifierValue,IdentifierUOM)
         );
         (
-          rdf( IdentifierNode,aixm:nilReason, NilReason, Graph ),
-          Identifier=nil(NilReason)
+          rdf( IdentifierNode,aixm:nilReason, IdentifierNilReason, Graph ),
+          Identifier=nil(IdentifierNilReason)
         );
         (
-          rdf( IdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Identifier=indeterminate(Indeterminate)
+          rdf( IdentifierNode,gml:indeterminatePosition, IdentifierIndeterminate, Graph ),
+          Identifier=indeterminate(IdentifierIndeterminate)
         )
       )
   )
@@ -2198,16 +2200,16 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         );
         (
           rdf( MaximumAcceptableDelayNode,rdf:value,MaximumAcceptableDelayValue,Graph ),
-          ( rdf( MaximumAcceptableDelayNode, aixm:uom, UOM, Graph ); rdf( MaximumAcceptableDelayNode, fixm:uom, UOM, Graph ); rdf( MaximumAcceptableDelayNode, plain:uom, UOM, Graph ) ),
-          MaximumAcceptableDelay=xval(MaximumAcceptableDelayValue,UOM)
+          ( rdf( MaximumAcceptableDelayNode, aixm:uom, MaximumAcceptableDelayUOM, Graph ); rdf( MaximumAcceptableDelayNode, fixm:uom, MaximumAcceptableDelayUOM, Graph ); rdf( MaximumAcceptableDelayNode, plain:uom, MaximumAcceptableDelayUOM, Graph ) ),
+          MaximumAcceptableDelay=xval(MaximumAcceptableDelayValue,MaximumAcceptableDelayUOM)
         );
         (
-          rdf( MaximumAcceptableDelayNode,aixm:nilReason, NilReason, Graph ),
-          MaximumAcceptableDelay=nil(NilReason)
+          rdf( MaximumAcceptableDelayNode,aixm:nilReason, MaximumAcceptableDelayNilReason, Graph ),
+          MaximumAcceptableDelay=nil(MaximumAcceptableDelayNilReason)
         );
         (
-          rdf( MaximumAcceptableDelayNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MaximumAcceptableDelay=indeterminate(Indeterminate)
+          rdf( MaximumAcceptableDelayNode,gml:indeterminatePosition, MaximumAcceptableDelayIndeterminate, Graph ),
+          MaximumAcceptableDelay=indeterminate(MaximumAcceptableDelayIndeterminate)
         )
       )
   )
@@ -2224,16 +2226,16 @@ fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier, MaximumAcceptableDela
         );
         (
           rdf( AssignedIndicatorNode,rdf:value,AssignedIndicatorValue,Graph ),
-          ( rdf( AssignedIndicatorNode, aixm:uom, UOM, Graph ); rdf( AssignedIndicatorNode, fixm:uom, UOM, Graph ); rdf( AssignedIndicatorNode, plain:uom, UOM, Graph ) ),
-          AssignedIndicator=xval(AssignedIndicatorValue,UOM)
+          ( rdf( AssignedIndicatorNode, aixm:uom, AssignedIndicatorUOM, Graph ); rdf( AssignedIndicatorNode, fixm:uom, AssignedIndicatorUOM, Graph ); rdf( AssignedIndicatorNode, plain:uom, AssignedIndicatorUOM, Graph ) ),
+          AssignedIndicator=xval(AssignedIndicatorValue,AssignedIndicatorUOM)
         );
         (
-          rdf( AssignedIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          AssignedIndicator=nil(NilReason)
+          rdf( AssignedIndicatorNode,aixm:nilReason, AssignedIndicatorNilReason, Graph ),
+          AssignedIndicator=nil(AssignedIndicatorNilReason)
         );
         (
-          rdf( AssignedIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AssignedIndicator=indeterminate(Indeterminate)
+          rdf( AssignedIndicatorNode,gml:indeterminatePosition, AssignedIndicatorIndeterminate, Graph ),
+          AssignedIndicator=indeterminate(AssignedIndicatorIndeterminate)
         )
       )
   )
@@ -2256,16 +2258,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( BottomOfClimbNode,rdf:value,BottomOfClimbValue,Graph ),
-          ( rdf( BottomOfClimbNode, aixm:uom, UOM, Graph ); rdf( BottomOfClimbNode, fixm:uom, UOM, Graph ); rdf( BottomOfClimbNode, plain:uom, UOM, Graph ) ),
-          BottomOfClimb=xval(BottomOfClimbValue,UOM)
+          ( rdf( BottomOfClimbNode, aixm:uom, BottomOfClimbUOM, Graph ); rdf( BottomOfClimbNode, fixm:uom, BottomOfClimbUOM, Graph ); rdf( BottomOfClimbNode, plain:uom, BottomOfClimbUOM, Graph ) ),
+          BottomOfClimb=xval(BottomOfClimbValue,BottomOfClimbUOM)
         );
         (
-          rdf( BottomOfClimbNode,aixm:nilReason, NilReason, Graph ),
-          BottomOfClimb=nil(NilReason)
+          rdf( BottomOfClimbNode,aixm:nilReason, BottomOfClimbNilReason, Graph ),
+          BottomOfClimb=nil(BottomOfClimbNilReason)
         );
         (
-          rdf( BottomOfClimbNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          BottomOfClimb=indeterminate(Indeterminate)
+          rdf( BottomOfClimbNode,gml:indeterminatePosition, BottomOfClimbIndeterminate, Graph ),
+          BottomOfClimb=indeterminate(BottomOfClimbIndeterminate)
         )
       )
   )
@@ -2282,16 +2284,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( BottomOfDescentNode,rdf:value,BottomOfDescentValue,Graph ),
-          ( rdf( BottomOfDescentNode, aixm:uom, UOM, Graph ); rdf( BottomOfDescentNode, fixm:uom, UOM, Graph ); rdf( BottomOfDescentNode, plain:uom, UOM, Graph ) ),
-          BottomOfDescent=xval(BottomOfDescentValue,UOM)
+          ( rdf( BottomOfDescentNode, aixm:uom, BottomOfDescentUOM, Graph ); rdf( BottomOfDescentNode, fixm:uom, BottomOfDescentUOM, Graph ); rdf( BottomOfDescentNode, plain:uom, BottomOfDescentUOM, Graph ) ),
+          BottomOfDescent=xval(BottomOfDescentValue,BottomOfDescentUOM)
         );
         (
-          rdf( BottomOfDescentNode,aixm:nilReason, NilReason, Graph ),
-          BottomOfDescent=nil(NilReason)
+          rdf( BottomOfDescentNode,aixm:nilReason, BottomOfDescentNilReason, Graph ),
+          BottomOfDescent=nil(BottomOfDescentNilReason)
         );
         (
-          rdf( BottomOfDescentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          BottomOfDescent=indeterminate(Indeterminate)
+          rdf( BottomOfDescentNode,gml:indeterminatePosition, BottomOfDescentIndeterminate, Graph ),
+          BottomOfDescent=indeterminate(BottomOfDescentIndeterminate)
         )
       )
   )
@@ -2308,16 +2310,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( BoundaryPointNode,rdf:value,BoundaryPointValue,Graph ),
-          ( rdf( BoundaryPointNode, aixm:uom, UOM, Graph ); rdf( BoundaryPointNode, fixm:uom, UOM, Graph ); rdf( BoundaryPointNode, plain:uom, UOM, Graph ) ),
-          BoundaryPoint=xval(BoundaryPointValue,UOM)
+          ( rdf( BoundaryPointNode, aixm:uom, BoundaryPointUOM, Graph ); rdf( BoundaryPointNode, fixm:uom, BoundaryPointUOM, Graph ); rdf( BoundaryPointNode, plain:uom, BoundaryPointUOM, Graph ) ),
+          BoundaryPoint=xval(BoundaryPointValue,BoundaryPointUOM)
         );
         (
-          rdf( BoundaryPointNode,aixm:nilReason, NilReason, Graph ),
-          BoundaryPoint=nil(NilReason)
+          rdf( BoundaryPointNode,aixm:nilReason, BoundaryPointNilReason, Graph ),
+          BoundaryPoint=nil(BoundaryPointNilReason)
         );
         (
-          rdf( BoundaryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          BoundaryPoint=indeterminate(Indeterminate)
+          rdf( BoundaryPointNode,gml:indeterminatePosition, BoundaryPointIndeterminate, Graph ),
+          BoundaryPoint=indeterminate(BoundaryPointIndeterminate)
         )
       )
   )
@@ -2334,16 +2336,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( FromGATToOATNode,rdf:value,FromGATToOATValue,Graph ),
-          ( rdf( FromGATToOATNode, aixm:uom, UOM, Graph ); rdf( FromGATToOATNode, fixm:uom, UOM, Graph ); rdf( FromGATToOATNode, plain:uom, UOM, Graph ) ),
-          FromGATToOAT=xval(FromGATToOATValue,UOM)
+          ( rdf( FromGATToOATNode, aixm:uom, FromGATToOATUOM, Graph ); rdf( FromGATToOATNode, fixm:uom, FromGATToOATUOM, Graph ); rdf( FromGATToOATNode, plain:uom, FromGATToOATUOM, Graph ) ),
+          FromGATToOAT=xval(FromGATToOATValue,FromGATToOATUOM)
         );
         (
-          rdf( FromGATToOATNode,aixm:nilReason, NilReason, Graph ),
-          FromGATToOAT=nil(NilReason)
+          rdf( FromGATToOATNode,aixm:nilReason, FromGATToOATNilReason, Graph ),
+          FromGATToOAT=nil(FromGATToOATNilReason)
         );
         (
-          rdf( FromGATToOATNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FromGATToOAT=indeterminate(Indeterminate)
+          rdf( FromGATToOATNode,gml:indeterminatePosition, FromGATToOATIndeterminate, Graph ),
+          FromGATToOAT=indeterminate(FromGATToOATIndeterminate)
         )
       )
   )
@@ -2360,16 +2362,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( FromIFRToVFRNode,rdf:value,FromIFRToVFRValue,Graph ),
-          ( rdf( FromIFRToVFRNode, aixm:uom, UOM, Graph ); rdf( FromIFRToVFRNode, fixm:uom, UOM, Graph ); rdf( FromIFRToVFRNode, plain:uom, UOM, Graph ) ),
-          FromIFRToVFR=xval(FromIFRToVFRValue,UOM)
+          ( rdf( FromIFRToVFRNode, aixm:uom, FromIFRToVFRUOM, Graph ); rdf( FromIFRToVFRNode, fixm:uom, FromIFRToVFRUOM, Graph ); rdf( FromIFRToVFRNode, plain:uom, FromIFRToVFRUOM, Graph ) ),
+          FromIFRToVFR=xval(FromIFRToVFRValue,FromIFRToVFRUOM)
         );
         (
-          rdf( FromIFRToVFRNode,aixm:nilReason, NilReason, Graph ),
-          FromIFRToVFR=nil(NilReason)
+          rdf( FromIFRToVFRNode,aixm:nilReason, FromIFRToVFRNilReason, Graph ),
+          FromIFRToVFR=nil(FromIFRToVFRNilReason)
         );
         (
-          rdf( FromIFRToVFRNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FromIFRToVFR=indeterminate(Indeterminate)
+          rdf( FromIFRToVFRNode,gml:indeterminatePosition, FromIFRToVFRIndeterminate, Graph ),
+          FromIFRToVFR=indeterminate(FromIFRToVFRIndeterminate)
         )
       )
   )
@@ -2386,16 +2388,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( FromOATToGatNode,rdf:value,FromOATToGatValue,Graph ),
-          ( rdf( FromOATToGatNode, aixm:uom, UOM, Graph ); rdf( FromOATToGatNode, fixm:uom, UOM, Graph ); rdf( FromOATToGatNode, plain:uom, UOM, Graph ) ),
-          FromOATToGat=xval(FromOATToGatValue,UOM)
+          ( rdf( FromOATToGatNode, aixm:uom, FromOATToGatUOM, Graph ); rdf( FromOATToGatNode, fixm:uom, FromOATToGatUOM, Graph ); rdf( FromOATToGatNode, plain:uom, FromOATToGatUOM, Graph ) ),
+          FromOATToGat=xval(FromOATToGatValue,FromOATToGatUOM)
         );
         (
-          rdf( FromOATToGatNode,aixm:nilReason, NilReason, Graph ),
-          FromOATToGat=nil(NilReason)
+          rdf( FromOATToGatNode,aixm:nilReason, FromOATToGatNilReason, Graph ),
+          FromOATToGat=nil(FromOATToGatNilReason)
         );
         (
-          rdf( FromOATToGatNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FromOATToGat=indeterminate(Indeterminate)
+          rdf( FromOATToGatNode,gml:indeterminatePosition, FromOATToGatIndeterminate, Graph ),
+          FromOATToGat=indeterminate(FromOATToGatIndeterminate)
         )
       )
   )
@@ -2412,16 +2414,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( FromVFRToIFRNode,rdf:value,FromVFRToIFRValue,Graph ),
-          ( rdf( FromVFRToIFRNode, aixm:uom, UOM, Graph ); rdf( FromVFRToIFRNode, fixm:uom, UOM, Graph ); rdf( FromVFRToIFRNode, plain:uom, UOM, Graph ) ),
-          FromVFRToIFR=xval(FromVFRToIFRValue,UOM)
+          ( rdf( FromVFRToIFRNode, aixm:uom, FromVFRToIFRUOM, Graph ); rdf( FromVFRToIFRNode, fixm:uom, FromVFRToIFRUOM, Graph ); rdf( FromVFRToIFRNode, plain:uom, FromVFRToIFRUOM, Graph ) ),
+          FromVFRToIFR=xval(FromVFRToIFRValue,FromVFRToIFRUOM)
         );
         (
-          rdf( FromVFRToIFRNode,aixm:nilReason, NilReason, Graph ),
-          FromVFRToIFR=nil(NilReason)
+          rdf( FromVFRToIFRNode,aixm:nilReason, FromVFRToIFRNilReason, Graph ),
+          FromVFRToIFR=nil(FromVFRToIFRNilReason)
         );
         (
-          rdf( FromVFRToIFRNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FromVFRToIFR=indeterminate(Indeterminate)
+          rdf( FromVFRToIFRNode,gml:indeterminatePosition, FromVFRToIFRIndeterminate, Graph ),
+          FromVFRToIFR=indeterminate(FromVFRToIFRIndeterminate)
         )
       )
   )
@@ -2438,16 +2440,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( TopOfClimbNode,rdf:value,TopOfClimbValue,Graph ),
-          ( rdf( TopOfClimbNode, aixm:uom, UOM, Graph ); rdf( TopOfClimbNode, fixm:uom, UOM, Graph ); rdf( TopOfClimbNode, plain:uom, UOM, Graph ) ),
-          TopOfClimb=xval(TopOfClimbValue,UOM)
+          ( rdf( TopOfClimbNode, aixm:uom, TopOfClimbUOM, Graph ); rdf( TopOfClimbNode, fixm:uom, TopOfClimbUOM, Graph ); rdf( TopOfClimbNode, plain:uom, TopOfClimbUOM, Graph ) ),
+          TopOfClimb=xval(TopOfClimbValue,TopOfClimbUOM)
         );
         (
-          rdf( TopOfClimbNode,aixm:nilReason, NilReason, Graph ),
-          TopOfClimb=nil(NilReason)
+          rdf( TopOfClimbNode,aixm:nilReason, TopOfClimbNilReason, Graph ),
+          TopOfClimb=nil(TopOfClimbNilReason)
         );
         (
-          rdf( TopOfClimbNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TopOfClimb=indeterminate(Indeterminate)
+          rdf( TopOfClimbNode,gml:indeterminatePosition, TopOfClimbIndeterminate, Graph ),
+          TopOfClimb=indeterminate(TopOfClimbIndeterminate)
         )
       )
   )
@@ -2464,16 +2466,16 @@ fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimb, BottomOfDesc
         );
         (
           rdf( TopOfDescentNode,rdf:value,TopOfDescentValue,Graph ),
-          ( rdf( TopOfDescentNode, aixm:uom, UOM, Graph ); rdf( TopOfDescentNode, fixm:uom, UOM, Graph ); rdf( TopOfDescentNode, plain:uom, UOM, Graph ) ),
-          TopOfDescent=xval(TopOfDescentValue,UOM)
+          ( rdf( TopOfDescentNode, aixm:uom, TopOfDescentUOM, Graph ); rdf( TopOfDescentNode, fixm:uom, TopOfDescentUOM, Graph ); rdf( TopOfDescentNode, plain:uom, TopOfDescentUOM, Graph ) ),
+          TopOfDescent=xval(TopOfDescentValue,TopOfDescentUOM)
         );
         (
-          rdf( TopOfDescentNode,aixm:nilReason, NilReason, Graph ),
-          TopOfDescent=nil(NilReason)
+          rdf( TopOfDescentNode,aixm:nilReason, TopOfDescentNilReason, Graph ),
+          TopOfDescent=nil(TopOfDescentNilReason)
         );
         (
-          rdf( TopOfDescentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TopOfDescent=indeterminate(Indeterminate)
+          rdf( TopOfDescentNode,gml:indeterminatePosition, TopOfDescentIndeterminate, Graph ),
+          TopOfDescent=indeterminate(TopOfDescentIndeterminate)
         )
       )
   ) .
@@ -2493,16 +2495,16 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         );
         (
           rdf( OtherCommunicationCapabilitiesNode,rdf:value,OtherCommunicationCapabilitiesValue,Graph ),
-          ( rdf( OtherCommunicationCapabilitiesNode, aixm:uom, UOM, Graph ); rdf( OtherCommunicationCapabilitiesNode, fixm:uom, UOM, Graph ); rdf( OtherCommunicationCapabilitiesNode, plain:uom, UOM, Graph ) ),
-          OtherCommunicationCapabilities=xval(OtherCommunicationCapabilitiesValue,UOM)
+          ( rdf( OtherCommunicationCapabilitiesNode, aixm:uom, OtherCommunicationCapabilitiesUOM, Graph ); rdf( OtherCommunicationCapabilitiesNode, fixm:uom, OtherCommunicationCapabilitiesUOM, Graph ); rdf( OtherCommunicationCapabilitiesNode, plain:uom, OtherCommunicationCapabilitiesUOM, Graph ) ),
+          OtherCommunicationCapabilities=xval(OtherCommunicationCapabilitiesValue,OtherCommunicationCapabilitiesUOM)
         );
         (
-          rdf( OtherCommunicationCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
-          OtherCommunicationCapabilities=nil(NilReason)
+          rdf( OtherCommunicationCapabilitiesNode,aixm:nilReason, OtherCommunicationCapabilitiesNilReason, Graph ),
+          OtherCommunicationCapabilities=nil(OtherCommunicationCapabilitiesNilReason)
         );
         (
-          rdf( OtherCommunicationCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherCommunicationCapabilities=indeterminate(Indeterminate)
+          rdf( OtherCommunicationCapabilitiesNode,gml:indeterminatePosition, OtherCommunicationCapabilitiesIndeterminate, Graph ),
+          OtherCommunicationCapabilities=indeterminate(OtherCommunicationCapabilitiesIndeterminate)
         )
       )
   )
@@ -2519,16 +2521,16 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         );
         (
           rdf( OtherDataLinkCapabilitiesNode,rdf:value,OtherDataLinkCapabilitiesValue,Graph ),
-          ( rdf( OtherDataLinkCapabilitiesNode, aixm:uom, UOM, Graph ); rdf( OtherDataLinkCapabilitiesNode, fixm:uom, UOM, Graph ); rdf( OtherDataLinkCapabilitiesNode, plain:uom, UOM, Graph ) ),
-          OtherDataLinkCapabilities=xval(OtherDataLinkCapabilitiesValue,UOM)
+          ( rdf( OtherDataLinkCapabilitiesNode, aixm:uom, OtherDataLinkCapabilitiesUOM, Graph ); rdf( OtherDataLinkCapabilitiesNode, fixm:uom, OtherDataLinkCapabilitiesUOM, Graph ); rdf( OtherDataLinkCapabilitiesNode, plain:uom, OtherDataLinkCapabilitiesUOM, Graph ) ),
+          OtherDataLinkCapabilities=xval(OtherDataLinkCapabilitiesValue,OtherDataLinkCapabilitiesUOM)
         );
         (
-          rdf( OtherDataLinkCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
-          OtherDataLinkCapabilities=nil(NilReason)
+          rdf( OtherDataLinkCapabilitiesNode,aixm:nilReason, OtherDataLinkCapabilitiesNilReason, Graph ),
+          OtherDataLinkCapabilities=nil(OtherDataLinkCapabilitiesNilReason)
         );
         (
-          rdf( OtherDataLinkCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherDataLinkCapabilities=indeterminate(Indeterminate)
+          rdf( OtherDataLinkCapabilitiesNode,gml:indeterminatePosition, OtherDataLinkCapabilitiesIndeterminate, Graph ),
+          OtherDataLinkCapabilities=indeterminate(OtherDataLinkCapabilitiesIndeterminate)
         )
       )
   )
@@ -2546,16 +2548,16 @@ fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicat
         );
         (
           rdf( SelectiveCallingCodeNode,rdf:value,SelectiveCallingCodeValue,Graph ),
-          ( rdf( SelectiveCallingCodeNode, aixm:uom, UOM, Graph ); rdf( SelectiveCallingCodeNode, fixm:uom, UOM, Graph ); rdf( SelectiveCallingCodeNode, plain:uom, UOM, Graph ) ),
-          SelectiveCallingCode=xval(SelectiveCallingCodeValue,UOM)
+          ( rdf( SelectiveCallingCodeNode, aixm:uom, SelectiveCallingCodeUOM, Graph ); rdf( SelectiveCallingCodeNode, fixm:uom, SelectiveCallingCodeUOM, Graph ); rdf( SelectiveCallingCodeNode, plain:uom, SelectiveCallingCodeUOM, Graph ) ),
+          SelectiveCallingCode=xval(SelectiveCallingCodeValue,SelectiveCallingCodeUOM)
         );
         (
-          rdf( SelectiveCallingCodeNode,aixm:nilReason, NilReason, Graph ),
-          SelectiveCallingCode=nil(NilReason)
+          rdf( SelectiveCallingCodeNode,aixm:nilReason, SelectiveCallingCodeNilReason, Graph ),
+          SelectiveCallingCode=nil(SelectiveCallingCodeNilReason)
         );
         (
-          rdf( SelectiveCallingCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SelectiveCallingCode=indeterminate(Indeterminate)
+          rdf( SelectiveCallingCodeNode,gml:indeterminatePosition, SelectiveCallingCodeIndeterminate, Graph ),
+          SelectiveCallingCode=indeterminate(SelectiveCallingCodeIndeterminate)
         )
       )
   )
@@ -2576,16 +2578,16 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         );
         (
           rdf( QuantityNode,rdf:value,QuantityValue,Graph ),
-          ( rdf( QuantityNode, aixm:uom, UOM, Graph ); rdf( QuantityNode, fixm:uom, UOM, Graph ); rdf( QuantityNode, plain:uom, UOM, Graph ) ),
-          Quantity=xval(QuantityValue,UOM)
+          ( rdf( QuantityNode, aixm:uom, QuantityUOM, Graph ); rdf( QuantityNode, fixm:uom, QuantityUOM, Graph ); rdf( QuantityNode, plain:uom, QuantityUOM, Graph ) ),
+          Quantity=xval(QuantityValue,QuantityUOM)
         );
         (
-          rdf( QuantityNode,aixm:nilReason, NilReason, Graph ),
-          Quantity=nil(NilReason)
+          rdf( QuantityNode,aixm:nilReason, QuantityNilReason, Graph ),
+          Quantity=nil(QuantityNilReason)
         );
         (
-          rdf( QuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Quantity=indeterminate(Indeterminate)
+          rdf( QuantityNode,gml:indeterminatePosition, QuantityIndeterminate, Graph ),
+          Quantity=indeterminate(QuantityIndeterminate)
         )
       )
   )
@@ -2602,16 +2604,16 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         );
         (
           rdf( TotalCapacityNode,rdf:value,TotalCapacityValue,Graph ),
-          ( rdf( TotalCapacityNode, aixm:uom, UOM, Graph ); rdf( TotalCapacityNode, fixm:uom, UOM, Graph ); rdf( TotalCapacityNode, plain:uom, UOM, Graph ) ),
-          TotalCapacity=xval(TotalCapacityValue,UOM)
+          ( rdf( TotalCapacityNode, aixm:uom, TotalCapacityUOM, Graph ); rdf( TotalCapacityNode, fixm:uom, TotalCapacityUOM, Graph ); rdf( TotalCapacityNode, plain:uom, TotalCapacityUOM, Graph ) ),
+          TotalCapacity=xval(TotalCapacityValue,TotalCapacityUOM)
         );
         (
-          rdf( TotalCapacityNode,aixm:nilReason, NilReason, Graph ),
-          TotalCapacity=nil(NilReason)
+          rdf( TotalCapacityNode,aixm:nilReason, TotalCapacityNilReason, Graph ),
+          TotalCapacity=nil(TotalCapacityNilReason)
         );
         (
-          rdf( TotalCapacityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TotalCapacity=indeterminate(Indeterminate)
+          rdf( TotalCapacityNode,gml:indeterminatePosition, TotalCapacityIndeterminate, Graph ),
+          TotalCapacity=indeterminate(TotalCapacityIndeterminate)
         )
       )
   )
@@ -2628,16 +2630,16 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         );
         (
           rdf( CoveredNode,rdf:value,CoveredValue,Graph ),
-          ( rdf( CoveredNode, aixm:uom, UOM, Graph ); rdf( CoveredNode, fixm:uom, UOM, Graph ); rdf( CoveredNode, plain:uom, UOM, Graph ) ),
-          Covered=xval(CoveredValue,UOM)
+          ( rdf( CoveredNode, aixm:uom, CoveredUOM, Graph ); rdf( CoveredNode, fixm:uom, CoveredUOM, Graph ); rdf( CoveredNode, plain:uom, CoveredUOM, Graph ) ),
+          Covered=xval(CoveredValue,CoveredUOM)
         );
         (
-          rdf( CoveredNode,aixm:nilReason, NilReason, Graph ),
-          Covered=nil(NilReason)
+          rdf( CoveredNode,aixm:nilReason, CoveredNilReason, Graph ),
+          Covered=nil(CoveredNilReason)
         );
         (
-          rdf( CoveredNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Covered=indeterminate(Indeterminate)
+          rdf( CoveredNode,gml:indeterminatePosition, CoveredIndeterminate, Graph ),
+          Covered=indeterminate(CoveredIndeterminate)
         )
       )
   )
@@ -2654,16 +2656,16 @@ fixm_Dinghy(Graph, Dinghy, Quantity, TotalCapacity, Covered, Colour) :-
         );
         (
           rdf( ColourNode,rdf:value,ColourValue,Graph ),
-          ( rdf( ColourNode, aixm:uom, UOM, Graph ); rdf( ColourNode, fixm:uom, UOM, Graph ); rdf( ColourNode, plain:uom, UOM, Graph ) ),
-          Colour=xval(ColourValue,UOM)
+          ( rdf( ColourNode, aixm:uom, ColourUOM, Graph ); rdf( ColourNode, fixm:uom, ColourUOM, Graph ); rdf( ColourNode, plain:uom, ColourUOM, Graph ) ),
+          Colour=xval(ColourValue,ColourUOM)
         );
         (
-          rdf( ColourNode,aixm:nilReason, NilReason, Graph ),
-          Colour=nil(NilReason)
+          rdf( ColourNode,aixm:nilReason, ColourNilReason, Graph ),
+          Colour=nil(ColourNilReason)
         );
         (
-          rdf( ColourNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Colour=indeterminate(Indeterminate)
+          rdf( ColourNode,gml:indeterminatePosition, ColourIndeterminate, Graph ),
+          Colour=indeterminate(ColourIndeterminate)
         )
       )
   ) .
@@ -2683,16 +2685,16 @@ aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, Netw
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -2709,16 +2711,16 @@ aixm_ContactInformation(Graph, ContactInformation, Name, Title, Annotation, Netw
         );
         (
           rdf( TitleNode,rdf:value,TitleValue,Graph ),
-          ( rdf( TitleNode, aixm:uom, UOM, Graph ); rdf( TitleNode, fixm:uom, UOM, Graph ); rdf( TitleNode, plain:uom, UOM, Graph ) ),
-          Title=xval(TitleValue,UOM)
+          ( rdf( TitleNode, aixm:uom, TitleUOM, Graph ); rdf( TitleNode, fixm:uom, TitleUOM, Graph ); rdf( TitleNode, plain:uom, TitleUOM, Graph ) ),
+          Title=xval(TitleValue,TitleUOM)
         );
         (
-          rdf( TitleNode,aixm:nilReason, NilReason, Graph ),
-          Title=nil(NilReason)
+          rdf( TitleNode,aixm:nilReason, TitleNilReason, Graph ),
+          Title=nil(TitleNilReason)
         );
         (
-          rdf( TitleNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Title=indeterminate(Indeterminate)
+          rdf( TitleNode,gml:indeterminatePosition, TitleIndeterminate, Graph ),
+          Title=indeterminate(TitleIndeterminate)
         )
       )
   )
@@ -2745,16 +2747,16 @@ fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position, Positio
         );
         (
           rdf( PositionAltitudeNode,rdf:value,PositionAltitudeValue,Graph ),
-          ( rdf( PositionAltitudeNode, aixm:uom, UOM, Graph ); rdf( PositionAltitudeNode, fixm:uom, UOM, Graph ); rdf( PositionAltitudeNode, plain:uom, UOM, Graph ) ),
-          PositionAltitude=xval(PositionAltitudeValue,UOM)
+          ( rdf( PositionAltitudeNode, aixm:uom, PositionAltitudeUOM, Graph ); rdf( PositionAltitudeNode, fixm:uom, PositionAltitudeUOM, Graph ); rdf( PositionAltitudeNode, plain:uom, PositionAltitudeUOM, Graph ) ),
+          PositionAltitude=xval(PositionAltitudeValue,PositionAltitudeUOM)
         );
         (
-          rdf( PositionAltitudeNode,aixm:nilReason, NilReason, Graph ),
-          PositionAltitude=nil(NilReason)
+          rdf( PositionAltitudeNode,aixm:nilReason, PositionAltitudeNilReason, Graph ),
+          PositionAltitude=nil(PositionAltitudeNilReason)
         );
         (
-          rdf( PositionAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PositionAltitude=indeterminate(Indeterminate)
+          rdf( PositionAltitudeNode,gml:indeterminatePosition, PositionAltitudeIndeterminate, Graph ),
+          PositionAltitude=indeterminate(PositionAltitudeIndeterminate)
         )
       )
   )
@@ -2771,16 +2773,16 @@ fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position, Positio
         );
         (
           rdf( PositionEstimatedTimeNode,rdf:value,PositionEstimatedTimeValue,Graph ),
-          ( rdf( PositionEstimatedTimeNode, aixm:uom, UOM, Graph ); rdf( PositionEstimatedTimeNode, fixm:uom, UOM, Graph ); rdf( PositionEstimatedTimeNode, plain:uom, UOM, Graph ) ),
-          PositionEstimatedTime=xval(PositionEstimatedTimeValue,UOM)
+          ( rdf( PositionEstimatedTimeNode, aixm:uom, PositionEstimatedTimeUOM, Graph ); rdf( PositionEstimatedTimeNode, fixm:uom, PositionEstimatedTimeUOM, Graph ); rdf( PositionEstimatedTimeNode, plain:uom, PositionEstimatedTimeUOM, Graph ) ),
+          PositionEstimatedTime=xval(PositionEstimatedTimeValue,PositionEstimatedTimeUOM)
         );
         (
-          rdf( PositionEstimatedTimeNode,aixm:nilReason, NilReason, Graph ),
-          PositionEstimatedTime=nil(NilReason)
+          rdf( PositionEstimatedTimeNode,aixm:nilReason, PositionEstimatedTimeNilReason, Graph ),
+          PositionEstimatedTime=nil(PositionEstimatedTimeNilReason)
         );
         (
-          rdf( PositionEstimatedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PositionEstimatedTime=indeterminate(Indeterminate)
+          rdf( PositionEstimatedTimeNode,gml:indeterminatePosition, PositionEstimatedTimeIndeterminate, Graph ),
+          PositionEstimatedTime=indeterminate(PositionEstimatedTimeIndeterminate)
         )
       )
   ) .
@@ -2803,16 +2805,16 @@ fixm_SupplementalData(Graph, SupplementalData, FuelEndurance, PersonsOnBoard, Pi
         );
         (
           rdf( FuelEnduranceNode,rdf:value,FuelEnduranceValue,Graph ),
-          ( rdf( FuelEnduranceNode, aixm:uom, UOM, Graph ); rdf( FuelEnduranceNode, fixm:uom, UOM, Graph ); rdf( FuelEnduranceNode, plain:uom, UOM, Graph ) ),
-          FuelEndurance=xval(FuelEnduranceValue,UOM)
+          ( rdf( FuelEnduranceNode, aixm:uom, FuelEnduranceUOM, Graph ); rdf( FuelEnduranceNode, fixm:uom, FuelEnduranceUOM, Graph ); rdf( FuelEnduranceNode, plain:uom, FuelEnduranceUOM, Graph ) ),
+          FuelEndurance=xval(FuelEnduranceValue,FuelEnduranceUOM)
         );
         (
-          rdf( FuelEnduranceNode,aixm:nilReason, NilReason, Graph ),
-          FuelEndurance=nil(NilReason)
+          rdf( FuelEnduranceNode,aixm:nilReason, FuelEnduranceNilReason, Graph ),
+          FuelEndurance=nil(FuelEnduranceNilReason)
         );
         (
-          rdf( FuelEnduranceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FuelEndurance=indeterminate(Indeterminate)
+          rdf( FuelEnduranceNode,gml:indeterminatePosition, FuelEnduranceIndeterminate, Graph ),
+          FuelEndurance=indeterminate(FuelEnduranceIndeterminate)
         )
       )
   )
@@ -2829,16 +2831,16 @@ fixm_SupplementalData(Graph, SupplementalData, FuelEndurance, PersonsOnBoard, Pi
         );
         (
           rdf( PersonsOnBoardNode,rdf:value,PersonsOnBoardValue,Graph ),
-          ( rdf( PersonsOnBoardNode, aixm:uom, UOM, Graph ); rdf( PersonsOnBoardNode, fixm:uom, UOM, Graph ); rdf( PersonsOnBoardNode, plain:uom, UOM, Graph ) ),
-          PersonsOnBoard=xval(PersonsOnBoardValue,UOM)
+          ( rdf( PersonsOnBoardNode, aixm:uom, PersonsOnBoardUOM, Graph ); rdf( PersonsOnBoardNode, fixm:uom, PersonsOnBoardUOM, Graph ); rdf( PersonsOnBoardNode, plain:uom, PersonsOnBoardUOM, Graph ) ),
+          PersonsOnBoard=xval(PersonsOnBoardValue,PersonsOnBoardUOM)
         );
         (
-          rdf( PersonsOnBoardNode,aixm:nilReason, NilReason, Graph ),
-          PersonsOnBoard=nil(NilReason)
+          rdf( PersonsOnBoardNode,aixm:nilReason, PersonsOnBoardNilReason, Graph ),
+          PersonsOnBoard=nil(PersonsOnBoardNilReason)
         );
         (
-          rdf( PersonsOnBoardNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PersonsOnBoard=indeterminate(Indeterminate)
+          rdf( PersonsOnBoardNode,gml:indeterminatePosition, PersonsOnBoardIndeterminate, Graph ),
+          PersonsOnBoard=indeterminate(PersonsOnBoardIndeterminate)
         )
       )
   )
@@ -2861,16 +2863,16 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         );
         (
           rdf( GuidebookNumberNode,rdf:value,GuidebookNumberValue,Graph ),
-          ( rdf( GuidebookNumberNode, aixm:uom, UOM, Graph ); rdf( GuidebookNumberNode, fixm:uom, UOM, Graph ); rdf( GuidebookNumberNode, plain:uom, UOM, Graph ) ),
-          GuidebookNumber=xval(GuidebookNumberValue,UOM)
+          ( rdf( GuidebookNumberNode, aixm:uom, GuidebookNumberUOM, Graph ); rdf( GuidebookNumberNode, fixm:uom, GuidebookNumberUOM, Graph ); rdf( GuidebookNumberNode, plain:uom, GuidebookNumberUOM, Graph ) ),
+          GuidebookNumber=xval(GuidebookNumberValue,GuidebookNumberUOM)
         );
         (
-          rdf( GuidebookNumberNode,aixm:nilReason, NilReason, Graph ),
-          GuidebookNumber=nil(NilReason)
+          rdf( GuidebookNumberNode,aixm:nilReason, GuidebookNumberNilReason, Graph ),
+          GuidebookNumber=nil(GuidebookNumberNilReason)
         );
         (
-          rdf( GuidebookNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          GuidebookNumber=indeterminate(Indeterminate)
+          rdf( GuidebookNumberNode,gml:indeterminatePosition, GuidebookNumberIndeterminate, Graph ),
+          GuidebookNumber=indeterminate(GuidebookNumberIndeterminate)
         )
       )
   )
@@ -2887,16 +2889,16 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         );
         (
           rdf( OnboardLocationNode,rdf:value,OnboardLocationValue,Graph ),
-          ( rdf( OnboardLocationNode, aixm:uom, UOM, Graph ); rdf( OnboardLocationNode, fixm:uom, UOM, Graph ); rdf( OnboardLocationNode, plain:uom, UOM, Graph ) ),
-          OnboardLocation=xval(OnboardLocationValue,UOM)
+          ( rdf( OnboardLocationNode, aixm:uom, OnboardLocationUOM, Graph ); rdf( OnboardLocationNode, fixm:uom, OnboardLocationUOM, Graph ); rdf( OnboardLocationNode, plain:uom, OnboardLocationUOM, Graph ) ),
+          OnboardLocation=xval(OnboardLocationValue,OnboardLocationUOM)
         );
         (
-          rdf( OnboardLocationNode,aixm:nilReason, NilReason, Graph ),
-          OnboardLocation=nil(NilReason)
+          rdf( OnboardLocationNode,aixm:nilReason, OnboardLocationNilReason, Graph ),
+          OnboardLocation=nil(OnboardLocationNilReason)
         );
         (
-          rdf( OnboardLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OnboardLocation=indeterminate(Indeterminate)
+          rdf( OnboardLocationNode,gml:indeterminatePosition, OnboardLocationIndeterminate, Graph ),
+          OnboardLocation=indeterminate(OnboardLocationIndeterminate)
         )
       )
   )
@@ -2916,16 +2918,16 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         );
         (
           rdf( AircraftLimitationNode,rdf:value,AircraftLimitationValue,Graph ),
-          ( rdf( AircraftLimitationNode, aixm:uom, UOM, Graph ); rdf( AircraftLimitationNode, fixm:uom, UOM, Graph ); rdf( AircraftLimitationNode, plain:uom, UOM, Graph ) ),
-          AircraftLimitation=xval(AircraftLimitationValue,UOM)
+          ( rdf( AircraftLimitationNode, aixm:uom, AircraftLimitationUOM, Graph ); rdf( AircraftLimitationNode, fixm:uom, AircraftLimitationUOM, Graph ); rdf( AircraftLimitationNode, plain:uom, AircraftLimitationUOM, Graph ) ),
+          AircraftLimitation=xval(AircraftLimitationValue,AircraftLimitationUOM)
         );
         (
-          rdf( AircraftLimitationNode,aixm:nilReason, NilReason, Graph ),
-          AircraftLimitation=nil(NilReason)
+          rdf( AircraftLimitationNode,aixm:nilReason, AircraftLimitationNilReason, Graph ),
+          AircraftLimitation=nil(AircraftLimitationNilReason)
         );
         (
-          rdf( AircraftLimitationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftLimitation=indeterminate(Indeterminate)
+          rdf( AircraftLimitationNode,gml:indeterminatePosition, AircraftLimitationIndeterminate, Graph ),
+          AircraftLimitation=indeterminate(AircraftLimitationIndeterminate)
         )
       )
   )
@@ -2942,16 +2944,16 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         );
         (
           rdf( AirWayBillNode,rdf:value,AirWayBillValue,Graph ),
-          ( rdf( AirWayBillNode, aixm:uom, UOM, Graph ); rdf( AirWayBillNode, fixm:uom, UOM, Graph ); rdf( AirWayBillNode, plain:uom, UOM, Graph ) ),
-          AirWayBill=xval(AirWayBillValue,UOM)
+          ( rdf( AirWayBillNode, aixm:uom, AirWayBillUOM, Graph ); rdf( AirWayBillNode, fixm:uom, AirWayBillUOM, Graph ); rdf( AirWayBillNode, plain:uom, AirWayBillUOM, Graph ) ),
+          AirWayBill=xval(AirWayBillValue,AirWayBillUOM)
         );
         (
-          rdf( AirWayBillNode,aixm:nilReason, NilReason, Graph ),
-          AirWayBill=nil(NilReason)
+          rdf( AirWayBillNode,aixm:nilReason, AirWayBillNilReason, Graph ),
+          AirWayBill=nil(AirWayBillNilReason)
         );
         (
-          rdf( AirWayBillNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AirWayBill=indeterminate(Indeterminate)
+          rdf( AirWayBillNode,gml:indeterminatePosition, AirWayBillIndeterminate, Graph ),
+          AirWayBill=indeterminate(AirWayBillIndeterminate)
         )
       )
   )
@@ -2968,16 +2970,16 @@ fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, Han
         );
         (
           rdf( ShipmentNode,rdf:value,ShipmentValue,Graph ),
-          ( rdf( ShipmentNode, aixm:uom, UOM, Graph ); rdf( ShipmentNode, fixm:uom, UOM, Graph ); rdf( ShipmentNode, plain:uom, UOM, Graph ) ),
-          Shipment=xval(ShipmentValue,UOM)
+          ( rdf( ShipmentNode, aixm:uom, ShipmentUOM, Graph ); rdf( ShipmentNode, fixm:uom, ShipmentUOM, Graph ); rdf( ShipmentNode, plain:uom, ShipmentUOM, Graph ) ),
+          Shipment=xval(ShipmentValue,ShipmentUOM)
         );
         (
-          rdf( ShipmentNode,aixm:nilReason, NilReason, Graph ),
-          Shipment=nil(NilReason)
+          rdf( ShipmentNode,aixm:nilReason, ShipmentNilReason, Graph ),
+          Shipment=nil(ShipmentNilReason)
         );
         (
-          rdf( ShipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Shipment=indeterminate(Indeterminate)
+          rdf( ShipmentNode,gml:indeterminatePosition, ShipmentIndeterminate, Graph ),
+          Shipment=indeterminate(ShipmentIndeterminate)
         )
       )
   )
@@ -3005,16 +3007,16 @@ fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimen
         );
         (
           rdf( ShipmentUseIndicatorNode,rdf:value,ShipmentUseIndicatorValue,Graph ),
-          ( rdf( ShipmentUseIndicatorNode, aixm:uom, UOM, Graph ); rdf( ShipmentUseIndicatorNode, fixm:uom, UOM, Graph ); rdf( ShipmentUseIndicatorNode, plain:uom, UOM, Graph ) ),
-          ShipmentUseIndicator=xval(ShipmentUseIndicatorValue,UOM)
+          ( rdf( ShipmentUseIndicatorNode, aixm:uom, ShipmentUseIndicatorUOM, Graph ); rdf( ShipmentUseIndicatorNode, fixm:uom, ShipmentUseIndicatorUOM, Graph ); rdf( ShipmentUseIndicatorNode, plain:uom, ShipmentUseIndicatorUOM, Graph ) ),
+          ShipmentUseIndicator=xval(ShipmentUseIndicatorValue,ShipmentUseIndicatorUOM)
         );
         (
-          rdf( ShipmentUseIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          ShipmentUseIndicator=nil(NilReason)
+          rdf( ShipmentUseIndicatorNode,aixm:nilReason, ShipmentUseIndicatorNilReason, Graph ),
+          ShipmentUseIndicator=nil(ShipmentUseIndicatorNilReason)
         );
         (
-          rdf( ShipmentUseIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ShipmentUseIndicator=indeterminate(Indeterminate)
+          rdf( ShipmentUseIndicatorNode,gml:indeterminatePosition, ShipmentUseIndicatorIndeterminate, Graph ),
+          ShipmentUseIndicator=indeterminate(ShipmentUseIndicatorIndeterminate)
         )
       )
   ) .
@@ -3034,16 +3036,16 @@ fixm_OfftrackDistance(Graph, OfftrackDistance, Distance, Direction) :-
         );
         (
           rdf( DistanceNode,rdf:value,DistanceValue,Graph ),
-          ( rdf( DistanceNode, aixm:uom, UOM, Graph ); rdf( DistanceNode, fixm:uom, UOM, Graph ); rdf( DistanceNode, plain:uom, UOM, Graph ) ),
-          Distance=xval(DistanceValue,UOM)
+          ( rdf( DistanceNode, aixm:uom, DistanceUOM, Graph ); rdf( DistanceNode, fixm:uom, DistanceUOM, Graph ); rdf( DistanceNode, plain:uom, DistanceUOM, Graph ) ),
+          Distance=xval(DistanceValue,DistanceUOM)
         );
         (
-          rdf( DistanceNode,aixm:nilReason, NilReason, Graph ),
-          Distance=nil(NilReason)
+          rdf( DistanceNode,aixm:nilReason, DistanceNilReason, Graph ),
+          Distance=nil(DistanceNilReason)
         );
         (
-          rdf( DistanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Distance=indeterminate(Indeterminate)
+          rdf( DistanceNode,gml:indeterminatePosition, DistanceIndeterminate, Graph ),
+          Distance=indeterminate(DistanceIndeterminate)
         )
       )
   )
@@ -3060,16 +3062,16 @@ fixm_OfftrackDistance(Graph, OfftrackDistance, Distance, Direction) :-
         );
         (
           rdf( DirectionNode,rdf:value,DirectionValue,Graph ),
-          ( rdf( DirectionNode, aixm:uom, UOM, Graph ); rdf( DirectionNode, fixm:uom, UOM, Graph ); rdf( DirectionNode, plain:uom, UOM, Graph ) ),
-          Direction=xval(DirectionValue,UOM)
+          ( rdf( DirectionNode, aixm:uom, DirectionUOM, Graph ); rdf( DirectionNode, fixm:uom, DirectionUOM, Graph ); rdf( DirectionNode, plain:uom, DirectionUOM, Graph ) ),
+          Direction=xval(DirectionValue,DirectionUOM)
         );
         (
-          rdf( DirectionNode,aixm:nilReason, NilReason, Graph ),
-          Direction=nil(NilReason)
+          rdf( DirectionNode,aixm:nilReason, DirectionNilReason, Graph ),
+          Direction=nil(DirectionNilReason)
         );
         (
-          rdf( DirectionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Direction=indeterminate(Indeterminate)
+          rdf( DirectionNode,gml:indeterminatePosition, DirectionIndeterminate, Graph ),
+          Direction=indeterminate(DirectionIndeterminate)
         )
       )
   ) .
@@ -3101,16 +3103,16 @@ fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace, SpecialActiv
         );
         (
           rdf( ConstrainedAirspaceNode,rdf:value,ConstrainedAirspaceValue,Graph ),
-          ( rdf( ConstrainedAirspaceNode, aixm:uom, UOM, Graph ); rdf( ConstrainedAirspaceNode, fixm:uom, UOM, Graph ); rdf( ConstrainedAirspaceNode, plain:uom, UOM, Graph ) ),
-          ConstrainedAirspace=xval(ConstrainedAirspaceValue,UOM)
+          ( rdf( ConstrainedAirspaceNode, aixm:uom, ConstrainedAirspaceUOM, Graph ); rdf( ConstrainedAirspaceNode, fixm:uom, ConstrainedAirspaceUOM, Graph ); rdf( ConstrainedAirspaceNode, plain:uom, ConstrainedAirspaceUOM, Graph ) ),
+          ConstrainedAirspace=xval(ConstrainedAirspaceValue,ConstrainedAirspaceUOM)
         );
         (
-          rdf( ConstrainedAirspaceNode,aixm:nilReason, NilReason, Graph ),
-          ConstrainedAirspace=nil(NilReason)
+          rdf( ConstrainedAirspaceNode,aixm:nilReason, ConstrainedAirspaceNilReason, Graph ),
+          ConstrainedAirspace=nil(ConstrainedAirspaceNilReason)
         );
         (
-          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ConstrainedAirspace=indeterminate(Indeterminate)
+          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, ConstrainedAirspaceIndeterminate, Graph ),
+          ConstrainedAirspace=indeterminate(ConstrainedAirspaceIndeterminate)
         )
       )
   )
@@ -3127,16 +3129,16 @@ fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace, SpecialActiv
         );
         (
           rdf( SpecialActivityAirspaceNode,rdf:value,SpecialActivityAirspaceValue,Graph ),
-          ( rdf( SpecialActivityAirspaceNode, aixm:uom, UOM, Graph ); rdf( SpecialActivityAirspaceNode, fixm:uom, UOM, Graph ); rdf( SpecialActivityAirspaceNode, plain:uom, UOM, Graph ) ),
-          SpecialActivityAirspace=xval(SpecialActivityAirspaceValue,UOM)
+          ( rdf( SpecialActivityAirspaceNode, aixm:uom, SpecialActivityAirspaceUOM, Graph ); rdf( SpecialActivityAirspaceNode, fixm:uom, SpecialActivityAirspaceUOM, Graph ); rdf( SpecialActivityAirspaceNode, plain:uom, SpecialActivityAirspaceUOM, Graph ) ),
+          SpecialActivityAirspace=xval(SpecialActivityAirspaceValue,SpecialActivityAirspaceUOM)
         );
         (
-          rdf( SpecialActivityAirspaceNode,aixm:nilReason, NilReason, Graph ),
-          SpecialActivityAirspace=nil(NilReason)
+          rdf( SpecialActivityAirspaceNode,aixm:nilReason, SpecialActivityAirspaceNilReason, Graph ),
+          SpecialActivityAirspace=nil(SpecialActivityAirspaceNilReason)
         );
         (
-          rdf( SpecialActivityAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SpecialActivityAirspace=indeterminate(Indeterminate)
+          rdf( SpecialActivityAirspaceNode,gml:indeterminatePosition, SpecialActivityAirspaceIndeterminate, Graph ),
+          SpecialActivityAirspace=indeterminate(SpecialActivityAirspaceIndeterminate)
         )
       )
   ) .
@@ -3157,16 +3159,16 @@ fixm_ContactInformation(Graph, ContactInformation, Name, Title, OnlineContact, P
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -3183,16 +3185,16 @@ fixm_ContactInformation(Graph, ContactInformation, Name, Title, OnlineContact, P
         );
         (
           rdf( TitleNode,rdf:value,TitleValue,Graph ),
-          ( rdf( TitleNode, aixm:uom, UOM, Graph ); rdf( TitleNode, fixm:uom, UOM, Graph ); rdf( TitleNode, plain:uom, UOM, Graph ) ),
-          Title=xval(TitleValue,UOM)
+          ( rdf( TitleNode, aixm:uom, TitleUOM, Graph ); rdf( TitleNode, fixm:uom, TitleUOM, Graph ); rdf( TitleNode, plain:uom, TitleUOM, Graph ) ),
+          Title=xval(TitleValue,TitleUOM)
         );
         (
-          rdf( TitleNode,aixm:nilReason, NilReason, Graph ),
-          Title=nil(NilReason)
+          rdf( TitleNode,aixm:nilReason, TitleNilReason, Graph ),
+          Title=nil(TitleNilReason)
         );
         (
-          rdf( TitleNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Title=indeterminate(Indeterminate)
+          rdf( TitleNode,gml:indeterminatePosition, TitleIndeterminate, Graph ),
+          Title=indeterminate(TitleIndeterminate)
         )
       )
   )
@@ -3221,16 +3223,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( DesignatorNode,rdf:value,DesignatorValue,Graph ),
-          ( rdf( DesignatorNode, aixm:uom, UOM, Graph ); rdf( DesignatorNode, fixm:uom, UOM, Graph ); rdf( DesignatorNode, plain:uom, UOM, Graph ) ),
-          Designator=xval(DesignatorValue,UOM)
+          ( rdf( DesignatorNode, aixm:uom, DesignatorUOM, Graph ); rdf( DesignatorNode, fixm:uom, DesignatorUOM, Graph ); rdf( DesignatorNode, plain:uom, DesignatorUOM, Graph ) ),
+          Designator=xval(DesignatorValue,DesignatorUOM)
         );
         (
-          rdf( DesignatorNode,aixm:nilReason, NilReason, Graph ),
-          Designator=nil(NilReason)
+          rdf( DesignatorNode,aixm:nilReason, DesignatorNilReason, Graph ),
+          Designator=nil(DesignatorNilReason)
         );
         (
-          rdf( DesignatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Designator=indeterminate(Indeterminate)
+          rdf( DesignatorNode,gml:indeterminatePosition, DesignatorIndeterminate, Graph ),
+          Designator=indeterminate(DesignatorIndeterminate)
         )
       )
   )
@@ -3247,16 +3249,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -3273,16 +3275,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( LocationIndicatorICAONode,rdf:value,LocationIndicatorICAOValue,Graph ),
-          ( rdf( LocationIndicatorICAONode, aixm:uom, UOM, Graph ); rdf( LocationIndicatorICAONode, fixm:uom, UOM, Graph ); rdf( LocationIndicatorICAONode, plain:uom, UOM, Graph ) ),
-          LocationIndicatorICAO=xval(LocationIndicatorICAOValue,UOM)
+          ( rdf( LocationIndicatorICAONode, aixm:uom, LocationIndicatorICAOUOM, Graph ); rdf( LocationIndicatorICAONode, fixm:uom, LocationIndicatorICAOUOM, Graph ); rdf( LocationIndicatorICAONode, plain:uom, LocationIndicatorICAOUOM, Graph ) ),
+          LocationIndicatorICAO=xval(LocationIndicatorICAOValue,LocationIndicatorICAOUOM)
         );
         (
-          rdf( LocationIndicatorICAONode,aixm:nilReason, NilReason, Graph ),
-          LocationIndicatorICAO=nil(NilReason)
+          rdf( LocationIndicatorICAONode,aixm:nilReason, LocationIndicatorICAONilReason, Graph ),
+          LocationIndicatorICAO=nil(LocationIndicatorICAONilReason)
         );
         (
-          rdf( LocationIndicatorICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LocationIndicatorICAO=indeterminate(Indeterminate)
+          rdf( LocationIndicatorICAONode,gml:indeterminatePosition, LocationIndicatorICAOIndeterminate, Graph ),
+          LocationIndicatorICAO=indeterminate(LocationIndicatorICAOIndeterminate)
         )
       )
   )
@@ -3299,16 +3301,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( DesignatorIATANode,rdf:value,DesignatorIATAValue,Graph ),
-          ( rdf( DesignatorIATANode, aixm:uom, UOM, Graph ); rdf( DesignatorIATANode, fixm:uom, UOM, Graph ); rdf( DesignatorIATANode, plain:uom, UOM, Graph ) ),
-          DesignatorIATA=xval(DesignatorIATAValue,UOM)
+          ( rdf( DesignatorIATANode, aixm:uom, DesignatorIATAUOM, Graph ); rdf( DesignatorIATANode, fixm:uom, DesignatorIATAUOM, Graph ); rdf( DesignatorIATANode, plain:uom, DesignatorIATAUOM, Graph ) ),
+          DesignatorIATA=xval(DesignatorIATAValue,DesignatorIATAUOM)
         );
         (
-          rdf( DesignatorIATANode,aixm:nilReason, NilReason, Graph ),
-          DesignatorIATA=nil(NilReason)
+          rdf( DesignatorIATANode,aixm:nilReason, DesignatorIATANilReason, Graph ),
+          DesignatorIATA=nil(DesignatorIATANilReason)
         );
         (
-          rdf( DesignatorIATANode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DesignatorIATA=indeterminate(Indeterminate)
+          rdf( DesignatorIATANode,gml:indeterminatePosition, DesignatorIATAIndeterminate, Graph ),
+          DesignatorIATA=indeterminate(DesignatorIATAIndeterminate)
         )
       )
   )
@@ -3325,16 +3327,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -3351,16 +3353,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( CertifiedICAONode,rdf:value,CertifiedICAOValue,Graph ),
-          ( rdf( CertifiedICAONode, aixm:uom, UOM, Graph ); rdf( CertifiedICAONode, fixm:uom, UOM, Graph ); rdf( CertifiedICAONode, plain:uom, UOM, Graph ) ),
-          CertifiedICAO=xval(CertifiedICAOValue,UOM)
+          ( rdf( CertifiedICAONode, aixm:uom, CertifiedICAOUOM, Graph ); rdf( CertifiedICAONode, fixm:uom, CertifiedICAOUOM, Graph ); rdf( CertifiedICAONode, plain:uom, CertifiedICAOUOM, Graph ) ),
+          CertifiedICAO=xval(CertifiedICAOValue,CertifiedICAOUOM)
         );
         (
-          rdf( CertifiedICAONode,aixm:nilReason, NilReason, Graph ),
-          CertifiedICAO=nil(NilReason)
+          rdf( CertifiedICAONode,aixm:nilReason, CertifiedICAONilReason, Graph ),
+          CertifiedICAO=nil(CertifiedICAONilReason)
         );
         (
-          rdf( CertifiedICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CertifiedICAO=indeterminate(Indeterminate)
+          rdf( CertifiedICAONode,gml:indeterminatePosition, CertifiedICAOIndeterminate, Graph ),
+          CertifiedICAO=indeterminate(CertifiedICAOIndeterminate)
         )
       )
   )
@@ -3377,16 +3379,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( PrivateUseNode,rdf:value,PrivateUseValue,Graph ),
-          ( rdf( PrivateUseNode, aixm:uom, UOM, Graph ); rdf( PrivateUseNode, fixm:uom, UOM, Graph ); rdf( PrivateUseNode, plain:uom, UOM, Graph ) ),
-          PrivateUse=xval(PrivateUseValue,UOM)
+          ( rdf( PrivateUseNode, aixm:uom, PrivateUseUOM, Graph ); rdf( PrivateUseNode, fixm:uom, PrivateUseUOM, Graph ); rdf( PrivateUseNode, plain:uom, PrivateUseUOM, Graph ) ),
+          PrivateUse=xval(PrivateUseValue,PrivateUseUOM)
         );
         (
-          rdf( PrivateUseNode,aixm:nilReason, NilReason, Graph ),
-          PrivateUse=nil(NilReason)
+          rdf( PrivateUseNode,aixm:nilReason, PrivateUseNilReason, Graph ),
+          PrivateUse=nil(PrivateUseNilReason)
         );
         (
-          rdf( PrivateUseNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PrivateUse=indeterminate(Indeterminate)
+          rdf( PrivateUseNode,gml:indeterminatePosition, PrivateUseIndeterminate, Graph ),
+          PrivateUse=indeterminate(PrivateUseIndeterminate)
         )
       )
   )
@@ -3403,16 +3405,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( ControlTypeNode,rdf:value,ControlTypeValue,Graph ),
-          ( rdf( ControlTypeNode, aixm:uom, UOM, Graph ); rdf( ControlTypeNode, fixm:uom, UOM, Graph ); rdf( ControlTypeNode, plain:uom, UOM, Graph ) ),
-          ControlType=xval(ControlTypeValue,UOM)
+          ( rdf( ControlTypeNode, aixm:uom, ControlTypeUOM, Graph ); rdf( ControlTypeNode, fixm:uom, ControlTypeUOM, Graph ); rdf( ControlTypeNode, plain:uom, ControlTypeUOM, Graph ) ),
+          ControlType=xval(ControlTypeValue,ControlTypeUOM)
         );
         (
-          rdf( ControlTypeNode,aixm:nilReason, NilReason, Graph ),
-          ControlType=nil(NilReason)
+          rdf( ControlTypeNode,aixm:nilReason, ControlTypeNilReason, Graph ),
+          ControlType=nil(ControlTypeNilReason)
         );
         (
-          rdf( ControlTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ControlType=indeterminate(Indeterminate)
+          rdf( ControlTypeNode,gml:indeterminatePosition, ControlTypeIndeterminate, Graph ),
+          ControlType=indeterminate(ControlTypeIndeterminate)
         )
       )
   )
@@ -3429,16 +3431,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( FieldElevationNode,rdf:value,FieldElevationValue,Graph ),
-          ( rdf( FieldElevationNode, aixm:uom, UOM, Graph ); rdf( FieldElevationNode, fixm:uom, UOM, Graph ); rdf( FieldElevationNode, plain:uom, UOM, Graph ) ),
-          FieldElevation=xval(FieldElevationValue,UOM)
+          ( rdf( FieldElevationNode, aixm:uom, FieldElevationUOM, Graph ); rdf( FieldElevationNode, fixm:uom, FieldElevationUOM, Graph ); rdf( FieldElevationNode, plain:uom, FieldElevationUOM, Graph ) ),
+          FieldElevation=xval(FieldElevationValue,FieldElevationUOM)
         );
         (
-          rdf( FieldElevationNode,aixm:nilReason, NilReason, Graph ),
-          FieldElevation=nil(NilReason)
+          rdf( FieldElevationNode,aixm:nilReason, FieldElevationNilReason, Graph ),
+          FieldElevation=nil(FieldElevationNilReason)
         );
         (
-          rdf( FieldElevationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FieldElevation=indeterminate(Indeterminate)
+          rdf( FieldElevationNode,gml:indeterminatePosition, FieldElevationIndeterminate, Graph ),
+          FieldElevation=indeterminate(FieldElevationIndeterminate)
         )
       )
   )
@@ -3455,16 +3457,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( FieldElevationAccuracyNode,rdf:value,FieldElevationAccuracyValue,Graph ),
-          ( rdf( FieldElevationAccuracyNode, aixm:uom, UOM, Graph ); rdf( FieldElevationAccuracyNode, fixm:uom, UOM, Graph ); rdf( FieldElevationAccuracyNode, plain:uom, UOM, Graph ) ),
-          FieldElevationAccuracy=xval(FieldElevationAccuracyValue,UOM)
+          ( rdf( FieldElevationAccuracyNode, aixm:uom, FieldElevationAccuracyUOM, Graph ); rdf( FieldElevationAccuracyNode, fixm:uom, FieldElevationAccuracyUOM, Graph ); rdf( FieldElevationAccuracyNode, plain:uom, FieldElevationAccuracyUOM, Graph ) ),
+          FieldElevationAccuracy=xval(FieldElevationAccuracyValue,FieldElevationAccuracyUOM)
         );
         (
-          rdf( FieldElevationAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          FieldElevationAccuracy=nil(NilReason)
+          rdf( FieldElevationAccuracyNode,aixm:nilReason, FieldElevationAccuracyNilReason, Graph ),
+          FieldElevationAccuracy=nil(FieldElevationAccuracyNilReason)
         );
         (
-          rdf( FieldElevationAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FieldElevationAccuracy=indeterminate(Indeterminate)
+          rdf( FieldElevationAccuracyNode,gml:indeterminatePosition, FieldElevationAccuracyIndeterminate, Graph ),
+          FieldElevationAccuracy=indeterminate(FieldElevationAccuracyIndeterminate)
         )
       )
   )
@@ -3481,16 +3483,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( VerticalDatumNode,rdf:value,VerticalDatumValue,Graph ),
-          ( rdf( VerticalDatumNode, aixm:uom, UOM, Graph ); rdf( VerticalDatumNode, fixm:uom, UOM, Graph ); rdf( VerticalDatumNode, plain:uom, UOM, Graph ) ),
-          VerticalDatum=xval(VerticalDatumValue,UOM)
+          ( rdf( VerticalDatumNode, aixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, fixm:uom, VerticalDatumUOM, Graph ); rdf( VerticalDatumNode, plain:uom, VerticalDatumUOM, Graph ) ),
+          VerticalDatum=xval(VerticalDatumValue,VerticalDatumUOM)
         );
         (
-          rdf( VerticalDatumNode,aixm:nilReason, NilReason, Graph ),
-          VerticalDatum=nil(NilReason)
+          rdf( VerticalDatumNode,aixm:nilReason, VerticalDatumNilReason, Graph ),
+          VerticalDatum=nil(VerticalDatumNilReason)
         );
         (
-          rdf( VerticalDatumNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalDatum=indeterminate(Indeterminate)
+          rdf( VerticalDatumNode,gml:indeterminatePosition, VerticalDatumIndeterminate, Graph ),
+          VerticalDatum=indeterminate(VerticalDatumIndeterminate)
         )
       )
   )
@@ -3507,16 +3509,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( MagneticVariationNode,rdf:value,MagneticVariationValue,Graph ),
-          ( rdf( MagneticVariationNode, aixm:uom, UOM, Graph ); rdf( MagneticVariationNode, fixm:uom, UOM, Graph ); rdf( MagneticVariationNode, plain:uom, UOM, Graph ) ),
-          MagneticVariation=xval(MagneticVariationValue,UOM)
+          ( rdf( MagneticVariationNode, aixm:uom, MagneticVariationUOM, Graph ); rdf( MagneticVariationNode, fixm:uom, MagneticVariationUOM, Graph ); rdf( MagneticVariationNode, plain:uom, MagneticVariationUOM, Graph ) ),
+          MagneticVariation=xval(MagneticVariationValue,MagneticVariationUOM)
         );
         (
-          rdf( MagneticVariationNode,aixm:nilReason, NilReason, Graph ),
-          MagneticVariation=nil(NilReason)
+          rdf( MagneticVariationNode,aixm:nilReason, MagneticVariationNilReason, Graph ),
+          MagneticVariation=nil(MagneticVariationNilReason)
         );
         (
-          rdf( MagneticVariationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MagneticVariation=indeterminate(Indeterminate)
+          rdf( MagneticVariationNode,gml:indeterminatePosition, MagneticVariationIndeterminate, Graph ),
+          MagneticVariation=indeterminate(MagneticVariationIndeterminate)
         )
       )
   )
@@ -3533,16 +3535,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( MagneticVariationAccuracyNode,rdf:value,MagneticVariationAccuracyValue,Graph ),
-          ( rdf( MagneticVariationAccuracyNode, aixm:uom, UOM, Graph ); rdf( MagneticVariationAccuracyNode, fixm:uom, UOM, Graph ); rdf( MagneticVariationAccuracyNode, plain:uom, UOM, Graph ) ),
-          MagneticVariationAccuracy=xval(MagneticVariationAccuracyValue,UOM)
+          ( rdf( MagneticVariationAccuracyNode, aixm:uom, MagneticVariationAccuracyUOM, Graph ); rdf( MagneticVariationAccuracyNode, fixm:uom, MagneticVariationAccuracyUOM, Graph ); rdf( MagneticVariationAccuracyNode, plain:uom, MagneticVariationAccuracyUOM, Graph ) ),
+          MagneticVariationAccuracy=xval(MagneticVariationAccuracyValue,MagneticVariationAccuracyUOM)
         );
         (
-          rdf( MagneticVariationAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          MagneticVariationAccuracy=nil(NilReason)
+          rdf( MagneticVariationAccuracyNode,aixm:nilReason, MagneticVariationAccuracyNilReason, Graph ),
+          MagneticVariationAccuracy=nil(MagneticVariationAccuracyNilReason)
         );
         (
-          rdf( MagneticVariationAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MagneticVariationAccuracy=indeterminate(Indeterminate)
+          rdf( MagneticVariationAccuracyNode,gml:indeterminatePosition, MagneticVariationAccuracyIndeterminate, Graph ),
+          MagneticVariationAccuracy=indeterminate(MagneticVariationAccuracyIndeterminate)
         )
       )
   )
@@ -3559,16 +3561,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( DateMagneticVariationNode,rdf:value,DateMagneticVariationValue,Graph ),
-          ( rdf( DateMagneticVariationNode, aixm:uom, UOM, Graph ); rdf( DateMagneticVariationNode, fixm:uom, UOM, Graph ); rdf( DateMagneticVariationNode, plain:uom, UOM, Graph ) ),
-          DateMagneticVariation=xval(DateMagneticVariationValue,UOM)
+          ( rdf( DateMagneticVariationNode, aixm:uom, DateMagneticVariationUOM, Graph ); rdf( DateMagneticVariationNode, fixm:uom, DateMagneticVariationUOM, Graph ); rdf( DateMagneticVariationNode, plain:uom, DateMagneticVariationUOM, Graph ) ),
+          DateMagneticVariation=xval(DateMagneticVariationValue,DateMagneticVariationUOM)
         );
         (
-          rdf( DateMagneticVariationNode,aixm:nilReason, NilReason, Graph ),
-          DateMagneticVariation=nil(NilReason)
+          rdf( DateMagneticVariationNode,aixm:nilReason, DateMagneticVariationNilReason, Graph ),
+          DateMagneticVariation=nil(DateMagneticVariationNilReason)
         );
         (
-          rdf( DateMagneticVariationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DateMagneticVariation=indeterminate(Indeterminate)
+          rdf( DateMagneticVariationNode,gml:indeterminatePosition, DateMagneticVariationIndeterminate, Graph ),
+          DateMagneticVariation=indeterminate(DateMagneticVariationIndeterminate)
         )
       )
   )
@@ -3585,16 +3587,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( MagneticVariationChangeNode,rdf:value,MagneticVariationChangeValue,Graph ),
-          ( rdf( MagneticVariationChangeNode, aixm:uom, UOM, Graph ); rdf( MagneticVariationChangeNode, fixm:uom, UOM, Graph ); rdf( MagneticVariationChangeNode, plain:uom, UOM, Graph ) ),
-          MagneticVariationChange=xval(MagneticVariationChangeValue,UOM)
+          ( rdf( MagneticVariationChangeNode, aixm:uom, MagneticVariationChangeUOM, Graph ); rdf( MagneticVariationChangeNode, fixm:uom, MagneticVariationChangeUOM, Graph ); rdf( MagneticVariationChangeNode, plain:uom, MagneticVariationChangeUOM, Graph ) ),
+          MagneticVariationChange=xval(MagneticVariationChangeValue,MagneticVariationChangeUOM)
         );
         (
-          rdf( MagneticVariationChangeNode,aixm:nilReason, NilReason, Graph ),
-          MagneticVariationChange=nil(NilReason)
+          rdf( MagneticVariationChangeNode,aixm:nilReason, MagneticVariationChangeNilReason, Graph ),
+          MagneticVariationChange=nil(MagneticVariationChangeNilReason)
         );
         (
-          rdf( MagneticVariationChangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MagneticVariationChange=indeterminate(Indeterminate)
+          rdf( MagneticVariationChangeNode,gml:indeterminatePosition, MagneticVariationChangeIndeterminate, Graph ),
+          MagneticVariationChange=indeterminate(MagneticVariationChangeIndeterminate)
         )
       )
   )
@@ -3611,16 +3613,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( ReferenceTemperatureNode,rdf:value,ReferenceTemperatureValue,Graph ),
-          ( rdf( ReferenceTemperatureNode, aixm:uom, UOM, Graph ); rdf( ReferenceTemperatureNode, fixm:uom, UOM, Graph ); rdf( ReferenceTemperatureNode, plain:uom, UOM, Graph ) ),
-          ReferenceTemperature=xval(ReferenceTemperatureValue,UOM)
+          ( rdf( ReferenceTemperatureNode, aixm:uom, ReferenceTemperatureUOM, Graph ); rdf( ReferenceTemperatureNode, fixm:uom, ReferenceTemperatureUOM, Graph ); rdf( ReferenceTemperatureNode, plain:uom, ReferenceTemperatureUOM, Graph ) ),
+          ReferenceTemperature=xval(ReferenceTemperatureValue,ReferenceTemperatureUOM)
         );
         (
-          rdf( ReferenceTemperatureNode,aixm:nilReason, NilReason, Graph ),
-          ReferenceTemperature=nil(NilReason)
+          rdf( ReferenceTemperatureNode,aixm:nilReason, ReferenceTemperatureNilReason, Graph ),
+          ReferenceTemperature=nil(ReferenceTemperatureNilReason)
         );
         (
-          rdf( ReferenceTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReferenceTemperature=indeterminate(Indeterminate)
+          rdf( ReferenceTemperatureNode,gml:indeterminatePosition, ReferenceTemperatureIndeterminate, Graph ),
+          ReferenceTemperature=indeterminate(ReferenceTemperatureIndeterminate)
         )
       )
   )
@@ -3637,16 +3639,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( AltimeterCheckLocationNode,rdf:value,AltimeterCheckLocationValue,Graph ),
-          ( rdf( AltimeterCheckLocationNode, aixm:uom, UOM, Graph ); rdf( AltimeterCheckLocationNode, fixm:uom, UOM, Graph ); rdf( AltimeterCheckLocationNode, plain:uom, UOM, Graph ) ),
-          AltimeterCheckLocation=xval(AltimeterCheckLocationValue,UOM)
+          ( rdf( AltimeterCheckLocationNode, aixm:uom, AltimeterCheckLocationUOM, Graph ); rdf( AltimeterCheckLocationNode, fixm:uom, AltimeterCheckLocationUOM, Graph ); rdf( AltimeterCheckLocationNode, plain:uom, AltimeterCheckLocationUOM, Graph ) ),
+          AltimeterCheckLocation=xval(AltimeterCheckLocationValue,AltimeterCheckLocationUOM)
         );
         (
-          rdf( AltimeterCheckLocationNode,aixm:nilReason, NilReason, Graph ),
-          AltimeterCheckLocation=nil(NilReason)
+          rdf( AltimeterCheckLocationNode,aixm:nilReason, AltimeterCheckLocationNilReason, Graph ),
+          AltimeterCheckLocation=nil(AltimeterCheckLocationNilReason)
         );
         (
-          rdf( AltimeterCheckLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AltimeterCheckLocation=indeterminate(Indeterminate)
+          rdf( AltimeterCheckLocationNode,gml:indeterminatePosition, AltimeterCheckLocationIndeterminate, Graph ),
+          AltimeterCheckLocation=indeterminate(AltimeterCheckLocationIndeterminate)
         )
       )
   )
@@ -3663,16 +3665,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( SecondaryPowerSupplyNode,rdf:value,SecondaryPowerSupplyValue,Graph ),
-          ( rdf( SecondaryPowerSupplyNode, aixm:uom, UOM, Graph ); rdf( SecondaryPowerSupplyNode, fixm:uom, UOM, Graph ); rdf( SecondaryPowerSupplyNode, plain:uom, UOM, Graph ) ),
-          SecondaryPowerSupply=xval(SecondaryPowerSupplyValue,UOM)
+          ( rdf( SecondaryPowerSupplyNode, aixm:uom, SecondaryPowerSupplyUOM, Graph ); rdf( SecondaryPowerSupplyNode, fixm:uom, SecondaryPowerSupplyUOM, Graph ); rdf( SecondaryPowerSupplyNode, plain:uom, SecondaryPowerSupplyUOM, Graph ) ),
+          SecondaryPowerSupply=xval(SecondaryPowerSupplyValue,SecondaryPowerSupplyUOM)
         );
         (
-          rdf( SecondaryPowerSupplyNode,aixm:nilReason, NilReason, Graph ),
-          SecondaryPowerSupply=nil(NilReason)
+          rdf( SecondaryPowerSupplyNode,aixm:nilReason, SecondaryPowerSupplyNilReason, Graph ),
+          SecondaryPowerSupply=nil(SecondaryPowerSupplyNilReason)
         );
         (
-          rdf( SecondaryPowerSupplyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SecondaryPowerSupply=indeterminate(Indeterminate)
+          rdf( SecondaryPowerSupplyNode,gml:indeterminatePosition, SecondaryPowerSupplyIndeterminate, Graph ),
+          SecondaryPowerSupply=indeterminate(SecondaryPowerSupplyIndeterminate)
         )
       )
   )
@@ -3689,16 +3691,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( WindDirectionIndicatorNode,rdf:value,WindDirectionIndicatorValue,Graph ),
-          ( rdf( WindDirectionIndicatorNode, aixm:uom, UOM, Graph ); rdf( WindDirectionIndicatorNode, fixm:uom, UOM, Graph ); rdf( WindDirectionIndicatorNode, plain:uom, UOM, Graph ) ),
-          WindDirectionIndicator=xval(WindDirectionIndicatorValue,UOM)
+          ( rdf( WindDirectionIndicatorNode, aixm:uom, WindDirectionIndicatorUOM, Graph ); rdf( WindDirectionIndicatorNode, fixm:uom, WindDirectionIndicatorUOM, Graph ); rdf( WindDirectionIndicatorNode, plain:uom, WindDirectionIndicatorUOM, Graph ) ),
+          WindDirectionIndicator=xval(WindDirectionIndicatorValue,WindDirectionIndicatorUOM)
         );
         (
-          rdf( WindDirectionIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          WindDirectionIndicator=nil(NilReason)
+          rdf( WindDirectionIndicatorNode,aixm:nilReason, WindDirectionIndicatorNilReason, Graph ),
+          WindDirectionIndicator=nil(WindDirectionIndicatorNilReason)
         );
         (
-          rdf( WindDirectionIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WindDirectionIndicator=indeterminate(Indeterminate)
+          rdf( WindDirectionIndicatorNode,gml:indeterminatePosition, WindDirectionIndicatorIndeterminate, Graph ),
+          WindDirectionIndicator=indeterminate(WindDirectionIndicatorIndeterminate)
         )
       )
   )
@@ -3715,16 +3717,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( LandingDirectionIndicatorNode,rdf:value,LandingDirectionIndicatorValue,Graph ),
-          ( rdf( LandingDirectionIndicatorNode, aixm:uom, UOM, Graph ); rdf( LandingDirectionIndicatorNode, fixm:uom, UOM, Graph ); rdf( LandingDirectionIndicatorNode, plain:uom, UOM, Graph ) ),
-          LandingDirectionIndicator=xval(LandingDirectionIndicatorValue,UOM)
+          ( rdf( LandingDirectionIndicatorNode, aixm:uom, LandingDirectionIndicatorUOM, Graph ); rdf( LandingDirectionIndicatorNode, fixm:uom, LandingDirectionIndicatorUOM, Graph ); rdf( LandingDirectionIndicatorNode, plain:uom, LandingDirectionIndicatorUOM, Graph ) ),
+          LandingDirectionIndicator=xval(LandingDirectionIndicatorValue,LandingDirectionIndicatorUOM)
         );
         (
-          rdf( LandingDirectionIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          LandingDirectionIndicator=nil(NilReason)
+          rdf( LandingDirectionIndicatorNode,aixm:nilReason, LandingDirectionIndicatorNilReason, Graph ),
+          LandingDirectionIndicator=nil(LandingDirectionIndicatorNilReason)
         );
         (
-          rdf( LandingDirectionIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LandingDirectionIndicator=indeterminate(Indeterminate)
+          rdf( LandingDirectionIndicatorNode,gml:indeterminatePosition, LandingDirectionIndicatorIndeterminate, Graph ),
+          LandingDirectionIndicator=indeterminate(LandingDirectionIndicatorIndeterminate)
         )
       )
   )
@@ -3741,16 +3743,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( TransitionAltitudeNode,rdf:value,TransitionAltitudeValue,Graph ),
-          ( rdf( TransitionAltitudeNode, aixm:uom, UOM, Graph ); rdf( TransitionAltitudeNode, fixm:uom, UOM, Graph ); rdf( TransitionAltitudeNode, plain:uom, UOM, Graph ) ),
-          TransitionAltitude=xval(TransitionAltitudeValue,UOM)
+          ( rdf( TransitionAltitudeNode, aixm:uom, TransitionAltitudeUOM, Graph ); rdf( TransitionAltitudeNode, fixm:uom, TransitionAltitudeUOM, Graph ); rdf( TransitionAltitudeNode, plain:uom, TransitionAltitudeUOM, Graph ) ),
+          TransitionAltitude=xval(TransitionAltitudeValue,TransitionAltitudeUOM)
         );
         (
-          rdf( TransitionAltitudeNode,aixm:nilReason, NilReason, Graph ),
-          TransitionAltitude=nil(NilReason)
+          rdf( TransitionAltitudeNode,aixm:nilReason, TransitionAltitudeNilReason, Graph ),
+          TransitionAltitude=nil(TransitionAltitudeNilReason)
         );
         (
-          rdf( TransitionAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TransitionAltitude=indeterminate(Indeterminate)
+          rdf( TransitionAltitudeNode,gml:indeterminatePosition, TransitionAltitudeIndeterminate, Graph ),
+          TransitionAltitude=indeterminate(TransitionAltitudeIndeterminate)
         )
       )
   )
@@ -3767,16 +3769,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( TransitionLevelNode,rdf:value,TransitionLevelValue,Graph ),
-          ( rdf( TransitionLevelNode, aixm:uom, UOM, Graph ); rdf( TransitionLevelNode, fixm:uom, UOM, Graph ); rdf( TransitionLevelNode, plain:uom, UOM, Graph ) ),
-          TransitionLevel=xval(TransitionLevelValue,UOM)
+          ( rdf( TransitionLevelNode, aixm:uom, TransitionLevelUOM, Graph ); rdf( TransitionLevelNode, fixm:uom, TransitionLevelUOM, Graph ); rdf( TransitionLevelNode, plain:uom, TransitionLevelUOM, Graph ) ),
+          TransitionLevel=xval(TransitionLevelValue,TransitionLevelUOM)
         );
         (
-          rdf( TransitionLevelNode,aixm:nilReason, NilReason, Graph ),
-          TransitionLevel=nil(NilReason)
+          rdf( TransitionLevelNode,aixm:nilReason, TransitionLevelNilReason, Graph ),
+          TransitionLevel=nil(TransitionLevelNilReason)
         );
         (
-          rdf( TransitionLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TransitionLevel=indeterminate(Indeterminate)
+          rdf( TransitionLevelNode,gml:indeterminatePosition, TransitionLevelIndeterminate, Graph ),
+          TransitionLevel=indeterminate(TransitionLevelIndeterminate)
         )
       )
   )
@@ -3793,16 +3795,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( LowestTemperatureNode,rdf:value,LowestTemperatureValue,Graph ),
-          ( rdf( LowestTemperatureNode, aixm:uom, UOM, Graph ); rdf( LowestTemperatureNode, fixm:uom, UOM, Graph ); rdf( LowestTemperatureNode, plain:uom, UOM, Graph ) ),
-          LowestTemperature=xval(LowestTemperatureValue,UOM)
+          ( rdf( LowestTemperatureNode, aixm:uom, LowestTemperatureUOM, Graph ); rdf( LowestTemperatureNode, fixm:uom, LowestTemperatureUOM, Graph ); rdf( LowestTemperatureNode, plain:uom, LowestTemperatureUOM, Graph ) ),
+          LowestTemperature=xval(LowestTemperatureValue,LowestTemperatureUOM)
         );
         (
-          rdf( LowestTemperatureNode,aixm:nilReason, NilReason, Graph ),
-          LowestTemperature=nil(NilReason)
+          rdf( LowestTemperatureNode,aixm:nilReason, LowestTemperatureNilReason, Graph ),
+          LowestTemperature=nil(LowestTemperatureNilReason)
         );
         (
-          rdf( LowestTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LowestTemperature=indeterminate(Indeterminate)
+          rdf( LowestTemperatureNode,gml:indeterminatePosition, LowestTemperatureIndeterminate, Graph ),
+          LowestTemperature=indeterminate(LowestTemperatureIndeterminate)
         )
       )
   )
@@ -3819,16 +3821,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( AbandonedNode,rdf:value,AbandonedValue,Graph ),
-          ( rdf( AbandonedNode, aixm:uom, UOM, Graph ); rdf( AbandonedNode, fixm:uom, UOM, Graph ); rdf( AbandonedNode, plain:uom, UOM, Graph ) ),
-          Abandoned=xval(AbandonedValue,UOM)
+          ( rdf( AbandonedNode, aixm:uom, AbandonedUOM, Graph ); rdf( AbandonedNode, fixm:uom, AbandonedUOM, Graph ); rdf( AbandonedNode, plain:uom, AbandonedUOM, Graph ) ),
+          Abandoned=xval(AbandonedValue,AbandonedUOM)
         );
         (
-          rdf( AbandonedNode,aixm:nilReason, NilReason, Graph ),
-          Abandoned=nil(NilReason)
+          rdf( AbandonedNode,aixm:nilReason, AbandonedNilReason, Graph ),
+          Abandoned=nil(AbandonedNilReason)
         );
         (
-          rdf( AbandonedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Abandoned=indeterminate(Indeterminate)
+          rdf( AbandonedNode,gml:indeterminatePosition, AbandonedIndeterminate, Graph ),
+          Abandoned=indeterminate(AbandonedIndeterminate)
         )
       )
   )
@@ -3845,16 +3847,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( CertificationDateNode,rdf:value,CertificationDateValue,Graph ),
-          ( rdf( CertificationDateNode, aixm:uom, UOM, Graph ); rdf( CertificationDateNode, fixm:uom, UOM, Graph ); rdf( CertificationDateNode, plain:uom, UOM, Graph ) ),
-          CertificationDate=xval(CertificationDateValue,UOM)
+          ( rdf( CertificationDateNode, aixm:uom, CertificationDateUOM, Graph ); rdf( CertificationDateNode, fixm:uom, CertificationDateUOM, Graph ); rdf( CertificationDateNode, plain:uom, CertificationDateUOM, Graph ) ),
+          CertificationDate=xval(CertificationDateValue,CertificationDateUOM)
         );
         (
-          rdf( CertificationDateNode,aixm:nilReason, NilReason, Graph ),
-          CertificationDate=nil(NilReason)
+          rdf( CertificationDateNode,aixm:nilReason, CertificationDateNilReason, Graph ),
+          CertificationDate=nil(CertificationDateNilReason)
         );
         (
-          rdf( CertificationDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CertificationDate=indeterminate(Indeterminate)
+          rdf( CertificationDateNode,gml:indeterminatePosition, CertificationDateIndeterminate, Graph ),
+          CertificationDate=indeterminate(CertificationDateIndeterminate)
         )
       )
   )
@@ -3871,16 +3873,16 @@ aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, Designator, Name,
         );
         (
           rdf( CertificationExpirationDateNode,rdf:value,CertificationExpirationDateValue,Graph ),
-          ( rdf( CertificationExpirationDateNode, aixm:uom, UOM, Graph ); rdf( CertificationExpirationDateNode, fixm:uom, UOM, Graph ); rdf( CertificationExpirationDateNode, plain:uom, UOM, Graph ) ),
-          CertificationExpirationDate=xval(CertificationExpirationDateValue,UOM)
+          ( rdf( CertificationExpirationDateNode, aixm:uom, CertificationExpirationDateUOM, Graph ); rdf( CertificationExpirationDateNode, fixm:uom, CertificationExpirationDateUOM, Graph ); rdf( CertificationExpirationDateNode, plain:uom, CertificationExpirationDateUOM, Graph ) ),
+          CertificationExpirationDate=xval(CertificationExpirationDateValue,CertificationExpirationDateUOM)
         );
         (
-          rdf( CertificationExpirationDateNode,aixm:nilReason, NilReason, Graph ),
-          CertificationExpirationDate=nil(NilReason)
+          rdf( CertificationExpirationDateNode,aixm:nilReason, CertificationExpirationDateNilReason, Graph ),
+          CertificationExpirationDate=nil(CertificationExpirationDateNilReason)
         );
         (
-          rdf( CertificationExpirationDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CertificationExpirationDate=indeterminate(Indeterminate)
+          rdf( CertificationExpirationDateNode,gml:indeterminatePosition, CertificationExpirationDateIndeterminate, Graph ),
+          CertificationExpirationDate=indeterminate(CertificationExpirationDateIndeterminate)
         )
       )
   )
@@ -3916,16 +3918,16 @@ fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange) :-
         );
         (
           rdf( AltitudeNode,rdf:value,AltitudeValue,Graph ),
-          ( rdf( AltitudeNode, aixm:uom, UOM, Graph ); rdf( AltitudeNode, fixm:uom, UOM, Graph ); rdf( AltitudeNode, plain:uom, UOM, Graph ) ),
-          Altitude=xval(AltitudeValue,UOM)
+          ( rdf( AltitudeNode, aixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, fixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, plain:uom, AltitudeUOM, Graph ) ),
+          Altitude=xval(AltitudeValue,AltitudeUOM)
         );
         (
-          rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
-          Altitude=nil(NilReason)
+          rdf( AltitudeNode,aixm:nilReason, AltitudeNilReason, Graph ),
+          Altitude=nil(AltitudeNilReason)
         );
         (
-          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Altitude=indeterminate(Indeterminate)
+          rdf( AltitudeNode,gml:indeterminatePosition, AltitudeIndeterminate, Graph ),
+          Altitude=indeterminate(AltitudeIndeterminate)
         )
       )
   )
@@ -3942,16 +3944,16 @@ fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange) :-
         );
         (
           rdf( TimeNode,rdf:value,TimeValue,Graph ),
-          ( rdf( TimeNode, aixm:uom, UOM, Graph ); rdf( TimeNode, fixm:uom, UOM, Graph ); rdf( TimeNode, plain:uom, UOM, Graph ) ),
-          Time=xval(TimeValue,UOM)
+          ( rdf( TimeNode, aixm:uom, TimeUOM, Graph ); rdf( TimeNode, fixm:uom, TimeUOM, Graph ); rdf( TimeNode, plain:uom, TimeUOM, Graph ) ),
+          Time=xval(TimeValue,TimeUOM)
         );
         (
-          rdf( TimeNode,aixm:nilReason, NilReason, Graph ),
-          Time=nil(NilReason)
+          rdf( TimeNode,aixm:nilReason, TimeNilReason, Graph ),
+          Time=nil(TimeNilReason)
         );
         (
-          rdf( TimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Time=indeterminate(Indeterminate)
+          rdf( TimeNode,gml:indeterminatePosition, TimeIndeterminate, Graph ),
+          Time=indeterminate(TimeIndeterminate)
         )
       )
   )
@@ -3975,16 +3977,16 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         );
         (
           rdf( AirTrafficTypeNode,rdf:value,AirTrafficTypeValue,Graph ),
-          ( rdf( AirTrafficTypeNode, aixm:uom, UOM, Graph ); rdf( AirTrafficTypeNode, fixm:uom, UOM, Graph ); rdf( AirTrafficTypeNode, plain:uom, UOM, Graph ) ),
-          AirTrafficType=xval(AirTrafficTypeValue,UOM)
+          ( rdf( AirTrafficTypeNode, aixm:uom, AirTrafficTypeUOM, Graph ); rdf( AirTrafficTypeNode, fixm:uom, AirTrafficTypeUOM, Graph ); rdf( AirTrafficTypeNode, plain:uom, AirTrafficTypeUOM, Graph ) ),
+          AirTrafficType=xval(AirTrafficTypeValue,AirTrafficTypeUOM)
         );
         (
-          rdf( AirTrafficTypeNode,aixm:nilReason, NilReason, Graph ),
-          AirTrafficType=nil(NilReason)
+          rdf( AirTrafficTypeNode,aixm:nilReason, AirTrafficTypeNilReason, Graph ),
+          AirTrafficType=nil(AirTrafficTypeNilReason)
         );
         (
-          rdf( AirTrafficTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AirTrafficType=indeterminate(Indeterminate)
+          rdf( AirTrafficTypeNode,gml:indeterminatePosition, AirTrafficTypeIndeterminate, Graph ),
+          AirTrafficType=indeterminate(AirTrafficTypeIndeterminate)
         )
       )
   )
@@ -4001,16 +4003,16 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         );
         (
           rdf( DelayAtPointNode,rdf:value,DelayAtPointValue,Graph ),
-          ( rdf( DelayAtPointNode, aixm:uom, UOM, Graph ); rdf( DelayAtPointNode, fixm:uom, UOM, Graph ); rdf( DelayAtPointNode, plain:uom, UOM, Graph ) ),
-          DelayAtPoint=xval(DelayAtPointValue,UOM)
+          ( rdf( DelayAtPointNode, aixm:uom, DelayAtPointUOM, Graph ); rdf( DelayAtPointNode, fixm:uom, DelayAtPointUOM, Graph ); rdf( DelayAtPointNode, plain:uom, DelayAtPointUOM, Graph ) ),
+          DelayAtPoint=xval(DelayAtPointValue,DelayAtPointUOM)
         );
         (
-          rdf( DelayAtPointNode,aixm:nilReason, NilReason, Graph ),
-          DelayAtPoint=nil(NilReason)
+          rdf( DelayAtPointNode,aixm:nilReason, DelayAtPointNilReason, Graph ),
+          DelayAtPoint=nil(DelayAtPointNilReason)
         );
         (
-          rdf( DelayAtPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DelayAtPoint=indeterminate(Indeterminate)
+          rdf( DelayAtPointNode,gml:indeterminatePosition, DelayAtPointIndeterminate, Graph ),
+          DelayAtPoint=indeterminate(DelayAtPointIndeterminate)
         )
       )
   )
@@ -4027,16 +4029,16 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         );
         (
           rdf( FlightRulesNode,rdf:value,FlightRulesValue,Graph ),
-          ( rdf( FlightRulesNode, aixm:uom, UOM, Graph ); rdf( FlightRulesNode, fixm:uom, UOM, Graph ); rdf( FlightRulesNode, plain:uom, UOM, Graph ) ),
-          FlightRules=xval(FlightRulesValue,UOM)
+          ( rdf( FlightRulesNode, aixm:uom, FlightRulesUOM, Graph ); rdf( FlightRulesNode, fixm:uom, FlightRulesUOM, Graph ); rdf( FlightRulesNode, plain:uom, FlightRulesUOM, Graph ) ),
+          FlightRules=xval(FlightRulesValue,FlightRulesUOM)
         );
         (
-          rdf( FlightRulesNode,aixm:nilReason, NilReason, Graph ),
-          FlightRules=nil(NilReason)
+          rdf( FlightRulesNode,aixm:nilReason, FlightRulesNilReason, Graph ),
+          FlightRules=nil(FlightRulesNilReason)
         );
         (
-          rdf( FlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightRules=indeterminate(Indeterminate)
+          rdf( FlightRulesNode,gml:indeterminatePosition, FlightRulesIndeterminate, Graph ),
+          FlightRules=indeterminate(FlightRulesIndeterminate)
         )
       )
   )
@@ -4056,16 +4058,16 @@ fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType, DelayAtPoint,
         );
         (
           rdf( ClearanceLimitNode,rdf:value,ClearanceLimitValue,Graph ),
-          ( rdf( ClearanceLimitNode, aixm:uom, UOM, Graph ); rdf( ClearanceLimitNode, fixm:uom, UOM, Graph ); rdf( ClearanceLimitNode, plain:uom, UOM, Graph ) ),
-          ClearanceLimit=xval(ClearanceLimitValue,UOM)
+          ( rdf( ClearanceLimitNode, aixm:uom, ClearanceLimitUOM, Graph ); rdf( ClearanceLimitNode, fixm:uom, ClearanceLimitUOM, Graph ); rdf( ClearanceLimitNode, plain:uom, ClearanceLimitUOM, Graph ) ),
+          ClearanceLimit=xval(ClearanceLimitValue,ClearanceLimitUOM)
         );
         (
-          rdf( ClearanceLimitNode,aixm:nilReason, NilReason, Graph ),
-          ClearanceLimit=nil(NilReason)
+          rdf( ClearanceLimitNode,aixm:nilReason, ClearanceLimitNilReason, Graph ),
+          ClearanceLimit=nil(ClearanceLimitNilReason)
         );
         (
-          rdf( ClearanceLimitNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ClearanceLimit=indeterminate(Indeterminate)
+          rdf( ClearanceLimitNode,gml:indeterminatePosition, ClearanceLimitIndeterminate, Graph ),
+          ClearanceLimit=indeterminate(ClearanceLimitIndeterminate)
         )
       )
   ) .
@@ -4085,16 +4087,16 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         );
         (
           rdf( SideNode,rdf:value,SideValue,Graph ),
-          ( rdf( SideNode, aixm:uom, UOM, Graph ); rdf( SideNode, fixm:uom, UOM, Graph ); rdf( SideNode, plain:uom, UOM, Graph ) ),
-          Side=xval(SideValue,UOM)
+          ( rdf( SideNode, aixm:uom, SideUOM, Graph ); rdf( SideNode, fixm:uom, SideUOM, Graph ); rdf( SideNode, plain:uom, SideUOM, Graph ) ),
+          Side=xval(SideValue,SideUOM)
         );
         (
-          rdf( SideNode,aixm:nilReason, NilReason, Graph ),
-          Side=nil(NilReason)
+          rdf( SideNode,aixm:nilReason, SideNilReason, Graph ),
+          Side=nil(SideNilReason)
         );
         (
-          rdf( SideNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Side=indeterminate(Indeterminate)
+          rdf( SideNode,gml:indeterminatePosition, SideIndeterminate, Graph ),
+          Side=indeterminate(SideIndeterminate)
         )
       )
   )
@@ -4111,16 +4113,16 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         );
         (
           rdf( DistanceNode,rdf:value,DistanceValue,Graph ),
-          ( rdf( DistanceNode, aixm:uom, UOM, Graph ); rdf( DistanceNode, fixm:uom, UOM, Graph ); rdf( DistanceNode, plain:uom, UOM, Graph ) ),
-          Distance=xval(DistanceValue,UOM)
+          ( rdf( DistanceNode, aixm:uom, DistanceUOM, Graph ); rdf( DistanceNode, fixm:uom, DistanceUOM, Graph ); rdf( DistanceNode, plain:uom, DistanceUOM, Graph ) ),
+          Distance=xval(DistanceValue,DistanceUOM)
         );
         (
-          rdf( DistanceNode,aixm:nilReason, NilReason, Graph ),
-          Distance=nil(NilReason)
+          rdf( DistanceNode,aixm:nilReason, DistanceNilReason, Graph ),
+          Distance=nil(DistanceNilReason)
         );
         (
-          rdf( DistanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Distance=indeterminate(Indeterminate)
+          rdf( DistanceNode,gml:indeterminatePosition, DistanceIndeterminate, Graph ),
+          Distance=indeterminate(DistanceIndeterminate)
         )
       )
   )
@@ -4137,16 +4139,16 @@ aixm_Ridge(Graph, Ridge, Side, Distance, Depth, Annotation) :-
         );
         (
           rdf( DepthNode,rdf:value,DepthValue,Graph ),
-          ( rdf( DepthNode, aixm:uom, UOM, Graph ); rdf( DepthNode, fixm:uom, UOM, Graph ); rdf( DepthNode, plain:uom, UOM, Graph ) ),
-          Depth=xval(DepthValue,UOM)
+          ( rdf( DepthNode, aixm:uom, DepthUOM, Graph ); rdf( DepthNode, fixm:uom, DepthUOM, Graph ); rdf( DepthNode, plain:uom, DepthUOM, Graph ) ),
+          Depth=xval(DepthValue,DepthUOM)
         );
         (
-          rdf( DepthNode,aixm:nilReason, NilReason, Graph ),
-          Depth=nil(NilReason)
+          rdf( DepthNode,aixm:nilReason, DepthNilReason, Graph ),
+          Depth=nil(DepthNilReason)
         );
         (
-          rdf( DepthNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Depth=indeterminate(Indeterminate)
+          rdf( DepthNode,gml:indeterminatePosition, DepthIndeterminate, Graph ),
+          Depth=indeterminate(DepthIndeterminate)
         )
       )
   )
@@ -4182,16 +4184,16 @@ fixm_EnRouteDiversion(Graph, EnRouteDiversion, DiversionRecoveryInformation) :-
         );
         (
           rdf( DiversionRecoveryInformationNode,rdf:value,DiversionRecoveryInformationValue,Graph ),
-          ( rdf( DiversionRecoveryInformationNode, aixm:uom, UOM, Graph ); rdf( DiversionRecoveryInformationNode, fixm:uom, UOM, Graph ); rdf( DiversionRecoveryInformationNode, plain:uom, UOM, Graph ) ),
-          DiversionRecoveryInformation=xval(DiversionRecoveryInformationValue,UOM)
+          ( rdf( DiversionRecoveryInformationNode, aixm:uom, DiversionRecoveryInformationUOM, Graph ); rdf( DiversionRecoveryInformationNode, fixm:uom, DiversionRecoveryInformationUOM, Graph ); rdf( DiversionRecoveryInformationNode, plain:uom, DiversionRecoveryInformationUOM, Graph ) ),
+          DiversionRecoveryInformation=xval(DiversionRecoveryInformationValue,DiversionRecoveryInformationUOM)
         );
         (
-          rdf( DiversionRecoveryInformationNode,aixm:nilReason, NilReason, Graph ),
-          DiversionRecoveryInformation=nil(NilReason)
+          rdf( DiversionRecoveryInformationNode,aixm:nilReason, DiversionRecoveryInformationNilReason, Graph ),
+          DiversionRecoveryInformation=nil(DiversionRecoveryInformationNilReason)
         );
         (
-          rdf( DiversionRecoveryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DiversionRecoveryInformation=indeterminate(Indeterminate)
+          rdf( DiversionRecoveryInformationNode,gml:indeterminatePosition, DiversionRecoveryInformationIndeterminate, Graph ),
+          DiversionRecoveryInformation=indeterminate(DiversionRecoveryInformationIndeterminate)
         )
       )
   ) .
@@ -4211,16 +4213,16 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         );
         (
           rdf( CalculatedNode,rdf:value,CalculatedValue,Graph ),
-          ( rdf( CalculatedNode, aixm:uom, UOM, Graph ); rdf( CalculatedNode, fixm:uom, UOM, Graph ); rdf( CalculatedNode, plain:uom, UOM, Graph ) ),
-          Calculated=xval(CalculatedValue,UOM)
+          ( rdf( CalculatedNode, aixm:uom, CalculatedUOM, Graph ); rdf( CalculatedNode, fixm:uom, CalculatedUOM, Graph ); rdf( CalculatedNode, plain:uom, CalculatedUOM, Graph ) ),
+          Calculated=xval(CalculatedValue,CalculatedUOM)
         );
         (
-          rdf( CalculatedNode,aixm:nilReason, NilReason, Graph ),
-          Calculated=nil(NilReason)
+          rdf( CalculatedNode,aixm:nilReason, CalculatedNilReason, Graph ),
+          Calculated=nil(CalculatedNilReason)
         );
         (
-          rdf( CalculatedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Calculated=indeterminate(Indeterminate)
+          rdf( CalculatedNode,gml:indeterminatePosition, CalculatedIndeterminate, Graph ),
+          Calculated=indeterminate(CalculatedIndeterminate)
         )
       )
   )
@@ -4237,16 +4239,16 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         );
         (
           rdf( PilotReportedNode,rdf:value,PilotReportedValue,Graph ),
-          ( rdf( PilotReportedNode, aixm:uom, UOM, Graph ); rdf( PilotReportedNode, fixm:uom, UOM, Graph ); rdf( PilotReportedNode, plain:uom, UOM, Graph ) ),
-          PilotReported=xval(PilotReportedValue,UOM)
+          ( rdf( PilotReportedNode, aixm:uom, PilotReportedUOM, Graph ); rdf( PilotReportedNode, fixm:uom, PilotReportedUOM, Graph ); rdf( PilotReportedNode, plain:uom, PilotReportedUOM, Graph ) ),
+          PilotReported=xval(PilotReportedValue,PilotReportedUOM)
         );
         (
-          rdf( PilotReportedNode,aixm:nilReason, NilReason, Graph ),
-          PilotReported=nil(NilReason)
+          rdf( PilotReportedNode,aixm:nilReason, PilotReportedNilReason, Graph ),
+          PilotReported=nil(PilotReportedNilReason)
         );
         (
-          rdf( PilotReportedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PilotReported=indeterminate(Indeterminate)
+          rdf( PilotReportedNode,gml:indeterminatePosition, PilotReportedIndeterminate, Graph ),
+          PilotReported=indeterminate(PilotReportedIndeterminate)
         )
       )
   )
@@ -4263,16 +4265,16 @@ fixm_ActualSpeed(Graph, ActualSpeed, Calculated, PilotReported, Surveillance) :-
         );
         (
           rdf( SurveillanceNode,rdf:value,SurveillanceValue,Graph ),
-          ( rdf( SurveillanceNode, aixm:uom, UOM, Graph ); rdf( SurveillanceNode, fixm:uom, UOM, Graph ); rdf( SurveillanceNode, plain:uom, UOM, Graph ) ),
-          Surveillance=xval(SurveillanceValue,UOM)
+          ( rdf( SurveillanceNode, aixm:uom, SurveillanceUOM, Graph ); rdf( SurveillanceNode, fixm:uom, SurveillanceUOM, Graph ); rdf( SurveillanceNode, plain:uom, SurveillanceUOM, Graph ) ),
+          Surveillance=xval(SurveillanceValue,SurveillanceUOM)
         );
         (
-          rdf( SurveillanceNode,aixm:nilReason, NilReason, Graph ),
-          Surveillance=nil(NilReason)
+          rdf( SurveillanceNode,aixm:nilReason, SurveillanceNilReason, Graph ),
+          Surveillance=nil(SurveillanceNilReason)
         );
         (
-          rdf( SurveillanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Surveillance=indeterminate(Indeterminate)
+          rdf( SurveillanceNode,gml:indeterminatePosition, SurveillanceIndeterminate, Graph ),
+          Surveillance=indeterminate(SurveillanceIndeterminate)
         )
       )
   ) .
@@ -4292,16 +4294,16 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         );
         (
           rdf( ActionTakenNode,rdf:value,ActionTakenValue,Graph ),
-          ( rdf( ActionTakenNode, aixm:uom, UOM, Graph ); rdf( ActionTakenNode, fixm:uom, UOM, Graph ); rdf( ActionTakenNode, plain:uom, UOM, Graph ) ),
-          ActionTaken=xval(ActionTakenValue,UOM)
+          ( rdf( ActionTakenNode, aixm:uom, ActionTakenUOM, Graph ); rdf( ActionTakenNode, fixm:uom, ActionTakenUOM, Graph ); rdf( ActionTakenNode, plain:uom, ActionTakenUOM, Graph ) ),
+          ActionTaken=xval(ActionTakenValue,ActionTakenUOM)
         );
         (
-          rdf( ActionTakenNode,aixm:nilReason, NilReason, Graph ),
-          ActionTaken=nil(NilReason)
+          rdf( ActionTakenNode,aixm:nilReason, ActionTakenNilReason, Graph ),
+          ActionTaken=nil(ActionTakenNilReason)
         );
         (
-          rdf( ActionTakenNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ActionTaken=indeterminate(Indeterminate)
+          rdf( ActionTakenNode,gml:indeterminatePosition, ActionTakenIndeterminate, Graph ),
+          ActionTaken=indeterminate(ActionTakenIndeterminate)
         )
       )
   )
@@ -4318,16 +4320,16 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         );
         (
           rdf( EmergencyDescriptionNode,rdf:value,EmergencyDescriptionValue,Graph ),
-          ( rdf( EmergencyDescriptionNode, aixm:uom, UOM, Graph ); rdf( EmergencyDescriptionNode, fixm:uom, UOM, Graph ); rdf( EmergencyDescriptionNode, plain:uom, UOM, Graph ) ),
-          EmergencyDescription=xval(EmergencyDescriptionValue,UOM)
+          ( rdf( EmergencyDescriptionNode, aixm:uom, EmergencyDescriptionUOM, Graph ); rdf( EmergencyDescriptionNode, fixm:uom, EmergencyDescriptionUOM, Graph ); rdf( EmergencyDescriptionNode, plain:uom, EmergencyDescriptionUOM, Graph ) ),
+          EmergencyDescription=xval(EmergencyDescriptionValue,EmergencyDescriptionUOM)
         );
         (
-          rdf( EmergencyDescriptionNode,aixm:nilReason, NilReason, Graph ),
-          EmergencyDescription=nil(NilReason)
+          rdf( EmergencyDescriptionNode,aixm:nilReason, EmergencyDescriptionNilReason, Graph ),
+          EmergencyDescription=nil(EmergencyDescriptionNilReason)
         );
         (
-          rdf( EmergencyDescriptionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EmergencyDescription=indeterminate(Indeterminate)
+          rdf( EmergencyDescriptionNode,gml:indeterminatePosition, EmergencyDescriptionIndeterminate, Graph ),
+          EmergencyDescription=indeterminate(EmergencyDescriptionIndeterminate)
         )
       )
   )
@@ -4347,16 +4349,16 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         );
         (
           rdf( OtherInformationNode,rdf:value,OtherInformationValue,Graph ),
-          ( rdf( OtherInformationNode, aixm:uom, UOM, Graph ); rdf( OtherInformationNode, fixm:uom, UOM, Graph ); rdf( OtherInformationNode, plain:uom, UOM, Graph ) ),
-          OtherInformation=xval(OtherInformationValue,UOM)
+          ( rdf( OtherInformationNode, aixm:uom, OtherInformationUOM, Graph ); rdf( OtherInformationNode, fixm:uom, OtherInformationUOM, Graph ); rdf( OtherInformationNode, plain:uom, OtherInformationUOM, Graph ) ),
+          OtherInformation=xval(OtherInformationValue,OtherInformationUOM)
         );
         (
-          rdf( OtherInformationNode,aixm:nilReason, NilReason, Graph ),
-          OtherInformation=nil(NilReason)
+          rdf( OtherInformationNode,aixm:nilReason, OtherInformationNilReason, Graph ),
+          OtherInformation=nil(OtherInformationNilReason)
         );
         (
-          rdf( OtherInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherInformation=indeterminate(Indeterminate)
+          rdf( OtherInformationNode,gml:indeterminatePosition, OtherInformationIndeterminate, Graph ),
+          OtherInformation=indeterminate(OtherInformationIndeterminate)
         )
       )
   )
@@ -4373,16 +4375,16 @@ fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, 
         );
         (
           rdf( PhaseNode,rdf:value,PhaseValue,Graph ),
-          ( rdf( PhaseNode, aixm:uom, UOM, Graph ); rdf( PhaseNode, fixm:uom, UOM, Graph ); rdf( PhaseNode, plain:uom, UOM, Graph ) ),
-          Phase=xval(PhaseValue,UOM)
+          ( rdf( PhaseNode, aixm:uom, PhaseUOM, Graph ); rdf( PhaseNode, fixm:uom, PhaseUOM, Graph ); rdf( PhaseNode, plain:uom, PhaseUOM, Graph ) ),
+          Phase=xval(PhaseValue,PhaseUOM)
         );
         (
-          rdf( PhaseNode,aixm:nilReason, NilReason, Graph ),
-          Phase=nil(NilReason)
+          rdf( PhaseNode,aixm:nilReason, PhaseNilReason, Graph ),
+          Phase=nil(PhaseNilReason)
         );
         (
-          rdf( PhaseNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Phase=indeterminate(Indeterminate)
+          rdf( PhaseNode,gml:indeterminatePosition, PhaseIndeterminate, Graph ),
+          Phase=indeterminate(PhaseIndeterminate)
         )
       )
   )
@@ -4410,16 +4412,16 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         );
         (
           rdf( FlightFilerNode,rdf:value,FlightFilerValue,Graph ),
-          ( rdf( FlightFilerNode, aixm:uom, UOM, Graph ); rdf( FlightFilerNode, fixm:uom, UOM, Graph ); rdf( FlightFilerNode, plain:uom, UOM, Graph ) ),
-          FlightFiler=xval(FlightFilerValue,UOM)
+          ( rdf( FlightFilerNode, aixm:uom, FlightFilerUOM, Graph ); rdf( FlightFilerNode, fixm:uom, FlightFilerUOM, Graph ); rdf( FlightFilerNode, plain:uom, FlightFilerUOM, Graph ) ),
+          FlightFiler=xval(FlightFilerValue,FlightFilerUOM)
         );
         (
-          rdf( FlightFilerNode,aixm:nilReason, NilReason, Graph ),
-          FlightFiler=nil(NilReason)
+          rdf( FlightFilerNode,aixm:nilReason, FlightFilerNilReason, Graph ),
+          FlightFiler=nil(FlightFilerNilReason)
         );
         (
-          rdf( FlightFilerNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightFiler=indeterminate(Indeterminate)
+          rdf( FlightFilerNode,gml:indeterminatePosition, FlightFilerIndeterminate, Graph ),
+          FlightFiler=indeterminate(FlightFilerIndeterminate)
         )
       )
   )
@@ -4436,16 +4438,16 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         );
         (
           rdf( GufiNode,rdf:value,GufiValue,Graph ),
-          ( rdf( GufiNode, aixm:uom, UOM, Graph ); rdf( GufiNode, fixm:uom, UOM, Graph ); rdf( GufiNode, plain:uom, UOM, Graph ) ),
-          Gufi=xval(GufiValue,UOM)
+          ( rdf( GufiNode, aixm:uom, GufiUOM, Graph ); rdf( GufiNode, fixm:uom, GufiUOM, Graph ); rdf( GufiNode, plain:uom, GufiUOM, Graph ) ),
+          Gufi=xval(GufiValue,GufiUOM)
         );
         (
-          rdf( GufiNode,aixm:nilReason, NilReason, Graph ),
-          Gufi=nil(NilReason)
+          rdf( GufiNode,aixm:nilReason, GufiNilReason, Graph ),
+          Gufi=nil(GufiNilReason)
         );
         (
-          rdf( GufiNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Gufi=indeterminate(Indeterminate)
+          rdf( GufiNode,gml:indeterminatePosition, GufiIndeterminate, Graph ),
+          Gufi=indeterminate(GufiIndeterminate)
         )
       )
   )
@@ -4462,16 +4464,16 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         );
         (
           rdf( RemarksNode,rdf:value,RemarksValue,Graph ),
-          ( rdf( RemarksNode, aixm:uom, UOM, Graph ); rdf( RemarksNode, fixm:uom, UOM, Graph ); rdf( RemarksNode, plain:uom, UOM, Graph ) ),
-          Remarks=xval(RemarksValue,UOM)
+          ( rdf( RemarksNode, aixm:uom, RemarksUOM, Graph ); rdf( RemarksNode, fixm:uom, RemarksUOM, Graph ); rdf( RemarksNode, plain:uom, RemarksUOM, Graph ) ),
+          Remarks=xval(RemarksValue,RemarksUOM)
         );
         (
-          rdf( RemarksNode,aixm:nilReason, NilReason, Graph ),
-          Remarks=nil(NilReason)
+          rdf( RemarksNode,aixm:nilReason, RemarksNilReason, Graph ),
+          Remarks=nil(RemarksNilReason)
         );
         (
-          rdf( RemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Remarks=indeterminate(Indeterminate)
+          rdf( RemarksNode,gml:indeterminatePosition, RemarksIndeterminate, Graph ),
+          Remarks=indeterminate(RemarksIndeterminate)
         )
       )
   )
@@ -4523,16 +4525,16 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         );
         (
           rdf( FlightTypeNode,rdf:value,FlightTypeValue,Graph ),
-          ( rdf( FlightTypeNode, aixm:uom, UOM, Graph ); rdf( FlightTypeNode, fixm:uom, UOM, Graph ); rdf( FlightTypeNode, plain:uom, UOM, Graph ) ),
-          FlightType=xval(FlightTypeValue,UOM)
+          ( rdf( FlightTypeNode, aixm:uom, FlightTypeUOM, Graph ); rdf( FlightTypeNode, fixm:uom, FlightTypeUOM, Graph ); rdf( FlightTypeNode, plain:uom, FlightTypeUOM, Graph ) ),
+          FlightType=xval(FlightTypeValue,FlightTypeUOM)
         );
         (
-          rdf( FlightTypeNode,aixm:nilReason, NilReason, Graph ),
-          FlightType=nil(NilReason)
+          rdf( FlightTypeNode,aixm:nilReason, FlightTypeNilReason, Graph ),
+          FlightType=nil(FlightTypeNilReason)
         );
         (
-          rdf( FlightTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightType=indeterminate(Indeterminate)
+          rdf( FlightTypeNode,gml:indeterminatePosition, FlightTypeIndeterminate, Graph ),
+          FlightType=indeterminate(FlightTypeIndeterminate)
         )
       )
   )
@@ -4552,16 +4554,16 @@ fixm_Flight(Graph, Flight, ControllingUnit, Extensions, FlightFiler, Gufi, Remar
         );
         (
           rdf( OriginatorNode,rdf:value,OriginatorValue,Graph ),
-          ( rdf( OriginatorNode, aixm:uom, UOM, Graph ); rdf( OriginatorNode, fixm:uom, UOM, Graph ); rdf( OriginatorNode, plain:uom, UOM, Graph ) ),
-          Originator=xval(OriginatorValue,UOM)
+          ( rdf( OriginatorNode, aixm:uom, OriginatorUOM, Graph ); rdf( OriginatorNode, fixm:uom, OriginatorUOM, Graph ); rdf( OriginatorNode, plain:uom, OriginatorUOM, Graph ) ),
+          Originator=xval(OriginatorValue,OriginatorUOM)
         );
         (
-          rdf( OriginatorNode,aixm:nilReason, NilReason, Graph ),
-          Originator=nil(NilReason)
+          rdf( OriginatorNode,aixm:nilReason, OriginatorNilReason, Graph ),
+          Originator=nil(OriginatorNilReason)
         );
         (
-          rdf( OriginatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Originator=indeterminate(Indeterminate)
+          rdf( OriginatorNode,gml:indeterminatePosition, OriginatorIndeterminate, Graph ),
+          Originator=indeterminate(OriginatorIndeterminate)
         )
       )
   )
@@ -4600,16 +4602,16 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         );
         (
           rdf( ClearedFlightLevelNode,rdf:value,ClearedFlightLevelValue,Graph ),
-          ( rdf( ClearedFlightLevelNode, aixm:uom, UOM, Graph ); rdf( ClearedFlightLevelNode, fixm:uom, UOM, Graph ); rdf( ClearedFlightLevelNode, plain:uom, UOM, Graph ) ),
-          ClearedFlightLevel=xval(ClearedFlightLevelValue,UOM)
+          ( rdf( ClearedFlightLevelNode, aixm:uom, ClearedFlightLevelUOM, Graph ); rdf( ClearedFlightLevelNode, fixm:uom, ClearedFlightLevelUOM, Graph ); rdf( ClearedFlightLevelNode, plain:uom, ClearedFlightLevelUOM, Graph ) ),
+          ClearedFlightLevel=xval(ClearedFlightLevelValue,ClearedFlightLevelUOM)
         );
         (
-          rdf( ClearedFlightLevelNode,aixm:nilReason, NilReason, Graph ),
-          ClearedFlightLevel=nil(NilReason)
+          rdf( ClearedFlightLevelNode,aixm:nilReason, ClearedFlightLevelNilReason, Graph ),
+          ClearedFlightLevel=nil(ClearedFlightLevelNilReason)
         );
         (
-          rdf( ClearedFlightLevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ClearedFlightLevel=indeterminate(Indeterminate)
+          rdf( ClearedFlightLevelNode,gml:indeterminatePosition, ClearedFlightLevelIndeterminate, Graph ),
+          ClearedFlightLevel=indeterminate(ClearedFlightLevelIndeterminate)
         )
       )
   )
@@ -4626,16 +4628,16 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         );
         (
           rdf( ClearedSpeedNode,rdf:value,ClearedSpeedValue,Graph ),
-          ( rdf( ClearedSpeedNode, aixm:uom, UOM, Graph ); rdf( ClearedSpeedNode, fixm:uom, UOM, Graph ); rdf( ClearedSpeedNode, plain:uom, UOM, Graph ) ),
-          ClearedSpeed=xval(ClearedSpeedValue,UOM)
+          ( rdf( ClearedSpeedNode, aixm:uom, ClearedSpeedUOM, Graph ); rdf( ClearedSpeedNode, fixm:uom, ClearedSpeedUOM, Graph ); rdf( ClearedSpeedNode, plain:uom, ClearedSpeedUOM, Graph ) ),
+          ClearedSpeed=xval(ClearedSpeedValue,ClearedSpeedUOM)
         );
         (
-          rdf( ClearedSpeedNode,aixm:nilReason, NilReason, Graph ),
-          ClearedSpeed=nil(NilReason)
+          rdf( ClearedSpeedNode,aixm:nilReason, ClearedSpeedNilReason, Graph ),
+          ClearedSpeed=nil(ClearedSpeedNilReason)
         );
         (
-          rdf( ClearedSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ClearedSpeed=indeterminate(Indeterminate)
+          rdf( ClearedSpeedNode,gml:indeterminatePosition, ClearedSpeedIndeterminate, Graph ),
+          ClearedSpeed=indeterminate(ClearedSpeedIndeterminate)
         )
       )
   )
@@ -4652,16 +4654,16 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         );
         (
           rdf( HeadingNode,rdf:value,HeadingValue,Graph ),
-          ( rdf( HeadingNode, aixm:uom, UOM, Graph ); rdf( HeadingNode, fixm:uom, UOM, Graph ); rdf( HeadingNode, plain:uom, UOM, Graph ) ),
-          Heading=xval(HeadingValue,UOM)
+          ( rdf( HeadingNode, aixm:uom, HeadingUOM, Graph ); rdf( HeadingNode, fixm:uom, HeadingUOM, Graph ); rdf( HeadingNode, plain:uom, HeadingUOM, Graph ) ),
+          Heading=xval(HeadingValue,HeadingUOM)
         );
         (
-          rdf( HeadingNode,aixm:nilReason, NilReason, Graph ),
-          Heading=nil(NilReason)
+          rdf( HeadingNode,aixm:nilReason, HeadingNilReason, Graph ),
+          Heading=nil(HeadingNilReason)
         );
         (
-          rdf( HeadingNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Heading=indeterminate(Indeterminate)
+          rdf( HeadingNode,gml:indeterminatePosition, HeadingIndeterminate, Graph ),
+          Heading=indeterminate(HeadingIndeterminate)
         )
       )
   )
@@ -4681,16 +4683,16 @@ fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLeve
         );
         (
           rdf( RateOfClimbDescendNode,rdf:value,RateOfClimbDescendValue,Graph ),
-          ( rdf( RateOfClimbDescendNode, aixm:uom, UOM, Graph ); rdf( RateOfClimbDescendNode, fixm:uom, UOM, Graph ); rdf( RateOfClimbDescendNode, plain:uom, UOM, Graph ) ),
-          RateOfClimbDescend=xval(RateOfClimbDescendValue,UOM)
+          ( rdf( RateOfClimbDescendNode, aixm:uom, RateOfClimbDescendUOM, Graph ); rdf( RateOfClimbDescendNode, fixm:uom, RateOfClimbDescendUOM, Graph ); rdf( RateOfClimbDescendNode, plain:uom, RateOfClimbDescendUOM, Graph ) ),
+          RateOfClimbDescend=xval(RateOfClimbDescendValue,RateOfClimbDescendUOM)
         );
         (
-          rdf( RateOfClimbDescendNode,aixm:nilReason, NilReason, Graph ),
-          RateOfClimbDescend=nil(NilReason)
+          rdf( RateOfClimbDescendNode,aixm:nilReason, RateOfClimbDescendNilReason, Graph ),
+          RateOfClimbDescend=nil(RateOfClimbDescendNilReason)
         );
         (
-          rdf( RateOfClimbDescendNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RateOfClimbDescend=indeterminate(Indeterminate)
+          rdf( RateOfClimbDescendNode,gml:indeterminatePosition, RateOfClimbDescendIndeterminate, Graph ),
+          RateOfClimbDescend=indeterminate(RateOfClimbDescendIndeterminate)
         )
       )
   )
@@ -4738,16 +4740,16 @@ fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnit, UpstreamUnit, BoundaryCro
         );
         (
           rdf( UnitBoundaryIndicatorNode,rdf:value,UnitBoundaryIndicatorValue,Graph ),
-          ( rdf( UnitBoundaryIndicatorNode, aixm:uom, UOM, Graph ); rdf( UnitBoundaryIndicatorNode, fixm:uom, UOM, Graph ); rdf( UnitBoundaryIndicatorNode, plain:uom, UOM, Graph ) ),
-          UnitBoundaryIndicator=xval(UnitBoundaryIndicatorValue,UOM)
+          ( rdf( UnitBoundaryIndicatorNode, aixm:uom, UnitBoundaryIndicatorUOM, Graph ); rdf( UnitBoundaryIndicatorNode, fixm:uom, UnitBoundaryIndicatorUOM, Graph ); rdf( UnitBoundaryIndicatorNode, plain:uom, UnitBoundaryIndicatorUOM, Graph ) ),
+          UnitBoundaryIndicator=xval(UnitBoundaryIndicatorValue,UnitBoundaryIndicatorUOM)
         );
         (
-          rdf( UnitBoundaryIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          UnitBoundaryIndicator=nil(NilReason)
+          rdf( UnitBoundaryIndicatorNode,aixm:nilReason, UnitBoundaryIndicatorNilReason, Graph ),
+          UnitBoundaryIndicator=nil(UnitBoundaryIndicatorNilReason)
         );
         (
-          rdf( UnitBoundaryIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UnitBoundaryIndicator=indeterminate(Indeterminate)
+          rdf( UnitBoundaryIndicatorNode,gml:indeterminatePosition, UnitBoundaryIndicatorIndeterminate, Graph ),
+          UnitBoundaryIndicator=indeterminate(UnitBoundaryIndicatorIndeterminate)
         )
       )
   ) .
@@ -4768,16 +4770,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( ObservationTimeNode,rdf:value,ObservationTimeValue,Graph ),
-          ( rdf( ObservationTimeNode, aixm:uom, UOM, Graph ); rdf( ObservationTimeNode, fixm:uom, UOM, Graph ); rdf( ObservationTimeNode, plain:uom, UOM, Graph ) ),
-          ObservationTime=xval(ObservationTimeValue,UOM)
+          ( rdf( ObservationTimeNode, aixm:uom, ObservationTimeUOM, Graph ); rdf( ObservationTimeNode, fixm:uom, ObservationTimeUOM, Graph ); rdf( ObservationTimeNode, plain:uom, ObservationTimeUOM, Graph ) ),
+          ObservationTime=xval(ObservationTimeValue,ObservationTimeUOM)
         );
         (
-          rdf( ObservationTimeNode,aixm:nilReason, NilReason, Graph ),
-          ObservationTime=nil(NilReason)
+          rdf( ObservationTimeNode,aixm:nilReason, ObservationTimeNilReason, Graph ),
+          ObservationTime=nil(ObservationTimeNilReason)
         );
         (
-          rdf( ObservationTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ObservationTime=indeterminate(Indeterminate)
+          rdf( ObservationTimeNode,gml:indeterminatePosition, ObservationTimeIndeterminate, Graph ),
+          ObservationTime=indeterminate(ObservationTimeIndeterminate)
         )
       )
   )
@@ -4794,16 +4796,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( DepthNode,rdf:value,DepthValue,Graph ),
-          ( rdf( DepthNode, aixm:uom, UOM, Graph ); rdf( DepthNode, fixm:uom, UOM, Graph ); rdf( DepthNode, plain:uom, UOM, Graph ) ),
-          Depth=xval(DepthValue,UOM)
+          ( rdf( DepthNode, aixm:uom, DepthUOM, Graph ); rdf( DepthNode, fixm:uom, DepthUOM, Graph ); rdf( DepthNode, plain:uom, DepthUOM, Graph ) ),
+          Depth=xval(DepthValue,DepthUOM)
         );
         (
-          rdf( DepthNode,aixm:nilReason, NilReason, Graph ),
-          Depth=nil(NilReason)
+          rdf( DepthNode,aixm:nilReason, DepthNilReason, Graph ),
+          Depth=nil(DepthNilReason)
         );
         (
-          rdf( DepthNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Depth=indeterminate(Indeterminate)
+          rdf( DepthNode,gml:indeterminatePosition, DepthIndeterminate, Graph ),
+          Depth=indeterminate(DepthIndeterminate)
         )
       )
   )
@@ -4820,16 +4822,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( FrictionCoefficientNode,rdf:value,FrictionCoefficientValue,Graph ),
-          ( rdf( FrictionCoefficientNode, aixm:uom, UOM, Graph ); rdf( FrictionCoefficientNode, fixm:uom, UOM, Graph ); rdf( FrictionCoefficientNode, plain:uom, UOM, Graph ) ),
-          FrictionCoefficient=xval(FrictionCoefficientValue,UOM)
+          ( rdf( FrictionCoefficientNode, aixm:uom, FrictionCoefficientUOM, Graph ); rdf( FrictionCoefficientNode, fixm:uom, FrictionCoefficientUOM, Graph ); rdf( FrictionCoefficientNode, plain:uom, FrictionCoefficientUOM, Graph ) ),
+          FrictionCoefficient=xval(FrictionCoefficientValue,FrictionCoefficientUOM)
         );
         (
-          rdf( FrictionCoefficientNode,aixm:nilReason, NilReason, Graph ),
-          FrictionCoefficient=nil(NilReason)
+          rdf( FrictionCoefficientNode,aixm:nilReason, FrictionCoefficientNilReason, Graph ),
+          FrictionCoefficient=nil(FrictionCoefficientNilReason)
         );
         (
-          rdf( FrictionCoefficientNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FrictionCoefficient=indeterminate(Indeterminate)
+          rdf( FrictionCoefficientNode,gml:indeterminatePosition, FrictionCoefficientIndeterminate, Graph ),
+          FrictionCoefficient=indeterminate(FrictionCoefficientIndeterminate)
         )
       )
   )
@@ -4846,16 +4848,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( FrictionEstimationNode,rdf:value,FrictionEstimationValue,Graph ),
-          ( rdf( FrictionEstimationNode, aixm:uom, UOM, Graph ); rdf( FrictionEstimationNode, fixm:uom, UOM, Graph ); rdf( FrictionEstimationNode, plain:uom, UOM, Graph ) ),
-          FrictionEstimation=xval(FrictionEstimationValue,UOM)
+          ( rdf( FrictionEstimationNode, aixm:uom, FrictionEstimationUOM, Graph ); rdf( FrictionEstimationNode, fixm:uom, FrictionEstimationUOM, Graph ); rdf( FrictionEstimationNode, plain:uom, FrictionEstimationUOM, Graph ) ),
+          FrictionEstimation=xval(FrictionEstimationValue,FrictionEstimationUOM)
         );
         (
-          rdf( FrictionEstimationNode,aixm:nilReason, NilReason, Graph ),
-          FrictionEstimation=nil(NilReason)
+          rdf( FrictionEstimationNode,aixm:nilReason, FrictionEstimationNilReason, Graph ),
+          FrictionEstimation=nil(FrictionEstimationNilReason)
         );
         (
-          rdf( FrictionEstimationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FrictionEstimation=indeterminate(Indeterminate)
+          rdf( FrictionEstimationNode,gml:indeterminatePosition, FrictionEstimationIndeterminate, Graph ),
+          FrictionEstimation=indeterminate(FrictionEstimationIndeterminate)
         )
       )
   )
@@ -4872,16 +4874,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( FrictionDeviceNode,rdf:value,FrictionDeviceValue,Graph ),
-          ( rdf( FrictionDeviceNode, aixm:uom, UOM, Graph ); rdf( FrictionDeviceNode, fixm:uom, UOM, Graph ); rdf( FrictionDeviceNode, plain:uom, UOM, Graph ) ),
-          FrictionDevice=xval(FrictionDeviceValue,UOM)
+          ( rdf( FrictionDeviceNode, aixm:uom, FrictionDeviceUOM, Graph ); rdf( FrictionDeviceNode, fixm:uom, FrictionDeviceUOM, Graph ); rdf( FrictionDeviceNode, plain:uom, FrictionDeviceUOM, Graph ) ),
+          FrictionDevice=xval(FrictionDeviceValue,FrictionDeviceUOM)
         );
         (
-          rdf( FrictionDeviceNode,aixm:nilReason, NilReason, Graph ),
-          FrictionDevice=nil(NilReason)
+          rdf( FrictionDeviceNode,aixm:nilReason, FrictionDeviceNilReason, Graph ),
+          FrictionDevice=nil(FrictionDeviceNilReason)
         );
         (
-          rdf( FrictionDeviceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FrictionDevice=indeterminate(Indeterminate)
+          rdf( FrictionDeviceNode,gml:indeterminatePosition, FrictionDeviceIndeterminate, Graph ),
+          FrictionDevice=indeterminate(FrictionDeviceIndeterminate)
         )
       )
   )
@@ -4898,16 +4900,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( ObscuredLightsNode,rdf:value,ObscuredLightsValue,Graph ),
-          ( rdf( ObscuredLightsNode, aixm:uom, UOM, Graph ); rdf( ObscuredLightsNode, fixm:uom, UOM, Graph ); rdf( ObscuredLightsNode, plain:uom, UOM, Graph ) ),
-          ObscuredLights=xval(ObscuredLightsValue,UOM)
+          ( rdf( ObscuredLightsNode, aixm:uom, ObscuredLightsUOM, Graph ); rdf( ObscuredLightsNode, fixm:uom, ObscuredLightsUOM, Graph ); rdf( ObscuredLightsNode, plain:uom, ObscuredLightsUOM, Graph ) ),
+          ObscuredLights=xval(ObscuredLightsValue,ObscuredLightsUOM)
         );
         (
-          rdf( ObscuredLightsNode,aixm:nilReason, NilReason, Graph ),
-          ObscuredLights=nil(NilReason)
+          rdf( ObscuredLightsNode,aixm:nilReason, ObscuredLightsNilReason, Graph ),
+          ObscuredLights=nil(ObscuredLightsNilReason)
         );
         (
-          rdf( ObscuredLightsNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ObscuredLights=indeterminate(Indeterminate)
+          rdf( ObscuredLightsNode,gml:indeterminatePosition, ObscuredLightsIndeterminate, Graph ),
+          ObscuredLights=indeterminate(ObscuredLightsIndeterminate)
         )
       )
   )
@@ -4924,16 +4926,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( FurtherClearanceTimeNode,rdf:value,FurtherClearanceTimeValue,Graph ),
-          ( rdf( FurtherClearanceTimeNode, aixm:uom, UOM, Graph ); rdf( FurtherClearanceTimeNode, fixm:uom, UOM, Graph ); rdf( FurtherClearanceTimeNode, plain:uom, UOM, Graph ) ),
-          FurtherClearanceTime=xval(FurtherClearanceTimeValue,UOM)
+          ( rdf( FurtherClearanceTimeNode, aixm:uom, FurtherClearanceTimeUOM, Graph ); rdf( FurtherClearanceTimeNode, fixm:uom, FurtherClearanceTimeUOM, Graph ); rdf( FurtherClearanceTimeNode, plain:uom, FurtherClearanceTimeUOM, Graph ) ),
+          FurtherClearanceTime=xval(FurtherClearanceTimeValue,FurtherClearanceTimeUOM)
         );
         (
-          rdf( FurtherClearanceTimeNode,aixm:nilReason, NilReason, Graph ),
-          FurtherClearanceTime=nil(NilReason)
+          rdf( FurtherClearanceTimeNode,aixm:nilReason, FurtherClearanceTimeNilReason, Graph ),
+          FurtherClearanceTime=nil(FurtherClearanceTimeNilReason)
         );
         (
-          rdf( FurtherClearanceTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FurtherClearanceTime=indeterminate(Indeterminate)
+          rdf( FurtherClearanceTimeNode,gml:indeterminatePosition, FurtherClearanceTimeIndeterminate, Graph ),
+          FurtherClearanceTime=indeterminate(FurtherClearanceTimeIndeterminate)
         )
       )
   )
@@ -4950,16 +4952,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( FurtherTotalClearanceNode,rdf:value,FurtherTotalClearanceValue,Graph ),
-          ( rdf( FurtherTotalClearanceNode, aixm:uom, UOM, Graph ); rdf( FurtherTotalClearanceNode, fixm:uom, UOM, Graph ); rdf( FurtherTotalClearanceNode, plain:uom, UOM, Graph ) ),
-          FurtherTotalClearance=xval(FurtherTotalClearanceValue,UOM)
+          ( rdf( FurtherTotalClearanceNode, aixm:uom, FurtherTotalClearanceUOM, Graph ); rdf( FurtherTotalClearanceNode, fixm:uom, FurtherTotalClearanceUOM, Graph ); rdf( FurtherTotalClearanceNode, plain:uom, FurtherTotalClearanceUOM, Graph ) ),
+          FurtherTotalClearance=xval(FurtherTotalClearanceValue,FurtherTotalClearanceUOM)
         );
         (
-          rdf( FurtherTotalClearanceNode,aixm:nilReason, NilReason, Graph ),
-          FurtherTotalClearance=nil(NilReason)
+          rdf( FurtherTotalClearanceNode,aixm:nilReason, FurtherTotalClearanceNilReason, Graph ),
+          FurtherTotalClearance=nil(FurtherTotalClearanceNilReason)
         );
         (
-          rdf( FurtherTotalClearanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FurtherTotalClearance=indeterminate(Indeterminate)
+          rdf( FurtherTotalClearanceNode,gml:indeterminatePosition, FurtherTotalClearanceIndeterminate, Graph ),
+          FurtherTotalClearance=indeterminate(FurtherTotalClearanceIndeterminate)
         )
       )
   )
@@ -4976,16 +4978,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( NextObservationTimeNode,rdf:value,NextObservationTimeValue,Graph ),
-          ( rdf( NextObservationTimeNode, aixm:uom, UOM, Graph ); rdf( NextObservationTimeNode, fixm:uom, UOM, Graph ); rdf( NextObservationTimeNode, plain:uom, UOM, Graph ) ),
-          NextObservationTime=xval(NextObservationTimeValue,UOM)
+          ( rdf( NextObservationTimeNode, aixm:uom, NextObservationTimeUOM, Graph ); rdf( NextObservationTimeNode, fixm:uom, NextObservationTimeUOM, Graph ); rdf( NextObservationTimeNode, plain:uom, NextObservationTimeUOM, Graph ) ),
+          NextObservationTime=xval(NextObservationTimeValue,NextObservationTimeUOM)
         );
         (
-          rdf( NextObservationTimeNode,aixm:nilReason, NilReason, Graph ),
-          NextObservationTime=nil(NilReason)
+          rdf( NextObservationTimeNode,aixm:nilReason, NextObservationTimeNilReason, Graph ),
+          NextObservationTime=nil(NextObservationTimeNilReason)
         );
         (
-          rdf( NextObservationTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NextObservationTime=indeterminate(Indeterminate)
+          rdf( NextObservationTimeNode,gml:indeterminatePosition, NextObservationTimeIndeterminate, Graph ),
+          NextObservationTime=indeterminate(NextObservationTimeIndeterminate)
         )
       )
   )
@@ -5002,16 +5004,16 @@ aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime, Depth, F
         );
         (
           rdf( ProportionNode,rdf:value,ProportionValue,Graph ),
-          ( rdf( ProportionNode, aixm:uom, UOM, Graph ); rdf( ProportionNode, fixm:uom, UOM, Graph ); rdf( ProportionNode, plain:uom, UOM, Graph ) ),
-          Proportion=xval(ProportionValue,UOM)
+          ( rdf( ProportionNode, aixm:uom, ProportionUOM, Graph ); rdf( ProportionNode, fixm:uom, ProportionUOM, Graph ); rdf( ProportionNode, plain:uom, ProportionUOM, Graph ) ),
+          Proportion=xval(ProportionValue,ProportionUOM)
         );
         (
-          rdf( ProportionNode,aixm:nilReason, NilReason, Graph ),
-          Proportion=nil(NilReason)
+          rdf( ProportionNode,aixm:nilReason, ProportionNilReason, Graph ),
+          Proportion=nil(ProportionNilReason)
         );
         (
-          rdf( ProportionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Proportion=indeterminate(Indeterminate)
+          rdf( ProportionNode,gml:indeterminatePosition, ProportionIndeterminate, Graph ),
+          Proportion=indeterminate(ProportionIndeterminate)
         )
       )
   )
@@ -5034,16 +5036,16 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         );
         (
           rdf( TemperatureNode,rdf:value,TemperatureValue,Graph ),
-          ( rdf( TemperatureNode, aixm:uom, UOM, Graph ); rdf( TemperatureNode, fixm:uom, UOM, Graph ); rdf( TemperatureNode, plain:uom, UOM, Graph ) ),
-          Temperature=xval(TemperatureValue,UOM)
+          ( rdf( TemperatureNode, aixm:uom, TemperatureUOM, Graph ); rdf( TemperatureNode, fixm:uom, TemperatureUOM, Graph ); rdf( TemperatureNode, plain:uom, TemperatureUOM, Graph ) ),
+          Temperature=xval(TemperatureValue,TemperatureUOM)
         );
         (
-          rdf( TemperatureNode,aixm:nilReason, NilReason, Graph ),
-          Temperature=nil(NilReason)
+          rdf( TemperatureNode,aixm:nilReason, TemperatureNilReason, Graph ),
+          Temperature=nil(TemperatureNilReason)
         );
         (
-          rdf( TemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Temperature=indeterminate(Indeterminate)
+          rdf( TemperatureNode,gml:indeterminatePosition, TemperatureIndeterminate, Graph ),
+          Temperature=indeterminate(TemperatureIndeterminate)
         )
       )
   )
@@ -5060,16 +5062,16 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         );
         (
           rdf( WindDirectionNode,rdf:value,WindDirectionValue,Graph ),
-          ( rdf( WindDirectionNode, aixm:uom, UOM, Graph ); rdf( WindDirectionNode, fixm:uom, UOM, Graph ); rdf( WindDirectionNode, plain:uom, UOM, Graph ) ),
-          WindDirection=xval(WindDirectionValue,UOM)
+          ( rdf( WindDirectionNode, aixm:uom, WindDirectionUOM, Graph ); rdf( WindDirectionNode, fixm:uom, WindDirectionUOM, Graph ); rdf( WindDirectionNode, plain:uom, WindDirectionUOM, Graph ) ),
+          WindDirection=xval(WindDirectionValue,WindDirectionUOM)
         );
         (
-          rdf( WindDirectionNode,aixm:nilReason, NilReason, Graph ),
-          WindDirection=nil(NilReason)
+          rdf( WindDirectionNode,aixm:nilReason, WindDirectionNilReason, Graph ),
+          WindDirection=nil(WindDirectionNilReason)
         );
         (
-          rdf( WindDirectionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WindDirection=indeterminate(Indeterminate)
+          rdf( WindDirectionNode,gml:indeterminatePosition, WindDirectionIndeterminate, Graph ),
+          WindDirection=indeterminate(WindDirectionIndeterminate)
         )
       )
   )
@@ -5086,16 +5088,16 @@ fixm_MeteorologicalData(Graph, MeteorologicalData, Temperature, WindDirection, W
         );
         (
           rdf( WindSpeedNode,rdf:value,WindSpeedValue,Graph ),
-          ( rdf( WindSpeedNode, aixm:uom, UOM, Graph ); rdf( WindSpeedNode, fixm:uom, UOM, Graph ); rdf( WindSpeedNode, plain:uom, UOM, Graph ) ),
-          WindSpeed=xval(WindSpeedValue,UOM)
+          ( rdf( WindSpeedNode, aixm:uom, WindSpeedUOM, Graph ); rdf( WindSpeedNode, fixm:uom, WindSpeedUOM, Graph ); rdf( WindSpeedNode, plain:uom, WindSpeedUOM, Graph ) ),
+          WindSpeed=xval(WindSpeedValue,WindSpeedUOM)
         );
         (
-          rdf( WindSpeedNode,aixm:nilReason, NilReason, Graph ),
-          WindSpeed=nil(NilReason)
+          rdf( WindSpeedNode,aixm:nilReason, WindSpeedNilReason, Graph ),
+          WindSpeed=nil(WindSpeedNilReason)
         );
         (
-          rdf( WindSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WindSpeed=indeterminate(Indeterminate)
+          rdf( WindSpeedNode,gml:indeterminatePosition, WindSpeedIndeterminate, Graph ),
+          WindSpeed=indeterminate(WindSpeedIndeterminate)
         )
       )
   ) .
@@ -5119,16 +5121,16 @@ fixm_TelephoneContact(Graph, TelephoneContact, Voice, Facimile) :-
         );
         (
           rdf( VoiceNode,rdf:value,VoiceValue,Graph ),
-          ( rdf( VoiceNode, aixm:uom, UOM, Graph ); rdf( VoiceNode, fixm:uom, UOM, Graph ); rdf( VoiceNode, plain:uom, UOM, Graph ) ),
-          Voice=xval(VoiceValue,UOM)
+          ( rdf( VoiceNode, aixm:uom, VoiceUOM, Graph ); rdf( VoiceNode, fixm:uom, VoiceUOM, Graph ); rdf( VoiceNode, plain:uom, VoiceUOM, Graph ) ),
+          Voice=xval(VoiceValue,VoiceUOM)
         );
         (
-          rdf( VoiceNode,aixm:nilReason, NilReason, Graph ),
-          Voice=nil(NilReason)
+          rdf( VoiceNode,aixm:nilReason, VoiceNilReason, Graph ),
+          Voice=nil(VoiceNilReason)
         );
         (
-          rdf( VoiceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Voice=indeterminate(Indeterminate)
+          rdf( VoiceNode,gml:indeterminatePosition, VoiceIndeterminate, Graph ),
+          Voice=indeterminate(VoiceIndeterminate)
         )
       )
   )
@@ -5145,16 +5147,16 @@ fixm_TelephoneContact(Graph, TelephoneContact, Voice, Facimile) :-
         );
         (
           rdf( FacimileNode,rdf:value,FacimileValue,Graph ),
-          ( rdf( FacimileNode, aixm:uom, UOM, Graph ); rdf( FacimileNode, fixm:uom, UOM, Graph ); rdf( FacimileNode, plain:uom, UOM, Graph ) ),
-          Facimile=xval(FacimileValue,UOM)
+          ( rdf( FacimileNode, aixm:uom, FacimileUOM, Graph ); rdf( FacimileNode, fixm:uom, FacimileUOM, Graph ); rdf( FacimileNode, plain:uom, FacimileUOM, Graph ) ),
+          Facimile=xval(FacimileValue,FacimileUOM)
         );
         (
-          rdf( FacimileNode,aixm:nilReason, NilReason, Graph ),
-          Facimile=nil(NilReason)
+          rdf( FacimileNode,aixm:nilReason, FacimileNilReason, Graph ),
+          Facimile=nil(FacimileNilReason)
         );
         (
-          rdf( FacimileNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Facimile=indeterminate(Indeterminate)
+          rdf( FacimileNode,gml:indeterminatePosition, FacimileIndeterminate, Graph ),
+          Facimile=indeterminate(FacimileIndeterminate)
         )
       )
   ) .
@@ -5180,16 +5182,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( DangerousGoodsScreeningLocationNode,rdf:value,DangerousGoodsScreeningLocationValue,Graph ),
-          ( rdf( DangerousGoodsScreeningLocationNode, aixm:uom, UOM, Graph ); rdf( DangerousGoodsScreeningLocationNode, fixm:uom, UOM, Graph ); rdf( DangerousGoodsScreeningLocationNode, plain:uom, UOM, Graph ) ),
-          DangerousGoodsScreeningLocation=xval(DangerousGoodsScreeningLocationValue,UOM)
+          ( rdf( DangerousGoodsScreeningLocationNode, aixm:uom, DangerousGoodsScreeningLocationUOM, Graph ); rdf( DangerousGoodsScreeningLocationNode, fixm:uom, DangerousGoodsScreeningLocationUOM, Graph ); rdf( DangerousGoodsScreeningLocationNode, plain:uom, DangerousGoodsScreeningLocationUOM, Graph ) ),
+          DangerousGoodsScreeningLocation=xval(DangerousGoodsScreeningLocationValue,DangerousGoodsScreeningLocationUOM)
         );
         (
-          rdf( DangerousGoodsScreeningLocationNode,aixm:nilReason, NilReason, Graph ),
-          DangerousGoodsScreeningLocation=nil(NilReason)
+          rdf( DangerousGoodsScreeningLocationNode,aixm:nilReason, DangerousGoodsScreeningLocationNilReason, Graph ),
+          DangerousGoodsScreeningLocation=nil(DangerousGoodsScreeningLocationNilReason)
         );
         (
-          rdf( DangerousGoodsScreeningLocationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DangerousGoodsScreeningLocation=indeterminate(Indeterminate)
+          rdf( DangerousGoodsScreeningLocationNode,gml:indeterminatePosition, DangerousGoodsScreeningLocationIndeterminate, Graph ),
+          DangerousGoodsScreeningLocation=indeterminate(DangerousGoodsScreeningLocationIndeterminate)
         )
       )
   )
@@ -5206,16 +5208,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( DepartureCountryNode,rdf:value,DepartureCountryValue,Graph ),
-          ( rdf( DepartureCountryNode, aixm:uom, UOM, Graph ); rdf( DepartureCountryNode, fixm:uom, UOM, Graph ); rdf( DepartureCountryNode, plain:uom, UOM, Graph ) ),
-          DepartureCountry=xval(DepartureCountryValue,UOM)
+          ( rdf( DepartureCountryNode, aixm:uom, DepartureCountryUOM, Graph ); rdf( DepartureCountryNode, fixm:uom, DepartureCountryUOM, Graph ); rdf( DepartureCountryNode, plain:uom, DepartureCountryUOM, Graph ) ),
+          DepartureCountry=xval(DepartureCountryValue,DepartureCountryUOM)
         );
         (
-          rdf( DepartureCountryNode,aixm:nilReason, NilReason, Graph ),
-          DepartureCountry=nil(NilReason)
+          rdf( DepartureCountryNode,aixm:nilReason, DepartureCountryNilReason, Graph ),
+          DepartureCountry=nil(DepartureCountryNilReason)
         );
         (
-          rdf( DepartureCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DepartureCountry=indeterminate(Indeterminate)
+          rdf( DepartureCountryNode,gml:indeterminatePosition, DepartureCountryIndeterminate, Graph ),
+          DepartureCountry=indeterminate(DepartureCountryIndeterminate)
         )
       )
   )
@@ -5232,16 +5234,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( DestinationCountryNode,rdf:value,DestinationCountryValue,Graph ),
-          ( rdf( DestinationCountryNode, aixm:uom, UOM, Graph ); rdf( DestinationCountryNode, fixm:uom, UOM, Graph ); rdf( DestinationCountryNode, plain:uom, UOM, Graph ) ),
-          DestinationCountry=xval(DestinationCountryValue,UOM)
+          ( rdf( DestinationCountryNode, aixm:uom, DestinationCountryUOM, Graph ); rdf( DestinationCountryNode, fixm:uom, DestinationCountryUOM, Graph ); rdf( DestinationCountryNode, plain:uom, DestinationCountryUOM, Graph ) ),
+          DestinationCountry=xval(DestinationCountryValue,DestinationCountryUOM)
         );
         (
-          rdf( DestinationCountryNode,aixm:nilReason, NilReason, Graph ),
-          DestinationCountry=nil(NilReason)
+          rdf( DestinationCountryNode,aixm:nilReason, DestinationCountryNilReason, Graph ),
+          DestinationCountry=nil(DestinationCountryNilReason)
         );
         (
-          rdf( DestinationCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DestinationCountry=indeterminate(Indeterminate)
+          rdf( DestinationCountryNode,gml:indeterminatePosition, DestinationCountryIndeterminate, Graph ),
+          DestinationCountry=indeterminate(DestinationCountryIndeterminate)
         )
       )
   )
@@ -5258,16 +5260,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( OriginCountryNode,rdf:value,OriginCountryValue,Graph ),
-          ( rdf( OriginCountryNode, aixm:uom, UOM, Graph ); rdf( OriginCountryNode, fixm:uom, UOM, Graph ); rdf( OriginCountryNode, plain:uom, UOM, Graph ) ),
-          OriginCountry=xval(OriginCountryValue,UOM)
+          ( rdf( OriginCountryNode, aixm:uom, OriginCountryUOM, Graph ); rdf( OriginCountryNode, fixm:uom, OriginCountryUOM, Graph ); rdf( OriginCountryNode, plain:uom, OriginCountryUOM, Graph ) ),
+          OriginCountry=xval(OriginCountryValue,OriginCountryUOM)
         );
         (
-          rdf( OriginCountryNode,aixm:nilReason, NilReason, Graph ),
-          OriginCountry=nil(NilReason)
+          rdf( OriginCountryNode,aixm:nilReason, OriginCountryNilReason, Graph ),
+          OriginCountry=nil(OriginCountryNilReason)
         );
         (
-          rdf( OriginCountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OriginCountry=indeterminate(Indeterminate)
+          rdf( OriginCountryNode,gml:indeterminatePosition, OriginCountryIndeterminate, Graph ),
+          OriginCountry=indeterminate(OriginCountryIndeterminate)
         )
       )
   )
@@ -5284,16 +5286,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( ShipmentAuthorizationsNode,rdf:value,ShipmentAuthorizationsValue,Graph ),
-          ( rdf( ShipmentAuthorizationsNode, aixm:uom, UOM, Graph ); rdf( ShipmentAuthorizationsNode, fixm:uom, UOM, Graph ); rdf( ShipmentAuthorizationsNode, plain:uom, UOM, Graph ) ),
-          ShipmentAuthorizations=xval(ShipmentAuthorizationsValue,UOM)
+          ( rdf( ShipmentAuthorizationsNode, aixm:uom, ShipmentAuthorizationsUOM, Graph ); rdf( ShipmentAuthorizationsNode, fixm:uom, ShipmentAuthorizationsUOM, Graph ); rdf( ShipmentAuthorizationsNode, plain:uom, ShipmentAuthorizationsUOM, Graph ) ),
+          ShipmentAuthorizations=xval(ShipmentAuthorizationsValue,ShipmentAuthorizationsUOM)
         );
         (
-          rdf( ShipmentAuthorizationsNode,aixm:nilReason, NilReason, Graph ),
-          ShipmentAuthorizations=nil(NilReason)
+          rdf( ShipmentAuthorizationsNode,aixm:nilReason, ShipmentAuthorizationsNilReason, Graph ),
+          ShipmentAuthorizations=nil(ShipmentAuthorizationsNilReason)
         );
         (
-          rdf( ShipmentAuthorizationsNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ShipmentAuthorizations=indeterminate(Indeterminate)
+          rdf( ShipmentAuthorizationsNode,gml:indeterminatePosition, ShipmentAuthorizationsIndeterminate, Graph ),
+          ShipmentAuthorizations=indeterminate(ShipmentAuthorizationsIndeterminate)
         )
       )
   )
@@ -5310,16 +5312,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( SubsidiaryHazardClassAndDivisionNode,rdf:value,SubsidiaryHazardClassAndDivisionValue,Graph ),
-          ( rdf( SubsidiaryHazardClassAndDivisionNode, aixm:uom, UOM, Graph ); rdf( SubsidiaryHazardClassAndDivisionNode, fixm:uom, UOM, Graph ); rdf( SubsidiaryHazardClassAndDivisionNode, plain:uom, UOM, Graph ) ),
-          SubsidiaryHazardClassAndDivision=xval(SubsidiaryHazardClassAndDivisionValue,UOM)
+          ( rdf( SubsidiaryHazardClassAndDivisionNode, aixm:uom, SubsidiaryHazardClassAndDivisionUOM, Graph ); rdf( SubsidiaryHazardClassAndDivisionNode, fixm:uom, SubsidiaryHazardClassAndDivisionUOM, Graph ); rdf( SubsidiaryHazardClassAndDivisionNode, plain:uom, SubsidiaryHazardClassAndDivisionUOM, Graph ) ),
+          SubsidiaryHazardClassAndDivision=xval(SubsidiaryHazardClassAndDivisionValue,SubsidiaryHazardClassAndDivisionUOM)
         );
         (
-          rdf( SubsidiaryHazardClassAndDivisionNode,aixm:nilReason, NilReason, Graph ),
-          SubsidiaryHazardClassAndDivision=nil(NilReason)
+          rdf( SubsidiaryHazardClassAndDivisionNode,aixm:nilReason, SubsidiaryHazardClassAndDivisionNilReason, Graph ),
+          SubsidiaryHazardClassAndDivision=nil(SubsidiaryHazardClassAndDivisionNilReason)
         );
         (
-          rdf( SubsidiaryHazardClassAndDivisionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SubsidiaryHazardClassAndDivision=indeterminate(Indeterminate)
+          rdf( SubsidiaryHazardClassAndDivisionNode,gml:indeterminatePosition, SubsidiaryHazardClassAndDivisionIndeterminate, Graph ),
+          SubsidiaryHazardClassAndDivision=indeterminate(SubsidiaryHazardClassAndDivisionIndeterminate)
         )
       )
   )
@@ -5336,16 +5338,16 @@ fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading, Aerodro
         );
         (
           rdf( SupplementaryInformationNode,rdf:value,SupplementaryInformationValue,Graph ),
-          ( rdf( SupplementaryInformationNode, aixm:uom, UOM, Graph ); rdf( SupplementaryInformationNode, fixm:uom, UOM, Graph ); rdf( SupplementaryInformationNode, plain:uom, UOM, Graph ) ),
-          SupplementaryInformation=xval(SupplementaryInformationValue,UOM)
+          ( rdf( SupplementaryInformationNode, aixm:uom, SupplementaryInformationUOM, Graph ); rdf( SupplementaryInformationNode, fixm:uom, SupplementaryInformationUOM, Graph ); rdf( SupplementaryInformationNode, plain:uom, SupplementaryInformationUOM, Graph ) ),
+          SupplementaryInformation=xval(SupplementaryInformationValue,SupplementaryInformationUOM)
         );
         (
-          rdf( SupplementaryInformationNode,aixm:nilReason, NilReason, Graph ),
-          SupplementaryInformation=nil(NilReason)
+          rdf( SupplementaryInformationNode,aixm:nilReason, SupplementaryInformationNilReason, Graph ),
+          SupplementaryInformation=nil(SupplementaryInformationNilReason)
         );
         (
-          rdf( SupplementaryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SupplementaryInformation=indeterminate(Indeterminate)
+          rdf( SupplementaryInformationNode,gml:indeterminatePosition, SupplementaryInformationIndeterminate, Graph ),
+          SupplementaryInformation=indeterminate(SupplementaryInformationIndeterminate)
         )
       )
   )
@@ -5378,16 +5380,16 @@ fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicator, R
         );
         (
           rdf( ReplacementFlightPlanIndicatorNode,rdf:value,ReplacementFlightPlanIndicatorValue,Graph ),
-          ( rdf( ReplacementFlightPlanIndicatorNode, aixm:uom, UOM, Graph ); rdf( ReplacementFlightPlanIndicatorNode, fixm:uom, UOM, Graph ); rdf( ReplacementFlightPlanIndicatorNode, plain:uom, UOM, Graph ) ),
-          ReplacementFlightPlanIndicator=xval(ReplacementFlightPlanIndicatorValue,UOM)
+          ( rdf( ReplacementFlightPlanIndicatorNode, aixm:uom, ReplacementFlightPlanIndicatorUOM, Graph ); rdf( ReplacementFlightPlanIndicatorNode, fixm:uom, ReplacementFlightPlanIndicatorUOM, Graph ); rdf( ReplacementFlightPlanIndicatorNode, plain:uom, ReplacementFlightPlanIndicatorUOM, Graph ) ),
+          ReplacementFlightPlanIndicator=xval(ReplacementFlightPlanIndicatorValue,ReplacementFlightPlanIndicatorUOM)
         );
         (
-          rdf( ReplacementFlightPlanIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          ReplacementFlightPlanIndicator=nil(NilReason)
+          rdf( ReplacementFlightPlanIndicatorNode,aixm:nilReason, ReplacementFlightPlanIndicatorNilReason, Graph ),
+          ReplacementFlightPlanIndicator=nil(ReplacementFlightPlanIndicatorNilReason)
         );
         (
-          rdf( ReplacementFlightPlanIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReplacementFlightPlanIndicator=indeterminate(Indeterminate)
+          rdf( ReplacementFlightPlanIndicatorNode,gml:indeterminatePosition, ReplacementFlightPlanIndicatorIndeterminate, Graph ),
+          ReplacementFlightPlanIndicator=indeterminate(ReplacementFlightPlanIndicatorIndeterminate)
         )
       )
   )
@@ -5404,16 +5406,16 @@ fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicator, R
         );
         (
           rdf( RunwayVisualRangeNode,rdf:value,RunwayVisualRangeValue,Graph ),
-          ( rdf( RunwayVisualRangeNode, aixm:uom, UOM, Graph ); rdf( RunwayVisualRangeNode, fixm:uom, UOM, Graph ); rdf( RunwayVisualRangeNode, plain:uom, UOM, Graph ) ),
-          RunwayVisualRange=xval(RunwayVisualRangeValue,UOM)
+          ( rdf( RunwayVisualRangeNode, aixm:uom, RunwayVisualRangeUOM, Graph ); rdf( RunwayVisualRangeNode, fixm:uom, RunwayVisualRangeUOM, Graph ); rdf( RunwayVisualRangeNode, plain:uom, RunwayVisualRangeUOM, Graph ) ),
+          RunwayVisualRange=xval(RunwayVisualRangeValue,RunwayVisualRangeUOM)
         );
         (
-          rdf( RunwayVisualRangeNode,aixm:nilReason, NilReason, Graph ),
-          RunwayVisualRange=nil(NilReason)
+          rdf( RunwayVisualRangeNode,aixm:nilReason, RunwayVisualRangeNilReason, Graph ),
+          RunwayVisualRange=nil(RunwayVisualRangeNilReason)
         );
         (
-          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RunwayVisualRange=indeterminate(Indeterminate)
+          rdf( RunwayVisualRangeNode,gml:indeterminatePosition, RunwayVisualRangeIndeterminate, Graph ),
+          RunwayVisualRange=indeterminate(RunwayVisualRangeIndeterminate)
         )
       )
   ) .
@@ -5436,16 +5438,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( ReceivingUnitFrequencyNode,rdf:value,ReceivingUnitFrequencyValue,Graph ),
-          ( rdf( ReceivingUnitFrequencyNode, aixm:uom, UOM, Graph ); rdf( ReceivingUnitFrequencyNode, fixm:uom, UOM, Graph ); rdf( ReceivingUnitFrequencyNode, plain:uom, UOM, Graph ) ),
-          ReceivingUnitFrequency=xval(ReceivingUnitFrequencyValue,UOM)
+          ( rdf( ReceivingUnitFrequencyNode, aixm:uom, ReceivingUnitFrequencyUOM, Graph ); rdf( ReceivingUnitFrequencyNode, fixm:uom, ReceivingUnitFrequencyUOM, Graph ); rdf( ReceivingUnitFrequencyNode, plain:uom, ReceivingUnitFrequencyUOM, Graph ) ),
+          ReceivingUnitFrequency=xval(ReceivingUnitFrequencyValue,ReceivingUnitFrequencyUOM)
         );
         (
-          rdf( ReceivingUnitFrequencyNode,aixm:nilReason, NilReason, Graph ),
-          ReceivingUnitFrequency=nil(NilReason)
+          rdf( ReceivingUnitFrequencyNode,aixm:nilReason, ReceivingUnitFrequencyNilReason, Graph ),
+          ReceivingUnitFrequency=nil(ReceivingUnitFrequencyNilReason)
         );
         (
-          rdf( ReceivingUnitFrequencyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReceivingUnitFrequency=indeterminate(Indeterminate)
+          rdf( ReceivingUnitFrequencyNode,gml:indeterminatePosition, ReceivingUnitFrequencyIndeterminate, Graph ),
+          ReceivingUnitFrequency=indeterminate(ReceivingUnitFrequencyIndeterminate)
         )
       )
   )
@@ -5462,16 +5464,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( AtnLogonParametersNode,rdf:value,AtnLogonParametersValue,Graph ),
-          ( rdf( AtnLogonParametersNode, aixm:uom, UOM, Graph ); rdf( AtnLogonParametersNode, fixm:uom, UOM, Graph ); rdf( AtnLogonParametersNode, plain:uom, UOM, Graph ) ),
-          AtnLogonParameters=xval(AtnLogonParametersValue,UOM)
+          ( rdf( AtnLogonParametersNode, aixm:uom, AtnLogonParametersUOM, Graph ); rdf( AtnLogonParametersNode, fixm:uom, AtnLogonParametersUOM, Graph ); rdf( AtnLogonParametersNode, plain:uom, AtnLogonParametersUOM, Graph ) ),
+          AtnLogonParameters=xval(AtnLogonParametersValue,AtnLogonParametersUOM)
         );
         (
-          rdf( AtnLogonParametersNode,aixm:nilReason, NilReason, Graph ),
-          AtnLogonParameters=nil(NilReason)
+          rdf( AtnLogonParametersNode,aixm:nilReason, AtnLogonParametersNilReason, Graph ),
+          AtnLogonParameters=nil(AtnLogonParametersNilReason)
         );
         (
-          rdf( AtnLogonParametersNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AtnLogonParameters=indeterminate(Indeterminate)
+          rdf( AtnLogonParametersNode,gml:indeterminatePosition, AtnLogonParametersIndeterminate, Graph ),
+          AtnLogonParameters=indeterminate(AtnLogonParametersIndeterminate)
         )
       )
   )
@@ -5488,16 +5490,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( SendCpldcIndicatorNode,rdf:value,SendCpldcIndicatorValue,Graph ),
-          ( rdf( SendCpldcIndicatorNode, aixm:uom, UOM, Graph ); rdf( SendCpldcIndicatorNode, fixm:uom, UOM, Graph ); rdf( SendCpldcIndicatorNode, plain:uom, UOM, Graph ) ),
-          SendCpldcIndicator=xval(SendCpldcIndicatorValue,UOM)
+          ( rdf( SendCpldcIndicatorNode, aixm:uom, SendCpldcIndicatorUOM, Graph ); rdf( SendCpldcIndicatorNode, fixm:uom, SendCpldcIndicatorUOM, Graph ); rdf( SendCpldcIndicatorNode, plain:uom, SendCpldcIndicatorUOM, Graph ) ),
+          SendCpldcIndicator=xval(SendCpldcIndicatorValue,SendCpldcIndicatorUOM)
         );
         (
-          rdf( SendCpldcIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          SendCpldcIndicator=nil(NilReason)
+          rdf( SendCpldcIndicatorNode,aixm:nilReason, SendCpldcIndicatorNilReason, Graph ),
+          SendCpldcIndicator=nil(SendCpldcIndicatorNilReason)
         );
         (
-          rdf( SendCpldcIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SendCpldcIndicator=indeterminate(Indeterminate)
+          rdf( SendCpldcIndicatorNode,gml:indeterminatePosition, SendCpldcIndicatorIndeterminate, Graph ),
+          SendCpldcIndicator=indeterminate(SendCpldcIndicatorIndeterminate)
         )
       )
   )
@@ -5514,16 +5516,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( ConnectionStatusNode,rdf:value,ConnectionStatusValue,Graph ),
-          ( rdf( ConnectionStatusNode, aixm:uom, UOM, Graph ); rdf( ConnectionStatusNode, fixm:uom, UOM, Graph ); rdf( ConnectionStatusNode, plain:uom, UOM, Graph ) ),
-          ConnectionStatus=xval(ConnectionStatusValue,UOM)
+          ( rdf( ConnectionStatusNode, aixm:uom, ConnectionStatusUOM, Graph ); rdf( ConnectionStatusNode, fixm:uom, ConnectionStatusUOM, Graph ); rdf( ConnectionStatusNode, plain:uom, ConnectionStatusUOM, Graph ) ),
+          ConnectionStatus=xval(ConnectionStatusValue,ConnectionStatusUOM)
         );
         (
-          rdf( ConnectionStatusNode,aixm:nilReason, NilReason, Graph ),
-          ConnectionStatus=nil(NilReason)
+          rdf( ConnectionStatusNode,aixm:nilReason, ConnectionStatusNilReason, Graph ),
+          ConnectionStatus=nil(ConnectionStatusNilReason)
         );
         (
-          rdf( ConnectionStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ConnectionStatus=indeterminate(Indeterminate)
+          rdf( ConnectionStatusNode,gml:indeterminatePosition, ConnectionStatusIndeterminate, Graph ),
+          ConnectionStatus=indeterminate(ConnectionStatusIndeterminate)
         )
       )
   )
@@ -5540,16 +5542,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( FrequencyUsageNode,rdf:value,FrequencyUsageValue,Graph ),
-          ( rdf( FrequencyUsageNode, aixm:uom, UOM, Graph ); rdf( FrequencyUsageNode, fixm:uom, UOM, Graph ); rdf( FrequencyUsageNode, plain:uom, UOM, Graph ) ),
-          FrequencyUsage=xval(FrequencyUsageValue,UOM)
+          ( rdf( FrequencyUsageNode, aixm:uom, FrequencyUsageUOM, Graph ); rdf( FrequencyUsageNode, fixm:uom, FrequencyUsageUOM, Graph ); rdf( FrequencyUsageNode, plain:uom, FrequencyUsageUOM, Graph ) ),
+          FrequencyUsage=xval(FrequencyUsageValue,FrequencyUsageUOM)
         );
         (
-          rdf( FrequencyUsageNode,aixm:nilReason, NilReason, Graph ),
-          FrequencyUsage=nil(NilReason)
+          rdf( FrequencyUsageNode,aixm:nilReason, FrequencyUsageNilReason, Graph ),
+          FrequencyUsage=nil(FrequencyUsageNilReason)
         );
         (
-          rdf( FrequencyUsageNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FrequencyUsage=indeterminate(Indeterminate)
+          rdf( FrequencyUsageNode,gml:indeterminatePosition, FrequencyUsageIndeterminate, Graph ),
+          FrequencyUsage=indeterminate(FrequencyUsageIndeterminate)
         )
       )
   )
@@ -5566,16 +5568,16 @@ fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency, AtnLogonPar
         );
         (
           rdf( Fans1ALogonParametersNode,rdf:value,Fans1ALogonParametersValue,Graph ),
-          ( rdf( Fans1ALogonParametersNode, aixm:uom, UOM, Graph ); rdf( Fans1ALogonParametersNode, fixm:uom, UOM, Graph ); rdf( Fans1ALogonParametersNode, plain:uom, UOM, Graph ) ),
-          Fans1ALogonParameters=xval(Fans1ALogonParametersValue,UOM)
+          ( rdf( Fans1ALogonParametersNode, aixm:uom, Fans1ALogonParametersUOM, Graph ); rdf( Fans1ALogonParametersNode, fixm:uom, Fans1ALogonParametersUOM, Graph ); rdf( Fans1ALogonParametersNode, plain:uom, Fans1ALogonParametersUOM, Graph ) ),
+          Fans1ALogonParameters=xval(Fans1ALogonParametersValue,Fans1ALogonParametersUOM)
         );
         (
-          rdf( Fans1ALogonParametersNode,aixm:nilReason, NilReason, Graph ),
-          Fans1ALogonParameters=nil(NilReason)
+          rdf( Fans1ALogonParametersNode,aixm:nilReason, Fans1ALogonParametersNilReason, Graph ),
+          Fans1ALogonParameters=nil(Fans1ALogonParametersNilReason)
         );
         (
-          rdf( Fans1ALogonParametersNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Fans1ALogonParameters=indeterminate(Indeterminate)
+          rdf( Fans1ALogonParametersNode,gml:indeterminatePosition, Fans1ALogonParametersIndeterminate, Graph ),
+          Fans1ALogonParameters=indeterminate(Fans1ALogonParametersIndeterminate)
         )
       )
   ) .
@@ -5595,16 +5597,16 @@ aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile) :-
         );
         (
           rdf( VoiceNode,rdf:value,VoiceValue,Graph ),
-          ( rdf( VoiceNode, aixm:uom, UOM, Graph ); rdf( VoiceNode, fixm:uom, UOM, Graph ); rdf( VoiceNode, plain:uom, UOM, Graph ) ),
-          Voice=xval(VoiceValue,UOM)
+          ( rdf( VoiceNode, aixm:uom, VoiceUOM, Graph ); rdf( VoiceNode, fixm:uom, VoiceUOM, Graph ); rdf( VoiceNode, plain:uom, VoiceUOM, Graph ) ),
+          Voice=xval(VoiceValue,VoiceUOM)
         );
         (
-          rdf( VoiceNode,aixm:nilReason, NilReason, Graph ),
-          Voice=nil(NilReason)
+          rdf( VoiceNode,aixm:nilReason, VoiceNilReason, Graph ),
+          Voice=nil(VoiceNilReason)
         );
         (
-          rdf( VoiceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Voice=indeterminate(Indeterminate)
+          rdf( VoiceNode,gml:indeterminatePosition, VoiceIndeterminate, Graph ),
+          Voice=indeterminate(VoiceIndeterminate)
         )
       )
   )
@@ -5621,16 +5623,16 @@ aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile) :-
         );
         (
           rdf( FacsimileNode,rdf:value,FacsimileValue,Graph ),
-          ( rdf( FacsimileNode, aixm:uom, UOM, Graph ); rdf( FacsimileNode, fixm:uom, UOM, Graph ); rdf( FacsimileNode, plain:uom, UOM, Graph ) ),
-          Facsimile=xval(FacsimileValue,UOM)
+          ( rdf( FacsimileNode, aixm:uom, FacsimileUOM, Graph ); rdf( FacsimileNode, fixm:uom, FacsimileUOM, Graph ); rdf( FacsimileNode, plain:uom, FacsimileUOM, Graph ) ),
+          Facsimile=xval(FacsimileValue,FacsimileUOM)
         );
         (
-          rdf( FacsimileNode,aixm:nilReason, NilReason, Graph ),
-          Facsimile=nil(NilReason)
+          rdf( FacsimileNode,aixm:nilReason, FacsimileNilReason, Graph ),
+          Facsimile=nil(FacsimileNilReason)
         );
         (
-          rdf( FacsimileNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Facsimile=indeterminate(Indeterminate)
+          rdf( FacsimileNode,gml:indeterminatePosition, FacsimileIndeterminate, Graph ),
+          Facsimile=indeterminate(FacsimileIndeterminate)
         )
       )
   ) .
@@ -5651,16 +5653,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( AirfileRouteStartTimeNode,rdf:value,AirfileRouteStartTimeValue,Graph ),
-          ( rdf( AirfileRouteStartTimeNode, aixm:uom, UOM, Graph ); rdf( AirfileRouteStartTimeNode, fixm:uom, UOM, Graph ); rdf( AirfileRouteStartTimeNode, plain:uom, UOM, Graph ) ),
-          AirfileRouteStartTime=xval(AirfileRouteStartTimeValue,UOM)
+          ( rdf( AirfileRouteStartTimeNode, aixm:uom, AirfileRouteStartTimeUOM, Graph ); rdf( AirfileRouteStartTimeNode, fixm:uom, AirfileRouteStartTimeUOM, Graph ); rdf( AirfileRouteStartTimeNode, plain:uom, AirfileRouteStartTimeUOM, Graph ) ),
+          AirfileRouteStartTime=xval(AirfileRouteStartTimeValue,AirfileRouteStartTimeUOM)
         );
         (
-          rdf( AirfileRouteStartTimeNode,aixm:nilReason, NilReason, Graph ),
-          AirfileRouteStartTime=nil(NilReason)
+          rdf( AirfileRouteStartTimeNode,aixm:nilReason, AirfileRouteStartTimeNilReason, Graph ),
+          AirfileRouteStartTime=nil(AirfileRouteStartTimeNilReason)
         );
         (
-          rdf( AirfileRouteStartTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AirfileRouteStartTime=indeterminate(Indeterminate)
+          rdf( AirfileRouteStartTimeNode,gml:indeterminatePosition, AirfileRouteStartTimeIndeterminate, Graph ),
+          AirfileRouteStartTime=indeterminate(AirfileRouteStartTimeIndeterminate)
         )
       )
   )
@@ -5677,16 +5679,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( FlightDurationNode,rdf:value,FlightDurationValue,Graph ),
-          ( rdf( FlightDurationNode, aixm:uom, UOM, Graph ); rdf( FlightDurationNode, fixm:uom, UOM, Graph ); rdf( FlightDurationNode, plain:uom, UOM, Graph ) ),
-          FlightDuration=xval(FlightDurationValue,UOM)
+          ( rdf( FlightDurationNode, aixm:uom, FlightDurationUOM, Graph ); rdf( FlightDurationNode, fixm:uom, FlightDurationUOM, Graph ); rdf( FlightDurationNode, plain:uom, FlightDurationUOM, Graph ) ),
+          FlightDuration=xval(FlightDurationValue,FlightDurationUOM)
         );
         (
-          rdf( FlightDurationNode,aixm:nilReason, NilReason, Graph ),
-          FlightDuration=nil(NilReason)
+          rdf( FlightDurationNode,aixm:nilReason, FlightDurationNilReason, Graph ),
+          FlightDuration=nil(FlightDurationNilReason)
         );
         (
-          rdf( FlightDurationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightDuration=indeterminate(Indeterminate)
+          rdf( FlightDurationNode,gml:indeterminatePosition, FlightDurationIndeterminate, Graph ),
+          FlightDuration=indeterminate(FlightDurationIndeterminate)
         )
       )
   )
@@ -5703,16 +5705,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( InitialCruisingSpeedNode,rdf:value,InitialCruisingSpeedValue,Graph ),
-          ( rdf( InitialCruisingSpeedNode, aixm:uom, UOM, Graph ); rdf( InitialCruisingSpeedNode, fixm:uom, UOM, Graph ); rdf( InitialCruisingSpeedNode, plain:uom, UOM, Graph ) ),
-          InitialCruisingSpeed=xval(InitialCruisingSpeedValue,UOM)
+          ( rdf( InitialCruisingSpeedNode, aixm:uom, InitialCruisingSpeedUOM, Graph ); rdf( InitialCruisingSpeedNode, fixm:uom, InitialCruisingSpeedUOM, Graph ); rdf( InitialCruisingSpeedNode, plain:uom, InitialCruisingSpeedUOM, Graph ) ),
+          InitialCruisingSpeed=xval(InitialCruisingSpeedValue,InitialCruisingSpeedUOM)
         );
         (
-          rdf( InitialCruisingSpeedNode,aixm:nilReason, NilReason, Graph ),
-          InitialCruisingSpeed=nil(NilReason)
+          rdf( InitialCruisingSpeedNode,aixm:nilReason, InitialCruisingSpeedNilReason, Graph ),
+          InitialCruisingSpeed=nil(InitialCruisingSpeedNilReason)
         );
         (
-          rdf( InitialCruisingSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          InitialCruisingSpeed=indeterminate(Indeterminate)
+          rdf( InitialCruisingSpeedNode,gml:indeterminatePosition, InitialCruisingSpeedIndeterminate, Graph ),
+          InitialCruisingSpeed=indeterminate(InitialCruisingSpeedIndeterminate)
         )
       )
   )
@@ -5729,16 +5731,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( InitialFlightRulesNode,rdf:value,InitialFlightRulesValue,Graph ),
-          ( rdf( InitialFlightRulesNode, aixm:uom, UOM, Graph ); rdf( InitialFlightRulesNode, fixm:uom, UOM, Graph ); rdf( InitialFlightRulesNode, plain:uom, UOM, Graph ) ),
-          InitialFlightRules=xval(InitialFlightRulesValue,UOM)
+          ( rdf( InitialFlightRulesNode, aixm:uom, InitialFlightRulesUOM, Graph ); rdf( InitialFlightRulesNode, fixm:uom, InitialFlightRulesUOM, Graph ); rdf( InitialFlightRulesNode, plain:uom, InitialFlightRulesUOM, Graph ) ),
+          InitialFlightRules=xval(InitialFlightRulesValue,InitialFlightRulesUOM)
         );
         (
-          rdf( InitialFlightRulesNode,aixm:nilReason, NilReason, Graph ),
-          InitialFlightRules=nil(NilReason)
+          rdf( InitialFlightRulesNode,aixm:nilReason, InitialFlightRulesNilReason, Graph ),
+          InitialFlightRules=nil(InitialFlightRulesNilReason)
         );
         (
-          rdf( InitialFlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          InitialFlightRules=indeterminate(Indeterminate)
+          rdf( InitialFlightRulesNode,gml:indeterminatePosition, InitialFlightRulesIndeterminate, Graph ),
+          InitialFlightRules=indeterminate(InitialFlightRulesIndeterminate)
         )
       )
   )
@@ -5755,16 +5757,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( RequestedAltitudeNode,rdf:value,RequestedAltitudeValue,Graph ),
-          ( rdf( RequestedAltitudeNode, aixm:uom, UOM, Graph ); rdf( RequestedAltitudeNode, fixm:uom, UOM, Graph ); rdf( RequestedAltitudeNode, plain:uom, UOM, Graph ) ),
-          RequestedAltitude=xval(RequestedAltitudeValue,UOM)
+          ( rdf( RequestedAltitudeNode, aixm:uom, RequestedAltitudeUOM, Graph ); rdf( RequestedAltitudeNode, fixm:uom, RequestedAltitudeUOM, Graph ); rdf( RequestedAltitudeNode, plain:uom, RequestedAltitudeUOM, Graph ) ),
+          RequestedAltitude=xval(RequestedAltitudeValue,RequestedAltitudeUOM)
         );
         (
-          rdf( RequestedAltitudeNode,aixm:nilReason, NilReason, Graph ),
-          RequestedAltitude=nil(NilReason)
+          rdf( RequestedAltitudeNode,aixm:nilReason, RequestedAltitudeNilReason, Graph ),
+          RequestedAltitude=nil(RequestedAltitudeNilReason)
         );
         (
-          rdf( RequestedAltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RequestedAltitude=indeterminate(Indeterminate)
+          rdf( RequestedAltitudeNode,gml:indeterminatePosition, RequestedAltitudeIndeterminate, Graph ),
+          RequestedAltitude=indeterminate(RequestedAltitudeIndeterminate)
         )
       )
   )
@@ -5781,16 +5783,16 @@ fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingS
         );
         (
           rdf( RouteTextNode,rdf:value,RouteTextValue,Graph ),
-          ( rdf( RouteTextNode, aixm:uom, UOM, Graph ); rdf( RouteTextNode, fixm:uom, UOM, Graph ); rdf( RouteTextNode, plain:uom, UOM, Graph ) ),
-          RouteText=xval(RouteTextValue,UOM)
+          ( rdf( RouteTextNode, aixm:uom, RouteTextUOM, Graph ); rdf( RouteTextNode, fixm:uom, RouteTextUOM, Graph ); rdf( RouteTextNode, plain:uom, RouteTextUOM, Graph ) ),
+          RouteText=xval(RouteTextValue,RouteTextUOM)
         );
         (
-          rdf( RouteTextNode,aixm:nilReason, NilReason, Graph ),
-          RouteText=nil(NilReason)
+          rdf( RouteTextNode,aixm:nilReason, RouteTextNilReason, Graph ),
+          RouteText=nil(RouteTextNilReason)
         );
         (
-          rdf( RouteTextNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RouteText=indeterminate(Indeterminate)
+          rdf( RouteTextNode,gml:indeterminatePosition, RouteTextIndeterminate, Graph ),
+          RouteText=indeterminate(RouteTextIndeterminate)
         )
       )
   )
@@ -5821,16 +5823,16 @@ fixm_Person(Graph, Person, Name, Contact) :-
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -5853,16 +5855,16 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         );
         (
           rdf( IfplIdNode,rdf:value,IfplIdValue,Graph ),
-          ( rdf( IfplIdNode, aixm:uom, UOM, Graph ); rdf( IfplIdNode, fixm:uom, UOM, Graph ); rdf( IfplIdNode, plain:uom, UOM, Graph ) ),
-          IfplId=xval(IfplIdValue,UOM)
+          ( rdf( IfplIdNode, aixm:uom, IfplIdUOM, Graph ); rdf( IfplIdNode, fixm:uom, IfplIdUOM, Graph ); rdf( IfplIdNode, plain:uom, IfplIdUOM, Graph ) ),
+          IfplId=xval(IfplIdValue,IfplIdUOM)
         );
         (
-          rdf( IfplIdNode,aixm:nilReason, NilReason, Graph ),
-          IfplId=nil(NilReason)
+          rdf( IfplIdNode,aixm:nilReason, IfplIdNilReason, Graph ),
+          IfplId=nil(IfplIdNilReason)
         );
         (
-          rdf( IfplIdNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          IfplId=indeterminate(Indeterminate)
+          rdf( IfplIdNode,gml:indeterminatePosition, IfplIdIndeterminate, Graph ),
+          IfplId=indeterminate(IfplIdIndeterminate)
         )
       )
   )
@@ -5879,16 +5881,16 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         );
         (
           rdf( TotalEstimatedElapsedTimeNode,rdf:value,TotalEstimatedElapsedTimeValue,Graph ),
-          ( rdf( TotalEstimatedElapsedTimeNode, aixm:uom, UOM, Graph ); rdf( TotalEstimatedElapsedTimeNode, fixm:uom, UOM, Graph ); rdf( TotalEstimatedElapsedTimeNode, plain:uom, UOM, Graph ) ),
-          TotalEstimatedElapsedTime=xval(TotalEstimatedElapsedTimeValue,UOM)
+          ( rdf( TotalEstimatedElapsedTimeNode, aixm:uom, TotalEstimatedElapsedTimeUOM, Graph ); rdf( TotalEstimatedElapsedTimeNode, fixm:uom, TotalEstimatedElapsedTimeUOM, Graph ); rdf( TotalEstimatedElapsedTimeNode, plain:uom, TotalEstimatedElapsedTimeUOM, Graph ) ),
+          TotalEstimatedElapsedTime=xval(TotalEstimatedElapsedTimeValue,TotalEstimatedElapsedTimeUOM)
         );
         (
-          rdf( TotalEstimatedElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
-          TotalEstimatedElapsedTime=nil(NilReason)
+          rdf( TotalEstimatedElapsedTimeNode,aixm:nilReason, TotalEstimatedElapsedTimeNilReason, Graph ),
+          TotalEstimatedElapsedTime=nil(TotalEstimatedElapsedTimeNilReason)
         );
         (
-          rdf( TotalEstimatedElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TotalEstimatedElapsedTime=indeterminate(Indeterminate)
+          rdf( TotalEstimatedElapsedTimeNode,gml:indeterminatePosition, TotalEstimatedElapsedTimeIndeterminate, Graph ),
+          TotalEstimatedElapsedTime=indeterminate(TotalEstimatedElapsedTimeIndeterminate)
         )
       )
   )
@@ -5908,16 +5910,16 @@ fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, Aerodromes
         );
         (
           rdf( EfplSpecialHandlingNode,rdf:value,EfplSpecialHandlingValue,Graph ),
-          ( rdf( EfplSpecialHandlingNode, aixm:uom, UOM, Graph ); rdf( EfplSpecialHandlingNode, fixm:uom, UOM, Graph ); rdf( EfplSpecialHandlingNode, plain:uom, UOM, Graph ) ),
-          EfplSpecialHandling=xval(EfplSpecialHandlingValue,UOM)
+          ( rdf( EfplSpecialHandlingNode, aixm:uom, EfplSpecialHandlingUOM, Graph ); rdf( EfplSpecialHandlingNode, fixm:uom, EfplSpecialHandlingUOM, Graph ); rdf( EfplSpecialHandlingNode, plain:uom, EfplSpecialHandlingUOM, Graph ) ),
+          EfplSpecialHandling=xval(EfplSpecialHandlingValue,EfplSpecialHandlingUOM)
         );
         (
-          rdf( EfplSpecialHandlingNode,aixm:nilReason, NilReason, Graph ),
-          EfplSpecialHandling=nil(NilReason)
+          rdf( EfplSpecialHandlingNode,aixm:nilReason, EfplSpecialHandlingNilReason, Graph ),
+          EfplSpecialHandling=nil(EfplSpecialHandlingNilReason)
         );
         (
-          rdf( EfplSpecialHandlingNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EfplSpecialHandling=indeterminate(Indeterminate)
+          rdf( EfplSpecialHandlingNode,gml:indeterminatePosition, EfplSpecialHandlingIndeterminate, Graph ),
+          EfplSpecialHandling=indeterminate(EfplSpecialHandlingIndeterminate)
         )
       )
   )
@@ -5952,16 +5954,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( AirborneHoldNode,rdf:value,AirborneHoldValue,Graph ),
-          ( rdf( AirborneHoldNode, aixm:uom, UOM, Graph ); rdf( AirborneHoldNode, fixm:uom, UOM, Graph ); rdf( AirborneHoldNode, plain:uom, UOM, Graph ) ),
-          AirborneHold=xval(AirborneHoldValue,UOM)
+          ( rdf( AirborneHoldNode, aixm:uom, AirborneHoldUOM, Graph ); rdf( AirborneHoldNode, fixm:uom, AirborneHoldUOM, Graph ); rdf( AirborneHoldNode, plain:uom, AirborneHoldUOM, Graph ) ),
+          AirborneHold=xval(AirborneHoldValue,AirborneHoldUOM)
         );
         (
-          rdf( AirborneHoldNode,aixm:nilReason, NilReason, Graph ),
-          AirborneHold=nil(NilReason)
+          rdf( AirborneHoldNode,aixm:nilReason, AirborneHoldNilReason, Graph ),
+          AirborneHold=nil(AirborneHoldNilReason)
         );
         (
-          rdf( AirborneHoldNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AirborneHold=indeterminate(Indeterminate)
+          rdf( AirborneHoldNode,gml:indeterminatePosition, AirborneHoldIndeterminate, Graph ),
+          AirborneHold=indeterminate(AirborneHoldIndeterminate)
         )
       )
   )
@@ -5978,16 +5980,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( AirfileNode,rdf:value,AirfileValue,Graph ),
-          ( rdf( AirfileNode, aixm:uom, UOM, Graph ); rdf( AirfileNode, fixm:uom, UOM, Graph ); rdf( AirfileNode, plain:uom, UOM, Graph ) ),
-          Airfile=xval(AirfileValue,UOM)
+          ( rdf( AirfileNode, aixm:uom, AirfileUOM, Graph ); rdf( AirfileNode, fixm:uom, AirfileUOM, Graph ); rdf( AirfileNode, plain:uom, AirfileUOM, Graph ) ),
+          Airfile=xval(AirfileValue,AirfileUOM)
         );
         (
-          rdf( AirfileNode,aixm:nilReason, NilReason, Graph ),
-          Airfile=nil(NilReason)
+          rdf( AirfileNode,aixm:nilReason, AirfileNilReason, Graph ),
+          Airfile=nil(AirfileNilReason)
         );
         (
-          rdf( AirfileNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Airfile=indeterminate(Indeterminate)
+          rdf( AirfileNode,gml:indeterminatePosition, AirfileIndeterminate, Graph ),
+          Airfile=indeterminate(AirfileIndeterminate)
         )
       )
   )
@@ -6004,16 +6006,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( AcceptedNode,rdf:value,AcceptedValue,Graph ),
-          ( rdf( AcceptedNode, aixm:uom, UOM, Graph ); rdf( AcceptedNode, fixm:uom, UOM, Graph ); rdf( AcceptedNode, plain:uom, UOM, Graph ) ),
-          Accepted=xval(AcceptedValue,UOM)
+          ( rdf( AcceptedNode, aixm:uom, AcceptedUOM, Graph ); rdf( AcceptedNode, fixm:uom, AcceptedUOM, Graph ); rdf( AcceptedNode, plain:uom, AcceptedUOM, Graph ) ),
+          Accepted=xval(AcceptedValue,AcceptedUOM)
         );
         (
-          rdf( AcceptedNode,aixm:nilReason, NilReason, Graph ),
-          Accepted=nil(NilReason)
+          rdf( AcceptedNode,aixm:nilReason, AcceptedNilReason, Graph ),
+          Accepted=nil(AcceptedNilReason)
         );
         (
-          rdf( AcceptedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Accepted=indeterminate(Indeterminate)
+          rdf( AcceptedNode,gml:indeterminatePosition, AcceptedIndeterminate, Graph ),
+          Accepted=indeterminate(AcceptedIndeterminate)
         )
       )
   )
@@ -6030,16 +6032,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( FlightCycleNode,rdf:value,FlightCycleValue,Graph ),
-          ( rdf( FlightCycleNode, aixm:uom, UOM, Graph ); rdf( FlightCycleNode, fixm:uom, UOM, Graph ); rdf( FlightCycleNode, plain:uom, UOM, Graph ) ),
-          FlightCycle=xval(FlightCycleValue,UOM)
+          ( rdf( FlightCycleNode, aixm:uom, FlightCycleUOM, Graph ); rdf( FlightCycleNode, fixm:uom, FlightCycleUOM, Graph ); rdf( FlightCycleNode, plain:uom, FlightCycleUOM, Graph ) ),
+          FlightCycle=xval(FlightCycleValue,FlightCycleUOM)
         );
         (
-          rdf( FlightCycleNode,aixm:nilReason, NilReason, Graph ),
-          FlightCycle=nil(NilReason)
+          rdf( FlightCycleNode,aixm:nilReason, FlightCycleNilReason, Graph ),
+          FlightCycle=nil(FlightCycleNilReason)
         );
         (
-          rdf( FlightCycleNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlightCycle=indeterminate(Indeterminate)
+          rdf( FlightCycleNode,gml:indeterminatePosition, FlightCycleIndeterminate, Graph ),
+          FlightCycle=indeterminate(FlightCycleIndeterminate)
         )
       )
   )
@@ -6056,16 +6058,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( MissedApproachNode,rdf:value,MissedApproachValue,Graph ),
-          ( rdf( MissedApproachNode, aixm:uom, UOM, Graph ); rdf( MissedApproachNode, fixm:uom, UOM, Graph ); rdf( MissedApproachNode, plain:uom, UOM, Graph ) ),
-          MissedApproach=xval(MissedApproachValue,UOM)
+          ( rdf( MissedApproachNode, aixm:uom, MissedApproachUOM, Graph ); rdf( MissedApproachNode, fixm:uom, MissedApproachUOM, Graph ); rdf( MissedApproachNode, plain:uom, MissedApproachUOM, Graph ) ),
+          MissedApproach=xval(MissedApproachValue,MissedApproachUOM)
         );
         (
-          rdf( MissedApproachNode,aixm:nilReason, NilReason, Graph ),
-          MissedApproach=nil(NilReason)
+          rdf( MissedApproachNode,aixm:nilReason, MissedApproachNilReason, Graph ),
+          MissedApproach=nil(MissedApproachNilReason)
         );
         (
-          rdf( MissedApproachNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MissedApproach=indeterminate(Indeterminate)
+          rdf( MissedApproachNode,gml:indeterminatePosition, MissedApproachIndeterminate, Graph ),
+          MissedApproach=indeterminate(MissedApproachIndeterminate)
         )
       )
   )
@@ -6082,16 +6084,16 @@ fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCy
         );
         (
           rdf( SuspendedNode,rdf:value,SuspendedValue,Graph ),
-          ( rdf( SuspendedNode, aixm:uom, UOM, Graph ); rdf( SuspendedNode, fixm:uom, UOM, Graph ); rdf( SuspendedNode, plain:uom, UOM, Graph ) ),
-          Suspended=xval(SuspendedValue,UOM)
+          ( rdf( SuspendedNode, aixm:uom, SuspendedUOM, Graph ); rdf( SuspendedNode, fixm:uom, SuspendedUOM, Graph ); rdf( SuspendedNode, plain:uom, SuspendedUOM, Graph ) ),
+          Suspended=xval(SuspendedValue,SuspendedUOM)
         );
         (
-          rdf( SuspendedNode,aixm:nilReason, NilReason, Graph ),
-          Suspended=nil(NilReason)
+          rdf( SuspendedNode,aixm:nilReason, SuspendedNilReason, Graph ),
+          Suspended=nil(SuspendedNilReason)
         );
         (
-          rdf( SuspendedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Suspended=indeterminate(Indeterminate)
+          rdf( SuspendedNode,gml:indeterminatePosition, SuspendedIndeterminate, Graph ),
+          Suspended=indeterminate(SuspendedIndeterminate)
         )
       )
   ) .
@@ -6111,16 +6113,16 @@ fixm_IdentifiedUnitReference(Graph, IdentifiedUnitReference, UnitIdentifier) :-
         );
         (
           rdf( UnitIdentifierNode,rdf:value,UnitIdentifierValue,Graph ),
-          ( rdf( UnitIdentifierNode, aixm:uom, UOM, Graph ); rdf( UnitIdentifierNode, fixm:uom, UOM, Graph ); rdf( UnitIdentifierNode, plain:uom, UOM, Graph ) ),
-          UnitIdentifier=xval(UnitIdentifierValue,UOM)
+          ( rdf( UnitIdentifierNode, aixm:uom, UnitIdentifierUOM, Graph ); rdf( UnitIdentifierNode, fixm:uom, UnitIdentifierUOM, Graph ); rdf( UnitIdentifierNode, plain:uom, UnitIdentifierUOM, Graph ) ),
+          UnitIdentifier=xval(UnitIdentifierValue,UnitIdentifierUOM)
         );
         (
-          rdf( UnitIdentifierNode,aixm:nilReason, NilReason, Graph ),
-          UnitIdentifier=nil(NilReason)
+          rdf( UnitIdentifierNode,aixm:nilReason, UnitIdentifierNilReason, Graph ),
+          UnitIdentifier=nil(UnitIdentifierNilReason)
         );
         (
-          rdf( UnitIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UnitIdentifier=indeterminate(Indeterminate)
+          rdf( UnitIdentifierNode,gml:indeterminatePosition, UnitIdentifierIndeterminate, Graph ),
+          UnitIdentifier=indeterminate(UnitIdentifierIndeterminate)
         )
       )
   ) .
@@ -6140,16 +6142,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( PhysicalChemicalFormNode,rdf:value,PhysicalChemicalFormValue,Graph ),
-          ( rdf( PhysicalChemicalFormNode, aixm:uom, UOM, Graph ); rdf( PhysicalChemicalFormNode, fixm:uom, UOM, Graph ); rdf( PhysicalChemicalFormNode, plain:uom, UOM, Graph ) ),
-          PhysicalChemicalForm=xval(PhysicalChemicalFormValue,UOM)
+          ( rdf( PhysicalChemicalFormNode, aixm:uom, PhysicalChemicalFormUOM, Graph ); rdf( PhysicalChemicalFormNode, fixm:uom, PhysicalChemicalFormUOM, Graph ); rdf( PhysicalChemicalFormNode, plain:uom, PhysicalChemicalFormUOM, Graph ) ),
+          PhysicalChemicalForm=xval(PhysicalChemicalFormValue,PhysicalChemicalFormUOM)
         );
         (
-          rdf( PhysicalChemicalFormNode,aixm:nilReason, NilReason, Graph ),
-          PhysicalChemicalForm=nil(NilReason)
+          rdf( PhysicalChemicalFormNode,aixm:nilReason, PhysicalChemicalFormNilReason, Graph ),
+          PhysicalChemicalForm=nil(PhysicalChemicalFormNilReason)
         );
         (
-          rdf( PhysicalChemicalFormNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PhysicalChemicalForm=indeterminate(Indeterminate)
+          rdf( PhysicalChemicalFormNode,gml:indeterminatePosition, PhysicalChemicalFormIndeterminate, Graph ),
+          PhysicalChemicalForm=indeterminate(PhysicalChemicalFormIndeterminate)
         )
       )
   )
@@ -6166,16 +6168,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( RadionuclideIdNode,rdf:value,RadionuclideIdValue,Graph ),
-          ( rdf( RadionuclideIdNode, aixm:uom, UOM, Graph ); rdf( RadionuclideIdNode, fixm:uom, UOM, Graph ); rdf( RadionuclideIdNode, plain:uom, UOM, Graph ) ),
-          RadionuclideId=xval(RadionuclideIdValue,UOM)
+          ( rdf( RadionuclideIdNode, aixm:uom, RadionuclideIdUOM, Graph ); rdf( RadionuclideIdNode, fixm:uom, RadionuclideIdUOM, Graph ); rdf( RadionuclideIdNode, plain:uom, RadionuclideIdUOM, Graph ) ),
+          RadionuclideId=xval(RadionuclideIdValue,RadionuclideIdUOM)
         );
         (
-          rdf( RadionuclideIdNode,aixm:nilReason, NilReason, Graph ),
-          RadionuclideId=nil(NilReason)
+          rdf( RadionuclideIdNode,aixm:nilReason, RadionuclideIdNilReason, Graph ),
+          RadionuclideId=nil(RadionuclideIdNilReason)
         );
         (
-          rdf( RadionuclideIdNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RadionuclideId=indeterminate(Indeterminate)
+          rdf( RadionuclideIdNode,gml:indeterminatePosition, RadionuclideIdIndeterminate, Graph ),
+          RadionuclideId=indeterminate(RadionuclideIdIndeterminate)
         )
       )
   )
@@ -6192,16 +6194,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( RadionuclideNameNode,rdf:value,RadionuclideNameValue,Graph ),
-          ( rdf( RadionuclideNameNode, aixm:uom, UOM, Graph ); rdf( RadionuclideNameNode, fixm:uom, UOM, Graph ); rdf( RadionuclideNameNode, plain:uom, UOM, Graph ) ),
-          RadionuclideName=xval(RadionuclideNameValue,UOM)
+          ( rdf( RadionuclideNameNode, aixm:uom, RadionuclideNameUOM, Graph ); rdf( RadionuclideNameNode, fixm:uom, RadionuclideNameUOM, Graph ); rdf( RadionuclideNameNode, plain:uom, RadionuclideNameUOM, Graph ) ),
+          RadionuclideName=xval(RadionuclideNameValue,RadionuclideNameUOM)
         );
         (
-          rdf( RadionuclideNameNode,aixm:nilReason, NilReason, Graph ),
-          RadionuclideName=nil(NilReason)
+          rdf( RadionuclideNameNode,aixm:nilReason, RadionuclideNameNilReason, Graph ),
+          RadionuclideName=nil(RadionuclideNameNilReason)
         );
         (
-          rdf( RadionuclideNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RadionuclideName=indeterminate(Indeterminate)
+          rdf( RadionuclideNameNode,gml:indeterminatePosition, RadionuclideNameIndeterminate, Graph ),
+          RadionuclideName=indeterminate(RadionuclideNameIndeterminate)
         )
       )
   )
@@ -6218,16 +6220,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( LowDispersibleMaterialIndicatorNode,rdf:value,LowDispersibleMaterialIndicatorValue,Graph ),
-          ( rdf( LowDispersibleMaterialIndicatorNode, aixm:uom, UOM, Graph ); rdf( LowDispersibleMaterialIndicatorNode, fixm:uom, UOM, Graph ); rdf( LowDispersibleMaterialIndicatorNode, plain:uom, UOM, Graph ) ),
-          LowDispersibleMaterialIndicator=xval(LowDispersibleMaterialIndicatorValue,UOM)
+          ( rdf( LowDispersibleMaterialIndicatorNode, aixm:uom, LowDispersibleMaterialIndicatorUOM, Graph ); rdf( LowDispersibleMaterialIndicatorNode, fixm:uom, LowDispersibleMaterialIndicatorUOM, Graph ); rdf( LowDispersibleMaterialIndicatorNode, plain:uom, LowDispersibleMaterialIndicatorUOM, Graph ) ),
+          LowDispersibleMaterialIndicator=xval(LowDispersibleMaterialIndicatorValue,LowDispersibleMaterialIndicatorUOM)
         );
         (
-          rdf( LowDispersibleMaterialIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          LowDispersibleMaterialIndicator=nil(NilReason)
+          rdf( LowDispersibleMaterialIndicatorNode,aixm:nilReason, LowDispersibleMaterialIndicatorNilReason, Graph ),
+          LowDispersibleMaterialIndicator=nil(LowDispersibleMaterialIndicatorNilReason)
         );
         (
-          rdf( LowDispersibleMaterialIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LowDispersibleMaterialIndicator=indeterminate(Indeterminate)
+          rdf( LowDispersibleMaterialIndicatorNode,gml:indeterminatePosition, LowDispersibleMaterialIndicatorIndeterminate, Graph ),
+          LowDispersibleMaterialIndicator=indeterminate(LowDispersibleMaterialIndicatorIndeterminate)
         )
       )
   )
@@ -6244,16 +6246,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( ActivityNode,rdf:value,ActivityValue,Graph ),
-          ( rdf( ActivityNode, aixm:uom, UOM, Graph ); rdf( ActivityNode, fixm:uom, UOM, Graph ); rdf( ActivityNode, plain:uom, UOM, Graph ) ),
-          Activity=xval(ActivityValue,UOM)
+          ( rdf( ActivityNode, aixm:uom, ActivityUOM, Graph ); rdf( ActivityNode, fixm:uom, ActivityUOM, Graph ); rdf( ActivityNode, plain:uom, ActivityUOM, Graph ) ),
+          Activity=xval(ActivityValue,ActivityUOM)
         );
         (
-          rdf( ActivityNode,aixm:nilReason, NilReason, Graph ),
-          Activity=nil(NilReason)
+          rdf( ActivityNode,aixm:nilReason, ActivityNilReason, Graph ),
+          Activity=nil(ActivityNilReason)
         );
         (
-          rdf( ActivityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Activity=indeterminate(Indeterminate)
+          rdf( ActivityNode,gml:indeterminatePosition, ActivityIndeterminate, Graph ),
+          Activity=indeterminate(ActivityIndeterminate)
         )
       )
   )
@@ -6270,16 +6272,16 @@ fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm, RadionuclideId, Rad
         );
         (
           rdf( SpecialFormIndicatorNode,rdf:value,SpecialFormIndicatorValue,Graph ),
-          ( rdf( SpecialFormIndicatorNode, aixm:uom, UOM, Graph ); rdf( SpecialFormIndicatorNode, fixm:uom, UOM, Graph ); rdf( SpecialFormIndicatorNode, plain:uom, UOM, Graph ) ),
-          SpecialFormIndicator=xval(SpecialFormIndicatorValue,UOM)
+          ( rdf( SpecialFormIndicatorNode, aixm:uom, SpecialFormIndicatorUOM, Graph ); rdf( SpecialFormIndicatorNode, fixm:uom, SpecialFormIndicatorUOM, Graph ); rdf( SpecialFormIndicatorNode, plain:uom, SpecialFormIndicatorUOM, Graph ) ),
+          SpecialFormIndicator=xval(SpecialFormIndicatorValue,SpecialFormIndicatorUOM)
         );
         (
-          rdf( SpecialFormIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          SpecialFormIndicator=nil(NilReason)
+          rdf( SpecialFormIndicatorNode,aixm:nilReason, SpecialFormIndicatorNilReason, Graph ),
+          SpecialFormIndicator=nil(SpecialFormIndicatorNilReason)
         );
         (
-          rdf( SpecialFormIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SpecialFormIndicator=indeterminate(Indeterminate)
+          rdf( SpecialFormIndicatorNode,gml:indeterminatePosition, SpecialFormIndicatorIndeterminate, Graph ),
+          SpecialFormIndicator=indeterminate(SpecialFormIndicatorIndeterminate)
         )
       )
   ) .
@@ -6299,16 +6301,16 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         );
         (
           rdf( NetworkNode,rdf:value,NetworkValue,Graph ),
-          ( rdf( NetworkNode, aixm:uom, UOM, Graph ); rdf( NetworkNode, fixm:uom, UOM, Graph ); rdf( NetworkNode, plain:uom, UOM, Graph ) ),
-          Network=xval(NetworkValue,UOM)
+          ( rdf( NetworkNode, aixm:uom, NetworkUOM, Graph ); rdf( NetworkNode, fixm:uom, NetworkUOM, Graph ); rdf( NetworkNode, plain:uom, NetworkUOM, Graph ) ),
+          Network=xval(NetworkValue,NetworkUOM)
         );
         (
-          rdf( NetworkNode,aixm:nilReason, NilReason, Graph ),
-          Network=nil(NilReason)
+          rdf( NetworkNode,aixm:nilReason, NetworkNilReason, Graph ),
+          Network=nil(NetworkNilReason)
         );
         (
-          rdf( NetworkNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Network=indeterminate(Indeterminate)
+          rdf( NetworkNode,gml:indeterminatePosition, NetworkIndeterminate, Graph ),
+          Network=indeterminate(NetworkIndeterminate)
         )
       )
   )
@@ -6325,16 +6327,16 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         );
         (
           rdf( LinkageNode,rdf:value,LinkageValue,Graph ),
-          ( rdf( LinkageNode, aixm:uom, UOM, Graph ); rdf( LinkageNode, fixm:uom, UOM, Graph ); rdf( LinkageNode, plain:uom, UOM, Graph ) ),
-          Linkage=xval(LinkageValue,UOM)
+          ( rdf( LinkageNode, aixm:uom, LinkageUOM, Graph ); rdf( LinkageNode, fixm:uom, LinkageUOM, Graph ); rdf( LinkageNode, plain:uom, LinkageUOM, Graph ) ),
+          Linkage=xval(LinkageValue,LinkageUOM)
         );
         (
-          rdf( LinkageNode,aixm:nilReason, NilReason, Graph ),
-          Linkage=nil(NilReason)
+          rdf( LinkageNode,aixm:nilReason, LinkageNilReason, Graph ),
+          Linkage=nil(LinkageNilReason)
         );
         (
-          rdf( LinkageNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Linkage=indeterminate(Indeterminate)
+          rdf( LinkageNode,gml:indeterminatePosition, LinkageIndeterminate, Graph ),
+          Linkage=indeterminate(LinkageIndeterminate)
         )
       )
   )
@@ -6351,16 +6353,16 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         );
         (
           rdf( ProtocolNode,rdf:value,ProtocolValue,Graph ),
-          ( rdf( ProtocolNode, aixm:uom, UOM, Graph ); rdf( ProtocolNode, fixm:uom, UOM, Graph ); rdf( ProtocolNode, plain:uom, UOM, Graph ) ),
-          Protocol=xval(ProtocolValue,UOM)
+          ( rdf( ProtocolNode, aixm:uom, ProtocolUOM, Graph ); rdf( ProtocolNode, fixm:uom, ProtocolUOM, Graph ); rdf( ProtocolNode, plain:uom, ProtocolUOM, Graph ) ),
+          Protocol=xval(ProtocolValue,ProtocolUOM)
         );
         (
-          rdf( ProtocolNode,aixm:nilReason, NilReason, Graph ),
-          Protocol=nil(NilReason)
+          rdf( ProtocolNode,aixm:nilReason, ProtocolNilReason, Graph ),
+          Protocol=nil(ProtocolNilReason)
         );
         (
-          rdf( ProtocolNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Protocol=indeterminate(Indeterminate)
+          rdf( ProtocolNode,gml:indeterminatePosition, ProtocolIndeterminate, Graph ),
+          Protocol=indeterminate(ProtocolIndeterminate)
         )
       )
   )
@@ -6377,16 +6379,16 @@ aixm_OnlineContact(Graph, OnlineContact, Network, Linkage, Protocol, EMail) :-
         );
         (
           rdf( EMailNode,rdf:value,EMailValue,Graph ),
-          ( rdf( EMailNode, aixm:uom, UOM, Graph ); rdf( EMailNode, fixm:uom, UOM, Graph ); rdf( EMailNode, plain:uom, UOM, Graph ) ),
-          EMail=xval(EMailValue,UOM)
+          ( rdf( EMailNode, aixm:uom, EMailUOM, Graph ); rdf( EMailNode, fixm:uom, EMailUOM, Graph ); rdf( EMailNode, plain:uom, EMailUOM, Graph ) ),
+          EMail=xval(EMailValue,EMailUOM)
         );
         (
-          rdf( EMailNode,aixm:nilReason, NilReason, Graph ),
-          EMail=nil(NilReason)
+          rdf( EMailNode,aixm:nilReason, EMailNilReason, Graph ),
+          EMail=nil(EMailNilReason)
         );
         (
-          rdf( EMailNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EMail=indeterminate(Indeterminate)
+          rdf( EMailNode,gml:indeterminatePosition, EMailIndeterminate, Graph ),
+          EMail=indeterminate(EMailIndeterminate)
         )
       )
   ) .
@@ -6409,16 +6411,16 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         );
         (
           rdf( AltitudeNode,rdf:value,AltitudeValue,Graph ),
-          ( rdf( AltitudeNode, aixm:uom, UOM, Graph ); rdf( AltitudeNode, fixm:uom, UOM, Graph ); rdf( AltitudeNode, plain:uom, UOM, Graph ) ),
-          Altitude=xval(AltitudeValue,UOM)
+          ( rdf( AltitudeNode, aixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, fixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, plain:uom, AltitudeUOM, Graph ) ),
+          Altitude=xval(AltitudeValue,AltitudeUOM)
         );
         (
-          rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
-          Altitude=nil(NilReason)
+          rdf( AltitudeNode,aixm:nilReason, AltitudeNilReason, Graph ),
+          Altitude=nil(AltitudeNilReason)
         );
         (
-          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Altitude=indeterminate(Indeterminate)
+          rdf( AltitudeNode,gml:indeterminatePosition, AltitudeIndeterminate, Graph ),
+          Altitude=indeterminate(AltitudeIndeterminate)
         )
       )
   )
@@ -6438,16 +6440,16 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         );
         (
           rdf( PositionTimeNode,rdf:value,PositionTimeValue,Graph ),
-          ( rdf( PositionTimeNode, aixm:uom, UOM, Graph ); rdf( PositionTimeNode, fixm:uom, UOM, Graph ); rdf( PositionTimeNode, plain:uom, UOM, Graph ) ),
-          PositionTime=xval(PositionTimeValue,UOM)
+          ( rdf( PositionTimeNode, aixm:uom, PositionTimeUOM, Graph ); rdf( PositionTimeNode, fixm:uom, PositionTimeUOM, Graph ); rdf( PositionTimeNode, plain:uom, PositionTimeUOM, Graph ) ),
+          PositionTime=xval(PositionTimeValue,PositionTimeUOM)
         );
         (
-          rdf( PositionTimeNode,aixm:nilReason, NilReason, Graph ),
-          PositionTime=nil(NilReason)
+          rdf( PositionTimeNode,aixm:nilReason, PositionTimeNilReason, Graph ),
+          PositionTime=nil(PositionTimeNilReason)
         );
         (
-          rdf( PositionTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PositionTime=indeterminate(Indeterminate)
+          rdf( PositionTimeNode,gml:indeterminatePosition, PositionTimeIndeterminate, Graph ),
+          PositionTime=indeterminate(PositionTimeIndeterminate)
         )
       )
   )
@@ -6464,16 +6466,16 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         );
         (
           rdf( TrackNode,rdf:value,TrackValue,Graph ),
-          ( rdf( TrackNode, aixm:uom, UOM, Graph ); rdf( TrackNode, fixm:uom, UOM, Graph ); rdf( TrackNode, plain:uom, UOM, Graph ) ),
-          Track=xval(TrackValue,UOM)
+          ( rdf( TrackNode, aixm:uom, TrackUOM, Graph ); rdf( TrackNode, fixm:uom, TrackUOM, Graph ); rdf( TrackNode, plain:uom, TrackUOM, Graph ) ),
+          Track=xval(TrackValue,TrackUOM)
         );
         (
-          rdf( TrackNode,aixm:nilReason, NilReason, Graph ),
-          Track=nil(NilReason)
+          rdf( TrackNode,aixm:nilReason, TrackNilReason, Graph ),
+          Track=nil(TrackNilReason)
         );
         (
-          rdf( TrackNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Track=indeterminate(Indeterminate)
+          rdf( TrackNode,gml:indeterminatePosition, TrackIndeterminate, Graph ),
+          Track=indeterminate(TrackIndeterminate)
         )
       )
   )
@@ -6496,16 +6498,16 @@ fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime,
         );
         (
           rdf( ReportSourceNode,rdf:value,ReportSourceValue,Graph ),
-          ( rdf( ReportSourceNode, aixm:uom, UOM, Graph ); rdf( ReportSourceNode, fixm:uom, UOM, Graph ); rdf( ReportSourceNode, plain:uom, UOM, Graph ) ),
-          ReportSource=xval(ReportSourceValue,UOM)
+          ( rdf( ReportSourceNode, aixm:uom, ReportSourceUOM, Graph ); rdf( ReportSourceNode, fixm:uom, ReportSourceUOM, Graph ); rdf( ReportSourceNode, plain:uom, ReportSourceUOM, Graph ) ),
+          ReportSource=xval(ReportSourceValue,ReportSourceUOM)
         );
         (
-          rdf( ReportSourceNode,aixm:nilReason, NilReason, Graph ),
-          ReportSource=nil(NilReason)
+          rdf( ReportSourceNode,aixm:nilReason, ReportSourceNilReason, Graph ),
+          ReportSource=nil(ReportSourceNilReason)
         );
         (
-          rdf( ReportSourceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReportSource=indeterminate(Indeterminate)
+          rdf( ReportSourceNode,gml:indeterminatePosition, ReportSourceIndeterminate, Graph ),
+          ReportSource=indeterminate(ReportSourceIndeterminate)
         )
       )
   )
@@ -6528,16 +6530,16 @@ aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation) :-
         );
         (
           rdf( OperationNode,rdf:value,OperationValue,Graph ),
-          ( rdf( OperationNode, aixm:uom, UOM, Graph ); rdf( OperationNode, fixm:uom, UOM, Graph ); rdf( OperationNode, plain:uom, UOM, Graph ) ),
-          Operation=xval(OperationValue,UOM)
+          ( rdf( OperationNode, aixm:uom, OperationUOM, Graph ); rdf( OperationNode, fixm:uom, OperationUOM, Graph ); rdf( OperationNode, plain:uom, OperationUOM, Graph ) ),
+          Operation=xval(OperationValue,OperationUOM)
         );
         (
-          rdf( OperationNode,aixm:nilReason, NilReason, Graph ),
-          Operation=nil(NilReason)
+          rdf( OperationNode,aixm:nilReason, OperationNilReason, Graph ),
+          Operation=nil(OperationNilReason)
         );
         (
-          rdf( OperationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Operation=indeterminate(Indeterminate)
+          rdf( OperationNode,gml:indeterminatePosition, OperationIndeterminate, Graph ),
+          Operation=indeterminate(OperationIndeterminate)
         )
       )
   ) .
@@ -6557,16 +6559,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( TimeReferenceNode,rdf:value,TimeReferenceValue,Graph ),
-          ( rdf( TimeReferenceNode, aixm:uom, UOM, Graph ); rdf( TimeReferenceNode, fixm:uom, UOM, Graph ); rdf( TimeReferenceNode, plain:uom, UOM, Graph ) ),
-          TimeReference=xval(TimeReferenceValue,UOM)
+          ( rdf( TimeReferenceNode, aixm:uom, TimeReferenceUOM, Graph ); rdf( TimeReferenceNode, fixm:uom, TimeReferenceUOM, Graph ); rdf( TimeReferenceNode, plain:uom, TimeReferenceUOM, Graph ) ),
+          TimeReference=xval(TimeReferenceValue,TimeReferenceUOM)
         );
         (
-          rdf( TimeReferenceNode,aixm:nilReason, NilReason, Graph ),
-          TimeReference=nil(NilReason)
+          rdf( TimeReferenceNode,aixm:nilReason, TimeReferenceNilReason, Graph ),
+          TimeReference=nil(TimeReferenceNilReason)
         );
         (
-          rdf( TimeReferenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TimeReference=indeterminate(Indeterminate)
+          rdf( TimeReferenceNode,gml:indeterminatePosition, TimeReferenceIndeterminate, Graph ),
+          TimeReference=indeterminate(TimeReferenceIndeterminate)
         )
       )
   )
@@ -6583,16 +6585,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( StartDateNode,rdf:value,StartDateValue,Graph ),
-          ( rdf( StartDateNode, aixm:uom, UOM, Graph ); rdf( StartDateNode, fixm:uom, UOM, Graph ); rdf( StartDateNode, plain:uom, UOM, Graph ) ),
-          StartDate=xval(StartDateValue,UOM)
+          ( rdf( StartDateNode, aixm:uom, StartDateUOM, Graph ); rdf( StartDateNode, fixm:uom, StartDateUOM, Graph ); rdf( StartDateNode, plain:uom, StartDateUOM, Graph ) ),
+          StartDate=xval(StartDateValue,StartDateUOM)
         );
         (
-          rdf( StartDateNode,aixm:nilReason, NilReason, Graph ),
-          StartDate=nil(NilReason)
+          rdf( StartDateNode,aixm:nilReason, StartDateNilReason, Graph ),
+          StartDate=nil(StartDateNilReason)
         );
         (
-          rdf( StartDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StartDate=indeterminate(Indeterminate)
+          rdf( StartDateNode,gml:indeterminatePosition, StartDateIndeterminate, Graph ),
+          StartDate=indeterminate(StartDateIndeterminate)
         )
       )
   )
@@ -6609,16 +6611,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( EndDateNode,rdf:value,EndDateValue,Graph ),
-          ( rdf( EndDateNode, aixm:uom, UOM, Graph ); rdf( EndDateNode, fixm:uom, UOM, Graph ); rdf( EndDateNode, plain:uom, UOM, Graph ) ),
-          EndDate=xval(EndDateValue,UOM)
+          ( rdf( EndDateNode, aixm:uom, EndDateUOM, Graph ); rdf( EndDateNode, fixm:uom, EndDateUOM, Graph ); rdf( EndDateNode, plain:uom, EndDateUOM, Graph ) ),
+          EndDate=xval(EndDateValue,EndDateUOM)
         );
         (
-          rdf( EndDateNode,aixm:nilReason, NilReason, Graph ),
-          EndDate=nil(NilReason)
+          rdf( EndDateNode,aixm:nilReason, EndDateNilReason, Graph ),
+          EndDate=nil(EndDateNilReason)
         );
         (
-          rdf( EndDateNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndDate=indeterminate(Indeterminate)
+          rdf( EndDateNode,gml:indeterminatePosition, EndDateIndeterminate, Graph ),
+          EndDate=indeterminate(EndDateIndeterminate)
         )
       )
   )
@@ -6635,16 +6637,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( DayNode,rdf:value,DayValue,Graph ),
-          ( rdf( DayNode, aixm:uom, UOM, Graph ); rdf( DayNode, fixm:uom, UOM, Graph ); rdf( DayNode, plain:uom, UOM, Graph ) ),
-          Day=xval(DayValue,UOM)
+          ( rdf( DayNode, aixm:uom, DayUOM, Graph ); rdf( DayNode, fixm:uom, DayUOM, Graph ); rdf( DayNode, plain:uom, DayUOM, Graph ) ),
+          Day=xval(DayValue,DayUOM)
         );
         (
-          rdf( DayNode,aixm:nilReason, NilReason, Graph ),
-          Day=nil(NilReason)
+          rdf( DayNode,aixm:nilReason, DayNilReason, Graph ),
+          Day=nil(DayNilReason)
         );
         (
-          rdf( DayNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Day=indeterminate(Indeterminate)
+          rdf( DayNode,gml:indeterminatePosition, DayIndeterminate, Graph ),
+          Day=indeterminate(DayIndeterminate)
         )
       )
   )
@@ -6661,16 +6663,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( DayTilNode,rdf:value,DayTilValue,Graph ),
-          ( rdf( DayTilNode, aixm:uom, UOM, Graph ); rdf( DayTilNode, fixm:uom, UOM, Graph ); rdf( DayTilNode, plain:uom, UOM, Graph ) ),
-          DayTil=xval(DayTilValue,UOM)
+          ( rdf( DayTilNode, aixm:uom, DayTilUOM, Graph ); rdf( DayTilNode, fixm:uom, DayTilUOM, Graph ); rdf( DayTilNode, plain:uom, DayTilUOM, Graph ) ),
+          DayTil=xval(DayTilValue,DayTilUOM)
         );
         (
-          rdf( DayTilNode,aixm:nilReason, NilReason, Graph ),
-          DayTil=nil(NilReason)
+          rdf( DayTilNode,aixm:nilReason, DayTilNilReason, Graph ),
+          DayTil=nil(DayTilNilReason)
         );
         (
-          rdf( DayTilNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DayTil=indeterminate(Indeterminate)
+          rdf( DayTilNode,gml:indeterminatePosition, DayTilIndeterminate, Graph ),
+          DayTil=indeterminate(DayTilIndeterminate)
         )
       )
   )
@@ -6687,16 +6689,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( StartTimeNode,rdf:value,StartTimeValue,Graph ),
-          ( rdf( StartTimeNode, aixm:uom, UOM, Graph ); rdf( StartTimeNode, fixm:uom, UOM, Graph ); rdf( StartTimeNode, plain:uom, UOM, Graph ) ),
-          StartTime=xval(StartTimeValue,UOM)
+          ( rdf( StartTimeNode, aixm:uom, StartTimeUOM, Graph ); rdf( StartTimeNode, fixm:uom, StartTimeUOM, Graph ); rdf( StartTimeNode, plain:uom, StartTimeUOM, Graph ) ),
+          StartTime=xval(StartTimeValue,StartTimeUOM)
         );
         (
-          rdf( StartTimeNode,aixm:nilReason, NilReason, Graph ),
-          StartTime=nil(NilReason)
+          rdf( StartTimeNode,aixm:nilReason, StartTimeNilReason, Graph ),
+          StartTime=nil(StartTimeNilReason)
         );
         (
-          rdf( StartTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StartTime=indeterminate(Indeterminate)
+          rdf( StartTimeNode,gml:indeterminatePosition, StartTimeIndeterminate, Graph ),
+          StartTime=indeterminate(StartTimeIndeterminate)
         )
       )
   )
@@ -6713,16 +6715,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( StartEventNode,rdf:value,StartEventValue,Graph ),
-          ( rdf( StartEventNode, aixm:uom, UOM, Graph ); rdf( StartEventNode, fixm:uom, UOM, Graph ); rdf( StartEventNode, plain:uom, UOM, Graph ) ),
-          StartEvent=xval(StartEventValue,UOM)
+          ( rdf( StartEventNode, aixm:uom, StartEventUOM, Graph ); rdf( StartEventNode, fixm:uom, StartEventUOM, Graph ); rdf( StartEventNode, plain:uom, StartEventUOM, Graph ) ),
+          StartEvent=xval(StartEventValue,StartEventUOM)
         );
         (
-          rdf( StartEventNode,aixm:nilReason, NilReason, Graph ),
-          StartEvent=nil(NilReason)
+          rdf( StartEventNode,aixm:nilReason, StartEventNilReason, Graph ),
+          StartEvent=nil(StartEventNilReason)
         );
         (
-          rdf( StartEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StartEvent=indeterminate(Indeterminate)
+          rdf( StartEventNode,gml:indeterminatePosition, StartEventIndeterminate, Graph ),
+          StartEvent=indeterminate(StartEventIndeterminate)
         )
       )
   )
@@ -6739,16 +6741,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( StartTimeRelativeEventNode,rdf:value,StartTimeRelativeEventValue,Graph ),
-          ( rdf( StartTimeRelativeEventNode, aixm:uom, UOM, Graph ); rdf( StartTimeRelativeEventNode, fixm:uom, UOM, Graph ); rdf( StartTimeRelativeEventNode, plain:uom, UOM, Graph ) ),
-          StartTimeRelativeEvent=xval(StartTimeRelativeEventValue,UOM)
+          ( rdf( StartTimeRelativeEventNode, aixm:uom, StartTimeRelativeEventUOM, Graph ); rdf( StartTimeRelativeEventNode, fixm:uom, StartTimeRelativeEventUOM, Graph ); rdf( StartTimeRelativeEventNode, plain:uom, StartTimeRelativeEventUOM, Graph ) ),
+          StartTimeRelativeEvent=xval(StartTimeRelativeEventValue,StartTimeRelativeEventUOM)
         );
         (
-          rdf( StartTimeRelativeEventNode,aixm:nilReason, NilReason, Graph ),
-          StartTimeRelativeEvent=nil(NilReason)
+          rdf( StartTimeRelativeEventNode,aixm:nilReason, StartTimeRelativeEventNilReason, Graph ),
+          StartTimeRelativeEvent=nil(StartTimeRelativeEventNilReason)
         );
         (
-          rdf( StartTimeRelativeEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StartTimeRelativeEvent=indeterminate(Indeterminate)
+          rdf( StartTimeRelativeEventNode,gml:indeterminatePosition, StartTimeRelativeEventIndeterminate, Graph ),
+          StartTimeRelativeEvent=indeterminate(StartTimeRelativeEventIndeterminate)
         )
       )
   )
@@ -6765,16 +6767,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( StartEventInterpretationNode,rdf:value,StartEventInterpretationValue,Graph ),
-          ( rdf( StartEventInterpretationNode, aixm:uom, UOM, Graph ); rdf( StartEventInterpretationNode, fixm:uom, UOM, Graph ); rdf( StartEventInterpretationNode, plain:uom, UOM, Graph ) ),
-          StartEventInterpretation=xval(StartEventInterpretationValue,UOM)
+          ( rdf( StartEventInterpretationNode, aixm:uom, StartEventInterpretationUOM, Graph ); rdf( StartEventInterpretationNode, fixm:uom, StartEventInterpretationUOM, Graph ); rdf( StartEventInterpretationNode, plain:uom, StartEventInterpretationUOM, Graph ) ),
+          StartEventInterpretation=xval(StartEventInterpretationValue,StartEventInterpretationUOM)
         );
         (
-          rdf( StartEventInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          StartEventInterpretation=nil(NilReason)
+          rdf( StartEventInterpretationNode,aixm:nilReason, StartEventInterpretationNilReason, Graph ),
+          StartEventInterpretation=nil(StartEventInterpretationNilReason)
         );
         (
-          rdf( StartEventInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StartEventInterpretation=indeterminate(Indeterminate)
+          rdf( StartEventInterpretationNode,gml:indeterminatePosition, StartEventInterpretationIndeterminate, Graph ),
+          StartEventInterpretation=indeterminate(StartEventInterpretationIndeterminate)
         )
       )
   )
@@ -6791,16 +6793,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( EndTimeNode,rdf:value,EndTimeValue,Graph ),
-          ( rdf( EndTimeNode, aixm:uom, UOM, Graph ); rdf( EndTimeNode, fixm:uom, UOM, Graph ); rdf( EndTimeNode, plain:uom, UOM, Graph ) ),
-          EndTime=xval(EndTimeValue,UOM)
+          ( rdf( EndTimeNode, aixm:uom, EndTimeUOM, Graph ); rdf( EndTimeNode, fixm:uom, EndTimeUOM, Graph ); rdf( EndTimeNode, plain:uom, EndTimeUOM, Graph ) ),
+          EndTime=xval(EndTimeValue,EndTimeUOM)
         );
         (
-          rdf( EndTimeNode,aixm:nilReason, NilReason, Graph ),
-          EndTime=nil(NilReason)
+          rdf( EndTimeNode,aixm:nilReason, EndTimeNilReason, Graph ),
+          EndTime=nil(EndTimeNilReason)
         );
         (
-          rdf( EndTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndTime=indeterminate(Indeterminate)
+          rdf( EndTimeNode,gml:indeterminatePosition, EndTimeIndeterminate, Graph ),
+          EndTime=indeterminate(EndTimeIndeterminate)
         )
       )
   )
@@ -6817,16 +6819,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( EndEventNode,rdf:value,EndEventValue,Graph ),
-          ( rdf( EndEventNode, aixm:uom, UOM, Graph ); rdf( EndEventNode, fixm:uom, UOM, Graph ); rdf( EndEventNode, plain:uom, UOM, Graph ) ),
-          EndEvent=xval(EndEventValue,UOM)
+          ( rdf( EndEventNode, aixm:uom, EndEventUOM, Graph ); rdf( EndEventNode, fixm:uom, EndEventUOM, Graph ); rdf( EndEventNode, plain:uom, EndEventUOM, Graph ) ),
+          EndEvent=xval(EndEventValue,EndEventUOM)
         );
         (
-          rdf( EndEventNode,aixm:nilReason, NilReason, Graph ),
-          EndEvent=nil(NilReason)
+          rdf( EndEventNode,aixm:nilReason, EndEventNilReason, Graph ),
+          EndEvent=nil(EndEventNilReason)
         );
         (
-          rdf( EndEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndEvent=indeterminate(Indeterminate)
+          rdf( EndEventNode,gml:indeterminatePosition, EndEventIndeterminate, Graph ),
+          EndEvent=indeterminate(EndEventIndeterminate)
         )
       )
   )
@@ -6843,16 +6845,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( EndTimeRelativeEventNode,rdf:value,EndTimeRelativeEventValue,Graph ),
-          ( rdf( EndTimeRelativeEventNode, aixm:uom, UOM, Graph ); rdf( EndTimeRelativeEventNode, fixm:uom, UOM, Graph ); rdf( EndTimeRelativeEventNode, plain:uom, UOM, Graph ) ),
-          EndTimeRelativeEvent=xval(EndTimeRelativeEventValue,UOM)
+          ( rdf( EndTimeRelativeEventNode, aixm:uom, EndTimeRelativeEventUOM, Graph ); rdf( EndTimeRelativeEventNode, fixm:uom, EndTimeRelativeEventUOM, Graph ); rdf( EndTimeRelativeEventNode, plain:uom, EndTimeRelativeEventUOM, Graph ) ),
+          EndTimeRelativeEvent=xval(EndTimeRelativeEventValue,EndTimeRelativeEventUOM)
         );
         (
-          rdf( EndTimeRelativeEventNode,aixm:nilReason, NilReason, Graph ),
-          EndTimeRelativeEvent=nil(NilReason)
+          rdf( EndTimeRelativeEventNode,aixm:nilReason, EndTimeRelativeEventNilReason, Graph ),
+          EndTimeRelativeEvent=nil(EndTimeRelativeEventNilReason)
         );
         (
-          rdf( EndTimeRelativeEventNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndTimeRelativeEvent=indeterminate(Indeterminate)
+          rdf( EndTimeRelativeEventNode,gml:indeterminatePosition, EndTimeRelativeEventIndeterminate, Graph ),
+          EndTimeRelativeEvent=indeterminate(EndTimeRelativeEventIndeterminate)
         )
       )
   )
@@ -6869,16 +6871,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( EndEventInterpretationNode,rdf:value,EndEventInterpretationValue,Graph ),
-          ( rdf( EndEventInterpretationNode, aixm:uom, UOM, Graph ); rdf( EndEventInterpretationNode, fixm:uom, UOM, Graph ); rdf( EndEventInterpretationNode, plain:uom, UOM, Graph ) ),
-          EndEventInterpretation=xval(EndEventInterpretationValue,UOM)
+          ( rdf( EndEventInterpretationNode, aixm:uom, EndEventInterpretationUOM, Graph ); rdf( EndEventInterpretationNode, fixm:uom, EndEventInterpretationUOM, Graph ); rdf( EndEventInterpretationNode, plain:uom, EndEventInterpretationUOM, Graph ) ),
+          EndEventInterpretation=xval(EndEventInterpretationValue,EndEventInterpretationUOM)
         );
         (
-          rdf( EndEventInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          EndEventInterpretation=nil(NilReason)
+          rdf( EndEventInterpretationNode,aixm:nilReason, EndEventInterpretationNilReason, Graph ),
+          EndEventInterpretation=nil(EndEventInterpretationNilReason)
         );
         (
-          rdf( EndEventInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndEventInterpretation=indeterminate(Indeterminate)
+          rdf( EndEventInterpretationNode,gml:indeterminatePosition, EndEventInterpretationIndeterminate, Graph ),
+          EndEventInterpretation=indeterminate(EndEventInterpretationIndeterminate)
         )
       )
   )
@@ -6895,16 +6897,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( DaylightSavingAdjustNode,rdf:value,DaylightSavingAdjustValue,Graph ),
-          ( rdf( DaylightSavingAdjustNode, aixm:uom, UOM, Graph ); rdf( DaylightSavingAdjustNode, fixm:uom, UOM, Graph ); rdf( DaylightSavingAdjustNode, plain:uom, UOM, Graph ) ),
-          DaylightSavingAdjust=xval(DaylightSavingAdjustValue,UOM)
+          ( rdf( DaylightSavingAdjustNode, aixm:uom, DaylightSavingAdjustUOM, Graph ); rdf( DaylightSavingAdjustNode, fixm:uom, DaylightSavingAdjustUOM, Graph ); rdf( DaylightSavingAdjustNode, plain:uom, DaylightSavingAdjustUOM, Graph ) ),
+          DaylightSavingAdjust=xval(DaylightSavingAdjustValue,DaylightSavingAdjustUOM)
         );
         (
-          rdf( DaylightSavingAdjustNode,aixm:nilReason, NilReason, Graph ),
-          DaylightSavingAdjust=nil(NilReason)
+          rdf( DaylightSavingAdjustNode,aixm:nilReason, DaylightSavingAdjustNilReason, Graph ),
+          DaylightSavingAdjust=nil(DaylightSavingAdjustNilReason)
         );
         (
-          rdf( DaylightSavingAdjustNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DaylightSavingAdjust=indeterminate(Indeterminate)
+          rdf( DaylightSavingAdjustNode,gml:indeterminatePosition, DaylightSavingAdjustIndeterminate, Graph ),
+          DaylightSavingAdjust=indeterminate(DaylightSavingAdjustIndeterminate)
         )
       )
   )
@@ -6921,16 +6923,16 @@ aixm_Timesheet(Graph, Timesheet, TimeReference, StartDate, EndDate, Day, DayTil,
         );
         (
           rdf( ExcludedNode,rdf:value,ExcludedValue,Graph ),
-          ( rdf( ExcludedNode, aixm:uom, UOM, Graph ); rdf( ExcludedNode, fixm:uom, UOM, Graph ); rdf( ExcludedNode, plain:uom, UOM, Graph ) ),
-          Excluded=xval(ExcludedValue,UOM)
+          ( rdf( ExcludedNode, aixm:uom, ExcludedUOM, Graph ); rdf( ExcludedNode, fixm:uom, ExcludedUOM, Graph ); rdf( ExcludedNode, plain:uom, ExcludedUOM, Graph ) ),
+          Excluded=xval(ExcludedValue,ExcludedUOM)
         );
         (
-          rdf( ExcludedNode,aixm:nilReason, NilReason, Graph ),
-          Excluded=nil(NilReason)
+          rdf( ExcludedNode,aixm:nilReason, ExcludedNilReason, Graph ),
+          Excluded=nil(ExcludedNilReason)
         );
         (
-          rdf( ExcludedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Excluded=indeterminate(Indeterminate)
+          rdf( ExcludedNode,gml:indeterminatePosition, ExcludedIndeterminate, Graph ),
+          Excluded=indeterminate(ExcludedIndeterminate)
         )
       )
   )
@@ -6965,16 +6967,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -6991,16 +6993,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( RuleNode,rdf:value,RuleValue,Graph ),
-          ( rdf( RuleNode, aixm:uom, UOM, Graph ); rdf( RuleNode, fixm:uom, UOM, Graph ); rdf( RuleNode, plain:uom, UOM, Graph ) ),
-          Rule=xval(RuleValue,UOM)
+          ( rdf( RuleNode, aixm:uom, RuleUOM, Graph ); rdf( RuleNode, fixm:uom, RuleUOM, Graph ); rdf( RuleNode, plain:uom, RuleUOM, Graph ) ),
+          Rule=xval(RuleValue,RuleUOM)
         );
         (
-          rdf( RuleNode,aixm:nilReason, NilReason, Graph ),
-          Rule=nil(NilReason)
+          rdf( RuleNode,aixm:nilReason, RuleNilReason, Graph ),
+          Rule=nil(RuleNilReason)
         );
         (
-          rdf( RuleNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Rule=indeterminate(Indeterminate)
+          rdf( RuleNode,gml:indeterminatePosition, RuleIndeterminate, Graph ),
+          Rule=indeterminate(RuleIndeterminate)
         )
       )
   )
@@ -7017,16 +7019,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( StatusNode,rdf:value,StatusValue,Graph ),
-          ( rdf( StatusNode, aixm:uom, UOM, Graph ); rdf( StatusNode, fixm:uom, UOM, Graph ); rdf( StatusNode, plain:uom, UOM, Graph ) ),
-          Status=xval(StatusValue,UOM)
+          ( rdf( StatusNode, aixm:uom, StatusUOM, Graph ); rdf( StatusNode, fixm:uom, StatusUOM, Graph ); rdf( StatusNode, plain:uom, StatusUOM, Graph ) ),
+          Status=xval(StatusValue,StatusUOM)
         );
         (
-          rdf( StatusNode,aixm:nilReason, NilReason, Graph ),
-          Status=nil(NilReason)
+          rdf( StatusNode,aixm:nilReason, StatusNilReason, Graph ),
+          Status=nil(StatusNilReason)
         );
         (
-          rdf( StatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Status=indeterminate(Indeterminate)
+          rdf( StatusNode,gml:indeterminatePosition, StatusIndeterminate, Graph ),
+          Status=indeterminate(StatusIndeterminate)
         )
       )
   )
@@ -7043,16 +7045,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( MilitaryNode,rdf:value,MilitaryValue,Graph ),
-          ( rdf( MilitaryNode, aixm:uom, UOM, Graph ); rdf( MilitaryNode, fixm:uom, UOM, Graph ); rdf( MilitaryNode, plain:uom, UOM, Graph ) ),
-          Military=xval(MilitaryValue,UOM)
+          ( rdf( MilitaryNode, aixm:uom, MilitaryUOM, Graph ); rdf( MilitaryNode, fixm:uom, MilitaryUOM, Graph ); rdf( MilitaryNode, plain:uom, MilitaryUOM, Graph ) ),
+          Military=xval(MilitaryValue,MilitaryUOM)
         );
         (
-          rdf( MilitaryNode,aixm:nilReason, NilReason, Graph ),
-          Military=nil(NilReason)
+          rdf( MilitaryNode,aixm:nilReason, MilitaryNilReason, Graph ),
+          Military=nil(MilitaryNilReason)
         );
         (
-          rdf( MilitaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Military=indeterminate(Indeterminate)
+          rdf( MilitaryNode,gml:indeterminatePosition, MilitaryIndeterminate, Graph ),
+          Military=indeterminate(MilitaryIndeterminate)
         )
       )
   )
@@ -7069,16 +7071,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( OriginNode,rdf:value,OriginValue,Graph ),
-          ( rdf( OriginNode, aixm:uom, UOM, Graph ); rdf( OriginNode, fixm:uom, UOM, Graph ); rdf( OriginNode, plain:uom, UOM, Graph ) ),
-          Origin=xval(OriginValue,UOM)
+          ( rdf( OriginNode, aixm:uom, OriginUOM, Graph ); rdf( OriginNode, fixm:uom, OriginUOM, Graph ); rdf( OriginNode, plain:uom, OriginUOM, Graph ) ),
+          Origin=xval(OriginValue,OriginUOM)
         );
         (
-          rdf( OriginNode,aixm:nilReason, NilReason, Graph ),
-          Origin=nil(NilReason)
+          rdf( OriginNode,aixm:nilReason, OriginNilReason, Graph ),
+          Origin=nil(OriginNilReason)
         );
         (
-          rdf( OriginNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Origin=indeterminate(Indeterminate)
+          rdf( OriginNode,gml:indeterminatePosition, OriginIndeterminate, Graph ),
+          Origin=indeterminate(OriginIndeterminate)
         )
       )
   )
@@ -7095,16 +7097,16 @@ aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type, Rule, Status, Milit
         );
         (
           rdf( PurposeNode,rdf:value,PurposeValue,Graph ),
-          ( rdf( PurposeNode, aixm:uom, UOM, Graph ); rdf( PurposeNode, fixm:uom, UOM, Graph ); rdf( PurposeNode, plain:uom, UOM, Graph ) ),
-          Purpose=xval(PurposeValue,UOM)
+          ( rdf( PurposeNode, aixm:uom, PurposeUOM, Graph ); rdf( PurposeNode, fixm:uom, PurposeUOM, Graph ); rdf( PurposeNode, plain:uom, PurposeUOM, Graph ) ),
+          Purpose=xval(PurposeValue,PurposeUOM)
         );
         (
-          rdf( PurposeNode,aixm:nilReason, NilReason, Graph ),
-          Purpose=nil(NilReason)
+          rdf( PurposeNode,aixm:nilReason, PurposeNilReason, Graph ),
+          Purpose=nil(PurposeNilReason)
         );
         (
-          rdf( PurposeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Purpose=indeterminate(Indeterminate)
+          rdf( PurposeNode,gml:indeterminatePosition, PurposeIndeterminate, Graph ),
+          Purpose=indeterminate(PurposeIndeterminate)
         )
       )
   )
@@ -7125,16 +7127,16 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         );
         (
           rdf( TimestampNode,rdf:value,TimestampValue,Graph ),
-          ( rdf( TimestampNode, aixm:uom, UOM, Graph ); rdf( TimestampNode, fixm:uom, UOM, Graph ); rdf( TimestampNode, plain:uom, UOM, Graph ) ),
-          Timestamp=xval(TimestampValue,UOM)
+          ( rdf( TimestampNode, aixm:uom, TimestampUOM, Graph ); rdf( TimestampNode, fixm:uom, TimestampUOM, Graph ); rdf( TimestampNode, plain:uom, TimestampUOM, Graph ) ),
+          Timestamp=xval(TimestampValue,TimestampUOM)
         );
         (
-          rdf( TimestampNode,aixm:nilReason, NilReason, Graph ),
-          Timestamp=nil(NilReason)
+          rdf( TimestampNode,aixm:nilReason, TimestampNilReason, Graph ),
+          Timestamp=nil(TimestampNilReason)
         );
         (
-          rdf( TimestampNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Timestamp=indeterminate(Indeterminate)
+          rdf( TimestampNode,gml:indeterminatePosition, TimestampIndeterminate, Graph ),
+          Timestamp=indeterminate(TimestampIndeterminate)
         )
       )
   )
@@ -7151,16 +7153,16 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         );
         (
           rdf( CentreNode,rdf:value,CentreValue,Graph ),
-          ( rdf( CentreNode, aixm:uom, UOM, Graph ); rdf( CentreNode, fixm:uom, UOM, Graph ); rdf( CentreNode, plain:uom, UOM, Graph ) ),
-          Centre=xval(CentreValue,UOM)
+          ( rdf( CentreNode, aixm:uom, CentreUOM, Graph ); rdf( CentreNode, fixm:uom, CentreUOM, Graph ); rdf( CentreNode, plain:uom, CentreUOM, Graph ) ),
+          Centre=xval(CentreValue,CentreUOM)
         );
         (
-          rdf( CentreNode,aixm:nilReason, NilReason, Graph ),
-          Centre=nil(NilReason)
+          rdf( CentreNode,aixm:nilReason, CentreNilReason, Graph ),
+          Centre=nil(CentreNilReason)
         );
         (
-          rdf( CentreNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Centre=indeterminate(Indeterminate)
+          rdf( CentreNode,gml:indeterminatePosition, CentreIndeterminate, Graph ),
+          Centre=indeterminate(CentreIndeterminate)
         )
       )
   )
@@ -7177,16 +7179,16 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         );
         (
           rdf( SourceNode,rdf:value,SourceValue,Graph ),
-          ( rdf( SourceNode, aixm:uom, UOM, Graph ); rdf( SourceNode, fixm:uom, UOM, Graph ); rdf( SourceNode, plain:uom, UOM, Graph ) ),
-          Source=xval(SourceValue,UOM)
+          ( rdf( SourceNode, aixm:uom, SourceUOM, Graph ); rdf( SourceNode, fixm:uom, SourceUOM, Graph ); rdf( SourceNode, plain:uom, SourceUOM, Graph ) ),
+          Source=xval(SourceValue,SourceUOM)
         );
         (
-          rdf( SourceNode,aixm:nilReason, NilReason, Graph ),
-          Source=nil(NilReason)
+          rdf( SourceNode,aixm:nilReason, SourceNilReason, Graph ),
+          Source=nil(SourceNilReason)
         );
         (
-          rdf( SourceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Source=indeterminate(Indeterminate)
+          rdf( SourceNode,gml:indeterminatePosition, SourceIndeterminate, Graph ),
+          Source=indeterminate(SourceIndeterminate)
         )
       )
   )
@@ -7203,16 +7205,16 @@ fixm_Provenance(Graph, Provenance, Timestamp, Centre, Source, System) :-
         );
         (
           rdf( SystemNode,rdf:value,SystemValue,Graph ),
-          ( rdf( SystemNode, aixm:uom, UOM, Graph ); rdf( SystemNode, fixm:uom, UOM, Graph ); rdf( SystemNode, plain:uom, UOM, Graph ) ),
-          System=xval(SystemValue,UOM)
+          ( rdf( SystemNode, aixm:uom, SystemUOM, Graph ); rdf( SystemNode, fixm:uom, SystemUOM, Graph ); rdf( SystemNode, plain:uom, SystemUOM, Graph ) ),
+          System=xval(SystemValue,SystemUOM)
         );
         (
-          rdf( SystemNode,aixm:nilReason, NilReason, Graph ),
-          System=nil(NilReason)
+          rdf( SystemNode,aixm:nilReason, SystemNilReason, Graph ),
+          System=nil(SystemNilReason)
         );
         (
-          rdf( SystemNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          System=indeterminate(Indeterminate)
+          rdf( SystemNode,gml:indeterminatePosition, SystemIndeterminate, Graph ),
+          System=indeterminate(SystemIndeterminate)
         )
       )
   ) .
@@ -7237,16 +7239,16 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         );
         (
           rdf( AltimeterSettingNode,rdf:value,AltimeterSettingValue,Graph ),
-          ( rdf( AltimeterSettingNode, aixm:uom, UOM, Graph ); rdf( AltimeterSettingNode, fixm:uom, UOM, Graph ); rdf( AltimeterSettingNode, plain:uom, UOM, Graph ) ),
-          AltimeterSetting=xval(AltimeterSettingValue,UOM)
+          ( rdf( AltimeterSettingNode, aixm:uom, AltimeterSettingUOM, Graph ); rdf( AltimeterSettingNode, fixm:uom, AltimeterSettingUOM, Graph ); rdf( AltimeterSettingNode, plain:uom, AltimeterSettingUOM, Graph ) ),
+          AltimeterSetting=xval(AltimeterSettingValue,AltimeterSettingUOM)
         );
         (
-          rdf( AltimeterSettingNode,aixm:nilReason, NilReason, Graph ),
-          AltimeterSetting=nil(NilReason)
+          rdf( AltimeterSettingNode,aixm:nilReason, AltimeterSettingNilReason, Graph ),
+          AltimeterSetting=nil(AltimeterSettingNilReason)
         );
         (
-          rdf( AltimeterSettingNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AltimeterSetting=indeterminate(Indeterminate)
+          rdf( AltimeterSettingNode,gml:indeterminatePosition, AltimeterSettingIndeterminate, Graph ),
+          AltimeterSetting=indeterminate(AltimeterSettingIndeterminate)
         )
       )
   )
@@ -7263,16 +7265,16 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         );
         (
           rdf( PredictedAirspeedNode,rdf:value,PredictedAirspeedValue,Graph ),
-          ( rdf( PredictedAirspeedNode, aixm:uom, UOM, Graph ); rdf( PredictedAirspeedNode, fixm:uom, UOM, Graph ); rdf( PredictedAirspeedNode, plain:uom, UOM, Graph ) ),
-          PredictedAirspeed=xval(PredictedAirspeedValue,UOM)
+          ( rdf( PredictedAirspeedNode, aixm:uom, PredictedAirspeedUOM, Graph ); rdf( PredictedAirspeedNode, fixm:uom, PredictedAirspeedUOM, Graph ); rdf( PredictedAirspeedNode, plain:uom, PredictedAirspeedUOM, Graph ) ),
+          PredictedAirspeed=xval(PredictedAirspeedValue,PredictedAirspeedUOM)
         );
         (
-          rdf( PredictedAirspeedNode,aixm:nilReason, NilReason, Graph ),
-          PredictedAirspeed=nil(NilReason)
+          rdf( PredictedAirspeedNode,aixm:nilReason, PredictedAirspeedNilReason, Graph ),
+          PredictedAirspeed=nil(PredictedAirspeedNilReason)
         );
         (
-          rdf( PredictedAirspeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PredictedAirspeed=indeterminate(Indeterminate)
+          rdf( PredictedAirspeedNode,gml:indeterminatePosition, PredictedAirspeedIndeterminate, Graph ),
+          PredictedAirspeed=indeterminate(PredictedAirspeedIndeterminate)
         )
       )
   )
@@ -7289,16 +7291,16 @@ fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting, PredictedAirspeed
         );
         (
           rdf( PredictedGroundspeedNode,rdf:value,PredictedGroundspeedValue,Graph ),
-          ( rdf( PredictedGroundspeedNode, aixm:uom, UOM, Graph ); rdf( PredictedGroundspeedNode, fixm:uom, UOM, Graph ); rdf( PredictedGroundspeedNode, plain:uom, UOM, Graph ) ),
-          PredictedGroundspeed=xval(PredictedGroundspeedValue,UOM)
+          ( rdf( PredictedGroundspeedNode, aixm:uom, PredictedGroundspeedUOM, Graph ); rdf( PredictedGroundspeedNode, fixm:uom, PredictedGroundspeedUOM, Graph ); rdf( PredictedGroundspeedNode, plain:uom, PredictedGroundspeedUOM, Graph ) ),
+          PredictedGroundspeed=xval(PredictedGroundspeedValue,PredictedGroundspeedUOM)
         );
         (
-          rdf( PredictedGroundspeedNode,aixm:nilReason, NilReason, Graph ),
-          PredictedGroundspeed=nil(NilReason)
+          rdf( PredictedGroundspeedNode,aixm:nilReason, PredictedGroundspeedNilReason, Graph ),
+          PredictedGroundspeed=nil(PredictedGroundspeedNilReason)
         );
         (
-          rdf( PredictedGroundspeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PredictedGroundspeed=indeterminate(Indeterminate)
+          rdf( PredictedGroundspeedNode,gml:indeterminatePosition, PredictedGroundspeedIndeterminate, Graph ),
+          PredictedGroundspeed=indeterminate(PredictedGroundspeedIndeterminate)
         )
       )
   )
@@ -7332,16 +7334,16 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         );
         (
           rdf( DistanceFromTakeOffNode,rdf:value,DistanceFromTakeOffValue,Graph ),
-          ( rdf( DistanceFromTakeOffNode, aixm:uom, UOM, Graph ); rdf( DistanceFromTakeOffNode, fixm:uom, UOM, Graph ); rdf( DistanceFromTakeOffNode, plain:uom, UOM, Graph ) ),
-          DistanceFromTakeOff=xval(DistanceFromTakeOffValue,UOM)
+          ( rdf( DistanceFromTakeOffNode, aixm:uom, DistanceFromTakeOffUOM, Graph ); rdf( DistanceFromTakeOffNode, fixm:uom, DistanceFromTakeOffUOM, Graph ); rdf( DistanceFromTakeOffNode, plain:uom, DistanceFromTakeOffUOM, Graph ) ),
+          DistanceFromTakeOff=xval(DistanceFromTakeOffValue,DistanceFromTakeOffUOM)
         );
         (
-          rdf( DistanceFromTakeOffNode,aixm:nilReason, NilReason, Graph ),
-          DistanceFromTakeOff=nil(NilReason)
+          rdf( DistanceFromTakeOffNode,aixm:nilReason, DistanceFromTakeOffNilReason, Graph ),
+          DistanceFromTakeOff=nil(DistanceFromTakeOffNilReason)
         );
         (
-          rdf( DistanceFromTakeOffNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DistanceFromTakeOff=indeterminate(Indeterminate)
+          rdf( DistanceFromTakeOffNode,gml:indeterminatePosition, DistanceFromTakeOffIndeterminate, Graph ),
+          DistanceFromTakeOff=indeterminate(DistanceFromTakeOffIndeterminate)
         )
       )
   )
@@ -7358,16 +7360,16 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         );
         (
           rdf( EfplEstimatedSpeedNode,rdf:value,EfplEstimatedSpeedValue,Graph ),
-          ( rdf( EfplEstimatedSpeedNode, aixm:uom, UOM, Graph ); rdf( EfplEstimatedSpeedNode, fixm:uom, UOM, Graph ); rdf( EfplEstimatedSpeedNode, plain:uom, UOM, Graph ) ),
-          EfplEstimatedSpeed=xval(EfplEstimatedSpeedValue,UOM)
+          ( rdf( EfplEstimatedSpeedNode, aixm:uom, EfplEstimatedSpeedUOM, Graph ); rdf( EfplEstimatedSpeedNode, fixm:uom, EfplEstimatedSpeedUOM, Graph ); rdf( EfplEstimatedSpeedNode, plain:uom, EfplEstimatedSpeedUOM, Graph ) ),
+          EfplEstimatedSpeed=xval(EfplEstimatedSpeedValue,EfplEstimatedSpeedUOM)
         );
         (
-          rdf( EfplEstimatedSpeedNode,aixm:nilReason, NilReason, Graph ),
-          EfplEstimatedSpeed=nil(NilReason)
+          rdf( EfplEstimatedSpeedNode,aixm:nilReason, EfplEstimatedSpeedNilReason, Graph ),
+          EfplEstimatedSpeed=nil(EfplEstimatedSpeedNilReason)
         );
         (
-          rdf( EfplEstimatedSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EfplEstimatedSpeed=indeterminate(Indeterminate)
+          rdf( EfplEstimatedSpeedNode,gml:indeterminatePosition, EfplEstimatedSpeedIndeterminate, Graph ),
+          EfplEstimatedSpeed=indeterminate(EfplEstimatedSpeedIndeterminate)
         )
       )
   )
@@ -7384,16 +7386,16 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         );
         (
           rdf( ElapsedTimeNode,rdf:value,ElapsedTimeValue,Graph ),
-          ( rdf( ElapsedTimeNode, aixm:uom, UOM, Graph ); rdf( ElapsedTimeNode, fixm:uom, UOM, Graph ); rdf( ElapsedTimeNode, plain:uom, UOM, Graph ) ),
-          ElapsedTime=xval(ElapsedTimeValue,UOM)
+          ( rdf( ElapsedTimeNode, aixm:uom, ElapsedTimeUOM, Graph ); rdf( ElapsedTimeNode, fixm:uom, ElapsedTimeUOM, Graph ); rdf( ElapsedTimeNode, plain:uom, ElapsedTimeUOM, Graph ) ),
+          ElapsedTime=xval(ElapsedTimeValue,ElapsedTimeUOM)
         );
         (
-          rdf( ElapsedTimeNode,aixm:nilReason, NilReason, Graph ),
-          ElapsedTime=nil(NilReason)
+          rdf( ElapsedTimeNode,aixm:nilReason, ElapsedTimeNilReason, Graph ),
+          ElapsedTime=nil(ElapsedTimeNilReason)
         );
         (
-          rdf( ElapsedTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ElapsedTime=indeterminate(Indeterminate)
+          rdf( ElapsedTimeNode,gml:indeterminatePosition, ElapsedTimeIndeterminate, Graph ),
+          ElapsedTime=indeterminate(ElapsedTimeIndeterminate)
         )
       )
   )
@@ -7410,16 +7412,16 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         );
         (
           rdf( GrossWeightNode,rdf:value,GrossWeightValue,Graph ),
-          ( rdf( GrossWeightNode, aixm:uom, UOM, Graph ); rdf( GrossWeightNode, fixm:uom, UOM, Graph ); rdf( GrossWeightNode, plain:uom, UOM, Graph ) ),
-          GrossWeight=xval(GrossWeightValue,UOM)
+          ( rdf( GrossWeightNode, aixm:uom, GrossWeightUOM, Graph ); rdf( GrossWeightNode, fixm:uom, GrossWeightUOM, Graph ); rdf( GrossWeightNode, plain:uom, GrossWeightUOM, Graph ) ),
+          GrossWeight=xval(GrossWeightValue,GrossWeightUOM)
         );
         (
-          rdf( GrossWeightNode,aixm:nilReason, NilReason, Graph ),
-          GrossWeight=nil(NilReason)
+          rdf( GrossWeightNode,aixm:nilReason, GrossWeightNilReason, Graph ),
+          GrossWeight=nil(GrossWeightNilReason)
         );
         (
-          rdf( GrossWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          GrossWeight=indeterminate(Indeterminate)
+          rdf( GrossWeightNode,gml:indeterminatePosition, GrossWeightIndeterminate, Graph ),
+          GrossWeight=indeterminate(GrossWeightIndeterminate)
         )
       )
   )
@@ -7436,16 +7438,16 @@ fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, Distan
         );
         (
           rdf( TrajectoryPointTypeNode,rdf:value,TrajectoryPointTypeValue,Graph ),
-          ( rdf( TrajectoryPointTypeNode, aixm:uom, UOM, Graph ); rdf( TrajectoryPointTypeNode, fixm:uom, UOM, Graph ); rdf( TrajectoryPointTypeNode, plain:uom, UOM, Graph ) ),
-          TrajectoryPointType=xval(TrajectoryPointTypeValue,UOM)
+          ( rdf( TrajectoryPointTypeNode, aixm:uom, TrajectoryPointTypeUOM, Graph ); rdf( TrajectoryPointTypeNode, fixm:uom, TrajectoryPointTypeUOM, Graph ); rdf( TrajectoryPointTypeNode, plain:uom, TrajectoryPointTypeUOM, Graph ) ),
+          TrajectoryPointType=xval(TrajectoryPointTypeValue,TrajectoryPointTypeUOM)
         );
         (
-          rdf( TrajectoryPointTypeNode,aixm:nilReason, NilReason, Graph ),
-          TrajectoryPointType=nil(NilReason)
+          rdf( TrajectoryPointTypeNode,aixm:nilReason, TrajectoryPointTypeNilReason, Graph ),
+          TrajectoryPointType=nil(TrajectoryPointTypeNilReason)
         );
         (
-          rdf( TrajectoryPointTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TrajectoryPointType=indeterminate(Indeterminate)
+          rdf( TrajectoryPointTypeNode,gml:indeterminatePosition, TrajectoryPointTypeIndeterminate, Graph ),
+          TrajectoryPointType=indeterminate(TrajectoryPointTypeIndeterminate)
         )
       )
   )
@@ -7471,16 +7473,16 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         );
         (
           rdf( ControlTemperatureNode,rdf:value,ControlTemperatureValue,Graph ),
-          ( rdf( ControlTemperatureNode, aixm:uom, UOM, Graph ); rdf( ControlTemperatureNode, fixm:uom, UOM, Graph ); rdf( ControlTemperatureNode, plain:uom, UOM, Graph ) ),
-          ControlTemperature=xval(ControlTemperatureValue,UOM)
+          ( rdf( ControlTemperatureNode, aixm:uom, ControlTemperatureUOM, Graph ); rdf( ControlTemperatureNode, fixm:uom, ControlTemperatureUOM, Graph ); rdf( ControlTemperatureNode, plain:uom, ControlTemperatureUOM, Graph ) ),
+          ControlTemperature=xval(ControlTemperatureValue,ControlTemperatureUOM)
         );
         (
-          rdf( ControlTemperatureNode,aixm:nilReason, NilReason, Graph ),
-          ControlTemperature=nil(NilReason)
+          rdf( ControlTemperatureNode,aixm:nilReason, ControlTemperatureNilReason, Graph ),
+          ControlTemperature=nil(ControlTemperatureNilReason)
         );
         (
-          rdf( ControlTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ControlTemperature=indeterminate(Indeterminate)
+          rdf( ControlTemperatureNode,gml:indeterminatePosition, ControlTemperatureIndeterminate, Graph ),
+          ControlTemperature=indeterminate(ControlTemperatureIndeterminate)
         )
       )
   )
@@ -7497,16 +7499,16 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         );
         (
           rdf( EmergencyTemperatureNode,rdf:value,EmergencyTemperatureValue,Graph ),
-          ( rdf( EmergencyTemperatureNode, aixm:uom, UOM, Graph ); rdf( EmergencyTemperatureNode, fixm:uom, UOM, Graph ); rdf( EmergencyTemperatureNode, plain:uom, UOM, Graph ) ),
-          EmergencyTemperature=xval(EmergencyTemperatureValue,UOM)
+          ( rdf( EmergencyTemperatureNode, aixm:uom, EmergencyTemperatureUOM, Graph ); rdf( EmergencyTemperatureNode, fixm:uom, EmergencyTemperatureUOM, Graph ); rdf( EmergencyTemperatureNode, plain:uom, EmergencyTemperatureUOM, Graph ) ),
+          EmergencyTemperature=xval(EmergencyTemperatureValue,EmergencyTemperatureUOM)
         );
         (
-          rdf( EmergencyTemperatureNode,aixm:nilReason, NilReason, Graph ),
-          EmergencyTemperature=nil(NilReason)
+          rdf( EmergencyTemperatureNode,aixm:nilReason, EmergencyTemperatureNilReason, Graph ),
+          EmergencyTemperature=nil(EmergencyTemperatureNilReason)
         );
         (
-          rdf( EmergencyTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EmergencyTemperature=indeterminate(Indeterminate)
+          rdf( EmergencyTemperatureNode,gml:indeterminatePosition, EmergencyTemperatureIndeterminate, Graph ),
+          EmergencyTemperature=indeterminate(EmergencyTemperatureIndeterminate)
         )
       )
   )
@@ -7523,16 +7525,16 @@ fixm_Temperatures(Graph, Temperatures, ControlTemperature, EmergencyTemperature,
         );
         (
           rdf( FlashpointTemperatureNode,rdf:value,FlashpointTemperatureValue,Graph ),
-          ( rdf( FlashpointTemperatureNode, aixm:uom, UOM, Graph ); rdf( FlashpointTemperatureNode, fixm:uom, UOM, Graph ); rdf( FlashpointTemperatureNode, plain:uom, UOM, Graph ) ),
-          FlashpointTemperature=xval(FlashpointTemperatureValue,UOM)
+          ( rdf( FlashpointTemperatureNode, aixm:uom, FlashpointTemperatureUOM, Graph ); rdf( FlashpointTemperatureNode, fixm:uom, FlashpointTemperatureUOM, Graph ); rdf( FlashpointTemperatureNode, plain:uom, FlashpointTemperatureUOM, Graph ) ),
+          FlashpointTemperature=xval(FlashpointTemperatureValue,FlashpointTemperatureUOM)
         );
         (
-          rdf( FlashpointTemperatureNode,aixm:nilReason, NilReason, Graph ),
-          FlashpointTemperature=nil(NilReason)
+          rdf( FlashpointTemperatureNode,aixm:nilReason, FlashpointTemperatureNilReason, Graph ),
+          FlashpointTemperature=nil(FlashpointTemperatureNilReason)
         );
         (
-          rdf( FlashpointTemperatureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FlashpointTemperature=indeterminate(Indeterminate)
+          rdf( FlashpointTemperatureNode,gml:indeterminatePosition, FlashpointTemperatureIndeterminate, Graph ),
+          FlashpointTemperature=indeterminate(FlashpointTemperatureIndeterminate)
         )
       )
   ) .
@@ -7552,16 +7554,16 @@ fixm_TrajectorySegment(Graph, TrajectorySegment, SegmentIdentifier, SegmentType)
         );
         (
           rdf( SegmentIdentifierNode,rdf:value,SegmentIdentifierValue,Graph ),
-          ( rdf( SegmentIdentifierNode, aixm:uom, UOM, Graph ); rdf( SegmentIdentifierNode, fixm:uom, UOM, Graph ); rdf( SegmentIdentifierNode, plain:uom, UOM, Graph ) ),
-          SegmentIdentifier=xval(SegmentIdentifierValue,UOM)
+          ( rdf( SegmentIdentifierNode, aixm:uom, SegmentIdentifierUOM, Graph ); rdf( SegmentIdentifierNode, fixm:uom, SegmentIdentifierUOM, Graph ); rdf( SegmentIdentifierNode, plain:uom, SegmentIdentifierUOM, Graph ) ),
+          SegmentIdentifier=xval(SegmentIdentifierValue,SegmentIdentifierUOM)
         );
         (
-          rdf( SegmentIdentifierNode,aixm:nilReason, NilReason, Graph ),
-          SegmentIdentifier=nil(NilReason)
+          rdf( SegmentIdentifierNode,aixm:nilReason, SegmentIdentifierNilReason, Graph ),
+          SegmentIdentifier=nil(SegmentIdentifierNilReason)
         );
         (
-          rdf( SegmentIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SegmentIdentifier=indeterminate(Indeterminate)
+          rdf( SegmentIdentifierNode,gml:indeterminatePosition, SegmentIdentifierIndeterminate, Graph ),
+          SegmentIdentifier=indeterminate(SegmentIdentifierIndeterminate)
         )
       )
   )
@@ -7578,16 +7580,16 @@ fixm_TrajectorySegment(Graph, TrajectorySegment, SegmentIdentifier, SegmentType)
         );
         (
           rdf( SegmentTypeNode,rdf:value,SegmentTypeValue,Graph ),
-          ( rdf( SegmentTypeNode, aixm:uom, UOM, Graph ); rdf( SegmentTypeNode, fixm:uom, UOM, Graph ); rdf( SegmentTypeNode, plain:uom, UOM, Graph ) ),
-          SegmentType=xval(SegmentTypeValue,UOM)
+          ( rdf( SegmentTypeNode, aixm:uom, SegmentTypeUOM, Graph ); rdf( SegmentTypeNode, fixm:uom, SegmentTypeUOM, Graph ); rdf( SegmentTypeNode, plain:uom, SegmentTypeUOM, Graph ) ),
+          SegmentType=xval(SegmentTypeValue,SegmentTypeUOM)
         );
         (
-          rdf( SegmentTypeNode,aixm:nilReason, NilReason, Graph ),
-          SegmentType=nil(NilReason)
+          rdf( SegmentTypeNode,aixm:nilReason, SegmentTypeNilReason, Graph ),
+          SegmentType=nil(SegmentTypeNilReason)
         );
         (
-          rdf( SegmentTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SegmentType=indeterminate(Indeterminate)
+          rdf( SegmentTypeNode,gml:indeterminatePosition, SegmentTypeIndeterminate, Graph ),
+          SegmentType=indeterminate(SegmentTypeIndeterminate)
         )
       )
   ) .
@@ -7607,16 +7609,16 @@ fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayName, RunwayTime)
         );
         (
           rdf( RunwayNameNode,rdf:value,RunwayNameValue,Graph ),
-          ( rdf( RunwayNameNode, aixm:uom, UOM, Graph ); rdf( RunwayNameNode, fixm:uom, UOM, Graph ); rdf( RunwayNameNode, plain:uom, UOM, Graph ) ),
-          RunwayName=xval(RunwayNameValue,UOM)
+          ( rdf( RunwayNameNode, aixm:uom, RunwayNameUOM, Graph ); rdf( RunwayNameNode, fixm:uom, RunwayNameUOM, Graph ); rdf( RunwayNameNode, plain:uom, RunwayNameUOM, Graph ) ),
+          RunwayName=xval(RunwayNameValue,RunwayNameUOM)
         );
         (
-          rdf( RunwayNameNode,aixm:nilReason, NilReason, Graph ),
-          RunwayName=nil(NilReason)
+          rdf( RunwayNameNode,aixm:nilReason, RunwayNameNilReason, Graph ),
+          RunwayName=nil(RunwayNameNilReason)
         );
         (
-          rdf( RunwayNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RunwayName=indeterminate(Indeterminate)
+          rdf( RunwayNameNode,gml:indeterminatePosition, RunwayNameIndeterminate, Graph ),
+          RunwayName=indeterminate(RunwayNameIndeterminate)
         )
       )
   )
@@ -7646,16 +7648,16 @@ fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, M
         );
         (
           rdf( AircraftIdentificationNode,rdf:value,AircraftIdentificationValue,Graph ),
-          ( rdf( AircraftIdentificationNode, aixm:uom, UOM, Graph ); rdf( AircraftIdentificationNode, fixm:uom, UOM, Graph ); rdf( AircraftIdentificationNode, plain:uom, UOM, Graph ) ),
-          AircraftIdentification=xval(AircraftIdentificationValue,UOM)
+          ( rdf( AircraftIdentificationNode, aixm:uom, AircraftIdentificationUOM, Graph ); rdf( AircraftIdentificationNode, fixm:uom, AircraftIdentificationUOM, Graph ); rdf( AircraftIdentificationNode, plain:uom, AircraftIdentificationUOM, Graph ) ),
+          AircraftIdentification=xval(AircraftIdentificationValue,AircraftIdentificationUOM)
         );
         (
-          rdf( AircraftIdentificationNode,aixm:nilReason, NilReason, Graph ),
-          AircraftIdentification=nil(NilReason)
+          rdf( AircraftIdentificationNode,aixm:nilReason, AircraftIdentificationNilReason, Graph ),
+          AircraftIdentification=nil(AircraftIdentificationNilReason)
         );
         (
-          rdf( AircraftIdentificationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftIdentification=indeterminate(Indeterminate)
+          rdf( AircraftIdentificationNode,gml:indeterminatePosition, AircraftIdentificationIndeterminate, Graph ),
+          AircraftIdentification=indeterminate(AircraftIdentificationIndeterminate)
         )
       )
   )
@@ -7672,16 +7674,16 @@ fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, M
         );
         (
           rdf( MajorCarrierIdentifierNode,rdf:value,MajorCarrierIdentifierValue,Graph ),
-          ( rdf( MajorCarrierIdentifierNode, aixm:uom, UOM, Graph ); rdf( MajorCarrierIdentifierNode, fixm:uom, UOM, Graph ); rdf( MajorCarrierIdentifierNode, plain:uom, UOM, Graph ) ),
-          MajorCarrierIdentifier=xval(MajorCarrierIdentifierValue,UOM)
+          ( rdf( MajorCarrierIdentifierNode, aixm:uom, MajorCarrierIdentifierUOM, Graph ); rdf( MajorCarrierIdentifierNode, fixm:uom, MajorCarrierIdentifierUOM, Graph ); rdf( MajorCarrierIdentifierNode, plain:uom, MajorCarrierIdentifierUOM, Graph ) ),
+          MajorCarrierIdentifier=xval(MajorCarrierIdentifierValue,MajorCarrierIdentifierUOM)
         );
         (
-          rdf( MajorCarrierIdentifierNode,aixm:nilReason, NilReason, Graph ),
-          MajorCarrierIdentifier=nil(NilReason)
+          rdf( MajorCarrierIdentifierNode,aixm:nilReason, MajorCarrierIdentifierNilReason, Graph ),
+          MajorCarrierIdentifier=nil(MajorCarrierIdentifierNilReason)
         );
         (
-          rdf( MajorCarrierIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MajorCarrierIdentifier=indeterminate(Indeterminate)
+          rdf( MajorCarrierIdentifierNode,gml:indeterminatePosition, MajorCarrierIdentifierIndeterminate, Graph ),
+          MajorCarrierIdentifier=indeterminate(MajorCarrierIdentifierIndeterminate)
         )
       )
   )
@@ -7702,16 +7704,16 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         );
         (
           rdf( ContactFrequencyNode,rdf:value,ContactFrequencyValue,Graph ),
-          ( rdf( ContactFrequencyNode, aixm:uom, UOM, Graph ); rdf( ContactFrequencyNode, fixm:uom, UOM, Graph ); rdf( ContactFrequencyNode, plain:uom, UOM, Graph ) ),
-          ContactFrequency=xval(ContactFrequencyValue,UOM)
+          ( rdf( ContactFrequencyNode, aixm:uom, ContactFrequencyUOM, Graph ); rdf( ContactFrequencyNode, fixm:uom, ContactFrequencyUOM, Graph ); rdf( ContactFrequencyNode, plain:uom, ContactFrequencyUOM, Graph ) ),
+          ContactFrequency=xval(ContactFrequencyValue,ContactFrequencyUOM)
         );
         (
-          rdf( ContactFrequencyNode,aixm:nilReason, NilReason, Graph ),
-          ContactFrequency=nil(NilReason)
+          rdf( ContactFrequencyNode,aixm:nilReason, ContactFrequencyNilReason, Graph ),
+          ContactFrequency=nil(ContactFrequencyNilReason)
         );
         (
-          rdf( ContactFrequencyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ContactFrequency=indeterminate(Indeterminate)
+          rdf( ContactFrequencyNode,gml:indeterminatePosition, ContactFrequencyIndeterminate, Graph ),
+          ContactFrequency=indeterminate(ContactFrequencyIndeterminate)
         )
       )
   )
@@ -7728,16 +7730,16 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         );
         (
           rdf( LastContactTimeNode,rdf:value,LastContactTimeValue,Graph ),
-          ( rdf( LastContactTimeNode, aixm:uom, UOM, Graph ); rdf( LastContactTimeNode, fixm:uom, UOM, Graph ); rdf( LastContactTimeNode, plain:uom, UOM, Graph ) ),
-          LastContactTime=xval(LastContactTimeValue,UOM)
+          ( rdf( LastContactTimeNode, aixm:uom, LastContactTimeUOM, Graph ); rdf( LastContactTimeNode, fixm:uom, LastContactTimeUOM, Graph ); rdf( LastContactTimeNode, plain:uom, LastContactTimeUOM, Graph ) ),
+          LastContactTime=xval(LastContactTimeValue,LastContactTimeUOM)
         );
         (
-          rdf( LastContactTimeNode,aixm:nilReason, NilReason, Graph ),
-          LastContactTime=nil(NilReason)
+          rdf( LastContactTimeNode,aixm:nilReason, LastContactTimeNilReason, Graph ),
+          LastContactTime=nil(LastContactTimeNilReason)
         );
         (
-          rdf( LastContactTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LastContactTime=indeterminate(Indeterminate)
+          rdf( LastContactTimeNode,gml:indeterminatePosition, LastContactTimeIndeterminate, Graph ),
+          LastContactTime=indeterminate(LastContactTimeIndeterminate)
         )
       )
   )
@@ -7754,16 +7756,16 @@ fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastCont
         );
         (
           rdf( LastContactUnitNode,rdf:value,LastContactUnitValue,Graph ),
-          ( rdf( LastContactUnitNode, aixm:uom, UOM, Graph ); rdf( LastContactUnitNode, fixm:uom, UOM, Graph ); rdf( LastContactUnitNode, plain:uom, UOM, Graph ) ),
-          LastContactUnit=xval(LastContactUnitValue,UOM)
+          ( rdf( LastContactUnitNode, aixm:uom, LastContactUnitUOM, Graph ); rdf( LastContactUnitNode, fixm:uom, LastContactUnitUOM, Graph ); rdf( LastContactUnitNode, plain:uom, LastContactUnitUOM, Graph ) ),
+          LastContactUnit=xval(LastContactUnitValue,LastContactUnitUOM)
         );
         (
-          rdf( LastContactUnitNode,aixm:nilReason, NilReason, Graph ),
-          LastContactUnit=nil(NilReason)
+          rdf( LastContactUnitNode,aixm:nilReason, LastContactUnitNilReason, Graph ),
+          LastContactUnit=nil(LastContactUnitNilReason)
         );
         (
-          rdf( LastContactUnitNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LastContactUnit=indeterminate(Indeterminate)
+          rdf( LastContactUnitNode,gml:indeterminatePosition, LastContactUnitIndeterminate, Graph ),
+          LastContactUnit=indeterminate(LastContactUnitIndeterminate)
         )
       )
   )
@@ -7790,16 +7792,16 @@ aixm_Surface(Graph, Surface, HorizontalAccuracy, Annotation) :-
         );
         (
           rdf( HorizontalAccuracyNode,rdf:value,HorizontalAccuracyValue,Graph ),
-          ( rdf( HorizontalAccuracyNode, aixm:uom, UOM, Graph ); rdf( HorizontalAccuracyNode, fixm:uom, UOM, Graph ); rdf( HorizontalAccuracyNode, plain:uom, UOM, Graph ) ),
-          HorizontalAccuracy=xval(HorizontalAccuracyValue,UOM)
+          ( rdf( HorizontalAccuracyNode, aixm:uom, HorizontalAccuracyUOM, Graph ); rdf( HorizontalAccuracyNode, fixm:uom, HorizontalAccuracyUOM, Graph ); rdf( HorizontalAccuracyNode, plain:uom, HorizontalAccuracyUOM, Graph ) ),
+          HorizontalAccuracy=xval(HorizontalAccuracyValue,HorizontalAccuracyUOM)
         );
         (
-          rdf( HorizontalAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          HorizontalAccuracy=nil(NilReason)
+          rdf( HorizontalAccuracyNode,aixm:nilReason, HorizontalAccuracyNilReason, Graph ),
+          HorizontalAccuracy=nil(HorizontalAccuracyNilReason)
         );
         (
-          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          HorizontalAccuracy=indeterminate(Indeterminate)
+          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, HorizontalAccuracyIndeterminate, Graph ),
+          HorizontalAccuracy=indeterminate(HorizontalAccuracyIndeterminate)
         )
       )
   )
@@ -7817,16 +7819,16 @@ gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition) :-
         );
         (
           rdf( BeginPositionNode,rdf:value,BeginPositionValue,Graph ),
-          ( rdf( BeginPositionNode, aixm:uom, UOM, Graph ); rdf( BeginPositionNode, fixm:uom, UOM, Graph ); rdf( BeginPositionNode, plain:uom, UOM, Graph ) ),
-          BeginPosition=xval(BeginPositionValue,UOM)
+          ( rdf( BeginPositionNode, aixm:uom, BeginPositionUOM, Graph ); rdf( BeginPositionNode, fixm:uom, BeginPositionUOM, Graph ); rdf( BeginPositionNode, plain:uom, BeginPositionUOM, Graph ) ),
+          BeginPosition=xval(BeginPositionValue,BeginPositionUOM)
         );
         (
-          rdf( BeginPositionNode,aixm:nilReason, NilReason, Graph ),
-          BeginPosition=nil(NilReason)
+          rdf( BeginPositionNode,aixm:nilReason, BeginPositionNilReason, Graph ),
+          BeginPosition=nil(BeginPositionNilReason)
         );
         (
-          rdf( BeginPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          BeginPosition=indeterminate(Indeterminate)
+          rdf( BeginPositionNode,gml:indeterminatePosition, BeginPositionIndeterminate, Graph ),
+          BeginPosition=indeterminate(BeginPositionIndeterminate)
         )
       )
   )
@@ -7840,16 +7842,16 @@ gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition) :-
         );
         (
           rdf( EndPositionNode,rdf:value,EndPositionValue,Graph ),
-          ( rdf( EndPositionNode, aixm:uom, UOM, Graph ); rdf( EndPositionNode, fixm:uom, UOM, Graph ); rdf( EndPositionNode, plain:uom, UOM, Graph ) ),
-          EndPosition=xval(EndPositionValue,UOM)
+          ( rdf( EndPositionNode, aixm:uom, EndPositionUOM, Graph ); rdf( EndPositionNode, fixm:uom, EndPositionUOM, Graph ); rdf( EndPositionNode, plain:uom, EndPositionUOM, Graph ) ),
+          EndPosition=xval(EndPositionValue,EndPositionUOM)
         );
         (
-          rdf( EndPositionNode,aixm:nilReason, NilReason, Graph ),
-          EndPosition=nil(NilReason)
+          rdf( EndPositionNode,aixm:nilReason, EndPositionNilReason, Graph ),
+          EndPosition=nil(EndPositionNilReason)
         );
         (
-          rdf( EndPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EndPosition=indeterminate(Indeterminate)
+          rdf( EndPositionNode,gml:indeterminatePosition, EndPositionIndeterminate, Graph ),
+          EndPosition=indeterminate(EndPositionIndeterminate)
         )
       )
   ) .
@@ -7881,16 +7883,16 @@ fixm_AircraftCapabilities(Graph, AircraftCapabilities, Survival, Communication, 
         );
         (
           rdf( StandardCapabilitiesNode,rdf:value,StandardCapabilitiesValue,Graph ),
-          ( rdf( StandardCapabilitiesNode, aixm:uom, UOM, Graph ); rdf( StandardCapabilitiesNode, fixm:uom, UOM, Graph ); rdf( StandardCapabilitiesNode, plain:uom, UOM, Graph ) ),
-          StandardCapabilities=xval(StandardCapabilitiesValue,UOM)
+          ( rdf( StandardCapabilitiesNode, aixm:uom, StandardCapabilitiesUOM, Graph ); rdf( StandardCapabilitiesNode, fixm:uom, StandardCapabilitiesUOM, Graph ); rdf( StandardCapabilitiesNode, plain:uom, StandardCapabilitiesUOM, Graph ) ),
+          StandardCapabilities=xval(StandardCapabilitiesValue,StandardCapabilitiesUOM)
         );
         (
-          rdf( StandardCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
-          StandardCapabilities=nil(NilReason)
+          rdf( StandardCapabilitiesNode,aixm:nilReason, StandardCapabilitiesNilReason, Graph ),
+          StandardCapabilities=nil(StandardCapabilitiesNilReason)
         );
         (
-          rdf( StandardCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StandardCapabilities=indeterminate(Indeterminate)
+          rdf( StandardCapabilitiesNode,gml:indeterminatePosition, StandardCapabilitiesIndeterminate, Graph ),
+          StandardCapabilities=indeterminate(StandardCapabilitiesIndeterminate)
         )
       )
   ) .
@@ -7910,16 +7912,16 @@ fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeed, SubsequentSpeed) :-
         );
         (
           rdf( InitialSpeedNode,rdf:value,InitialSpeedValue,Graph ),
-          ( rdf( InitialSpeedNode, aixm:uom, UOM, Graph ); rdf( InitialSpeedNode, fixm:uom, UOM, Graph ); rdf( InitialSpeedNode, plain:uom, UOM, Graph ) ),
-          InitialSpeed=xval(InitialSpeedValue,UOM)
+          ( rdf( InitialSpeedNode, aixm:uom, InitialSpeedUOM, Graph ); rdf( InitialSpeedNode, fixm:uom, InitialSpeedUOM, Graph ); rdf( InitialSpeedNode, plain:uom, InitialSpeedUOM, Graph ) ),
+          InitialSpeed=xval(InitialSpeedValue,InitialSpeedUOM)
         );
         (
-          rdf( InitialSpeedNode,aixm:nilReason, NilReason, Graph ),
-          InitialSpeed=nil(NilReason)
+          rdf( InitialSpeedNode,aixm:nilReason, InitialSpeedNilReason, Graph ),
+          InitialSpeed=nil(InitialSpeedNilReason)
         );
         (
-          rdf( InitialSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          InitialSpeed=indeterminate(Indeterminate)
+          rdf( InitialSpeedNode,gml:indeterminatePosition, InitialSpeedIndeterminate, Graph ),
+          InitialSpeed=indeterminate(InitialSpeedIndeterminate)
         )
       )
   )
@@ -7936,16 +7938,16 @@ fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeed, SubsequentSpeed) :-
         );
         (
           rdf( SubsequentSpeedNode,rdf:value,SubsequentSpeedValue,Graph ),
-          ( rdf( SubsequentSpeedNode, aixm:uom, UOM, Graph ); rdf( SubsequentSpeedNode, fixm:uom, UOM, Graph ); rdf( SubsequentSpeedNode, plain:uom, UOM, Graph ) ),
-          SubsequentSpeed=xval(SubsequentSpeedValue,UOM)
+          ( rdf( SubsequentSpeedNode, aixm:uom, SubsequentSpeedUOM, Graph ); rdf( SubsequentSpeedNode, fixm:uom, SubsequentSpeedUOM, Graph ); rdf( SubsequentSpeedNode, plain:uom, SubsequentSpeedUOM, Graph ) ),
+          SubsequentSpeed=xval(SubsequentSpeedValue,SubsequentSpeedUOM)
         );
         (
-          rdf( SubsequentSpeedNode,aixm:nilReason, NilReason, Graph ),
-          SubsequentSpeed=nil(NilReason)
+          rdf( SubsequentSpeedNode,aixm:nilReason, SubsequentSpeedNilReason, Graph ),
+          SubsequentSpeed=nil(SubsequentSpeedNilReason)
         );
         (
-          rdf( SubsequentSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SubsequentSpeed=indeterminate(Indeterminate)
+          rdf( SubsequentSpeedNode,gml:indeterminatePosition, SubsequentSpeedIndeterminate, Graph ),
+          SubsequentSpeed=indeterminate(SubsequentSpeedIndeterminate)
         )
       )
   ) .
@@ -7965,16 +7967,16 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         );
         (
           rdf( NameNode,rdf:value,NameValue,Graph ),
-          ( rdf( NameNode, aixm:uom, UOM, Graph ); rdf( NameNode, fixm:uom, UOM, Graph ); rdf( NameNode, plain:uom, UOM, Graph ) ),
-          Name=xval(NameValue,UOM)
+          ( rdf( NameNode, aixm:uom, NameUOM, Graph ); rdf( NameNode, fixm:uom, NameUOM, Graph ); rdf( NameNode, plain:uom, NameUOM, Graph ) ),
+          Name=xval(NameValue,NameUOM)
         );
         (
-          rdf( NameNode,aixm:nilReason, NilReason, Graph ),
-          Name=nil(NilReason)
+          rdf( NameNode,aixm:nilReason, NameNilReason, Graph ),
+          Name=nil(NameNilReason)
         );
         (
-          rdf( NameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Name=indeterminate(Indeterminate)
+          rdf( NameNode,gml:indeterminatePosition, NameIndeterminate, Graph ),
+          Name=indeterminate(NameIndeterminate)
         )
       )
   )
@@ -7991,16 +7993,16 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         );
         (
           rdf( DesignatorNode,rdf:value,DesignatorValue,Graph ),
-          ( rdf( DesignatorNode, aixm:uom, UOM, Graph ); rdf( DesignatorNode, fixm:uom, UOM, Graph ); rdf( DesignatorNode, plain:uom, UOM, Graph ) ),
-          Designator=xval(DesignatorValue,UOM)
+          ( rdf( DesignatorNode, aixm:uom, DesignatorUOM, Graph ); rdf( DesignatorNode, fixm:uom, DesignatorUOM, Graph ); rdf( DesignatorNode, plain:uom, DesignatorUOM, Graph ) ),
+          Designator=xval(DesignatorValue,DesignatorUOM)
         );
         (
-          rdf( DesignatorNode,aixm:nilReason, NilReason, Graph ),
-          Designator=nil(NilReason)
+          rdf( DesignatorNode,aixm:nilReason, DesignatorNilReason, Graph ),
+          Designator=nil(DesignatorNilReason)
         );
         (
-          rdf( DesignatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Designator=indeterminate(Indeterminate)
+          rdf( DesignatorNode,gml:indeterminatePosition, DesignatorIndeterminate, Graph ),
+          Designator=indeterminate(DesignatorIndeterminate)
         )
       )
   )
@@ -8017,16 +8019,16 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -8043,16 +8045,16 @@ aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, Name,
         );
         (
           rdf( MilitaryNode,rdf:value,MilitaryValue,Graph ),
-          ( rdf( MilitaryNode, aixm:uom, UOM, Graph ); rdf( MilitaryNode, fixm:uom, UOM, Graph ); rdf( MilitaryNode, plain:uom, UOM, Graph ) ),
-          Military=xval(MilitaryValue,UOM)
+          ( rdf( MilitaryNode, aixm:uom, MilitaryUOM, Graph ); rdf( MilitaryNode, fixm:uom, MilitaryUOM, Graph ); rdf( MilitaryNode, plain:uom, MilitaryUOM, Graph ) ),
+          Military=xval(MilitaryValue,MilitaryUOM)
         );
         (
-          rdf( MilitaryNode,aixm:nilReason, NilReason, Graph ),
-          Military=nil(NilReason)
+          rdf( MilitaryNode,aixm:nilReason, MilitaryNilReason, Graph ),
+          Military=nil(MilitaryNilReason)
         );
         (
-          rdf( MilitaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Military=indeterminate(Indeterminate)
+          rdf( MilitaryNode,gml:indeterminatePosition, MilitaryIndeterminate, Graph ),
+          Military=indeterminate(MilitaryIndeterminate)
         )
       )
   )
@@ -8076,16 +8078,16 @@ fixm_EnRoute(Graph, EnRoute, AlternateAerodrome, FleetPrioritization, BoundaryCr
         );
         (
           rdf( FleetPrioritizationNode,rdf:value,FleetPrioritizationValue,Graph ),
-          ( rdf( FleetPrioritizationNode, aixm:uom, UOM, Graph ); rdf( FleetPrioritizationNode, fixm:uom, UOM, Graph ); rdf( FleetPrioritizationNode, plain:uom, UOM, Graph ) ),
-          FleetPrioritization=xval(FleetPrioritizationValue,UOM)
+          ( rdf( FleetPrioritizationNode, aixm:uom, FleetPrioritizationUOM, Graph ); rdf( FleetPrioritizationNode, fixm:uom, FleetPrioritizationUOM, Graph ); rdf( FleetPrioritizationNode, plain:uom, FleetPrioritizationUOM, Graph ) ),
+          FleetPrioritization=xval(FleetPrioritizationValue,FleetPrioritizationUOM)
         );
         (
-          rdf( FleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
-          FleetPrioritization=nil(NilReason)
+          rdf( FleetPrioritizationNode,aixm:nilReason, FleetPrioritizationNilReason, Graph ),
+          FleetPrioritization=nil(FleetPrioritizationNilReason)
         );
         (
-          rdf( FleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FleetPrioritization=indeterminate(Indeterminate)
+          rdf( FleetPrioritizationNode,gml:indeterminatePosition, FleetPrioritizationIndeterminate, Graph ),
+          FleetPrioritization=indeterminate(FleetPrioritizationIndeterminate)
         )
       )
   )
@@ -8122,16 +8124,16 @@ fixm_FlightLevel(Graph, FlightLevel, Level, Unit) :-
         );
         (
           rdf( LevelNode,rdf:value,LevelValue,Graph ),
-          ( rdf( LevelNode, aixm:uom, UOM, Graph ); rdf( LevelNode, fixm:uom, UOM, Graph ); rdf( LevelNode, plain:uom, UOM, Graph ) ),
-          Level=xval(LevelValue,UOM)
+          ( rdf( LevelNode, aixm:uom, LevelUOM, Graph ); rdf( LevelNode, fixm:uom, LevelUOM, Graph ); rdf( LevelNode, plain:uom, LevelUOM, Graph ) ),
+          Level=xval(LevelValue,LevelUOM)
         );
         (
-          rdf( LevelNode,aixm:nilReason, NilReason, Graph ),
-          Level=nil(NilReason)
+          rdf( LevelNode,aixm:nilReason, LevelNilReason, Graph ),
+          Level=nil(LevelNilReason)
         );
         (
-          rdf( LevelNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Level=indeterminate(Indeterminate)
+          rdf( LevelNode,gml:indeterminatePosition, LevelIndeterminate, Graph ),
+          Level=indeterminate(LevelIndeterminate)
         )
       )
   )
@@ -8148,16 +8150,16 @@ fixm_FlightLevel(Graph, FlightLevel, Level, Unit) :-
         );
         (
           rdf( UnitNode,rdf:value,UnitValue,Graph ),
-          ( rdf( UnitNode, aixm:uom, UOM, Graph ); rdf( UnitNode, fixm:uom, UOM, Graph ); rdf( UnitNode, plain:uom, UOM, Graph ) ),
-          Unit=xval(UnitValue,UOM)
+          ( rdf( UnitNode, aixm:uom, UnitUOM, Graph ); rdf( UnitNode, fixm:uom, UnitUOM, Graph ); rdf( UnitNode, plain:uom, UnitUOM, Graph ) ),
+          Unit=xval(UnitValue,UnitUOM)
         );
         (
-          rdf( UnitNode,aixm:nilReason, NilReason, Graph ),
-          Unit=nil(NilReason)
+          rdf( UnitNode,aixm:nilReason, UnitNilReason, Graph ),
+          Unit=nil(UnitNilReason)
         );
         (
-          rdf( UnitNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Unit=indeterminate(Indeterminate)
+          rdf( UnitNode,gml:indeterminatePosition, UnitIndeterminate, Graph ),
+          Unit=indeterminate(UnitIndeterminate)
         )
       )
   ) .
@@ -8178,16 +8180,16 @@ fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance, OfftrackReason) :
         );
         (
           rdf( OfftrackReasonNode,rdf:value,OfftrackReasonValue,Graph ),
-          ( rdf( OfftrackReasonNode, aixm:uom, UOM, Graph ); rdf( OfftrackReasonNode, fixm:uom, UOM, Graph ); rdf( OfftrackReasonNode, plain:uom, UOM, Graph ) ),
-          OfftrackReason=xval(OfftrackReasonValue,UOM)
+          ( rdf( OfftrackReasonNode, aixm:uom, OfftrackReasonUOM, Graph ); rdf( OfftrackReasonNode, fixm:uom, OfftrackReasonUOM, Graph ); rdf( OfftrackReasonNode, plain:uom, OfftrackReasonUOM, Graph ) ),
+          OfftrackReason=xval(OfftrackReasonValue,OfftrackReasonUOM)
         );
         (
-          rdf( OfftrackReasonNode,aixm:nilReason, NilReason, Graph ),
-          OfftrackReason=nil(NilReason)
+          rdf( OfftrackReasonNode,aixm:nilReason, OfftrackReasonNilReason, Graph ),
+          OfftrackReason=nil(OfftrackReasonNilReason)
         );
         (
-          rdf( OfftrackReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OfftrackReason=indeterminate(Indeterminate)
+          rdf( OfftrackReasonNode,gml:indeterminatePosition, OfftrackReasonIndeterminate, Graph ),
+          OfftrackReason=indeterminate(OfftrackReasonIndeterminate)
         )
       )
   ) .
@@ -8207,16 +8209,16 @@ fixm_TemporalRange(Graph, TemporalRange, Earliest, Latest) :-
         );
         (
           rdf( EarliestNode,rdf:value,EarliestValue,Graph ),
-          ( rdf( EarliestNode, aixm:uom, UOM, Graph ); rdf( EarliestNode, fixm:uom, UOM, Graph ); rdf( EarliestNode, plain:uom, UOM, Graph ) ),
-          Earliest=xval(EarliestValue,UOM)
+          ( rdf( EarliestNode, aixm:uom, EarliestUOM, Graph ); rdf( EarliestNode, fixm:uom, EarliestUOM, Graph ); rdf( EarliestNode, plain:uom, EarliestUOM, Graph ) ),
+          Earliest=xval(EarliestValue,EarliestUOM)
         );
         (
-          rdf( EarliestNode,aixm:nilReason, NilReason, Graph ),
-          Earliest=nil(NilReason)
+          rdf( EarliestNode,aixm:nilReason, EarliestNilReason, Graph ),
+          Earliest=nil(EarliestNilReason)
         );
         (
-          rdf( EarliestNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Earliest=indeterminate(Indeterminate)
+          rdf( EarliestNode,gml:indeterminatePosition, EarliestIndeterminate, Graph ),
+          Earliest=indeterminate(EarliestIndeterminate)
         )
       )
   )
@@ -8233,16 +8235,16 @@ fixm_TemporalRange(Graph, TemporalRange, Earliest, Latest) :-
         );
         (
           rdf( LatestNode,rdf:value,LatestValue,Graph ),
-          ( rdf( LatestNode, aixm:uom, UOM, Graph ); rdf( LatestNode, fixm:uom, UOM, Graph ); rdf( LatestNode, plain:uom, UOM, Graph ) ),
-          Latest=xval(LatestValue,UOM)
+          ( rdf( LatestNode, aixm:uom, LatestUOM, Graph ); rdf( LatestNode, fixm:uom, LatestUOM, Graph ); rdf( LatestNode, plain:uom, LatestUOM, Graph ) ),
+          Latest=xval(LatestValue,LatestUOM)
         );
         (
-          rdf( LatestNode,aixm:nilReason, NilReason, Graph ),
-          Latest=nil(NilReason)
+          rdf( LatestNode,aixm:nilReason, LatestNilReason, Graph ),
+          Latest=nil(LatestNilReason)
         );
         (
-          rdf( LatestNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Latest=indeterminate(Indeterminate)
+          rdf( LatestNode,gml:indeterminatePosition, LatestIndeterminate, Graph ),
+          Latest=indeterminate(LatestIndeterminate)
         )
       )
   ) .
@@ -8262,16 +8264,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( AircraftColoursNode,rdf:value,AircraftColoursValue,Graph ),
-          ( rdf( AircraftColoursNode, aixm:uom, UOM, Graph ); rdf( AircraftColoursNode, fixm:uom, UOM, Graph ); rdf( AircraftColoursNode, plain:uom, UOM, Graph ) ),
-          AircraftColours=xval(AircraftColoursValue,UOM)
+          ( rdf( AircraftColoursNode, aixm:uom, AircraftColoursUOM, Graph ); rdf( AircraftColoursNode, fixm:uom, AircraftColoursUOM, Graph ); rdf( AircraftColoursNode, plain:uom, AircraftColoursUOM, Graph ) ),
+          AircraftColours=xval(AircraftColoursValue,AircraftColoursUOM)
         );
         (
-          rdf( AircraftColoursNode,aixm:nilReason, NilReason, Graph ),
-          AircraftColours=nil(NilReason)
+          rdf( AircraftColoursNode,aixm:nilReason, AircraftColoursNilReason, Graph ),
+          AircraftColours=nil(AircraftColoursNilReason)
         );
         (
-          rdf( AircraftColoursNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftColours=indeterminate(Indeterminate)
+          rdf( AircraftColoursNode,gml:indeterminatePosition, AircraftColoursIndeterminate, Graph ),
+          AircraftColours=indeterminate(AircraftColoursIndeterminate)
         )
       )
   )
@@ -8288,16 +8290,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( AircraftQuantityNode,rdf:value,AircraftQuantityValue,Graph ),
-          ( rdf( AircraftQuantityNode, aixm:uom, UOM, Graph ); rdf( AircraftQuantityNode, fixm:uom, UOM, Graph ); rdf( AircraftQuantityNode, plain:uom, UOM, Graph ) ),
-          AircraftQuantity=xval(AircraftQuantityValue,UOM)
+          ( rdf( AircraftQuantityNode, aixm:uom, AircraftQuantityUOM, Graph ); rdf( AircraftQuantityNode, fixm:uom, AircraftQuantityUOM, Graph ); rdf( AircraftQuantityNode, plain:uom, AircraftQuantityUOM, Graph ) ),
+          AircraftQuantity=xval(AircraftQuantityValue,AircraftQuantityUOM)
         );
         (
-          rdf( AircraftQuantityNode,aixm:nilReason, NilReason, Graph ),
-          AircraftQuantity=nil(NilReason)
+          rdf( AircraftQuantityNode,aixm:nilReason, AircraftQuantityNilReason, Graph ),
+          AircraftQuantity=nil(AircraftQuantityNilReason)
         );
         (
-          rdf( AircraftQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftQuantity=indeterminate(Indeterminate)
+          rdf( AircraftQuantityNode,gml:indeterminatePosition, AircraftQuantityIndeterminate, Graph ),
+          AircraftQuantity=indeterminate(AircraftQuantityIndeterminate)
         )
       )
   )
@@ -8314,16 +8316,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( EngineTypeNode,rdf:value,EngineTypeValue,Graph ),
-          ( rdf( EngineTypeNode, aixm:uom, UOM, Graph ); rdf( EngineTypeNode, fixm:uom, UOM, Graph ); rdf( EngineTypeNode, plain:uom, UOM, Graph ) ),
-          EngineType=xval(EngineTypeValue,UOM)
+          ( rdf( EngineTypeNode, aixm:uom, EngineTypeUOM, Graph ); rdf( EngineTypeNode, fixm:uom, EngineTypeUOM, Graph ); rdf( EngineTypeNode, plain:uom, EngineTypeUOM, Graph ) ),
+          EngineType=xval(EngineTypeValue,EngineTypeUOM)
         );
         (
-          rdf( EngineTypeNode,aixm:nilReason, NilReason, Graph ),
-          EngineType=nil(NilReason)
+          rdf( EngineTypeNode,aixm:nilReason, EngineTypeNilReason, Graph ),
+          EngineType=nil(EngineTypeNilReason)
         );
         (
-          rdf( EngineTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EngineType=indeterminate(Indeterminate)
+          rdf( EngineTypeNode,gml:indeterminatePosition, EngineTypeIndeterminate, Graph ),
+          EngineType=indeterminate(EngineTypeIndeterminate)
         )
       )
   )
@@ -8340,16 +8342,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( AircraftAddressNode,rdf:value,AircraftAddressValue,Graph ),
-          ( rdf( AircraftAddressNode, aixm:uom, UOM, Graph ); rdf( AircraftAddressNode, fixm:uom, UOM, Graph ); rdf( AircraftAddressNode, plain:uom, UOM, Graph ) ),
-          AircraftAddress=xval(AircraftAddressValue,UOM)
+          ( rdf( AircraftAddressNode, aixm:uom, AircraftAddressUOM, Graph ); rdf( AircraftAddressNode, fixm:uom, AircraftAddressUOM, Graph ); rdf( AircraftAddressNode, plain:uom, AircraftAddressUOM, Graph ) ),
+          AircraftAddress=xval(AircraftAddressValue,AircraftAddressUOM)
         );
         (
-          rdf( AircraftAddressNode,aixm:nilReason, NilReason, Graph ),
-          AircraftAddress=nil(NilReason)
+          rdf( AircraftAddressNode,aixm:nilReason, AircraftAddressNilReason, Graph ),
+          AircraftAddress=nil(AircraftAddressNilReason)
         );
         (
-          rdf( AircraftAddressNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftAddress=indeterminate(Indeterminate)
+          rdf( AircraftAddressNode,gml:indeterminatePosition, AircraftAddressIndeterminate, Graph ),
+          AircraftAddress=indeterminate(AircraftAddressIndeterminate)
         )
       )
   )
@@ -8369,16 +8371,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( RegistrationNode,rdf:value,RegistrationValue,Graph ),
-          ( rdf( RegistrationNode, aixm:uom, UOM, Graph ); rdf( RegistrationNode, fixm:uom, UOM, Graph ); rdf( RegistrationNode, plain:uom, UOM, Graph ) ),
-          Registration=xval(RegistrationValue,UOM)
+          ( rdf( RegistrationNode, aixm:uom, RegistrationUOM, Graph ); rdf( RegistrationNode, fixm:uom, RegistrationUOM, Graph ); rdf( RegistrationNode, plain:uom, RegistrationUOM, Graph ) ),
+          Registration=xval(RegistrationValue,RegistrationUOM)
         );
         (
-          rdf( RegistrationNode,aixm:nilReason, NilReason, Graph ),
-          Registration=nil(NilReason)
+          rdf( RegistrationNode,aixm:nilReason, RegistrationNilReason, Graph ),
+          Registration=nil(RegistrationNilReason)
         );
         (
-          rdf( RegistrationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Registration=indeterminate(Indeterminate)
+          rdf( RegistrationNode,gml:indeterminatePosition, RegistrationIndeterminate, Graph ),
+          Registration=indeterminate(RegistrationIndeterminate)
         )
       )
   )
@@ -8395,16 +8397,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( AircraftTypeNode,rdf:value,AircraftTypeValue,Graph ),
-          ( rdf( AircraftTypeNode, aixm:uom, UOM, Graph ); rdf( AircraftTypeNode, fixm:uom, UOM, Graph ); rdf( AircraftTypeNode, plain:uom, UOM, Graph ) ),
-          AircraftType=xval(AircraftTypeValue,UOM)
+          ( rdf( AircraftTypeNode, aixm:uom, AircraftTypeUOM, Graph ); rdf( AircraftTypeNode, fixm:uom, AircraftTypeUOM, Graph ); rdf( AircraftTypeNode, plain:uom, AircraftTypeUOM, Graph ) ),
+          AircraftType=xval(AircraftTypeValue,AircraftTypeUOM)
         );
         (
-          rdf( AircraftTypeNode,aixm:nilReason, NilReason, Graph ),
-          AircraftType=nil(NilReason)
+          rdf( AircraftTypeNode,aixm:nilReason, AircraftTypeNilReason, Graph ),
+          AircraftType=nil(AircraftTypeNilReason)
         );
         (
-          rdf( AircraftTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftType=indeterminate(Indeterminate)
+          rdf( AircraftTypeNode,gml:indeterminatePosition, AircraftTypeIndeterminate, Graph ),
+          AircraftType=indeterminate(AircraftTypeIndeterminate)
         )
       )
   )
@@ -8421,16 +8423,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( WakeTurbulenceNode,rdf:value,WakeTurbulenceValue,Graph ),
-          ( rdf( WakeTurbulenceNode, aixm:uom, UOM, Graph ); rdf( WakeTurbulenceNode, fixm:uom, UOM, Graph ); rdf( WakeTurbulenceNode, plain:uom, UOM, Graph ) ),
-          WakeTurbulence=xval(WakeTurbulenceValue,UOM)
+          ( rdf( WakeTurbulenceNode, aixm:uom, WakeTurbulenceUOM, Graph ); rdf( WakeTurbulenceNode, fixm:uom, WakeTurbulenceUOM, Graph ); rdf( WakeTurbulenceNode, plain:uom, WakeTurbulenceUOM, Graph ) ),
+          WakeTurbulence=xval(WakeTurbulenceValue,WakeTurbulenceUOM)
         );
         (
-          rdf( WakeTurbulenceNode,aixm:nilReason, NilReason, Graph ),
-          WakeTurbulence=nil(NilReason)
+          rdf( WakeTurbulenceNode,aixm:nilReason, WakeTurbulenceNilReason, Graph ),
+          WakeTurbulence=nil(WakeTurbulenceNilReason)
         );
         (
-          rdf( WakeTurbulenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WakeTurbulence=indeterminate(Indeterminate)
+          rdf( WakeTurbulenceNode,gml:indeterminatePosition, WakeTurbulenceIndeterminate, Graph ),
+          WakeTurbulence=indeterminate(WakeTurbulenceIndeterminate)
         )
       )
   )
@@ -8447,16 +8449,16 @@ fixm_Aircraft(Graph, Aircraft, AircraftColours, AircraftQuantity, EngineType, Ai
         );
         (
           rdf( AircraftPerformanceNode,rdf:value,AircraftPerformanceValue,Graph ),
-          ( rdf( AircraftPerformanceNode, aixm:uom, UOM, Graph ); rdf( AircraftPerformanceNode, fixm:uom, UOM, Graph ); rdf( AircraftPerformanceNode, plain:uom, UOM, Graph ) ),
-          AircraftPerformance=xval(AircraftPerformanceValue,UOM)
+          ( rdf( AircraftPerformanceNode, aixm:uom, AircraftPerformanceUOM, Graph ); rdf( AircraftPerformanceNode, fixm:uom, AircraftPerformanceUOM, Graph ); rdf( AircraftPerformanceNode, plain:uom, AircraftPerformanceUOM, Graph ) ),
+          AircraftPerformance=xval(AircraftPerformanceValue,AircraftPerformanceUOM)
         );
         (
-          rdf( AircraftPerformanceNode,aixm:nilReason, NilReason, Graph ),
-          AircraftPerformance=nil(NilReason)
+          rdf( AircraftPerformanceNode,aixm:nilReason, AircraftPerformanceNilReason, Graph ),
+          AircraftPerformance=nil(AircraftPerformanceNilReason)
         );
         (
-          rdf( AircraftPerformanceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftPerformance=indeterminate(Indeterminate)
+          rdf( AircraftPerformanceNode,gml:indeterminatePosition, AircraftPerformanceIndeterminate, Graph ),
+          AircraftPerformance=indeterminate(AircraftPerformanceIndeterminate)
         )
       )
   ) .
@@ -8476,16 +8478,16 @@ fixm_OnlineContact(Graph, OnlineContact, Email) :-
         );
         (
           rdf( EmailNode,rdf:value,EmailValue,Graph ),
-          ( rdf( EmailNode, aixm:uom, UOM, Graph ); rdf( EmailNode, fixm:uom, UOM, Graph ); rdf( EmailNode, plain:uom, UOM, Graph ) ),
-          Email=xval(EmailValue,UOM)
+          ( rdf( EmailNode, aixm:uom, EmailUOM, Graph ); rdf( EmailNode, fixm:uom, EmailUOM, Graph ); rdf( EmailNode, plain:uom, EmailUOM, Graph ) ),
+          Email=xval(EmailValue,EmailUOM)
         );
         (
-          rdf( EmailNode,aixm:nilReason, NilReason, Graph ),
-          Email=nil(NilReason)
+          rdf( EmailNode,aixm:nilReason, EmailNilReason, Graph ),
+          Email=nil(EmailNilReason)
         );
         (
-          rdf( EmailNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Email=indeterminate(Indeterminate)
+          rdf( EmailNode,gml:indeterminatePosition, EmailIndeterminate, Graph ),
+          Email=indeterminate(EmailIndeterminate)
         )
       )
   ) .
@@ -8505,16 +8507,16 @@ fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTime, 
         );
         (
           rdf( AirspaceControlledEntryTimeNode,rdf:value,AirspaceControlledEntryTimeValue,Graph ),
-          ( rdf( AirspaceControlledEntryTimeNode, aixm:uom, UOM, Graph ); rdf( AirspaceControlledEntryTimeNode, fixm:uom, UOM, Graph ); rdf( AirspaceControlledEntryTimeNode, plain:uom, UOM, Graph ) ),
-          AirspaceControlledEntryTime=xval(AirspaceControlledEntryTimeValue,UOM)
+          ( rdf( AirspaceControlledEntryTimeNode, aixm:uom, AirspaceControlledEntryTimeUOM, Graph ); rdf( AirspaceControlledEntryTimeNode, fixm:uom, AirspaceControlledEntryTimeUOM, Graph ); rdf( AirspaceControlledEntryTimeNode, plain:uom, AirspaceControlledEntryTimeUOM, Graph ) ),
+          AirspaceControlledEntryTime=xval(AirspaceControlledEntryTimeValue,AirspaceControlledEntryTimeUOM)
         );
         (
-          rdf( AirspaceControlledEntryTimeNode,aixm:nilReason, NilReason, Graph ),
-          AirspaceControlledEntryTime=nil(NilReason)
+          rdf( AirspaceControlledEntryTimeNode,aixm:nilReason, AirspaceControlledEntryTimeNilReason, Graph ),
+          AirspaceControlledEntryTime=nil(AirspaceControlledEntryTimeNilReason)
         );
         (
-          rdf( AirspaceControlledEntryTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AirspaceControlledEntryTime=indeterminate(Indeterminate)
+          rdf( AirspaceControlledEntryTimeNode,gml:indeterminatePosition, AirspaceControlledEntryTimeIndeterminate, Graph ),
+          AirspaceControlledEntryTime=indeterminate(AirspaceControlledEntryTimeIndeterminate)
         )
       )
   )
@@ -8531,16 +8533,16 @@ fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTime, 
         );
         (
           rdf( ConstrainedAirspaceNode,rdf:value,ConstrainedAirspaceValue,Graph ),
-          ( rdf( ConstrainedAirspaceNode, aixm:uom, UOM, Graph ); rdf( ConstrainedAirspaceNode, fixm:uom, UOM, Graph ); rdf( ConstrainedAirspaceNode, plain:uom, UOM, Graph ) ),
-          ConstrainedAirspace=xval(ConstrainedAirspaceValue,UOM)
+          ( rdf( ConstrainedAirspaceNode, aixm:uom, ConstrainedAirspaceUOM, Graph ); rdf( ConstrainedAirspaceNode, fixm:uom, ConstrainedAirspaceUOM, Graph ); rdf( ConstrainedAirspaceNode, plain:uom, ConstrainedAirspaceUOM, Graph ) ),
+          ConstrainedAirspace=xval(ConstrainedAirspaceValue,ConstrainedAirspaceUOM)
         );
         (
-          rdf( ConstrainedAirspaceNode,aixm:nilReason, NilReason, Graph ),
-          ConstrainedAirspace=nil(NilReason)
+          rdf( ConstrainedAirspaceNode,aixm:nilReason, ConstrainedAirspaceNilReason, Graph ),
+          ConstrainedAirspace=nil(ConstrainedAirspaceNilReason)
         );
         (
-          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ConstrainedAirspace=indeterminate(Indeterminate)
+          rdf( ConstrainedAirspaceNode,gml:indeterminatePosition, ConstrainedAirspaceIndeterminate, Graph ),
+          ConstrainedAirspace=indeterminate(ConstrainedAirspaceIndeterminate)
         )
       )
   ) .
@@ -8578,16 +8580,16 @@ fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, Respons
         );
         (
           rdf( ResponsibleAgentNode,rdf:value,ResponsibleAgentValue,Graph ),
-          ( rdf( ResponsibleAgentNode, aixm:uom, UOM, Graph ); rdf( ResponsibleAgentNode, fixm:uom, UOM, Graph ); rdf( ResponsibleAgentNode, plain:uom, UOM, Graph ) ),
-          ResponsibleAgent=xval(ResponsibleAgentValue,UOM)
+          ( rdf( ResponsibleAgentNode, aixm:uom, ResponsibleAgentUOM, Graph ); rdf( ResponsibleAgentNode, fixm:uom, ResponsibleAgentUOM, Graph ); rdf( ResponsibleAgentNode, plain:uom, ResponsibleAgentUOM, Graph ) ),
+          ResponsibleAgent=xval(ResponsibleAgentValue,ResponsibleAgentUOM)
         );
         (
-          rdf( ResponsibleAgentNode,aixm:nilReason, NilReason, Graph ),
-          ResponsibleAgent=nil(NilReason)
+          rdf( ResponsibleAgentNode,aixm:nilReason, ResponsibleAgentNilReason, Graph ),
+          ResponsibleAgent=nil(ResponsibleAgentNilReason)
         );
         (
-          rdf( ResponsibleAgentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ResponsibleAgent=indeterminate(Indeterminate)
+          rdf( ResponsibleAgentNode,gml:indeterminatePosition, ResponsibleAgentIndeterminate, Graph ),
+          ResponsibleAgent=indeterminate(ResponsibleAgentIndeterminate)
         )
       )
   ) .
@@ -8608,16 +8610,16 @@ fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifier, Delegated) :-
         );
         (
           rdf( SectorIdentifierNode,rdf:value,SectorIdentifierValue,Graph ),
-          ( rdf( SectorIdentifierNode, aixm:uom, UOM, Graph ); rdf( SectorIdentifierNode, fixm:uom, UOM, Graph ); rdf( SectorIdentifierNode, plain:uom, UOM, Graph ) ),
-          SectorIdentifier=xval(SectorIdentifierValue,UOM)
+          ( rdf( SectorIdentifierNode, aixm:uom, SectorIdentifierUOM, Graph ); rdf( SectorIdentifierNode, fixm:uom, SectorIdentifierUOM, Graph ); rdf( SectorIdentifierNode, plain:uom, SectorIdentifierUOM, Graph ) ),
+          SectorIdentifier=xval(SectorIdentifierValue,SectorIdentifierUOM)
         );
         (
-          rdf( SectorIdentifierNode,aixm:nilReason, NilReason, Graph ),
-          SectorIdentifier=nil(NilReason)
+          rdf( SectorIdentifierNode,aixm:nilReason, SectorIdentifierNilReason, Graph ),
+          SectorIdentifier=nil(SectorIdentifierNilReason)
         );
         (
-          rdf( SectorIdentifierNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SectorIdentifier=indeterminate(Indeterminate)
+          rdf( SectorIdentifierNode,gml:indeterminatePosition, SectorIdentifierIndeterminate, Graph ),
+          SectorIdentifier=indeterminate(SectorIdentifierIndeterminate)
         )
       )
   )
@@ -8634,16 +8636,16 @@ fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifier, Delegated) :-
         );
         (
           rdf( DelegatedNode,rdf:value,DelegatedValue,Graph ),
-          ( rdf( DelegatedNode, aixm:uom, UOM, Graph ); rdf( DelegatedNode, fixm:uom, UOM, Graph ); rdf( DelegatedNode, plain:uom, UOM, Graph ) ),
-          Delegated=xval(DelegatedValue,UOM)
+          ( rdf( DelegatedNode, aixm:uom, DelegatedUOM, Graph ); rdf( DelegatedNode, fixm:uom, DelegatedUOM, Graph ); rdf( DelegatedNode, plain:uom, DelegatedUOM, Graph ) ),
+          Delegated=xval(DelegatedValue,DelegatedUOM)
         );
         (
-          rdf( DelegatedNode,aixm:nilReason, NilReason, Graph ),
-          Delegated=nil(NilReason)
+          rdf( DelegatedNode,aixm:nilReason, DelegatedNilReason, Graph ),
+          Delegated=nil(DelegatedNilReason)
         );
         (
-          rdf( DelegatedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Delegated=indeterminate(Indeterminate)
+          rdf( DelegatedNode,gml:indeterminatePosition, DelegatedIndeterminate, Graph ),
+          Delegated=indeterminate(DelegatedIndeterminate)
         )
       )
   ) .
@@ -8666,16 +8668,16 @@ fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillance
         );
         (
           rdf( OtherSurveillanceCapabilitiesNode,rdf:value,OtherSurveillanceCapabilitiesValue,Graph ),
-          ( rdf( OtherSurveillanceCapabilitiesNode, aixm:uom, UOM, Graph ); rdf( OtherSurveillanceCapabilitiesNode, fixm:uom, UOM, Graph ); rdf( OtherSurveillanceCapabilitiesNode, plain:uom, UOM, Graph ) ),
-          OtherSurveillanceCapabilities=xval(OtherSurveillanceCapabilitiesValue,UOM)
+          ( rdf( OtherSurveillanceCapabilitiesNode, aixm:uom, OtherSurveillanceCapabilitiesUOM, Graph ); rdf( OtherSurveillanceCapabilitiesNode, fixm:uom, OtherSurveillanceCapabilitiesUOM, Graph ); rdf( OtherSurveillanceCapabilitiesNode, plain:uom, OtherSurveillanceCapabilitiesUOM, Graph ) ),
+          OtherSurveillanceCapabilities=xval(OtherSurveillanceCapabilitiesValue,OtherSurveillanceCapabilitiesUOM)
         );
         (
-          rdf( OtherSurveillanceCapabilitiesNode,aixm:nilReason, NilReason, Graph ),
-          OtherSurveillanceCapabilities=nil(NilReason)
+          rdf( OtherSurveillanceCapabilitiesNode,aixm:nilReason, OtherSurveillanceCapabilitiesNilReason, Graph ),
+          OtherSurveillanceCapabilities=nil(OtherSurveillanceCapabilitiesNilReason)
         );
         (
-          rdf( OtherSurveillanceCapabilitiesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OtherSurveillanceCapabilities=indeterminate(Indeterminate)
+          rdf( OtherSurveillanceCapabilitiesNode,gml:indeterminatePosition, OtherSurveillanceCapabilitiesIndeterminate, Graph ),
+          OtherSurveillanceCapabilities=indeterminate(OtherSurveillanceCapabilitiesIndeterminate)
         )
       )
   )
@@ -8700,16 +8702,16 @@ aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrima
         );
         (
           rdf( IsRemoteNode,rdf:value,IsRemoteValue,Graph ),
-          ( rdf( IsRemoteNode, aixm:uom, UOM, Graph ); rdf( IsRemoteNode, fixm:uom, UOM, Graph ); rdf( IsRemoteNode, plain:uom, UOM, Graph ) ),
-          IsRemote=xval(IsRemoteValue,UOM)
+          ( rdf( IsRemoteNode, aixm:uom, IsRemoteUOM, Graph ); rdf( IsRemoteNode, fixm:uom, IsRemoteUOM, Graph ); rdf( IsRemoteNode, plain:uom, IsRemoteUOM, Graph ) ),
+          IsRemote=xval(IsRemoteValue,IsRemoteUOM)
         );
         (
-          rdf( IsRemoteNode,aixm:nilReason, NilReason, Graph ),
-          IsRemote=nil(NilReason)
+          rdf( IsRemoteNode,aixm:nilReason, IsRemoteNilReason, Graph ),
+          IsRemote=nil(IsRemoteNilReason)
         );
         (
-          rdf( IsRemoteNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          IsRemote=indeterminate(Indeterminate)
+          rdf( IsRemoteNode,gml:indeterminatePosition, IsRemoteIndeterminate, Graph ),
+          IsRemote=indeterminate(IsRemoteIndeterminate)
         )
       )
   )
@@ -8726,16 +8728,16 @@ aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote, IsPrima
         );
         (
           rdf( IsPrimaryNode,rdf:value,IsPrimaryValue,Graph ),
-          ( rdf( IsPrimaryNode, aixm:uom, UOM, Graph ); rdf( IsPrimaryNode, fixm:uom, UOM, Graph ); rdf( IsPrimaryNode, plain:uom, UOM, Graph ) ),
-          IsPrimary=xval(IsPrimaryValue,UOM)
+          ( rdf( IsPrimaryNode, aixm:uom, IsPrimaryUOM, Graph ); rdf( IsPrimaryNode, fixm:uom, IsPrimaryUOM, Graph ); rdf( IsPrimaryNode, plain:uom, IsPrimaryUOM, Graph ) ),
+          IsPrimary=xval(IsPrimaryValue,IsPrimaryUOM)
         );
         (
-          rdf( IsPrimaryNode,aixm:nilReason, NilReason, Graph ),
-          IsPrimary=nil(NilReason)
+          rdf( IsPrimaryNode,aixm:nilReason, IsPrimaryNilReason, Graph ),
+          IsPrimary=nil(IsPrimaryNilReason)
         );
         (
-          rdf( IsPrimaryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          IsPrimary=indeterminate(Indeterminate)
+          rdf( IsPrimaryNode,gml:indeterminatePosition, IsPrimaryIndeterminate, Graph ),
+          IsPrimary=indeterminate(IsPrimaryIndeterminate)
         )
       )
   )
@@ -8758,16 +8760,16 @@ aixm_Point(Graph, Point, HorizontalAccuracy, Annotation) :-
         );
         (
           rdf( HorizontalAccuracyNode,rdf:value,HorizontalAccuracyValue,Graph ),
-          ( rdf( HorizontalAccuracyNode, aixm:uom, UOM, Graph ); rdf( HorizontalAccuracyNode, fixm:uom, UOM, Graph ); rdf( HorizontalAccuracyNode, plain:uom, UOM, Graph ) ),
-          HorizontalAccuracy=xval(HorizontalAccuracyValue,UOM)
+          ( rdf( HorizontalAccuracyNode, aixm:uom, HorizontalAccuracyUOM, Graph ); rdf( HorizontalAccuracyNode, fixm:uom, HorizontalAccuracyUOM, Graph ); rdf( HorizontalAccuracyNode, plain:uom, HorizontalAccuracyUOM, Graph ) ),
+          HorizontalAccuracy=xval(HorizontalAccuracyValue,HorizontalAccuracyUOM)
         );
         (
-          rdf( HorizontalAccuracyNode,aixm:nilReason, NilReason, Graph ),
-          HorizontalAccuracy=nil(NilReason)
+          rdf( HorizontalAccuracyNode,aixm:nilReason, HorizontalAccuracyNilReason, Graph ),
+          HorizontalAccuracy=nil(HorizontalAccuracyNilReason)
         );
         (
-          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          HorizontalAccuracy=indeterminate(Indeterminate)
+          rdf( HorizontalAccuracyNode,gml:indeterminatePosition, HorizontalAccuracyIndeterminate, Graph ),
+          HorizontalAccuracy=indeterminate(HorizontalAccuracyIndeterminate)
         )
       )
   )
@@ -8788,16 +8790,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -8814,16 +8816,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( EngineNode,rdf:value,EngineValue,Graph ),
-          ( rdf( EngineNode, aixm:uom, UOM, Graph ); rdf( EngineNode, fixm:uom, UOM, Graph ); rdf( EngineNode, plain:uom, UOM, Graph ) ),
-          Engine=xval(EngineValue,UOM)
+          ( rdf( EngineNode, aixm:uom, EngineUOM, Graph ); rdf( EngineNode, fixm:uom, EngineUOM, Graph ); rdf( EngineNode, plain:uom, EngineUOM, Graph ) ),
+          Engine=xval(EngineValue,EngineUOM)
         );
         (
-          rdf( EngineNode,aixm:nilReason, NilReason, Graph ),
-          Engine=nil(NilReason)
+          rdf( EngineNode,aixm:nilReason, EngineNilReason, Graph ),
+          Engine=nil(EngineNilReason)
         );
         (
-          rdf( EngineNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Engine=indeterminate(Indeterminate)
+          rdf( EngineNode,gml:indeterminatePosition, EngineIndeterminate, Graph ),
+          Engine=indeterminate(EngineIndeterminate)
         )
       )
   )
@@ -8840,16 +8842,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( NumberEngineNode,rdf:value,NumberEngineValue,Graph ),
-          ( rdf( NumberEngineNode, aixm:uom, UOM, Graph ); rdf( NumberEngineNode, fixm:uom, UOM, Graph ); rdf( NumberEngineNode, plain:uom, UOM, Graph ) ),
-          NumberEngine=xval(NumberEngineValue,UOM)
+          ( rdf( NumberEngineNode, aixm:uom, NumberEngineUOM, Graph ); rdf( NumberEngineNode, fixm:uom, NumberEngineUOM, Graph ); rdf( NumberEngineNode, plain:uom, NumberEngineUOM, Graph ) ),
+          NumberEngine=xval(NumberEngineValue,NumberEngineUOM)
         );
         (
-          rdf( NumberEngineNode,aixm:nilReason, NilReason, Graph ),
-          NumberEngine=nil(NilReason)
+          rdf( NumberEngineNode,aixm:nilReason, NumberEngineNilReason, Graph ),
+          NumberEngine=nil(NumberEngineNilReason)
         );
         (
-          rdf( NumberEngineNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NumberEngine=indeterminate(Indeterminate)
+          rdf( NumberEngineNode,gml:indeterminatePosition, NumberEngineIndeterminate, Graph ),
+          NumberEngine=indeterminate(NumberEngineIndeterminate)
         )
       )
   )
@@ -8866,16 +8868,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( TypeAircraftICAONode,rdf:value,TypeAircraftICAOValue,Graph ),
-          ( rdf( TypeAircraftICAONode, aixm:uom, UOM, Graph ); rdf( TypeAircraftICAONode, fixm:uom, UOM, Graph ); rdf( TypeAircraftICAONode, plain:uom, UOM, Graph ) ),
-          TypeAircraftICAO=xval(TypeAircraftICAOValue,UOM)
+          ( rdf( TypeAircraftICAONode, aixm:uom, TypeAircraftICAOUOM, Graph ); rdf( TypeAircraftICAONode, fixm:uom, TypeAircraftICAOUOM, Graph ); rdf( TypeAircraftICAONode, plain:uom, TypeAircraftICAOUOM, Graph ) ),
+          TypeAircraftICAO=xval(TypeAircraftICAOValue,TypeAircraftICAOUOM)
         );
         (
-          rdf( TypeAircraftICAONode,aixm:nilReason, NilReason, Graph ),
-          TypeAircraftICAO=nil(NilReason)
+          rdf( TypeAircraftICAONode,aixm:nilReason, TypeAircraftICAONilReason, Graph ),
+          TypeAircraftICAO=nil(TypeAircraftICAONilReason)
         );
         (
-          rdf( TypeAircraftICAONode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TypeAircraftICAO=indeterminate(Indeterminate)
+          rdf( TypeAircraftICAONode,gml:indeterminatePosition, TypeAircraftICAOIndeterminate, Graph ),
+          TypeAircraftICAO=indeterminate(TypeAircraftICAOIndeterminate)
         )
       )
   )
@@ -8892,16 +8894,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( AircraftLandingCategoryNode,rdf:value,AircraftLandingCategoryValue,Graph ),
-          ( rdf( AircraftLandingCategoryNode, aixm:uom, UOM, Graph ); rdf( AircraftLandingCategoryNode, fixm:uom, UOM, Graph ); rdf( AircraftLandingCategoryNode, plain:uom, UOM, Graph ) ),
-          AircraftLandingCategory=xval(AircraftLandingCategoryValue,UOM)
+          ( rdf( AircraftLandingCategoryNode, aixm:uom, AircraftLandingCategoryUOM, Graph ); rdf( AircraftLandingCategoryNode, fixm:uom, AircraftLandingCategoryUOM, Graph ); rdf( AircraftLandingCategoryNode, plain:uom, AircraftLandingCategoryUOM, Graph ) ),
+          AircraftLandingCategory=xval(AircraftLandingCategoryValue,AircraftLandingCategoryUOM)
         );
         (
-          rdf( AircraftLandingCategoryNode,aixm:nilReason, NilReason, Graph ),
-          AircraftLandingCategory=nil(NilReason)
+          rdf( AircraftLandingCategoryNode,aixm:nilReason, AircraftLandingCategoryNilReason, Graph ),
+          AircraftLandingCategory=nil(AircraftLandingCategoryNilReason)
         );
         (
-          rdf( AircraftLandingCategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AircraftLandingCategory=indeterminate(Indeterminate)
+          rdf( AircraftLandingCategoryNode,gml:indeterminatePosition, AircraftLandingCategoryIndeterminate, Graph ),
+          AircraftLandingCategory=indeterminate(AircraftLandingCategoryIndeterminate)
         )
       )
   )
@@ -8918,16 +8920,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( WingSpanNode,rdf:value,WingSpanValue,Graph ),
-          ( rdf( WingSpanNode, aixm:uom, UOM, Graph ); rdf( WingSpanNode, fixm:uom, UOM, Graph ); rdf( WingSpanNode, plain:uom, UOM, Graph ) ),
-          WingSpan=xval(WingSpanValue,UOM)
+          ( rdf( WingSpanNode, aixm:uom, WingSpanUOM, Graph ); rdf( WingSpanNode, fixm:uom, WingSpanUOM, Graph ); rdf( WingSpanNode, plain:uom, WingSpanUOM, Graph ) ),
+          WingSpan=xval(WingSpanValue,WingSpanUOM)
         );
         (
-          rdf( WingSpanNode,aixm:nilReason, NilReason, Graph ),
-          WingSpan=nil(NilReason)
+          rdf( WingSpanNode,aixm:nilReason, WingSpanNilReason, Graph ),
+          WingSpan=nil(WingSpanNilReason)
         );
         (
-          rdf( WingSpanNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WingSpan=indeterminate(Indeterminate)
+          rdf( WingSpanNode,gml:indeterminatePosition, WingSpanIndeterminate, Graph ),
+          WingSpan=indeterminate(WingSpanIndeterminate)
         )
       )
   )
@@ -8944,16 +8946,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( WingSpanInterpretationNode,rdf:value,WingSpanInterpretationValue,Graph ),
-          ( rdf( WingSpanInterpretationNode, aixm:uom, UOM, Graph ); rdf( WingSpanInterpretationNode, fixm:uom, UOM, Graph ); rdf( WingSpanInterpretationNode, plain:uom, UOM, Graph ) ),
-          WingSpanInterpretation=xval(WingSpanInterpretationValue,UOM)
+          ( rdf( WingSpanInterpretationNode, aixm:uom, WingSpanInterpretationUOM, Graph ); rdf( WingSpanInterpretationNode, fixm:uom, WingSpanInterpretationUOM, Graph ); rdf( WingSpanInterpretationNode, plain:uom, WingSpanInterpretationUOM, Graph ) ),
+          WingSpanInterpretation=xval(WingSpanInterpretationValue,WingSpanInterpretationUOM)
         );
         (
-          rdf( WingSpanInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          WingSpanInterpretation=nil(NilReason)
+          rdf( WingSpanInterpretationNode,aixm:nilReason, WingSpanInterpretationNilReason, Graph ),
+          WingSpanInterpretation=nil(WingSpanInterpretationNilReason)
         );
         (
-          rdf( WingSpanInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WingSpanInterpretation=indeterminate(Indeterminate)
+          rdf( WingSpanInterpretationNode,gml:indeterminatePosition, WingSpanInterpretationIndeterminate, Graph ),
+          WingSpanInterpretation=indeterminate(WingSpanInterpretationIndeterminate)
         )
       )
   )
@@ -8970,16 +8972,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( ClassWingSpanNode,rdf:value,ClassWingSpanValue,Graph ),
-          ( rdf( ClassWingSpanNode, aixm:uom, UOM, Graph ); rdf( ClassWingSpanNode, fixm:uom, UOM, Graph ); rdf( ClassWingSpanNode, plain:uom, UOM, Graph ) ),
-          ClassWingSpan=xval(ClassWingSpanValue,UOM)
+          ( rdf( ClassWingSpanNode, aixm:uom, ClassWingSpanUOM, Graph ); rdf( ClassWingSpanNode, fixm:uom, ClassWingSpanUOM, Graph ); rdf( ClassWingSpanNode, plain:uom, ClassWingSpanUOM, Graph ) ),
+          ClassWingSpan=xval(ClassWingSpanValue,ClassWingSpanUOM)
         );
         (
-          rdf( ClassWingSpanNode,aixm:nilReason, NilReason, Graph ),
-          ClassWingSpan=nil(NilReason)
+          rdf( ClassWingSpanNode,aixm:nilReason, ClassWingSpanNilReason, Graph ),
+          ClassWingSpan=nil(ClassWingSpanNilReason)
         );
         (
-          rdf( ClassWingSpanNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ClassWingSpan=indeterminate(Indeterminate)
+          rdf( ClassWingSpanNode,gml:indeterminatePosition, ClassWingSpanIndeterminate, Graph ),
+          ClassWingSpan=indeterminate(ClassWingSpanIndeterminate)
         )
       )
   )
@@ -8996,16 +8998,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( WeightNode,rdf:value,WeightValue,Graph ),
-          ( rdf( WeightNode, aixm:uom, UOM, Graph ); rdf( WeightNode, fixm:uom, UOM, Graph ); rdf( WeightNode, plain:uom, UOM, Graph ) ),
-          Weight=xval(WeightValue,UOM)
+          ( rdf( WeightNode, aixm:uom, WeightUOM, Graph ); rdf( WeightNode, fixm:uom, WeightUOM, Graph ); rdf( WeightNode, plain:uom, WeightUOM, Graph ) ),
+          Weight=xval(WeightValue,WeightUOM)
         );
         (
-          rdf( WeightNode,aixm:nilReason, NilReason, Graph ),
-          Weight=nil(NilReason)
+          rdf( WeightNode,aixm:nilReason, WeightNilReason, Graph ),
+          Weight=nil(WeightNilReason)
         );
         (
-          rdf( WeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Weight=indeterminate(Indeterminate)
+          rdf( WeightNode,gml:indeterminatePosition, WeightIndeterminate, Graph ),
+          Weight=indeterminate(WeightIndeterminate)
         )
       )
   )
@@ -9022,16 +9024,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( WeightInterpretationNode,rdf:value,WeightInterpretationValue,Graph ),
-          ( rdf( WeightInterpretationNode, aixm:uom, UOM, Graph ); rdf( WeightInterpretationNode, fixm:uom, UOM, Graph ); rdf( WeightInterpretationNode, plain:uom, UOM, Graph ) ),
-          WeightInterpretation=xval(WeightInterpretationValue,UOM)
+          ( rdf( WeightInterpretationNode, aixm:uom, WeightInterpretationUOM, Graph ); rdf( WeightInterpretationNode, fixm:uom, WeightInterpretationUOM, Graph ); rdf( WeightInterpretationNode, plain:uom, WeightInterpretationUOM, Graph ) ),
+          WeightInterpretation=xval(WeightInterpretationValue,WeightInterpretationUOM)
         );
         (
-          rdf( WeightInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          WeightInterpretation=nil(NilReason)
+          rdf( WeightInterpretationNode,aixm:nilReason, WeightInterpretationNilReason, Graph ),
+          WeightInterpretation=nil(WeightInterpretationNilReason)
         );
         (
-          rdf( WeightInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WeightInterpretation=indeterminate(Indeterminate)
+          rdf( WeightInterpretationNode,gml:indeterminatePosition, WeightInterpretationIndeterminate, Graph ),
+          WeightInterpretation=indeterminate(WeightInterpretationIndeterminate)
         )
       )
   )
@@ -9048,16 +9050,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( PassengersNode,rdf:value,PassengersValue,Graph ),
-          ( rdf( PassengersNode, aixm:uom, UOM, Graph ); rdf( PassengersNode, fixm:uom, UOM, Graph ); rdf( PassengersNode, plain:uom, UOM, Graph ) ),
-          Passengers=xval(PassengersValue,UOM)
+          ( rdf( PassengersNode, aixm:uom, PassengersUOM, Graph ); rdf( PassengersNode, fixm:uom, PassengersUOM, Graph ); rdf( PassengersNode, plain:uom, PassengersUOM, Graph ) ),
+          Passengers=xval(PassengersValue,PassengersUOM)
         );
         (
-          rdf( PassengersNode,aixm:nilReason, NilReason, Graph ),
-          Passengers=nil(NilReason)
+          rdf( PassengersNode,aixm:nilReason, PassengersNilReason, Graph ),
+          Passengers=nil(PassengersNilReason)
         );
         (
-          rdf( PassengersNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Passengers=indeterminate(Indeterminate)
+          rdf( PassengersNode,gml:indeterminatePosition, PassengersIndeterminate, Graph ),
+          Passengers=indeterminate(PassengersIndeterminate)
         )
       )
   )
@@ -9074,16 +9076,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( PassengersInterpretationNode,rdf:value,PassengersInterpretationValue,Graph ),
-          ( rdf( PassengersInterpretationNode, aixm:uom, UOM, Graph ); rdf( PassengersInterpretationNode, fixm:uom, UOM, Graph ); rdf( PassengersInterpretationNode, plain:uom, UOM, Graph ) ),
-          PassengersInterpretation=xval(PassengersInterpretationValue,UOM)
+          ( rdf( PassengersInterpretationNode, aixm:uom, PassengersInterpretationUOM, Graph ); rdf( PassengersInterpretationNode, fixm:uom, PassengersInterpretationUOM, Graph ); rdf( PassengersInterpretationNode, plain:uom, PassengersInterpretationUOM, Graph ) ),
+          PassengersInterpretation=xval(PassengersInterpretationValue,PassengersInterpretationUOM)
         );
         (
-          rdf( PassengersInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          PassengersInterpretation=nil(NilReason)
+          rdf( PassengersInterpretationNode,aixm:nilReason, PassengersInterpretationNilReason, Graph ),
+          PassengersInterpretation=nil(PassengersInterpretationNilReason)
         );
         (
-          rdf( PassengersInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PassengersInterpretation=indeterminate(Indeterminate)
+          rdf( PassengersInterpretationNode,gml:indeterminatePosition, PassengersInterpretationIndeterminate, Graph ),
+          PassengersInterpretation=indeterminate(PassengersInterpretationIndeterminate)
         )
       )
   )
@@ -9100,16 +9102,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( SpeedNode,rdf:value,SpeedValue,Graph ),
-          ( rdf( SpeedNode, aixm:uom, UOM, Graph ); rdf( SpeedNode, fixm:uom, UOM, Graph ); rdf( SpeedNode, plain:uom, UOM, Graph ) ),
-          Speed=xval(SpeedValue,UOM)
+          ( rdf( SpeedNode, aixm:uom, SpeedUOM, Graph ); rdf( SpeedNode, fixm:uom, SpeedUOM, Graph ); rdf( SpeedNode, plain:uom, SpeedUOM, Graph ) ),
+          Speed=xval(SpeedValue,SpeedUOM)
         );
         (
-          rdf( SpeedNode,aixm:nilReason, NilReason, Graph ),
-          Speed=nil(NilReason)
+          rdf( SpeedNode,aixm:nilReason, SpeedNilReason, Graph ),
+          Speed=nil(SpeedNilReason)
         );
         (
-          rdf( SpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Speed=indeterminate(Indeterminate)
+          rdf( SpeedNode,gml:indeterminatePosition, SpeedIndeterminate, Graph ),
+          Speed=indeterminate(SpeedIndeterminate)
         )
       )
   )
@@ -9126,16 +9128,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( SpeedInterpretationNode,rdf:value,SpeedInterpretationValue,Graph ),
-          ( rdf( SpeedInterpretationNode, aixm:uom, UOM, Graph ); rdf( SpeedInterpretationNode, fixm:uom, UOM, Graph ); rdf( SpeedInterpretationNode, plain:uom, UOM, Graph ) ),
-          SpeedInterpretation=xval(SpeedInterpretationValue,UOM)
+          ( rdf( SpeedInterpretationNode, aixm:uom, SpeedInterpretationUOM, Graph ); rdf( SpeedInterpretationNode, fixm:uom, SpeedInterpretationUOM, Graph ); rdf( SpeedInterpretationNode, plain:uom, SpeedInterpretationUOM, Graph ) ),
+          SpeedInterpretation=xval(SpeedInterpretationValue,SpeedInterpretationUOM)
         );
         (
-          rdf( SpeedInterpretationNode,aixm:nilReason, NilReason, Graph ),
-          SpeedInterpretation=nil(NilReason)
+          rdf( SpeedInterpretationNode,aixm:nilReason, SpeedInterpretationNilReason, Graph ),
+          SpeedInterpretation=nil(SpeedInterpretationNilReason)
         );
         (
-          rdf( SpeedInterpretationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SpeedInterpretation=indeterminate(Indeterminate)
+          rdf( SpeedInterpretationNode,gml:indeterminatePosition, SpeedInterpretationIndeterminate, Graph ),
+          SpeedInterpretation=indeterminate(SpeedInterpretationIndeterminate)
         )
       )
   )
@@ -9152,16 +9154,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( WakeTurbulenceNode,rdf:value,WakeTurbulenceValue,Graph ),
-          ( rdf( WakeTurbulenceNode, aixm:uom, UOM, Graph ); rdf( WakeTurbulenceNode, fixm:uom, UOM, Graph ); rdf( WakeTurbulenceNode, plain:uom, UOM, Graph ) ),
-          WakeTurbulence=xval(WakeTurbulenceValue,UOM)
+          ( rdf( WakeTurbulenceNode, aixm:uom, WakeTurbulenceUOM, Graph ); rdf( WakeTurbulenceNode, fixm:uom, WakeTurbulenceUOM, Graph ); rdf( WakeTurbulenceNode, plain:uom, WakeTurbulenceUOM, Graph ) ),
+          WakeTurbulence=xval(WakeTurbulenceValue,WakeTurbulenceUOM)
         );
         (
-          rdf( WakeTurbulenceNode,aixm:nilReason, NilReason, Graph ),
-          WakeTurbulence=nil(NilReason)
+          rdf( WakeTurbulenceNode,aixm:nilReason, WakeTurbulenceNilReason, Graph ),
+          WakeTurbulence=nil(WakeTurbulenceNilReason)
         );
         (
-          rdf( WakeTurbulenceNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          WakeTurbulence=indeterminate(Indeterminate)
+          rdf( WakeTurbulenceNode,gml:indeterminatePosition, WakeTurbulenceIndeterminate, Graph ),
+          WakeTurbulence=indeterminate(WakeTurbulenceIndeterminate)
         )
       )
   )
@@ -9178,16 +9180,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( NavigationEquipmentNode,rdf:value,NavigationEquipmentValue,Graph ),
-          ( rdf( NavigationEquipmentNode, aixm:uom, UOM, Graph ); rdf( NavigationEquipmentNode, fixm:uom, UOM, Graph ); rdf( NavigationEquipmentNode, plain:uom, UOM, Graph ) ),
-          NavigationEquipment=xval(NavigationEquipmentValue,UOM)
+          ( rdf( NavigationEquipmentNode, aixm:uom, NavigationEquipmentUOM, Graph ); rdf( NavigationEquipmentNode, fixm:uom, NavigationEquipmentUOM, Graph ); rdf( NavigationEquipmentNode, plain:uom, NavigationEquipmentUOM, Graph ) ),
+          NavigationEquipment=xval(NavigationEquipmentValue,NavigationEquipmentUOM)
         );
         (
-          rdf( NavigationEquipmentNode,aixm:nilReason, NilReason, Graph ),
-          NavigationEquipment=nil(NilReason)
+          rdf( NavigationEquipmentNode,aixm:nilReason, NavigationEquipmentNilReason, Graph ),
+          NavigationEquipment=nil(NavigationEquipmentNilReason)
         );
         (
-          rdf( NavigationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NavigationEquipment=indeterminate(Indeterminate)
+          rdf( NavigationEquipmentNode,gml:indeterminatePosition, NavigationEquipmentIndeterminate, Graph ),
+          NavigationEquipment=indeterminate(NavigationEquipmentIndeterminate)
         )
       )
   )
@@ -9204,16 +9206,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( NavigationSpecificationNode,rdf:value,NavigationSpecificationValue,Graph ),
-          ( rdf( NavigationSpecificationNode, aixm:uom, UOM, Graph ); rdf( NavigationSpecificationNode, fixm:uom, UOM, Graph ); rdf( NavigationSpecificationNode, plain:uom, UOM, Graph ) ),
-          NavigationSpecification=xval(NavigationSpecificationValue,UOM)
+          ( rdf( NavigationSpecificationNode, aixm:uom, NavigationSpecificationUOM, Graph ); rdf( NavigationSpecificationNode, fixm:uom, NavigationSpecificationUOM, Graph ); rdf( NavigationSpecificationNode, plain:uom, NavigationSpecificationUOM, Graph ) ),
+          NavigationSpecification=xval(NavigationSpecificationValue,NavigationSpecificationUOM)
         );
         (
-          rdf( NavigationSpecificationNode,aixm:nilReason, NilReason, Graph ),
-          NavigationSpecification=nil(NilReason)
+          rdf( NavigationSpecificationNode,aixm:nilReason, NavigationSpecificationNilReason, Graph ),
+          NavigationSpecification=nil(NavigationSpecificationNilReason)
         );
         (
-          rdf( NavigationSpecificationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NavigationSpecification=indeterminate(Indeterminate)
+          rdf( NavigationSpecificationNode,gml:indeterminatePosition, NavigationSpecificationIndeterminate, Graph ),
+          NavigationSpecification=indeterminate(NavigationSpecificationIndeterminate)
         )
       )
   )
@@ -9230,16 +9232,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( VerticalSeparationCapabilityNode,rdf:value,VerticalSeparationCapabilityValue,Graph ),
-          ( rdf( VerticalSeparationCapabilityNode, aixm:uom, UOM, Graph ); rdf( VerticalSeparationCapabilityNode, fixm:uom, UOM, Graph ); rdf( VerticalSeparationCapabilityNode, plain:uom, UOM, Graph ) ),
-          VerticalSeparationCapability=xval(VerticalSeparationCapabilityValue,UOM)
+          ( rdf( VerticalSeparationCapabilityNode, aixm:uom, VerticalSeparationCapabilityUOM, Graph ); rdf( VerticalSeparationCapabilityNode, fixm:uom, VerticalSeparationCapabilityUOM, Graph ); rdf( VerticalSeparationCapabilityNode, plain:uom, VerticalSeparationCapabilityUOM, Graph ) ),
+          VerticalSeparationCapability=xval(VerticalSeparationCapabilityValue,VerticalSeparationCapabilityUOM)
         );
         (
-          rdf( VerticalSeparationCapabilityNode,aixm:nilReason, NilReason, Graph ),
-          VerticalSeparationCapability=nil(NilReason)
+          rdf( VerticalSeparationCapabilityNode,aixm:nilReason, VerticalSeparationCapabilityNilReason, Graph ),
+          VerticalSeparationCapability=nil(VerticalSeparationCapabilityNilReason)
         );
         (
-          rdf( VerticalSeparationCapabilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          VerticalSeparationCapability=indeterminate(Indeterminate)
+          rdf( VerticalSeparationCapabilityNode,gml:indeterminatePosition, VerticalSeparationCapabilityIndeterminate, Graph ),
+          VerticalSeparationCapability=indeterminate(VerticalSeparationCapabilityIndeterminate)
         )
       )
   )
@@ -9256,16 +9258,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( AntiCollisionAndSeparationEquipmentNode,rdf:value,AntiCollisionAndSeparationEquipmentValue,Graph ),
-          ( rdf( AntiCollisionAndSeparationEquipmentNode, aixm:uom, UOM, Graph ); rdf( AntiCollisionAndSeparationEquipmentNode, fixm:uom, UOM, Graph ); rdf( AntiCollisionAndSeparationEquipmentNode, plain:uom, UOM, Graph ) ),
-          AntiCollisionAndSeparationEquipment=xval(AntiCollisionAndSeparationEquipmentValue,UOM)
+          ( rdf( AntiCollisionAndSeparationEquipmentNode, aixm:uom, AntiCollisionAndSeparationEquipmentUOM, Graph ); rdf( AntiCollisionAndSeparationEquipmentNode, fixm:uom, AntiCollisionAndSeparationEquipmentUOM, Graph ); rdf( AntiCollisionAndSeparationEquipmentNode, plain:uom, AntiCollisionAndSeparationEquipmentUOM, Graph ) ),
+          AntiCollisionAndSeparationEquipment=xval(AntiCollisionAndSeparationEquipmentValue,AntiCollisionAndSeparationEquipmentUOM)
         );
         (
-          rdf( AntiCollisionAndSeparationEquipmentNode,aixm:nilReason, NilReason, Graph ),
-          AntiCollisionAndSeparationEquipment=nil(NilReason)
+          rdf( AntiCollisionAndSeparationEquipmentNode,aixm:nilReason, AntiCollisionAndSeparationEquipmentNilReason, Graph ),
+          AntiCollisionAndSeparationEquipment=nil(AntiCollisionAndSeparationEquipmentNilReason)
         );
         (
-          rdf( AntiCollisionAndSeparationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AntiCollisionAndSeparationEquipment=indeterminate(Indeterminate)
+          rdf( AntiCollisionAndSeparationEquipmentNode,gml:indeterminatePosition, AntiCollisionAndSeparationEquipmentIndeterminate, Graph ),
+          AntiCollisionAndSeparationEquipment=indeterminate(AntiCollisionAndSeparationEquipmentIndeterminate)
         )
       )
   )
@@ -9282,16 +9284,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( CommunicationEquipmentNode,rdf:value,CommunicationEquipmentValue,Graph ),
-          ( rdf( CommunicationEquipmentNode, aixm:uom, UOM, Graph ); rdf( CommunicationEquipmentNode, fixm:uom, UOM, Graph ); rdf( CommunicationEquipmentNode, plain:uom, UOM, Graph ) ),
-          CommunicationEquipment=xval(CommunicationEquipmentValue,UOM)
+          ( rdf( CommunicationEquipmentNode, aixm:uom, CommunicationEquipmentUOM, Graph ); rdf( CommunicationEquipmentNode, fixm:uom, CommunicationEquipmentUOM, Graph ); rdf( CommunicationEquipmentNode, plain:uom, CommunicationEquipmentUOM, Graph ) ),
+          CommunicationEquipment=xval(CommunicationEquipmentValue,CommunicationEquipmentUOM)
         );
         (
-          rdf( CommunicationEquipmentNode,aixm:nilReason, NilReason, Graph ),
-          CommunicationEquipment=nil(NilReason)
+          rdf( CommunicationEquipmentNode,aixm:nilReason, CommunicationEquipmentNilReason, Graph ),
+          CommunicationEquipment=nil(CommunicationEquipmentNilReason)
         );
         (
-          rdf( CommunicationEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CommunicationEquipment=indeterminate(Indeterminate)
+          rdf( CommunicationEquipmentNode,gml:indeterminatePosition, CommunicationEquipmentIndeterminate, Graph ),
+          CommunicationEquipment=indeterminate(CommunicationEquipmentIndeterminate)
         )
       )
   )
@@ -9308,16 +9310,16 @@ aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, Type, Engine, NumberE
         );
         (
           rdf( SurveillanceEquipmentNode,rdf:value,SurveillanceEquipmentValue,Graph ),
-          ( rdf( SurveillanceEquipmentNode, aixm:uom, UOM, Graph ); rdf( SurveillanceEquipmentNode, fixm:uom, UOM, Graph ); rdf( SurveillanceEquipmentNode, plain:uom, UOM, Graph ) ),
-          SurveillanceEquipment=xval(SurveillanceEquipmentValue,UOM)
+          ( rdf( SurveillanceEquipmentNode, aixm:uom, SurveillanceEquipmentUOM, Graph ); rdf( SurveillanceEquipmentNode, fixm:uom, SurveillanceEquipmentUOM, Graph ); rdf( SurveillanceEquipmentNode, plain:uom, SurveillanceEquipmentUOM, Graph ) ),
+          SurveillanceEquipment=xval(SurveillanceEquipmentValue,SurveillanceEquipmentUOM)
         );
         (
-          rdf( SurveillanceEquipmentNode,aixm:nilReason, NilReason, Graph ),
-          SurveillanceEquipment=nil(NilReason)
+          rdf( SurveillanceEquipmentNode,aixm:nilReason, SurveillanceEquipmentNilReason, Graph ),
+          SurveillanceEquipment=nil(SurveillanceEquipmentNilReason)
         );
         (
-          rdf( SurveillanceEquipmentNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SurveillanceEquipment=indeterminate(Indeterminate)
+          rdf( SurveillanceEquipmentNode,gml:indeterminatePosition, SurveillanceEquipmentIndeterminate, Graph ),
+          SurveillanceEquipment=indeterminate(SurveillanceEquipmentIndeterminate)
         )
       )
   )
@@ -9338,16 +9340,16 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         );
         (
           rdf( DeliveryPointNode,rdf:value,DeliveryPointValue,Graph ),
-          ( rdf( DeliveryPointNode, aixm:uom, UOM, Graph ); rdf( DeliveryPointNode, fixm:uom, UOM, Graph ); rdf( DeliveryPointNode, plain:uom, UOM, Graph ) ),
-          DeliveryPoint=xval(DeliveryPointValue,UOM)
+          ( rdf( DeliveryPointNode, aixm:uom, DeliveryPointUOM, Graph ); rdf( DeliveryPointNode, fixm:uom, DeliveryPointUOM, Graph ); rdf( DeliveryPointNode, plain:uom, DeliveryPointUOM, Graph ) ),
+          DeliveryPoint=xval(DeliveryPointValue,DeliveryPointUOM)
         );
         (
-          rdf( DeliveryPointNode,aixm:nilReason, NilReason, Graph ),
-          DeliveryPoint=nil(NilReason)
+          rdf( DeliveryPointNode,aixm:nilReason, DeliveryPointNilReason, Graph ),
+          DeliveryPoint=nil(DeliveryPointNilReason)
         );
         (
-          rdf( DeliveryPointNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DeliveryPoint=indeterminate(Indeterminate)
+          rdf( DeliveryPointNode,gml:indeterminatePosition, DeliveryPointIndeterminate, Graph ),
+          DeliveryPoint=indeterminate(DeliveryPointIndeterminate)
         )
       )
   )
@@ -9364,16 +9366,16 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         );
         (
           rdf( CityNode,rdf:value,CityValue,Graph ),
-          ( rdf( CityNode, aixm:uom, UOM, Graph ); rdf( CityNode, fixm:uom, UOM, Graph ); rdf( CityNode, plain:uom, UOM, Graph ) ),
-          City=xval(CityValue,UOM)
+          ( rdf( CityNode, aixm:uom, CityUOM, Graph ); rdf( CityNode, fixm:uom, CityUOM, Graph ); rdf( CityNode, plain:uom, CityUOM, Graph ) ),
+          City=xval(CityValue,CityUOM)
         );
         (
-          rdf( CityNode,aixm:nilReason, NilReason, Graph ),
-          City=nil(NilReason)
+          rdf( CityNode,aixm:nilReason, CityNilReason, Graph ),
+          City=nil(CityNilReason)
         );
         (
-          rdf( CityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          City=indeterminate(Indeterminate)
+          rdf( CityNode,gml:indeterminatePosition, CityIndeterminate, Graph ),
+          City=indeterminate(CityIndeterminate)
         )
       )
   )
@@ -9390,16 +9392,16 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         );
         (
           rdf( AdministrativeAreaNode,rdf:value,AdministrativeAreaValue,Graph ),
-          ( rdf( AdministrativeAreaNode, aixm:uom, UOM, Graph ); rdf( AdministrativeAreaNode, fixm:uom, UOM, Graph ); rdf( AdministrativeAreaNode, plain:uom, UOM, Graph ) ),
-          AdministrativeArea=xval(AdministrativeAreaValue,UOM)
+          ( rdf( AdministrativeAreaNode, aixm:uom, AdministrativeAreaUOM, Graph ); rdf( AdministrativeAreaNode, fixm:uom, AdministrativeAreaUOM, Graph ); rdf( AdministrativeAreaNode, plain:uom, AdministrativeAreaUOM, Graph ) ),
+          AdministrativeArea=xval(AdministrativeAreaValue,AdministrativeAreaUOM)
         );
         (
-          rdf( AdministrativeAreaNode,aixm:nilReason, NilReason, Graph ),
-          AdministrativeArea=nil(NilReason)
+          rdf( AdministrativeAreaNode,aixm:nilReason, AdministrativeAreaNilReason, Graph ),
+          AdministrativeArea=nil(AdministrativeAreaNilReason)
         );
         (
-          rdf( AdministrativeAreaNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AdministrativeArea=indeterminate(Indeterminate)
+          rdf( AdministrativeAreaNode,gml:indeterminatePosition, AdministrativeAreaIndeterminate, Graph ),
+          AdministrativeArea=indeterminate(AdministrativeAreaIndeterminate)
         )
       )
   )
@@ -9416,16 +9418,16 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         );
         (
           rdf( PostalCodeNode,rdf:value,PostalCodeValue,Graph ),
-          ( rdf( PostalCodeNode, aixm:uom, UOM, Graph ); rdf( PostalCodeNode, fixm:uom, UOM, Graph ); rdf( PostalCodeNode, plain:uom, UOM, Graph ) ),
-          PostalCode=xval(PostalCodeValue,UOM)
+          ( rdf( PostalCodeNode, aixm:uom, PostalCodeUOM, Graph ); rdf( PostalCodeNode, fixm:uom, PostalCodeUOM, Graph ); rdf( PostalCodeNode, plain:uom, PostalCodeUOM, Graph ) ),
+          PostalCode=xval(PostalCodeValue,PostalCodeUOM)
         );
         (
-          rdf( PostalCodeNode,aixm:nilReason, NilReason, Graph ),
-          PostalCode=nil(NilReason)
+          rdf( PostalCodeNode,aixm:nilReason, PostalCodeNilReason, Graph ),
+          PostalCode=nil(PostalCodeNilReason)
         );
         (
-          rdf( PostalCodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PostalCode=indeterminate(Indeterminate)
+          rdf( PostalCodeNode,gml:indeterminatePosition, PostalCodeIndeterminate, Graph ),
+          PostalCode=indeterminate(PostalCodeIndeterminate)
         )
       )
   )
@@ -9442,16 +9444,16 @@ aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea
         );
         (
           rdf( CountryNode,rdf:value,CountryValue,Graph ),
-          ( rdf( CountryNode, aixm:uom, UOM, Graph ); rdf( CountryNode, fixm:uom, UOM, Graph ); rdf( CountryNode, plain:uom, UOM, Graph ) ),
-          Country=xval(CountryValue,UOM)
+          ( rdf( CountryNode, aixm:uom, CountryUOM, Graph ); rdf( CountryNode, fixm:uom, CountryUOM, Graph ); rdf( CountryNode, plain:uom, CountryUOM, Graph ) ),
+          Country=xval(CountryValue,CountryUOM)
         );
         (
-          rdf( CountryNode,aixm:nilReason, NilReason, Graph ),
-          Country=nil(NilReason)
+          rdf( CountryNode,aixm:nilReason, CountryNilReason, Graph ),
+          Country=nil(CountryNilReason)
         );
         (
-          rdf( CountryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Country=indeterminate(Indeterminate)
+          rdf( CountryNode,gml:indeterminatePosition, CountryIndeterminate, Graph ),
+          Country=indeterminate(CountryIndeterminate)
         )
       )
   ) .
@@ -9471,16 +9473,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( DangerousGoodsQuantityNode,rdf:value,DangerousGoodsQuantityValue,Graph ),
-          ( rdf( DangerousGoodsQuantityNode, aixm:uom, UOM, Graph ); rdf( DangerousGoodsQuantityNode, fixm:uom, UOM, Graph ); rdf( DangerousGoodsQuantityNode, plain:uom, UOM, Graph ) ),
-          DangerousGoodsQuantity=xval(DangerousGoodsQuantityValue,UOM)
+          ( rdf( DangerousGoodsQuantityNode, aixm:uom, DangerousGoodsQuantityUOM, Graph ); rdf( DangerousGoodsQuantityNode, fixm:uom, DangerousGoodsQuantityUOM, Graph ); rdf( DangerousGoodsQuantityNode, plain:uom, DangerousGoodsQuantityUOM, Graph ) ),
+          DangerousGoodsQuantity=xval(DangerousGoodsQuantityValue,DangerousGoodsQuantityUOM)
         );
         (
-          rdf( DangerousGoodsQuantityNode,aixm:nilReason, NilReason, Graph ),
-          DangerousGoodsQuantity=nil(NilReason)
+          rdf( DangerousGoodsQuantityNode,aixm:nilReason, DangerousGoodsQuantityNilReason, Graph ),
+          DangerousGoodsQuantity=nil(DangerousGoodsQuantityNilReason)
         );
         (
-          rdf( DangerousGoodsQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DangerousGoodsQuantity=indeterminate(Indeterminate)
+          rdf( DangerousGoodsQuantityNode,gml:indeterminatePosition, DangerousGoodsQuantityIndeterminate, Graph ),
+          DangerousGoodsQuantity=indeterminate(DangerousGoodsQuantityIndeterminate)
         )
       )
   )
@@ -9500,16 +9502,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( PackingInstructionNumberNode,rdf:value,PackingInstructionNumberValue,Graph ),
-          ( rdf( PackingInstructionNumberNode, aixm:uom, UOM, Graph ); rdf( PackingInstructionNumberNode, fixm:uom, UOM, Graph ); rdf( PackingInstructionNumberNode, plain:uom, UOM, Graph ) ),
-          PackingInstructionNumber=xval(PackingInstructionNumberValue,UOM)
+          ( rdf( PackingInstructionNumberNode, aixm:uom, PackingInstructionNumberUOM, Graph ); rdf( PackingInstructionNumberNode, fixm:uom, PackingInstructionNumberUOM, Graph ); rdf( PackingInstructionNumberNode, plain:uom, PackingInstructionNumberUOM, Graph ) ),
+          PackingInstructionNumber=xval(PackingInstructionNumberValue,PackingInstructionNumberUOM)
         );
         (
-          rdf( PackingInstructionNumberNode,aixm:nilReason, NilReason, Graph ),
-          PackingInstructionNumber=nil(NilReason)
+          rdf( PackingInstructionNumberNode,aixm:nilReason, PackingInstructionNumberNilReason, Graph ),
+          PackingInstructionNumber=nil(PackingInstructionNumberNilReason)
         );
         (
-          rdf( PackingInstructionNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PackingInstructionNumber=indeterminate(Indeterminate)
+          rdf( PackingInstructionNumberNode,gml:indeterminatePosition, PackingInstructionNumberIndeterminate, Graph ),
+          PackingInstructionNumber=indeterminate(PackingInstructionNumberIndeterminate)
         )
       )
   )
@@ -9526,16 +9528,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( ProductNameNode,rdf:value,ProductNameValue,Graph ),
-          ( rdf( ProductNameNode, aixm:uom, UOM, Graph ); rdf( ProductNameNode, fixm:uom, UOM, Graph ); rdf( ProductNameNode, plain:uom, UOM, Graph ) ),
-          ProductName=xval(ProductNameValue,UOM)
+          ( rdf( ProductNameNode, aixm:uom, ProductNameUOM, Graph ); rdf( ProductNameNode, fixm:uom, ProductNameUOM, Graph ); rdf( ProductNameNode, plain:uom, ProductNameUOM, Graph ) ),
+          ProductName=xval(ProductNameValue,ProductNameUOM)
         );
         (
-          rdf( ProductNameNode,aixm:nilReason, NilReason, Graph ),
-          ProductName=nil(NilReason)
+          rdf( ProductNameNode,aixm:nilReason, ProductNameNilReason, Graph ),
+          ProductName=nil(ProductNameNilReason)
         );
         (
-          rdf( ProductNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ProductName=indeterminate(Indeterminate)
+          rdf( ProductNameNode,gml:indeterminatePosition, ProductNameIndeterminate, Graph ),
+          ProductName=indeterminate(ProductNameIndeterminate)
         )
       )
   )
@@ -9552,16 +9554,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( ProperShippingNameNode,rdf:value,ProperShippingNameValue,Graph ),
-          ( rdf( ProperShippingNameNode, aixm:uom, UOM, Graph ); rdf( ProperShippingNameNode, fixm:uom, UOM, Graph ); rdf( ProperShippingNameNode, plain:uom, UOM, Graph ) ),
-          ProperShippingName=xval(ProperShippingNameValue,UOM)
+          ( rdf( ProperShippingNameNode, aixm:uom, ProperShippingNameUOM, Graph ); rdf( ProperShippingNameNode, fixm:uom, ProperShippingNameUOM, Graph ); rdf( ProperShippingNameNode, plain:uom, ProperShippingNameUOM, Graph ) ),
+          ProperShippingName=xval(ProperShippingNameValue,ProperShippingNameUOM)
         );
         (
-          rdf( ProperShippingNameNode,aixm:nilReason, NilReason, Graph ),
-          ProperShippingName=nil(NilReason)
+          rdf( ProperShippingNameNode,aixm:nilReason, ProperShippingNameNilReason, Graph ),
+          ProperShippingName=nil(ProperShippingNameNilReason)
         );
         (
-          rdf( ProperShippingNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ProperShippingName=indeterminate(Indeterminate)
+          rdf( ProperShippingNameNode,gml:indeterminatePosition, ProperShippingNameIndeterminate, Graph ),
+          ProperShippingName=indeterminate(ProperShippingNameIndeterminate)
         )
       )
   )
@@ -9578,16 +9580,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( ReportableQuantityNode,rdf:value,ReportableQuantityValue,Graph ),
-          ( rdf( ReportableQuantityNode, aixm:uom, UOM, Graph ); rdf( ReportableQuantityNode, fixm:uom, UOM, Graph ); rdf( ReportableQuantityNode, plain:uom, UOM, Graph ) ),
-          ReportableQuantity=xval(ReportableQuantityValue,UOM)
+          ( rdf( ReportableQuantityNode, aixm:uom, ReportableQuantityUOM, Graph ); rdf( ReportableQuantityNode, fixm:uom, ReportableQuantityUOM, Graph ); rdf( ReportableQuantityNode, plain:uom, ReportableQuantityUOM, Graph ) ),
+          ReportableQuantity=xval(ReportableQuantityValue,ReportableQuantityUOM)
         );
         (
-          rdf( ReportableQuantityNode,aixm:nilReason, NilReason, Graph ),
-          ReportableQuantity=nil(NilReason)
+          rdf( ReportableQuantityNode,aixm:nilReason, ReportableQuantityNilReason, Graph ),
+          ReportableQuantity=nil(ReportableQuantityNilReason)
         );
         (
-          rdf( ReportableQuantityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReportableQuantity=indeterminate(Indeterminate)
+          rdf( ReportableQuantityNode,gml:indeterminatePosition, ReportableQuantityIndeterminate, Graph ),
+          ReportableQuantity=indeterminate(ReportableQuantityIndeterminate)
         )
       )
   )
@@ -9604,16 +9606,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( SupplementaryInformationNode,rdf:value,SupplementaryInformationValue,Graph ),
-          ( rdf( SupplementaryInformationNode, aixm:uom, UOM, Graph ); rdf( SupplementaryInformationNode, fixm:uom, UOM, Graph ); rdf( SupplementaryInformationNode, plain:uom, UOM, Graph ) ),
-          SupplementaryInformation=xval(SupplementaryInformationValue,UOM)
+          ( rdf( SupplementaryInformationNode, aixm:uom, SupplementaryInformationUOM, Graph ); rdf( SupplementaryInformationNode, fixm:uom, SupplementaryInformationUOM, Graph ); rdf( SupplementaryInformationNode, plain:uom, SupplementaryInformationUOM, Graph ) ),
+          SupplementaryInformation=xval(SupplementaryInformationValue,SupplementaryInformationUOM)
         );
         (
-          rdf( SupplementaryInformationNode,aixm:nilReason, NilReason, Graph ),
-          SupplementaryInformation=nil(NilReason)
+          rdf( SupplementaryInformationNode,aixm:nilReason, SupplementaryInformationNilReason, Graph ),
+          SupplementaryInformation=nil(SupplementaryInformationNilReason)
         );
         (
-          rdf( SupplementaryInformationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SupplementaryInformation=indeterminate(Indeterminate)
+          rdf( SupplementaryInformationNode,gml:indeterminatePosition, SupplementaryInformationIndeterminate, Graph ),
+          SupplementaryInformation=indeterminate(SupplementaryInformationIndeterminate)
         )
       )
   )
@@ -9630,16 +9632,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( TechnicalNameNode,rdf:value,TechnicalNameValue,Graph ),
-          ( rdf( TechnicalNameNode, aixm:uom, UOM, Graph ); rdf( TechnicalNameNode, fixm:uom, UOM, Graph ); rdf( TechnicalNameNode, plain:uom, UOM, Graph ) ),
-          TechnicalName=xval(TechnicalNameValue,UOM)
+          ( rdf( TechnicalNameNode, aixm:uom, TechnicalNameUOM, Graph ); rdf( TechnicalNameNode, fixm:uom, TechnicalNameUOM, Graph ); rdf( TechnicalNameNode, plain:uom, TechnicalNameUOM, Graph ) ),
+          TechnicalName=xval(TechnicalNameValue,TechnicalNameUOM)
         );
         (
-          rdf( TechnicalNameNode,aixm:nilReason, NilReason, Graph ),
-          TechnicalName=nil(NilReason)
+          rdf( TechnicalNameNode,aixm:nilReason, TechnicalNameNilReason, Graph ),
+          TechnicalName=nil(TechnicalNameNilReason)
         );
         (
-          rdf( TechnicalNameNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TechnicalName=indeterminate(Indeterminate)
+          rdf( TechnicalNameNode,gml:indeterminatePosition, TechnicalNameIndeterminate, Graph ),
+          TechnicalName=indeterminate(TechnicalNameIndeterminate)
         )
       )
   )
@@ -9656,16 +9658,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( TypeOfPackagingNode,rdf:value,TypeOfPackagingValue,Graph ),
-          ( rdf( TypeOfPackagingNode, aixm:uom, UOM, Graph ); rdf( TypeOfPackagingNode, fixm:uom, UOM, Graph ); rdf( TypeOfPackagingNode, plain:uom, UOM, Graph ) ),
-          TypeOfPackaging=xval(TypeOfPackagingValue,UOM)
+          ( rdf( TypeOfPackagingNode, aixm:uom, TypeOfPackagingUOM, Graph ); rdf( TypeOfPackagingNode, fixm:uom, TypeOfPackagingUOM, Graph ); rdf( TypeOfPackagingNode, plain:uom, TypeOfPackagingUOM, Graph ) ),
+          TypeOfPackaging=xval(TypeOfPackagingValue,TypeOfPackagingUOM)
         );
         (
-          rdf( TypeOfPackagingNode,aixm:nilReason, NilReason, Graph ),
-          TypeOfPackaging=nil(NilReason)
+          rdf( TypeOfPackagingNode,aixm:nilReason, TypeOfPackagingNilReason, Graph ),
+          TypeOfPackaging=nil(TypeOfPackagingNilReason)
         );
         (
-          rdf( TypeOfPackagingNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TypeOfPackaging=indeterminate(Indeterminate)
+          rdf( TypeOfPackagingNode,gml:indeterminatePosition, TypeOfPackagingIndeterminate, Graph ),
+          TypeOfPackaging=indeterminate(TypeOfPackagingIndeterminate)
         )
       )
   )
@@ -9682,16 +9684,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( UnNumberNode,rdf:value,UnNumberValue,Graph ),
-          ( rdf( UnNumberNode, aixm:uom, UOM, Graph ); rdf( UnNumberNode, fixm:uom, UOM, Graph ); rdf( UnNumberNode, plain:uom, UOM, Graph ) ),
-          UnNumber=xval(UnNumberValue,UOM)
+          ( rdf( UnNumberNode, aixm:uom, UnNumberUOM, Graph ); rdf( UnNumberNode, fixm:uom, UnNumberUOM, Graph ); rdf( UnNumberNode, plain:uom, UnNumberUOM, Graph ) ),
+          UnNumber=xval(UnNumberValue,UnNumberUOM)
         );
         (
-          rdf( UnNumberNode,aixm:nilReason, NilReason, Graph ),
-          UnNumber=nil(NilReason)
+          rdf( UnNumberNode,aixm:nilReason, UnNumberNilReason, Graph ),
+          UnNumber=nil(UnNumberNilReason)
         );
         (
-          rdf( UnNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          UnNumber=indeterminate(Indeterminate)
+          rdf( UnNumberNode,gml:indeterminatePosition, UnNumberIndeterminate, Graph ),
+          UnNumber=indeterminate(UnNumberIndeterminate)
         )
       )
   )
@@ -9708,16 +9710,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( DangerousGoodsLimitationNode,rdf:value,DangerousGoodsLimitationValue,Graph ),
-          ( rdf( DangerousGoodsLimitationNode, aixm:uom, UOM, Graph ); rdf( DangerousGoodsLimitationNode, fixm:uom, UOM, Graph ); rdf( DangerousGoodsLimitationNode, plain:uom, UOM, Graph ) ),
-          DangerousGoodsLimitation=xval(DangerousGoodsLimitationValue,UOM)
+          ( rdf( DangerousGoodsLimitationNode, aixm:uom, DangerousGoodsLimitationUOM, Graph ); rdf( DangerousGoodsLimitationNode, fixm:uom, DangerousGoodsLimitationUOM, Graph ); rdf( DangerousGoodsLimitationNode, plain:uom, DangerousGoodsLimitationUOM, Graph ) ),
+          DangerousGoodsLimitation=xval(DangerousGoodsLimitationValue,DangerousGoodsLimitationUOM)
         );
         (
-          rdf( DangerousGoodsLimitationNode,aixm:nilReason, NilReason, Graph ),
-          DangerousGoodsLimitation=nil(NilReason)
+          rdf( DangerousGoodsLimitationNode,aixm:nilReason, DangerousGoodsLimitationNilReason, Graph ),
+          DangerousGoodsLimitation=nil(DangerousGoodsLimitationNilReason)
         );
         (
-          rdf( DangerousGoodsLimitationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DangerousGoodsLimitation=indeterminate(Indeterminate)
+          rdf( DangerousGoodsLimitationNode,gml:indeterminatePosition, DangerousGoodsLimitationIndeterminate, Graph ),
+          DangerousGoodsLimitation=indeterminate(DangerousGoodsLimitationIndeterminate)
         )
       )
   )
@@ -9734,16 +9736,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( ShipmentTypeNode,rdf:value,ShipmentTypeValue,Graph ),
-          ( rdf( ShipmentTypeNode, aixm:uom, UOM, Graph ); rdf( ShipmentTypeNode, fixm:uom, UOM, Graph ); rdf( ShipmentTypeNode, plain:uom, UOM, Graph ) ),
-          ShipmentType=xval(ShipmentTypeValue,UOM)
+          ( rdf( ShipmentTypeNode, aixm:uom, ShipmentTypeUOM, Graph ); rdf( ShipmentTypeNode, fixm:uom, ShipmentTypeUOM, Graph ); rdf( ShipmentTypeNode, plain:uom, ShipmentTypeUOM, Graph ) ),
+          ShipmentType=xval(ShipmentTypeValue,ShipmentTypeUOM)
         );
         (
-          rdf( ShipmentTypeNode,aixm:nilReason, NilReason, Graph ),
-          ShipmentType=nil(NilReason)
+          rdf( ShipmentTypeNode,aixm:nilReason, ShipmentTypeNilReason, Graph ),
+          ShipmentType=nil(ShipmentTypeNilReason)
         );
         (
-          rdf( ShipmentTypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ShipmentType=indeterminate(Indeterminate)
+          rdf( ShipmentTypeNode,gml:indeterminatePosition, ShipmentTypeIndeterminate, Graph ),
+          ShipmentType=indeterminate(ShipmentTypeIndeterminate)
         )
       )
   )
@@ -9763,16 +9765,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( CompatibilityGroupNode,rdf:value,CompatibilityGroupValue,Graph ),
-          ( rdf( CompatibilityGroupNode, aixm:uom, UOM, Graph ); rdf( CompatibilityGroupNode, fixm:uom, UOM, Graph ); rdf( CompatibilityGroupNode, plain:uom, UOM, Graph ) ),
-          CompatibilityGroup=xval(CompatibilityGroupValue,UOM)
+          ( rdf( CompatibilityGroupNode, aixm:uom, CompatibilityGroupUOM, Graph ); rdf( CompatibilityGroupNode, fixm:uom, CompatibilityGroupUOM, Graph ); rdf( CompatibilityGroupNode, plain:uom, CompatibilityGroupUOM, Graph ) ),
+          CompatibilityGroup=xval(CompatibilityGroupValue,CompatibilityGroupUOM)
         );
         (
-          rdf( CompatibilityGroupNode,aixm:nilReason, NilReason, Graph ),
-          CompatibilityGroup=nil(NilReason)
+          rdf( CompatibilityGroupNode,aixm:nilReason, CompatibilityGroupNilReason, Graph ),
+          CompatibilityGroup=nil(CompatibilityGroupNilReason)
         );
         (
-          rdf( CompatibilityGroupNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CompatibilityGroup=indeterminate(Indeterminate)
+          rdf( CompatibilityGroupNode,gml:indeterminatePosition, CompatibilityGroupIndeterminate, Graph ),
+          CompatibilityGroup=indeterminate(CompatibilityGroupIndeterminate)
         )
       )
   )
@@ -9792,16 +9794,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( MarinePollutantIndicatorNode,rdf:value,MarinePollutantIndicatorValue,Graph ),
-          ( rdf( MarinePollutantIndicatorNode, aixm:uom, UOM, Graph ); rdf( MarinePollutantIndicatorNode, fixm:uom, UOM, Graph ); rdf( MarinePollutantIndicatorNode, plain:uom, UOM, Graph ) ),
-          MarinePollutantIndicator=xval(MarinePollutantIndicatorValue,UOM)
+          ( rdf( MarinePollutantIndicatorNode, aixm:uom, MarinePollutantIndicatorUOM, Graph ); rdf( MarinePollutantIndicatorNode, fixm:uom, MarinePollutantIndicatorUOM, Graph ); rdf( MarinePollutantIndicatorNode, plain:uom, MarinePollutantIndicatorUOM, Graph ) ),
+          MarinePollutantIndicator=xval(MarinePollutantIndicatorValue,MarinePollutantIndicatorUOM)
         );
         (
-          rdf( MarinePollutantIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          MarinePollutantIndicator=nil(NilReason)
+          rdf( MarinePollutantIndicatorNode,aixm:nilReason, MarinePollutantIndicatorNilReason, Graph ),
+          MarinePollutantIndicator=nil(MarinePollutantIndicatorNilReason)
         );
         (
-          rdf( MarinePollutantIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          MarinePollutantIndicator=indeterminate(Indeterminate)
+          rdf( MarinePollutantIndicatorNode,gml:indeterminatePosition, MarinePollutantIndicatorIndeterminate, Graph ),
+          MarinePollutantIndicator=indeterminate(MarinePollutantIndicatorIndeterminate)
         )
       )
   )
@@ -9821,16 +9823,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( HazardClassNode,rdf:value,HazardClassValue,Graph ),
-          ( rdf( HazardClassNode, aixm:uom, UOM, Graph ); rdf( HazardClassNode, fixm:uom, UOM, Graph ); rdf( HazardClassNode, plain:uom, UOM, Graph ) ),
-          HazardClass=xval(HazardClassValue,UOM)
+          ( rdf( HazardClassNode, aixm:uom, HazardClassUOM, Graph ); rdf( HazardClassNode, fixm:uom, HazardClassUOM, Graph ); rdf( HazardClassNode, plain:uom, HazardClassUOM, Graph ) ),
+          HazardClass=xval(HazardClassValue,HazardClassUOM)
         );
         (
-          rdf( HazardClassNode,aixm:nilReason, NilReason, Graph ),
-          HazardClass=nil(NilReason)
+          rdf( HazardClassNode,aixm:nilReason, HazardClassNilReason, Graph ),
+          HazardClass=nil(HazardClassNilReason)
         );
         (
-          rdf( HazardClassNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          HazardClass=indeterminate(Indeterminate)
+          rdf( HazardClassNode,gml:indeterminatePosition, HazardClassIndeterminate, Graph ),
+          HazardClass=indeterminate(HazardClassIndeterminate)
         )
       )
   )
@@ -9847,16 +9849,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( PackingGroupNode,rdf:value,PackingGroupValue,Graph ),
-          ( rdf( PackingGroupNode, aixm:uom, UOM, Graph ); rdf( PackingGroupNode, fixm:uom, UOM, Graph ); rdf( PackingGroupNode, plain:uom, UOM, Graph ) ),
-          PackingGroup=xval(PackingGroupValue,UOM)
+          ( rdf( PackingGroupNode, aixm:uom, PackingGroupUOM, Graph ); rdf( PackingGroupNode, fixm:uom, PackingGroupUOM, Graph ); rdf( PackingGroupNode, plain:uom, PackingGroupUOM, Graph ) ),
+          PackingGroup=xval(PackingGroupValue,PackingGroupUOM)
         );
         (
-          rdf( PackingGroupNode,aixm:nilReason, NilReason, Graph ),
-          PackingGroup=nil(NilReason)
+          rdf( PackingGroupNode,aixm:nilReason, PackingGroupNilReason, Graph ),
+          PackingGroup=nil(PackingGroupNilReason)
         );
         (
-          rdf( PackingGroupNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PackingGroup=indeterminate(Indeterminate)
+          rdf( PackingGroupNode,gml:indeterminatePosition, PackingGroupIndeterminate, Graph ),
+          PackingGroup=indeterminate(PackingGroupIndeterminate)
         )
       )
   )
@@ -9876,16 +9878,16 @@ fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity,
         );
         (
           rdf( OverpackIndicatorNode,rdf:value,OverpackIndicatorValue,Graph ),
-          ( rdf( OverpackIndicatorNode, aixm:uom, UOM, Graph ); rdf( OverpackIndicatorNode, fixm:uom, UOM, Graph ); rdf( OverpackIndicatorNode, plain:uom, UOM, Graph ) ),
-          OverpackIndicator=xval(OverpackIndicatorValue,UOM)
+          ( rdf( OverpackIndicatorNode, aixm:uom, OverpackIndicatorUOM, Graph ); rdf( OverpackIndicatorNode, fixm:uom, OverpackIndicatorUOM, Graph ); rdf( OverpackIndicatorNode, plain:uom, OverpackIndicatorUOM, Graph ) ),
+          OverpackIndicator=xval(OverpackIndicatorValue,OverpackIndicatorUOM)
         );
         (
-          rdf( OverpackIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          OverpackIndicator=nil(NilReason)
+          rdf( OverpackIndicatorNode,aixm:nilReason, OverpackIndicatorNilReason, Graph ),
+          OverpackIndicator=nil(OverpackIndicatorNilReason)
         );
         (
-          rdf( OverpackIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OverpackIndicator=indeterminate(Indeterminate)
+          rdf( OverpackIndicatorNode,gml:indeterminatePosition, OverpackIndicatorIndeterminate, Graph ),
+          OverpackIndicator=indeterminate(OverpackIndicatorIndeterminate)
         )
       )
   )
@@ -9906,16 +9908,16 @@ fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod, Position
         );
         (
           rdf( DeterminationMethodNode,rdf:value,DeterminationMethodValue,Graph ),
-          ( rdf( DeterminationMethodNode, aixm:uom, UOM, Graph ); rdf( DeterminationMethodNode, fixm:uom, UOM, Graph ); rdf( DeterminationMethodNode, plain:uom, UOM, Graph ) ),
-          DeterminationMethod=xval(DeterminationMethodValue,UOM)
+          ( rdf( DeterminationMethodNode, aixm:uom, DeterminationMethodUOM, Graph ); rdf( DeterminationMethodNode, fixm:uom, DeterminationMethodUOM, Graph ); rdf( DeterminationMethodNode, plain:uom, DeterminationMethodUOM, Graph ) ),
+          DeterminationMethod=xval(DeterminationMethodValue,DeterminationMethodUOM)
         );
         (
-          rdf( DeterminationMethodNode,aixm:nilReason, NilReason, Graph ),
-          DeterminationMethod=nil(NilReason)
+          rdf( DeterminationMethodNode,aixm:nilReason, DeterminationMethodNilReason, Graph ),
+          DeterminationMethod=nil(DeterminationMethodNilReason)
         );
         (
-          rdf( DeterminationMethodNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DeterminationMethod=indeterminate(Indeterminate)
+          rdf( DeterminationMethodNode,gml:indeterminatePosition, DeterminationMethodIndeterminate, Graph ),
+          DeterminationMethod=indeterminate(DeterminationMethodIndeterminate)
         )
       )
   )
@@ -9935,16 +9937,16 @@ fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod, Position
         );
         (
           rdf( TimeAtPositionNode,rdf:value,TimeAtPositionValue,Graph ),
-          ( rdf( TimeAtPositionNode, aixm:uom, UOM, Graph ); rdf( TimeAtPositionNode, fixm:uom, UOM, Graph ); rdf( TimeAtPositionNode, plain:uom, UOM, Graph ) ),
-          TimeAtPosition=xval(TimeAtPositionValue,UOM)
+          ( rdf( TimeAtPositionNode, aixm:uom, TimeAtPositionUOM, Graph ); rdf( TimeAtPositionNode, fixm:uom, TimeAtPositionUOM, Graph ); rdf( TimeAtPositionNode, plain:uom, TimeAtPositionUOM, Graph ) ),
+          TimeAtPosition=xval(TimeAtPositionValue,TimeAtPositionUOM)
         );
         (
-          rdf( TimeAtPositionNode,aixm:nilReason, NilReason, Graph ),
-          TimeAtPosition=nil(NilReason)
+          rdf( TimeAtPositionNode,aixm:nilReason, TimeAtPositionNilReason, Graph ),
+          TimeAtPosition=nil(TimeAtPositionNilReason)
         );
         (
-          rdf( TimeAtPositionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TimeAtPosition=indeterminate(Indeterminate)
+          rdf( TimeAtPositionNode,gml:indeterminatePosition, TimeAtPositionIndeterminate, Graph ),
+          TimeAtPosition=indeterminate(TimeAtPositionIndeterminate)
         )
       )
   ) .
@@ -9964,16 +9966,16 @@ aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus) :-
         );
         (
           rdf( OperationalStatusNode,rdf:value,OperationalStatusValue,Graph ),
-          ( rdf( OperationalStatusNode, aixm:uom, UOM, Graph ); rdf( OperationalStatusNode, fixm:uom, UOM, Graph ); rdf( OperationalStatusNode, plain:uom, UOM, Graph ) ),
-          OperationalStatus=xval(OperationalStatusValue,UOM)
+          ( rdf( OperationalStatusNode, aixm:uom, OperationalStatusUOM, Graph ); rdf( OperationalStatusNode, fixm:uom, OperationalStatusUOM, Graph ); rdf( OperationalStatusNode, plain:uom, OperationalStatusUOM, Graph ) ),
+          OperationalStatus=xval(OperationalStatusValue,OperationalStatusUOM)
         );
         (
-          rdf( OperationalStatusNode,aixm:nilReason, NilReason, Graph ),
-          OperationalStatus=nil(NilReason)
+          rdf( OperationalStatusNode,aixm:nilReason, OperationalStatusNilReason, Graph ),
+          OperationalStatus=nil(OperationalStatusNilReason)
         );
         (
-          rdf( OperationalStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OperationalStatus=indeterminate(Indeterminate)
+          rdf( OperationalStatusNode,gml:indeterminatePosition, OperationalStatusIndeterminate, Graph ),
+          OperationalStatus=indeterminate(OperationalStatusIndeterminate)
         )
       )
   ) .
@@ -9993,16 +9995,16 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         );
         (
           rdf( GrossWeightNode,rdf:value,GrossWeightValue,Graph ),
-          ( rdf( GrossWeightNode, aixm:uom, UOM, Graph ); rdf( GrossWeightNode, fixm:uom, UOM, Graph ); rdf( GrossWeightNode, plain:uom, UOM, Graph ) ),
-          GrossWeight=xval(GrossWeightValue,UOM)
+          ( rdf( GrossWeightNode, aixm:uom, GrossWeightUOM, Graph ); rdf( GrossWeightNode, fixm:uom, GrossWeightUOM, Graph ); rdf( GrossWeightNode, plain:uom, GrossWeightUOM, Graph ) ),
+          GrossWeight=xval(GrossWeightValue,GrossWeightUOM)
         );
         (
-          rdf( GrossWeightNode,aixm:nilReason, NilReason, Graph ),
-          GrossWeight=nil(NilReason)
+          rdf( GrossWeightNode,aixm:nilReason, GrossWeightNilReason, Graph ),
+          GrossWeight=nil(GrossWeightNilReason)
         );
         (
-          rdf( GrossWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          GrossWeight=indeterminate(Indeterminate)
+          rdf( GrossWeightNode,gml:indeterminatePosition, GrossWeightIndeterminate, Graph ),
+          GrossWeight=indeterminate(GrossWeightIndeterminate)
         )
       )
   )
@@ -10019,16 +10021,16 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         );
         (
           rdf( NetWeightNode,rdf:value,NetWeightValue,Graph ),
-          ( rdf( NetWeightNode, aixm:uom, UOM, Graph ); rdf( NetWeightNode, fixm:uom, UOM, Graph ); rdf( NetWeightNode, plain:uom, UOM, Graph ) ),
-          NetWeight=xval(NetWeightValue,UOM)
+          ( rdf( NetWeightNode, aixm:uom, NetWeightUOM, Graph ); rdf( NetWeightNode, fixm:uom, NetWeightUOM, Graph ); rdf( NetWeightNode, plain:uom, NetWeightUOM, Graph ) ),
+          NetWeight=xval(NetWeightValue,NetWeightUOM)
         );
         (
-          rdf( NetWeightNode,aixm:nilReason, NilReason, Graph ),
-          NetWeight=nil(NilReason)
+          rdf( NetWeightNode,aixm:nilReason, NetWeightNilReason, Graph ),
+          NetWeight=nil(NetWeightNilReason)
         );
         (
-          rdf( NetWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NetWeight=indeterminate(Indeterminate)
+          rdf( NetWeightNode,gml:indeterminatePosition, NetWeightIndeterminate, Graph ),
+          NetWeight=indeterminate(NetWeightIndeterminate)
         )
       )
   )
@@ -10045,16 +10047,16 @@ fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight, NetW
         );
         (
           rdf( VolumeNode,rdf:value,VolumeValue,Graph ),
-          ( rdf( VolumeNode, aixm:uom, UOM, Graph ); rdf( VolumeNode, fixm:uom, UOM, Graph ); rdf( VolumeNode, plain:uom, UOM, Graph ) ),
-          Volume=xval(VolumeValue,UOM)
+          ( rdf( VolumeNode, aixm:uom, VolumeUOM, Graph ); rdf( VolumeNode, fixm:uom, VolumeUOM, Graph ); rdf( VolumeNode, plain:uom, VolumeUOM, Graph ) ),
+          Volume=xval(VolumeValue,VolumeUOM)
         );
         (
-          rdf( VolumeNode,aixm:nilReason, NilReason, Graph ),
-          Volume=nil(NilReason)
+          rdf( VolumeNode,aixm:nilReason, VolumeNilReason, Graph ),
+          Volume=nil(VolumeNilReason)
         );
         (
-          rdf( VolumeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Volume=indeterminate(Indeterminate)
+          rdf( VolumeNode,gml:indeterminatePosition, VolumeIndeterminate, Graph ),
+          Volume=indeterminate(VolumeIndeterminate)
         )
       )
   ) .
@@ -10074,16 +10076,16 @@ fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules) :-
         );
         (
           rdf( EfplFlightRulesNode,rdf:value,EfplFlightRulesValue,Graph ),
-          ( rdf( EfplFlightRulesNode, aixm:uom, UOM, Graph ); rdf( EfplFlightRulesNode, fixm:uom, UOM, Graph ); rdf( EfplFlightRulesNode, plain:uom, UOM, Graph ) ),
-          EfplFlightRules=xval(EfplFlightRulesValue,UOM)
+          ( rdf( EfplFlightRulesNode, aixm:uom, EfplFlightRulesUOM, Graph ); rdf( EfplFlightRulesNode, fixm:uom, EfplFlightRulesUOM, Graph ); rdf( EfplFlightRulesNode, plain:uom, EfplFlightRulesUOM, Graph ) ),
+          EfplFlightRules=xval(EfplFlightRulesValue,EfplFlightRulesUOM)
         );
         (
-          rdf( EfplFlightRulesNode,aixm:nilReason, NilReason, Graph ),
-          EfplFlightRules=nil(NilReason)
+          rdf( EfplFlightRulesNode,aixm:nilReason, EfplFlightRulesNilReason, Graph ),
+          EfplFlightRules=nil(EfplFlightRulesNilReason)
         );
         (
-          rdf( EfplFlightRulesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EfplFlightRules=indeterminate(Indeterminate)
+          rdf( EfplFlightRulesNode,gml:indeterminatePosition, EfplFlightRulesIndeterminate, Graph ),
+          EfplFlightRules=indeterminate(EfplFlightRulesIndeterminate)
         )
       )
   ) .
@@ -10103,16 +10105,16 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         );
         (
           rdf( AbrogationReasonNode,rdf:value,AbrogationReasonValue,Graph ),
-          ( rdf( AbrogationReasonNode, aixm:uom, UOM, Graph ); rdf( AbrogationReasonNode, fixm:uom, UOM, Graph ); rdf( AbrogationReasonNode, plain:uom, UOM, Graph ) ),
-          AbrogationReason=xval(AbrogationReasonValue,UOM)
+          ( rdf( AbrogationReasonNode, aixm:uom, AbrogationReasonUOM, Graph ); rdf( AbrogationReasonNode, fixm:uom, AbrogationReasonUOM, Graph ); rdf( AbrogationReasonNode, plain:uom, AbrogationReasonUOM, Graph ) ),
+          AbrogationReason=xval(AbrogationReasonValue,AbrogationReasonUOM)
         );
         (
-          rdf( AbrogationReasonNode,aixm:nilReason, NilReason, Graph ),
-          AbrogationReason=nil(NilReason)
+          rdf( AbrogationReasonNode,aixm:nilReason, AbrogationReasonNilReason, Graph ),
+          AbrogationReason=nil(AbrogationReasonNilReason)
         );
         (
-          rdf( AbrogationReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AbrogationReason=indeterminate(Indeterminate)
+          rdf( AbrogationReasonNode,gml:indeterminatePosition, AbrogationReasonIndeterminate, Graph ),
+          AbrogationReason=indeterminate(AbrogationReasonIndeterminate)
         )
       )
   )
@@ -10129,16 +10131,16 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         );
         (
           rdf( CoordinationStatusNode,rdf:value,CoordinationStatusValue,Graph ),
-          ( rdf( CoordinationStatusNode, aixm:uom, UOM, Graph ); rdf( CoordinationStatusNode, fixm:uom, UOM, Graph ); rdf( CoordinationStatusNode, plain:uom, UOM, Graph ) ),
-          CoordinationStatus=xval(CoordinationStatusValue,UOM)
+          ( rdf( CoordinationStatusNode, aixm:uom, CoordinationStatusUOM, Graph ); rdf( CoordinationStatusNode, fixm:uom, CoordinationStatusUOM, Graph ); rdf( CoordinationStatusNode, plain:uom, CoordinationStatusUOM, Graph ) ),
+          CoordinationStatus=xval(CoordinationStatusValue,CoordinationStatusUOM)
         );
         (
-          rdf( CoordinationStatusNode,aixm:nilReason, NilReason, Graph ),
-          CoordinationStatus=nil(NilReason)
+          rdf( CoordinationStatusNode,aixm:nilReason, CoordinationStatusNilReason, Graph ),
+          CoordinationStatus=nil(CoordinationStatusNilReason)
         );
         (
-          rdf( CoordinationStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CoordinationStatus=indeterminate(Indeterminate)
+          rdf( CoordinationStatusNode,gml:indeterminatePosition, CoordinationStatusIndeterminate, Graph ),
+          CoordinationStatus=indeterminate(CoordinationStatusIndeterminate)
         )
       )
   )
@@ -10155,16 +10157,16 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         );
         (
           rdf( NonStandardCommunicationReasonNode,rdf:value,NonStandardCommunicationReasonValue,Graph ),
-          ( rdf( NonStandardCommunicationReasonNode, aixm:uom, UOM, Graph ); rdf( NonStandardCommunicationReasonNode, fixm:uom, UOM, Graph ); rdf( NonStandardCommunicationReasonNode, plain:uom, UOM, Graph ) ),
-          NonStandardCommunicationReason=xval(NonStandardCommunicationReasonValue,UOM)
+          ( rdf( NonStandardCommunicationReasonNode, aixm:uom, NonStandardCommunicationReasonUOM, Graph ); rdf( NonStandardCommunicationReasonNode, fixm:uom, NonStandardCommunicationReasonUOM, Graph ); rdf( NonStandardCommunicationReasonNode, plain:uom, NonStandardCommunicationReasonUOM, Graph ) ),
+          NonStandardCommunicationReason=xval(NonStandardCommunicationReasonValue,NonStandardCommunicationReasonUOM)
         );
         (
-          rdf( NonStandardCommunicationReasonNode,aixm:nilReason, NilReason, Graph ),
-          NonStandardCommunicationReason=nil(NilReason)
+          rdf( NonStandardCommunicationReasonNode,aixm:nilReason, NonStandardCommunicationReasonNilReason, Graph ),
+          NonStandardCommunicationReason=nil(NonStandardCommunicationReasonNilReason)
         );
         (
-          rdf( NonStandardCommunicationReasonNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NonStandardCommunicationReason=indeterminate(Indeterminate)
+          rdf( NonStandardCommunicationReasonNode,gml:indeterminatePosition, NonStandardCommunicationReasonIndeterminate, Graph ),
+          NonStandardCommunicationReason=indeterminate(NonStandardCommunicationReasonIndeterminate)
         )
       )
   )
@@ -10181,16 +10183,16 @@ fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason, Coordinatio
         );
         (
           rdf( ReleaseConditionsNode,rdf:value,ReleaseConditionsValue,Graph ),
-          ( rdf( ReleaseConditionsNode, aixm:uom, UOM, Graph ); rdf( ReleaseConditionsNode, fixm:uom, UOM, Graph ); rdf( ReleaseConditionsNode, plain:uom, UOM, Graph ) ),
-          ReleaseConditions=xval(ReleaseConditionsValue,UOM)
+          ( rdf( ReleaseConditionsNode, aixm:uom, ReleaseConditionsUOM, Graph ); rdf( ReleaseConditionsNode, fixm:uom, ReleaseConditionsUOM, Graph ); rdf( ReleaseConditionsNode, plain:uom, ReleaseConditionsUOM, Graph ) ),
+          ReleaseConditions=xval(ReleaseConditionsValue,ReleaseConditionsUOM)
         );
         (
-          rdf( ReleaseConditionsNode,aixm:nilReason, NilReason, Graph ),
-          ReleaseConditions=nil(NilReason)
+          rdf( ReleaseConditionsNode,aixm:nilReason, ReleaseConditionsNilReason, Graph ),
+          ReleaseConditions=nil(ReleaseConditionsNilReason)
         );
         (
-          rdf( ReleaseConditionsNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ReleaseConditions=indeterminate(Indeterminate)
+          rdf( ReleaseConditionsNode,gml:indeterminatePosition, ReleaseConditionsIndeterminate, Graph ),
+          ReleaseConditions=indeterminate(ReleaseConditionsIndeterminate)
         )
       )
   ) .
@@ -10210,16 +10212,16 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         );
         (
           rdf( AltitudeNode,rdf:value,AltitudeValue,Graph ),
-          ( rdf( AltitudeNode, aixm:uom, UOM, Graph ); rdf( AltitudeNode, fixm:uom, UOM, Graph ); rdf( AltitudeNode, plain:uom, UOM, Graph ) ),
-          Altitude=xval(AltitudeValue,UOM)
+          ( rdf( AltitudeNode, aixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, fixm:uom, AltitudeUOM, Graph ); rdf( AltitudeNode, plain:uom, AltitudeUOM, Graph ) ),
+          Altitude=xval(AltitudeValue,AltitudeUOM)
         );
         (
-          rdf( AltitudeNode,aixm:nilReason, NilReason, Graph ),
-          Altitude=nil(NilReason)
+          rdf( AltitudeNode,aixm:nilReason, AltitudeNilReason, Graph ),
+          Altitude=nil(AltitudeNilReason)
         );
         (
-          rdf( AltitudeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Altitude=indeterminate(Indeterminate)
+          rdf( AltitudeNode,gml:indeterminatePosition, AltitudeIndeterminate, Graph ),
+          Altitude=indeterminate(AltitudeIndeterminate)
         )
       )
   )
@@ -10239,16 +10241,16 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         );
         (
           rdf( CrossingSpeedNode,rdf:value,CrossingSpeedValue,Graph ),
-          ( rdf( CrossingSpeedNode, aixm:uom, UOM, Graph ); rdf( CrossingSpeedNode, fixm:uom, UOM, Graph ); rdf( CrossingSpeedNode, plain:uom, UOM, Graph ) ),
-          CrossingSpeed=xval(CrossingSpeedValue,UOM)
+          ( rdf( CrossingSpeedNode, aixm:uom, CrossingSpeedUOM, Graph ); rdf( CrossingSpeedNode, fixm:uom, CrossingSpeedUOM, Graph ); rdf( CrossingSpeedNode, plain:uom, CrossingSpeedUOM, Graph ) ),
+          CrossingSpeed=xval(CrossingSpeedValue,CrossingSpeedUOM)
         );
         (
-          rdf( CrossingSpeedNode,aixm:nilReason, NilReason, Graph ),
-          CrossingSpeed=nil(NilReason)
+          rdf( CrossingSpeedNode,aixm:nilReason, CrossingSpeedNilReason, Graph ),
+          CrossingSpeed=nil(CrossingSpeedNilReason)
         );
         (
-          rdf( CrossingSpeedNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CrossingSpeed=indeterminate(Indeterminate)
+          rdf( CrossingSpeedNode,gml:indeterminatePosition, CrossingSpeedIndeterminate, Graph ),
+          CrossingSpeed=indeterminate(CrossingSpeedIndeterminate)
         )
       )
   )
@@ -10265,16 +10267,16 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         );
         (
           rdf( CrossingTimeNode,rdf:value,CrossingTimeValue,Graph ),
-          ( rdf( CrossingTimeNode, aixm:uom, UOM, Graph ); rdf( CrossingTimeNode, fixm:uom, UOM, Graph ); rdf( CrossingTimeNode, plain:uom, UOM, Graph ) ),
-          CrossingTime=xval(CrossingTimeValue,UOM)
+          ( rdf( CrossingTimeNode, aixm:uom, CrossingTimeUOM, Graph ); rdf( CrossingTimeNode, fixm:uom, CrossingTimeUOM, Graph ); rdf( CrossingTimeNode, plain:uom, CrossingTimeUOM, Graph ) ),
+          CrossingTime=xval(CrossingTimeValue,CrossingTimeUOM)
         );
         (
-          rdf( CrossingTimeNode,aixm:nilReason, NilReason, Graph ),
-          CrossingTime=nil(NilReason)
+          rdf( CrossingTimeNode,aixm:nilReason, CrossingTimeNilReason, Graph ),
+          CrossingTime=nil(CrossingTimeNilReason)
         );
         (
-          rdf( CrossingTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CrossingTime=indeterminate(Indeterminate)
+          rdf( CrossingTimeNode,gml:indeterminatePosition, CrossingTimeIndeterminate, Graph ),
+          CrossingTime=indeterminate(CrossingTimeIndeterminate)
         )
       )
   )
@@ -10294,16 +10296,16 @@ fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude, CrossingPoint, Crossing
         );
         (
           rdf( AltitudeInTransitionNode,rdf:value,AltitudeInTransitionValue,Graph ),
-          ( rdf( AltitudeInTransitionNode, aixm:uom, UOM, Graph ); rdf( AltitudeInTransitionNode, fixm:uom, UOM, Graph ); rdf( AltitudeInTransitionNode, plain:uom, UOM, Graph ) ),
-          AltitudeInTransition=xval(AltitudeInTransitionValue,UOM)
+          ( rdf( AltitudeInTransitionNode, aixm:uom, AltitudeInTransitionUOM, Graph ); rdf( AltitudeInTransitionNode, fixm:uom, AltitudeInTransitionUOM, Graph ); rdf( AltitudeInTransitionNode, plain:uom, AltitudeInTransitionUOM, Graph ) ),
+          AltitudeInTransition=xval(AltitudeInTransitionValue,AltitudeInTransitionUOM)
         );
         (
-          rdf( AltitudeInTransitionNode,aixm:nilReason, NilReason, Graph ),
-          AltitudeInTransition=nil(NilReason)
+          rdf( AltitudeInTransitionNode,aixm:nilReason, AltitudeInTransitionNilReason, Graph ),
+          AltitudeInTransition=nil(AltitudeInTransitionNilReason)
         );
         (
-          rdf( AltitudeInTransitionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          AltitudeInTransition=indeterminate(Indeterminate)
+          rdf( AltitudeInTransitionNode,gml:indeterminatePosition, AltitudeInTransitionIndeterminate, Graph ),
+          AltitudeInTransition=indeterminate(AltitudeInTransitionIndeterminate)
         )
       )
   ) .
@@ -10323,16 +10325,16 @@ fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code) :-
         );
         (
           rdf( CodeNode,rdf:value,CodeValue,Graph ),
-          ( rdf( CodeNode, aixm:uom, UOM, Graph ); rdf( CodeNode, fixm:uom, UOM, Graph ); rdf( CodeNode, plain:uom, UOM, Graph ) ),
-          Code=xval(CodeValue,UOM)
+          ( rdf( CodeNode, aixm:uom, CodeUOM, Graph ); rdf( CodeNode, fixm:uom, CodeUOM, Graph ); rdf( CodeNode, plain:uom, CodeUOM, Graph ) ),
+          Code=xval(CodeValue,CodeUOM)
         );
         (
-          rdf( CodeNode,aixm:nilReason, NilReason, Graph ),
-          Code=nil(NilReason)
+          rdf( CodeNode,aixm:nilReason, CodeNilReason, Graph ),
+          Code=nil(CodeNilReason)
         );
         (
-          rdf( CodeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Code=indeterminate(Indeterminate)
+          rdf( CodeNode,gml:indeterminatePosition, CodeIndeterminate, Graph ),
+          Code=indeterminate(CodeIndeterminate)
         )
       )
   ) .
@@ -10352,16 +10354,16 @@ fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRem
         );
         (
           rdf( RadioFailureRemarksNode,rdf:value,RadioFailureRemarksValue,Graph ),
-          ( rdf( RadioFailureRemarksNode, aixm:uom, UOM, Graph ); rdf( RadioFailureRemarksNode, fixm:uom, UOM, Graph ); rdf( RadioFailureRemarksNode, plain:uom, UOM, Graph ) ),
-          RadioFailureRemarks=xval(RadioFailureRemarksValue,UOM)
+          ( rdf( RadioFailureRemarksNode, aixm:uom, RadioFailureRemarksUOM, Graph ); rdf( RadioFailureRemarksNode, fixm:uom, RadioFailureRemarksUOM, Graph ); rdf( RadioFailureRemarksNode, plain:uom, RadioFailureRemarksUOM, Graph ) ),
+          RadioFailureRemarks=xval(RadioFailureRemarksValue,RadioFailureRemarksUOM)
         );
         (
-          rdf( RadioFailureRemarksNode,aixm:nilReason, NilReason, Graph ),
-          RadioFailureRemarks=nil(NilReason)
+          rdf( RadioFailureRemarksNode,aixm:nilReason, RadioFailureRemarksNilReason, Graph ),
+          RadioFailureRemarks=nil(RadioFailureRemarksNilReason)
         );
         (
-          rdf( RadioFailureRemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RadioFailureRemarks=indeterminate(Indeterminate)
+          rdf( RadioFailureRemarksNode,gml:indeterminatePosition, RadioFailureRemarksIndeterminate, Graph ),
+          RadioFailureRemarks=indeterminate(RadioFailureRemarksIndeterminate)
         )
       )
   )
@@ -10378,16 +10380,16 @@ fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRem
         );
         (
           rdf( RemainingComCapabilityNode,rdf:value,RemainingComCapabilityValue,Graph ),
-          ( rdf( RemainingComCapabilityNode, aixm:uom, UOM, Graph ); rdf( RemainingComCapabilityNode, fixm:uom, UOM, Graph ); rdf( RemainingComCapabilityNode, plain:uom, UOM, Graph ) ),
-          RemainingComCapability=xval(RemainingComCapabilityValue,UOM)
+          ( rdf( RemainingComCapabilityNode, aixm:uom, RemainingComCapabilityUOM, Graph ); rdf( RemainingComCapabilityNode, fixm:uom, RemainingComCapabilityUOM, Graph ); rdf( RemainingComCapabilityNode, plain:uom, RemainingComCapabilityUOM, Graph ) ),
+          RemainingComCapability=xval(RemainingComCapabilityValue,RemainingComCapabilityUOM)
         );
         (
-          rdf( RemainingComCapabilityNode,aixm:nilReason, NilReason, Graph ),
-          RemainingComCapability=nil(NilReason)
+          rdf( RemainingComCapabilityNode,aixm:nilReason, RemainingComCapabilityNilReason, Graph ),
+          RemainingComCapability=nil(RemainingComCapabilityNilReason)
         );
         (
-          rdf( RemainingComCapabilityNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          RemainingComCapability=indeterminate(Indeterminate)
+          rdf( RemainingComCapabilityNode,gml:indeterminatePosition, RemainingComCapabilityIndeterminate, Graph ),
+          RemainingComCapability=indeterminate(RemainingComCapabilityIndeterminate)
         )
       )
   )
@@ -10410,16 +10412,16 @@ aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, Operational
         );
         (
           rdf( OperationalStatusNode,rdf:value,OperationalStatusValue,Graph ),
-          ( rdf( OperationalStatusNode, aixm:uom, UOM, Graph ); rdf( OperationalStatusNode, fixm:uom, UOM, Graph ); rdf( OperationalStatusNode, plain:uom, UOM, Graph ) ),
-          OperationalStatus=xval(OperationalStatusValue,UOM)
+          ( rdf( OperationalStatusNode, aixm:uom, OperationalStatusUOM, Graph ); rdf( OperationalStatusNode, fixm:uom, OperationalStatusUOM, Graph ); rdf( OperationalStatusNode, plain:uom, OperationalStatusUOM, Graph ) ),
+          OperationalStatus=xval(OperationalStatusValue,OperationalStatusUOM)
         );
         (
-          rdf( OperationalStatusNode,aixm:nilReason, NilReason, Graph ),
-          OperationalStatus=nil(NilReason)
+          rdf( OperationalStatusNode,aixm:nilReason, OperationalStatusNilReason, Graph ),
+          OperationalStatus=nil(OperationalStatusNilReason)
         );
         (
-          rdf( OperationalStatusNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          OperationalStatus=indeterminate(Indeterminate)
+          rdf( OperationalStatusNode,gml:indeterminatePosition, OperationalStatusIndeterminate, Graph ),
+          OperationalStatus=indeterminate(OperationalStatusIndeterminate)
         )
       )
   )
@@ -10436,16 +10438,16 @@ aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, Operational
         );
         (
           rdf( WarningNode,rdf:value,WarningValue,Graph ),
-          ( rdf( WarningNode, aixm:uom, UOM, Graph ); rdf( WarningNode, fixm:uom, UOM, Graph ); rdf( WarningNode, plain:uom, UOM, Graph ) ),
-          Warning=xval(WarningValue,UOM)
+          ( rdf( WarningNode, aixm:uom, WarningUOM, Graph ); rdf( WarningNode, fixm:uom, WarningUOM, Graph ); rdf( WarningNode, plain:uom, WarningUOM, Graph ) ),
+          Warning=xval(WarningValue,WarningUOM)
         );
         (
-          rdf( WarningNode,aixm:nilReason, NilReason, Graph ),
-          Warning=nil(NilReason)
+          rdf( WarningNode,aixm:nilReason, WarningNilReason, Graph ),
+          Warning=nil(WarningNilReason)
         );
         (
-          rdf( WarningNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Warning=indeterminate(Indeterminate)
+          rdf( WarningNode,gml:indeterminatePosition, WarningIndeterminate, Graph ),
+          Warning=indeterminate(WarningIndeterminate)
         )
       )
   )
@@ -10485,16 +10487,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( ArrivalFleetPrioritizationNode,rdf:value,ArrivalFleetPrioritizationValue,Graph ),
-          ( rdf( ArrivalFleetPrioritizationNode, aixm:uom, UOM, Graph ); rdf( ArrivalFleetPrioritizationNode, fixm:uom, UOM, Graph ); rdf( ArrivalFleetPrioritizationNode, plain:uom, UOM, Graph ) ),
-          ArrivalFleetPrioritization=xval(ArrivalFleetPrioritizationValue,UOM)
+          ( rdf( ArrivalFleetPrioritizationNode, aixm:uom, ArrivalFleetPrioritizationUOM, Graph ); rdf( ArrivalFleetPrioritizationNode, fixm:uom, ArrivalFleetPrioritizationUOM, Graph ); rdf( ArrivalFleetPrioritizationNode, plain:uom, ArrivalFleetPrioritizationUOM, Graph ) ),
+          ArrivalFleetPrioritization=xval(ArrivalFleetPrioritizationValue,ArrivalFleetPrioritizationUOM)
         );
         (
-          rdf( ArrivalFleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
-          ArrivalFleetPrioritization=nil(NilReason)
+          rdf( ArrivalFleetPrioritizationNode,aixm:nilReason, ArrivalFleetPrioritizationNilReason, Graph ),
+          ArrivalFleetPrioritization=nil(ArrivalFleetPrioritizationNilReason)
         );
         (
-          rdf( ArrivalFleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ArrivalFleetPrioritization=indeterminate(Indeterminate)
+          rdf( ArrivalFleetPrioritizationNode,gml:indeterminatePosition, ArrivalFleetPrioritizationIndeterminate, Graph ),
+          ArrivalFleetPrioritization=indeterminate(ArrivalFleetPrioritizationIndeterminate)
         )
       )
   )
@@ -10511,16 +10513,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( ArrivalSequenceNumberNode,rdf:value,ArrivalSequenceNumberValue,Graph ),
-          ( rdf( ArrivalSequenceNumberNode, aixm:uom, UOM, Graph ); rdf( ArrivalSequenceNumberNode, fixm:uom, UOM, Graph ); rdf( ArrivalSequenceNumberNode, plain:uom, UOM, Graph ) ),
-          ArrivalSequenceNumber=xval(ArrivalSequenceNumberValue,UOM)
+          ( rdf( ArrivalSequenceNumberNode, aixm:uom, ArrivalSequenceNumberUOM, Graph ); rdf( ArrivalSequenceNumberNode, fixm:uom, ArrivalSequenceNumberUOM, Graph ); rdf( ArrivalSequenceNumberNode, plain:uom, ArrivalSequenceNumberUOM, Graph ) ),
+          ArrivalSequenceNumber=xval(ArrivalSequenceNumberValue,ArrivalSequenceNumberUOM)
         );
         (
-          rdf( ArrivalSequenceNumberNode,aixm:nilReason, NilReason, Graph ),
-          ArrivalSequenceNumber=nil(NilReason)
+          rdf( ArrivalSequenceNumberNode,aixm:nilReason, ArrivalSequenceNumberNilReason, Graph ),
+          ArrivalSequenceNumber=nil(ArrivalSequenceNumberNilReason)
         );
         (
-          rdf( ArrivalSequenceNumberNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          ArrivalSequenceNumber=indeterminate(Indeterminate)
+          rdf( ArrivalSequenceNumberNode,gml:indeterminatePosition, ArrivalSequenceNumberIndeterminate, Graph ),
+          ArrivalSequenceNumber=indeterminate(ArrivalSequenceNumberIndeterminate)
         )
       )
   )
@@ -10537,16 +10539,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( EarliestInBlockTimeNode,rdf:value,EarliestInBlockTimeValue,Graph ),
-          ( rdf( EarliestInBlockTimeNode, aixm:uom, UOM, Graph ); rdf( EarliestInBlockTimeNode, fixm:uom, UOM, Graph ); rdf( EarliestInBlockTimeNode, plain:uom, UOM, Graph ) ),
-          EarliestInBlockTime=xval(EarliestInBlockTimeValue,UOM)
+          ( rdf( EarliestInBlockTimeNode, aixm:uom, EarliestInBlockTimeUOM, Graph ); rdf( EarliestInBlockTimeNode, fixm:uom, EarliestInBlockTimeUOM, Graph ); rdf( EarliestInBlockTimeNode, plain:uom, EarliestInBlockTimeUOM, Graph ) ),
+          EarliestInBlockTime=xval(EarliestInBlockTimeValue,EarliestInBlockTimeUOM)
         );
         (
-          rdf( EarliestInBlockTimeNode,aixm:nilReason, NilReason, Graph ),
-          EarliestInBlockTime=nil(NilReason)
+          rdf( EarliestInBlockTimeNode,aixm:nilReason, EarliestInBlockTimeNilReason, Graph ),
+          EarliestInBlockTime=nil(EarliestInBlockTimeNilReason)
         );
         (
-          rdf( EarliestInBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EarliestInBlockTime=indeterminate(Indeterminate)
+          rdf( EarliestInBlockTimeNode,gml:indeterminatePosition, EarliestInBlockTimeIndeterminate, Graph ),
+          EarliestInBlockTime=indeterminate(EarliestInBlockTimeIndeterminate)
         )
       )
   )
@@ -10566,16 +10568,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( FiledRevisedDestinationStarNode,rdf:value,FiledRevisedDestinationStarValue,Graph ),
-          ( rdf( FiledRevisedDestinationStarNode, aixm:uom, UOM, Graph ); rdf( FiledRevisedDestinationStarNode, fixm:uom, UOM, Graph ); rdf( FiledRevisedDestinationStarNode, plain:uom, UOM, Graph ) ),
-          FiledRevisedDestinationStar=xval(FiledRevisedDestinationStarValue,UOM)
+          ( rdf( FiledRevisedDestinationStarNode, aixm:uom, FiledRevisedDestinationStarUOM, Graph ); rdf( FiledRevisedDestinationStarNode, fixm:uom, FiledRevisedDestinationStarUOM, Graph ); rdf( FiledRevisedDestinationStarNode, plain:uom, FiledRevisedDestinationStarUOM, Graph ) ),
+          FiledRevisedDestinationStar=xval(FiledRevisedDestinationStarValue,FiledRevisedDestinationStarUOM)
         );
         (
-          rdf( FiledRevisedDestinationStarNode,aixm:nilReason, NilReason, Graph ),
-          FiledRevisedDestinationStar=nil(NilReason)
+          rdf( FiledRevisedDestinationStarNode,aixm:nilReason, FiledRevisedDestinationStarNilReason, Graph ),
+          FiledRevisedDestinationStar=nil(FiledRevisedDestinationStarNilReason)
         );
         (
-          rdf( FiledRevisedDestinationStarNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FiledRevisedDestinationStar=indeterminate(Indeterminate)
+          rdf( FiledRevisedDestinationStarNode,gml:indeterminatePosition, FiledRevisedDestinationStarIndeterminate, Graph ),
+          FiledRevisedDestinationStar=indeterminate(FiledRevisedDestinationStarIndeterminate)
         )
       )
   )
@@ -10595,16 +10597,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( StandardInstrumentArrivalNode,rdf:value,StandardInstrumentArrivalValue,Graph ),
-          ( rdf( StandardInstrumentArrivalNode, aixm:uom, UOM, Graph ); rdf( StandardInstrumentArrivalNode, fixm:uom, UOM, Graph ); rdf( StandardInstrumentArrivalNode, plain:uom, UOM, Graph ) ),
-          StandardInstrumentArrival=xval(StandardInstrumentArrivalValue,UOM)
+          ( rdf( StandardInstrumentArrivalNode, aixm:uom, StandardInstrumentArrivalUOM, Graph ); rdf( StandardInstrumentArrivalNode, fixm:uom, StandardInstrumentArrivalUOM, Graph ); rdf( StandardInstrumentArrivalNode, plain:uom, StandardInstrumentArrivalUOM, Graph ) ),
+          StandardInstrumentArrival=xval(StandardInstrumentArrivalValue,StandardInstrumentArrivalUOM)
         );
         (
-          rdf( StandardInstrumentArrivalNode,aixm:nilReason, NilReason, Graph ),
-          StandardInstrumentArrival=nil(NilReason)
+          rdf( StandardInstrumentArrivalNode,aixm:nilReason, StandardInstrumentArrivalNilReason, Graph ),
+          StandardInstrumentArrival=nil(StandardInstrumentArrivalNilReason)
         );
         (
-          rdf( StandardInstrumentArrivalNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StandardInstrumentArrival=indeterminate(Indeterminate)
+          rdf( StandardInstrumentArrivalNode,gml:indeterminatePosition, StandardInstrumentArrivalIndeterminate, Graph ),
+          StandardInstrumentArrival=indeterminate(StandardInstrumentArrivalIndeterminate)
         )
       )
   )
@@ -10624,16 +10626,16 @@ fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerod
         );
         (
           rdf( LandingLimitsNode,rdf:value,LandingLimitsValue,Graph ),
-          ( rdf( LandingLimitsNode, aixm:uom, UOM, Graph ); rdf( LandingLimitsNode, fixm:uom, UOM, Graph ); rdf( LandingLimitsNode, plain:uom, UOM, Graph ) ),
-          LandingLimits=xval(LandingLimitsValue,UOM)
+          ( rdf( LandingLimitsNode, aixm:uom, LandingLimitsUOM, Graph ); rdf( LandingLimitsNode, fixm:uom, LandingLimitsUOM, Graph ); rdf( LandingLimitsNode, plain:uom, LandingLimitsUOM, Graph ) ),
+          LandingLimits=xval(LandingLimitsValue,LandingLimitsUOM)
         );
         (
-          rdf( LandingLimitsNode,aixm:nilReason, NilReason, Graph ),
-          LandingLimits=nil(NilReason)
+          rdf( LandingLimitsNode,aixm:nilReason, LandingLimitsNilReason, Graph ),
+          LandingLimits=nil(LandingLimitsNilReason)
         );
         (
-          rdf( LandingLimitsNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          LandingLimits=indeterminate(Indeterminate)
+          rdf( LandingLimitsNode,gml:indeterminatePosition, LandingLimitsIndeterminate, Graph ),
+          LandingLimits=indeterminate(LandingLimitsIndeterminate)
         )
       )
   ) .
@@ -10653,16 +10655,16 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         );
         (
           rdf( CriticalitySafetyIndexNode,rdf:value,CriticalitySafetyIndexValue,Graph ),
-          ( rdf( CriticalitySafetyIndexNode, aixm:uom, UOM, Graph ); rdf( CriticalitySafetyIndexNode, fixm:uom, UOM, Graph ); rdf( CriticalitySafetyIndexNode, plain:uom, UOM, Graph ) ),
-          CriticalitySafetyIndex=xval(CriticalitySafetyIndexValue,UOM)
+          ( rdf( CriticalitySafetyIndexNode, aixm:uom, CriticalitySafetyIndexUOM, Graph ); rdf( CriticalitySafetyIndexNode, fixm:uom, CriticalitySafetyIndexUOM, Graph ); rdf( CriticalitySafetyIndexNode, plain:uom, CriticalitySafetyIndexUOM, Graph ) ),
+          CriticalitySafetyIndex=xval(CriticalitySafetyIndexValue,CriticalitySafetyIndexUOM)
         );
         (
-          rdf( CriticalitySafetyIndexNode,aixm:nilReason, NilReason, Graph ),
-          CriticalitySafetyIndex=nil(NilReason)
+          rdf( CriticalitySafetyIndexNode,aixm:nilReason, CriticalitySafetyIndexNilReason, Graph ),
+          CriticalitySafetyIndex=nil(CriticalitySafetyIndexNilReason)
         );
         (
-          rdf( CriticalitySafetyIndexNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          CriticalitySafetyIndex=indeterminate(Indeterminate)
+          rdf( CriticalitySafetyIndexNode,gml:indeterminatePosition, CriticalitySafetyIndexIndeterminate, Graph ),
+          CriticalitySafetyIndex=indeterminate(CriticalitySafetyIndexIndeterminate)
         )
       )
   )
@@ -10679,16 +10681,16 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         );
         (
           rdf( TransportIndexNode,rdf:value,TransportIndexValue,Graph ),
-          ( rdf( TransportIndexNode, aixm:uom, UOM, Graph ); rdf( TransportIndexNode, fixm:uom, UOM, Graph ); rdf( TransportIndexNode, plain:uom, UOM, Graph ) ),
-          TransportIndex=xval(TransportIndexValue,UOM)
+          ( rdf( TransportIndexNode, aixm:uom, TransportIndexUOM, Graph ); rdf( TransportIndexNode, fixm:uom, TransportIndexUOM, Graph ); rdf( TransportIndexNode, plain:uom, TransportIndexUOM, Graph ) ),
+          TransportIndex=xval(TransportIndexValue,TransportIndexUOM)
         );
         (
-          rdf( TransportIndexNode,aixm:nilReason, NilReason, Graph ),
-          TransportIndex=nil(NilReason)
+          rdf( TransportIndexNode,aixm:nilReason, TransportIndexNilReason, Graph ),
+          TransportIndex=nil(TransportIndexNilReason)
         );
         (
-          rdf( TransportIndexNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TransportIndex=indeterminate(Indeterminate)
+          rdf( TransportIndexNode,gml:indeterminatePosition, TransportIndexIndeterminate, Graph ),
+          TransportIndex=indeterminate(TransportIndexIndeterminate)
         )
       )
   )
@@ -10705,16 +10707,16 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         );
         (
           rdf( FissileExceptedIndicatorNode,rdf:value,FissileExceptedIndicatorValue,Graph ),
-          ( rdf( FissileExceptedIndicatorNode, aixm:uom, UOM, Graph ); rdf( FissileExceptedIndicatorNode, fixm:uom, UOM, Graph ); rdf( FissileExceptedIndicatorNode, plain:uom, UOM, Graph ) ),
-          FissileExceptedIndicator=xval(FissileExceptedIndicatorValue,UOM)
+          ( rdf( FissileExceptedIndicatorNode, aixm:uom, FissileExceptedIndicatorUOM, Graph ); rdf( FissileExceptedIndicatorNode, fixm:uom, FissileExceptedIndicatorUOM, Graph ); rdf( FissileExceptedIndicatorNode, plain:uom, FissileExceptedIndicatorUOM, Graph ) ),
+          FissileExceptedIndicator=xval(FissileExceptedIndicatorValue,FissileExceptedIndicatorUOM)
         );
         (
-          rdf( FissileExceptedIndicatorNode,aixm:nilReason, NilReason, Graph ),
-          FissileExceptedIndicator=nil(NilReason)
+          rdf( FissileExceptedIndicatorNode,aixm:nilReason, FissileExceptedIndicatorNilReason, Graph ),
+          FissileExceptedIndicator=nil(FissileExceptedIndicatorNilReason)
         );
         (
-          rdf( FissileExceptedIndicatorNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          FissileExceptedIndicator=indeterminate(Indeterminate)
+          rdf( FissileExceptedIndicatorNode,gml:indeterminatePosition, FissileExceptedIndicatorIndeterminate, Graph ),
+          FissileExceptedIndicator=indeterminate(FissileExceptedIndicatorIndeterminate)
         )
       )
   )
@@ -10731,16 +10733,16 @@ fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex, Tra
         );
         (
           rdf( CategoryNode,rdf:value,CategoryValue,Graph ),
-          ( rdf( CategoryNode, aixm:uom, UOM, Graph ); rdf( CategoryNode, fixm:uom, UOM, Graph ); rdf( CategoryNode, plain:uom, UOM, Graph ) ),
-          Category=xval(CategoryValue,UOM)
+          ( rdf( CategoryNode, aixm:uom, CategoryUOM, Graph ); rdf( CategoryNode, fixm:uom, CategoryUOM, Graph ); rdf( CategoryNode, plain:uom, CategoryUOM, Graph ) ),
+          Category=xval(CategoryValue,CategoryUOM)
         );
         (
-          rdf( CategoryNode,aixm:nilReason, NilReason, Graph ),
-          Category=nil(NilReason)
+          rdf( CategoryNode,aixm:nilReason, CategoryNilReason, Graph ),
+          Category=nil(CategoryNilReason)
         );
         (
-          rdf( CategoryNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Category=indeterminate(Indeterminate)
+          rdf( CategoryNode,gml:indeterminatePosition, CategoryIndeterminate, Graph ),
+          Category=indeterminate(CategoryIndeterminate)
         )
       )
   )
@@ -10790,16 +10792,16 @@ fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages, QValue) :-
         );
         (
           rdf( NumberOfPackagesNode,rdf:value,NumberOfPackagesValue,Graph ),
-          ( rdf( NumberOfPackagesNode, aixm:uom, UOM, Graph ); rdf( NumberOfPackagesNode, fixm:uom, UOM, Graph ); rdf( NumberOfPackagesNode, plain:uom, UOM, Graph ) ),
-          NumberOfPackages=xval(NumberOfPackagesValue,UOM)
+          ( rdf( NumberOfPackagesNode, aixm:uom, NumberOfPackagesUOM, Graph ); rdf( NumberOfPackagesNode, fixm:uom, NumberOfPackagesUOM, Graph ); rdf( NumberOfPackagesNode, plain:uom, NumberOfPackagesUOM, Graph ) ),
+          NumberOfPackages=xval(NumberOfPackagesValue,NumberOfPackagesUOM)
         );
         (
-          rdf( NumberOfPackagesNode,aixm:nilReason, NilReason, Graph ),
-          NumberOfPackages=nil(NilReason)
+          rdf( NumberOfPackagesNode,aixm:nilReason, NumberOfPackagesNilReason, Graph ),
+          NumberOfPackages=nil(NumberOfPackagesNilReason)
         );
         (
-          rdf( NumberOfPackagesNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          NumberOfPackages=indeterminate(Indeterminate)
+          rdf( NumberOfPackagesNode,gml:indeterminatePosition, NumberOfPackagesIndeterminate, Graph ),
+          NumberOfPackages=indeterminate(NumberOfPackagesIndeterminate)
         )
       )
   )
@@ -10816,16 +10818,16 @@ fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages, QValue) :-
         );
         (
           rdf( QValueNode,rdf:value,QValueValue,Graph ),
-          ( rdf( QValueNode, aixm:uom, UOM, Graph ); rdf( QValueNode, fixm:uom, UOM, Graph ); rdf( QValueNode, plain:uom, UOM, Graph ) ),
-          QValue=xval(QValueValue,UOM)
+          ( rdf( QValueNode, aixm:uom, QValueUOM, Graph ); rdf( QValueNode, fixm:uom, QValueUOM, Graph ); rdf( QValueNode, plain:uom, QValueUOM, Graph ) ),
+          QValue=xval(QValueValue,QValueUOM)
         );
         (
-          rdf( QValueNode,aixm:nilReason, NilReason, Graph ),
-          QValue=nil(NilReason)
+          rdf( QValueNode,aixm:nilReason, QValueNilReason, Graph ),
+          QValue=nil(QValueNilReason)
         );
         (
-          rdf( QValueNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          QValue=indeterminate(Indeterminate)
+          rdf( QValueNode,gml:indeterminatePosition, QValueIndeterminate, Graph ),
+          QValue=indeterminate(QValueIndeterminate)
         )
       )
   ) .
@@ -10849,16 +10851,16 @@ fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks,
         );
         (
           rdf( SurvivalEquipmentRemarksNode,rdf:value,SurvivalEquipmentRemarksValue,Graph ),
-          ( rdf( SurvivalEquipmentRemarksNode, aixm:uom, UOM, Graph ); rdf( SurvivalEquipmentRemarksNode, fixm:uom, UOM, Graph ); rdf( SurvivalEquipmentRemarksNode, plain:uom, UOM, Graph ) ),
-          SurvivalEquipmentRemarks=xval(SurvivalEquipmentRemarksValue,UOM)
+          ( rdf( SurvivalEquipmentRemarksNode, aixm:uom, SurvivalEquipmentRemarksUOM, Graph ); rdf( SurvivalEquipmentRemarksNode, fixm:uom, SurvivalEquipmentRemarksUOM, Graph ); rdf( SurvivalEquipmentRemarksNode, plain:uom, SurvivalEquipmentRemarksUOM, Graph ) ),
+          SurvivalEquipmentRemarks=xval(SurvivalEquipmentRemarksValue,SurvivalEquipmentRemarksUOM)
         );
         (
-          rdf( SurvivalEquipmentRemarksNode,aixm:nilReason, NilReason, Graph ),
-          SurvivalEquipmentRemarks=nil(NilReason)
+          rdf( SurvivalEquipmentRemarksNode,aixm:nilReason, SurvivalEquipmentRemarksNilReason, Graph ),
+          SurvivalEquipmentRemarks=nil(SurvivalEquipmentRemarksNilReason)
         );
         (
-          rdf( SurvivalEquipmentRemarksNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          SurvivalEquipmentRemarks=indeterminate(Indeterminate)
+          rdf( SurvivalEquipmentRemarksNode,gml:indeterminatePosition, SurvivalEquipmentRemarksIndeterminate, Graph ),
+          SurvivalEquipmentRemarks=indeterminate(SurvivalEquipmentRemarksIndeterminate)
         )
       )
   )
@@ -10913,16 +10915,16 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         );
         (
           rdf( DepartureFleetPrioritizationNode,rdf:value,DepartureFleetPrioritizationValue,Graph ),
-          ( rdf( DepartureFleetPrioritizationNode, aixm:uom, UOM, Graph ); rdf( DepartureFleetPrioritizationNode, fixm:uom, UOM, Graph ); rdf( DepartureFleetPrioritizationNode, plain:uom, UOM, Graph ) ),
-          DepartureFleetPrioritization=xval(DepartureFleetPrioritizationValue,UOM)
+          ( rdf( DepartureFleetPrioritizationNode, aixm:uom, DepartureFleetPrioritizationUOM, Graph ); rdf( DepartureFleetPrioritizationNode, fixm:uom, DepartureFleetPrioritizationUOM, Graph ); rdf( DepartureFleetPrioritizationNode, plain:uom, DepartureFleetPrioritizationUOM, Graph ) ),
+          DepartureFleetPrioritization=xval(DepartureFleetPrioritizationValue,DepartureFleetPrioritizationUOM)
         );
         (
-          rdf( DepartureFleetPrioritizationNode,aixm:nilReason, NilReason, Graph ),
-          DepartureFleetPrioritization=nil(NilReason)
+          rdf( DepartureFleetPrioritizationNode,aixm:nilReason, DepartureFleetPrioritizationNilReason, Graph ),
+          DepartureFleetPrioritization=nil(DepartureFleetPrioritizationNilReason)
         );
         (
-          rdf( DepartureFleetPrioritizationNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DepartureFleetPrioritization=indeterminate(Indeterminate)
+          rdf( DepartureFleetPrioritizationNode,gml:indeterminatePosition, DepartureFleetPrioritizationIndeterminate, Graph ),
+          DepartureFleetPrioritization=indeterminate(DepartureFleetPrioritizationIndeterminate)
         )
       )
   )
@@ -10939,16 +10941,16 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         );
         (
           rdf( DepartureSlotNode,rdf:value,DepartureSlotValue,Graph ),
-          ( rdf( DepartureSlotNode, aixm:uom, UOM, Graph ); rdf( DepartureSlotNode, fixm:uom, UOM, Graph ); rdf( DepartureSlotNode, plain:uom, UOM, Graph ) ),
-          DepartureSlot=xval(DepartureSlotValue,UOM)
+          ( rdf( DepartureSlotNode, aixm:uom, DepartureSlotUOM, Graph ); rdf( DepartureSlotNode, fixm:uom, DepartureSlotUOM, Graph ); rdf( DepartureSlotNode, plain:uom, DepartureSlotUOM, Graph ) ),
+          DepartureSlot=xval(DepartureSlotValue,DepartureSlotUOM)
         );
         (
-          rdf( DepartureSlotNode,aixm:nilReason, NilReason, Graph ),
-          DepartureSlot=nil(NilReason)
+          rdf( DepartureSlotNode,aixm:nilReason, DepartureSlotNilReason, Graph ),
+          DepartureSlot=nil(DepartureSlotNilReason)
         );
         (
-          rdf( DepartureSlotNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          DepartureSlot=indeterminate(Indeterminate)
+          rdf( DepartureSlotNode,gml:indeterminatePosition, DepartureSlotIndeterminate, Graph ),
+          DepartureSlot=indeterminate(DepartureSlotIndeterminate)
         )
       )
   )
@@ -10965,16 +10967,16 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         );
         (
           rdf( EarliestOffBlockTimeNode,rdf:value,EarliestOffBlockTimeValue,Graph ),
-          ( rdf( EarliestOffBlockTimeNode, aixm:uom, UOM, Graph ); rdf( EarliestOffBlockTimeNode, fixm:uom, UOM, Graph ); rdf( EarliestOffBlockTimeNode, plain:uom, UOM, Graph ) ),
-          EarliestOffBlockTime=xval(EarliestOffBlockTimeValue,UOM)
+          ( rdf( EarliestOffBlockTimeNode, aixm:uom, EarliestOffBlockTimeUOM, Graph ); rdf( EarliestOffBlockTimeNode, fixm:uom, EarliestOffBlockTimeUOM, Graph ); rdf( EarliestOffBlockTimeNode, plain:uom, EarliestOffBlockTimeUOM, Graph ) ),
+          EarliestOffBlockTime=xval(EarliestOffBlockTimeValue,EarliestOffBlockTimeUOM)
         );
         (
-          rdf( EarliestOffBlockTimeNode,aixm:nilReason, NilReason, Graph ),
-          EarliestOffBlockTime=nil(NilReason)
+          rdf( EarliestOffBlockTimeNode,aixm:nilReason, EarliestOffBlockTimeNilReason, Graph ),
+          EarliestOffBlockTime=nil(EarliestOffBlockTimeNilReason)
         );
         (
-          rdf( EarliestOffBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EarliestOffBlockTime=indeterminate(Indeterminate)
+          rdf( EarliestOffBlockTimeNode,gml:indeterminatePosition, EarliestOffBlockTimeIndeterminate, Graph ),
+          EarliestOffBlockTime=indeterminate(EarliestOffBlockTimeIndeterminate)
         )
       )
   )
@@ -10997,16 +10999,16 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         );
         (
           rdf( StandardInstrumentDepartureNode,rdf:value,StandardInstrumentDepartureValue,Graph ),
-          ( rdf( StandardInstrumentDepartureNode, aixm:uom, UOM, Graph ); rdf( StandardInstrumentDepartureNode, fixm:uom, UOM, Graph ); rdf( StandardInstrumentDepartureNode, plain:uom, UOM, Graph ) ),
-          StandardInstrumentDeparture=xval(StandardInstrumentDepartureValue,UOM)
+          ( rdf( StandardInstrumentDepartureNode, aixm:uom, StandardInstrumentDepartureUOM, Graph ); rdf( StandardInstrumentDepartureNode, fixm:uom, StandardInstrumentDepartureUOM, Graph ); rdf( StandardInstrumentDepartureNode, plain:uom, StandardInstrumentDepartureUOM, Graph ) ),
+          StandardInstrumentDeparture=xval(StandardInstrumentDepartureValue,StandardInstrumentDepartureUOM)
         );
         (
-          rdf( StandardInstrumentDepartureNode,aixm:nilReason, NilReason, Graph ),
-          StandardInstrumentDeparture=nil(NilReason)
+          rdf( StandardInstrumentDepartureNode,aixm:nilReason, StandardInstrumentDepartureNilReason, Graph ),
+          StandardInstrumentDeparture=nil(StandardInstrumentDepartureNilReason)
         );
         (
-          rdf( StandardInstrumentDepartureNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          StandardInstrumentDeparture=indeterminate(Indeterminate)
+          rdf( StandardInstrumentDepartureNode,gml:indeterminatePosition, StandardInstrumentDepartureIndeterminate, Graph ),
+          StandardInstrumentDeparture=indeterminate(StandardInstrumentDepartureIndeterminate)
         )
       )
   )
@@ -11027,16 +11029,16 @@ fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome, DepartureFix, D
         );
         (
           rdf( TakeoffWeightNode,rdf:value,TakeoffWeightValue,Graph ),
-          ( rdf( TakeoffWeightNode, aixm:uom, UOM, Graph ); rdf( TakeoffWeightNode, fixm:uom, UOM, Graph ); rdf( TakeoffWeightNode, plain:uom, UOM, Graph ) ),
-          TakeoffWeight=xval(TakeoffWeightValue,UOM)
+          ( rdf( TakeoffWeightNode, aixm:uom, TakeoffWeightUOM, Graph ); rdf( TakeoffWeightNode, fixm:uom, TakeoffWeightUOM, Graph ); rdf( TakeoffWeightNode, plain:uom, TakeoffWeightUOM, Graph ) ),
+          TakeoffWeight=xval(TakeoffWeightValue,TakeoffWeightUOM)
         );
         (
-          rdf( TakeoffWeightNode,aixm:nilReason, NilReason, Graph ),
-          TakeoffWeight=nil(NilReason)
+          rdf( TakeoffWeightNode,aixm:nilReason, TakeoffWeightNilReason, Graph ),
+          TakeoffWeight=nil(TakeoffWeightNilReason)
         );
         (
-          rdf( TakeoffWeightNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TakeoffWeight=indeterminate(Indeterminate)
+          rdf( TakeoffWeightNode,gml:indeterminatePosition, TakeoffWeightIndeterminate, Graph ),
+          TakeoffWeight=indeterminate(TakeoffWeightIndeterminate)
         )
       )
   )
@@ -11063,16 +11065,16 @@ fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, Taxi
         );
         (
           rdf( EstimatedOffBlockTimeNode,rdf:value,EstimatedOffBlockTimeValue,Graph ),
-          ( rdf( EstimatedOffBlockTimeNode, aixm:uom, UOM, Graph ); rdf( EstimatedOffBlockTimeNode, fixm:uom, UOM, Graph ); rdf( EstimatedOffBlockTimeNode, plain:uom, UOM, Graph ) ),
-          EstimatedOffBlockTime=xval(EstimatedOffBlockTimeValue,UOM)
+          ( rdf( EstimatedOffBlockTimeNode, aixm:uom, EstimatedOffBlockTimeUOM, Graph ); rdf( EstimatedOffBlockTimeNode, fixm:uom, EstimatedOffBlockTimeUOM, Graph ); rdf( EstimatedOffBlockTimeNode, plain:uom, EstimatedOffBlockTimeUOM, Graph ) ),
+          EstimatedOffBlockTime=xval(EstimatedOffBlockTimeValue,EstimatedOffBlockTimeUOM)
         );
         (
-          rdf( EstimatedOffBlockTimeNode,aixm:nilReason, NilReason, Graph ),
-          EstimatedOffBlockTime=nil(NilReason)
+          rdf( EstimatedOffBlockTimeNode,aixm:nilReason, EstimatedOffBlockTimeNilReason, Graph ),
+          EstimatedOffBlockTime=nil(EstimatedOffBlockTimeNilReason)
         );
         (
-          rdf( EstimatedOffBlockTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          EstimatedOffBlockTime=indeterminate(Indeterminate)
+          rdf( EstimatedOffBlockTimeNode,gml:indeterminatePosition, EstimatedOffBlockTimeIndeterminate, Graph ),
+          EstimatedOffBlockTime=indeterminate(EstimatedOffBlockTimeIndeterminate)
         )
       )
   )
@@ -11089,16 +11091,16 @@ fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, Taxi
         );
         (
           rdf( TaxiTimeNode,rdf:value,TaxiTimeValue,Graph ),
-          ( rdf( TaxiTimeNode, aixm:uom, UOM, Graph ); rdf( TaxiTimeNode, fixm:uom, UOM, Graph ); rdf( TaxiTimeNode, plain:uom, UOM, Graph ) ),
-          TaxiTime=xval(TaxiTimeValue,UOM)
+          ( rdf( TaxiTimeNode, aixm:uom, TaxiTimeUOM, Graph ); rdf( TaxiTimeNode, fixm:uom, TaxiTimeUOM, Graph ); rdf( TaxiTimeNode, plain:uom, TaxiTimeUOM, Graph ) ),
+          TaxiTime=xval(TaxiTimeValue,TaxiTimeUOM)
         );
         (
-          rdf( TaxiTimeNode,aixm:nilReason, NilReason, Graph ),
-          TaxiTime=nil(NilReason)
+          rdf( TaxiTimeNode,aixm:nilReason, TaxiTimeNilReason, Graph ),
+          TaxiTime=nil(TaxiTimeNilReason)
         );
         (
-          rdf( TaxiTimeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          TaxiTime=indeterminate(Indeterminate)
+          rdf( TaxiTimeNode,gml:indeterminatePosition, TaxiTimeIndeterminate, Graph ),
+          TaxiTime=indeterminate(TaxiTimeIndeterminate)
         )
       )
   ) .
@@ -11119,16 +11121,16 @@ aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Ann
         );
         (
           rdf( TypeNode,rdf:value,TypeValue,Graph ),
-          ( rdf( TypeNode, aixm:uom, UOM, Graph ); rdf( TypeNode, fixm:uom, UOM, Graph ); rdf( TypeNode, plain:uom, UOM, Graph ) ),
-          Type=xval(TypeValue,UOM)
+          ( rdf( TypeNode, aixm:uom, TypeUOM, Graph ); rdf( TypeNode, fixm:uom, TypeUOM, Graph ); rdf( TypeNode, plain:uom, TypeUOM, Graph ) ),
+          Type=xval(TypeValue,TypeUOM)
         );
         (
-          rdf( TypeNode,aixm:nilReason, NilReason, Graph ),
-          Type=nil(NilReason)
+          rdf( TypeNode,aixm:nilReason, TypeNilReason, Graph ),
+          Type=nil(TypeNilReason)
         );
         (
-          rdf( TypeNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          Type=indeterminate(Indeterminate)
+          rdf( TypeNode,gml:indeterminatePosition, TypeIndeterminate, Graph ),
+          Type=indeterminate(TypeIndeterminate)
         )
       )
   )
@@ -11145,16 +11147,16 @@ aixm_UsageCondition(Graph, UsageCondition, Type, PriorPermission, Selection, Ann
         );
         (
           rdf( PriorPermissionNode,rdf:value,PriorPermissionValue,Graph ),
-          ( rdf( PriorPermissionNode, aixm:uom, UOM, Graph ); rdf( PriorPermissionNode, fixm:uom, UOM, Graph ); rdf( PriorPermissionNode, plain:uom, UOM, Graph ) ),
-          PriorPermission=xval(PriorPermissionValue,UOM)
+          ( rdf( PriorPermissionNode, aixm:uom, PriorPermissionUOM, Graph ); rdf( PriorPermissionNode, fixm:uom, PriorPermissionUOM, Graph ); rdf( PriorPermissionNode, plain:uom, PriorPermissionUOM, Graph ) ),
+          PriorPermission=xval(PriorPermissionValue,PriorPermissionUOM)
         );
         (
-          rdf( PriorPermissionNode,aixm:nilReason, NilReason, Graph ),
-          PriorPermission=nil(NilReason)
+          rdf( PriorPermissionNode,aixm:nilReason, PriorPermissionNilReason, Graph ),
+          PriorPermission=nil(PriorPermissionNilReason)
         );
         (
-          rdf( PriorPermissionNode,gml:indeterminatePosition, Indeterminate, Graph ),
-          PriorPermission=indeterminate(Indeterminate)
+          rdf( PriorPermissionNode,gml:indeterminatePosition, PriorPermissionIndeterminate, Graph ),
+          PriorPermission=indeterminate(PriorPermissionIndeterminate)
         )
       )
   )

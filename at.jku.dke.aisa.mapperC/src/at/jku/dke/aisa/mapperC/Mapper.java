@@ -64,6 +64,8 @@ public class Mapper {
 	 * e.g.: modules used in Prolog or flags
 	 */
 	public void printStaticContent(PrintWriter printWriter) {
+		printWriter.println("% :- module(c,[]).");
+		printWriter.println();
 		printWriter.println("/* use the new RDF-DB library ");
 		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */");
 		printWriter.println(":- use_module(library(semweb/rdf11)).");
@@ -379,12 +381,7 @@ public class Mapper {
 						properties += ", " + StringUtils.capitalize(property.getName());
 					}
 				}
-//				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
-//				
-//				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-//				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
-//				printWriter.println();
-				
+
 				
 				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
 				String rule = "  " + knowledgeGraphClass.generatePrologRule(null) + "," + "\n";
@@ -398,7 +395,6 @@ public class Mapper {
 				}
 				headRule += properties;
 				
-//				rule += "  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .";
 				headRule += ") :-" + "\n";
 				printWriter.println(headRule + rule);
 				printWriter.println();
@@ -477,11 +473,22 @@ public class Mapper {
 		return null;
 	}
 	
+	/**
+	 * Prints the Prolog rdf_load function to the output file.
+	 * 
+	 * @param printWriter
+	 */
 	public void printLoadDataSet(PrintWriter printWriter) {
 		printWriter.println(":- rdf_load('dataset.trig') .");
 		printWriter.println();
 	}
 	
+	/**
+	 * Prints the Prolog sub class rule to the output file.
+	 * 
+	 * @param printWriter
+	 * @param schemaGraphName
+	 */
 	public void printSubClassOfRules(PrintWriter printWriter, String schemaGraphName) {
 		printWriter.println("subClassOf(X,Y) :-");
 		printWriter.println("  rdf(X,rdfs:subClassOf,Y,'"+ schemaGraphName +"') .");
@@ -495,6 +502,11 @@ public class Mapper {
 		printWriter.println();
 	}
 
+	/**
+	 * Prints the Prolog fact rule for each knowledge graph class.
+	 * 
+	 * @param printWriter
+	 */
 	public void generateFactRule(PrintWriter printWriter) {
 		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
 			printWriter.println(knowledgeGraphClass.generatePrologRuleWithoutList(null) + " :-");
@@ -528,18 +540,18 @@ public class Mapper {
 					
 					printWriter.println("        (");
 					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph ),");
-					printWriter.println("          ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, UOM, Graph ) ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=xval(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,UOM)");
+					printWriter.println("          ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ) ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=xval(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM)");
 					printWriter.println("        );");
 					
 					printWriter.println("        (");
-					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, NilReason, Graph ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(NilReason)");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "NilReason, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "NilReason)");
 					printWriter.println("        );");
 					
 					printWriter.println("        (");
-					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, Indeterminate, Graph ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(Indeterminate)");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Indeterminate, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Indeterminate)");
 					printWriter.println("        )");
 					
 					printWriter.println("      )");
@@ -561,18 +573,18 @@ public class Mapper {
 					
 					printWriter.println("        (");
 					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,rdf:value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,Graph ),");
-					printWriter.println("          ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, UOM, Graph ) ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=xval(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value,UOM)");
+					printWriter.println("          ( rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, aixm:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, fixm:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ); rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node, plain:uom, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM, Graph ) ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=xval(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Value," + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "UOM)");
 					printWriter.println("        );");
 					
 					printWriter.println("        (");
-					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, NilReason, Graph ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(NilReason)");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,aixm:nilReason, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "NilReason, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=nil(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "NilReason)");
 					printWriter.println("        );");
 					
 					printWriter.println("        (");
-					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, Indeterminate, Graph ),");
-			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(Indeterminate)");
+					printWriter.println("          rdf( " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Node,gml:indeterminatePosition, " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Indeterminate, Graph ),");
+			        printWriter.println("          " + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "=indeterminate(" + StringUtils.capitalize(knowledgeGraphProperty.getName()) + "Indeterminate)");
 					printWriter.println("        )");
 					
 					printWriter.println("      )");

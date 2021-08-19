@@ -1,3 +1,5 @@
+:- module(b,[]).
+
 /* use the new RDF-DB library 
 https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */
 :- use_module(library(semweb/rdf11)).
@@ -28,12 +30,12 @@ convVal(String,Value) :-
   ( String = literal(XString) ; ( (\+ String = literal(_)), XString = String ) ),
   re_split(":/:",XString,List),
   ( ( List = [X], string_atom(X,Value) ) ; 
-    ( List = ["nil",_,NilReason], string_atom(NilReason,NilReasonAtom), Value = nil(NilReasonAtom) ) ;
-    ( List = ["indeterminate",_,Indeterminate], string_atom(Indeterminate,IndeterminateAtom), Value = indeterminate(IndeterminateAtom) ) ;
+    ( List = ["nil",_,NilReason], Value = nil(^^(NilReason,'http://www.w3.org/2001/XMLSchema#string')) ) ;
+    ( List = ["indeterminate",_,Indeterminate], Value = indeterminate(^^(Indeterminate,'http://www.w3.org/2001/XMLSchema#string')) ) ;
     (
       (
-        ( List = ["val",_,Val,_,TypeS], Value = val(CastVal,Type) ) ;
-        ( List = ["xval",_,Val,_,TypeS,_,UomS], string_atom(UomS,Uom), Value = xval(CastVal,Type,Uom) )
+        ( List = ["val",_,Val,_,TypeS], Value = val(^^(CastVal,Type)) ) ;
+        ( List = ["xval",_,Val,_,TypeS,_,Uom], Value = xval(^^(CastVal,Type), ^^(Uom,'http://www.w3.org/2001/XMLSchema#string') ) )
       ) ,
       string_atom(TypeS,Type) ,
     (
@@ -10674,9 +10676,9 @@ WHERE
 		     }
           UNION
           {
-		       ?_beginPosition  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?beginPosition)
-		     }
+            ?_beginPosition  gml:indeterminatePosition ?indeterminatePosition .
+            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?beginPosition)
+	         }
       }
       ?timePeriod gml:endPosition  ?_endPosition .
         {
@@ -10699,9 +10701,9 @@ WHERE
 		     }
           UNION
           {
-		       ?_endPosition  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endPosition)
-		     }
+            ?_endPosition  gml:indeterminatePosition ?indeterminatePosition .
+            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endPosition)
+	         }
       }
     }
   }

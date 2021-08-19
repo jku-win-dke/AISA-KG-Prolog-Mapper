@@ -62,6 +62,8 @@ public class Mapper {
 	 * e.g.: modules used in Prolog or flags
 	 */
 	public void printStaticContent(PrintWriter printWriter) {
+		printWriter.println("% :- module(b,[]).");
+		printWriter.println();
 		printWriter.println("/* use the new RDF-DB library ");
 		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */");
 		printWriter.println(":- use_module(library(semweb/rdf11)).");
@@ -349,12 +351,7 @@ public class Mapper {
 						properties += ", " + StringUtils.capitalize(property.getName());
 					}
 				}
-//				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
-//				
-//				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-//				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
-//				printWriter.println();
-				
+			
 				
 				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
 				String rule = "  " + knowledgeGraphClass.generatePrologRuleForCombined(null) + "," + "\n";
@@ -368,7 +365,6 @@ public class Mapper {
 				}
 				headRule += properties;
 				
-//				rule += "  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .";
 				headRule += ") :-" + "\n";
 				printWriter.println(headRule + rule);
 				printWriter.println();
@@ -448,7 +444,7 @@ public class Mapper {
 	}
 
 	/**
-	 * Generates static Prolog methods necessary for list handling.
+	 * Generates static Prolog methods necessary for list and datatype handling.
 	 * 
 	 * @param printWriter
 	 */
@@ -468,12 +464,12 @@ public class Mapper {
 		printWriter.println("  ( String = literal(XString) ; ( (\\+ String = literal(_)), XString = String ) ),");
 		printWriter.println("  re_split(\":/:\",XString,List),");
 		printWriter.println("  ( ( List = [X], string_atom(X,Value) ) ; ");
-		printWriter.println("    ( List = [\"nil\",_,NilReason], string_atom(NilReason,NilReasonAtom), Value = nil(NilReasonAtom) ) ;");
-		printWriter.println("    ( List = [\"indeterminate\",_,Indeterminate], string_atom(Indeterminate,IndeterminateAtom), Value = indeterminate(IndeterminateAtom) ) ;");
+		printWriter.println("    ( List = [\"nil\",_,NilReason], Value = nil(^^(NilReason,'http://www.w3.org/2001/XMLSchema#string')) ) ;");
+		printWriter.println("    ( List = [\"indeterminate\",_,Indeterminate], Value = indeterminate(^^(Indeterminate,'http://www.w3.org/2001/XMLSchema#string')) ) ;");
 		printWriter.println("    (");
 		printWriter.println("      (");
-		printWriter.println("        ( List = [\"val\",_,Val,_,TypeS], Value = val(CastVal,Type) ) ;");
-		printWriter.println("        ( List = [\"xval\",_,Val,_,TypeS,_,UomS], string_atom(UomS,Uom), Value = xval(CastVal,Type,Uom) )");
+		printWriter.println("        ( List = [\"val\",_,Val,_,TypeS], Value = val(^^(CastVal,Type)) ) ;");
+		printWriter.println("        ( List = [\"xval\",_,Val,_,TypeS,_,Uom], Value = xval(^^(CastVal,Type), ^^(Uom,'http://www.w3.org/2001/XMLSchema#string') ) )");
 		printWriter.println("      ) ,");
 		printWriter.println("      string_atom(TypeS,Type) ,");
 		printWriter.println("    (");
@@ -524,6 +520,13 @@ public class Mapper {
 		}
 	}
 	
+	/**
+	 * Generates Prolog modules which enable querying.
+	 * 
+	 * @param printWriter
+	 * @param port
+	 * @param path
+	 */
 	public void generatePrologModulesForQuerying(PrintWriter printWriter, int port, String path) {
 		printWriter.println(":- use_module(library(semweb/sparql_client)).");
 		printWriter.println(":- sparql_set_server([host(localhost),port(" + port + "),path('" + path +"')]).");

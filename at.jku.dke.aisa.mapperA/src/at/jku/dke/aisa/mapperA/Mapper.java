@@ -1,26 +1,15 @@
 package at.jku.dke.aisa.mapperA;
 
 import java.io.PrintWriter;
-import java.security.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Graph;
@@ -75,6 +64,8 @@ public class Mapper {
 	 * e.g.: modules used in Prolog or flags
 	 */
 	public void printStaticContent(PrintWriter printWriter) {
+		printWriter.println("% :- module(a,[]).");
+		printWriter.println();
 		printWriter.println("/* use the new RDF-DB library ");
 		printWriter.println("https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */");
 		printWriter.println(":- use_module(library(semweb/rdf11)).");
@@ -157,13 +148,13 @@ public class Mapper {
 						if(listItems[i].contains("http://www.w3.org/2001/XMLSchema#")) {
 							String[] partsOfLiteral = listItems[i].split(":");
 							if(node.toString().startsWith("nil:")) {
-								fact += "nil(\'" + listItems[i].substring(new String("nil:").length()) + "\')";
+								fact += "nil(\"" + listItems[i].substring(new String("nil:").length()) + "\"^^xsd:\'string\')";
 							} else if(node.toString().startsWith("indeterminate:")) {
-								fact += "indeterminate(" + listItems[i].substring(new String("indeterminate:").length()) + ")";
+								fact += "indeterminate(\"" + listItems[i].substring(new String("indeterminate:").length()) + "\"^^xsd:\'string\')";
 							} else if(node.toString().startsWith("val:")) {
-								fact += handleVal2(partsOfLiteral);
+								fact += handleVal(partsOfLiteral);
 							} else if(node.toString().startsWith("xval:")) {
-								fact += handleXVal2(partsOfLiteral);
+								fact += handleXVal(partsOfLiteral);
 							}
 						}
 						else if(nodeWithPrefixMapping != null) {
@@ -186,13 +177,13 @@ public class Mapper {
 					if(node.isLiteral()) {
 						String[] partsOfLiteral = node.toString().split(":");
 						if(node.toString().startsWith("nil:")) {
-							fact += ", nil(\'" + node.toString().substring(new String("nil:").length()) + "\')";
+							fact += ", nil(\"" + node.toString().substring(new String("nil:").length()) + "\"^^xsd:\'string\')";
 						} else if(node.toString().startsWith("indeterminate:")) {
-							fact += ", indeterminate(" + node.toString().substring(new String("indeterminate:").length()) + ")";
+							fact += ", indeterminate(\"" + node.toString().substring(new String("indeterminate:").length()) + "\"^^xsd:\'string\')";
 						} else if(node.toString().startsWith("val:")) {
-							fact += ", " + handleVal2(partsOfLiteral);
+							fact += ", " + handleVal(partsOfLiteral);
 						} else if(node.toString().startsWith("xval:")) {
-							fact += ", " + handleXVal2(partsOfLiteral);
+							fact += ", " + handleXVal(partsOfLiteral);
 						}
 					} else {
 						if(nodeWithPrefixMapping != null) {
@@ -210,30 +201,17 @@ public class Mapper {
 		return fact;
 	}
 	
+	/**
+	 * Split literal into value and data type to return the correct 
+	 * Prolog syntax according to the data type in the next step.
+	 * 
+	 * e.g.: input: val:/:abcdef:/:http://www.w3.org/2001/XMLSchema#string
+	 *       output: val("abcdef"^^xsd:'string')
+	 * 
+	 * @param partsOfLiteral
+	 * @return
+	 */
 	private String handleVal(String[] partsOfLiteral) {
-		String fact = ", val(\"";
-		int index = 1;
-		for(; index < partsOfLiteral.length; index++) {
-			if(partsOfLiteral[index].startsWith("http")) {
-				fact += "\"^^\'";
-				break;
-			}
-			if(index > 1) {
-				fact += ":";
-			}
-			fact += partsOfLiteral[index];
-		}
-		for(; index < partsOfLiteral.length; index++) {
-			fact += partsOfLiteral[index];
-			if(partsOfLiteral[index].startsWith("http")) {
-				fact += ":";
-			}
-		}
-		fact += "\')";
-		return fact;
-	}
-	
-	private String handleVal2(String[] partsOfLiteral) {
 		String dataType = "";
 		String value = "";
 		int index = 1;
@@ -255,6 +233,15 @@ public class Mapper {
 		return handleDataType(value, dataType);
 	}
 	
+	/**
+	 * Format data types into Prolog syntax.
+	 * 
+	 * e.g.: val("P0DT0H24M48S"^^xsd:'string')
+	 * 
+	 * @param value
+	 * @param dataType
+	 * @return
+	 */
 	private String handleDataType(String value, String dataType) {
 		if("http://www.w3.org/2001/XMLSchema#integer".equals(dataType)) {
 			return "val(" + value + "^^xsd:\'integer\')";
@@ -263,20 +250,35 @@ public class Mapper {
 		} else if("http://www.w3.org/2001/XMLSchema#unsignedInt".equals(dataType)) {
 			return "val(" + value + "^^xsd:\'unsignedint\')";
 		} else if("http://www.w3.org/2001/XMLSchema#dateTime".equals(dataType)) {
-			return "val(date_time(" + parseDateTime(value) + "), xsd:\'dateTime\')";
+			return "val(date_time(" + parseDateTime(value) + ")^^xsd:\'dateTime\')";
 		} else {
 			return "val(\"" + value + "\"^^xsd:\'string\')";
 		}
 	}
 	
-	 //2018-05-11T10:00:00Z
+	/**
+	 * Parse dateTime of format 2018-05-11T10:00:00Z into val(date_time(2018, 5, 11, 18, 0, 0, 0), xsd:'dateTime').
+	 * 
+	 * @param dateTime
+	 * @return
+	 */
 	private String parseDateTime(String dateTime) {
 		DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
 		ZonedDateTime zdt = ZonedDateTime.parse(dateTime, dtf);
 		return zdt.getYear() + ", " + zdt.getMonthValue() + ", " + zdt.getDayOfMonth() + ", " + zdt.getHour() + ", " + zdt.getMinute() + ", " + zdt.getSecond() + ", " + zdt.getNano();
 	}
 	
-	private String handleXVal2(String[] partsOfLiteral) {
+	/**
+	 * Split literal into value, data type and unit of measurement to return the correct 
+	 * Prolog syntax according to the data type in the next step.
+	 * 
+	 * e.g.: input: xval:/:250.151:/:http://www.w3.org/2001/XMLSchema#string:/:KILOMETERS
+	 *       output: xval("250.151"^^xsd:'string',"KILOMETERS"^^xsd:'string')
+	 * 
+	 * @param partsOfLiteral
+	 * @return
+	 */
+	private String handleXVal(String[] partsOfLiteral) {
 		String value = "";
 		String dataType = "";
 		String uom = partsOfLiteral[partsOfLiteral.length-1];
@@ -300,39 +302,26 @@ public class Mapper {
 		return handleDataType(value, dataType, uom);
 	}
 	
+	/**
+	 * Format data types into Prolog syntax.
+	 * 
+	 * e.g.: xval("250.151"^^xsd:'string',"KILOMETERS"^^xsd:'string')
+	 * 
+	 * @param value
+	 * @param dataType
+	 * @param uom
+	 * @return
+	 */
 	private String handleDataType(String value, String dataType, String uom) {
 		if("http://www.w3.org/2001/XMLSchema#integer".equals(dataType)) {
-			return "xval(" + value + "^^xsd:\'integer\',\'" + uom + "\')";
+			return "xval(" + value + "^^xsd:\'integer\',\"" + uom + "\"^^xsd:\'string\')";
 		} else if("http://www.w3.org/2001/XMLSchema#decimal".equals(dataType)) {
-			return "xval(" + value + "^^xsd:\'decimal\',\'" + uom + "\')";
+			return "xval(" + value + "^^xsd:\'decimal\',\"" + uom + "\"^^xsd:\'string\')";
 		} else if("http://www.w3.org/2001/XMLSchema#unsignedInt".equals(dataType)) {
-			return "xval(" + value + "^^xsd:\'unsignedInt\',\'" + uom + "\')";
+			return "xval(" + value + "^^xsd:\'unsignedInt\',\"" + uom + "\"^^xsd:\'string\')";
 		} else {
-			return "xval(\"" + value + "\"^^xsd:\'string\',\'" + uom + "\')";
+			return "xval(\"" + value + "\"^^xsd:\'string\',\"" + uom + "\"^^xsd:\'string\')";
 		}
-	}
-	
-	private String handleXVal(String[] partsOfLiteral) {
-		String fact  = ", "+ partsOfLiteral[0] + "(\"";
-		int index = 1;
-		for(; index < partsOfLiteral.length-1; index++) {
-			if(partsOfLiteral[index].startsWith("http")) {
-				fact += "\"^^\'";
-				break;
-			}
-			if(index > 1) {
-				fact += ":";
-			}
-			fact += partsOfLiteral[index];
-		}
-		for(; index < partsOfLiteral.length-1; index++) {
-			fact += partsOfLiteral[index];
-			if(partsOfLiteral[index].startsWith("http")) {
-				fact += ":";
-			}
-		}
-		fact += "\',\'" + partsOfLiteral[partsOfLiteral.length-1] + "\')";
-		return fact;
 	}
 	
 	/**
@@ -501,11 +490,6 @@ public class Mapper {
 						properties += ", " + StringUtils.capitalize(property.getName());
 					}
 				}
-//				printWriter.println(knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(" + properties + ") :-");
-//				
-//				printWriter.println("  " + knowledgeGraphClass.generatePrologRule(null) + ",");
-//				printWriter.println("  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .");
-//				printWriter.println();
 				
 				
 				String headRule = knowledgeGraphClass.getNameOfTargetsWithPrefixShortAndUnderScore() + "_Combined(Graph, " + StringUtils.capitalize(knowledgeGraphClass.predicateName);
@@ -520,7 +504,6 @@ public class Mapper {
 				}
 				headRule += properties;
 				
-//				rule += "  " + generateSuperClassPart(superClass, knowledgeGraphClass) + " .";
 				headRule += ") :-" + "\n";
 				printWriter.println(headRule + rule);
 				printWriter.println();

@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Shacl2PrologLauncher {
 
+	private static final String OUTPUT_DATASET_TRIG = "output/dataset.trig";
+
 	private static final String PERFORMANCE__RESULTS_CSV = "output/performance_results.csv";
 	
 	private static final int NUMBER_OF_DATA_COPIES = 1;
@@ -41,10 +43,8 @@ public class Shacl2PrologLauncher {
 	private final static String PREFIXES_FILE = "input/prefixes.ttl";
 	
 	private final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
-//	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs/data";
-	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";//BN
+	private final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";
 	
-	private final static String SPARQL_FILE = "output/queries.sparql";
 	private final static String FACTS_FILE = "output/facts.pl";
 	
 	public static void main(String[] args) {
@@ -86,8 +86,7 @@ public class Shacl2PrologLauncher {
 			File[] files2 = dir2.listFiles();
 			for (int i = 0; i < files2.length; i++) {
 			  File file2 = files2[i];
-//			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "/" + file2.getName(), file2.getAbsolutePath());
-			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "_" + file2.getName(), file2.getAbsolutePath());//BN
+			  fuseki.load(DATA_GRAPH_NAMESPACE + "/" + j + "_" + file2.getName(), file2.getAbsolutePath());
 			}
 		}
 		
@@ -99,16 +98,13 @@ public class Shacl2PrologLauncher {
 		
 		Dataset data = fuseki.fetchDataset();
 		
-		try(FileOutputStream fileOutputStream = new FileOutputStream("output/dataset.trig", false)) {
+		try(FileOutputStream fileOutputStream = new FileOutputStream(OUTPUT_DATASET_TRIG, false)) {
 
 			RDFDataMgr.write(fileOutputStream, data,  Lang.TRIG);
 			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+		} catch (IOException e1) {
+			String message = String.format("File %s could not be found.", OUTPUT_DATASET_TRIG);
+			LOGGER.debug(message);
 		}
 		
 		long time_four = System.currentTimeMillis();
@@ -180,8 +176,8 @@ public class Shacl2PrologLauncher {
         try {
         	isFileNewlyCreated = performance_results_csv_file.createNewFile();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			String message = String.format("File %s could not be found.", PERFORMANCE__RESULTS_CSV);
+			LOGGER.debug(message);
 		}
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(performance_results_csv_file, true))) {
             if(isFileNewlyCreated) {
