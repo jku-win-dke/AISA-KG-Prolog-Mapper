@@ -356,8 +356,22 @@ public class KnowledgeGraphClass {
 		String target = "";
 		Collection<Target> targetCollection = rootShape.getTargets();
 		for(Target t : targetCollection) {
-			 target += getPrefixMapping(t.getObject(), rootShape);
+			target += getPrefixMapping(t.getObject(), rootShape);
 		}
+		if(target.startsWith("<http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#")) {
+			String[] pathSplitted = target.split("#");
+			return "fixm_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);
+		} else if(target.startsWith("<http://www.aisa-project.eu/vocabulary/aixm_5-1-1#")) { 
+			String[] pathSplitted = target.split("#");
+			return "aixm_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);	
+		} else if(target.startsWith("<http://www.opengis.net/gml/3.2#")) {
+			String[] pathSplitted = target.split("gml/3.2#");
+			return "gml_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);
+		} else if(target.startsWith("<http://www.aisa-project.eu/vocabulary/plain#")) {
+			String[] pathSplitted = target.split("plain#");
+			return "plain_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);			
+		}
+			
 		String[] split = target.split(":");
 		return split[0] + "_" + split[1];
 	}

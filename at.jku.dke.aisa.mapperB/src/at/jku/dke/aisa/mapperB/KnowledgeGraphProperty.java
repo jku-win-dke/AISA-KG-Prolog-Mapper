@@ -221,7 +221,7 @@ public class KnowledgeGraphProperty {
 		} else if(path.toString().startsWith("<http://www.opengis.net/gml/3.2#")) {
 			String[] pathSplitted = path.toString().split("gml/3.2#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);
-		} else if(path.toString().startsWith("<http://www.aisa-project.eu/xquery/plain#")) {
+		} else if(path.toString().startsWith("<http://www.aisa-project.eu/vocabulary/plain#")) {
 			String[] pathSplitted = path.toString().split("plain#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);			
 		}

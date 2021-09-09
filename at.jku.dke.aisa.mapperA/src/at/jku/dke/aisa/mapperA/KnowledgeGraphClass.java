@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Graph;
@@ -36,6 +38,8 @@ public class KnowledgeGraphClass {
 	public String predicateName;
 	private String nameOfTargets;
 	private String nameOfTargetsWithShortPrefix;
+	
+	Map<String, String> orderedPrefixes;
 
 	/**
 	 * Creates the KnowledgeGraphClass and respective helper variables which are required for later use.
@@ -44,9 +48,10 @@ public class KnowledgeGraphClass {
 	 * @param rootShape
 	 * @param isSuperClass
 	 * @param graphName
+	 * @param orderedPrefixes 
 	 * @param subClassOfSuperClass 
 	 */
-	public KnowledgeGraphClass(Graph shaclGraph, Shape rootShape, boolean isSuperClass, String graphName) {
+	public KnowledgeGraphClass(Graph shaclGraph, Shape rootShape, boolean isSuperClass, String graphName, Map<String, String> orderedPrefixes) {
 		this.shaclGraph = shaclGraph;
 		this.rootShape = rootShape;
 		this.isSuperClass = isSuperClass;
@@ -55,6 +60,8 @@ public class KnowledgeGraphClass {
 		this.predicateName = getNameOfTargets().substring(0,1).toLowerCase() + getNameOfTargets().substring(1);
 		this.nameOfTargets = getNameOfTargets();
 		this.nameOfTargetsWithShortPrefix = getNameOfTargetsWithPrefixShort();
+		
+		this.orderedPrefixes = orderedPrefixes;
 		
 		createProperties();
 		generateSPARQLQuery();
@@ -307,12 +314,26 @@ public class KnowledgeGraphClass {
 		String target = "";
 		Collection<Target> targetCollection = rootShape.getTargets();
 		for(Target t : targetCollection) {
-			 target += getPrefixMapping(t.getObject(), rootShape);
+			target += getPrefixMapping(t.getObject(), rootShape);
 		}
+		if(target.startsWith("<http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#")) {
+			String[] pathSplitted = target.split("#");
+			return "fixm_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);
+		} else if(target.startsWith("<http://www.aisa-project.eu/vocabulary/aixm_5-1-1#")) { 
+			String[] pathSplitted = target.split("#");
+			return "aixm_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);	
+		} else if(target.startsWith("<http://www.opengis.net/gml/3.2#")) {
+			String[] pathSplitted = target.split("gml/3.2#");
+			return "gml_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);
+		} else if(target.startsWith("<http://www.aisa-project.eu/vocabulary/plain#")) {
+			String[] pathSplitted = target.split("plain#");
+			return "plain_" + pathSplitted[1].substring(0, pathSplitted[1].length()-1);			
+		}
+			
 		String[] split = target.split(":");
 		return split[0] + "_" + split[1];
 	}
-
+	
 	/**
 	 * Returns the knowledgeGraphProperties of this KnowledgeGraphClass.
 	 * 

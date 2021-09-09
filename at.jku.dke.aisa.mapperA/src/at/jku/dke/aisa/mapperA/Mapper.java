@@ -94,7 +94,7 @@ public class Mapper {
 	private void generateClassesAndProperties() {
 		for(Shape rootShape : shapes.getTargetShapes()) {
 			boolean isSuperClass = superClasses.contains(rootShape.getShapeNode());
-			KnowledgeGraphClass knowledgeGraphClass = new KnowledgeGraphClass(shaclGraph, rootShape, isSuperClass, graphName);
+			KnowledgeGraphClass knowledgeGraphClass = new KnowledgeGraphClass(shaclGraph, rootShape, isSuperClass, graphName, orderedPrefixes);
 			knowledgeGraphClasses.add(knowledgeGraphClass);
 		}
 	}

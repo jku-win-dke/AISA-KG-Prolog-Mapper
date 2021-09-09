@@ -226,7 +226,7 @@ public class KnowledgeGraphProperty {
 		} else if(path.toString().startsWith("<http://www.opengis.net/gml/3.2#")) {
 			String[] pathSplitted = path.toString().split("gml/3.2#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);
-		} else if(path.toString().startsWith("<http://www.aisa-project.eu/xquery/plain#")) {
+		} else if(path.toString().startsWith("<http://www.aisa-project.eu/vocabulary/plain#")) {
 			String[] pathSplitted = path.toString().split("plain#");
 			return pathSplitted[1].substring(0, pathSplitted[1].length()-1);			
 		}
@@ -281,6 +281,21 @@ public class KnowledgeGraphProperty {
 	
 	public String getNameOfPathWithShortPrefixAndQuotation() {
 		String[] mapping = nameOfPathWithShortPrefix.split(":");
+		
+		if(nameOfPathWithShortPrefix.startsWith("<http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#")) {
+			String[] pathSplitted = nameOfPathWithShortPrefix.split("#");
+			return "fixm:'" + pathSplitted[1].substring(0, pathSplitted[1].length()-1) + "'";
+		} else if(nameOfPathWithShortPrefix.startsWith("<http://www.aisa-project.eu/vocabulary/aixm_5-1-1#")) { 
+			String[] pathSplitted = nameOfPathWithShortPrefix.split("#");
+			return "aixm:'" + pathSplitted[1].substring(0, pathSplitted[1].length()-1) + "'";	
+		} else if(nameOfPathWithShortPrefix.startsWith("<http://www.opengis.net/gml/3.2#")) {
+			String[] pathSplitted = nameOfPathWithShortPrefix.split("gml/3.2#");
+			return "gml:'" + pathSplitted[1].substring(0, pathSplitted[1].length()-1) + "'";
+		} else if(nameOfPathWithShortPrefix.startsWith("<http://www.aisa-project.eu/vocabulary/plain#")) {
+			String[] pathSplitted = nameOfPathWithShortPrefix.split("plain#");
+			return "plain:'" + pathSplitted[1].substring(0, pathSplitted[1].length()-1) + "'";			
+		}	
+		
 		if(mapping.length == 2) {
 			return mapping[0] + ":'" + mapping[1] + "'";
 		}
