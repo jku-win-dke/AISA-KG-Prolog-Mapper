@@ -19,3 +19,8 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+#folders to ignore
+at.jku.dke.aisa.mapperA/apache-jena-fuseki-3.16.0
+at.jku.dke.aisa.mapperB/apache-jena-fuseki-3.16.0
+at.jku.dke.aisa.mapperC/apache-jena-fuseki-3.16.0
