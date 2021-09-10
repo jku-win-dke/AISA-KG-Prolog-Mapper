@@ -1,0 +1,437 @@
+@prefix :      <http://aisa-project.eu/adsb#> .
+@prefix graphs: <http://aisa-project.eu/graphs/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+:FlightState-44067c-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-44067c ;
+        :hasAltitude        "1615.44"^^xsd:float ;
+        :hasGeoAlititude    "1539.24"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.2135"^^xsd:float ;
+        :hasLongitude       "11.5787"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "2145" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "283.75"^^xsd:float ;
+        :hasVelocity        "99.57"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-4bb14c-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4bb14c ;
+        :hasAltitude        "12496.8"^^xsd:float ;
+        :hasGeoAlititude    "12222.48"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.1958"^^xsd:float ;
+        :hasLongitude       "15.9321"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "1475" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "122.11"^^xsd:float ;
+        :hasVelocity        "259.35"^^xsd:float ;
+        :hasVerticalRate    "-0.33"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-3cf476-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-3cf476 ;
+        :hasAltitude        "6918.96"^^xsd:float ;
+        :hasGeoAlititude    "6758.94"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.8242"^^xsd:float ;
+        :hasLongitude       "15.2875"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "7352" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "83.07"^^xsd:float ;
+        :hasVelocity        "256"^^xsd:float ;
+        :hasVerticalRate    "-11.38"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-3dd819  a           :Flight ;
+        :hasAircraft        :Aircraft-3dd819 ;
+        :hasAircraftIcao24  "3dd819" ;
+        :hasCallSign        "RDF18" ;
+        :hasOriginCountry   "Germany" .
+
+:FlightState-471f7f-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-471f7f ;
+        :hasAltitude        "9669.78"^^xsd:float ;
+        :hasGeoAlititude    "9380.22"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.7419"^^xsd:float ;
+        :hasLongitude       "15.8487"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "5141" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "313.56"^^xsd:float ;
+        :hasVelocity        "188.13"^^xsd:float ;
+        :hasVerticalRate    "6.83"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-4b7fab  a           :Flight ;
+        :hasAircraft        :Aircraft-4b7fab ;
+        :hasAircraftIcao24  "4b7fab" ;
+        :hasCallSign        "COL82" ;
+        :hasOriginCountry   "Switzerland" .
+
+:FlightState-4b7f5b-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4b7f5b ;
+        :hasAltitude        "4869.18"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "46.6941"^^xsd:float ;
+        :hasLongitude       "9.4984"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "2407" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "279.65"^^xsd:float ;
+        :hasVelocity        "101.24"^^xsd:float ;
+        :hasVerticalRate    "8.45"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-3c4dd7-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-3c4dd7 ;
+        :hasAltitude        "6377.94"^^xsd:float ;
+        :hasGeoAlititude    "6210.3"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.175"^^xsd:float ;
+        :hasLongitude       "15.694"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "1000" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "289.94"^^xsd:float ;
+        :hasVelocity        "185.52"^^xsd:float ;
+        :hasVerticalRate    "12.35"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-3ce519  a           :Flight ;
+        :hasAircraft        :Aircraft-3ce519 ;
+        :hasAircraftIcao24  "3ce519" ;
+        :hasCallSign        "DCOBH" ;
+        :hasOriginCountry   "Germany" .
+
+:FlightState-89631d-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-89631d ;
+        :hasAltitude        "11887.2"^^xsd:float ;
+        :hasGeoAlititude    "11635.74"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.2857"^^xsd:float ;
+        :hasLongitude       "16.5481"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "0143" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "111.55"^^xsd:float ;
+        :hasVelocity        "263.28"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-abe5a2  a           :Flight ;
+        :hasAircraft        :Aircraft-abe5a2 ;
+        :hasAircraftIcao24  "abe5a2" ;
+        :hasCallSign        "FDX3" ;
+        :hasOriginCountry   "United States" .
+
+:Flight-44067c  a           :Flight ;
+        :hasAircraft        :Aircraft-44067c ;
+        :hasAircraftIcao24  "44067c" ;
+        :hasCallSign        "IJM188" ;
+        :hasOriginCountry   "Austria" .
+
+:Flight-4bb14c  a           :Flight ;
+        :hasAircraft        :Aircraft-4bb14c ;
+        :hasAircraftIcao24  "4bb14c" ;
+        :hasCallSign        "THY6768" ;
+        :hasOriginCountry   "Turkey" .
+
+:FlightState-3c56ed-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-3c56ed ;
+        :hasAltitude        "2682.24"^^xsd:float ;
+        :hasGeoAlititude    "2575.56"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "49.0218"^^xsd:float ;
+        :hasLongitude       "9.7156"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "1341" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "201.96"^^xsd:float ;
+        :hasVelocity        "137.56"^^xsd:float ;
+        :hasVerticalRate    "-9.43"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-3dd819-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-3dd819 ;
+        :hasAltitude        "792.48"^^xsd:float ;
+        :hasLastContact     1612894792 ;
+        :hasLatitude        "48.717"^^xsd:float ;
+        :hasLongitude       "11.5663"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasTimePosition    1612894792 ;
+        :hasTrueTrack       "280.71"^^xsd:float ;
+        :hasVelocity        "38.74"^^xsd:float ;
+        :hasVerticalRate    "-3.58"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-4b1a65  a           :Flight ;
+        :hasAircraft        :Aircraft-4b1a65 ;
+        :hasAircraftIcao24  "4b1a65" ;
+        :hasCallSign        "EZS14GK" ;
+        :hasOriginCountry   "Switzerland" .
+
+:FlightState-4b1a65-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4b1a65 ;
+        :hasAltitude        "11582.4"^^xsd:float ;
+        :hasGeoAlititude    "11361.42"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.1281"^^xsd:float ;
+        :hasLongitude       "11.8533"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "1175" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "292.74"^^xsd:float ;
+        :hasVelocity        "203.6"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-4bb26a-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4bb26a ;
+        :hasAltitude        "10668"^^xsd:float ;
+        :hasGeoAlititude    "10416.54"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.9384"^^xsd:float ;
+        :hasLongitude       "14.3212"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "6426" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "120.56"^^xsd:float ;
+        :hasVelocity        "250.92"^^xsd:float ;
+        :hasVerticalRate    "0.33"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-4ba95a  a           :Flight ;
+        :hasAircraft        :Aircraft-4ba95a ;
+        :hasAircraftIcao24  "4ba95a" ;
+        :hasCallSign        "THY52Q" ;
+        :hasOriginCountry   "Turkey" .
+
+:FlightState-abe5a2-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-abe5a2 ;
+        :hasAltitude        "7315.2"^^xsd:float ;
+        :hasGeoAlititude    "7132.32"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.8544"^^xsd:float ;
+        :hasLongitude       "11.2043"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "1000" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "320.86"^^xsd:float ;
+        :hasVelocity        "220.87"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-4bb26c  a           :Flight ;
+        :hasAircraft        :Aircraft-4bb26c ;
+        :hasAircraftIcao24  "4bb26c" ;
+        :hasCallSign        "THY7BC" ;
+        :hasOriginCountry   "Turkey" .
+
+:Flight-4b7f5b  a           :Flight ;
+        :hasAircraft        :Aircraft-4b7f5b ;
+        :hasAircraftIcao24  "4b7f5b" ;
+        :hasCallSign        "GIZ42" ;
+        :hasOriginCountry   "Switzerland" .
+
+:Flight-3cf476  a           :Flight ;
+        :hasAircraft        :Aircraft-3cf476 ;
+        :hasAircraftIcao24  "3cf476" ;
+        :hasCallSign        "AYY108" ;
+        :hasOriginCountry   "Germany" .
+
+:Flight-06a076  a           :Flight ;
+        :hasAircraft        :Aircraft-06a076 ;
+        :hasAircraftIcao24  "06a076" ;
+        :hasCallSign        "QTR3LY" ;
+        :hasOriginCountry   "Qatar" .
+
+:FlightState-3ce519-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-3ce519 ;
+        :hasAltitude        "3482.34"^^xsd:float ;
+        :hasGeoAlititude    "3337.56"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.6762"^^xsd:float ;
+        :hasLongitude       "10.6166"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "2136" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "345.82"^^xsd:float ;
+        :hasVelocity        "153.34"^^xsd:float ;
+        :hasVerticalRate    "-7.8"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-471f7f  a           :Flight ;
+        :hasAircraft        :Aircraft-471f7f ;
+        :hasAircraftIcao24  "471f7f" ;
+        :hasCallSign        "WZZ5JF" ;
+        :hasOriginCountry   "Hungary" .
+
+:FlightState-4b7faa-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4b7faa ;
+        :hasAltitude        "6408.42"^^xsd:float ;
+        :hasGeoAlititude    "6301.74"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "46.6546"^^xsd:float ;
+        :hasLongitude       "9.5527"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "6114" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "179.39"^^xsd:float ;
+        :hasVelocity        "144.57"^^xsd:float ;
+        :hasVerticalRate    "0.65"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-4bb266  a           :Flight ;
+        :hasAircraft        :Aircraft-4bb266 ;
+        :hasAircraftIcao24  "4bb266" ;
+        :hasCallSign        "THY4CN" ;
+        :hasOriginCountry   "Turkey" .
+
+:Flight-3c56ed  a           :Flight ;
+        :hasAircraft        :Aircraft-3c56ed ;
+        :hasAircraftIcao24  "3c56ed" ;
+        :hasCallSign        "EWG87W" ;
+        :hasOriginCountry   "Germany" .
+
+:Flight-89631d  a           :Flight ;
+        :hasAircraft        :Aircraft-89631d ;
+        :hasAircraftIcao24  "89631d" ;
+        :hasCallSign        "UAE9916" ;
+        :hasOriginCountry   "United Arab Emirates" .
+
+:FlightState-4b7fab-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4b7fab ;
+        :hasAltitude        "6256.02"^^xsd:float ;
+        :hasGeoAlititude    "6149.34"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "46.6585"^^xsd:float ;
+        :hasLongitude       "9.5502"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "6124" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "191.02"^^xsd:float ;
+        :hasVelocity        "139.94"^^xsd:float ;
+        :hasVerticalRate    "-1.3"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:Flight-3c4dd7  a           :Flight ;
+        :hasAircraft        :Aircraft-3c4dd7 ;
+        :hasAircraftIcao24  "3c4dd7" ;
+        :hasCallSign        "DLH11F" ;
+        :hasOriginCountry   "Germany" .
+
+:Flight-4b7faa  a           :Flight ;
+        :hasAircraft        :Aircraft-4b7faa ;
+        :hasAircraftIcao24  "4b7faa" ;
+        :hasCallSign        "COL81" ;
+        :hasOriginCountry   "Switzerland" .
+
+:Flight-4bb26a  a           :Flight ;
+        :hasAircraft        :Aircraft-4bb26a ;
+        :hasAircraftIcao24  "4bb26a" ;
+        :hasCallSign        "THY4VS" ;
+        :hasOriginCountry   "Turkey" .
+
+:FlightState-06a076-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-06a076 ;
+        :hasAltitude        "12192"^^xsd:float ;
+        :hasGeoAlititude    "11910.06"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.6978"^^xsd:float ;
+        :hasLongitude       "13.4087"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "3204" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "286.99"^^xsd:float ;
+        :hasVelocity        "220.01"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-4bb26c-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4bb26c ;
+        :hasAltitude        "10668"^^xsd:float ;
+        :hasGeoAlititude    "10416.54"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "47.5686"^^xsd:float ;
+        :hasLongitude       "15.0684"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "0116" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "120.32"^^xsd:float ;
+        :hasVelocity        "259.84"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-4bb266-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4bb266 ;
+        :hasAltitude        "10675.62"^^xsd:float ;
+        :hasGeoAlititude    "10447.02"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "46.9932"^^xsd:float ;
+        :hasLongitude       "16.4886"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "7717" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "121"^^xsd:float ;
+        :hasVelocity        "255.68"^^xsd:float ;
+        :hasVerticalRate    "-0.33"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .
+
+:FlightState-4ba95a-1612894800
+        a                   :FlightState ;
+        :flight             :Flight-4ba95a ;
+        :hasAltitude        "11277.6"^^xsd:float ;
+        :hasGeoAlititude    "10988.04"^^xsd:float ;
+        :hasLastContact     1612894800 ;
+        :hasLatitude        "48.5747"^^xsd:float ;
+        :hasLongitude       "15.8971"^^xsd:float ;
+        :hasPositionSource  0 ;
+        :hasSquawk          "0161" ;
+        :hasTimePosition    1612894800 ;
+        :hasTrueTrack       "121.19"^^xsd:float ;
+        :hasVelocity        "268.21"^^xsd:float ;
+        :hasVerticalRate    "0"^^xsd:float ;
+        :isOnGround         false ;
+        :isSpi              false .

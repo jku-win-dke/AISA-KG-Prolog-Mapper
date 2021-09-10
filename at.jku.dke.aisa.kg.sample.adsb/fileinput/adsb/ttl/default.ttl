@@ -1,0 +1,123 @@
+@prefix :      <http://aisa-project.eu/adsb#> .
+@prefix graphs: <http://aisa-project.eu/graphs/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+graphs:g59  :requestTime  1612895090 .
+
+graphs:g44  :requestTime  1612894920 .
+
+graphs:g22  :requestTime  1612894680 .
+
+graphs:g5  :requestTime  1612894500 .
+
+graphs:g19  :requestTime  1612894650 .
+
+graphs:g6  :requestTime  1612894509 .
+
+graphs:g28  :requestTime  1612894740 .
+
+graphs:g2  :requestTime  1612894470 .
+
+graphs:g48  :requestTime  1612894960 .
+
+graphs:g58  :requestTime  1612895080 .
+
+graphs:g53  :requestTime  1612895020 .
+
+graphs:g26  :requestTime  1612894720 .
+
+graphs:g51  :requestTime  1612895000 .
+
+graphs:g21  :requestTime  1612894670 .
+
+graphs:g39  :requestTime  1612894860 .
+
+graphs:g30  :requestTime  1612894770 .
+
+graphs:g18  :requestTime  1612894640 .
+
+graphs:g13  :requestTime  1612894580 .
+
+graphs:g27  :requestTime  1612894730 .
+
+graphs:g9  :requestTime  1612894540 .
+
+graphs:g35  :requestTime  1612894820 .
+
+graphs:g36  :requestTime  1612894830 .
+
+graphs:g49  :requestTime  1612894970 .
+
+graphs:g57  :requestTime  1612895060 .
+
+graphs:g52  :requestTime  1612895010 .
+
+graphs:g31  :requestTime  1612894780 .
+
+graphs:g0  :requestTime  1612894440 .
+
+graphs:g14  :requestTime  1612894590 .
+
+graphs:g47  :requestTime  1612894950 .
+
+graphs:g3  :requestTime  1612894480 .
+
+graphs:g43  :requestTime  1612894910 .
+
+graphs:g17  :requestTime  1612894630 .
+
+graphs:g33  :requestTime  1612894800 .
+
+graphs:g20  :requestTime  1612894660 .
+
+graphs:g15  :requestTime  1612894610 .
+
+graphs:g40  :requestTime  1612894880 .
+
+graphs:g37  :requestTime  1612894840 .
+
+graphs:g34  :requestTime  1612894810 .
+
+graphs:g23  :requestTime  1612894690 .
+
+graphs:g16  :requestTime  1612894620 .
+
+graphs:g4  :requestTime  1612894489 .
+
+graphs:g24  :requestTime  1612894700 .
+
+graphs:g38  :requestTime  1612894850 .
+
+graphs:g46  :requestTime  1612894940 .
+
+graphs:g55  :requestTime  1612895040 .
+
+graphs:g41  :requestTime  1612894890 .
+
+graphs:g32  :requestTime  1612894790 .
+
+graphs:g1  :requestTime  1612894460 .
+
+graphs:g29  :requestTime  1612894759 .
+
+graphs:g45  :requestTime  1612894930 .
+
+graphs:g7  :requestTime  1612894520 .
+
+graphs:g12  :requestTime  1612894570 .
+
+graphs:g50  :requestTime  1612894980 .
+
+graphs:g25  :requestTime  1612894710 .
+
+graphs:g10  :requestTime  1612894550 .
+
+graphs:g42  :requestTime  1612894900 .
+
+graphs:g54  :requestTime  1612895030 .
+
+graphs:g56  :requestTime  1612895050 .
+
+graphs:g11  :requestTime  1612894560 .
+
+graphs:g8  :requestTime  1612894529 .
