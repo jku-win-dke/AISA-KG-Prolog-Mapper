@@ -65,6 +65,7 @@ public class KGSystem {
 		
 		kg.setLogicalTime(time++);
 		report.run();
+
 		
 	}
 	

@@ -19,6 +19,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shared.PrefixMapping;
 import org.jpl7.Query;
+import org.jpl7.Term;
 
 public class KGModuleSystem {
 

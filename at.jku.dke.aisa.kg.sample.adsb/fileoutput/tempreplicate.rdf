@@ -1,15 +1,9 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:j.0="http://aisa-project.eu/vocab#">
-  <j.0:Turn rdf:about="http://aisa-project.eu/graphs/report-1">
-    <j.0:invocationTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >28</j.0:invocationTime>
-    <j.0:module rdf:resource="http://aisa-project.eu/graphs/report"/>
-    <j.0:durationInMs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >199</j.0:durationInMs>
-    <j.0:commitTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >28</j.0:commitTime>
-    <j.0:turnNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >1</j.0:turnNo>
-  </j.0:Turn>
+  <j.0:Module rdf:about="http://aisa-project.eu/graphs/report">
+    <j.0:moduleClass>class at.jku.dke.aisa.kg.sample.adsb.PerformanceReport</j.0:moduleClass>
+    <j.0:creationTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
+    >2</j.0:creationTime>
+  </j.0:Module>
 </rdf:RDF>

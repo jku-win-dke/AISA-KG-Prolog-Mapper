@@ -6,7 +6,7 @@
     >23</j.0:invocationTime>
     <j.0:module rdf:resource="http://aisa-project.eu/graphs/report"/>
     <j.0:durationInMs rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-    >155</j.0:durationInMs>
+    >123</j.0:durationInMs>
     <j.0:commitTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
     >23</j.0:commitTime>
     <j.0:turnNo rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"

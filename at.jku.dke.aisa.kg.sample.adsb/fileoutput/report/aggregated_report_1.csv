@@ -1,6 +1,0 @@
-module,minTime,maxTime,avgTime,minCount,maxCount,avgCount
-qadsb,51,153,97,6,6,6
-adsbP1,83,322,138,15,42,27
-adsb,81,442,167,396,417,408
-adsbP2,64,103,85,6,44,14
-pairs,211,319,271,1203,1336,1282
