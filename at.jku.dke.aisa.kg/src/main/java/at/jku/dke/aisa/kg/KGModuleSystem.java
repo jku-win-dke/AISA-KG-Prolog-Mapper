@@ -150,14 +150,31 @@ public class KGModuleSystem {
 	}
 	
 	
+	/* should be called after finishing/committing a named graph */
+	public void copyFromKgToFileAndProlog(String graphIri, String ttlFile) {
+		Model model = con.fetch(graphIri);			
+		copyFromKgToProlog(model, graphIri);
+		
+		try(OutputStream fileOut = Files.newOutputStream(Paths.get(ttlFile))) {
+			RDFDataMgr.write(fileOut, model, Lang.TTL);
+		} catch (IOException e) { e.printStackTrace(); }
+
+	}
+	
+	/* should be called for replicating a non-finished named graph */
+	public void copyFromKgToProlog(String graphIri) {
+		Model model = con.fetch(graphIri);			
+		copyFromKgToProlog(model, graphIri);		
+	}
 	
 	
 	/** replicate a named graph from the KG in Prolog-RDF-DB
 	 * 
 	 *  it is assumed that the named graph is committed and does not change anymore
+	 *  
+	 *  also writes a copy in TTL format to the file system
 	 *  */
-	public void copyFromKgToProlog(String graphIri) {
-		Model model = con.fetch(graphIri);		
+	public void copyFromKgToProlog(Model model, String graphIri) {
 		
 		try(OutputStream fileOut = Files.newOutputStream(Paths.get(GLOBAL.TEMPFILE_PATH_REPLICATE))) {
 			RDFDataMgr.write(fileOut, model, Lang.RDFXML);

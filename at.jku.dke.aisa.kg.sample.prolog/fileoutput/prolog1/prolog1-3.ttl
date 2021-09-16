@@ -1,0 +1,72 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix aisa:  <http://aisa-project.eu/vocab#> .
+@prefix ns1:   <http://ex.org/> .
+@prefix graph: <https://github.com/jku-win-dke/aisa/graphs/> .
+@prefix s1:    <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#> .
+@prefix s2:    <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#> .
+
+<http://aisa-project.eu/graphs/prolog1-3>
+        a                    ns1:Graph , aisa:Turn ;
+        aisa:commitTime      13 ;
+        aisa:durationInMs    129 ;
+        aisa:invocationTime  13 ;
+        aisa:module          <http://aisa-project.eu/graphs/prolog1> ;
+        aisa:turnNo          3 .
+
+<http://aisa-project.eu/graphs/prolog2-2>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/donlon-1>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/prolog1-2>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/prolog2-1>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/prolog2>
+        a       ns1:Graph .
+
+graph:schema  a  ns1:Graph .
+
+<http://aisa-project.eu/graphs/prolog1-1>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/fixm-3>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/prolog1>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/fixm-2>
+        a       ns1:Graph .
+
+s1:vtnull0  ns1:in  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+
+s1:ltnull0  ns1:in  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+
+<http://aisa-project.eu/graphs/report>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/fixm-1>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/donlon>
+        a       ns1:Graph .
+
+s2:IDE_ACT_24  ns1:in  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+
+<http://aisa-project.eu/graphs/donlon-3>
+        a       ns1:Graph .
+
+s2:ID_ACT_12  ns1:in  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+
+s2:IDE_ACT_23  ns1:in  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+
+<http://aisa-project.eu/graphs/donlon-2>
+        a       ns1:Graph .
+
+<http://aisa-project.eu/graphs/fixm>
+        a       ns1:Graph .

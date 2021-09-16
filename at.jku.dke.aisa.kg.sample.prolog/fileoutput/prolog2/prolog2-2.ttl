@@ -1,0 +1,16 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix aisa:  <http://aisa-project.eu/vocab#> .
+@prefix ns1:   <http://ex.org/> .
+@prefix s1:    <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#> .
+
+<http://aisa-project.eu/graphs/prolog2-2>
+        a                    aisa:Turn ;
+        aisa:commitTime      10 ;
+        aisa:durationInMs    74 ;
+        aisa:invocationTime  10 ;
+        aisa:module          <http://aisa-project.eu/graphs/prolog2> ;
+        aisa:turnNo          2 .
+
+s1:A-a72cfd3a  ns1:annotatedBy  s1:n002 ;
+        ns1:mentionedIn  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .

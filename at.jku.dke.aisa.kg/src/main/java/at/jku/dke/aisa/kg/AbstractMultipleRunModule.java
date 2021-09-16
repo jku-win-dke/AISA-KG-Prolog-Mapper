@@ -27,8 +27,12 @@ public abstract class AbstractMultipleRunModule extends AbstractKGModule impleme
 		return turn;
 	}	
 
+	public final String getTurnName() {
+		return getName() + "-" + getTurn();
+	}
+	
 	public String getTurnIri() {
-		return "http://aisa-project.eu/graphs/" + getName() + "-" + getTurn() ;
+		return "http://aisa-project.eu/graphs/" + getTurnName() ;
 	}
 	
 	public long getPreviousInvocationTime() {

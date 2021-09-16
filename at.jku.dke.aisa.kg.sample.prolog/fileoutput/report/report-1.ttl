@@ -1,0 +1,12 @@
+<http://aisa-project.eu/graphs/report-1>
+        a       <http://aisa-project.eu/vocab#Turn> ;
+        <http://aisa-project.eu/vocab#commitTime>
+                23 ;
+        <http://aisa-project.eu/vocab#durationInMs>
+                150 ;
+        <http://aisa-project.eu/vocab#invocationTime>
+                23 ;
+        <http://aisa-project.eu/vocab#module>
+                <http://aisa-project.eu/graphs/report> ;
+        <http://aisa-project.eu/vocab#turnNo>
+                1 .

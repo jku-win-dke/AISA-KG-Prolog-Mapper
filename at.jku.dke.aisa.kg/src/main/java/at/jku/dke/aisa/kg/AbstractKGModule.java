@@ -86,8 +86,8 @@ public abstract class AbstractKGModule implements KGModule {
 		
 		doInit();
 		
-		kg.copyFromKgToProlog(getModuleIri());
-		
+		kg.copyFromKgToFileAndProlog(getModuleIri(),getOutputPath(getName()+".ttl"));
+			
 	}
 	
 	/** 

@@ -1,0 +1,6 @@
+<http://aisa-project.eu/graphs/prolog2>
+        a       <http://aisa-project.eu/vocab#Module> ;
+        <http://aisa-project.eu/vocab#creationTime>
+                2 ;
+        <http://aisa-project.eu/vocab#moduleClass>
+                "class at.jku.dke.aisa.kg.sample.prolog.PrologModule" .

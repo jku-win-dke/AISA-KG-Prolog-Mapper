@@ -22,7 +22,7 @@ public abstract class AbstractInternalModule extends AbstractMultipleRunModule i
 		
 		/* note that named graphs from Prolog get replicated back to Prolog so that the metadata added here is also 
 		 * available in Prolog */
-		kg.copyFromKgToProlog(getTurnIri());
+		kg.copyFromKgToFileAndProlog(getTurnIri(),getOutputPath(getTurnName()+".ttl"));
 		
 	}
 	
