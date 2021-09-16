@@ -1,16 +1,32 @@
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gml:   <http://www.opengis.net/gml/3.2#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix aisa:  <http://aisa-project.eu/vocab#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix g1:    <https://github.com/aixm/donlon/blob/master/> .
+@prefix g2:    <https://github.com/aixm/donlon/blob/master/digitalNOTAM/> .
 @prefix ns1:   <http://ex.org/> .
+@prefix uuid:  <uuid:> .
+@prefix graph: <https://github.com/jku-win-dke/aisa/graphs/> .
+@prefix aixm:  <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#> .
+@prefix graphs: <http://aisa-project.eu/graphs/> .
+@prefix file:  <https://www.jena.com/plain#> .
+@prefix aisar: <http://aisa-project.eu/resources#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix plain: <http://www.aisa-project.eu/vocabulary/plain#> .
+@prefix fixm:  <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#> .
+@prefix aisa:  <http://aisa-project.eu/vocab#> .
+@prefix xs:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix event: <http://www.aixm.aero/schema/5.1/event#> .
 @prefix s1:    <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#> .
+@prefix s2:    <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#> .
+@prefix adsb:  <http://aisa-project.eu/adsb#> .
 
-<http://aisa-project.eu/graphs/prolog2-3>
-        a                    aisa:Turn ;
+graphs:prolog2-3  a          aisa:Turn ;
         aisa:commitTime      14 ;
-        aisa:durationInMs    66 ;
+        aisa:durationInMs    49 ;
         aisa:invocationTime  14 ;
-        aisa:module          <http://aisa-project.eu/graphs/prolog2> ;
+        aisa:module          graphs:prolog2 ;
         aisa:turnNo          3 .
 
 s1:A-a72cfd3a  ns1:annotatedBy  s1:n002 ;
-        ns1:mentionedIn  <http://aisa-project.eu/graphs/donlon> , <http://aisa-project.eu/graphs/donlon-3> , <http://aisa-project.eu/graphs/donlon-1> , <http://aisa-project.eu/graphs/donlon-2> .
+        ns1:mentionedIn  graphs:donlon , graphs:donlon-3 , graphs:donlon-1 , graphs:donlon-2 .

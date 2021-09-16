@@ -1,5 +1,5 @@
 module,minTime,maxTime,avgTime,minCount,maxCount,avgCount
-prolog2,66,96,77,9,13,11
-prolog1,82,196,137,25,61,43
-donlon,60,215,95,237,237,237
-fixm,57,123,85,260,260,260
+prolog2,49,276,110,9,13,11
+prolog1,119,243,155,25,61,43
+donlon,67,199,113,237,237,237
+fixm,74,159,99,260,260,260

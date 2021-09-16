@@ -152,7 +152,9 @@ public class KGModuleSystem {
 	
 	/* should be called after finishing/committing a named graph */
 	public void copyFromKgToFileAndProlog(String graphIri, String ttlFile) {
-		Model model = con.fetch(graphIri);			
+		
+		Model model = con.fetch(graphIri);		
+		model.setNsPrefixes(getPrefixes());
 		copyFromKgToProlog(model, graphIri);
 		
 		try(OutputStream fileOut = Files.newOutputStream(Paths.get(ttlFile))) {
