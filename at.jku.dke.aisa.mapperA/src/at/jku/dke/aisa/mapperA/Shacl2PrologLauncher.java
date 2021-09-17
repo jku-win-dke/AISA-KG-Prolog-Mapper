@@ -247,6 +247,7 @@ public class Shacl2PrologLauncher {
                		+ ";" + (time_eight - time_seven)
                		+ ";" + (time_nine - time_eight)
                		+ ";" + (time_ten - time_nine)
+               		+ ";" + (endTime - time_ten)
                		+ ";" + timeElapsed);
         } catch (FileNotFoundException e) {
 			String message = String.format("File %s could not be found.", PERFORMANCE__RESULTS_CSV);
