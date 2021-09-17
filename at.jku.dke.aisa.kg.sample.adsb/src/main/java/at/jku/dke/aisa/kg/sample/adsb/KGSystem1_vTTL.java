@@ -2,6 +2,7 @@ package at.jku.dke.aisa.kg.sample.adsb;
 
 import at.jku.dke.aisa.kg.GLOBAL;
 import at.jku.dke.aisa.kg.KGModuleSystem;
+import at.jku.dke.aisa.kg.PerformanceReport;
 
 
 /* like KGSystem but calling ADSBLoader_vTTL instead of ADSBLoader */
