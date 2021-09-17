@@ -24,7 +24,8 @@ public abstract class AbstractExternalModule extends AbstractMultipleRunModule i
 		doImportResults();	
 		commitTurn();
 		
-		kg.copyFromKgToFileAndProlog(getTurnIri(),getOutputPath(getTurnName()+".ttl"));
+		kg.copyFromKgToFileAndProlog(getTurnIri(),getTurnName());
+//		kg.copyFromKgToFileAndProlog(getTurnIri(),getOutputPath(getTurnName()+".ttl"));
 	}
 	
 	abstract protected void doImportResults();	

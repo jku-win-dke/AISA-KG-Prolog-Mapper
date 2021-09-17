@@ -64,6 +64,196 @@ convVal(String,Value) :-
     )
   ).
 
+% fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea?, PostalCode?, DeliveryPoint?, CountryCode?, CountryName?, City?)
+
+fixm_PostalAddress(Graph, PostalAddress, AdministrativeAreaVal, PostalCodeVal, DeliveryPointVal, CountryCodeVal, CountryNameVal, CityVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?postalAddress ?administrativeArea ?postalCode ?deliveryPoint ?countryCode ?countryName ?city
+WHERE
+  { GRAPH ?graph
+    {
+      ?postalAddress rdf:type fixm:PostalAddress .
+      OPTIONAL { ?postalAddress fixm:administrativeArea ?_administrativeArea .
+        {
+          {
+            ?_administrativeArea rdf:value ?administrativeAreaValue .
+            FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
+            BIND(concat(\'val:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue))) AS ?administrativeArea)
+          }
+            UNION
+          {
+            ?_administrativeArea
+              rdf:value ?administrativeAreaValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
+            BIND(concat(\'xval:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue)),\':/:\',?administrativeAreaUoM) AS ?administrativeArea)
+          }
+            UNION
+          {
+           ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
+           BIND(concat(\'nil:/:\',?administrativeAreaNilReason) AS ?administrativeArea)
+          }
+          UNION
+          {
+		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?administrativeArea)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress fixm:postalCode ?_postalCode .
+        {
+          {
+            ?_postalCode rdf:value ?postalCodeValue .
+            FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
+            BIND(concat(\'val:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue))) AS ?postalCode)
+          }
+            UNION
+          {
+            ?_postalCode
+              rdf:value ?postalCodeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
+            BIND(concat(\'xval:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue)),\':/:\',?postalCodeUoM) AS ?postalCode)
+          }
+            UNION
+          {
+           ?_postalCode  aixm:nilReason ?postalCodeNilReason .
+           BIND(concat(\'nil:/:\',?postalCodeNilReason) AS ?postalCode)
+          }
+          UNION
+          {
+		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?postalCode)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress fixm:deliveryPoint ?_deliveryPoint .
+        {
+          {
+            ?_deliveryPoint rdf:value ?deliveryPointValue .
+            FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
+            BIND(concat(\'val:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue))) AS ?deliveryPoint)
+          }
+            UNION
+          {
+            ?_deliveryPoint
+              rdf:value ?deliveryPointValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
+            BIND(concat(\'xval:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue)),\':/:\',?deliveryPointUoM) AS ?deliveryPoint)
+          }
+            UNION
+          {
+           ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
+           BIND(concat(\'nil:/:\',?deliveryPointNilReason) AS ?deliveryPoint)
+          }
+          UNION
+          {
+		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?deliveryPoint)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress fixm:countryCode ?_countryCode .
+        {
+          {
+            ?_countryCode rdf:value ?countryCodeValue .
+            FILTER ( NOT EXISTS {?_countryCode (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM})
+            BIND(concat(\'val:/:\',STR(?countryCodeValue),\':/:\',STR(DATATYPE(?countryCodeValue))) AS ?countryCode)
+          }
+            UNION
+          {
+            ?_countryCode
+              rdf:value ?countryCodeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM .
+            BIND(concat(\'xval:/:\',STR(?countryCodeValue),\':/:\',STR(DATATYPE(?countryCodeValue)),\':/:\',?countryCodeUoM) AS ?countryCode)
+          }
+            UNION
+          {
+           ?_countryCode  aixm:nilReason ?countryCodeNilReason .
+           BIND(concat(\'nil:/:\',?countryCodeNilReason) AS ?countryCode)
+          }
+          UNION
+          {
+		       ?_countryCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?countryCode)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress fixm:countryName ?_countryName .
+        {
+          {
+            ?_countryName rdf:value ?countryNameValue .
+            FILTER ( NOT EXISTS {?_countryName (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM})
+            BIND(concat(\'val:/:\',STR(?countryNameValue),\':/:\',STR(DATATYPE(?countryNameValue))) AS ?countryName)
+          }
+            UNION
+          {
+            ?_countryName
+              rdf:value ?countryNameValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM .
+            BIND(concat(\'xval:/:\',STR(?countryNameValue),\':/:\',STR(DATATYPE(?countryNameValue)),\':/:\',?countryNameUoM) AS ?countryName)
+          }
+            UNION
+          {
+           ?_countryName  aixm:nilReason ?countryNameNilReason .
+           BIND(concat(\'nil:/:\',?countryNameNilReason) AS ?countryName)
+          }
+          UNION
+          {
+		       ?_countryName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?countryName)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress fixm:city ?_city .
+        {
+          {
+            ?_city rdf:value ?cityValue .
+            FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
+            BIND(concat(\'val:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue))) AS ?city)
+          }
+            UNION
+          {
+            ?_city
+              rdf:value ?cityValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
+            BIND(concat(\'xval:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue)),\':/:\',?cityUoM) AS ?city)
+          }
+            UNION
+          {
+           ?_city  aixm:nilReason ?cityNilReason .
+           BIND(concat(\'nil:/:\',?cityNilReason) AS ?city)
+          }
+          UNION
+          {
+		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?city)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,PostalAddress,AdministrativeArea,PostalCode,DeliveryPoint,CountryCode,CountryName,City),[]), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(DeliveryPoint,DeliveryPointVal), convVal(CountryCode,CountryCodeVal), convVal(CountryName,CountryNameVal), convVal(City,CityVal).
+
 % fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilities?, PerformanceBasedCode*, NavigationCode*)
 
 fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilitiesVal, PerformanceBasedCodeList, NavigationCodeList) :-
@@ -177,6 +367,92 @@ GROUP BY ?graph ?navigationCapabilities ?otherNavigationCapabilities
       '
 ,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCodeConcat,NavigationCodeConcat),[]), convVal(OtherNavigationCapabilities,OtherNavigationCapabilitiesVal), convert(PerformanceBasedCodeConcat,PerformanceBasedCodeList), convert(NavigationCodeConcat,NavigationCodeList).
 
+% fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed?, UpperSpeed?)
+
+fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeedVal, UpperSpeedVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?groundspeedRange ?lowerSpeed ?upperSpeed
+WHERE
+  { GRAPH ?graph
+    {
+      ?groundspeedRange rdf:type fixm:GroundspeedRange .
+      OPTIONAL { ?groundspeedRange fixm:lowerSpeed ?_lowerSpeed .
+        {
+          {
+            ?_lowerSpeed rdf:value ?lowerSpeedValue .
+            FILTER ( NOT EXISTS {?_lowerSpeed (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?lowerSpeedValue),\':/:\',STR(DATATYPE(?lowerSpeedValue))) AS ?lowerSpeed)
+          }
+            UNION
+          {
+            ?_lowerSpeed
+              rdf:value ?lowerSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?lowerSpeedValue),\':/:\',STR(DATATYPE(?lowerSpeedValue)),\':/:\',?lowerSpeedUoM) AS ?lowerSpeed)
+          }
+            UNION
+          {
+           ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
+           BIND(concat(\'nil:/:\',?lowerSpeedNilReason) AS ?lowerSpeed)
+          }
+          UNION
+          {
+		       ?_lowerSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?lowerSpeed)
+		     }
+        }
+      }
+      OPTIONAL { ?groundspeedRange fixm:upperSpeed ?_upperSpeed .
+        {
+          {
+            ?_upperSpeed rdf:value ?upperSpeedValue .
+            FILTER ( NOT EXISTS {?_upperSpeed (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?upperSpeedValue),\':/:\',STR(DATATYPE(?upperSpeedValue))) AS ?upperSpeed)
+          }
+            UNION
+          {
+            ?_upperSpeed
+              rdf:value ?upperSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?upperSpeedValue),\':/:\',STR(DATATYPE(?upperSpeedValue)),\':/:\',?upperSpeedUoM) AS ?upperSpeed)
+          }
+            UNION
+          {
+           ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
+           BIND(concat(\'nil:/:\',?upperSpeedNilReason) AS ?upperSpeed)
+          }
+          UNION
+          {
+		       ?_upperSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?upperSpeed)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,GroundspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal).
+
 % aixm_Note(Graph, Note, PropertyName?, Purpose?, TranslatedNote*)
 
 aixm_Note(Graph, Note, PropertyNameVal, PurposeVal, TranslatedNoteList) :-
@@ -265,6 +541,43 @@ GROUP BY ?graph ?note ?propertyName ?purpose
       '
 ,row(Graph,Note,PropertyName,Purpose,TranslatedNoteConcat),[]), convVal(PropertyName,PropertyNameVal), convVal(Purpose,PurposeVal), convert(TranslatedNoteConcat,TranslatedNoteList).
 
+% fixm_Pointout(Graph, Pointout, OriginatingUnit?, ReceivingUnit*)
+
+fixm_Pointout(Graph, Pointout, OriginatingUnitVal, ReceivingUnitList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?pointout ?originatingUnit (GROUP_CONCAT(DISTINCT ?receivingUnit;SEPARATOR=",") AS ?receivingUnitConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?pointout rdf:type fixm:Pointout .
+      OPTIONAL {?pointout fixm:originatingUnit ?originatingUnit .}
+      OPTIONAL {?pointout fixm:receivingUnit ?receivingUnit .}
+    }
+  }
+GROUP BY ?graph ?pointout ?originatingUnit
+
+      '
+,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convVal(OriginatingUnit,OriginatingUnitVal), convert(ReceivingUnitConcat,ReceivingUnitList).
+
 % fixm_VerticalRange(Graph, VerticalRange, LowerBound?, UpperBound?)
 
 fixm_VerticalRange(Graph, VerticalRange, LowerBoundVal, UpperBoundVal) :-
@@ -351,9 +664,9 @@ WHERE
       '
 ,row(Graph,VerticalRange,LowerBound,UpperBound),[]), convVal(LowerBound,LowerBoundVal), convVal(UpperBound,UpperBoundVal).
 
-% plain_Performance(Graph, Performance, RateOfDescent, FlightIdentification*, TrueAirSpeed, PerformanceAltitude, MachNumber, RateOfClimb)
+% fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel?, EstimatedTime?, Constraint*)
 
-plain_Performance(Graph, Performance, RateOfDescentVal, FlightIdentificationList, TrueAirSpeedVal, PerformanceAltitudeVal, MachNumberVal, RateOfClimbVal) :-
+fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevelVal, EstimatedTimeVal, ConstraintList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -374,143 +687,70 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?performance ?rateOfDescent (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?trueAirSpeed ?performanceAltitude ?machNumber ?rateOfClimb
+SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
 WHERE
   { GRAPH ?graph
     {
-      ?performance rdf:type <http://www.aisa-project.eu/vocabulary/plain#Performance> .
-      ?performance <http://www.aisa-project.eu/vocabulary/plain#rateOfDescent>  ?_rateOfDescent .
+      ?expandedRoutePoint rdf:type fixm:ExpandedRoutePoint .
+      OPTIONAL { ?expandedRoutePoint fixm:estimatedLevel ?_estimatedLevel .
         {
           {
-            ?_rateOfDescent rdf:value ?rateOfDescentValue .
-            FILTER ( NOT EXISTS {?_rateOfDescent (aixm:uom | fixm:uom | plain:uom) ?rateOfDescentUoM})
-            BIND(concat(\'val:/:\',STR(?rateOfDescentValue),\':/:\',STR(DATATYPE(?rateOfDescentValue))) AS ?rateOfDescent)
+            ?_estimatedLevel rdf:value ?estimatedLevelValue .
+            FILTER ( NOT EXISTS {?_estimatedLevel (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM})
+            BIND(concat(\'val:/:\',STR(?estimatedLevelValue),\':/:\',STR(DATATYPE(?estimatedLevelValue))) AS ?estimatedLevel)
           }
-		     UNION
-		     {
-            ?_rateOfDescent
-              rdf:value ?rateOfDescentValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?rateOfDescentUoM .
-              BIND(concat(\'xval:/:\',STR(?rateOfDescentValue),\':/:\',STR(DATATYPE(?rateOfDescentValue)),\':/:\',?rateOfDescentUoM) AS ?rateOfDescent)
+            UNION
+          {
+            ?_estimatedLevel
+              rdf:value ?estimatedLevelValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM .
+            BIND(concat(\'xval:/:\',STR(?estimatedLevelValue),\':/:\',STR(DATATYPE(?estimatedLevelValue)),\':/:\',?estimatedLevelUoM) AS ?estimatedLevel)
+          }
+            UNION
+          {
+           ?_estimatedLevel  aixm:nilReason ?estimatedLevelNilReason .
+           BIND(concat(\'nil:/:\',?estimatedLevelNilReason) AS ?estimatedLevel)
           }
           UNION
           {
-		       ?_rateOfDescent  aixm:nilReason ?rateOfDescentNilReason .
-		       BIND(concat(\'nil:/:\',?rateOfDescentNilReason) AS ?rateOfDescent)
+		       ?_estimatedLevel  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedLevel)
 		     }
-          UNION
-          {
-            ?_rateOfDescent  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rateOfDescent)
-	         }
+        }
       }
-      OPTIONAL {?performance <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-      ?performance <http://www.aisa-project.eu/vocabulary/plain#trueAirSpeed>  ?_trueAirSpeed .
+      OPTIONAL { ?expandedRoutePoint fixm:estimatedTime ?_estimatedTime .
         {
           {
-            ?_trueAirSpeed rdf:value ?trueAirSpeedValue .
-            FILTER ( NOT EXISTS {?_trueAirSpeed (aixm:uom | fixm:uom | plain:uom) ?trueAirSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?trueAirSpeedValue),\':/:\',STR(DATATYPE(?trueAirSpeedValue))) AS ?trueAirSpeed)
+            ?_estimatedTime rdf:value ?estimatedTimeValue .
+            FILTER ( NOT EXISTS {?_estimatedTime (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM})
+            BIND(concat(\'val:/:\',STR(?estimatedTimeValue),\':/:\',STR(DATATYPE(?estimatedTimeValue))) AS ?estimatedTime)
           }
-		     UNION
-		     {
-            ?_trueAirSpeed
-              rdf:value ?trueAirSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?trueAirSpeedUoM .
-              BIND(concat(\'xval:/:\',STR(?trueAirSpeedValue),\':/:\',STR(DATATYPE(?trueAirSpeedValue)),\':/:\',?trueAirSpeedUoM) AS ?trueAirSpeed)
+            UNION
+          {
+            ?_estimatedTime
+              rdf:value ?estimatedTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?estimatedTimeValue),\':/:\',STR(DATATYPE(?estimatedTimeValue)),\':/:\',?estimatedTimeUoM) AS ?estimatedTime)
+          }
+            UNION
+          {
+           ?_estimatedTime  aixm:nilReason ?estimatedTimeNilReason .
+           BIND(concat(\'nil:/:\',?estimatedTimeNilReason) AS ?estimatedTime)
           }
           UNION
           {
-		       ?_trueAirSpeed  aixm:nilReason ?trueAirSpeedNilReason .
-		       BIND(concat(\'nil:/:\',?trueAirSpeedNilReason) AS ?trueAirSpeed)
+		       ?_estimatedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedTime)
 		     }
-          UNION
-          {
-            ?_trueAirSpeed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trueAirSpeed)
-	         }
+        }
       }
-      ?performance <http://www.aisa-project.eu/vocabulary/plain#performanceAltitude>  ?_performanceAltitude .
-        {
-          {
-            ?_performanceAltitude rdf:value ?performanceAltitudeValue .
-            FILTER ( NOT EXISTS {?_performanceAltitude (aixm:uom | fixm:uom | plain:uom) ?performanceAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?performanceAltitudeValue),\':/:\',STR(DATATYPE(?performanceAltitudeValue))) AS ?performanceAltitude)
-          }
-		     UNION
-		     {
-            ?_performanceAltitude
-              rdf:value ?performanceAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?performanceAltitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?performanceAltitudeValue),\':/:\',STR(DATATYPE(?performanceAltitudeValue)),\':/:\',?performanceAltitudeUoM) AS ?performanceAltitude)
-          }
-          UNION
-          {
-		       ?_performanceAltitude  aixm:nilReason ?performanceAltitudeNilReason .
-		       BIND(concat(\'nil:/:\',?performanceAltitudeNilReason) AS ?performanceAltitude)
-		     }
-          UNION
-          {
-            ?_performanceAltitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?performanceAltitude)
-	         }
-      }
-      ?performance <http://www.aisa-project.eu/vocabulary/plain#machNumber>  ?_machNumber .
-        {
-          {
-            ?_machNumber rdf:value ?machNumberValue .
-            FILTER ( NOT EXISTS {?_machNumber (aixm:uom | fixm:uom | plain:uom) ?machNumberUoM})
-            BIND(concat(\'val:/:\',STR(?machNumberValue),\':/:\',STR(DATATYPE(?machNumberValue))) AS ?machNumber)
-          }
-		     UNION
-		     {
-            ?_machNumber
-              rdf:value ?machNumberValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?machNumberUoM .
-              BIND(concat(\'xval:/:\',STR(?machNumberValue),\':/:\',STR(DATATYPE(?machNumberValue)),\':/:\',?machNumberUoM) AS ?machNumber)
-          }
-          UNION
-          {
-		       ?_machNumber  aixm:nilReason ?machNumberNilReason .
-		       BIND(concat(\'nil:/:\',?machNumberNilReason) AS ?machNumber)
-		     }
-          UNION
-          {
-            ?_machNumber  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?machNumber)
-	         }
-      }
-      ?performance <http://www.aisa-project.eu/vocabulary/plain#rateOfClimb>  ?_rateOfClimb .
-        {
-          {
-            ?_rateOfClimb rdf:value ?rateOfClimbValue .
-            FILTER ( NOT EXISTS {?_rateOfClimb (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbUoM})
-            BIND(concat(\'val:/:\',STR(?rateOfClimbValue),\':/:\',STR(DATATYPE(?rateOfClimbValue))) AS ?rateOfClimb)
-          }
-		     UNION
-		     {
-            ?_rateOfClimb
-              rdf:value ?rateOfClimbValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbUoM .
-              BIND(concat(\'xval:/:\',STR(?rateOfClimbValue),\':/:\',STR(DATATYPE(?rateOfClimbValue)),\':/:\',?rateOfClimbUoM) AS ?rateOfClimb)
-          }
-          UNION
-          {
-		       ?_rateOfClimb  aixm:nilReason ?rateOfClimbNilReason .
-		       BIND(concat(\'nil:/:\',?rateOfClimbNilReason) AS ?rateOfClimb)
-		     }
-          UNION
-          {
-            ?_rateOfClimb  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rateOfClimb)
-	         }
-      }
+      OPTIONAL {?expandedRoutePoint fixm:constraint ?constraint .}
     }
   }
-GROUP BY ?graph ?performance ?rateOfDescent ?trueAirSpeed ?performanceAltitude ?machNumber ?rateOfClimb
+GROUP BY ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime
 
       '
-,row(Graph,Performance,RateOfDescent,FlightIdentificationConcat,TrueAirSpeed,PerformanceAltitude,MachNumber,RateOfClimb),[]), convVal(RateOfDescent,RateOfDescentVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(TrueAirSpeed,TrueAirSpeedVal), convVal(PerformanceAltitude,PerformanceAltitudeVal), convVal(MachNumber,MachNumberVal), convVal(RateOfClimb,RateOfClimbVal).
+,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convVal(EstimatedLevel,EstimatedLevelVal), convVal(EstimatedTime,EstimatedTimeVal), convert(ConstraintConcat,ConstraintList).
 
 % aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
 
@@ -650,9 +890,9 @@ WHERE
       '
 ,row(Graph,ElevatedSurface,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal).
 
-% plain_AircraftType(Graph, AircraftType, IcaoModelIdentifier, Aircraft*)
+% fixm_Dimensions(Graph, Dimensions, Height?, Length?, Width?)
 
-plain_AircraftType(Graph, AircraftType, IcaoModelIdentifierVal, AircraftList) :-
+fixm_Dimensions(Graph, Dimensions, HeightVal, LengthVal, WidthVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -673,43 +913,94 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?aircraftType ?icaoModelIdentifier (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat)
+SELECT ?graph ?dimensions ?height ?length ?width
 WHERE
   { GRAPH ?graph
     {
-      ?aircraftType rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftType> .
-      ?aircraftType <http://www.aisa-project.eu/vocabulary/plain#icaoModelIdentifier>  ?_icaoModelIdentifier .
+      ?dimensions rdf:type fixm:Dimensions .
+      OPTIONAL { ?dimensions fixm:height ?_height .
         {
           {
-            ?_icaoModelIdentifier rdf:value ?icaoModelIdentifierValue .
-            FILTER ( NOT EXISTS {?_icaoModelIdentifier (aixm:uom | fixm:uom | plain:uom) ?icaoModelIdentifierUoM})
-            BIND(concat(\'val:/:\',STR(?icaoModelIdentifierValue),\':/:\',STR(DATATYPE(?icaoModelIdentifierValue))) AS ?icaoModelIdentifier)
+            ?_height rdf:value ?heightValue .
+            FILTER ( NOT EXISTS {?_height (aixm:uom | fixm:uom | plain:uom) ?heightUoM})
+            BIND(concat(\'val:/:\',STR(?heightValue),\':/:\',STR(DATATYPE(?heightValue))) AS ?height)
           }
-		     UNION
-		     {
-            ?_icaoModelIdentifier
-              rdf:value ?icaoModelIdentifierValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?icaoModelIdentifierUoM .
-              BIND(concat(\'xval:/:\',STR(?icaoModelIdentifierValue),\':/:\',STR(DATATYPE(?icaoModelIdentifierValue)),\':/:\',?icaoModelIdentifierUoM) AS ?icaoModelIdentifier)
+            UNION
+          {
+            ?_height
+              rdf:value ?heightValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?heightUoM .
+            BIND(concat(\'xval:/:\',STR(?heightValue),\':/:\',STR(DATATYPE(?heightValue)),\':/:\',?heightUoM) AS ?height)
+          }
+            UNION
+          {
+           ?_height  aixm:nilReason ?heightNilReason .
+           BIND(concat(\'nil:/:\',?heightNilReason) AS ?height)
           }
           UNION
           {
-		       ?_icaoModelIdentifier  aixm:nilReason ?icaoModelIdentifierNilReason .
-		       BIND(concat(\'nil:/:\',?icaoModelIdentifierNilReason) AS ?icaoModelIdentifier)
+		       ?_height  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?height)
 		     }
+        }
+      }
+      OPTIONAL { ?dimensions fixm:length ?_length .
+        {
+          {
+            ?_length rdf:value ?lengthValue .
+            FILTER ( NOT EXISTS {?_length (aixm:uom | fixm:uom | plain:uom) ?lengthUoM})
+            BIND(concat(\'val:/:\',STR(?lengthValue),\':/:\',STR(DATATYPE(?lengthValue))) AS ?length)
+          }
+            UNION
+          {
+            ?_length
+              rdf:value ?lengthValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?lengthUoM .
+            BIND(concat(\'xval:/:\',STR(?lengthValue),\':/:\',STR(DATATYPE(?lengthValue)),\':/:\',?lengthUoM) AS ?length)
+          }
+            UNION
+          {
+           ?_length  aixm:nilReason ?lengthNilReason .
+           BIND(concat(\'nil:/:\',?lengthNilReason) AS ?length)
+          }
           UNION
           {
-            ?_icaoModelIdentifier  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?icaoModelIdentifier)
-	         }
+		       ?_length  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?length)
+		     }
+        }
       }
-      OPTIONAL {?aircraftType <http://www.aisa-project.eu/vocabulary/plain#aircraft> ?aircraft .}
+      OPTIONAL { ?dimensions fixm:width ?_width .
+        {
+          {
+            ?_width rdf:value ?widthValue .
+            FILTER ( NOT EXISTS {?_width (aixm:uom | fixm:uom | plain:uom) ?widthUoM})
+            BIND(concat(\'val:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue))) AS ?width)
+          }
+            UNION
+          {
+            ?_width
+              rdf:value ?widthValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?widthUoM .
+            BIND(concat(\'xval:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue)),\':/:\',?widthUoM) AS ?width)
+          }
+            UNION
+          {
+           ?_width  aixm:nilReason ?widthNilReason .
+           BIND(concat(\'nil:/:\',?widthNilReason) AS ?width)
+          }
+          UNION
+          {
+		       ?_width  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?width)
+		     }
+        }
+      }
     }
   }
-GROUP BY ?graph ?aircraftType ?icaoModelIdentifier
 
       '
-,row(Graph,AircraftType,IcaoModelIdentifier,AircraftConcat),[]), convVal(IcaoModelIdentifier,IcaoModelIdentifierVal), convert(AircraftConcat,AircraftList).
+,row(Graph,Dimensions,Height,Length,Width),[]), convVal(Height,HeightVal), convVal(Length,LengthVal), convVal(Width,WidthVal).
 
 % fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandName?, StandTime?, TerminalName?)
 
@@ -798,6 +1089,308 @@ WHERE
       '
 ,row(Graph,StandPositionAndTime,StandName,StandTime,TerminalName),[]), convVal(StandName,StandNameVal), convVal(StandTime,StandTimeVal), convVal(TerminalName,TerminalNameVal).
 
+% fixm_RouteSegment(Graph, RouteSegment, Airway?, RoutePoint?)
+
+fixm_RouteSegment(Graph, RouteSegment, AirwayVal, RoutePointVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?routeSegment ?airway ?routePoint
+WHERE
+  { GRAPH ?graph
+    {
+      ?routeSegment rdf:type fixm:RouteSegment .
+      OPTIONAL { ?routeSegment fixm:airway ?_airway .
+        {
+          {
+            ?_airway rdf:value ?airwayValue .
+            FILTER ( NOT EXISTS {?_airway (aixm:uom | fixm:uom | plain:uom) ?airwayUoM})
+            BIND(concat(\'val:/:\',STR(?airwayValue),\':/:\',STR(DATATYPE(?airwayValue))) AS ?airway)
+          }
+            UNION
+          {
+            ?_airway
+              rdf:value ?airwayValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?airwayUoM .
+            BIND(concat(\'xval:/:\',STR(?airwayValue),\':/:\',STR(DATATYPE(?airwayValue)),\':/:\',?airwayUoM) AS ?airway)
+          }
+            UNION
+          {
+           ?_airway  aixm:nilReason ?airwayNilReason .
+           BIND(concat(\'nil:/:\',?airwayNilReason) AS ?airway)
+          }
+          UNION
+          {
+		       ?_airway  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airway)
+		     }
+        }
+      }
+      OPTIONAL {?routeSegment fixm:routePoint ?routePoint .}
+    }
+  }
+
+      '
+,row(Graph,RouteSegment,Airway,RoutePoint),[]), convVal(Airway,AirwayVal), convVal(RoutePoint,RoutePointVal).
+
+% aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator?, Flight*, Aircraft*, Weather*, SubCondition*)
+
+aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperatorVal, FlightList, AircraftList, WeatherList, SubConditionList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?conditionCombination ?logicalOperator (GROUP_CONCAT(DISTINCT ?flight;SEPARATOR=",") AS ?flightConcat) (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat) (GROUP_CONCAT(DISTINCT ?weather;SEPARATOR=",") AS ?weatherConcat) (GROUP_CONCAT(DISTINCT ?subCondition;SEPARATOR=",") AS ?subConditionConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?conditionCombination rdf:type aixm:ConditionCombination .
+      OPTIONAL { ?conditionCombination aixm:logicalOperator ?_logicalOperator .
+        {
+          {
+            ?_logicalOperator rdf:value ?logicalOperatorValue .
+            FILTER ( NOT EXISTS {?_logicalOperator (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM})
+            BIND(concat(\'val:/:\',STR(?logicalOperatorValue),\':/:\',STR(DATATYPE(?logicalOperatorValue))) AS ?logicalOperator)
+          }
+            UNION
+          {
+            ?_logicalOperator
+              rdf:value ?logicalOperatorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM .
+            BIND(concat(\'xval:/:\',STR(?logicalOperatorValue),\':/:\',STR(DATATYPE(?logicalOperatorValue)),\':/:\',?logicalOperatorUoM) AS ?logicalOperator)
+          }
+            UNION
+          {
+           ?_logicalOperator  aixm:nilReason ?logicalOperatorNilReason .
+           BIND(concat(\'nil:/:\',?logicalOperatorNilReason) AS ?logicalOperator)
+          }
+          UNION
+          {
+		       ?_logicalOperator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?logicalOperator)
+		     }
+        }
+      }
+      OPTIONAL {?conditionCombination aixm:flight ?flight .}
+      OPTIONAL {?conditionCombination aixm:aircraft ?aircraft .}
+      OPTIONAL {?conditionCombination aixm:weather ?weather .}
+      OPTIONAL {?conditionCombination aixm:subCondition ?subCondition .}
+    }
+  }
+GROUP BY ?graph ?conditionCombination ?logicalOperator
+
+      '
+,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convVal(LogicalOperator,LogicalOperatorVal), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList).
+
+% aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder?, Type?, Extent*, Annotation*)
+
+aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrderVal, TypeVal, ExtentList, AnnotationList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type (GROUP_CONCAT(DISTINCT ?extent;SEPARATOR=",") AS ?extentConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?surfaceContaminationLayer rdf:type aixm:SurfaceContaminationLayer .
+      OPTIONAL { ?surfaceContaminationLayer aixm:layerOrder ?_layerOrder .
+        {
+          {
+            ?_layerOrder rdf:value ?layerOrderValue .
+            FILTER ( NOT EXISTS {?_layerOrder (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM})
+            BIND(concat(\'val:/:\',STR(?layerOrderValue),\':/:\',STR(DATATYPE(?layerOrderValue))) AS ?layerOrder)
+          }
+            UNION
+          {
+            ?_layerOrder
+              rdf:value ?layerOrderValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM .
+            BIND(concat(\'xval:/:\',STR(?layerOrderValue),\':/:\',STR(DATATYPE(?layerOrderValue)),\':/:\',?layerOrderUoM) AS ?layerOrder)
+          }
+            UNION
+          {
+           ?_layerOrder  aixm:nilReason ?layerOrderNilReason .
+           BIND(concat(\'nil:/:\',?layerOrderNilReason) AS ?layerOrder)
+          }
+          UNION
+          {
+		       ?_layerOrder  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?layerOrder)
+		     }
+        }
+      }
+      OPTIONAL { ?surfaceContaminationLayer aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
+            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
+            BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
+          }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
+		     }
+        }
+      }
+      OPTIONAL {?surfaceContaminationLayer aixm:extent ?extent .}
+      OPTIONAL {?surfaceContaminationLayer aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
+
+      '
+,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convVal(LayerOrder,LayerOrderVal), convVal(Type,TypeVal), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList).
+
+% fixm_Organization(Graph, Organization, Name?, OtherOrganization?, Contact?)
+
+fixm_Organization(Graph, Organization, NameVal, OtherOrganizationVal, ContactVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?organization ?name ?otherOrganization ?contact
+WHERE
+  { GRAPH ?graph
+    {
+      ?organization rdf:type fixm:Organization .
+      OPTIONAL { ?organization fixm:name ?_name .
+        {
+          {
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
+            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
+          }
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
+            BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
+          }
+          UNION
+          {
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
+		     }
+        }
+      }
+      OPTIONAL { ?organization fixm:otherOrganization ?_otherOrganization .
+        {
+          {
+            ?_otherOrganization rdf:value ?otherOrganizationValue .
+            FILTER ( NOT EXISTS {?_otherOrganization (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM})
+            BIND(concat(\'val:/:\',STR(?otherOrganizationValue),\':/:\',STR(DATATYPE(?otherOrganizationValue))) AS ?otherOrganization)
+          }
+            UNION
+          {
+            ?_otherOrganization
+              rdf:value ?otherOrganizationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM .
+            BIND(concat(\'xval:/:\',STR(?otherOrganizationValue),\':/:\',STR(DATATYPE(?otherOrganizationValue)),\':/:\',?otherOrganizationUoM) AS ?otherOrganization)
+          }
+            UNION
+          {
+           ?_otherOrganization  aixm:nilReason ?otherOrganizationNilReason .
+           BIND(concat(\'nil:/:\',?otherOrganizationNilReason) AS ?otherOrganization)
+          }
+          UNION
+          {
+		       ?_otherOrganization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?otherOrganization)
+		     }
+        }
+      }
+      OPTIONAL {?organization fixm:contact ?contact .}
+    }
+  }
+
+      '
+,row(Graph,Organization,Name,OtherOrganization,Contact),[]), convVal(Name,NameVal), convVal(OtherOrganization,OtherOrganizationVal), convVal(Contact,ContactVal).
+
 % aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, Type?, Annotation*, TheOrganisationAuthority)
 
 aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, TypeVal, AnnotationList, TheOrganisationAuthorityVal) :-
@@ -860,6 +1453,144 @@ GROUP BY ?graph ?organisationAuthorityAssociation ?type ?theOrganisationAuthorit
 
       '
 ,row(Graph,OrganisationAuthorityAssociation,Type,AnnotationConcat,TheOrganisationAuthority),[]), convVal(Type,TypeVal), convert(AnnotationConcat,AnnotationList), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal).
+
+% aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
+
+aixm_ElevatedPoint(Graph, ElevatedPoint, ElevationVal, GeoidUndulationVal, VerticalDatumVal, VerticalAccuracyVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?elevatedPoint ?elevation ?geoidUndulation ?verticalDatum ?verticalAccuracy
+WHERE
+  { GRAPH ?graph
+    {
+      ?elevatedPoint rdf:type aixm:ElevatedPoint .
+      OPTIONAL { ?elevatedPoint aixm:elevation ?_elevation .
+        {
+          {
+            ?_elevation rdf:value ?elevationValue .
+            FILTER ( NOT EXISTS {?_elevation (aixm:uom | fixm:uom | plain:uom) ?elevationUoM})
+            BIND(concat(\'val:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue))) AS ?elevation)
+          }
+            UNION
+          {
+            ?_elevation
+              rdf:value ?elevationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?elevationUoM .
+            BIND(concat(\'xval:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue)),\':/:\',?elevationUoM) AS ?elevation)
+          }
+            UNION
+          {
+           ?_elevation  aixm:nilReason ?elevationNilReason .
+           BIND(concat(\'nil:/:\',?elevationNilReason) AS ?elevation)
+          }
+          UNION
+          {
+		       ?_elevation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?elevation)
+		     }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:geoidUndulation ?_geoidUndulation .
+        {
+          {
+            ?_geoidUndulation rdf:value ?geoidUndulationValue .
+            FILTER ( NOT EXISTS {?_geoidUndulation (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM})
+            BIND(concat(\'val:/:\',STR(?geoidUndulationValue),\':/:\',STR(DATATYPE(?geoidUndulationValue))) AS ?geoidUndulation)
+          }
+            UNION
+          {
+            ?_geoidUndulation
+              rdf:value ?geoidUndulationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM .
+            BIND(concat(\'xval:/:\',STR(?geoidUndulationValue),\':/:\',STR(DATATYPE(?geoidUndulationValue)),\':/:\',?geoidUndulationUoM) AS ?geoidUndulation)
+          }
+            UNION
+          {
+           ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
+           BIND(concat(\'nil:/:\',?geoidUndulationNilReason) AS ?geoidUndulation)
+          }
+          UNION
+          {
+		       ?_geoidUndulation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?geoidUndulation)
+		     }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:verticalDatum ?_verticalDatum .
+        {
+          {
+            ?_verticalDatum rdf:value ?verticalDatumValue .
+            FILTER ( NOT EXISTS {?_verticalDatum (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM})
+            BIND(concat(\'val:/:\',STR(?verticalDatumValue),\':/:\',STR(DATATYPE(?verticalDatumValue))) AS ?verticalDatum)
+          }
+            UNION
+          {
+            ?_verticalDatum
+              rdf:value ?verticalDatumValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM .
+            BIND(concat(\'xval:/:\',STR(?verticalDatumValue),\':/:\',STR(DATATYPE(?verticalDatumValue)),\':/:\',?verticalDatumUoM) AS ?verticalDatum)
+          }
+            UNION
+          {
+           ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
+           BIND(concat(\'nil:/:\',?verticalDatumNilReason) AS ?verticalDatum)
+          }
+          UNION
+          {
+		       ?_verticalDatum  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalDatum)
+		     }
+        }
+      }
+      OPTIONAL { ?elevatedPoint aixm:verticalAccuracy ?_verticalAccuracy .
+        {
+          {
+            ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
+            FILTER ( NOT EXISTS {?_verticalAccuracy (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM})
+            BIND(concat(\'val:/:\',STR(?verticalAccuracyValue),\':/:\',STR(DATATYPE(?verticalAccuracyValue))) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+            ?_verticalAccuracy
+              rdf:value ?verticalAccuracyValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM .
+            BIND(concat(\'xval:/:\',STR(?verticalAccuracyValue),\':/:\',STR(DATATYPE(?verticalAccuracyValue)),\':/:\',?verticalAccuracyUoM) AS ?verticalAccuracy)
+          }
+            UNION
+          {
+           ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
+           BIND(concat(\'nil:/:\',?verticalAccuracyNilReason) AS ?verticalAccuracy)
+          }
+          UNION
+          {
+		       ?_verticalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalAccuracy)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,ElevatedPoint,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal).
 
 % fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel?)
 
@@ -981,6 +1712,45 @@ WHERE
 
       '
 ,row(Graph,AircraftOperator,OperatingOrganization,OperatorCategory),[]), convVal(OperatingOrganization,OperatingOrganizationVal), convVal(OperatorCategory,OperatorCategoryVal).
+
+% gml_Point(Graph, Point)
+
+gml_Point(Graph, Point) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?point
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:Point .
+  }
+  { GRAPH ?graph
+    {
+      ?point rdf:type ?SUBCLASS .
+    }
+  }
+}
+
+      '
+,row(Graph,Point),[]).
 
 % fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair)
 
@@ -1165,6 +1935,79 @@ WHERE
       '
 ,row(Graph,BeaconCodeAssignment,CurrentBeaconCode,PreviousBeaconCode,ReassignedBeaconCode,ReassigningUnit),[]), convVal(CurrentBeaconCode,CurrentBeaconCodeVal), convVal(PreviousBeaconCode,PreviousBeaconCodeVal), convVal(ReassignedBeaconCode,ReassignedBeaconCodeVal), convVal(ReassigningUnit,ReassigningUnitVal).
 
+% fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfile*, DescentProfile*)
+
+fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfileList, DescentProfileList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?flightPerformanceData (GROUP_CONCAT(DISTINCT ?climbProfile;SEPARATOR=",") AS ?climbProfileConcat) (GROUP_CONCAT(DISTINCT ?descentProfile;SEPARATOR=",") AS ?descentProfileConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?flightPerformanceData rdf:type fixm:FlightPerformanceData .
+      OPTIONAL {?flightPerformanceData fixm:climbProfile ?climbProfile .}
+      OPTIONAL {?flightPerformanceData fixm:descentProfile ?descentProfile .}
+    }
+  }
+GROUP BY ?graph ?flightPerformanceData
+
+      '
+,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList).
+
+% fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint*)
+
+fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePointList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?expandedRoute (GROUP_CONCAT(DISTINCT ?routePoint;SEPARATOR=",") AS ?routePointConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?expandedRoute rdf:type fixm:ExpandedRoute .
+      OPTIONAL {?expandedRoute fixm:routePoint ?routePoint .}
+    }
+  }
+GROUP BY ?graph ?expandedRoute
+
+      '
+,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList).
+
 % fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintType?)
 
 fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintTypeVal) :-
@@ -1225,9 +2068,9 @@ WHERE
       '
 ,row(Graph,RouteConstraintOrPreference,ConstraintType),[]), convVal(ConstraintType,ConstraintTypeVal).
 
-% plain_FlightLevel(Graph, FlightLevel, EfplPoint4D+, Level, Unit)
+% fixm_DeclarationText(Graph, DeclarationText, Compliance?, Consignor?, Shipper?)
 
-plain_FlightLevel(Graph, FlightLevel, EfplPoint4DList, LevelVal, UnitVal) :-
+fixm_DeclarationText(Graph, DeclarationText, ComplianceVal, ConsignorVal, ShipperVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -1248,68 +2091,94 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightLevel (GROUP_CONCAT(DISTINCT ?efplPoint4D;SEPARATOR=",") AS ?efplPoint4DConcat) ?level ?unit
+SELECT ?graph ?declarationText ?compliance ?consignor ?shipper
 WHERE
   { GRAPH ?graph
     {
-      ?flightLevel rdf:type <http://www.aisa-project.eu/vocabulary/plain#FlightLevel> .
-      ?flightLevel <http://www.aisa-project.eu/vocabulary/plain#efplPoint4D> ?efplPoint4D .
-      ?flightLevel <http://www.aisa-project.eu/vocabulary/plain#level>  ?_level .
+      ?declarationText rdf:type fixm:DeclarationText .
+      OPTIONAL { ?declarationText fixm:compliance ?_compliance .
         {
           {
-            ?_level rdf:value ?levelValue .
-            FILTER ( NOT EXISTS {?_level (aixm:uom | fixm:uom | plain:uom) ?levelUoM})
-            BIND(concat(\'val:/:\',STR(?levelValue),\':/:\',STR(DATATYPE(?levelValue))) AS ?level)
+            ?_compliance rdf:value ?complianceValue .
+            FILTER ( NOT EXISTS {?_compliance (aixm:uom | fixm:uom | plain:uom) ?complianceUoM})
+            BIND(concat(\'val:/:\',STR(?complianceValue),\':/:\',STR(DATATYPE(?complianceValue))) AS ?compliance)
           }
-		     UNION
-		     {
-            ?_level
-              rdf:value ?levelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?levelUoM .
-              BIND(concat(\'xval:/:\',STR(?levelValue),\':/:\',STR(DATATYPE(?levelValue)),\':/:\',?levelUoM) AS ?level)
+            UNION
+          {
+            ?_compliance
+              rdf:value ?complianceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?complianceUoM .
+            BIND(concat(\'xval:/:\',STR(?complianceValue),\':/:\',STR(DATATYPE(?complianceValue)),\':/:\',?complianceUoM) AS ?compliance)
+          }
+            UNION
+          {
+           ?_compliance  aixm:nilReason ?complianceNilReason .
+           BIND(concat(\'nil:/:\',?complianceNilReason) AS ?compliance)
           }
           UNION
           {
-		       ?_level  aixm:nilReason ?levelNilReason .
-		       BIND(concat(\'nil:/:\',?levelNilReason) AS ?level)
+		       ?_compliance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?compliance)
 		     }
-          UNION
-          {
-            ?_level  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?level)
-	         }
+        }
       }
-      ?flightLevel <http://www.aisa-project.eu/vocabulary/plain#unit>  ?_unit .
+      OPTIONAL { ?declarationText fixm:consignor ?_consignor .
         {
           {
-            ?_unit rdf:value ?unitValue .
-            FILTER ( NOT EXISTS {?_unit (aixm:uom | fixm:uom | plain:uom) ?unitUoM})
-            BIND(concat(\'val:/:\',STR(?unitValue),\':/:\',STR(DATATYPE(?unitValue))) AS ?unit)
+            ?_consignor rdf:value ?consignorValue .
+            FILTER ( NOT EXISTS {?_consignor (aixm:uom | fixm:uom | plain:uom) ?consignorUoM})
+            BIND(concat(\'val:/:\',STR(?consignorValue),\':/:\',STR(DATATYPE(?consignorValue))) AS ?consignor)
           }
-		     UNION
-		     {
-            ?_unit
-              rdf:value ?unitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?unitUoM .
-              BIND(concat(\'xval:/:\',STR(?unitValue),\':/:\',STR(DATATYPE(?unitValue)),\':/:\',?unitUoM) AS ?unit)
+            UNION
+          {
+            ?_consignor
+              rdf:value ?consignorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?consignorUoM .
+            BIND(concat(\'xval:/:\',STR(?consignorValue),\':/:\',STR(DATATYPE(?consignorValue)),\':/:\',?consignorUoM) AS ?consignor)
+          }
+            UNION
+          {
+           ?_consignor  aixm:nilReason ?consignorNilReason .
+           BIND(concat(\'nil:/:\',?consignorNilReason) AS ?consignor)
           }
           UNION
           {
-		       ?_unit  aixm:nilReason ?unitNilReason .
-		       BIND(concat(\'nil:/:\',?unitNilReason) AS ?unit)
+		       ?_consignor  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?consignor)
 		     }
+        }
+      }
+      OPTIONAL { ?declarationText fixm:shipper ?_shipper .
+        {
+          {
+            ?_shipper rdf:value ?shipperValue .
+            FILTER ( NOT EXISTS {?_shipper (aixm:uom | fixm:uom | plain:uom) ?shipperUoM})
+            BIND(concat(\'val:/:\',STR(?shipperValue),\':/:\',STR(DATATYPE(?shipperValue))) AS ?shipper)
+          }
+            UNION
+          {
+            ?_shipper
+              rdf:value ?shipperValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?shipperUoM .
+            BIND(concat(\'xval:/:\',STR(?shipperValue),\':/:\',STR(DATATYPE(?shipperValue)),\':/:\',?shipperUoM) AS ?shipper)
+          }
+            UNION
+          {
+           ?_shipper  aixm:nilReason ?shipperNilReason .
+           BIND(concat(\'nil:/:\',?shipperNilReason) AS ?shipper)
+          }
           UNION
           {
-            ?_unit  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?unit)
-	         }
+		       ?_shipper  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipper)
+		     }
+        }
       }
     }
   }
-GROUP BY ?graph ?flightLevel ?level ?unit
 
       '
-,row(Graph,FlightLevel,EfplPoint4DConcat,Level,Unit),[]), convert(EfplPoint4DConcat,EfplPoint4DList), convVal(Level,LevelVal), convVal(Unit,UnitVal).
+,row(Graph,DeclarationText,Compliance,Consignor,Shipper),[]), convVal(Compliance,ComplianceVal), convVal(Consignor,ConsignorVal), convVal(Shipper,ShipperVal).
 
 % fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTime?, Location?)
 
@@ -1610,6 +2479,172 @@ WHERE
       '
 ,row(Graph,LinguisticNote,Note),[]), convVal(Note,NoteVal).
 
+% aixm_Meteorology(Graph, Meteorology, FlightConditions?, Visibility?, VisibilityInterpretation?, RunwayVisualRange?, RunwayVisualRangeInterpretation?, Annotation*)
+
+aixm_Meteorology(Graph, Meteorology, FlightConditionsVal, VisibilityVal, VisibilityInterpretationVal, RunwayVisualRangeVal, RunwayVisualRangeInterpretationVal, AnnotationList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?meteorology rdf:type aixm:Meteorology .
+      OPTIONAL { ?meteorology aixm:flightConditions ?_flightConditions .
+        {
+          {
+            ?_flightConditions rdf:value ?flightConditionsValue .
+            FILTER ( NOT EXISTS {?_flightConditions (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM})
+            BIND(concat(\'val:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue))) AS ?flightConditions)
+          }
+            UNION
+          {
+            ?_flightConditions
+              rdf:value ?flightConditionsValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM .
+            BIND(concat(\'xval:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue)),\':/:\',?flightConditionsUoM) AS ?flightConditions)
+          }
+            UNION
+          {
+           ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
+           BIND(concat(\'nil:/:\',?flightConditionsNilReason) AS ?flightConditions)
+          }
+          UNION
+          {
+		       ?_flightConditions  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightConditions)
+		     }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:visibility ?_visibility .
+        {
+          {
+            ?_visibility rdf:value ?visibilityValue .
+            FILTER ( NOT EXISTS {?_visibility (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM})
+            BIND(concat(\'val:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue))) AS ?visibility)
+          }
+            UNION
+          {
+            ?_visibility
+              rdf:value ?visibilityValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM .
+            BIND(concat(\'xval:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue)),\':/:\',?visibilityUoM) AS ?visibility)
+          }
+            UNION
+          {
+           ?_visibility  aixm:nilReason ?visibilityNilReason .
+           BIND(concat(\'nil:/:\',?visibilityNilReason) AS ?visibility)
+          }
+          UNION
+          {
+		       ?_visibility  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibility)
+		     }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:visibilityInterpretation ?_visibilityInterpretation .
+        {
+          {
+            ?_visibilityInterpretation rdf:value ?visibilityInterpretationValue .
+            FILTER ( NOT EXISTS {?_visibilityInterpretation (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM})
+            BIND(concat(\'val:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue))) AS ?visibilityInterpretation)
+          }
+            UNION
+          {
+            ?_visibilityInterpretation
+              rdf:value ?visibilityInterpretationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM .
+            BIND(concat(\'xval:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue)),\':/:\',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
+          }
+            UNION
+          {
+           ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
+           BIND(concat(\'nil:/:\',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
+          }
+          UNION
+          {
+		       ?_visibilityInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibilityInterpretation)
+		     }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:runwayVisualRange ?_runwayVisualRange .
+        {
+          {
+            ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
+            FILTER ( NOT EXISTS {?_runwayVisualRange (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM})
+            BIND(concat(\'val:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue))) AS ?runwayVisualRange)
+          }
+            UNION
+          {
+            ?_runwayVisualRange
+              rdf:value ?runwayVisualRangeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM .
+            BIND(concat(\'xval:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue)),\':/:\',?runwayVisualRangeUoM) AS ?runwayVisualRange)
+          }
+            UNION
+          {
+           ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
+           BIND(concat(\'nil:/:\',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
+          }
+          UNION
+          {
+		       ?_runwayVisualRange  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRange)
+		     }
+        }
+      }
+      OPTIONAL { ?meteorology aixm:runwayVisualRangeInterpretation ?_runwayVisualRangeInterpretation .
+        {
+          {
+            ?_runwayVisualRangeInterpretation rdf:value ?runwayVisualRangeInterpretationValue .
+            FILTER ( NOT EXISTS {?_runwayVisualRangeInterpretation (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM})
+            BIND(concat(\'val:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue))) AS ?runwayVisualRangeInterpretation)
+          }
+            UNION
+          {
+            ?_runwayVisualRangeInterpretation
+              rdf:value ?runwayVisualRangeInterpretationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM .
+            BIND(concat(\'xval:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue)),\':/:\',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
+          }
+            UNION
+          {
+           ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
+           BIND(concat(\'nil:/:\',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
+          }
+          UNION
+          {
+		       ?_runwayVisualRangeInterpretation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRangeInterpretation)
+		     }
+        }
+      }
+      OPTIONAL {?meteorology aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
+
+      '
+,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convVal(FlightConditions,FlightConditionsVal), convVal(Visibility,VisibilityVal), convVal(VisibilityInterpretation,VisibilityInterpretationVal), convVal(RunwayVisualRange,RunwayVisualRangeVal), convVal(RunwayVisualRangeInterpretation,RunwayVisualRangeInterpretationVal), convert(AnnotationConcat,AnnotationList).
+
 % fixm_PointRange(Graph, PointRange, LateralRange?, VerticalRange?, TemporalRange?)
 
 fixm_PointRange(Graph, PointRange, LateralRangeVal, VerticalRangeVal, TemporalRangeVal) :-
@@ -1709,6 +2744,67 @@ GROUP BY ?graph ?city ?name
       '
 ,row(Graph,City,Name,AnnotationConcat),[]), convVal(Name,NameVal), convert(AnnotationConcat,AnnotationList).
 
+% aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role?, TheOrganisationAuthority)
+
+aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, RoleVal, TheOrganisationAuthorityVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?airportHeliportResponsibilityOrganisation ?role ?theOrganisationAuthority
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportResponsibilityOrganisation rdf:type aixm:AirportHeliportResponsibilityOrganisation .
+      OPTIONAL { ?airportHeliportResponsibilityOrganisation aixm:role ?_role .
+        {
+          {
+            ?_role rdf:value ?roleValue .
+            FILTER ( NOT EXISTS {?_role (aixm:uom | fixm:uom | plain:uom) ?roleUoM})
+            BIND(concat(\'val:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue))) AS ?role)
+          }
+            UNION
+          {
+            ?_role
+              rdf:value ?roleValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?roleUoM .
+            BIND(concat(\'xval:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue)),\':/:\',?roleUoM) AS ?role)
+          }
+            UNION
+          {
+           ?_role  aixm:nilReason ?roleNilReason .
+           BIND(concat(\'nil:/:\',?roleNilReason) AS ?role)
+          }
+          UNION
+          {
+		       ?_role  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?role)
+		     }
+        }
+      }
+      ?airportHeliportResponsibilityOrganisation aixm:theOrganisationAuthority ?theOrganisationAuthority .
+    }
+  }
+
+      '
+,row(Graph,AirportHeliportResponsibilityOrganisation,Role,TheOrganisationAuthority),[]), convVal(Role,RoleVal), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal).
+
 % fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeed?, UpperSpeed?)
 
 fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeedVal, UpperSpeedVal) :-
@@ -1794,267 +2890,6 @@ WHERE
 
       '
 ,row(Graph,AirspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal).
-
-% plain_AirspaceVolume(Graph, AirspaceVolume, UpperLimit, MaximumLimit, Width, LowerLimit, MinimumLimit, LowerLimitReference, MinimumLimitReference, UpperLimitReference, MaximumLimitReference, AirspaceGeometryComponent+)
-
-plain_AirspaceVolume(Graph, AirspaceVolume, UpperLimitVal, MaximumLimitVal, WidthVal, LowerLimitVal, MinimumLimitVal, LowerLimitReferenceVal, MinimumLimitReferenceVal, UpperLimitReferenceVal, MaximumLimitReferenceVal, AirspaceGeometryComponentList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airspaceVolume ?upperLimit ?maximumLimit ?width ?lowerLimit ?minimumLimit ?lowerLimitReference ?minimumLimitReference ?upperLimitReference ?maximumLimitReference (GROUP_CONCAT(DISTINCT ?airspaceGeometryComponent;SEPARATOR=",") AS ?airspaceGeometryComponentConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airspaceVolume rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirspaceVolume> .
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#upperLimit>  ?_upperLimit .
-        {
-          {
-            ?_upperLimit rdf:value ?upperLimitValue .
-            FILTER ( NOT EXISTS {?_upperLimit (aixm:uom | fixm:uom | plain:uom) ?upperLimitUoM})
-            BIND(concat(\'val:/:\',STR(?upperLimitValue),\':/:\',STR(DATATYPE(?upperLimitValue))) AS ?upperLimit)
-          }
-		     UNION
-		     {
-            ?_upperLimit
-              rdf:value ?upperLimitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?upperLimitUoM .
-              BIND(concat(\'xval:/:\',STR(?upperLimitValue),\':/:\',STR(DATATYPE(?upperLimitValue)),\':/:\',?upperLimitUoM) AS ?upperLimit)
-          }
-          UNION
-          {
-		       ?_upperLimit  aixm:nilReason ?upperLimitNilReason .
-		       BIND(concat(\'nil:/:\',?upperLimitNilReason) AS ?upperLimit)
-		     }
-          UNION
-          {
-            ?_upperLimit  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?upperLimit)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#maximumLimit>  ?_maximumLimit .
-        {
-          {
-            ?_maximumLimit rdf:value ?maximumLimitValue .
-            FILTER ( NOT EXISTS {?_maximumLimit (aixm:uom | fixm:uom | plain:uom) ?maximumLimitUoM})
-            BIND(concat(\'val:/:\',STR(?maximumLimitValue),\':/:\',STR(DATATYPE(?maximumLimitValue))) AS ?maximumLimit)
-          }
-		     UNION
-		     {
-            ?_maximumLimit
-              rdf:value ?maximumLimitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?maximumLimitUoM .
-              BIND(concat(\'xval:/:\',STR(?maximumLimitValue),\':/:\',STR(DATATYPE(?maximumLimitValue)),\':/:\',?maximumLimitUoM) AS ?maximumLimit)
-          }
-          UNION
-          {
-		       ?_maximumLimit  aixm:nilReason ?maximumLimitNilReason .
-		       BIND(concat(\'nil:/:\',?maximumLimitNilReason) AS ?maximumLimit)
-		     }
-          UNION
-          {
-            ?_maximumLimit  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?maximumLimit)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#width>  ?_width .
-        {
-          {
-            ?_width rdf:value ?widthValue .
-            FILTER ( NOT EXISTS {?_width (aixm:uom | fixm:uom | plain:uom) ?widthUoM})
-            BIND(concat(\'val:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue))) AS ?width)
-          }
-		     UNION
-		     {
-            ?_width
-              rdf:value ?widthValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?widthUoM .
-              BIND(concat(\'xval:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue)),\':/:\',?widthUoM) AS ?width)
-          }
-          UNION
-          {
-		       ?_width  aixm:nilReason ?widthNilReason .
-		       BIND(concat(\'nil:/:\',?widthNilReason) AS ?width)
-		     }
-          UNION
-          {
-            ?_width  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?width)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#lowerLimit>  ?_lowerLimit .
-        {
-          {
-            ?_lowerLimit rdf:value ?lowerLimitValue .
-            FILTER ( NOT EXISTS {?_lowerLimit (aixm:uom | fixm:uom | plain:uom) ?lowerLimitUoM})
-            BIND(concat(\'val:/:\',STR(?lowerLimitValue),\':/:\',STR(DATATYPE(?lowerLimitValue))) AS ?lowerLimit)
-          }
-		     UNION
-		     {
-            ?_lowerLimit
-              rdf:value ?lowerLimitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?lowerLimitUoM .
-              BIND(concat(\'xval:/:\',STR(?lowerLimitValue),\':/:\',STR(DATATYPE(?lowerLimitValue)),\':/:\',?lowerLimitUoM) AS ?lowerLimit)
-          }
-          UNION
-          {
-		       ?_lowerLimit  aixm:nilReason ?lowerLimitNilReason .
-		       BIND(concat(\'nil:/:\',?lowerLimitNilReason) AS ?lowerLimit)
-		     }
-          UNION
-          {
-            ?_lowerLimit  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?lowerLimit)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#minimumLimit>  ?_minimumLimit .
-        {
-          {
-            ?_minimumLimit rdf:value ?minimumLimitValue .
-            FILTER ( NOT EXISTS {?_minimumLimit (aixm:uom | fixm:uom | plain:uom) ?minimumLimitUoM})
-            BIND(concat(\'val:/:\',STR(?minimumLimitValue),\':/:\',STR(DATATYPE(?minimumLimitValue))) AS ?minimumLimit)
-          }
-		     UNION
-		     {
-            ?_minimumLimit
-              rdf:value ?minimumLimitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?minimumLimitUoM .
-              BIND(concat(\'xval:/:\',STR(?minimumLimitValue),\':/:\',STR(DATATYPE(?minimumLimitValue)),\':/:\',?minimumLimitUoM) AS ?minimumLimit)
-          }
-          UNION
-          {
-		       ?_minimumLimit  aixm:nilReason ?minimumLimitNilReason .
-		       BIND(concat(\'nil:/:\',?minimumLimitNilReason) AS ?minimumLimit)
-		     }
-          UNION
-          {
-            ?_minimumLimit  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?minimumLimit)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#lowerLimitReference>  ?_lowerLimitReference .
-        {
-          {
-            ?_lowerLimitReference rdf:value ?lowerLimitReferenceValue .
-            FILTER ( NOT EXISTS {?_lowerLimitReference (aixm:uom | fixm:uom | plain:uom) ?lowerLimitReferenceUoM})
-            BIND(concat(\'val:/:\',STR(?lowerLimitReferenceValue),\':/:\',STR(DATATYPE(?lowerLimitReferenceValue))) AS ?lowerLimitReference)
-          }
-		     UNION
-		     {
-            ?_lowerLimitReference
-              rdf:value ?lowerLimitReferenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?lowerLimitReferenceUoM .
-              BIND(concat(\'xval:/:\',STR(?lowerLimitReferenceValue),\':/:\',STR(DATATYPE(?lowerLimitReferenceValue)),\':/:\',?lowerLimitReferenceUoM) AS ?lowerLimitReference)
-          }
-          UNION
-          {
-		       ?_lowerLimitReference  aixm:nilReason ?lowerLimitReferenceNilReason .
-		       BIND(concat(\'nil:/:\',?lowerLimitReferenceNilReason) AS ?lowerLimitReference)
-		     }
-          UNION
-          {
-            ?_lowerLimitReference  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?lowerLimitReference)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#minimumLimitReference>  ?_minimumLimitReference .
-        {
-          {
-            ?_minimumLimitReference rdf:value ?minimumLimitReferenceValue .
-            FILTER ( NOT EXISTS {?_minimumLimitReference (aixm:uom | fixm:uom | plain:uom) ?minimumLimitReferenceUoM})
-            BIND(concat(\'val:/:\',STR(?minimumLimitReferenceValue),\':/:\',STR(DATATYPE(?minimumLimitReferenceValue))) AS ?minimumLimitReference)
-          }
-		     UNION
-		     {
-            ?_minimumLimitReference
-              rdf:value ?minimumLimitReferenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?minimumLimitReferenceUoM .
-              BIND(concat(\'xval:/:\',STR(?minimumLimitReferenceValue),\':/:\',STR(DATATYPE(?minimumLimitReferenceValue)),\':/:\',?minimumLimitReferenceUoM) AS ?minimumLimitReference)
-          }
-          UNION
-          {
-		       ?_minimumLimitReference  aixm:nilReason ?minimumLimitReferenceNilReason .
-		       BIND(concat(\'nil:/:\',?minimumLimitReferenceNilReason) AS ?minimumLimitReference)
-		     }
-          UNION
-          {
-            ?_minimumLimitReference  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?minimumLimitReference)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#upperLimitReference>  ?_upperLimitReference .
-        {
-          {
-            ?_upperLimitReference rdf:value ?upperLimitReferenceValue .
-            FILTER ( NOT EXISTS {?_upperLimitReference (aixm:uom | fixm:uom | plain:uom) ?upperLimitReferenceUoM})
-            BIND(concat(\'val:/:\',STR(?upperLimitReferenceValue),\':/:\',STR(DATATYPE(?upperLimitReferenceValue))) AS ?upperLimitReference)
-          }
-		     UNION
-		     {
-            ?_upperLimitReference
-              rdf:value ?upperLimitReferenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?upperLimitReferenceUoM .
-              BIND(concat(\'xval:/:\',STR(?upperLimitReferenceValue),\':/:\',STR(DATATYPE(?upperLimitReferenceValue)),\':/:\',?upperLimitReferenceUoM) AS ?upperLimitReference)
-          }
-          UNION
-          {
-		       ?_upperLimitReference  aixm:nilReason ?upperLimitReferenceNilReason .
-		       BIND(concat(\'nil:/:\',?upperLimitReferenceNilReason) AS ?upperLimitReference)
-		     }
-          UNION
-          {
-            ?_upperLimitReference  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?upperLimitReference)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#maximumLimitReference>  ?_maximumLimitReference .
-        {
-          {
-            ?_maximumLimitReference rdf:value ?maximumLimitReferenceValue .
-            FILTER ( NOT EXISTS {?_maximumLimitReference (aixm:uom | fixm:uom | plain:uom) ?maximumLimitReferenceUoM})
-            BIND(concat(\'val:/:\',STR(?maximumLimitReferenceValue),\':/:\',STR(DATATYPE(?maximumLimitReferenceValue))) AS ?maximumLimitReference)
-          }
-		     UNION
-		     {
-            ?_maximumLimitReference
-              rdf:value ?maximumLimitReferenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?maximumLimitReferenceUoM .
-              BIND(concat(\'xval:/:\',STR(?maximumLimitReferenceValue),\':/:\',STR(DATATYPE(?maximumLimitReferenceValue)),\':/:\',?maximumLimitReferenceUoM) AS ?maximumLimitReference)
-          }
-          UNION
-          {
-		       ?_maximumLimitReference  aixm:nilReason ?maximumLimitReferenceNilReason .
-		       BIND(concat(\'nil:/:\',?maximumLimitReferenceNilReason) AS ?maximumLimitReference)
-		     }
-          UNION
-          {
-            ?_maximumLimitReference  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?maximumLimitReference)
-	         }
-      }
-      ?airspaceVolume <http://www.aisa-project.eu/vocabulary/plain#airspaceGeometryComponent> ?airspaceGeometryComponent .
-    }
-  }
-GROUP BY ?graph ?airspaceVolume ?upperLimit ?maximumLimit ?width ?lowerLimit ?minimumLimit ?lowerLimitReference ?minimumLimitReference ?upperLimitReference ?maximumLimitReference
-
-      '
-,row(Graph,AirspaceVolume,UpperLimit,MaximumLimit,Width,LowerLimit,MinimumLimit,LowerLimitReference,MinimumLimitReference,UpperLimitReference,MaximumLimitReference,AirspaceGeometryComponentConcat),[]), convVal(UpperLimit,UpperLimitVal), convVal(MaximumLimit,MaximumLimitVal), convVal(Width,WidthVal), convVal(LowerLimit,LowerLimitVal), convVal(MinimumLimit,MinimumLimitVal), convVal(LowerLimitReference,LowerLimitReferenceVal), convVal(MinimumLimitReference,MinimumLimitReferenceVal), convVal(UpperLimitReference,UpperLimitReferenceVal), convVal(MaximumLimitReference,MaximumLimitReferenceVal), convert(AirspaceGeometryComponentConcat,AirspaceGeometryComponentList).
 
 % fixm_RankedTrajectory(Graph, RankedTrajectory, Identifier?, MaximumAcceptableDelay?, AssignedIndicator?, RouteTrajectoryPair?)
 
@@ -2831,6 +3666,214 @@ GROUP BY ?graph ?contactInformation ?name ?title
       '
 ,row(Graph,ContactInformation,Name,Title,AnnotationConcat,NetworkNodeConcat,AddressConcat,PhoneFaxConcat),[]), convVal(Name,NameVal), convVal(Title,TitleVal), convert(AnnotationConcat,AnnotationList), convert(NetworkNodeConcat,NetworkNodeList), convert(AddressConcat,AddressList), convert(PhoneFaxConcat,PhoneFaxList).
 
+% fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position?, PositionAltitude?, PositionEstimatedTime?)
+
+fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, PositionVal, PositionAltitudeVal, PositionEstimatedTimeVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?plannedReportingPosition ?position ?positionAltitude ?positionEstimatedTime
+WHERE
+  { GRAPH ?graph
+    {
+      ?plannedReportingPosition rdf:type fixm:PlannedReportingPosition .
+      OPTIONAL {?plannedReportingPosition fixm:position ?position .}
+      OPTIONAL { ?plannedReportingPosition fixm:positionAltitude ?_positionAltitude .
+        {
+          {
+            ?_positionAltitude rdf:value ?positionAltitudeValue .
+            FILTER ( NOT EXISTS {?_positionAltitude (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM})
+            BIND(concat(\'val:/:\',STR(?positionAltitudeValue),\':/:\',STR(DATATYPE(?positionAltitudeValue))) AS ?positionAltitude)
+          }
+            UNION
+          {
+            ?_positionAltitude
+              rdf:value ?positionAltitudeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM .
+            BIND(concat(\'xval:/:\',STR(?positionAltitudeValue),\':/:\',STR(DATATYPE(?positionAltitudeValue)),\':/:\',?positionAltitudeUoM) AS ?positionAltitude)
+          }
+            UNION
+          {
+           ?_positionAltitude  aixm:nilReason ?positionAltitudeNilReason .
+           BIND(concat(\'nil:/:\',?positionAltitudeNilReason) AS ?positionAltitude)
+          }
+          UNION
+          {
+		       ?_positionAltitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?positionAltitude)
+		     }
+        }
+      }
+      OPTIONAL { ?plannedReportingPosition fixm:positionEstimatedTime ?_positionEstimatedTime .
+        {
+          {
+            ?_positionEstimatedTime rdf:value ?positionEstimatedTimeValue .
+            FILTER ( NOT EXISTS {?_positionEstimatedTime (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM})
+            BIND(concat(\'val:/:\',STR(?positionEstimatedTimeValue),\':/:\',STR(DATATYPE(?positionEstimatedTimeValue))) AS ?positionEstimatedTime)
+          }
+            UNION
+          {
+            ?_positionEstimatedTime
+              rdf:value ?positionEstimatedTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?positionEstimatedTimeValue),\':/:\',STR(DATATYPE(?positionEstimatedTimeValue)),\':/:\',?positionEstimatedTimeUoM) AS ?positionEstimatedTime)
+          }
+            UNION
+          {
+           ?_positionEstimatedTime  aixm:nilReason ?positionEstimatedTimeNilReason .
+           BIND(concat(\'nil:/:\',?positionEstimatedTimeNilReason) AS ?positionEstimatedTime)
+          }
+          UNION
+          {
+		       ?_positionEstimatedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?positionEstimatedTime)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,PlannedReportingPosition,Position,PositionAltitude,PositionEstimatedTime),[]), convVal(Position,PositionVal), convVal(PositionAltitude,PositionAltitudeVal), convVal(PositionEstimatedTime,PositionEstimatedTimeVal).
+
+% fixm_SignificantPoint(Graph, SignificantPoint)
+
+fixm_SignificantPoint(Graph, SignificantPoint) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?significantPoint
+WHERE
+  { GRAPH ?graph
+    {
+      ?significantPoint rdf:type fixm:SignificantPoint .
+    }
+  }
+
+      '
+,row(Graph,SignificantPoint),[]).
+
+% fixm_SupplementalData(Graph, SupplementalData, FuelEndurance?, PersonsOnBoard?, PilotInCommand?)
+
+fixm_SupplementalData(Graph, SupplementalData, FuelEnduranceVal, PersonsOnBoardVal, PilotInCommandVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?supplementalData ?fuelEndurance ?personsOnBoard ?pilotInCommand
+WHERE
+  { GRAPH ?graph
+    {
+      ?supplementalData rdf:type fixm:SupplementalData .
+      OPTIONAL { ?supplementalData fixm:fuelEndurance ?_fuelEndurance .
+        {
+          {
+            ?_fuelEndurance rdf:value ?fuelEnduranceValue .
+            FILTER ( NOT EXISTS {?_fuelEndurance (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM})
+            BIND(concat(\'val:/:\',STR(?fuelEnduranceValue),\':/:\',STR(DATATYPE(?fuelEnduranceValue))) AS ?fuelEndurance)
+          }
+            UNION
+          {
+            ?_fuelEndurance
+              rdf:value ?fuelEnduranceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM .
+            BIND(concat(\'xval:/:\',STR(?fuelEnduranceValue),\':/:\',STR(DATATYPE(?fuelEnduranceValue)),\':/:\',?fuelEnduranceUoM) AS ?fuelEndurance)
+          }
+            UNION
+          {
+           ?_fuelEndurance  aixm:nilReason ?fuelEnduranceNilReason .
+           BIND(concat(\'nil:/:\',?fuelEnduranceNilReason) AS ?fuelEndurance)
+          }
+          UNION
+          {
+		       ?_fuelEndurance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fuelEndurance)
+		     }
+        }
+      }
+      OPTIONAL { ?supplementalData fixm:personsOnBoard ?_personsOnBoard .
+        {
+          {
+            ?_personsOnBoard rdf:value ?personsOnBoardValue .
+            FILTER ( NOT EXISTS {?_personsOnBoard (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM})
+            BIND(concat(\'val:/:\',STR(?personsOnBoardValue),\':/:\',STR(DATATYPE(?personsOnBoardValue))) AS ?personsOnBoard)
+          }
+            UNION
+          {
+            ?_personsOnBoard
+              rdf:value ?personsOnBoardValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM .
+            BIND(concat(\'xval:/:\',STR(?personsOnBoardValue),\':/:\',STR(DATATYPE(?personsOnBoardValue)),\':/:\',?personsOnBoardUoM) AS ?personsOnBoard)
+          }
+            UNION
+          {
+           ?_personsOnBoard  aixm:nilReason ?personsOnBoardNilReason .
+           BIND(concat(\'nil:/:\',?personsOnBoardNilReason) AS ?personsOnBoard)
+          }
+          UNION
+          {
+		       ?_personsOnBoard  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?personsOnBoard)
+		     }
+        }
+      }
+      OPTIONAL {?supplementalData fixm:pilotInCommand ?pilotInCommand .}
+    }
+  }
+
+      '
+,row(Graph,SupplementalData,FuelEndurance,PersonsOnBoard,PilotInCommand),[]), convVal(FuelEndurance,FuelEnduranceVal), convVal(PersonsOnBoard,PersonsOnBoardVal), convVal(PilotInCommand,PilotInCommandVal).
+
 % fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber?, OnboardLocation?, HandlingInformation?, AircraftLimitation?, AirWayBill?, Shipment?, PackageGroup*, ShippingInformation?)
 
 fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumberVal, OnboardLocationVal, HandlingInformationVal, AircraftLimitationVal, AirWayBillVal, ShipmentVal, PackageGroupList, ShippingInformationVal) :-
@@ -2999,6 +4042,155 @@ GROUP BY ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInfor
       '
 ,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroupConcat,ShippingInformation),[]), convVal(GuidebookNumber,GuidebookNumberVal), convVal(OnboardLocation,OnboardLocationVal), convVal(HandlingInformation,HandlingInformationVal), convVal(AircraftLimitation,AircraftLimitationVal), convVal(AirWayBill,AirWayBillVal), convVal(Shipment,ShipmentVal), convert(PackageGroupConcat,PackageGroupList), convVal(ShippingInformation,ShippingInformationVal).
 
+% fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions?, DangerousGoodsPackage*, ShipmentUseIndicator?)
+
+fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensionsVal, DangerousGoodsPackageList, ShipmentUseIndicatorVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions (GROUP_CONCAT(DISTINCT ?dangerousGoodsPackage;SEPARATOR=",") AS ?dangerousGoodsPackageConcat) ?shipmentUseIndicator
+WHERE
+  { GRAPH ?graph
+    {
+      ?dangerousGoodsPackageGroup rdf:type fixm:DangerousGoodsPackageGroup .
+      OPTIONAL {?dangerousGoodsPackageGroup fixm:shipmentDimensions ?shipmentDimensions .}
+      OPTIONAL {?dangerousGoodsPackageGroup fixm:dangerousGoodsPackage ?dangerousGoodsPackage .}
+      OPTIONAL { ?dangerousGoodsPackageGroup fixm:shipmentUseIndicator ?_shipmentUseIndicator .
+        {
+          {
+            ?_shipmentUseIndicator rdf:value ?shipmentUseIndicatorValue .
+            FILTER ( NOT EXISTS {?_shipmentUseIndicator (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM})
+            BIND(concat(\'val:/:\',STR(?shipmentUseIndicatorValue),\':/:\',STR(DATATYPE(?shipmentUseIndicatorValue))) AS ?shipmentUseIndicator)
+          }
+            UNION
+          {
+            ?_shipmentUseIndicator
+              rdf:value ?shipmentUseIndicatorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM .
+            BIND(concat(\'xval:/:\',STR(?shipmentUseIndicatorValue),\':/:\',STR(DATATYPE(?shipmentUseIndicatorValue)),\':/:\',?shipmentUseIndicatorUoM) AS ?shipmentUseIndicator)
+          }
+            UNION
+          {
+           ?_shipmentUseIndicator  aixm:nilReason ?shipmentUseIndicatorNilReason .
+           BIND(concat(\'nil:/:\',?shipmentUseIndicatorNilReason) AS ?shipmentUseIndicator)
+          }
+          UNION
+          {
+		       ?_shipmentUseIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipmentUseIndicator)
+		     }
+        }
+      }
+    }
+  }
+GROUP BY ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?shipmentUseIndicator
+
+      '
+,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convVal(ShipmentDimensions,ShipmentDimensionsVal), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList), convVal(ShipmentUseIndicator,ShipmentUseIndicatorVal).
+
+% fixm_OfftrackDistance(Graph, OfftrackDistance, Distance?, Direction?)
+
+fixm_OfftrackDistance(Graph, OfftrackDistance, DistanceVal, DirectionVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?offtrackDistance ?distance ?direction
+WHERE
+  { GRAPH ?graph
+    {
+      ?offtrackDistance rdf:type fixm:OfftrackDistance .
+      OPTIONAL { ?offtrackDistance fixm:distance ?_distance .
+        {
+          {
+            ?_distance rdf:value ?distanceValue .
+            FILTER ( NOT EXISTS {?_distance (aixm:uom | fixm:uom | plain:uom) ?distanceUoM})
+            BIND(concat(\'val:/:\',STR(?distanceValue),\':/:\',STR(DATATYPE(?distanceValue))) AS ?distance)
+          }
+            UNION
+          {
+            ?_distance
+              rdf:value ?distanceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?distanceUoM .
+            BIND(concat(\'xval:/:\',STR(?distanceValue),\':/:\',STR(DATATYPE(?distanceValue)),\':/:\',?distanceUoM) AS ?distance)
+          }
+            UNION
+          {
+           ?_distance  aixm:nilReason ?distanceNilReason .
+           BIND(concat(\'nil:/:\',?distanceNilReason) AS ?distance)
+          }
+          UNION
+          {
+		       ?_distance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?distance)
+		     }
+        }
+      }
+      OPTIONAL { ?offtrackDistance fixm:direction ?_direction .
+        {
+          {
+            ?_direction rdf:value ?directionValue .
+            FILTER ( NOT EXISTS {?_direction (aixm:uom | fixm:uom | plain:uom) ?directionUoM})
+            BIND(concat(\'val:/:\',STR(?directionValue),\':/:\',STR(DATATYPE(?directionValue))) AS ?direction)
+          }
+            UNION
+          {
+            ?_direction
+              rdf:value ?directionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?directionUoM .
+            BIND(concat(\'xval:/:\',STR(?directionValue),\':/:\',STR(DATATYPE(?directionValue)),\':/:\',?directionUoM) AS ?direction)
+          }
+            UNION
+          {
+           ?_direction  aixm:nilReason ?directionNilReason .
+           BIND(concat(\'nil:/:\',?directionNilReason) AS ?direction)
+          }
+          UNION
+          {
+		       ?_direction  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?direction)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,OfftrackDistance,Distance,Direction),[]), convVal(Distance,DistanceVal), convVal(Direction,DirectionVal).
+
 % fixm_Handoff(Graph, Handoff, ReceivingUnit?, TransferringUnit?, CoordinationStatus?)
 
 fixm_Handoff(Graph, Handoff, ReceivingUnitVal, TransferringUnitVal, CoordinationStatusVal) :-
@@ -3036,9 +4228,9 @@ WHERE
       '
 ,row(Graph,Handoff,ReceivingUnit,TransferringUnit,CoordinationStatus),[]), convVal(ReceivingUnit,ReceivingUnitVal), convVal(TransferringUnit,TransferringUnitVal), convVal(CoordinationStatus,CoordinationStatusVal).
 
-% plain_AerodromesOfDestination(Graph, AerodromesOfDestination, EfplFlight*)
+% fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace?, SpecialActivityAirspace?)
 
-plain_AerodromesOfDestination(Graph, AerodromesOfDestination, EfplFlightList) :-
+fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspaceVal, SpecialActivityAirspaceVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -3059,18 +4251,68 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?aerodromesOfDestination (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat)
+SELECT ?graph ?trajectoryChange ?constrainedAirspace ?specialActivityAirspace
 WHERE
   { GRAPH ?graph
     {
-      ?aerodromesOfDestination rdf:type <http://www.aisa-project.eu/vocabulary/plain#AerodromesOfDestination> .
-      OPTIONAL {?aerodromesOfDestination <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .}
+      ?trajectoryChange rdf:type fixm:TrajectoryChange .
+      OPTIONAL { ?trajectoryChange fixm:constrainedAirspace ?_constrainedAirspace .
+        {
+          {
+            ?_constrainedAirspace rdf:value ?constrainedAirspaceValue .
+            FILTER ( NOT EXISTS {?_constrainedAirspace (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM})
+            BIND(concat(\'val:/:\',STR(?constrainedAirspaceValue),\':/:\',STR(DATATYPE(?constrainedAirspaceValue))) AS ?constrainedAirspace)
+          }
+            UNION
+          {
+            ?_constrainedAirspace
+              rdf:value ?constrainedAirspaceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM .
+            BIND(concat(\'xval:/:\',STR(?constrainedAirspaceValue),\':/:\',STR(DATATYPE(?constrainedAirspaceValue)),\':/:\',?constrainedAirspaceUoM) AS ?constrainedAirspace)
+          }
+            UNION
+          {
+           ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
+           BIND(concat(\'nil:/:\',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
+          }
+          UNION
+          {
+		       ?_constrainedAirspace  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?constrainedAirspace)
+		     }
+        }
+      }
+      OPTIONAL { ?trajectoryChange fixm:specialActivityAirspace ?_specialActivityAirspace .
+        {
+          {
+            ?_specialActivityAirspace rdf:value ?specialActivityAirspaceValue .
+            FILTER ( NOT EXISTS {?_specialActivityAirspace (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM})
+            BIND(concat(\'val:/:\',STR(?specialActivityAirspaceValue),\':/:\',STR(DATATYPE(?specialActivityAirspaceValue))) AS ?specialActivityAirspace)
+          }
+            UNION
+          {
+            ?_specialActivityAirspace
+              rdf:value ?specialActivityAirspaceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM .
+            BIND(concat(\'xval:/:\',STR(?specialActivityAirspaceValue),\':/:\',STR(DATATYPE(?specialActivityAirspaceValue)),\':/:\',?specialActivityAirspaceUoM) AS ?specialActivityAirspace)
+          }
+            UNION
+          {
+           ?_specialActivityAirspace  aixm:nilReason ?specialActivityAirspaceNilReason .
+           BIND(concat(\'nil:/:\',?specialActivityAirspaceNilReason) AS ?specialActivityAirspace)
+          }
+          UNION
+          {
+		       ?_specialActivityAirspace  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?specialActivityAirspace)
+		     }
+        }
+      }
     }
   }
-GROUP BY ?graph ?aerodromesOfDestination
 
       '
-,row(Graph,AerodromesOfDestination,EfplFlightConcat),[]), convert(EfplFlightConcat,EfplFlightList).
+,row(Graph,TrajectoryChange,ConstrainedAirspace,SpecialActivityAirspace),[]), convVal(ConstrainedAirspace,ConstrainedAirspaceVal), convVal(SpecialActivityAirspace,SpecialActivityAirspaceVal).
 
 % fixm_ContactInformation(Graph, ContactInformation, Name?, Title?, OnlineContact?, PhoneFax?, Address?)
 
@@ -3886,6 +5128,242 @@ GROUP BY ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorIC
       '
 ,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,ContactConcat,AnnotationConcat,ARP,AltimeterSourceConcat,ContaminantConcat,ServedCityConcat,ResponsibleOrganisation,AviationBoundary,AvailabilityConcat),[]), convVal(Designator,DesignatorVal), convVal(Name,NameVal), convVal(LocationIndicatorICAO,LocationIndicatorICAOVal), convVal(DesignatorIATA,DesignatorIATAVal), convVal(Type,TypeVal), convVal(CertifiedICAO,CertifiedICAOVal), convVal(PrivateUse,PrivateUseVal), convVal(ControlType,ControlTypeVal), convVal(FieldElevation,FieldElevationVal), convVal(FieldElevationAccuracy,FieldElevationAccuracyVal), convVal(VerticalDatum,VerticalDatumVal), convVal(MagneticVariation,MagneticVariationVal), convVal(MagneticVariationAccuracy,MagneticVariationAccuracyVal), convVal(DateMagneticVariation,DateMagneticVariationVal), convVal(MagneticVariationChange,MagneticVariationChangeVal), convVal(ReferenceTemperature,ReferenceTemperatureVal), convVal(AltimeterCheckLocation,AltimeterCheckLocationVal), convVal(SecondaryPowerSupply,SecondaryPowerSupplyVal), convVal(WindDirectionIndicator,WindDirectionIndicatorVal), convVal(LandingDirectionIndicator,LandingDirectionIndicatorVal), convVal(TransitionAltitude,TransitionAltitudeVal), convVal(TransitionLevel,TransitionLevelVal), convVal(LowestTemperature,LowestTemperatureVal), convVal(Abandoned,AbandonedVal), convVal(CertificationDate,CertificationDateVal), convVal(CertificationExpirationDate,CertificationExpirationDateVal), convert(ContactConcat,ContactList), convert(AnnotationConcat,AnnotationList), convVal(ARP,ARPVal), convert(AltimeterSourceConcat,AltimeterSourceList), convert(ContaminantConcat,ContaminantList), convert(ServedCityConcat,ServedCityList), convVal(ResponsibleOrganisation,ResponsibleOrganisationVal), convVal(AviationBoundary,AviationBoundaryVal), convert(AvailabilityConcat,AvailabilityList).
 
+% fixm_Point4D(Graph, Point4D, Altitude?, Time?, PointRange?)
+
+fixm_Point4D(Graph, Point4D, AltitudeVal, TimeVal, PointRangeVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?point4D ?altitude ?time ?pointRange
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:Point4D .
+  }
+  { GRAPH ?graph
+    {
+      ?point4D rdf:type ?SUBCLASS .
+      OPTIONAL { ?point4D fixm:altitude ?_altitude .
+        {
+          {
+            ?_altitude rdf:value ?altitudeValue .
+            FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
+            BIND(concat(\'val:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue))) AS ?altitude)
+          }
+            UNION
+          {
+            ?_altitude
+              rdf:value ?altitudeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
+            BIND(concat(\'xval:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue)),\':/:\',?altitudeUoM) AS ?altitude)
+          }
+            UNION
+          {
+           ?_altitude  aixm:nilReason ?altitudeNilReason .
+           BIND(concat(\'nil:/:\',?altitudeNilReason) AS ?altitude)
+          }
+          UNION
+          {
+		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitude)
+		     }
+        }
+      }
+      OPTIONAL { ?point4D fixm:time ?_time .
+        {
+          {
+            ?_time rdf:value ?timeValue .
+            FILTER ( NOT EXISTS {?_time (aixm:uom | fixm:uom | plain:uom) ?timeUoM})
+            BIND(concat(\'val:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue))) AS ?time)
+          }
+            UNION
+          {
+            ?_time
+              rdf:value ?timeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?timeUoM .
+            BIND(concat(\'xval:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue)),\':/:\',?timeUoM) AS ?time)
+          }
+            UNION
+          {
+           ?_time  aixm:nilReason ?timeNilReason .
+           BIND(concat(\'nil:/:\',?timeNilReason) AS ?time)
+          }
+          UNION
+          {
+		       ?_time  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?time)
+		     }
+        }
+      }
+      OPTIONAL {?point4D fixm:pointRange ?pointRange .}
+    }
+  }
+}
+
+      '
+,row(Graph,Point4D,Altitude,Time,PointRange),[]), convVal(Altitude,AltitudeVal), convVal(Time,TimeVal), convVal(PointRange,PointRangeVal).
+
+% fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType?, DelayAtPoint?, FlightRules?, Point?, ClearanceLimit?)
+
+fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficTypeVal, DelayAtPointVal, FlightRulesVal, PointVal, ClearanceLimitVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?abstractRoutePoint ?airTrafficType ?delayAtPoint ?flightRules ?point ?clearanceLimit
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:AbstractRoutePoint .
+  }
+  { GRAPH ?graph
+    {
+      ?abstractRoutePoint rdf:type ?SUBCLASS .
+      OPTIONAL { ?abstractRoutePoint fixm:airTrafficType ?_airTrafficType .
+        {
+          {
+            ?_airTrafficType rdf:value ?airTrafficTypeValue .
+            FILTER ( NOT EXISTS {?_airTrafficType (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM})
+            BIND(concat(\'val:/:\',STR(?airTrafficTypeValue),\':/:\',STR(DATATYPE(?airTrafficTypeValue))) AS ?airTrafficType)
+          }
+            UNION
+          {
+            ?_airTrafficType
+              rdf:value ?airTrafficTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?airTrafficTypeValue),\':/:\',STR(DATATYPE(?airTrafficTypeValue)),\':/:\',?airTrafficTypeUoM) AS ?airTrafficType)
+          }
+            UNION
+          {
+           ?_airTrafficType  aixm:nilReason ?airTrafficTypeNilReason .
+           BIND(concat(\'nil:/:\',?airTrafficTypeNilReason) AS ?airTrafficType)
+          }
+          UNION
+          {
+		       ?_airTrafficType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airTrafficType)
+		     }
+        }
+      }
+      OPTIONAL { ?abstractRoutePoint fixm:delayAtPoint ?_delayAtPoint .
+        {
+          {
+            ?_delayAtPoint rdf:value ?delayAtPointValue .
+            FILTER ( NOT EXISTS {?_delayAtPoint (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM})
+            BIND(concat(\'val:/:\',STR(?delayAtPointValue),\':/:\',STR(DATATYPE(?delayAtPointValue))) AS ?delayAtPoint)
+          }
+            UNION
+          {
+            ?_delayAtPoint
+              rdf:value ?delayAtPointValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM .
+            BIND(concat(\'xval:/:\',STR(?delayAtPointValue),\':/:\',STR(DATATYPE(?delayAtPointValue)),\':/:\',?delayAtPointUoM) AS ?delayAtPoint)
+          }
+            UNION
+          {
+           ?_delayAtPoint  aixm:nilReason ?delayAtPointNilReason .
+           BIND(concat(\'nil:/:\',?delayAtPointNilReason) AS ?delayAtPoint)
+          }
+          UNION
+          {
+		       ?_delayAtPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?delayAtPoint)
+		     }
+        }
+      }
+      OPTIONAL { ?abstractRoutePoint fixm:flightRules ?_flightRules .
+        {
+          {
+            ?_flightRules rdf:value ?flightRulesValue .
+            FILTER ( NOT EXISTS {?_flightRules (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM})
+            BIND(concat(\'val:/:\',STR(?flightRulesValue),\':/:\',STR(DATATYPE(?flightRulesValue))) AS ?flightRules)
+          }
+            UNION
+          {
+            ?_flightRules
+              rdf:value ?flightRulesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM .
+            BIND(concat(\'xval:/:\',STR(?flightRulesValue),\':/:\',STR(DATATYPE(?flightRulesValue)),\':/:\',?flightRulesUoM) AS ?flightRules)
+          }
+            UNION
+          {
+           ?_flightRules  aixm:nilReason ?flightRulesNilReason .
+           BIND(concat(\'nil:/:\',?flightRulesNilReason) AS ?flightRules)
+          }
+          UNION
+          {
+		       ?_flightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightRules)
+		     }
+        }
+      }
+      OPTIONAL {?abstractRoutePoint fixm:point ?point .}
+      OPTIONAL { ?abstractRoutePoint fixm:clearanceLimit ?_clearanceLimit .
+        {
+          {
+            ?_clearanceLimit rdf:value ?clearanceLimitValue .
+            FILTER ( NOT EXISTS {?_clearanceLimit (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM})
+            BIND(concat(\'val:/:\',STR(?clearanceLimitValue),\':/:\',STR(DATATYPE(?clearanceLimitValue))) AS ?clearanceLimit)
+          }
+            UNION
+          {
+            ?_clearanceLimit
+              rdf:value ?clearanceLimitValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM .
+            BIND(concat(\'xval:/:\',STR(?clearanceLimitValue),\':/:\',STR(DATATYPE(?clearanceLimitValue)),\':/:\',?clearanceLimitUoM) AS ?clearanceLimit)
+          }
+            UNION
+          {
+           ?_clearanceLimit  aixm:nilReason ?clearanceLimitNilReason .
+           BIND(concat(\'nil:/:\',?clearanceLimitNilReason) AS ?clearanceLimit)
+          }
+          UNION
+          {
+		       ?_clearanceLimit  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearanceLimit)
+		     }
+        }
+      }
+    }
+  }
+}
+
+      '
+,row(Graph,AbstractRoutePoint,AirTrafficType,DelayAtPoint,FlightRules,Point,ClearanceLimit),[]), convVal(AirTrafficType,AirTrafficTypeVal), convVal(DelayAtPoint,DelayAtPointVal), convVal(FlightRules,FlightRulesVal), convVal(Point,PointVal), convVal(ClearanceLimit,ClearanceLimitVal).
+
 % aixm_Ridge(Graph, Ridge, Side?, Distance?, Depth?, Annotation*)
 
 aixm_Ridge(Graph, Ridge, SideVal, DistanceVal, DepthVal, AnnotationList) :-
@@ -4000,9 +5478,9 @@ GROUP BY ?graph ?ridge ?side ?distance ?depth
       '
 ,row(Graph,Ridge,Side,Distance,Depth,AnnotationConcat),[]), convVal(Side,SideVal), convVal(Distance,DistanceVal), convVal(Depth,DepthVal), convert(AnnotationConcat,AnnotationList).
 
-% plain_ElevatedPoint(Graph, ElevatedPoint, Navaid*, Elevation, AirportHeliport+)
+% fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTime?, DeIcingTime?, GroundHandlingTime?, StartupTime?)
 
-plain_ElevatedPoint(Graph, ElevatedPoint, NavaidList, ElevationVal, AirportHeliportList) :-
+fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTimeVal, DeIcingTimeVal, GroundHandlingTimeVal, StartupTimeVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -4023,44 +5501,20 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?elevatedPoint (GROUP_CONCAT(DISTINCT ?navaid;SEPARATOR=",") AS ?navaidConcat) ?elevation (GROUP_CONCAT(DISTINCT ?airportHeliport;SEPARATOR=",") AS ?airportHeliportConcat)
+SELECT ?graph ?departureActivityTimes ?boardingTime ?deIcingTime ?groundHandlingTime ?startupTime
 WHERE
   { GRAPH ?graph
     {
-      ?elevatedPoint rdf:type <http://www.aisa-project.eu/vocabulary/plain#ElevatedPoint> .
-      OPTIONAL {?elevatedPoint <http://www.aisa-project.eu/vocabulary/plain#navaid> ?navaid .}
-      ?elevatedPoint <http://www.aisa-project.eu/vocabulary/plain#elevation>  ?_elevation .
-        {
-          {
-            ?_elevation rdf:value ?elevationValue .
-            FILTER ( NOT EXISTS {?_elevation (aixm:uom | fixm:uom | plain:uom) ?elevationUoM})
-            BIND(concat(\'val:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue))) AS ?elevation)
-          }
-		     UNION
-		     {
-            ?_elevation
-              rdf:value ?elevationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?elevationUoM .
-              BIND(concat(\'xval:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue)),\':/:\',?elevationUoM) AS ?elevation)
-          }
-          UNION
-          {
-		       ?_elevation  aixm:nilReason ?elevationNilReason .
-		       BIND(concat(\'nil:/:\',?elevationNilReason) AS ?elevation)
-		     }
-          UNION
-          {
-            ?_elevation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?elevation)
-	         }
-      }
-      ?elevatedPoint <http://www.aisa-project.eu/vocabulary/plain#airportHeliport> ?airportHeliport .
+      ?departureActivityTimes rdf:type fixm:DepartureActivityTimes .
+      OPTIONAL {?departureActivityTimes fixm:boardingTime ?boardingTime .}
+      OPTIONAL {?departureActivityTimes fixm:deIcingTime ?deIcingTime .}
+      OPTIONAL {?departureActivityTimes fixm:groundHandlingTime ?groundHandlingTime .}
+      OPTIONAL {?departureActivityTimes fixm:startupTime ?startupTime .}
     }
   }
-GROUP BY ?graph ?elevatedPoint ?elevation
 
       '
-,row(Graph,ElevatedPoint,NavaidConcat,Elevation,AirportHeliportConcat),[]), convert(NavaidConcat,NavaidList), convVal(Elevation,ElevationVal), convert(AirportHeliportConcat,AirportHeliportList).
+,row(Graph,DepartureActivityTimes,BoardingTime,DeIcingTime,GroundHandlingTime,StartupTime),[]), convVal(BoardingTime,BoardingTimeVal), convVal(DeIcingTime,DeIcingTimeVal), convVal(GroundHandlingTime,GroundHandlingTimeVal), convVal(StartupTime,StartupTimeVal).
 
 % fixm_EnRouteDiversion(Graph, EnRouteDiversion, DiversionRecoveryInformation?)
 
@@ -4121,378 +5575,6 @@ WHERE
 
       '
 ,row(Graph,EnRouteDiversion,DiversionRecoveryInformation),[]), convVal(DiversionRecoveryInformation,DiversionRecoveryInformationVal).
-
-% plain_SectorExitConditions(Graph, SectorExitConditions, ExitFL, FlightIdentification*)
-
-plain_SectorExitConditions(Graph, SectorExitConditions, ExitFLVal, FlightIdentificationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?sectorExitConditions ?exitFL (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?sectorExitConditions rdf:type <http://www.aisa-project.eu/vocabulary/plain#SectorExitConditions> .
-      ?sectorExitConditions <http://www.aisa-project.eu/vocabulary/plain#exitFL>  ?_exitFL .
-        {
-          {
-            ?_exitFL rdf:value ?exitFLValue .
-            FILTER ( NOT EXISTS {?_exitFL (aixm:uom | fixm:uom | plain:uom) ?exitFLUoM})
-            BIND(concat(\'val:/:\',STR(?exitFLValue),\':/:\',STR(DATATYPE(?exitFLValue))) AS ?exitFL)
-          }
-		     UNION
-		     {
-            ?_exitFL
-              rdf:value ?exitFLValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?exitFLUoM .
-              BIND(concat(\'xval:/:\',STR(?exitFLValue),\':/:\',STR(DATATYPE(?exitFLValue)),\':/:\',?exitFLUoM) AS ?exitFL)
-          }
-          UNION
-          {
-		       ?_exitFL  aixm:nilReason ?exitFLNilReason .
-		       BIND(concat(\'nil:/:\',?exitFLNilReason) AS ?exitFL)
-		     }
-          UNION
-          {
-            ?_exitFL  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?exitFL)
-	         }
-      }
-      OPTIONAL {?sectorExitConditions <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-    }
-  }
-GROUP BY ?graph ?sectorExitConditions ?exitFL
-
-      '
-,row(Graph,SectorExitConditions,ExitFL,FlightIdentificationConcat),[]), convVal(ExitFL,ExitFLVal), convert(FlightIdentificationConcat,FlightIdentificationList).
-
-% plain_AircraftPosition(Graph, AircraftPosition, PositionTime, Track, Course, ActualSpeed, Position, SrsName, Latitude, Altitude, Longitude, FlightLevel, Speed, FlightIdentification*)
-
-plain_AircraftPosition(Graph, AircraftPosition, PositionTimeVal, TrackVal, CourseVal, ActualSpeedVal, PositionVal, SrsNameVal, LatitudeVal, AltitudeVal, LongitudeVal, FlightLevelVal, SpeedVal, FlightIdentificationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraftPosition ?positionTime ?track ?course ?actualSpeed ?position ?srsName ?latitude ?altitude ?longitude ?flightLevel ?speed (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraftPosition rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftPosition> .
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#positionTime>  ?_positionTime .
-        {
-          {
-            ?_positionTime rdf:value ?positionTimeValue .
-            FILTER ( NOT EXISTS {?_positionTime (aixm:uom | fixm:uom | plain:uom) ?positionTimeUoM})
-            BIND(concat(\'val:/:\',STR(?positionTimeValue),\':/:\',STR(DATATYPE(?positionTimeValue))) AS ?positionTime)
-          }
-		     UNION
-		     {
-            ?_positionTime
-              rdf:value ?positionTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?positionTimeUoM .
-              BIND(concat(\'xval:/:\',STR(?positionTimeValue),\':/:\',STR(DATATYPE(?positionTimeValue)),\':/:\',?positionTimeUoM) AS ?positionTime)
-          }
-          UNION
-          {
-		       ?_positionTime  aixm:nilReason ?positionTimeNilReason .
-		       BIND(concat(\'nil:/:\',?positionTimeNilReason) AS ?positionTime)
-		     }
-          UNION
-          {
-            ?_positionTime  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?positionTime)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#track>  ?_track .
-        {
-          {
-            ?_track rdf:value ?trackValue .
-            FILTER ( NOT EXISTS {?_track (aixm:uom | fixm:uom | plain:uom) ?trackUoM})
-            BIND(concat(\'val:/:\',STR(?trackValue),\':/:\',STR(DATATYPE(?trackValue))) AS ?track)
-          }
-		     UNION
-		     {
-            ?_track
-              rdf:value ?trackValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?trackUoM .
-              BIND(concat(\'xval:/:\',STR(?trackValue),\':/:\',STR(DATATYPE(?trackValue)),\':/:\',?trackUoM) AS ?track)
-          }
-          UNION
-          {
-		       ?_track  aixm:nilReason ?trackNilReason .
-		       BIND(concat(\'nil:/:\',?trackNilReason) AS ?track)
-		     }
-          UNION
-          {
-            ?_track  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?track)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#course>  ?_course .
-        {
-          {
-            ?_course rdf:value ?courseValue .
-            FILTER ( NOT EXISTS {?_course (aixm:uom | fixm:uom | plain:uom) ?courseUoM})
-            BIND(concat(\'val:/:\',STR(?courseValue),\':/:\',STR(DATATYPE(?courseValue))) AS ?course)
-          }
-		     UNION
-		     {
-            ?_course
-              rdf:value ?courseValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?courseUoM .
-              BIND(concat(\'xval:/:\',STR(?courseValue),\':/:\',STR(DATATYPE(?courseValue)),\':/:\',?courseUoM) AS ?course)
-          }
-          UNION
-          {
-		       ?_course  aixm:nilReason ?courseNilReason .
-		       BIND(concat(\'nil:/:\',?courseNilReason) AS ?course)
-		     }
-          UNION
-          {
-            ?_course  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?course)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#actualSpeed>  ?_actualSpeed .
-        {
-          {
-            ?_actualSpeed rdf:value ?actualSpeedValue .
-            FILTER ( NOT EXISTS {?_actualSpeed (aixm:uom | fixm:uom | plain:uom) ?actualSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?actualSpeedValue),\':/:\',STR(DATATYPE(?actualSpeedValue))) AS ?actualSpeed)
-          }
-		     UNION
-		     {
-            ?_actualSpeed
-              rdf:value ?actualSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?actualSpeedUoM .
-              BIND(concat(\'xval:/:\',STR(?actualSpeedValue),\':/:\',STR(DATATYPE(?actualSpeedValue)),\':/:\',?actualSpeedUoM) AS ?actualSpeed)
-          }
-          UNION
-          {
-		       ?_actualSpeed  aixm:nilReason ?actualSpeedNilReason .
-		       BIND(concat(\'nil:/:\',?actualSpeedNilReason) AS ?actualSpeed)
-		     }
-          UNION
-          {
-            ?_actualSpeed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?actualSpeed)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#position>  ?_position .
-        {
-          {
-            ?_position rdf:value ?positionValue .
-            FILTER ( NOT EXISTS {?_position (aixm:uom | fixm:uom | plain:uom) ?positionUoM})
-            BIND(concat(\'val:/:\',STR(?positionValue),\':/:\',STR(DATATYPE(?positionValue))) AS ?position)
-          }
-		     UNION
-		     {
-            ?_position
-              rdf:value ?positionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?positionUoM .
-              BIND(concat(\'xval:/:\',STR(?positionValue),\':/:\',STR(DATATYPE(?positionValue)),\':/:\',?positionUoM) AS ?position)
-          }
-          UNION
-          {
-		       ?_position  aixm:nilReason ?positionNilReason .
-		       BIND(concat(\'nil:/:\',?positionNilReason) AS ?position)
-		     }
-          UNION
-          {
-            ?_position  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?position)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#srsName>  ?_srsName .
-        {
-          {
-            ?_srsName rdf:value ?srsNameValue .
-            FILTER ( NOT EXISTS {?_srsName (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM})
-            BIND(concat(\'val:/:\',STR(?srsNameValue),\':/:\',STR(DATATYPE(?srsNameValue))) AS ?srsName)
-          }
-		     UNION
-		     {
-            ?_srsName
-              rdf:value ?srsNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM .
-              BIND(concat(\'xval:/:\',STR(?srsNameValue),\':/:\',STR(DATATYPE(?srsNameValue)),\':/:\',?srsNameUoM) AS ?srsName)
-          }
-          UNION
-          {
-		       ?_srsName  aixm:nilReason ?srsNameNilReason .
-		       BIND(concat(\'nil:/:\',?srsNameNilReason) AS ?srsName)
-		     }
-          UNION
-          {
-            ?_srsName  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?srsName)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#latitude>  ?_latitude .
-        {
-          {
-            ?_latitude rdf:value ?latitudeValue .
-            FILTER ( NOT EXISTS {?_latitude (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM})
-            BIND(concat(\'val:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue))) AS ?latitude)
-          }
-		     UNION
-		     {
-            ?_latitude
-              rdf:value ?latitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue)),\':/:\',?latitudeUoM) AS ?latitude)
-          }
-          UNION
-          {
-		       ?_latitude  aixm:nilReason ?latitudeNilReason .
-		       BIND(concat(\'nil:/:\',?latitudeNilReason) AS ?latitude)
-		     }
-          UNION
-          {
-            ?_latitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?latitude)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#altitude>  ?_altitude .
-        {
-          {
-            ?_altitude rdf:value ?altitudeValue .
-            FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat(\'val:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue))) AS ?altitude)
-          }
-		     UNION
-		     {
-            ?_altitude
-              rdf:value ?altitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue)),\':/:\',?altitudeUoM) AS ?altitude)
-          }
-          UNION
-          {
-		       ?_altitude  aixm:nilReason ?altitudeNilReason .
-		       BIND(concat(\'nil:/:\',?altitudeNilReason) AS ?altitude)
-		     }
-          UNION
-          {
-            ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitude)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#longitude>  ?_longitude .
-        {
-          {
-            ?_longitude rdf:value ?longitudeValue .
-            FILTER ( NOT EXISTS {?_longitude (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM})
-            BIND(concat(\'val:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue))) AS ?longitude)
-          }
-		     UNION
-		     {
-            ?_longitude
-              rdf:value ?longitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue)),\':/:\',?longitudeUoM) AS ?longitude)
-          }
-          UNION
-          {
-		       ?_longitude  aixm:nilReason ?longitudeNilReason .
-		       BIND(concat(\'nil:/:\',?longitudeNilReason) AS ?longitude)
-		     }
-          UNION
-          {
-            ?_longitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?longitude)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#flightLevel>  ?_flightLevel .
-        {
-          {
-            ?_flightLevel rdf:value ?flightLevelValue .
-            FILTER ( NOT EXISTS {?_flightLevel (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM})
-            BIND(concat(\'val:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue))) AS ?flightLevel)
-          }
-		     UNION
-		     {
-            ?_flightLevel
-              rdf:value ?flightLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM .
-              BIND(concat(\'xval:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue)),\':/:\',?flightLevelUoM) AS ?flightLevel)
-          }
-          UNION
-          {
-		       ?_flightLevel  aixm:nilReason ?flightLevelNilReason .
-		       BIND(concat(\'nil:/:\',?flightLevelNilReason) AS ?flightLevel)
-		     }
-          UNION
-          {
-            ?_flightLevel  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightLevel)
-	         }
-      }
-      ?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#speed>  ?_speed .
-        {
-          {
-            ?_speed rdf:value ?speedValue .
-            FILTER ( NOT EXISTS {?_speed (aixm:uom | fixm:uom | plain:uom) ?speedUoM})
-            BIND(concat(\'val:/:\',STR(?speedValue),\':/:\',STR(DATATYPE(?speedValue))) AS ?speed)
-          }
-		     UNION
-		     {
-            ?_speed
-              rdf:value ?speedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?speedUoM .
-              BIND(concat(\'xval:/:\',STR(?speedValue),\':/:\',STR(DATATYPE(?speedValue)),\':/:\',?speedUoM) AS ?speed)
-          }
-          UNION
-          {
-		       ?_speed  aixm:nilReason ?speedNilReason .
-		       BIND(concat(\'nil:/:\',?speedNilReason) AS ?speed)
-		     }
-          UNION
-          {
-            ?_speed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?speed)
-	         }
-      }
-      OPTIONAL {?aircraftPosition <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-    }
-  }
-GROUP BY ?graph ?aircraftPosition ?positionTime ?track ?course ?actualSpeed ?position ?srsName ?latitude ?altitude ?longitude ?flightLevel ?speed
-
-      '
-,row(Graph,AircraftPosition,PositionTime,Track,Course,ActualSpeed,Position,SrsName,Latitude,Altitude,Longitude,FlightLevel,Speed,FlightIdentificationConcat),[]), convVal(PositionTime,PositionTimeVal), convVal(Track,TrackVal), convVal(Course,CourseVal), convVal(ActualSpeed,ActualSpeedVal), convVal(Position,PositionVal), convVal(SrsName,SrsNameVal), convVal(Latitude,LatitudeVal), convVal(Altitude,AltitudeVal), convVal(Longitude,LongitudeVal), convVal(FlightLevel,FlightLevelVal), convVal(Speed,SpeedVal), convert(FlightIdentificationConcat,FlightIdentificationList).
 
 % fixm_ActualSpeed(Graph, ActualSpeed, Calculated?, PilotReported?, Surveillance?)
 
@@ -4605,192 +5687,6 @@ WHERE
 
       '
 ,row(Graph,ActualSpeed,Calculated,PilotReported,Surveillance),[]), convVal(Calculated,CalculatedVal), convVal(PilotReported,PilotReportedVal), convVal(Surveillance,SurveillanceVal).
-
-% plain_FuturePosition(Graph, FuturePosition, FlightIdentification+, Probability, Latitude, TimeStamp, Longitude, PredictedAltitude, WaypointName)
-
-plain_FuturePosition(Graph, FuturePosition, FlightIdentificationList, ProbabilityVal, LatitudeVal, TimeStampVal, LongitudeVal, PredictedAltitudeVal, WaypointNameVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?futurePosition (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?probability ?latitude ?timeStamp ?longitude ?predictedAltitude ?waypointName
-WHERE
-  { GRAPH ?graph
-    {
-      ?futurePosition rdf:type <http://www.aisa-project.eu/vocabulary/plain#FuturePosition> .
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#probability>  ?_probability .
-        {
-          {
-            ?_probability rdf:value ?probabilityValue .
-            FILTER ( NOT EXISTS {?_probability (aixm:uom | fixm:uom | plain:uom) ?probabilityUoM})
-            BIND(concat(\'val:/:\',STR(?probabilityValue),\':/:\',STR(DATATYPE(?probabilityValue))) AS ?probability)
-          }
-		     UNION
-		     {
-            ?_probability
-              rdf:value ?probabilityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?probabilityUoM .
-              BIND(concat(\'xval:/:\',STR(?probabilityValue),\':/:\',STR(DATATYPE(?probabilityValue)),\':/:\',?probabilityUoM) AS ?probability)
-          }
-          UNION
-          {
-		       ?_probability  aixm:nilReason ?probabilityNilReason .
-		       BIND(concat(\'nil:/:\',?probabilityNilReason) AS ?probability)
-		     }
-          UNION
-          {
-            ?_probability  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?probability)
-	         }
-      }
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#latitude>  ?_latitude .
-        {
-          {
-            ?_latitude rdf:value ?latitudeValue .
-            FILTER ( NOT EXISTS {?_latitude (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM})
-            BIND(concat(\'val:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue))) AS ?latitude)
-          }
-		     UNION
-		     {
-            ?_latitude
-              rdf:value ?latitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue)),\':/:\',?latitudeUoM) AS ?latitude)
-          }
-          UNION
-          {
-		       ?_latitude  aixm:nilReason ?latitudeNilReason .
-		       BIND(concat(\'nil:/:\',?latitudeNilReason) AS ?latitude)
-		     }
-          UNION
-          {
-            ?_latitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?latitude)
-	         }
-      }
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#timeStamp>  ?_timeStamp .
-        {
-          {
-            ?_timeStamp rdf:value ?timeStampValue .
-            FILTER ( NOT EXISTS {?_timeStamp (aixm:uom | fixm:uom | plain:uom) ?timeStampUoM})
-            BIND(concat(\'val:/:\',STR(?timeStampValue),\':/:\',STR(DATATYPE(?timeStampValue))) AS ?timeStamp)
-          }
-		     UNION
-		     {
-            ?_timeStamp
-              rdf:value ?timeStampValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeStampUoM .
-              BIND(concat(\'xval:/:\',STR(?timeStampValue),\':/:\',STR(DATATYPE(?timeStampValue)),\':/:\',?timeStampUoM) AS ?timeStamp)
-          }
-          UNION
-          {
-		       ?_timeStamp  aixm:nilReason ?timeStampNilReason .
-		       BIND(concat(\'nil:/:\',?timeStampNilReason) AS ?timeStamp)
-		     }
-          UNION
-          {
-            ?_timeStamp  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeStamp)
-	         }
-      }
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#longitude>  ?_longitude .
-        {
-          {
-            ?_longitude rdf:value ?longitudeValue .
-            FILTER ( NOT EXISTS {?_longitude (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM})
-            BIND(concat(\'val:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue))) AS ?longitude)
-          }
-		     UNION
-		     {
-            ?_longitude
-              rdf:value ?longitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue)),\':/:\',?longitudeUoM) AS ?longitude)
-          }
-          UNION
-          {
-		       ?_longitude  aixm:nilReason ?longitudeNilReason .
-		       BIND(concat(\'nil:/:\',?longitudeNilReason) AS ?longitude)
-		     }
-          UNION
-          {
-            ?_longitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?longitude)
-	         }
-      }
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#predictedAltitude>  ?_predictedAltitude .
-        {
-          {
-            ?_predictedAltitude rdf:value ?predictedAltitudeValue .
-            FILTER ( NOT EXISTS {?_predictedAltitude (aixm:uom | fixm:uom | plain:uom) ?predictedAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?predictedAltitudeValue),\':/:\',STR(DATATYPE(?predictedAltitudeValue))) AS ?predictedAltitude)
-          }
-		     UNION
-		     {
-            ?_predictedAltitude
-              rdf:value ?predictedAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?predictedAltitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?predictedAltitudeValue),\':/:\',STR(DATATYPE(?predictedAltitudeValue)),\':/:\',?predictedAltitudeUoM) AS ?predictedAltitude)
-          }
-          UNION
-          {
-		       ?_predictedAltitude  aixm:nilReason ?predictedAltitudeNilReason .
-		       BIND(concat(\'nil:/:\',?predictedAltitudeNilReason) AS ?predictedAltitude)
-		     }
-          UNION
-          {
-            ?_predictedAltitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?predictedAltitude)
-	         }
-      }
-      ?futurePosition <http://www.aisa-project.eu/vocabulary/plain#waypointName>  ?_waypointName .
-        {
-          {
-            ?_waypointName rdf:value ?waypointNameValue .
-            FILTER ( NOT EXISTS {?_waypointName (aixm:uom | fixm:uom | plain:uom) ?waypointNameUoM})
-            BIND(concat(\'val:/:\',STR(?waypointNameValue),\':/:\',STR(DATATYPE(?waypointNameValue))) AS ?waypointName)
-          }
-		     UNION
-		     {
-            ?_waypointName
-              rdf:value ?waypointNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?waypointNameUoM .
-              BIND(concat(\'xval:/:\',STR(?waypointNameValue),\':/:\',STR(DATATYPE(?waypointNameValue)),\':/:\',?waypointNameUoM) AS ?waypointName)
-          }
-          UNION
-          {
-		       ?_waypointName  aixm:nilReason ?waypointNameNilReason .
-		       BIND(concat(\'nil:/:\',?waypointNameNilReason) AS ?waypointName)
-		     }
-          UNION
-          {
-            ?_waypointName  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?waypointName)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?futurePosition ?probability ?latitude ?timeStamp ?longitude ?predictedAltitude ?waypointName
-
-      '
-,row(Graph,FuturePosition,FlightIdentificationConcat,Probability,Latitude,TimeStamp,Longitude,PredictedAltitude,WaypointName),[]), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(Probability,ProbabilityVal), convVal(Latitude,LatitudeVal), convVal(TimeStamp,TimeStampVal), convVal(Longitude,LongitudeVal), convVal(PredictedAltitude,PredictedAltitudeVal), convVal(WaypointName,WaypointNameVal).
 
 % fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken?, EmergencyDescription?, Originator?, OtherInformation?, Phase?, Contact?)
 
@@ -4932,6 +5828,220 @@ WHERE
       '
 ,row(Graph,FlightEmergency,ActionTaken,EmergencyDescription,Originator,OtherInformation,Phase,Contact),[]), convVal(ActionTaken,ActionTakenVal), convVal(EmergencyDescription,EmergencyDescriptionVal), convVal(Originator,OriginatorVal), convVal(OtherInformation,OtherInformationVal), convVal(Phase,PhaseVal), convVal(Contact,ContactVal).
 
+% fixm_Flight(Graph, Flight, ControllingUnit?, Extensions*, FlightFiler?, Gufi?, Remarks?, AircraftDescription?, DangerousGoods*, RankedTrajectories*, RouteToRevisedDestination?, Negotiating?, Agreed?, Arrival?, Departure?, Emergency?, RadioCommunicationFailure?, EnRoute?, Operator?, EnRouteDiversion?, FlightType?, FlightStatus?, Originator?, SupplementalData?, FlightIdentification?, SpecialHandling*)
+
+fixm_Flight(Graph, Flight, ControllingUnitVal, ExtensionsList, FlightFilerVal, GufiVal, RemarksVal, AircraftDescriptionVal, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestinationVal, NegotiatingVal, AgreedVal, ArrivalVal, DepartureVal, EmergencyVal, RadioCommunicationFailureVal, EnRouteVal, OperatorVal, EnRouteDiversionVal, FlightTypeVal, FlightStatusVal, OriginatorVal, SupplementalDataVal, FlightIdentificationVal, SpecialHandlingList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?flight ?controllingUnit (GROUP_CONCAT(DISTINCT ?extensions;SEPARATOR=",") AS ?extensionsConcat) ?flightFiler ?gufi ?remarks ?aircraftDescription (GROUP_CONCAT(DISTINCT ?dangerousGoods;SEPARATOR=",") AS ?dangerousGoodsConcat) (GROUP_CONCAT(DISTINCT ?rankedTrajectories;SEPARATOR=",") AS ?rankedTrajectoriesConcat) ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification (GROUP_CONCAT(DISTINCT ?specialHandling;SEPARATOR=",") AS ?specialHandlingConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:Flight .
+  }
+  { GRAPH ?graph
+    {
+      ?flight rdf:type ?SUBCLASS .
+      OPTIONAL {?flight fixm:controllingUnit ?controllingUnit .}
+      OPTIONAL {?flight fixm:extensions ?extensions .}
+      OPTIONAL { ?flight fixm:flightFiler ?_flightFiler .
+        {
+          {
+            ?_flightFiler rdf:value ?flightFilerValue .
+            FILTER ( NOT EXISTS {?_flightFiler (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM})
+            BIND(concat(\'val:/:\',STR(?flightFilerValue),\':/:\',STR(DATATYPE(?flightFilerValue))) AS ?flightFiler)
+          }
+            UNION
+          {
+            ?_flightFiler
+              rdf:value ?flightFilerValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM .
+            BIND(concat(\'xval:/:\',STR(?flightFilerValue),\':/:\',STR(DATATYPE(?flightFilerValue)),\':/:\',?flightFilerUoM) AS ?flightFiler)
+          }
+            UNION
+          {
+           ?_flightFiler  aixm:nilReason ?flightFilerNilReason .
+           BIND(concat(\'nil:/:\',?flightFilerNilReason) AS ?flightFiler)
+          }
+          UNION
+          {
+		       ?_flightFiler  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightFiler)
+		     }
+        }
+      }
+      OPTIONAL { ?flight fixm:gufi ?_gufi .
+        {
+          {
+            ?_gufi rdf:value ?gufiValue .
+            FILTER ( NOT EXISTS {?_gufi (aixm:uom | fixm:uom | plain:uom) ?gufiUoM})
+            BIND(concat(\'val:/:\',STR(?gufiValue),\':/:\',STR(DATATYPE(?gufiValue))) AS ?gufi)
+          }
+            UNION
+          {
+            ?_gufi
+              rdf:value ?gufiValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?gufiUoM .
+            BIND(concat(\'xval:/:\',STR(?gufiValue),\':/:\',STR(DATATYPE(?gufiValue)),\':/:\',?gufiUoM) AS ?gufi)
+          }
+            UNION
+          {
+           ?_gufi  aixm:nilReason ?gufiNilReason .
+           BIND(concat(\'nil:/:\',?gufiNilReason) AS ?gufi)
+          }
+          UNION
+          {
+		       ?_gufi  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?gufi)
+		     }
+        }
+      }
+      OPTIONAL { ?flight fixm:remarks ?_remarks .
+        {
+          {
+            ?_remarks rdf:value ?remarksValue .
+            FILTER ( NOT EXISTS {?_remarks (aixm:uom | fixm:uom | plain:uom) ?remarksUoM})
+            BIND(concat(\'val:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue))) AS ?remarks)
+          }
+            UNION
+          {
+            ?_remarks
+              rdf:value ?remarksValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?remarksUoM .
+            BIND(concat(\'xval:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue)),\':/:\',?remarksUoM) AS ?remarks)
+          }
+            UNION
+          {
+           ?_remarks  aixm:nilReason ?remarksNilReason .
+           BIND(concat(\'nil:/:\',?remarksNilReason) AS ?remarks)
+          }
+          UNION
+          {
+		       ?_remarks  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?remarks)
+		     }
+        }
+      }
+      OPTIONAL {?flight fixm:aircraftDescription ?aircraftDescription .}
+      OPTIONAL {?flight fixm:dangerousGoods ?dangerousGoods .}
+      OPTIONAL {?flight fixm:rankedTrajectories ?rankedTrajectories .}
+      OPTIONAL {?flight fixm:routeToRevisedDestination ?routeToRevisedDestination .}
+      OPTIONAL {?flight fixm:negotiating ?negotiating .}
+      OPTIONAL {?flight fixm:agreed ?agreed .}
+      OPTIONAL {?flight fixm:arrival ?arrival .}
+      OPTIONAL {?flight fixm:departure ?departure .}
+      OPTIONAL {?flight fixm:emergency ?emergency .}
+      OPTIONAL {?flight fixm:radioCommunicationFailure ?radioCommunicationFailure .}
+      OPTIONAL {?flight fixm:enRoute ?enRoute .}
+      OPTIONAL {?flight fixm:operator ?operator .}
+      OPTIONAL {?flight fixm:enRouteDiversion ?enRouteDiversion .}
+      OPTIONAL { ?flight fixm:flightType ?_flightType .
+        {
+          {
+            ?_flightType rdf:value ?flightTypeValue .
+            FILTER ( NOT EXISTS {?_flightType (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM})
+            BIND(concat(\'val:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue))) AS ?flightType)
+          }
+            UNION
+          {
+            ?_flightType
+              rdf:value ?flightTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue)),\':/:\',?flightTypeUoM) AS ?flightType)
+          }
+            UNION
+          {
+           ?_flightType  aixm:nilReason ?flightTypeNilReason .
+           BIND(concat(\'nil:/:\',?flightTypeNilReason) AS ?flightType)
+          }
+          UNION
+          {
+		       ?_flightType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightType)
+		     }
+        }
+      }
+      OPTIONAL {?flight fixm:flightStatus ?flightStatus .}
+      OPTIONAL { ?flight fixm:originator ?_originator .
+        {
+          {
+            ?_originator rdf:value ?originatorValue .
+            FILTER ( NOT EXISTS {?_originator (aixm:uom | fixm:uom | plain:uom) ?originatorUoM})
+            BIND(concat(\'val:/:\',STR(?originatorValue),\':/:\',STR(DATATYPE(?originatorValue))) AS ?originator)
+          }
+            UNION
+          {
+            ?_originator
+              rdf:value ?originatorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?originatorUoM .
+            BIND(concat(\'xval:/:\',STR(?originatorValue),\':/:\',STR(DATATYPE(?originatorValue)),\':/:\',?originatorUoM) AS ?originator)
+          }
+            UNION
+          {
+           ?_originator  aixm:nilReason ?originatorNilReason .
+           BIND(concat(\'nil:/:\',?originatorNilReason) AS ?originator)
+          }
+          UNION
+          {
+		       ?_originator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?originator)
+		     }
+        }
+      }
+      OPTIONAL {?flight fixm:supplementalData ?supplementalData .}
+      OPTIONAL {?flight fixm:flightIdentification ?flightIdentification .}
+      OPTIONAL { ?flight fixm:specialHandling ?_specialHandling .
+        {
+          {
+            ?_specialHandling rdf:value ?specialHandlingValue .
+            FILTER ( NOT EXISTS {?_specialHandling (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM})
+            BIND(concat(\'val:/:\',STR(?specialHandlingValue),\':/:\',STR(DATATYPE(?specialHandlingValue))) AS ?specialHandling)
+          }
+            UNION
+          {
+            ?_specialHandling
+              rdf:value ?specialHandlingValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM .
+            BIND(concat(\'xval:/:\',STR(?specialHandlingValue),\':/:\',STR(DATATYPE(?specialHandlingValue)),\':/:\',?specialHandlingUoM) AS ?specialHandling)
+          }
+            UNION
+          {
+           ?_specialHandling  aixm:nilReason ?specialHandlingNilReason .
+           BIND(concat(\'nil:/:\',?specialHandlingNilReason) AS ?specialHandling)
+          }
+          UNION
+          {
+		       ?_specialHandling  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?specialHandling)
+		     }
+        }
+      }
+    }
+  }
+}
+GROUP BY ?graph ?flight ?controllingUnit ?flightFiler ?gufi ?remarks ?aircraftDescription ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification
+
+      '
+,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convVal(ControllingUnit,ControllingUnitVal), convert(ExtensionsConcat,ExtensionsList), convVal(FlightFiler,FlightFilerVal), convVal(Gufi,GufiVal), convVal(Remarks,RemarksVal), convVal(AircraftDescription,AircraftDescriptionVal), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convVal(RouteToRevisedDestination,RouteToRevisedDestinationVal), convVal(Negotiating,NegotiatingVal), convVal(Agreed,AgreedVal), convVal(Arrival,ArrivalVal), convVal(Departure,DepartureVal), convVal(Emergency,EmergencyVal), convVal(RadioCommunicationFailure,RadioCommunicationFailureVal), convVal(EnRoute,EnRouteVal), convVal(Operator,OperatorVal), convVal(EnRouteDiversion,EnRouteDiversionVal), convVal(FlightType,FlightTypeVal), convVal(FlightStatus,FlightStatusVal), convVal(Originator,OriginatorVal), convVal(SupplementalData,SupplementalDataVal), convVal(FlightIdentification,FlightIdentificationVal), convert(SpecialHandlingConcat,SpecialHandlingList).
+
 % aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, Annotation*, SpecialDateAuthority*, TimeInterval*)
 
 aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) :-
@@ -4974,6 +6084,187 @@ GROUP BY ?graph ?propertiesWithSchedule
 
       '
 ,row(Graph,PropertiesWithSchedule,AnnotationConcat,SpecialDateAuthorityConcat,TimeIntervalConcat),[]), convert(AnnotationConcat,AnnotationList), convert(SpecialDateAuthorityConcat,SpecialDateAuthorityList), convert(TimeIntervalConcat,TimeIntervalList).
+
+% gml_Surface(Graph, Surface, Patch+)
+
+gml_Surface(Graph, Surface, PatchList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?patch;SEPARATOR=",") AS ?patchConcat)
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:Surface .
+  }
+  { GRAPH ?graph
+    {
+      ?surface rdf:type ?SUBCLASS .
+      ?surface aixm:patch ?patch .
+    }
+  }
+}
+GROUP BY ?graph ?surface
+
+      '
+,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList).
+
+% fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevel?, ClearedSpeed?, Heading?, OfftrackClearance?, RateOfClimbDescend?, DirectRouting?)
+
+fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevelVal, ClearedSpeedVal, HeadingVal, OfftrackClearanceVal, RateOfClimbDescendVal, DirectRoutingVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?clearedFlightInformation ?clearedFlightLevel ?clearedSpeed ?heading ?offtrackClearance ?rateOfClimbDescend ?directRouting
+WHERE
+  { GRAPH ?graph
+    {
+      ?clearedFlightInformation rdf:type fixm:ClearedFlightInformation .
+      OPTIONAL { ?clearedFlightInformation fixm:clearedFlightLevel ?_clearedFlightLevel .
+        {
+          {
+            ?_clearedFlightLevel rdf:value ?clearedFlightLevelValue .
+            FILTER ( NOT EXISTS {?_clearedFlightLevel (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM})
+            BIND(concat(\'val:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue))) AS ?clearedFlightLevel)
+          }
+            UNION
+          {
+            ?_clearedFlightLevel
+              rdf:value ?clearedFlightLevelValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM .
+            BIND(concat(\'xval:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue)),\':/:\',?clearedFlightLevelUoM) AS ?clearedFlightLevel)
+          }
+            UNION
+          {
+           ?_clearedFlightLevel  aixm:nilReason ?clearedFlightLevelNilReason .
+           BIND(concat(\'nil:/:\',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
+          }
+          UNION
+          {
+		       ?_clearedFlightLevel  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedFlightLevel)
+		     }
+        }
+      }
+      OPTIONAL { ?clearedFlightInformation fixm:clearedSpeed ?_clearedSpeed .
+        {
+          {
+            ?_clearedSpeed rdf:value ?clearedSpeedValue .
+            FILTER ( NOT EXISTS {?_clearedSpeed (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue))) AS ?clearedSpeed)
+          }
+            UNION
+          {
+            ?_clearedSpeed
+              rdf:value ?clearedSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue)),\':/:\',?clearedSpeedUoM) AS ?clearedSpeed)
+          }
+            UNION
+          {
+           ?_clearedSpeed  aixm:nilReason ?clearedSpeedNilReason .
+           BIND(concat(\'nil:/:\',?clearedSpeedNilReason) AS ?clearedSpeed)
+          }
+          UNION
+          {
+		       ?_clearedSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedSpeed)
+		     }
+        }
+      }
+      OPTIONAL { ?clearedFlightInformation fixm:heading ?_heading .
+        {
+          {
+            ?_heading rdf:value ?headingValue .
+            FILTER ( NOT EXISTS {?_heading (aixm:uom | fixm:uom | plain:uom) ?headingUoM})
+            BIND(concat(\'val:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue))) AS ?heading)
+          }
+            UNION
+          {
+            ?_heading
+              rdf:value ?headingValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?headingUoM .
+            BIND(concat(\'xval:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue)),\':/:\',?headingUoM) AS ?heading)
+          }
+            UNION
+          {
+           ?_heading  aixm:nilReason ?headingNilReason .
+           BIND(concat(\'nil:/:\',?headingNilReason) AS ?heading)
+          }
+          UNION
+          {
+		       ?_heading  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?heading)
+		     }
+        }
+      }
+      OPTIONAL {?clearedFlightInformation fixm:offtrackClearance ?offtrackClearance .}
+      OPTIONAL { ?clearedFlightInformation fixm:rateOfClimbDescend ?_rateOfClimbDescend .
+        {
+          {
+            ?_rateOfClimbDescend rdf:value ?rateOfClimbDescendValue .
+            FILTER ( NOT EXISTS {?_rateOfClimbDescend (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM})
+            BIND(concat(\'val:/:\',STR(?rateOfClimbDescendValue),\':/:\',STR(DATATYPE(?rateOfClimbDescendValue))) AS ?rateOfClimbDescend)
+          }
+            UNION
+          {
+            ?_rateOfClimbDescend
+              rdf:value ?rateOfClimbDescendValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM .
+            BIND(concat(\'xval:/:\',STR(?rateOfClimbDescendValue),\':/:\',STR(DATATYPE(?rateOfClimbDescendValue)),\':/:\',?rateOfClimbDescendUoM) AS ?rateOfClimbDescend)
+          }
+            UNION
+          {
+           ?_rateOfClimbDescend  aixm:nilReason ?rateOfClimbDescendNilReason .
+           BIND(concat(\'nil:/:\',?rateOfClimbDescendNilReason) AS ?rateOfClimbDescend)
+          }
+          UNION
+          {
+		       ?_rateOfClimbDescend  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rateOfClimbDescend)
+		     }
+        }
+      }
+      OPTIONAL {?clearedFlightInformation fixm:directRouting ?directRouting .}
+    }
+  }
+
+      '
+,row(Graph,ClearedFlightInformation,ClearedFlightLevel,ClearedSpeed,Heading,OfftrackClearance,RateOfClimbDescend,DirectRouting),[]), convVal(ClearedFlightLevel,ClearedFlightLevelVal), convVal(ClearedSpeed,ClearedSpeedVal), convVal(Heading,HeadingVal), convVal(OfftrackClearance,OfftrackClearanceVal), convVal(RateOfClimbDescend,RateOfClimbDescendVal), convVal(DirectRouting,DirectRoutingVal).
 
 % fixm_TrajectoryRoutePair(Graph, TrajectoryRoutePair, Trajectory?, Route?)
 
@@ -5080,67 +6371,6 @@ WHERE
 
       '
 ,row(Graph,UnitBoundary,DownstreamUnit,UpstreamUnit,BoundaryCrossingProposed,BoundaryCrossingCoordinated,Handoff,UnitBoundaryIndicator),[]), convVal(DownstreamUnit,DownstreamUnitVal), convVal(UpstreamUnit,UpstreamUnitVal), convVal(BoundaryCrossingProposed,BoundaryCrossingProposedVal), convVal(BoundaryCrossingCoordinated,BoundaryCrossingCoordinatedVal), convVal(Handoff,HandoffVal), convVal(UnitBoundaryIndicator,UnitBoundaryIndicatorVal).
-
-% plain_List(Graph, List, FlightIdentification*, Assumed)
-
-plain_List(Graph, List, FlightIdentificationList, AssumedVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?list (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?assumed
-WHERE
-  { GRAPH ?graph
-    {
-      ?list rdf:type <http://www.aisa-project.eu/vocabulary/plain#List> .
-      OPTIONAL {?list <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-      ?list <http://www.aisa-project.eu/vocabulary/plain#assumed>  ?_assumed .
-        {
-          {
-            ?_assumed rdf:value ?assumedValue .
-            FILTER ( NOT EXISTS {?_assumed (aixm:uom | fixm:uom | plain:uom) ?assumedUoM})
-            BIND(concat(\'val:/:\',STR(?assumedValue),\':/:\',STR(DATATYPE(?assumedValue))) AS ?assumed)
-          }
-		     UNION
-		     {
-            ?_assumed
-              rdf:value ?assumedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?assumedUoM .
-              BIND(concat(\'xval:/:\',STR(?assumedValue),\':/:\',STR(DATATYPE(?assumedValue)),\':/:\',?assumedUoM) AS ?assumed)
-          }
-          UNION
-          {
-		       ?_assumed  aixm:nilReason ?assumedNilReason .
-		       BIND(concat(\'nil:/:\',?assumedNilReason) AS ?assumed)
-		     }
-          UNION
-          {
-            ?_assumed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?assumed)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?list ?assumed
-
-      '
-,row(Graph,List,FlightIdentificationConcat,Assumed),[]), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(Assumed,AssumedVal).
 
 % aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTime?, Depth?, FrictionCoefficient?, FrictionEstimation?, FrictionDevice?, ObscuredLights?, FurtherClearanceTime?, FurtherTotalClearance?, NextObservationTime?, Proportion?, CriticalRidge*, Annotation*, Layer*)
 
@@ -5679,9 +6909,9 @@ WHERE
       '
 ,row(Graph,TelephoneContact,Voice,Facimile),[]), convVal(Voice,VoiceVal), convVal(Facimile,FacimileVal).
 
-% plain_DME(Graph, DME, NavaidEquipment*, Frequency, Type)
+% fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading?, AerodromeOfUnloading?, DangerousGoodsScreeningLocation?, DepartureCountry?, DestinationCountry?, OriginCountry?, ShipmentAuthorizations?, SubsidiaryHazardClassAndDivision?, SupplementaryInformation?, TransferAerodromes*, DeclarationText?, Consignee?, Shipper?)
 
-plain_DME(Graph, DME, NavaidEquipmentList, FrequencyVal, TypeVal) :-
+fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoadingVal, AerodromeOfUnloadingVal, DangerousGoodsScreeningLocationVal, DepartureCountryVal, DestinationCountryVal, OriginCountryVal, ShipmentAuthorizationsVal, SubsidiaryHazardClassAndDivisionVal, SupplementaryInformationVal, TransferAerodromesList, DeclarationTextVal, ConsigneeVal, ShipperVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -5702,340 +6932,230 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?dME (GROUP_CONCAT(DISTINCT ?navaidEquipment;SEPARATOR=",") AS ?navaidEquipmentConcat) ?frequency ?type
+SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation (GROUP_CONCAT(DISTINCT ?transferAerodromes;SEPARATOR=",") AS ?transferAerodromesConcat) ?declarationText ?consignee ?shipper
 WHERE
   { GRAPH ?graph
     {
-      ?dME rdf:type <http://www.aisa-project.eu/vocabulary/plain#DME> .
-      OPTIONAL {?dME <http://www.aisa-project.eu/vocabulary/plain#navaidEquipment> ?navaidEquipment .}
-      ?dME <http://www.aisa-project.eu/vocabulary/plain#frequency>  ?_frequency .
+      ?shippingInformation rdf:type fixm:ShippingInformation .
+      OPTIONAL {?shippingInformation fixm:aerodromeOfLoading ?aerodromeOfLoading .}
+      OPTIONAL {?shippingInformation fixm:aerodromeOfUnloading ?aerodromeOfUnloading .}
+      OPTIONAL { ?shippingInformation fixm:dangerousGoodsScreeningLocation ?_dangerousGoodsScreeningLocation .
         {
           {
-            ?_frequency rdf:value ?frequencyValue .
-            FILTER ( NOT EXISTS {?_frequency (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue))) AS ?frequency)
+            ?_dangerousGoodsScreeningLocation rdf:value ?dangerousGoodsScreeningLocationValue .
+            FILTER ( NOT EXISTS {?_dangerousGoodsScreeningLocation (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM})
+            BIND(concat(\'val:/:\',STR(?dangerousGoodsScreeningLocationValue),\':/:\',STR(DATATYPE(?dangerousGoodsScreeningLocationValue))) AS ?dangerousGoodsScreeningLocation)
           }
-		     UNION
-		     {
-            ?_frequency
-              rdf:value ?frequencyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM .
-              BIND(concat(\'xval:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue)),\':/:\',?frequencyUoM) AS ?frequency)
+            UNION
+          {
+            ?_dangerousGoodsScreeningLocation
+              rdf:value ?dangerousGoodsScreeningLocationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM .
+            BIND(concat(\'xval:/:\',STR(?dangerousGoodsScreeningLocationValue),\':/:\',STR(DATATYPE(?dangerousGoodsScreeningLocationValue)),\':/:\',?dangerousGoodsScreeningLocationUoM) AS ?dangerousGoodsScreeningLocation)
+          }
+            UNION
+          {
+           ?_dangerousGoodsScreeningLocation  aixm:nilReason ?dangerousGoodsScreeningLocationNilReason .
+           BIND(concat(\'nil:/:\',?dangerousGoodsScreeningLocationNilReason) AS ?dangerousGoodsScreeningLocation)
           }
           UNION
           {
-		       ?_frequency  aixm:nilReason ?frequencyNilReason .
-		       BIND(concat(\'nil:/:\',?frequencyNilReason) AS ?frequency)
+		       ?_dangerousGoodsScreeningLocation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?dangerousGoodsScreeningLocation)
 		     }
-          UNION
-          {
-            ?_frequency  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequency)
-	         }
+        }
       }
-      ?dME <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
+      OPTIONAL { ?shippingInformation fixm:departureCountry ?_departureCountry .
         {
           {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
+            ?_departureCountry rdf:value ?departureCountryValue .
+            FILTER ( NOT EXISTS {?_departureCountry (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM})
+            BIND(concat(\'val:/:\',STR(?departureCountryValue),\':/:\',STR(DATATYPE(?departureCountryValue))) AS ?departureCountry)
           }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
+            UNION
+          {
+            ?_departureCountry
+              rdf:value ?departureCountryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM .
+            BIND(concat(\'xval:/:\',STR(?departureCountryValue),\':/:\',STR(DATATYPE(?departureCountryValue)),\':/:\',?departureCountryUoM) AS ?departureCountry)
+          }
+            UNION
+          {
+           ?_departureCountry  aixm:nilReason ?departureCountryNilReason .
+           BIND(concat(\'nil:/:\',?departureCountryNilReason) AS ?departureCountry)
           }
           UNION
           {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
+		       ?_departureCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureCountry)
 		     }
+        }
+      }
+      OPTIONAL { ?shippingInformation fixm:destinationCountry ?_destinationCountry .
+        {
+          {
+            ?_destinationCountry rdf:value ?destinationCountryValue .
+            FILTER ( NOT EXISTS {?_destinationCountry (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM})
+            BIND(concat(\'val:/:\',STR(?destinationCountryValue),\':/:\',STR(DATATYPE(?destinationCountryValue))) AS ?destinationCountry)
+          }
+            UNION
+          {
+            ?_destinationCountry
+              rdf:value ?destinationCountryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM .
+            BIND(concat(\'xval:/:\',STR(?destinationCountryValue),\':/:\',STR(DATATYPE(?destinationCountryValue)),\':/:\',?destinationCountryUoM) AS ?destinationCountry)
+          }
+            UNION
+          {
+           ?_destinationCountry  aixm:nilReason ?destinationCountryNilReason .
+           BIND(concat(\'nil:/:\',?destinationCountryNilReason) AS ?destinationCountry)
+          }
           UNION
           {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
+		       ?_destinationCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?destinationCountry)
+		     }
+        }
       }
+      OPTIONAL { ?shippingInformation fixm:originCountry ?_originCountry .
+        {
+          {
+            ?_originCountry rdf:value ?originCountryValue .
+            FILTER ( NOT EXISTS {?_originCountry (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM})
+            BIND(concat(\'val:/:\',STR(?originCountryValue),\':/:\',STR(DATATYPE(?originCountryValue))) AS ?originCountry)
+          }
+            UNION
+          {
+            ?_originCountry
+              rdf:value ?originCountryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM .
+            BIND(concat(\'xval:/:\',STR(?originCountryValue),\':/:\',STR(DATATYPE(?originCountryValue)),\':/:\',?originCountryUoM) AS ?originCountry)
+          }
+            UNION
+          {
+           ?_originCountry  aixm:nilReason ?originCountryNilReason .
+           BIND(concat(\'nil:/:\',?originCountryNilReason) AS ?originCountry)
+          }
+          UNION
+          {
+		       ?_originCountry  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?originCountry)
+		     }
+        }
+      }
+      OPTIONAL { ?shippingInformation fixm:shipmentAuthorizations ?_shipmentAuthorizations .
+        {
+          {
+            ?_shipmentAuthorizations rdf:value ?shipmentAuthorizationsValue .
+            FILTER ( NOT EXISTS {?_shipmentAuthorizations (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM})
+            BIND(concat(\'val:/:\',STR(?shipmentAuthorizationsValue),\':/:\',STR(DATATYPE(?shipmentAuthorizationsValue))) AS ?shipmentAuthorizations)
+          }
+            UNION
+          {
+            ?_shipmentAuthorizations
+              rdf:value ?shipmentAuthorizationsValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM .
+            BIND(concat(\'xval:/:\',STR(?shipmentAuthorizationsValue),\':/:\',STR(DATATYPE(?shipmentAuthorizationsValue)),\':/:\',?shipmentAuthorizationsUoM) AS ?shipmentAuthorizations)
+          }
+            UNION
+          {
+           ?_shipmentAuthorizations  aixm:nilReason ?shipmentAuthorizationsNilReason .
+           BIND(concat(\'nil:/:\',?shipmentAuthorizationsNilReason) AS ?shipmentAuthorizations)
+          }
+          UNION
+          {
+		       ?_shipmentAuthorizations  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipmentAuthorizations)
+		     }
+        }
+      }
+      OPTIONAL { ?shippingInformation fixm:subsidiaryHazardClassAndDivision ?_subsidiaryHazardClassAndDivision .
+        {
+          {
+            ?_subsidiaryHazardClassAndDivision rdf:value ?subsidiaryHazardClassAndDivisionValue .
+            FILTER ( NOT EXISTS {?_subsidiaryHazardClassAndDivision (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM})
+            BIND(concat(\'val:/:\',STR(?subsidiaryHazardClassAndDivisionValue),\':/:\',STR(DATATYPE(?subsidiaryHazardClassAndDivisionValue))) AS ?subsidiaryHazardClassAndDivision)
+          }
+            UNION
+          {
+            ?_subsidiaryHazardClassAndDivision
+              rdf:value ?subsidiaryHazardClassAndDivisionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM .
+            BIND(concat(\'xval:/:\',STR(?subsidiaryHazardClassAndDivisionValue),\':/:\',STR(DATATYPE(?subsidiaryHazardClassAndDivisionValue)),\':/:\',?subsidiaryHazardClassAndDivisionUoM) AS ?subsidiaryHazardClassAndDivision)
+          }
+            UNION
+          {
+           ?_subsidiaryHazardClassAndDivision  aixm:nilReason ?subsidiaryHazardClassAndDivisionNilReason .
+           BIND(concat(\'nil:/:\',?subsidiaryHazardClassAndDivisionNilReason) AS ?subsidiaryHazardClassAndDivision)
+          }
+          UNION
+          {
+		       ?_subsidiaryHazardClassAndDivision  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?subsidiaryHazardClassAndDivision)
+		     }
+        }
+      }
+      OPTIONAL { ?shippingInformation fixm:supplementaryInformation ?_supplementaryInformation .
+        {
+          {
+            ?_supplementaryInformation rdf:value ?supplementaryInformationValue .
+            FILTER ( NOT EXISTS {?_supplementaryInformation (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM})
+            BIND(concat(\'val:/:\',STR(?supplementaryInformationValue),\':/:\',STR(DATATYPE(?supplementaryInformationValue))) AS ?supplementaryInformation)
+          }
+            UNION
+          {
+            ?_supplementaryInformation
+              rdf:value ?supplementaryInformationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM .
+            BIND(concat(\'xval:/:\',STR(?supplementaryInformationValue),\':/:\',STR(DATATYPE(?supplementaryInformationValue)),\':/:\',?supplementaryInformationUoM) AS ?supplementaryInformation)
+          }
+            UNION
+          {
+           ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
+           BIND(concat(\'nil:/:\',?supplementaryInformationNilReason) AS ?supplementaryInformation)
+          }
+          UNION
+          {
+		       ?_supplementaryInformation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?supplementaryInformation)
+		     }
+        }
+      }
+      OPTIONAL { ?shippingInformation fixm:transferAerodromes ?_transferAerodromes .
+        {
+          {
+            ?_transferAerodromes rdf:value ?transferAerodromesValue .
+            FILTER ( NOT EXISTS {?_transferAerodromes (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM})
+            BIND(concat(\'val:/:\',STR(?transferAerodromesValue),\':/:\',STR(DATATYPE(?transferAerodromesValue))) AS ?transferAerodromes)
+          }
+            UNION
+          {
+            ?_transferAerodromes
+              rdf:value ?transferAerodromesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM .
+            BIND(concat(\'xval:/:\',STR(?transferAerodromesValue),\':/:\',STR(DATATYPE(?transferAerodromesValue)),\':/:\',?transferAerodromesUoM) AS ?transferAerodromes)
+          }
+            UNION
+          {
+           ?_transferAerodromes  aixm:nilReason ?transferAerodromesNilReason .
+           BIND(concat(\'nil:/:\',?transferAerodromesNilReason) AS ?transferAerodromes)
+          }
+          UNION
+          {
+		       ?_transferAerodromes  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transferAerodromes)
+		     }
+        }
+      }
+      OPTIONAL {?shippingInformation fixm:declarationText ?declarationText .}
+      OPTIONAL {?shippingInformation fixm:consignee ?consignee .}
+      OPTIONAL {?shippingInformation fixm:shipper ?shipper .}
     }
   }
-GROUP BY ?graph ?dME ?frequency ?type
+GROUP BY ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?declarationText ?consignee ?shipper
 
       '
-,row(Graph,DME,NavaidEquipmentConcat,Frequency,Type),[]), convert(NavaidEquipmentConcat,NavaidEquipmentList), convVal(Frequency,FrequencyVal), convVal(Type,TypeVal).
-
-% plain_Weather(Graph, Weather, WindSpeed, Precipitation, CloudCoverage, Temperature, Altitude*, WindDirection, Thunder, Icing)
-
-plain_Weather(Graph, Weather, WindSpeedVal, PrecipitationVal, CloudCoverageVal, TemperatureVal, AltitudeList, WindDirectionVal, ThunderVal, IcingVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?weather ?windSpeed ?precipitation ?cloudCoverage ?temperature (GROUP_CONCAT(DISTINCT ?altitude;SEPARATOR=",") AS ?altitudeConcat) ?windDirection ?thunder ?icing
-WHERE
-  { GRAPH ?graph
-    {
-      ?weather rdf:type <http://www.aisa-project.eu/vocabulary/plain#Weather> .
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#windSpeed>  ?_windSpeed .
-        {
-          {
-            ?_windSpeed rdf:value ?windSpeedValue .
-            FILTER ( NOT EXISTS {?_windSpeed (aixm:uom | fixm:uom | plain:uom) ?windSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?windSpeedValue),\':/:\',STR(DATATYPE(?windSpeedValue))) AS ?windSpeed)
-          }
-		     UNION
-		     {
-            ?_windSpeed
-              rdf:value ?windSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?windSpeedUoM .
-              BIND(concat(\'xval:/:\',STR(?windSpeedValue),\':/:\',STR(DATATYPE(?windSpeedValue)),\':/:\',?windSpeedUoM) AS ?windSpeed)
-          }
-          UNION
-          {
-		       ?_windSpeed  aixm:nilReason ?windSpeedNilReason .
-		       BIND(concat(\'nil:/:\',?windSpeedNilReason) AS ?windSpeed)
-		     }
-          UNION
-          {
-            ?_windSpeed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?windSpeed)
-	         }
-      }
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#precipitation>  ?_precipitation .
-        {
-          {
-            ?_precipitation rdf:value ?precipitationValue .
-            FILTER ( NOT EXISTS {?_precipitation (aixm:uom | fixm:uom | plain:uom) ?precipitationUoM})
-            BIND(concat(\'val:/:\',STR(?precipitationValue),\':/:\',STR(DATATYPE(?precipitationValue))) AS ?precipitation)
-          }
-		     UNION
-		     {
-            ?_precipitation
-              rdf:value ?precipitationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?precipitationUoM .
-              BIND(concat(\'xval:/:\',STR(?precipitationValue),\':/:\',STR(DATATYPE(?precipitationValue)),\':/:\',?precipitationUoM) AS ?precipitation)
-          }
-          UNION
-          {
-		       ?_precipitation  aixm:nilReason ?precipitationNilReason .
-		       BIND(concat(\'nil:/:\',?precipitationNilReason) AS ?precipitation)
-		     }
-          UNION
-          {
-            ?_precipitation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?precipitation)
-	         }
-      }
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#cloudCoverage>  ?_cloudCoverage .
-        {
-          {
-            ?_cloudCoverage rdf:value ?cloudCoverageValue .
-            FILTER ( NOT EXISTS {?_cloudCoverage (aixm:uom | fixm:uom | plain:uom) ?cloudCoverageUoM})
-            BIND(concat(\'val:/:\',STR(?cloudCoverageValue),\':/:\',STR(DATATYPE(?cloudCoverageValue))) AS ?cloudCoverage)
-          }
-		     UNION
-		     {
-            ?_cloudCoverage
-              rdf:value ?cloudCoverageValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?cloudCoverageUoM .
-              BIND(concat(\'xval:/:\',STR(?cloudCoverageValue),\':/:\',STR(DATATYPE(?cloudCoverageValue)),\':/:\',?cloudCoverageUoM) AS ?cloudCoverage)
-          }
-          UNION
-          {
-		       ?_cloudCoverage  aixm:nilReason ?cloudCoverageNilReason .
-		       BIND(concat(\'nil:/:\',?cloudCoverageNilReason) AS ?cloudCoverage)
-		     }
-          UNION
-          {
-            ?_cloudCoverage  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?cloudCoverage)
-	         }
-      }
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#temperature>  ?_temperature .
-        {
-          {
-            ?_temperature rdf:value ?temperatureValue .
-            FILTER ( NOT EXISTS {?_temperature (aixm:uom | fixm:uom | plain:uom) ?temperatureUoM})
-            BIND(concat(\'val:/:\',STR(?temperatureValue),\':/:\',STR(DATATYPE(?temperatureValue))) AS ?temperature)
-          }
-		     UNION
-		     {
-            ?_temperature
-              rdf:value ?temperatureValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?temperatureUoM .
-              BIND(concat(\'xval:/:\',STR(?temperatureValue),\':/:\',STR(DATATYPE(?temperatureValue)),\':/:\',?temperatureUoM) AS ?temperature)
-          }
-          UNION
-          {
-		       ?_temperature  aixm:nilReason ?temperatureNilReason .
-		       BIND(concat(\'nil:/:\',?temperatureNilReason) AS ?temperature)
-		     }
-          UNION
-          {
-            ?_temperature  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?temperature)
-	         }
-      }
-      OPTIONAL {?weather <http://www.aisa-project.eu/vocabulary/plain#altitude> ?altitude .}
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#windDirection>  ?_windDirection .
-        {
-          {
-            ?_windDirection rdf:value ?windDirectionValue .
-            FILTER ( NOT EXISTS {?_windDirection (aixm:uom | fixm:uom | plain:uom) ?windDirectionUoM})
-            BIND(concat(\'val:/:\',STR(?windDirectionValue),\':/:\',STR(DATATYPE(?windDirectionValue))) AS ?windDirection)
-          }
-		     UNION
-		     {
-            ?_windDirection
-              rdf:value ?windDirectionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?windDirectionUoM .
-              BIND(concat(\'xval:/:\',STR(?windDirectionValue),\':/:\',STR(DATATYPE(?windDirectionValue)),\':/:\',?windDirectionUoM) AS ?windDirection)
-          }
-          UNION
-          {
-		       ?_windDirection  aixm:nilReason ?windDirectionNilReason .
-		       BIND(concat(\'nil:/:\',?windDirectionNilReason) AS ?windDirection)
-		     }
-          UNION
-          {
-            ?_windDirection  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?windDirection)
-	         }
-      }
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#thunder>  ?_thunder .
-        {
-          {
-            ?_thunder rdf:value ?thunderValue .
-            FILTER ( NOT EXISTS {?_thunder (aixm:uom | fixm:uom | plain:uom) ?thunderUoM})
-            BIND(concat(\'val:/:\',STR(?thunderValue),\':/:\',STR(DATATYPE(?thunderValue))) AS ?thunder)
-          }
-		     UNION
-		     {
-            ?_thunder
-              rdf:value ?thunderValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?thunderUoM .
-              BIND(concat(\'xval:/:\',STR(?thunderValue),\':/:\',STR(DATATYPE(?thunderValue)),\':/:\',?thunderUoM) AS ?thunder)
-          }
-          UNION
-          {
-		       ?_thunder  aixm:nilReason ?thunderNilReason .
-		       BIND(concat(\'nil:/:\',?thunderNilReason) AS ?thunder)
-		     }
-          UNION
-          {
-            ?_thunder  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?thunder)
-	         }
-      }
-      ?weather <http://www.aisa-project.eu/vocabulary/plain#icing>  ?_icing .
-        {
-          {
-            ?_icing rdf:value ?icingValue .
-            FILTER ( NOT EXISTS {?_icing (aixm:uom | fixm:uom | plain:uom) ?icingUoM})
-            BIND(concat(\'val:/:\',STR(?icingValue),\':/:\',STR(DATATYPE(?icingValue))) AS ?icing)
-          }
-		     UNION
-		     {
-            ?_icing
-              rdf:value ?icingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?icingUoM .
-              BIND(concat(\'xval:/:\',STR(?icingValue),\':/:\',STR(DATATYPE(?icingValue)),\':/:\',?icingUoM) AS ?icing)
-          }
-          UNION
-          {
-		       ?_icing  aixm:nilReason ?icingNilReason .
-		       BIND(concat(\'nil:/:\',?icingNilReason) AS ?icing)
-		     }
-          UNION
-          {
-            ?_icing  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?icing)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?weather ?windSpeed ?precipitation ?cloudCoverage ?temperature ?windDirection ?thunder ?icing
-
-      '
-,row(Graph,Weather,WindSpeed,Precipitation,CloudCoverage,Temperature,AltitudeConcat,WindDirection,Thunder,Icing),[]), convVal(WindSpeed,WindSpeedVal), convVal(Precipitation,PrecipitationVal), convVal(CloudCoverage,CloudCoverageVal), convVal(Temperature,TemperatureVal), convert(AltitudeConcat,AltitudeList), convVal(WindDirection,WindDirectionVal), convVal(Thunder,ThunderVal), convVal(Icing,IcingVal).
-
-% plain_Point(Graph, Point, SignificantPoint+, HorizontalAccuracy)
-
-plain_Point(Graph, Point, SignificantPointList, HorizontalAccuracyVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?point (GROUP_CONCAT(DISTINCT ?significantPoint;SEPARATOR=",") AS ?significantPointConcat) ?horizontalAccuracy
-WHERE
-  { GRAPH ?graph
-    {
-      ?point rdf:type <http://www.aisa-project.eu/vocabulary/plain#Point> .
-      ?point <http://www.aisa-project.eu/vocabulary/plain#significantPoint> ?significantPoint .
-      ?point <http://www.aisa-project.eu/vocabulary/plain#horizontalAccuracy>  ?_horizontalAccuracy .
-        {
-          {
-            ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
-            FILTER ( NOT EXISTS {?_horizontalAccuracy (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM})
-            BIND(concat(\'val:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue))) AS ?horizontalAccuracy)
-          }
-		     UNION
-		     {
-            ?_horizontalAccuracy
-              rdf:value ?horizontalAccuracyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM .
-              BIND(concat(\'xval:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue)),\':/:\',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
-          }
-          UNION
-          {
-		       ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
-		       BIND(concat(\'nil:/:\',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
-		     }
-          UNION
-          {
-            ?_horizontalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?horizontalAccuracy)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?point ?horizontalAccuracy
-
-      '
-,row(Graph,Point,SignificantPointConcat,HorizontalAccuracy),[]), convert(SignificantPointConcat,SignificantPointList), convVal(HorizontalAccuracy,HorizontalAccuracyVal).
+,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convVal(AerodromeOfLoading,AerodromeOfLoadingVal), convVal(AerodromeOfUnloading,AerodromeOfUnloadingVal), convVal(DangerousGoodsScreeningLocation,DangerousGoodsScreeningLocationVal), convVal(DepartureCountry,DepartureCountryVal), convVal(DestinationCountry,DestinationCountryVal), convVal(OriginCountry,OriginCountryVal), convVal(ShipmentAuthorizations,ShipmentAuthorizationsVal), convVal(SubsidiaryHazardClassAndDivision,SubsidiaryHazardClassAndDivisionVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convert(TransferAerodromesConcat,TransferAerodromesList), convVal(DeclarationText,DeclarationTextVal), convVal(Consignee,ConsigneeVal), convVal(Shipper,ShipperVal).
 
 % aixm_AirportHeliportContamination(Graph, AirportHeliportContamination)
 
@@ -6070,92 +7190,6 @@ WHERE
 
       '
 ,row(Graph,AirportHeliportContamination),[]).
-
-% plain_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, AirportHeliport+)
-
-plain_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatusVal, WarningVal, AirportHeliportList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?airportHeliport;SEPARATOR=",") AS ?airportHeliportConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliportAvailability rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirportHeliportAvailability> .
-      ?airportHeliportAvailability <http://www.aisa-project.eu/vocabulary/plain#operationalStatus>  ?_operationalStatus .
-        {
-          {
-            ?_operationalStatus rdf:value ?operationalStatusValue .
-            FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
-            BIND(concat(\'val:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue))) AS ?operationalStatus)
-          }
-		     UNION
-		     {
-            ?_operationalStatus
-              rdf:value ?operationalStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
-              BIND(concat(\'xval:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue)),\':/:\',?operationalStatusUoM) AS ?operationalStatus)
-          }
-          UNION
-          {
-		       ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
-		       BIND(concat(\'nil:/:\',?operationalStatusNilReason) AS ?operationalStatus)
-		     }
-          UNION
-          {
-            ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operationalStatus)
-	         }
-      }
-      ?airportHeliportAvailability <http://www.aisa-project.eu/vocabulary/plain#warning>  ?_warning .
-        {
-          {
-            ?_warning rdf:value ?warningValue .
-            FILTER ( NOT EXISTS {?_warning (aixm:uom | fixm:uom | plain:uom) ?warningUoM})
-            BIND(concat(\'val:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue))) AS ?warning)
-          }
-		     UNION
-		     {
-            ?_warning
-              rdf:value ?warningValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?warningUoM .
-              BIND(concat(\'xval:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue)),\':/:\',?warningUoM) AS ?warning)
-          }
-          UNION
-          {
-		       ?_warning  aixm:nilReason ?warningNilReason .
-		       BIND(concat(\'nil:/:\',?warningNilReason) AS ?warning)
-		     }
-          UNION
-          {
-            ?_warning  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?warning)
-	         }
-      }
-      ?airportHeliportAvailability <http://www.aisa-project.eu/vocabulary/plain#airportHeliport> ?airportHeliport .
-    }
-  }
-GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
-
-      '
-,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,AirportHeliportConcat),[]), convVal(OperationalStatus,OperationalStatusVal), convVal(Warning,WarningVal), convert(AirportHeliportConcat,AirportHeliportList).
 
 % fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicator?, RunwayVisualRange?)
 
@@ -6243,6 +7277,230 @@ WHERE
       '
 ,row(Graph,OtherInformation,ReplacementFlightPlanIndicator,RunwayVisualRange),[]), convVal(ReplacementFlightPlanIndicator,ReplacementFlightPlanIndicatorVal), convVal(RunwayVisualRange,RunwayVisualRangeVal).
 
+% fixm_DinghyColour(Graph, DinghyColour)
+
+fixm_DinghyColour(Graph, DinghyColour) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?dinghyColour
+WHERE
+  { GRAPH ?graph
+    {
+      ?dinghyColour rdf:type fixm:DinghyColour .
+    }
+  }
+
+      '
+,row(Graph,DinghyColour),[]).
+
+% fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency?, AtnLogonParameters?, SendCpldcIndicator?, ConnectionStatus?, FrequencyUsage?, Fans1ALogonParameters?)
+
+fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequencyVal, AtnLogonParametersVal, SendCpldcIndicatorVal, ConnectionStatusVal, FrequencyUsageVal, Fans1ALogonParametersVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?cpdlcConnection ?receivingUnitFrequency ?atnLogonParameters ?sendCpldcIndicator ?connectionStatus ?frequencyUsage ?fans1ALogonParameters
+WHERE
+  { GRAPH ?graph
+    {
+      ?cpdlcConnection rdf:type fixm:CpdlcConnection .
+      OPTIONAL { ?cpdlcConnection fixm:receivingUnitFrequency ?_receivingUnitFrequency .
+        {
+          {
+            ?_receivingUnitFrequency rdf:value ?receivingUnitFrequencyValue .
+            FILTER ( NOT EXISTS {?_receivingUnitFrequency (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM})
+            BIND(concat(\'val:/:\',STR(?receivingUnitFrequencyValue),\':/:\',STR(DATATYPE(?receivingUnitFrequencyValue))) AS ?receivingUnitFrequency)
+          }
+            UNION
+          {
+            ?_receivingUnitFrequency
+              rdf:value ?receivingUnitFrequencyValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM .
+            BIND(concat(\'xval:/:\',STR(?receivingUnitFrequencyValue),\':/:\',STR(DATATYPE(?receivingUnitFrequencyValue)),\':/:\',?receivingUnitFrequencyUoM) AS ?receivingUnitFrequency)
+          }
+            UNION
+          {
+           ?_receivingUnitFrequency  aixm:nilReason ?receivingUnitFrequencyNilReason .
+           BIND(concat(\'nil:/:\',?receivingUnitFrequencyNilReason) AS ?receivingUnitFrequency)
+          }
+          UNION
+          {
+		       ?_receivingUnitFrequency  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?receivingUnitFrequency)
+		     }
+        }
+      }
+      OPTIONAL { ?cpdlcConnection fixm:atnLogonParameters ?_atnLogonParameters .
+        {
+          {
+            ?_atnLogonParameters rdf:value ?atnLogonParametersValue .
+            FILTER ( NOT EXISTS {?_atnLogonParameters (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM})
+            BIND(concat(\'val:/:\',STR(?atnLogonParametersValue),\':/:\',STR(DATATYPE(?atnLogonParametersValue))) AS ?atnLogonParameters)
+          }
+            UNION
+          {
+            ?_atnLogonParameters
+              rdf:value ?atnLogonParametersValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM .
+            BIND(concat(\'xval:/:\',STR(?atnLogonParametersValue),\':/:\',STR(DATATYPE(?atnLogonParametersValue)),\':/:\',?atnLogonParametersUoM) AS ?atnLogonParameters)
+          }
+            UNION
+          {
+           ?_atnLogonParameters  aixm:nilReason ?atnLogonParametersNilReason .
+           BIND(concat(\'nil:/:\',?atnLogonParametersNilReason) AS ?atnLogonParameters)
+          }
+          UNION
+          {
+		       ?_atnLogonParameters  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?atnLogonParameters)
+		     }
+        }
+      }
+      OPTIONAL { ?cpdlcConnection fixm:sendCpldcIndicator ?_sendCpldcIndicator .
+        {
+          {
+            ?_sendCpldcIndicator rdf:value ?sendCpldcIndicatorValue .
+            FILTER ( NOT EXISTS {?_sendCpldcIndicator (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM})
+            BIND(concat(\'val:/:\',STR(?sendCpldcIndicatorValue),\':/:\',STR(DATATYPE(?sendCpldcIndicatorValue))) AS ?sendCpldcIndicator)
+          }
+            UNION
+          {
+            ?_sendCpldcIndicator
+              rdf:value ?sendCpldcIndicatorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM .
+            BIND(concat(\'xval:/:\',STR(?sendCpldcIndicatorValue),\':/:\',STR(DATATYPE(?sendCpldcIndicatorValue)),\':/:\',?sendCpldcIndicatorUoM) AS ?sendCpldcIndicator)
+          }
+            UNION
+          {
+           ?_sendCpldcIndicator  aixm:nilReason ?sendCpldcIndicatorNilReason .
+           BIND(concat(\'nil:/:\',?sendCpldcIndicatorNilReason) AS ?sendCpldcIndicator)
+          }
+          UNION
+          {
+		       ?_sendCpldcIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?sendCpldcIndicator)
+		     }
+        }
+      }
+      OPTIONAL { ?cpdlcConnection fixm:connectionStatus ?_connectionStatus .
+        {
+          {
+            ?_connectionStatus rdf:value ?connectionStatusValue .
+            FILTER ( NOT EXISTS {?_connectionStatus (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM})
+            BIND(concat(\'val:/:\',STR(?connectionStatusValue),\':/:\',STR(DATATYPE(?connectionStatusValue))) AS ?connectionStatus)
+          }
+            UNION
+          {
+            ?_connectionStatus
+              rdf:value ?connectionStatusValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM .
+            BIND(concat(\'xval:/:\',STR(?connectionStatusValue),\':/:\',STR(DATATYPE(?connectionStatusValue)),\':/:\',?connectionStatusUoM) AS ?connectionStatus)
+          }
+            UNION
+          {
+           ?_connectionStatus  aixm:nilReason ?connectionStatusNilReason .
+           BIND(concat(\'nil:/:\',?connectionStatusNilReason) AS ?connectionStatus)
+          }
+          UNION
+          {
+		       ?_connectionStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?connectionStatus)
+		     }
+        }
+      }
+      OPTIONAL { ?cpdlcConnection fixm:frequencyUsage ?_frequencyUsage .
+        {
+          {
+            ?_frequencyUsage rdf:value ?frequencyUsageValue .
+            FILTER ( NOT EXISTS {?_frequencyUsage (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM})
+            BIND(concat(\'val:/:\',STR(?frequencyUsageValue),\':/:\',STR(DATATYPE(?frequencyUsageValue))) AS ?frequencyUsage)
+          }
+            UNION
+          {
+            ?_frequencyUsage
+              rdf:value ?frequencyUsageValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM .
+            BIND(concat(\'xval:/:\',STR(?frequencyUsageValue),\':/:\',STR(DATATYPE(?frequencyUsageValue)),\':/:\',?frequencyUsageUoM) AS ?frequencyUsage)
+          }
+            UNION
+          {
+           ?_frequencyUsage  aixm:nilReason ?frequencyUsageNilReason .
+           BIND(concat(\'nil:/:\',?frequencyUsageNilReason) AS ?frequencyUsage)
+          }
+          UNION
+          {
+		       ?_frequencyUsage  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequencyUsage)
+		     }
+        }
+      }
+      OPTIONAL { ?cpdlcConnection fixm:fans1ALogonParameters ?_fans1ALogonParameters .
+        {
+          {
+            ?_fans1ALogonParameters rdf:value ?fans1ALogonParametersValue .
+            FILTER ( NOT EXISTS {?_fans1ALogonParameters (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM})
+            BIND(concat(\'val:/:\',STR(?fans1ALogonParametersValue),\':/:\',STR(DATATYPE(?fans1ALogonParametersValue))) AS ?fans1ALogonParameters)
+          }
+            UNION
+          {
+            ?_fans1ALogonParameters
+              rdf:value ?fans1ALogonParametersValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM .
+            BIND(concat(\'xval:/:\',STR(?fans1ALogonParametersValue),\':/:\',STR(DATATYPE(?fans1ALogonParametersValue)),\':/:\',?fans1ALogonParametersUoM) AS ?fans1ALogonParameters)
+          }
+            UNION
+          {
+           ?_fans1ALogonParameters  aixm:nilReason ?fans1ALogonParametersNilReason .
+           BIND(concat(\'nil:/:\',?fans1ALogonParametersNilReason) AS ?fans1ALogonParameters)
+          }
+          UNION
+          {
+		       ?_fans1ALogonParameters  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fans1ALogonParameters)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,CpdlcConnection,ReceivingUnitFrequency,AtnLogonParameters,SendCpldcIndicator,ConnectionStatus,FrequencyUsage,Fans1ALogonParameters),[]), convVal(ReceivingUnitFrequency,ReceivingUnitFrequencyVal), convVal(AtnLogonParameters,AtnLogonParametersVal), convVal(SendCpldcIndicator,SendCpldcIndicatorVal), convVal(ConnectionStatus,ConnectionStatusVal), convVal(FrequencyUsage,FrequencyUsageVal), convVal(Fans1ALogonParameters,Fans1ALogonParametersVal).
+
 % aixm_TelephoneContact(Graph, TelephoneContact, Voice?, Facsimile?)
 
 aixm_TelephoneContact(Graph, TelephoneContact, VoiceVal, FacsimileVal) :-
@@ -6329,9 +7587,9 @@ WHERE
       '
 ,row(Graph,TelephoneContact,Voice,Facsimile),[]), convVal(Voice,VoiceVal), convVal(Facsimile,FacsimileVal).
 
-% plain_SignificantPointInAirspace(Graph, SignificantPointInAirspace, Type, RelativeLocation)
+% fixm_Route(Graph, Route, AirfileRouteStartTime?, FlightDuration?, InitialCruisingSpeed?, InitialFlightRules?, RequestedAltitude?, RouteText?, EstimatedElapsedTime*, ExpandedRoute?, ClimbSchedule?, DescentSchedule?, Segment*)
 
-plain_SignificantPointInAirspace(Graph, SignificantPointInAirspace, TypeVal, RelativeLocationVal) :-
+fixm_Route(Graph, Route, AirfileRouteStartTimeVal, FlightDurationVal, InitialCruisingSpeedVal, InitialFlightRulesVal, RequestedAltitudeVal, RouteTextVal, EstimatedElapsedTimeList, ExpandedRouteVal, ClimbScheduleVal, DescentScheduleVal, SegmentList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -6352,70 +7610,187 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?significantPointInAirspace ?type ?relativeLocation
+SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText (GROUP_CONCAT(DISTINCT ?estimatedElapsedTime;SEPARATOR=",") AS ?estimatedElapsedTimeConcat) ?expandedRoute ?climbSchedule ?descentSchedule (GROUP_CONCAT(DISTINCT ?segment;SEPARATOR=",") AS ?segmentConcat)
 WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:Route .
+  }
   { GRAPH ?graph
     {
-      ?significantPointInAirspace rdf:type <http://www.aisa-project.eu/vocabulary/plain#SignificantPointInAirspace> .
-      ?significantPointInAirspace <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
+      ?route rdf:type ?SUBCLASS .
+      OPTIONAL { ?route fixm:airfileRouteStartTime ?_airfileRouteStartTime .
         {
           {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
+            ?_airfileRouteStartTime rdf:value ?airfileRouteStartTimeValue .
+            FILTER ( NOT EXISTS {?_airfileRouteStartTime (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM})
+            BIND(concat(\'val:/:\',STR(?airfileRouteStartTimeValue),\':/:\',STR(DATATYPE(?airfileRouteStartTimeValue))) AS ?airfileRouteStartTime)
           }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
+            UNION
+          {
+            ?_airfileRouteStartTime
+              rdf:value ?airfileRouteStartTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?airfileRouteStartTimeValue),\':/:\',STR(DATATYPE(?airfileRouteStartTimeValue)),\':/:\',?airfileRouteStartTimeUoM) AS ?airfileRouteStartTime)
+          }
+            UNION
+          {
+           ?_airfileRouteStartTime  aixm:nilReason ?airfileRouteStartTimeNilReason .
+           BIND(concat(\'nil:/:\',?airfileRouteStartTimeNilReason) AS ?airfileRouteStartTime)
           }
           UNION
           {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
+		       ?_airfileRouteStartTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airfileRouteStartTime)
 		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
+        }
       }
-      ?significantPointInAirspace <http://www.aisa-project.eu/vocabulary/plain#relativeLocation>  ?_relativeLocation .
+      OPTIONAL { ?route fixm:flightDuration ?_flightDuration .
         {
           {
-            ?_relativeLocation rdf:value ?relativeLocationValue .
-            FILTER ( NOT EXISTS {?_relativeLocation (aixm:uom | fixm:uom | plain:uom) ?relativeLocationUoM})
-            BIND(concat(\'val:/:\',STR(?relativeLocationValue),\':/:\',STR(DATATYPE(?relativeLocationValue))) AS ?relativeLocation)
+            ?_flightDuration rdf:value ?flightDurationValue .
+            FILTER ( NOT EXISTS {?_flightDuration (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM})
+            BIND(concat(\'val:/:\',STR(?flightDurationValue),\':/:\',STR(DATATYPE(?flightDurationValue))) AS ?flightDuration)
           }
-		     UNION
-		     {
-            ?_relativeLocation
-              rdf:value ?relativeLocationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?relativeLocationUoM .
-              BIND(concat(\'xval:/:\',STR(?relativeLocationValue),\':/:\',STR(DATATYPE(?relativeLocationValue)),\':/:\',?relativeLocationUoM) AS ?relativeLocation)
+            UNION
+          {
+            ?_flightDuration
+              rdf:value ?flightDurationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM .
+            BIND(concat(\'xval:/:\',STR(?flightDurationValue),\':/:\',STR(DATATYPE(?flightDurationValue)),\':/:\',?flightDurationUoM) AS ?flightDuration)
+          }
+            UNION
+          {
+           ?_flightDuration  aixm:nilReason ?flightDurationNilReason .
+           BIND(concat(\'nil:/:\',?flightDurationNilReason) AS ?flightDuration)
           }
           UNION
           {
-		       ?_relativeLocation  aixm:nilReason ?relativeLocationNilReason .
-		       BIND(concat(\'nil:/:\',?relativeLocationNilReason) AS ?relativeLocation)
+		       ?_flightDuration  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightDuration)
 		     }
+        }
+      }
+      OPTIONAL { ?route fixm:initialCruisingSpeed ?_initialCruisingSpeed .
+        {
+          {
+            ?_initialCruisingSpeed rdf:value ?initialCruisingSpeedValue .
+            FILTER ( NOT EXISTS {?_initialCruisingSpeed (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?initialCruisingSpeedValue),\':/:\',STR(DATATYPE(?initialCruisingSpeedValue))) AS ?initialCruisingSpeed)
+          }
+            UNION
+          {
+            ?_initialCruisingSpeed
+              rdf:value ?initialCruisingSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?initialCruisingSpeedValue),\':/:\',STR(DATATYPE(?initialCruisingSpeedValue)),\':/:\',?initialCruisingSpeedUoM) AS ?initialCruisingSpeed)
+          }
+            UNION
+          {
+           ?_initialCruisingSpeed  aixm:nilReason ?initialCruisingSpeedNilReason .
+           BIND(concat(\'nil:/:\',?initialCruisingSpeedNilReason) AS ?initialCruisingSpeed)
+          }
           UNION
           {
-            ?_relativeLocation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?relativeLocation)
-	         }
+		       ?_initialCruisingSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialCruisingSpeed)
+		     }
+        }
       }
+      OPTIONAL { ?route fixm:initialFlightRules ?_initialFlightRules .
+        {
+          {
+            ?_initialFlightRules rdf:value ?initialFlightRulesValue .
+            FILTER ( NOT EXISTS {?_initialFlightRules (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM})
+            BIND(concat(\'val:/:\',STR(?initialFlightRulesValue),\':/:\',STR(DATATYPE(?initialFlightRulesValue))) AS ?initialFlightRules)
+          }
+            UNION
+          {
+            ?_initialFlightRules
+              rdf:value ?initialFlightRulesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM .
+            BIND(concat(\'xval:/:\',STR(?initialFlightRulesValue),\':/:\',STR(DATATYPE(?initialFlightRulesValue)),\':/:\',?initialFlightRulesUoM) AS ?initialFlightRules)
+          }
+            UNION
+          {
+           ?_initialFlightRules  aixm:nilReason ?initialFlightRulesNilReason .
+           BIND(concat(\'nil:/:\',?initialFlightRulesNilReason) AS ?initialFlightRules)
+          }
+          UNION
+          {
+		       ?_initialFlightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialFlightRules)
+		     }
+        }
+      }
+      OPTIONAL { ?route fixm:requestedAltitude ?_requestedAltitude .
+        {
+          {
+            ?_requestedAltitude rdf:value ?requestedAltitudeValue .
+            FILTER ( NOT EXISTS {?_requestedAltitude (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM})
+            BIND(concat(\'val:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue))) AS ?requestedAltitude)
+          }
+            UNION
+          {
+            ?_requestedAltitude
+              rdf:value ?requestedAltitudeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM .
+            BIND(concat(\'xval:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue)),\':/:\',?requestedAltitudeUoM) AS ?requestedAltitude)
+          }
+            UNION
+          {
+           ?_requestedAltitude  aixm:nilReason ?requestedAltitudeNilReason .
+           BIND(concat(\'nil:/:\',?requestedAltitudeNilReason) AS ?requestedAltitude)
+          }
+          UNION
+          {
+		       ?_requestedAltitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?requestedAltitude)
+		     }
+        }
+      }
+      OPTIONAL { ?route fixm:routeText ?_routeText .
+        {
+          {
+            ?_routeText rdf:value ?routeTextValue .
+            FILTER ( NOT EXISTS {?_routeText (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM})
+            BIND(concat(\'val:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue))) AS ?routeText)
+          }
+            UNION
+          {
+            ?_routeText
+              rdf:value ?routeTextValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM .
+            BIND(concat(\'xval:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue)),\':/:\',?routeTextUoM) AS ?routeText)
+          }
+            UNION
+          {
+           ?_routeText  aixm:nilReason ?routeTextNilReason .
+           BIND(concat(\'nil:/:\',?routeTextNilReason) AS ?routeText)
+          }
+          UNION
+          {
+		       ?_routeText  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?routeText)
+		     }
+        }
+      }
+      OPTIONAL {?route fixm:estimatedElapsedTime ?estimatedElapsedTime .}
+      OPTIONAL {?route fixm:expandedRoute ?expandedRoute .}
+      OPTIONAL {?route fixm:climbSchedule ?climbSchedule .}
+      OPTIONAL {?route fixm:descentSchedule ?descentSchedule .}
+      OPTIONAL {?route fixm:segment ?segment .}
     }
   }
+}
+GROUP BY ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?expandedRoute ?climbSchedule ?descentSchedule
 
       '
-,row(Graph,SignificantPointInAirspace,Type,RelativeLocation),[]), convVal(Type,TypeVal), convVal(RelativeLocation,RelativeLocationVal).
+,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convVal(AirfileRouteStartTime,AirfileRouteStartTimeVal), convVal(FlightDuration,FlightDurationVal), convVal(InitialCruisingSpeed,InitialCruisingSpeedVal), convVal(InitialFlightRules,InitialFlightRulesVal), convVal(RequestedAltitude,RequestedAltitudeVal), convVal(RouteText,RouteTextVal), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convVal(ExpandedRoute,ExpandedRouteVal), convVal(ClimbSchedule,ClimbScheduleVal), convVal(DescentSchedule,DescentScheduleVal), convert(SegmentConcat,SegmentList).
 
-% plain_NavaidComponent(Graph, NavaidComponent, CollocationGroup, Navaid*)
+% fixm_Person(Graph, Person, Name?, Contact?)
 
-plain_NavaidComponent(Graph, NavaidComponent, CollocationGroupVal, NavaidList) :-
+fixm_Person(Graph, Person, NameVal, ContactVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -6436,43 +7811,160 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?navaidComponent ?collocationGroup (GROUP_CONCAT(DISTINCT ?navaid;SEPARATOR=",") AS ?navaidConcat)
+SELECT ?graph ?person ?name ?contact
 WHERE
   { GRAPH ?graph
     {
-      ?navaidComponent rdf:type <http://www.aisa-project.eu/vocabulary/plain#NavaidComponent> .
-      ?navaidComponent <http://www.aisa-project.eu/vocabulary/plain#collocationGroup>  ?_collocationGroup .
+      ?person rdf:type fixm:Person .
+      OPTIONAL { ?person fixm:name ?_name .
         {
           {
-            ?_collocationGroup rdf:value ?collocationGroupValue .
-            FILTER ( NOT EXISTS {?_collocationGroup (aixm:uom | fixm:uom | plain:uom) ?collocationGroupUoM})
-            BIND(concat(\'val:/:\',STR(?collocationGroupValue),\':/:\',STR(DATATYPE(?collocationGroupValue))) AS ?collocationGroup)
+            ?_name rdf:value ?nameValue .
+            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
+            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
           }
-		     UNION
-		     {
-            ?_collocationGroup
-              rdf:value ?collocationGroupValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?collocationGroupUoM .
-              BIND(concat(\'xval:/:\',STR(?collocationGroupValue),\':/:\',STR(DATATYPE(?collocationGroupValue)),\':/:\',?collocationGroupUoM) AS ?collocationGroup)
+            UNION
+          {
+            ?_name
+              rdf:value ?nameValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
+            BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
+          }
+            UNION
+          {
+           ?_name  aixm:nilReason ?nameNilReason .
+           BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
           }
           UNION
           {
-		       ?_collocationGroup  aixm:nilReason ?collocationGroupNilReason .
-		       BIND(concat(\'nil:/:\',?collocationGroupNilReason) AS ?collocationGroup)
+		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
 		     }
-          UNION
-          {
-            ?_collocationGroup  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?collocationGroup)
-	         }
+        }
       }
-      OPTIONAL {?navaidComponent <http://www.aisa-project.eu/vocabulary/plain#navaid> ?navaid .}
+      OPTIONAL {?person fixm:contact ?contact .}
     }
   }
-GROUP BY ?graph ?navaidComponent ?collocationGroup
 
       '
-,row(Graph,NavaidComponent,CollocationGroup,NavaidConcat),[]), convVal(CollocationGroup,CollocationGroupVal), convert(NavaidConcat,NavaidList).
+,row(Graph,Person,Name,Contact),[]), convVal(Name,NameVal), convVal(Contact,ContactVal).
+
+% fixm_EfplFlight(Graph, EfplFlight, IfplId?, TotalEstimatedElapsedTime?, AerodromesOfDestination?, EfplSpecialHandling?, EfplFiledTrajectory?, EfplAcceptedTrajectory?, OtherInformation?, FlightPerformanceData?)
+
+fixm_EfplFlight(Graph, EfplFlight, IfplIdVal, TotalEstimatedElapsedTimeVal, AerodromesOfDestinationVal, EfplSpecialHandlingVal, EfplFiledTrajectoryVal, EfplAcceptedTrajectoryVal, OtherInformationVal, FlightPerformanceDataVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?efplFlight ?ifplId ?totalEstimatedElapsedTime ?aerodromesOfDestination ?efplSpecialHandling ?efplFiledTrajectory ?efplAcceptedTrajectory ?otherInformation ?flightPerformanceData
+WHERE
+  { GRAPH ?graph
+    {
+      ?efplFlight rdf:type fixm:EfplFlight .
+      OPTIONAL { ?efplFlight fixm:ifplId ?_ifplId .
+        {
+          {
+            ?_ifplId rdf:value ?ifplIdValue .
+            FILTER ( NOT EXISTS {?_ifplId (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM})
+            BIND(concat(\'val:/:\',STR(?ifplIdValue),\':/:\',STR(DATATYPE(?ifplIdValue))) AS ?ifplId)
+          }
+            UNION
+          {
+            ?_ifplId
+              rdf:value ?ifplIdValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM .
+            BIND(concat(\'xval:/:\',STR(?ifplIdValue),\':/:\',STR(DATATYPE(?ifplIdValue)),\':/:\',?ifplIdUoM) AS ?ifplId)
+          }
+            UNION
+          {
+           ?_ifplId  aixm:nilReason ?ifplIdNilReason .
+           BIND(concat(\'nil:/:\',?ifplIdNilReason) AS ?ifplId)
+          }
+          UNION
+          {
+		       ?_ifplId  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?ifplId)
+		     }
+        }
+      }
+      OPTIONAL { ?efplFlight fixm:totalEstimatedElapsedTime ?_totalEstimatedElapsedTime .
+        {
+          {
+            ?_totalEstimatedElapsedTime rdf:value ?totalEstimatedElapsedTimeValue .
+            FILTER ( NOT EXISTS {?_totalEstimatedElapsedTime (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM})
+            BIND(concat(\'val:/:\',STR(?totalEstimatedElapsedTimeValue),\':/:\',STR(DATATYPE(?totalEstimatedElapsedTimeValue))) AS ?totalEstimatedElapsedTime)
+          }
+            UNION
+          {
+            ?_totalEstimatedElapsedTime
+              rdf:value ?totalEstimatedElapsedTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?totalEstimatedElapsedTimeValue),\':/:\',STR(DATATYPE(?totalEstimatedElapsedTimeValue)),\':/:\',?totalEstimatedElapsedTimeUoM) AS ?totalEstimatedElapsedTime)
+          }
+            UNION
+          {
+           ?_totalEstimatedElapsedTime  aixm:nilReason ?totalEstimatedElapsedTimeNilReason .
+           BIND(concat(\'nil:/:\',?totalEstimatedElapsedTimeNilReason) AS ?totalEstimatedElapsedTime)
+          }
+          UNION
+          {
+		       ?_totalEstimatedElapsedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?totalEstimatedElapsedTime)
+		     }
+        }
+      }
+      OPTIONAL {?efplFlight fixm:aerodromesOfDestination ?aerodromesOfDestination .}
+      OPTIONAL { ?efplFlight fixm:efplSpecialHandling ?_efplSpecialHandling .
+        {
+          {
+            ?_efplSpecialHandling rdf:value ?efplSpecialHandlingValue .
+            FILTER ( NOT EXISTS {?_efplSpecialHandling (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM})
+            BIND(concat(\'val:/:\',STR(?efplSpecialHandlingValue),\':/:\',STR(DATATYPE(?efplSpecialHandlingValue))) AS ?efplSpecialHandling)
+          }
+            UNION
+          {
+            ?_efplSpecialHandling
+              rdf:value ?efplSpecialHandlingValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM .
+            BIND(concat(\'xval:/:\',STR(?efplSpecialHandlingValue),\':/:\',STR(DATATYPE(?efplSpecialHandlingValue)),\':/:\',?efplSpecialHandlingUoM) AS ?efplSpecialHandling)
+          }
+            UNION
+          {
+           ?_efplSpecialHandling  aixm:nilReason ?efplSpecialHandlingNilReason .
+           BIND(concat(\'nil:/:\',?efplSpecialHandlingNilReason) AS ?efplSpecialHandling)
+          }
+          UNION
+          {
+		       ?_efplSpecialHandling  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplSpecialHandling)
+		     }
+        }
+      }
+      OPTIONAL {?efplFlight fixm:efplFiledTrajectory ?efplFiledTrajectory .}
+      OPTIONAL {?efplFlight fixm:efplAcceptedTrajectory ?efplAcceptedTrajectory .}
+      OPTIONAL {?efplFlight fixm:otherInformation ?otherInformation .}
+      OPTIONAL {?efplFlight fixm:flightPerformanceData ?flightPerformanceData .}
+    }
+  }
+
+      '
+,row(Graph,EfplFlight,IfplId,TotalEstimatedElapsedTime,AerodromesOfDestination,EfplSpecialHandling,EfplFiledTrajectory,EfplAcceptedTrajectory,OtherInformation,FlightPerformanceData),[]), convVal(IfplId,IfplIdVal), convVal(TotalEstimatedElapsedTime,TotalEstimatedElapsedTimeVal), convVal(AerodromesOfDestination,AerodromesOfDestinationVal), convVal(EfplSpecialHandling,EfplSpecialHandlingVal), convVal(EfplFiledTrajectory,EfplFiledTrajectoryVal), convVal(EfplAcceptedTrajectory,EfplAcceptedTrajectoryVal), convVal(OtherInformation,OtherInformationVal), convVal(FlightPerformanceData,FlightPerformanceDataVal).
 
 % fixm_Originator(Graph, Originator)
 
@@ -6757,42 +8249,6 @@ WHERE
 
       '
 ,row(Graph,IdentifiedUnitReference,UnitIdentifier),[]), convVal(UnitIdentifier,UnitIdentifierVal).
-
-% plain_AirspaceGeometryComponent(Graph, AirspaceGeometryComponent, Airspace+)
-
-plain_AirspaceGeometryComponent(Graph, AirspaceGeometryComponent, AirspaceList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airspaceGeometryComponent (GROUP_CONCAT(DISTINCT ?airspace;SEPARATOR=",") AS ?airspaceConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airspaceGeometryComponent rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirspaceGeometryComponent> .
-      ?airspaceGeometryComponent <http://www.aisa-project.eu/vocabulary/plain#airspace> ?airspace .
-    }
-  }
-GROUP BY ?graph ?airspaceGeometryComponent
-
-      '
-,row(Graph,AirspaceGeometryComponent,AirspaceConcat),[]), convert(AirspaceConcat,AirspaceList).
 
 % fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalForm?, RadionuclideId?, RadionuclideName?, LowDispersibleMaterialIndicator?, Activity?, SpecialFormIndicator?)
 
@@ -7122,67 +8578,6 @@ WHERE
       '
 ,row(Graph,OnlineContact,Network,Linkage,Protocol,EMail),[]), convVal(Network,NetworkVal), convVal(Linkage,LinkageVal), convVal(Protocol,ProtocolVal), convVal(EMail,EMailVal).
 
-% plain_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, Trajectory*, TrajectoryPointType)
-
-plain_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, TrajectoryList, TrajectoryPointTypeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplTrajectoryPoint (GROUP_CONCAT(DISTINCT ?trajectory;SEPARATOR=",") AS ?trajectoryConcat) ?trajectoryPointType
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplTrajectoryPoint rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplTrajectoryPoint> .
-      OPTIONAL {?efplTrajectoryPoint <http://www.aisa-project.eu/vocabulary/plain#trajectory> ?trajectory .}
-      ?efplTrajectoryPoint <http://www.aisa-project.eu/vocabulary/plain#trajectoryPointType>  ?_trajectoryPointType .
-        {
-          {
-            ?_trajectoryPointType rdf:value ?trajectoryPointTypeValue .
-            FILTER ( NOT EXISTS {?_trajectoryPointType (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM})
-            BIND(concat(\'val:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue))) AS ?trajectoryPointType)
-          }
-		     UNION
-		     {
-            ?_trajectoryPointType
-              rdf:value ?trajectoryPointTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM .
-              BIND(concat(\'xval:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue)),\':/:\',?trajectoryPointTypeUoM) AS ?trajectoryPointType)
-          }
-          UNION
-          {
-		       ?_trajectoryPointType  aixm:nilReason ?trajectoryPointTypeNilReason .
-		       BIND(concat(\'nil:/:\',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
-		     }
-          UNION
-          {
-            ?_trajectoryPointType  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trajectoryPointType)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?efplTrajectoryPoint ?trajectoryPointType
-
-      '
-,row(Graph,EfplTrajectoryPoint,TrajectoryConcat,TrajectoryPointType),[]), convert(TrajectoryConcat,TrajectoryList), convVal(TrajectoryPointType,TrajectoryPointTypeVal).
-
 % fixm_StructuredPostalAddress(Graph, StructuredPostalAddress)
 
 fixm_StructuredPostalAddress(Graph, StructuredPostalAddress) :-
@@ -7216,9894 +8611,6 @@ WHERE
 
       '
 ,row(Graph,StructuredPostalAddress),[]).
-
-% aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation?)
-
-aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, OperationVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliportUsage ?operation
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliportUsage rdf:type aixm:AirportHeliportUsage .
-      OPTIONAL { ?airportHeliportUsage aixm:operation ?_operation .
-        {
-          {
-            ?_operation rdf:value ?operationValue .
-            FILTER ( NOT EXISTS {?_operation (aixm:uom | fixm:uom | plain:uom) ?operationUoM})
-            BIND(concat(\'val:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue))) AS ?operation)
-          }
-            UNION
-          {
-            ?_operation
-              rdf:value ?operationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operationUoM .
-            BIND(concat(\'xval:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue)),\':/:\',?operationUoM) AS ?operation)
-          }
-            UNION
-          {
-           ?_operation  aixm:nilReason ?operationNilReason .
-           BIND(concat(\'nil:/:\',?operationNilReason) AS ?operation)
-          }
-          UNION
-          {
-		       ?_operation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operation)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,AirportHeliportUsage,Operation),[]), convVal(Operation,OperationVal).
-
-% plain_Meteorology(Graph, Meteorology, RunwayVisualRangeInterpretation, FlightConditions, VisibilityInterpretation, Visibility, RunwayVisualRange, ConditionCombination+)
-
-plain_Meteorology(Graph, Meteorology, RunwayVisualRangeInterpretationVal, FlightConditionsVal, VisibilityInterpretationVal, VisibilityVal, RunwayVisualRangeVal, ConditionCombinationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?meteorology ?runwayVisualRangeInterpretation ?flightConditions ?visibilityInterpretation ?visibility ?runwayVisualRange (GROUP_CONCAT(DISTINCT ?conditionCombination;SEPARATOR=",") AS ?conditionCombinationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?meteorology rdf:type <http://www.aisa-project.eu/vocabulary/plain#Meteorology> .
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#runwayVisualRangeInterpretation>  ?_runwayVisualRangeInterpretation .
-        {
-          {
-            ?_runwayVisualRangeInterpretation rdf:value ?runwayVisualRangeInterpretationValue .
-            FILTER ( NOT EXISTS {?_runwayVisualRangeInterpretation (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM})
-            BIND(concat(\'val:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue))) AS ?runwayVisualRangeInterpretation)
-          }
-		     UNION
-		     {
-            ?_runwayVisualRangeInterpretation
-              rdf:value ?runwayVisualRangeInterpretationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM .
-              BIND(concat(\'xval:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue)),\':/:\',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
-          }
-          UNION
-          {
-		       ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
-		       BIND(concat(\'nil:/:\',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
-		     }
-          UNION
-          {
-            ?_runwayVisualRangeInterpretation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRangeInterpretation)
-	         }
-      }
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#flightConditions>  ?_flightConditions .
-        {
-          {
-            ?_flightConditions rdf:value ?flightConditionsValue .
-            FILTER ( NOT EXISTS {?_flightConditions (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM})
-            BIND(concat(\'val:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue))) AS ?flightConditions)
-          }
-		     UNION
-		     {
-            ?_flightConditions
-              rdf:value ?flightConditionsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM .
-              BIND(concat(\'xval:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue)),\':/:\',?flightConditionsUoM) AS ?flightConditions)
-          }
-          UNION
-          {
-		       ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
-		       BIND(concat(\'nil:/:\',?flightConditionsNilReason) AS ?flightConditions)
-		     }
-          UNION
-          {
-            ?_flightConditions  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightConditions)
-	         }
-      }
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#visibilityInterpretation>  ?_visibilityInterpretation .
-        {
-          {
-            ?_visibilityInterpretation rdf:value ?visibilityInterpretationValue .
-            FILTER ( NOT EXISTS {?_visibilityInterpretation (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM})
-            BIND(concat(\'val:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue))) AS ?visibilityInterpretation)
-          }
-		     UNION
-		     {
-            ?_visibilityInterpretation
-              rdf:value ?visibilityInterpretationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM .
-              BIND(concat(\'xval:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue)),\':/:\',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
-          }
-          UNION
-          {
-		       ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
-		       BIND(concat(\'nil:/:\',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
-		     }
-          UNION
-          {
-            ?_visibilityInterpretation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibilityInterpretation)
-	         }
-      }
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#visibility>  ?_visibility .
-        {
-          {
-            ?_visibility rdf:value ?visibilityValue .
-            FILTER ( NOT EXISTS {?_visibility (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM})
-            BIND(concat(\'val:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue))) AS ?visibility)
-          }
-		     UNION
-		     {
-            ?_visibility
-              rdf:value ?visibilityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM .
-              BIND(concat(\'xval:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue)),\':/:\',?visibilityUoM) AS ?visibility)
-          }
-          UNION
-          {
-		       ?_visibility  aixm:nilReason ?visibilityNilReason .
-		       BIND(concat(\'nil:/:\',?visibilityNilReason) AS ?visibility)
-		     }
-          UNION
-          {
-            ?_visibility  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibility)
-	         }
-      }
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#runwayVisualRange>  ?_runwayVisualRange .
-        {
-          {
-            ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
-            FILTER ( NOT EXISTS {?_runwayVisualRange (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM})
-            BIND(concat(\'val:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue))) AS ?runwayVisualRange)
-          }
-		     UNION
-		     {
-            ?_runwayVisualRange
-              rdf:value ?runwayVisualRangeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM .
-              BIND(concat(\'xval:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue)),\':/:\',?runwayVisualRangeUoM) AS ?runwayVisualRange)
-          }
-          UNION
-          {
-		       ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
-		       BIND(concat(\'nil:/:\',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
-		     }
-          UNION
-          {
-            ?_runwayVisualRange  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRange)
-	         }
-      }
-      ?meteorology <http://www.aisa-project.eu/vocabulary/plain#conditionCombination> ?conditionCombination .
-    }
-  }
-GROUP BY ?graph ?meteorology ?runwayVisualRangeInterpretation ?flightConditions ?visibilityInterpretation ?visibility ?runwayVisualRange
-
-      '
-,row(Graph,Meteorology,RunwayVisualRangeInterpretation,FlightConditions,VisibilityInterpretation,Visibility,RunwayVisualRange,ConditionCombinationConcat),[]), convVal(RunwayVisualRangeInterpretation,RunwayVisualRangeInterpretationVal), convVal(FlightConditions,FlightConditionsVal), convVal(VisibilityInterpretation,VisibilityInterpretationVal), convVal(Visibility,VisibilityVal), convVal(RunwayVisualRange,RunwayVisualRangeVal), convert(ConditionCombinationConcat,ConditionCombinationList).
-
-% gml_SurfacePatch(Graph, SurfacePatch)
-
-gml_SurfacePatch(Graph, SurfacePatch) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?surfacePatch
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* gml:SurfacePatch .
-  }
-  { GRAPH ?graph
-    {
-      ?surfacePatch rdf:type ?SUBCLASS .
-    }
-  }
-}
-
-      '
-,row(Graph,SurfacePatch),[]).
-
-% aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type?, Rule?, Status?, Military?, Origin?, Purpose?, Annotation*)
-
-aixm_FlightCharacteristic(Graph, FlightCharacteristic, TypeVal, RuleVal, StatusVal, MilitaryVal, OriginVal, PurposeVal, AnnotationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?flightCharacteristic rdf:type aixm:FlightCharacteristic .
-      OPTIONAL { ?flightCharacteristic aixm:type ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-            UNION
-          {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-            UNION
-          {
-           ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-		     }
-        }
-      }
-      OPTIONAL { ?flightCharacteristic aixm:rule ?_rule .
-        {
-          {
-            ?_rule rdf:value ?ruleValue .
-            FILTER ( NOT EXISTS {?_rule (aixm:uom | fixm:uom | plain:uom) ?ruleUoM})
-            BIND(concat(\'val:/:\',STR(?ruleValue),\':/:\',STR(DATATYPE(?ruleValue))) AS ?rule)
-          }
-            UNION
-          {
-            ?_rule
-              rdf:value ?ruleValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?ruleUoM .
-            BIND(concat(\'xval:/:\',STR(?ruleValue),\':/:\',STR(DATATYPE(?ruleValue)),\':/:\',?ruleUoM) AS ?rule)
-          }
-            UNION
-          {
-           ?_rule  aixm:nilReason ?ruleNilReason .
-           BIND(concat(\'nil:/:\',?ruleNilReason) AS ?rule)
-          }
-          UNION
-          {
-		       ?_rule  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rule)
-		     }
-        }
-      }
-      OPTIONAL { ?flightCharacteristic aixm:status ?_status .
-        {
-          {
-            ?_status rdf:value ?statusValue .
-            FILTER ( NOT EXISTS {?_status (aixm:uom | fixm:uom | plain:uom) ?statusUoM})
-            BIND(concat(\'val:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue))) AS ?status)
-          }
-            UNION
-          {
-            ?_status
-              rdf:value ?statusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?statusUoM .
-            BIND(concat(\'xval:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue)),\':/:\',?statusUoM) AS ?status)
-          }
-            UNION
-          {
-           ?_status  aixm:nilReason ?statusNilReason .
-           BIND(concat(\'nil:/:\',?statusNilReason) AS ?status)
-          }
-          UNION
-          {
-		       ?_status  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?status)
-		     }
-        }
-      }
-      OPTIONAL { ?flightCharacteristic aixm:military ?_military .
-        {
-          {
-            ?_military rdf:value ?militaryValue .
-            FILTER ( NOT EXISTS {?_military (aixm:uom | fixm:uom | plain:uom) ?militaryUoM})
-            BIND(concat(\'val:/:\',STR(?militaryValue),\':/:\',STR(DATATYPE(?militaryValue))) AS ?military)
-          }
-            UNION
-          {
-            ?_military
-              rdf:value ?militaryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?militaryUoM .
-            BIND(concat(\'xval:/:\',STR(?militaryValue),\':/:\',STR(DATATYPE(?militaryValue)),\':/:\',?militaryUoM) AS ?military)
-          }
-            UNION
-          {
-           ?_military  aixm:nilReason ?militaryNilReason .
-           BIND(concat(\'nil:/:\',?militaryNilReason) AS ?military)
-          }
-          UNION
-          {
-		       ?_military  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?military)
-		     }
-        }
-      }
-      OPTIONAL { ?flightCharacteristic aixm:origin ?_origin .
-        {
-          {
-            ?_origin rdf:value ?originValue .
-            FILTER ( NOT EXISTS {?_origin (aixm:uom | fixm:uom | plain:uom) ?originUoM})
-            BIND(concat(\'val:/:\',STR(?originValue),\':/:\',STR(DATATYPE(?originValue))) AS ?origin)
-          }
-            UNION
-          {
-            ?_origin
-              rdf:value ?originValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?originUoM .
-            BIND(concat(\'xval:/:\',STR(?originValue),\':/:\',STR(DATATYPE(?originValue)),\':/:\',?originUoM) AS ?origin)
-          }
-            UNION
-          {
-           ?_origin  aixm:nilReason ?originNilReason .
-           BIND(concat(\'nil:/:\',?originNilReason) AS ?origin)
-          }
-          UNION
-          {
-		       ?_origin  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?origin)
-		     }
-        }
-      }
-      OPTIONAL { ?flightCharacteristic aixm:purpose ?_purpose .
-        {
-          {
-            ?_purpose rdf:value ?purposeValue .
-            FILTER ( NOT EXISTS {?_purpose (aixm:uom | fixm:uom | plain:uom) ?purposeUoM})
-            BIND(concat(\'val:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue))) AS ?purpose)
-          }
-            UNION
-          {
-            ?_purpose
-              rdf:value ?purposeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?purposeUoM .
-            BIND(concat(\'xval:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue)),\':/:\',?purposeUoM) AS ?purpose)
-          }
-            UNION
-          {
-           ?_purpose  aixm:nilReason ?purposeNilReason .
-           BIND(concat(\'nil:/:\',?purposeNilReason) AS ?purpose)
-          }
-          UNION
-          {
-		       ?_purpose  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?purpose)
-		     }
-        }
-      }
-      OPTIONAL {?flightCharacteristic aixm:annotation ?annotation .}
-    }
-  }
-GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
-
-      '
-,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Rule,RuleVal), convVal(Status,StatusVal), convVal(Military,MilitaryVal), convVal(Origin,OriginVal), convVal(Purpose,PurposeVal), convert(AnnotationConcat,AnnotationList).
-
-% aixm_AirportHeliport(Graph, AirportHeliport, TimeSlice*)
-
-aixm_AirportHeliport(Graph, AirportHeliport, TimeSliceList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliport (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliport rdf:type aixm:AirportHeliport .
-      OPTIONAL {?airportHeliport aixm:timeSlice ?timeSlice .}
-    }
-  }
-GROUP BY ?graph ?airportHeliport
-
-      '
-,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
-
-% fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting?, PredictedAirspeed?, PredictedGroundspeed?, MetData?, Point?, TrajectoryChange*, TrajectoryChangeType*, ReferencePoint?)
-
-fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSettingVal, PredictedAirspeedVal, PredictedGroundspeedVal, MetDataVal, PointVal, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePointVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point (GROUP_CONCAT(DISTINCT ?trajectoryChange;SEPARATOR=",") AS ?trajectoryChangeConcat) (GROUP_CONCAT(DISTINCT ?trajectoryChangeType;SEPARATOR=",") AS ?trajectoryChangeTypeConcat) ?referencePoint
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:TrajectoryPoint .
-  }
-  { GRAPH ?graph
-    {
-      ?trajectoryPoint rdf:type ?SUBCLASS .
-      OPTIONAL { ?trajectoryPoint fixm:altimeterSetting ?_altimeterSetting .
-        {
-          {
-            ?_altimeterSetting rdf:value ?altimeterSettingValue .
-            FILTER ( NOT EXISTS {?_altimeterSetting (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM})
-            BIND(concat(\'val:/:\',STR(?altimeterSettingValue),\':/:\',STR(DATATYPE(?altimeterSettingValue))) AS ?altimeterSetting)
-          }
-            UNION
-          {
-            ?_altimeterSetting
-              rdf:value ?altimeterSettingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM .
-            BIND(concat(\'xval:/:\',STR(?altimeterSettingValue),\':/:\',STR(DATATYPE(?altimeterSettingValue)),\':/:\',?altimeterSettingUoM) AS ?altimeterSetting)
-          }
-            UNION
-          {
-           ?_altimeterSetting  aixm:nilReason ?altimeterSettingNilReason .
-           BIND(concat(\'nil:/:\',?altimeterSettingNilReason) AS ?altimeterSetting)
-          }
-          UNION
-          {
-		       ?_altimeterSetting  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altimeterSetting)
-		     }
-        }
-      }
-      OPTIONAL { ?trajectoryPoint fixm:predictedAirspeed ?_predictedAirspeed .
-        {
-          {
-            ?_predictedAirspeed rdf:value ?predictedAirspeedValue .
-            FILTER ( NOT EXISTS {?_predictedAirspeed (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM})
-            BIND(concat(\'val:/:\',STR(?predictedAirspeedValue),\':/:\',STR(DATATYPE(?predictedAirspeedValue))) AS ?predictedAirspeed)
-          }
-            UNION
-          {
-            ?_predictedAirspeed
-              rdf:value ?predictedAirspeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM .
-            BIND(concat(\'xval:/:\',STR(?predictedAirspeedValue),\':/:\',STR(DATATYPE(?predictedAirspeedValue)),\':/:\',?predictedAirspeedUoM) AS ?predictedAirspeed)
-          }
-            UNION
-          {
-           ?_predictedAirspeed  aixm:nilReason ?predictedAirspeedNilReason .
-           BIND(concat(\'nil:/:\',?predictedAirspeedNilReason) AS ?predictedAirspeed)
-          }
-          UNION
-          {
-		       ?_predictedAirspeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?predictedAirspeed)
-		     }
-        }
-      }
-      OPTIONAL { ?trajectoryPoint fixm:predictedGroundspeed ?_predictedGroundspeed .
-        {
-          {
-            ?_predictedGroundspeed rdf:value ?predictedGroundspeedValue .
-            FILTER ( NOT EXISTS {?_predictedGroundspeed (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM})
-            BIND(concat(\'val:/:\',STR(?predictedGroundspeedValue),\':/:\',STR(DATATYPE(?predictedGroundspeedValue))) AS ?predictedGroundspeed)
-          }
-            UNION
-          {
-            ?_predictedGroundspeed
-              rdf:value ?predictedGroundspeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM .
-            BIND(concat(\'xval:/:\',STR(?predictedGroundspeedValue),\':/:\',STR(DATATYPE(?predictedGroundspeedValue)),\':/:\',?predictedGroundspeedUoM) AS ?predictedGroundspeed)
-          }
-            UNION
-          {
-           ?_predictedGroundspeed  aixm:nilReason ?predictedGroundspeedNilReason .
-           BIND(concat(\'nil:/:\',?predictedGroundspeedNilReason) AS ?predictedGroundspeed)
-          }
-          UNION
-          {
-		       ?_predictedGroundspeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?predictedGroundspeed)
-		     }
-        }
-      }
-      OPTIONAL {?trajectoryPoint fixm:metData ?metData .}
-      OPTIONAL {?trajectoryPoint fixm:point ?point .}
-      OPTIONAL {?trajectoryPoint fixm:trajectoryChange ?trajectoryChange .}
-      OPTIONAL { ?trajectoryPoint fixm:trajectoryChangeType ?_trajectoryChangeType .
-        {
-          {
-            ?_trajectoryChangeType rdf:value ?trajectoryChangeTypeValue .
-            FILTER ( NOT EXISTS {?_trajectoryChangeType (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM})
-            BIND(concat(\'val:/:\',STR(?trajectoryChangeTypeValue),\':/:\',STR(DATATYPE(?trajectoryChangeTypeValue))) AS ?trajectoryChangeType)
-          }
-            UNION
-          {
-            ?_trajectoryChangeType
-              rdf:value ?trajectoryChangeTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?trajectoryChangeTypeValue),\':/:\',STR(DATATYPE(?trajectoryChangeTypeValue)),\':/:\',?trajectoryChangeTypeUoM) AS ?trajectoryChangeType)
-          }
-            UNION
-          {
-           ?_trajectoryChangeType  aixm:nilReason ?trajectoryChangeTypeNilReason .
-           BIND(concat(\'nil:/:\',?trajectoryChangeTypeNilReason) AS ?trajectoryChangeType)
-          }
-          UNION
-          {
-		       ?_trajectoryChangeType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trajectoryChangeType)
-		     }
-        }
-      }
-      OPTIONAL {?trajectoryPoint fixm:referencePoint ?referencePoint .}
-    }
-  }
-}
-GROUP BY ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?referencePoint
-
-      '
-,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convVal(AltimeterSetting,AltimeterSettingVal), convVal(PredictedAirspeed,PredictedAirspeedVal), convVal(PredictedGroundspeed,PredictedGroundspeedVal), convVal(MetData,MetDataVal), convVal(Point,PointVal), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList), convVal(ReferencePoint,ReferencePointVal).
-
-% fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier?, DistanceFromTakeOff?, EfplEstimatedSpeed?, ElapsedTime?, GrossWeight?, TrajectoryPointType?, TrajectoryPointRole?, InboundSegment?)
-
-fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifierVal, DistanceFromTakeOffVal, EfplEstimatedSpeedVal, ElapsedTimeVal, GrossWeightVal, TrajectoryPointTypeVal, TrajectoryPointRoleVal, InboundSegmentVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplTrajectoryPoint ?aerodromeIdentifier ?distanceFromTakeOff ?efplEstimatedSpeed ?elapsedTime ?grossWeight ?trajectoryPointType ?trajectoryPointRole ?inboundSegment
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplTrajectoryPoint rdf:type fixm:EfplTrajectoryPoint .
-      OPTIONAL {?efplTrajectoryPoint fixm:aerodromeIdentifier ?aerodromeIdentifier .}
-      OPTIONAL { ?efplTrajectoryPoint fixm:distanceFromTakeOff ?_distanceFromTakeOff .
-        {
-          {
-            ?_distanceFromTakeOff rdf:value ?distanceFromTakeOffValue .
-            FILTER ( NOT EXISTS {?_distanceFromTakeOff (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM})
-            BIND(concat(\'val:/:\',STR(?distanceFromTakeOffValue),\':/:\',STR(DATATYPE(?distanceFromTakeOffValue))) AS ?distanceFromTakeOff)
-          }
-            UNION
-          {
-            ?_distanceFromTakeOff
-              rdf:value ?distanceFromTakeOffValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM .
-            BIND(concat(\'xval:/:\',STR(?distanceFromTakeOffValue),\':/:\',STR(DATATYPE(?distanceFromTakeOffValue)),\':/:\',?distanceFromTakeOffUoM) AS ?distanceFromTakeOff)
-          }
-            UNION
-          {
-           ?_distanceFromTakeOff  aixm:nilReason ?distanceFromTakeOffNilReason .
-           BIND(concat(\'nil:/:\',?distanceFromTakeOffNilReason) AS ?distanceFromTakeOff)
-          }
-          UNION
-          {
-		       ?_distanceFromTakeOff  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?distanceFromTakeOff)
-		     }
-        }
-      }
-      OPTIONAL { ?efplTrajectoryPoint fixm:efplEstimatedSpeed ?_efplEstimatedSpeed .
-        {
-          {
-            ?_efplEstimatedSpeed rdf:value ?efplEstimatedSpeedValue .
-            FILTER ( NOT EXISTS {?_efplEstimatedSpeed (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?efplEstimatedSpeedValue),\':/:\',STR(DATATYPE(?efplEstimatedSpeedValue))) AS ?efplEstimatedSpeed)
-          }
-            UNION
-          {
-            ?_efplEstimatedSpeed
-              rdf:value ?efplEstimatedSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?efplEstimatedSpeedValue),\':/:\',STR(DATATYPE(?efplEstimatedSpeedValue)),\':/:\',?efplEstimatedSpeedUoM) AS ?efplEstimatedSpeed)
-          }
-            UNION
-          {
-           ?_efplEstimatedSpeed  aixm:nilReason ?efplEstimatedSpeedNilReason .
-           BIND(concat(\'nil:/:\',?efplEstimatedSpeedNilReason) AS ?efplEstimatedSpeed)
-          }
-          UNION
-          {
-		       ?_efplEstimatedSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplEstimatedSpeed)
-		     }
-        }
-      }
-      OPTIONAL { ?efplTrajectoryPoint fixm:elapsedTime ?_elapsedTime .
-        {
-          {
-            ?_elapsedTime rdf:value ?elapsedTimeValue .
-            FILTER ( NOT EXISTS {?_elapsedTime (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM})
-            BIND(concat(\'val:/:\',STR(?elapsedTimeValue),\':/:\',STR(DATATYPE(?elapsedTimeValue))) AS ?elapsedTime)
-          }
-            UNION
-          {
-            ?_elapsedTime
-              rdf:value ?elapsedTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?elapsedTimeValue),\':/:\',STR(DATATYPE(?elapsedTimeValue)),\':/:\',?elapsedTimeUoM) AS ?elapsedTime)
-          }
-            UNION
-          {
-           ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
-           BIND(concat(\'nil:/:\',?elapsedTimeNilReason) AS ?elapsedTime)
-          }
-          UNION
-          {
-		       ?_elapsedTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?elapsedTime)
-		     }
-        }
-      }
-      OPTIONAL { ?efplTrajectoryPoint fixm:grossWeight ?_grossWeight .
-        {
-          {
-            ?_grossWeight rdf:value ?grossWeightValue .
-            FILTER ( NOT EXISTS {?_grossWeight (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM})
-            BIND(concat(\'val:/:\',STR(?grossWeightValue),\':/:\',STR(DATATYPE(?grossWeightValue))) AS ?grossWeight)
-          }
-            UNION
-          {
-            ?_grossWeight
-              rdf:value ?grossWeightValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM .
-            BIND(concat(\'xval:/:\',STR(?grossWeightValue),\':/:\',STR(DATATYPE(?grossWeightValue)),\':/:\',?grossWeightUoM) AS ?grossWeight)
-          }
-            UNION
-          {
-           ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
-           BIND(concat(\'nil:/:\',?grossWeightNilReason) AS ?grossWeight)
-          }
-          UNION
-          {
-		       ?_grossWeight  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?grossWeight)
-		     }
-        }
-      }
-      OPTIONAL { ?efplTrajectoryPoint fixm:trajectoryPointType ?_trajectoryPointType .
-        {
-          {
-            ?_trajectoryPointType rdf:value ?trajectoryPointTypeValue .
-            FILTER ( NOT EXISTS {?_trajectoryPointType (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM})
-            BIND(concat(\'val:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue))) AS ?trajectoryPointType)
-          }
-            UNION
-          {
-            ?_trajectoryPointType
-              rdf:value ?trajectoryPointTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue)),\':/:\',?trajectoryPointTypeUoM) AS ?trajectoryPointType)
-          }
-            UNION
-          {
-           ?_trajectoryPointType  aixm:nilReason ?trajectoryPointTypeNilReason .
-           BIND(concat(\'nil:/:\',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
-          }
-          UNION
-          {
-		       ?_trajectoryPointType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trajectoryPointType)
-		     }
-        }
-      }
-      OPTIONAL {?efplTrajectoryPoint fixm:trajectoryPointRole ?trajectoryPointRole .}
-      OPTIONAL {?efplTrajectoryPoint fixm:inboundSegment ?inboundSegment .}
-    }
-  }
-
-      '
-,row(Graph,EfplTrajectoryPoint,AerodromeIdentifier,DistanceFromTakeOff,EfplEstimatedSpeed,ElapsedTime,GrossWeight,TrajectoryPointType,TrajectoryPointRole,InboundSegment),[]), convVal(AerodromeIdentifier,AerodromeIdentifierVal), convVal(DistanceFromTakeOff,DistanceFromTakeOffVal), convVal(EfplEstimatedSpeed,EfplEstimatedSpeedVal), convVal(ElapsedTime,ElapsedTimeVal), convVal(GrossWeight,GrossWeightVal), convVal(TrajectoryPointType,TrajectoryPointTypeVal), convVal(TrajectoryPointRole,TrajectoryPointRoleVal), convVal(InboundSegment,InboundSegmentVal).
-
-% fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayName?, RunwayTime?)
-
-fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayNameVal, RunwayTimeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?runwayPositionAndTime ?runwayName ?runwayTime
-WHERE
-  { GRAPH ?graph
-    {
-      ?runwayPositionAndTime rdf:type fixm:RunwayPositionAndTime .
-      OPTIONAL { ?runwayPositionAndTime fixm:runwayName ?_runwayName .
-        {
-          {
-            ?_runwayName rdf:value ?runwayNameValue .
-            FILTER ( NOT EXISTS {?_runwayName (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM})
-            BIND(concat(\'val:/:\',STR(?runwayNameValue),\':/:\',STR(DATATYPE(?runwayNameValue))) AS ?runwayName)
-          }
-            UNION
-          {
-            ?_runwayName
-              rdf:value ?runwayNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM .
-            BIND(concat(\'xval:/:\',STR(?runwayNameValue),\':/:\',STR(DATATYPE(?runwayNameValue)),\':/:\',?runwayNameUoM) AS ?runwayName)
-          }
-            UNION
-          {
-           ?_runwayName  aixm:nilReason ?runwayNameNilReason .
-           BIND(concat(\'nil:/:\',?runwayNameNilReason) AS ?runwayName)
-          }
-          UNION
-          {
-		       ?_runwayName  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayName)
-		     }
-        }
-      }
-      OPTIONAL {?runwayPositionAndTime fixm:runwayTime ?runwayTime .}
-    }
-  }
-
-      '
-,row(Graph,RunwayPositionAndTime,RunwayName,RunwayTime),[]), convVal(RunwayName,RunwayNameVal), convVal(RunwayTime,RunwayTimeVal).
-
-% fixm_Feature(Graph, Feature, Provenance?)
-
-fixm_Feature(Graph, Feature, ProvenanceVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?feature ?provenance
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:Feature .
-  }
-  { GRAPH ?graph
-    {
-      ?feature rdf:type ?SUBCLASS .
-      OPTIONAL {?feature fixm:provenance ?provenance .}
-    }
-  }
-}
-
-      '
-,row(Graph,Feature,Provenance),[]), convVal(Provenance,ProvenanceVal).
-
-% fixm_ElapsedTimeLocation(Graph, ElapsedTimeLocation)
-
-fixm_ElapsedTimeLocation(Graph, ElapsedTimeLocation) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?elapsedTimeLocation
-WHERE
-  { GRAPH ?graph
-    {
-      ?elapsedTimeLocation rdf:type fixm:ElapsedTimeLocation .
-    }
-  }
-
-      '
-,row(Graph,ElapsedTimeLocation),[]).
-
-% plain_EfplPoint4D(Graph, EfplPoint4D, SrsName, FlightLevel, Time, Pos, EfplTrajectoryPoint*)
-
-plain_EfplPoint4D(Graph, EfplPoint4D, SrsNameVal, FlightLevelVal, TimeVal, PosVal, EfplTrajectoryPointList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplPoint4D ?srsName ?flightLevel ?time ?pos (GROUP_CONCAT(DISTINCT ?efplTrajectoryPoint;SEPARATOR=",") AS ?efplTrajectoryPointConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplPoint4D rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplPoint4D> .
-      ?efplPoint4D <http://www.aisa-project.eu/vocabulary/plain#srsName>  ?_srsName .
-        {
-          {
-            ?_srsName rdf:value ?srsNameValue .
-            FILTER ( NOT EXISTS {?_srsName (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM})
-            BIND(concat(\'val:/:\',STR(?srsNameValue),\':/:\',STR(DATATYPE(?srsNameValue))) AS ?srsName)
-          }
-		     UNION
-		     {
-            ?_srsName
-              rdf:value ?srsNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?srsNameUoM .
-              BIND(concat(\'xval:/:\',STR(?srsNameValue),\':/:\',STR(DATATYPE(?srsNameValue)),\':/:\',?srsNameUoM) AS ?srsName)
-          }
-          UNION
-          {
-		       ?_srsName  aixm:nilReason ?srsNameNilReason .
-		       BIND(concat(\'nil:/:\',?srsNameNilReason) AS ?srsName)
-		     }
-          UNION
-          {
-            ?_srsName  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?srsName)
-	         }
-      }
-      ?efplPoint4D <http://www.aisa-project.eu/vocabulary/plain#flightLevel>  ?_flightLevel .
-        {
-          {
-            ?_flightLevel rdf:value ?flightLevelValue .
-            FILTER ( NOT EXISTS {?_flightLevel (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM})
-            BIND(concat(\'val:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue))) AS ?flightLevel)
-          }
-		     UNION
-		     {
-            ?_flightLevel
-              rdf:value ?flightLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM .
-              BIND(concat(\'xval:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue)),\':/:\',?flightLevelUoM) AS ?flightLevel)
-          }
-          UNION
-          {
-		       ?_flightLevel  aixm:nilReason ?flightLevelNilReason .
-		       BIND(concat(\'nil:/:\',?flightLevelNilReason) AS ?flightLevel)
-		     }
-          UNION
-          {
-            ?_flightLevel  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightLevel)
-	         }
-      }
-      ?efplPoint4D <http://www.aisa-project.eu/vocabulary/plain#time>  ?_time .
-        {
-          {
-            ?_time rdf:value ?timeValue .
-            FILTER ( NOT EXISTS {?_time (aixm:uom | fixm:uom | plain:uom) ?timeUoM})
-            BIND(concat(\'val:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue))) AS ?time)
-          }
-		     UNION
-		     {
-            ?_time
-              rdf:value ?timeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeUoM .
-              BIND(concat(\'xval:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue)),\':/:\',?timeUoM) AS ?time)
-          }
-          UNION
-          {
-		       ?_time  aixm:nilReason ?timeNilReason .
-		       BIND(concat(\'nil:/:\',?timeNilReason) AS ?time)
-		     }
-          UNION
-          {
-            ?_time  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?time)
-	         }
-      }
-      ?efplPoint4D <http://www.aisa-project.eu/vocabulary/plain#pos>  ?_pos .
-        {
-          {
-            ?_pos rdf:value ?posValue .
-            FILTER ( NOT EXISTS {?_pos (aixm:uom | fixm:uom | plain:uom) ?posUoM})
-            BIND(concat(\'val:/:\',STR(?posValue),\':/:\',STR(DATATYPE(?posValue))) AS ?pos)
-          }
-		     UNION
-		     {
-            ?_pos
-              rdf:value ?posValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?posUoM .
-              BIND(concat(\'xval:/:\',STR(?posValue),\':/:\',STR(DATATYPE(?posValue)),\':/:\',?posUoM) AS ?pos)
-          }
-          UNION
-          {
-		       ?_pos  aixm:nilReason ?posNilReason .
-		       BIND(concat(\'nil:/:\',?posNilReason) AS ?pos)
-		     }
-          UNION
-          {
-            ?_pos  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?pos)
-	         }
-      }
-      OPTIONAL {?efplPoint4D <http://www.aisa-project.eu/vocabulary/plain#efplTrajectoryPoint> ?efplTrajectoryPoint .}
-    }
-  }
-GROUP BY ?graph ?efplPoint4D ?srsName ?flightLevel ?time ?pos
-
-      '
-,row(Graph,EfplPoint4D,SrsName,FlightLevel,Time,Pos,EfplTrajectoryPointConcat),[]), convVal(SrsName,SrsNameVal), convVal(FlightLevel,FlightLevelVal), convVal(Time,TimeVal), convVal(Pos,PosVal), convert(EfplTrajectoryPointConcat,EfplTrajectoryPointList).
-
-% aixm_Surface(Graph, Surface, HorizontalAccuracy?, Annotation*)
-
-aixm_Surface(Graph, Surface, HorizontalAccuracyVal, AnnotationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?surface ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* aixm:Surface .
-  }
-  { GRAPH ?graph
-    {
-      ?surface rdf:type ?SUBCLASS .
-      OPTIONAL { ?surface aixm:horizontalAccuracy ?_horizontalAccuracy .
-        {
-          {
-            ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
-            FILTER ( NOT EXISTS {?_horizontalAccuracy (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM})
-            BIND(concat(\'val:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue))) AS ?horizontalAccuracy)
-          }
-            UNION
-          {
-            ?_horizontalAccuracy
-              rdf:value ?horizontalAccuracyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM .
-            BIND(concat(\'xval:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue)),\':/:\',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
-          }
-            UNION
-          {
-           ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
-           BIND(concat(\'nil:/:\',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
-          }
-          UNION
-          {
-		       ?_horizontalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?horizontalAccuracy)
-		     }
-        }
-      }
-      OPTIONAL {?surface aixm:annotation ?annotation .}
-    }
-  }
-}
-GROUP BY ?graph ?surface ?horizontalAccuracy
-
-      '
-,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList).
-
-% gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition)
-
-gml_TimePeriod(Graph, TimePeriod, BeginPositionVal, EndPositionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?timePeriod ?beginPosition ?endPosition
-WHERE
-  { GRAPH ?graph
-    {
-      ?timePeriod rdf:type gml:TimePeriod .
-      ?timePeriod gml:beginPosition  ?_beginPosition .
-        {
-          {
-            ?_beginPosition rdf:value ?beginPositionValue .
-            FILTER ( NOT EXISTS {?_beginPosition (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM})
-            BIND(concat(\'val:/:\',STR(?beginPositionValue),\':/:\',STR(DATATYPE(?beginPositionValue))) AS ?beginPosition)
-          }
-		     UNION
-		     {
-            ?_beginPosition
-              rdf:value ?beginPositionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM .
-              BIND(concat(\'xval:/:\',STR(?beginPositionValue),\':/:\',STR(DATATYPE(?beginPositionValue)),\':/:\',?beginPositionUoM) AS ?beginPosition)
-          }
-          UNION
-          {
-		       ?_beginPosition  aixm:nilReason ?beginPositionNilReason .
-		       BIND(concat(\'nil:/:\',?beginPositionNilReason) AS ?beginPosition)
-		     }
-          UNION
-          {
-            ?_beginPosition  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?beginPosition)
-	         }
-      }
-      ?timePeriod gml:endPosition  ?_endPosition .
-        {
-          {
-            ?_endPosition rdf:value ?endPositionValue .
-            FILTER ( NOT EXISTS {?_endPosition (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM})
-            BIND(concat(\'val:/:\',STR(?endPositionValue),\':/:\',STR(DATATYPE(?endPositionValue))) AS ?endPosition)
-          }
-		     UNION
-		     {
-            ?_endPosition
-              rdf:value ?endPositionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM .
-              BIND(concat(\'xval:/:\',STR(?endPositionValue),\':/:\',STR(DATATYPE(?endPositionValue)),\':/:\',?endPositionUoM) AS ?endPosition)
-          }
-          UNION
-          {
-		       ?_endPosition  aixm:nilReason ?endPositionNilReason .
-		       BIND(concat(\'nil:/:\',?endPositionNilReason) AS ?endPosition)
-		     }
-          UNION
-          {
-            ?_endPosition  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endPosition)
-	         }
-      }
-    }
-  }
-
-      '
-,row(Graph,TimePeriod,BeginPosition,EndPosition),[]), convVal(BeginPosition,BeginPositionVal), convVal(EndPosition,EndPositionVal).
-
-% fixm_AircraftCapabilities(Graph, AircraftCapabilities, Survival?, Communication?, Navigation?, Surveillance?, StandardCapabilities?)
-
-fixm_AircraftCapabilities(Graph, AircraftCapabilities, SurvivalVal, CommunicationVal, NavigationVal, SurveillanceVal, StandardCapabilitiesVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraftCapabilities ?survival ?communication ?navigation ?surveillance ?standardCapabilities
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraftCapabilities rdf:type fixm:AircraftCapabilities .
-      OPTIONAL {?aircraftCapabilities fixm:survival ?survival .}
-      OPTIONAL {?aircraftCapabilities fixm:communication ?communication .}
-      OPTIONAL {?aircraftCapabilities fixm:navigation ?navigation .}
-      OPTIONAL {?aircraftCapabilities fixm:surveillance ?surveillance .}
-      OPTIONAL { ?aircraftCapabilities fixm:standardCapabilities ?_standardCapabilities .
-        {
-          {
-            ?_standardCapabilities rdf:value ?standardCapabilitiesValue .
-            FILTER ( NOT EXISTS {?_standardCapabilities (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM})
-            BIND(concat(\'val:/:\',STR(?standardCapabilitiesValue),\':/:\',STR(DATATYPE(?standardCapabilitiesValue))) AS ?standardCapabilities)
-          }
-            UNION
-          {
-            ?_standardCapabilities
-              rdf:value ?standardCapabilitiesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM .
-            BIND(concat(\'xval:/:\',STR(?standardCapabilitiesValue),\':/:\',STR(DATATYPE(?standardCapabilitiesValue)),\':/:\',?standardCapabilitiesUoM) AS ?standardCapabilities)
-          }
-            UNION
-          {
-           ?_standardCapabilities  aixm:nilReason ?standardCapabilitiesNilReason .
-           BIND(concat(\'nil:/:\',?standardCapabilitiesNilReason) AS ?standardCapabilities)
-          }
-          UNION
-          {
-		       ?_standardCapabilities  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?standardCapabilities)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,AircraftCapabilities,Survival,Communication,Navigation,Surveillance,StandardCapabilities),[]), convVal(Survival,SurvivalVal), convVal(Communication,CommunicationVal), convVal(Navigation,NavigationVal), convVal(Surveillance,SurveillanceVal), convVal(StandardCapabilities,StandardCapabilitiesVal).
-
-% fixm_EnRoute(Graph, EnRoute, AlternateAerodrome*, FleetPrioritization?, BoundaryCrossings*, CpdlcConnection?, BeaconCodeAssignment?, Cleared?, ControlElement*, Pointout?, Position?)
-
-fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritizationVal, BoundaryCrossingsList, CpdlcConnectionVal, BeaconCodeAssignmentVal, ClearedVal, ControlElementList, PointoutVal, PositionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?enRoute (GROUP_CONCAT(DISTINCT ?alternateAerodrome;SEPARATOR=",") AS ?alternateAerodromeConcat) ?fleetPrioritization (GROUP_CONCAT(DISTINCT ?boundaryCrossings;SEPARATOR=",") AS ?boundaryCrossingsConcat) ?cpdlcConnection ?beaconCodeAssignment ?cleared (GROUP_CONCAT(DISTINCT ?controlElement;SEPARATOR=",") AS ?controlElementConcat) ?pointout ?position
-WHERE
-  { GRAPH ?graph
-    {
-      ?enRoute rdf:type fixm:EnRoute .
-      OPTIONAL {?enRoute fixm:alternateAerodrome ?alternateAerodrome .}
-      OPTIONAL { ?enRoute fixm:fleetPrioritization ?_fleetPrioritization .
-        {
-          {
-            ?_fleetPrioritization rdf:value ?fleetPrioritizationValue .
-            FILTER ( NOT EXISTS {?_fleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM})
-            BIND(concat(\'val:/:\',STR(?fleetPrioritizationValue),\':/:\',STR(DATATYPE(?fleetPrioritizationValue))) AS ?fleetPrioritization)
-          }
-            UNION
-          {
-            ?_fleetPrioritization
-              rdf:value ?fleetPrioritizationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM .
-            BIND(concat(\'xval:/:\',STR(?fleetPrioritizationValue),\':/:\',STR(DATATYPE(?fleetPrioritizationValue)),\':/:\',?fleetPrioritizationUoM) AS ?fleetPrioritization)
-          }
-            UNION
-          {
-           ?_fleetPrioritization  aixm:nilReason ?fleetPrioritizationNilReason .
-           BIND(concat(\'nil:/:\',?fleetPrioritizationNilReason) AS ?fleetPrioritization)
-          }
-          UNION
-          {
-		       ?_fleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fleetPrioritization)
-		     }
-        }
-      }
-      OPTIONAL {?enRoute fixm:boundaryCrossings ?boundaryCrossings .}
-      OPTIONAL {?enRoute fixm:cpdlcConnection ?cpdlcConnection .}
-      OPTIONAL {?enRoute fixm:beaconCodeAssignment ?beaconCodeAssignment .}
-      OPTIONAL {?enRoute fixm:cleared ?cleared .}
-      OPTIONAL { ?enRoute fixm:controlElement ?_controlElement .
-        {
-          {
-            ?_controlElement rdf:value ?controlElementValue .
-            FILTER ( NOT EXISTS {?_controlElement (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM})
-            BIND(concat(\'val:/:\',STR(?controlElementValue),\':/:\',STR(DATATYPE(?controlElementValue))) AS ?controlElement)
-          }
-            UNION
-          {
-            ?_controlElement
-              rdf:value ?controlElementValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM .
-            BIND(concat(\'xval:/:\',STR(?controlElementValue),\':/:\',STR(DATATYPE(?controlElementValue)),\':/:\',?controlElementUoM) AS ?controlElement)
-          }
-            UNION
-          {
-           ?_controlElement  aixm:nilReason ?controlElementNilReason .
-           BIND(concat(\'nil:/:\',?controlElementNilReason) AS ?controlElement)
-          }
-          UNION
-          {
-		       ?_controlElement  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?controlElement)
-		     }
-        }
-      }
-      OPTIONAL {?enRoute fixm:pointout ?pointout .}
-      OPTIONAL {?enRoute fixm:position ?position .}
-    }
-  }
-GROUP BY ?graph ?enRoute ?fleetPrioritization ?cpdlcConnection ?beaconCodeAssignment ?cleared ?pointout ?position
-
-      '
-,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convVal(FleetPrioritization,FleetPrioritizationVal), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convVal(CpdlcConnection,CpdlcConnectionVal), convVal(BeaconCodeAssignment,BeaconCodeAssignmentVal), convVal(Cleared,ClearedVal), convert(ControlElementConcat,ControlElementList), convVal(Pointout,PointoutVal), convVal(Position,PositionVal).
-
-% fixm_TemporalRange(Graph, TemporalRange, Earliest?, Latest?)
-
-fixm_TemporalRange(Graph, TemporalRange, EarliestVal, LatestVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?temporalRange ?earliest ?latest
-WHERE
-  { GRAPH ?graph
-    {
-      ?temporalRange rdf:type fixm:TemporalRange .
-      OPTIONAL { ?temporalRange fixm:earliest ?_earliest .
-        {
-          {
-            ?_earliest rdf:value ?earliestValue .
-            FILTER ( NOT EXISTS {?_earliest (aixm:uom | fixm:uom | plain:uom) ?earliestUoM})
-            BIND(concat(\'val:/:\',STR(?earliestValue),\':/:\',STR(DATATYPE(?earliestValue))) AS ?earliest)
-          }
-            UNION
-          {
-            ?_earliest
-              rdf:value ?earliestValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?earliestUoM .
-            BIND(concat(\'xval:/:\',STR(?earliestValue),\':/:\',STR(DATATYPE(?earliestValue)),\':/:\',?earliestUoM) AS ?earliest)
-          }
-            UNION
-          {
-           ?_earliest  aixm:nilReason ?earliestNilReason .
-           BIND(concat(\'nil:/:\',?earliestNilReason) AS ?earliest)
-          }
-          UNION
-          {
-		       ?_earliest  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?earliest)
-		     }
-        }
-      }
-      OPTIONAL { ?temporalRange fixm:latest ?_latest .
-        {
-          {
-            ?_latest rdf:value ?latestValue .
-            FILTER ( NOT EXISTS {?_latest (aixm:uom | fixm:uom | plain:uom) ?latestUoM})
-            BIND(concat(\'val:/:\',STR(?latestValue),\':/:\',STR(DATATYPE(?latestValue))) AS ?latest)
-          }
-            UNION
-          {
-            ?_latest
-              rdf:value ?latestValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?latestUoM .
-            BIND(concat(\'xval:/:\',STR(?latestValue),\':/:\',STR(DATATYPE(?latestValue)),\':/:\',?latestUoM) AS ?latest)
-          }
-            UNION
-          {
-           ?_latest  aixm:nilReason ?latestNilReason .
-           BIND(concat(\'nil:/:\',?latestNilReason) AS ?latest)
-          }
-          UNION
-          {
-		       ?_latest  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?latest)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,TemporalRange,Earliest,Latest),[]), convVal(Earliest,EarliestVal), convVal(Latest,LatestVal).
-
-% plain_City(Graph, City, AirportHeliport+, Name)
-
-plain_City(Graph, City, AirportHeliportList, NameVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?city (GROUP_CONCAT(DISTINCT ?airportHeliport;SEPARATOR=",") AS ?airportHeliportConcat) ?name
-WHERE
-  { GRAPH ?graph
-    {
-      ?city rdf:type <http://www.aisa-project.eu/vocabulary/plain#City> .
-      ?city <http://www.aisa-project.eu/vocabulary/plain#airportHeliport> ?airportHeliport .
-      ?city <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?city ?name
-
-      '
-,row(Graph,City,AirportHeliportConcat,Name),[]), convert(AirportHeliportConcat,AirportHeliportList), convVal(Name,NameVal).
-
-% fixm_Aircraft(Graph, Aircraft, AircraftColours?, AircraftQuantity?, EngineType?, AircraftAddress?, Capabilities?, Registration?, AircraftType?, WakeTurbulence?, AircraftPerformance?)
-
-fixm_Aircraft(Graph, Aircraft, AircraftColoursVal, AircraftQuantityVal, EngineTypeVal, AircraftAddressVal, CapabilitiesVal, RegistrationVal, AircraftTypeVal, WakeTurbulenceVal, AircraftPerformanceVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraft ?aircraftColours ?aircraftQuantity ?engineType ?aircraftAddress ?capabilities ?registration ?aircraftType ?wakeTurbulence ?aircraftPerformance
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraft rdf:type fixm:Aircraft .
-      OPTIONAL { ?aircraft fixm:aircraftColours ?_aircraftColours .
-        {
-          {
-            ?_aircraftColours rdf:value ?aircraftColoursValue .
-            FILTER ( NOT EXISTS {?_aircraftColours (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftColoursValue),\':/:\',STR(DATATYPE(?aircraftColoursValue))) AS ?aircraftColours)
-          }
-            UNION
-          {
-            ?_aircraftColours
-              rdf:value ?aircraftColoursValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM .
-            BIND(concat(\'xval:/:\',STR(?aircraftColoursValue),\':/:\',STR(DATATYPE(?aircraftColoursValue)),\':/:\',?aircraftColoursUoM) AS ?aircraftColours)
-          }
-            UNION
-          {
-           ?_aircraftColours  aixm:nilReason ?aircraftColoursNilReason .
-           BIND(concat(\'nil:/:\',?aircraftColoursNilReason) AS ?aircraftColours)
-          }
-          UNION
-          {
-		       ?_aircraftColours  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftColours)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:aircraftQuantity ?_aircraftQuantity .
-        {
-          {
-            ?_aircraftQuantity rdf:value ?aircraftQuantityValue .
-            FILTER ( NOT EXISTS {?_aircraftQuantity (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue))) AS ?aircraftQuantity)
-          }
-            UNION
-          {
-            ?_aircraftQuantity
-              rdf:value ?aircraftQuantityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM .
-            BIND(concat(\'xval:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue)),\':/:\',?aircraftQuantityUoM) AS ?aircraftQuantity)
-          }
-            UNION
-          {
-           ?_aircraftQuantity  aixm:nilReason ?aircraftQuantityNilReason .
-           BIND(concat(\'nil:/:\',?aircraftQuantityNilReason) AS ?aircraftQuantity)
-          }
-          UNION
-          {
-		       ?_aircraftQuantity  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftQuantity)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:engineType ?_engineType .
-        {
-          {
-            ?_engineType rdf:value ?engineTypeValue .
-            FILTER ( NOT EXISTS {?_engineType (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM})
-            BIND(concat(\'val:/:\',STR(?engineTypeValue),\':/:\',STR(DATATYPE(?engineTypeValue))) AS ?engineType)
-          }
-            UNION
-          {
-            ?_engineType
-              rdf:value ?engineTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?engineTypeValue),\':/:\',STR(DATATYPE(?engineTypeValue)),\':/:\',?engineTypeUoM) AS ?engineType)
-          }
-            UNION
-          {
-           ?_engineType  aixm:nilReason ?engineTypeNilReason .
-           BIND(concat(\'nil:/:\',?engineTypeNilReason) AS ?engineType)
-          }
-          UNION
-          {
-		       ?_engineType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?engineType)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:aircraftAddress ?_aircraftAddress .
-        {
-          {
-            ?_aircraftAddress rdf:value ?aircraftAddressValue .
-            FILTER ( NOT EXISTS {?_aircraftAddress (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue))) AS ?aircraftAddress)
-          }
-            UNION
-          {
-            ?_aircraftAddress
-              rdf:value ?aircraftAddressValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM .
-            BIND(concat(\'xval:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue)),\':/:\',?aircraftAddressUoM) AS ?aircraftAddress)
-          }
-            UNION
-          {
-           ?_aircraftAddress  aixm:nilReason ?aircraftAddressNilReason .
-           BIND(concat(\'nil:/:\',?aircraftAddressNilReason) AS ?aircraftAddress)
-          }
-          UNION
-          {
-		       ?_aircraftAddress  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftAddress)
-		     }
-        }
-      }
-      OPTIONAL {?aircraft fixm:capabilities ?capabilities .}
-      OPTIONAL { ?aircraft fixm:registration ?_registration .
-        {
-          {
-            ?_registration rdf:value ?registrationValue .
-            FILTER ( NOT EXISTS {?_registration (aixm:uom | fixm:uom | plain:uom) ?registrationUoM})
-            BIND(concat(\'val:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue))) AS ?registration)
-          }
-            UNION
-          {
-            ?_registration
-              rdf:value ?registrationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?registrationUoM .
-            BIND(concat(\'xval:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue)),\':/:\',?registrationUoM) AS ?registration)
-          }
-            UNION
-          {
-           ?_registration  aixm:nilReason ?registrationNilReason .
-           BIND(concat(\'nil:/:\',?registrationNilReason) AS ?registration)
-          }
-          UNION
-          {
-		       ?_registration  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?registration)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:aircraftType ?_aircraftType .
-        {
-          {
-            ?_aircraftType rdf:value ?aircraftTypeValue .
-            FILTER ( NOT EXISTS {?_aircraftType (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftTypeValue),\':/:\',STR(DATATYPE(?aircraftTypeValue))) AS ?aircraftType)
-          }
-            UNION
-          {
-            ?_aircraftType
-              rdf:value ?aircraftTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?aircraftTypeValue),\':/:\',STR(DATATYPE(?aircraftTypeValue)),\':/:\',?aircraftTypeUoM) AS ?aircraftType)
-          }
-            UNION
-          {
-           ?_aircraftType  aixm:nilReason ?aircraftTypeNilReason .
-           BIND(concat(\'nil:/:\',?aircraftTypeNilReason) AS ?aircraftType)
-          }
-          UNION
-          {
-		       ?_aircraftType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftType)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:wakeTurbulence ?_wakeTurbulence .
-        {
-          {
-            ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
-            FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
-            BIND(concat(\'val:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue))) AS ?wakeTurbulence)
-          }
-            UNION
-          {
-            ?_wakeTurbulence
-              rdf:value ?wakeTurbulenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
-            BIND(concat(\'xval:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue)),\':/:\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
-          }
-            UNION
-          {
-           ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
-           BIND(concat(\'nil:/:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
-          }
-          UNION
-          {
-		       ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?wakeTurbulence)
-		     }
-        }
-      }
-      OPTIONAL { ?aircraft fixm:aircraftPerformance ?_aircraftPerformance .
-        {
-          {
-            ?_aircraftPerformance rdf:value ?aircraftPerformanceValue .
-            FILTER ( NOT EXISTS {?_aircraftPerformance (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue))) AS ?aircraftPerformance)
-          }
-            UNION
-          {
-            ?_aircraftPerformance
-              rdf:value ?aircraftPerformanceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM .
-            BIND(concat(\'xval:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue)),\':/:\',?aircraftPerformanceUoM) AS ?aircraftPerformance)
-          }
-            UNION
-          {
-           ?_aircraftPerformance  aixm:nilReason ?aircraftPerformanceNilReason .
-           BIND(concat(\'nil:/:\',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
-          }
-          UNION
-          {
-		       ?_aircraftPerformance  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftPerformance)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,Aircraft,AircraftColours,AircraftQuantity,EngineType,AircraftAddress,Capabilities,Registration,AircraftType,WakeTurbulence,AircraftPerformance),[]), convVal(AircraftColours,AircraftColoursVal), convVal(AircraftQuantity,AircraftQuantityVal), convVal(EngineType,EngineTypeVal), convVal(AircraftAddress,AircraftAddressVal), convVal(Capabilities,CapabilitiesVal), convVal(Registration,RegistrationVal), convVal(AircraftType,AircraftTypeVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(AircraftPerformance,AircraftPerformanceVal).
-
-% fixm_OnlineContact(Graph, OnlineContact, Email?)
-
-fixm_OnlineContact(Graph, OnlineContact, EmailVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?onlineContact ?email
-WHERE
-  { GRAPH ?graph
-    {
-      ?onlineContact rdf:type fixm:OnlineContact .
-      OPTIONAL { ?onlineContact fixm:email ?_email .
-        {
-          {
-            ?_email rdf:value ?emailValue .
-            FILTER ( NOT EXISTS {?_email (aixm:uom | fixm:uom | plain:uom) ?emailUoM})
-            BIND(concat(\'val:/:\',STR(?emailValue),\':/:\',STR(DATATYPE(?emailValue))) AS ?email)
-          }
-            UNION
-          {
-            ?_email
-              rdf:value ?emailValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?emailUoM .
-            BIND(concat(\'xval:/:\',STR(?emailValue),\':/:\',STR(DATATYPE(?emailValue)),\':/:\',?emailUoM) AS ?email)
-          }
-            UNION
-          {
-           ?_email  aixm:nilReason ?emailNilReason .
-           BIND(concat(\'nil:/:\',?emailNilReason) AS ?email)
-          }
-          UNION
-          {
-		       ?_email  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?email)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,OnlineContact,Email),[]), convVal(Email,EmailVal).
-
-% fixm_TimeSequence(Graph, TimeSequence, Approval?, Begin?, End?, Ready?, Request?)
-
-fixm_TimeSequence(Graph, TimeSequence, ApprovalVal, BeginVal, EndVal, ReadyVal, RequestVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?timeSequence ?approval ?begin ?end ?ready ?request
-WHERE
-  { GRAPH ?graph
-    {
-      ?timeSequence rdf:type fixm:TimeSequence .
-      OPTIONAL {?timeSequence fixm:approval ?approval .}
-      OPTIONAL {?timeSequence fixm:begin ?begin .}
-      OPTIONAL {?timeSequence fixm:end ?end .}
-      OPTIONAL {?timeSequence fixm:ready ?ready .}
-      OPTIONAL {?timeSequence fixm:request ?request .}
-    }
-  }
-
-      '
-,row(Graph,TimeSequence,Approval,Begin,End,Ready,Request),[]), convVal(Approval,ApprovalVal), convVal(Begin,BeginVal), convVal(End,EndVal), convVal(Ready,ReadyVal), convVal(Request,RequestVal).
-
-% fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, ResponsibleAgent?)
-
-fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, ResponsibleAgentVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?additionalHandlingInformation ?responsibleAgent
-WHERE
-  { GRAPH ?graph
-    {
-      ?additionalHandlingInformation rdf:type fixm:AdditionalHandlingInformation .
-      OPTIONAL { ?additionalHandlingInformation fixm:responsibleAgent ?_responsibleAgent .
-        {
-          {
-            ?_responsibleAgent rdf:value ?responsibleAgentValue .
-            FILTER ( NOT EXISTS {?_responsibleAgent (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM})
-            BIND(concat(\'val:/:\',STR(?responsibleAgentValue),\':/:\',STR(DATATYPE(?responsibleAgentValue))) AS ?responsibleAgent)
-          }
-            UNION
-          {
-            ?_responsibleAgent
-              rdf:value ?responsibleAgentValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM .
-            BIND(concat(\'xval:/:\',STR(?responsibleAgentValue),\':/:\',STR(DATATYPE(?responsibleAgentValue)),\':/:\',?responsibleAgentUoM) AS ?responsibleAgent)
-          }
-            UNION
-          {
-           ?_responsibleAgent  aixm:nilReason ?responsibleAgentNilReason .
-           BIND(concat(\'nil:/:\',?responsibleAgentNilReason) AS ?responsibleAgent)
-          }
-          UNION
-          {
-		       ?_responsibleAgent  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?responsibleAgent)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,AdditionalHandlingInformation,ResponsibleAgent),[]), convVal(ResponsibleAgent,ResponsibleAgentVal).
-
-% fixm_Extension(Graph, Extension)
-
-fixm_Extension(Graph, Extension) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?extension
-WHERE
-  { GRAPH ?graph
-    {
-      ?extension rdf:type fixm:Extension .
-    }
-  }
-
-      '
-,row(Graph,Extension),[]).
-
-% fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
-
-fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilitiesVal, SurveillanceCodeList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities (GROUP_CONCAT(DISTINCT ?surveillanceCode;SEPARATOR=",") AS ?surveillanceCodeConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?surveillanceCapabilities rdf:type fixm:SurveillanceCapabilities .
-      OPTIONAL { ?surveillanceCapabilities fixm:otherSurveillanceCapabilities ?_otherSurveillanceCapabilities .
-        {
-          {
-            ?_otherSurveillanceCapabilities rdf:value ?otherSurveillanceCapabilitiesValue .
-            FILTER ( NOT EXISTS {?_otherSurveillanceCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM})
-            BIND(concat(\'val:/:\',STR(?otherSurveillanceCapabilitiesValue),\':/:\',STR(DATATYPE(?otherSurveillanceCapabilitiesValue))) AS ?otherSurveillanceCapabilities)
-          }
-            UNION
-          {
-            ?_otherSurveillanceCapabilities
-              rdf:value ?otherSurveillanceCapabilitiesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM .
-            BIND(concat(\'xval:/:\',STR(?otherSurveillanceCapabilitiesValue),\':/:\',STR(DATATYPE(?otherSurveillanceCapabilitiesValue)),\':/:\',?otherSurveillanceCapabilitiesUoM) AS ?otherSurveillanceCapabilities)
-          }
-            UNION
-          {
-           ?_otherSurveillanceCapabilities  aixm:nilReason ?otherSurveillanceCapabilitiesNilReason .
-           BIND(concat(\'nil:/:\',?otherSurveillanceCapabilitiesNilReason) AS ?otherSurveillanceCapabilities)
-          }
-          UNION
-          {
-		       ?_otherSurveillanceCapabilities  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?otherSurveillanceCapabilities)
-		     }
-        }
-      }
-      OPTIONAL { ?surveillanceCapabilities fixm:surveillanceCode ?_surveillanceCode .
-        {
-          {
-            ?_surveillanceCode rdf:value ?surveillanceCodeValue .
-            FILTER ( NOT EXISTS {?_surveillanceCode (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM})
-            BIND(concat(\'val:/:\',STR(?surveillanceCodeValue),\':/:\',STR(DATATYPE(?surveillanceCodeValue))) AS ?surveillanceCode)
-          }
-            UNION
-          {
-            ?_surveillanceCode
-              rdf:value ?surveillanceCodeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM .
-            BIND(concat(\'xval:/:\',STR(?surveillanceCodeValue),\':/:\',STR(DATATYPE(?surveillanceCodeValue)),\':/:\',?surveillanceCodeUoM) AS ?surveillanceCode)
-          }
-            UNION
-          {
-           ?_surveillanceCode  aixm:nilReason ?surveillanceCodeNilReason .
-           BIND(concat(\'nil:/:\',?surveillanceCodeNilReason) AS ?surveillanceCode)
-          }
-          UNION
-          {
-		       ?_surveillanceCode  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?surveillanceCode)
-		     }
-        }
-      }
-    }
-  }
-GROUP BY ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities
-
-      '
-,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convVal(OtherSurveillanceCapabilities,OtherSurveillanceCapabilitiesVal), convert(SurveillanceCodeConcat,SurveillanceCodeList).
-
-% fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
-
-fixm_Trajectory(Graph, Trajectory, TrajectoryPointList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?trajectory (GROUP_CONCAT(DISTINCT ?trajectoryPoint;SEPARATOR=",") AS ?trajectoryPointConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?trajectory rdf:type fixm:Trajectory .
-      OPTIONAL {?trajectory fixm:trajectoryPoint ?trajectoryPoint .}
-    }
-  }
-GROUP BY ?graph ?trajectory
-
-      '
-,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList).
-
-% aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote?, IsPrimary?, Availability*, Annotation*)
-
-aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemoteVal, IsPrimaryVal, AvailabilityList, AnnotationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?altimeterSourceTimeSlice rdf:type aixm:AltimeterSourceTimeSlice .
-      OPTIONAL { ?altimeterSourceTimeSlice aixm:isRemote ?_isRemote .
-        {
-          {
-            ?_isRemote rdf:value ?isRemoteValue .
-            FILTER ( NOT EXISTS {?_isRemote (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM})
-            BIND(concat(\'val:/:\',STR(?isRemoteValue),\':/:\',STR(DATATYPE(?isRemoteValue))) AS ?isRemote)
-          }
-            UNION
-          {
-            ?_isRemote
-              rdf:value ?isRemoteValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM .
-            BIND(concat(\'xval:/:\',STR(?isRemoteValue),\':/:\',STR(DATATYPE(?isRemoteValue)),\':/:\',?isRemoteUoM) AS ?isRemote)
-          }
-            UNION
-          {
-           ?_isRemote  aixm:nilReason ?isRemoteNilReason .
-           BIND(concat(\'nil:/:\',?isRemoteNilReason) AS ?isRemote)
-          }
-          UNION
-          {
-		       ?_isRemote  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?isRemote)
-		     }
-        }
-      }
-      OPTIONAL { ?altimeterSourceTimeSlice aixm:isPrimary ?_isPrimary .
-        {
-          {
-            ?_isPrimary rdf:value ?isPrimaryValue .
-            FILTER ( NOT EXISTS {?_isPrimary (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM})
-            BIND(concat(\'val:/:\',STR(?isPrimaryValue),\':/:\',STR(DATATYPE(?isPrimaryValue))) AS ?isPrimary)
-          }
-            UNION
-          {
-            ?_isPrimary
-              rdf:value ?isPrimaryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM .
-            BIND(concat(\'xval:/:\',STR(?isPrimaryValue),\':/:\',STR(DATATYPE(?isPrimaryValue)),\':/:\',?isPrimaryUoM) AS ?isPrimary)
-          }
-            UNION
-          {
-           ?_isPrimary  aixm:nilReason ?isPrimaryNilReason .
-           BIND(concat(\'nil:/:\',?isPrimaryNilReason) AS ?isPrimary)
-          }
-          UNION
-          {
-		       ?_isPrimary  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?isPrimary)
-		     }
-        }
-      }
-      OPTIONAL {?altimeterSourceTimeSlice aixm:availability ?availability .}
-      OPTIONAL {?altimeterSourceTimeSlice aixm:annotation ?annotation .}
-    }
-  }
-GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
-
-      '
-,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convVal(IsRemote,IsRemoteVal), convVal(IsPrimary,IsPrimaryVal), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList).
-
-% aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
-
-aixm_PostalAddress(Graph, PostalAddress, DeliveryPointVal, CityVal, AdministrativeAreaVal, PostalCodeVal, CountryVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?postalAddress ?deliveryPoint ?city ?administrativeArea ?postalCode ?country
-WHERE
-  { GRAPH ?graph
-    {
-      ?postalAddress rdf:type aixm:PostalAddress .
-      OPTIONAL { ?postalAddress aixm:deliveryPoint ?_deliveryPoint .
-        {
-          {
-            ?_deliveryPoint rdf:value ?deliveryPointValue .
-            FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
-            BIND(concat(\'val:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue))) AS ?deliveryPoint)
-          }
-            UNION
-          {
-            ?_deliveryPoint
-              rdf:value ?deliveryPointValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
-            BIND(concat(\'xval:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue)),\':/:\',?deliveryPointUoM) AS ?deliveryPoint)
-          }
-            UNION
-          {
-           ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
-           BIND(concat(\'nil:/:\',?deliveryPointNilReason) AS ?deliveryPoint)
-          }
-          UNION
-          {
-		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?deliveryPoint)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress aixm:city ?_city .
-        {
-          {
-            ?_city rdf:value ?cityValue .
-            FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
-            BIND(concat(\'val:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue))) AS ?city)
-          }
-            UNION
-          {
-            ?_city
-              rdf:value ?cityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
-            BIND(concat(\'xval:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue)),\':/:\',?cityUoM) AS ?city)
-          }
-            UNION
-          {
-           ?_city  aixm:nilReason ?cityNilReason .
-           BIND(concat(\'nil:/:\',?cityNilReason) AS ?city)
-          }
-          UNION
-          {
-		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?city)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress aixm:administrativeArea ?_administrativeArea .
-        {
-          {
-            ?_administrativeArea rdf:value ?administrativeAreaValue .
-            FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
-            BIND(concat(\'val:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue))) AS ?administrativeArea)
-          }
-            UNION
-          {
-            ?_administrativeArea
-              rdf:value ?administrativeAreaValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
-            BIND(concat(\'xval:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue)),\':/:\',?administrativeAreaUoM) AS ?administrativeArea)
-          }
-            UNION
-          {
-           ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
-           BIND(concat(\'nil:/:\',?administrativeAreaNilReason) AS ?administrativeArea)
-          }
-          UNION
-          {
-		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?administrativeArea)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress aixm:postalCode ?_postalCode .
-        {
-          {
-            ?_postalCode rdf:value ?postalCodeValue .
-            FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
-            BIND(concat(\'val:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue))) AS ?postalCode)
-          }
-            UNION
-          {
-            ?_postalCode
-              rdf:value ?postalCodeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
-            BIND(concat(\'xval:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue)),\':/:\',?postalCodeUoM) AS ?postalCode)
-          }
-            UNION
-          {
-           ?_postalCode  aixm:nilReason ?postalCodeNilReason .
-           BIND(concat(\'nil:/:\',?postalCodeNilReason) AS ?postalCode)
-          }
-          UNION
-          {
-		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?postalCode)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress aixm:country ?_country .
-        {
-          {
-            ?_country rdf:value ?countryValue .
-            FILTER ( NOT EXISTS {?_country (aixm:uom | fixm:uom | plain:uom) ?countryUoM})
-            BIND(concat(\'val:/:\',STR(?countryValue),\':/:\',STR(DATATYPE(?countryValue))) AS ?country)
-          }
-            UNION
-          {
-            ?_country
-              rdf:value ?countryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?countryUoM .
-            BIND(concat(\'xval:/:\',STR(?countryValue),\':/:\',STR(DATATYPE(?countryValue)),\':/:\',?countryUoM) AS ?country)
-          }
-            UNION
-          {
-           ?_country  aixm:nilReason ?countryNilReason .
-           BIND(concat(\'nil:/:\',?countryNilReason) AS ?country)
-          }
-          UNION
-          {
-		       ?_country  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?country)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,PostalAddress,DeliveryPoint,City,AdministrativeArea,PostalCode,Country),[]), convVal(DeliveryPoint,DeliveryPointVal), convVal(City,CityVal), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(Country,CountryVal).
-
-% plain_AircraftOperator(Graph, AircraftOperator, OperatorCategory, EfplFlight*)
-
-plain_AircraftOperator(Graph, AircraftOperator, OperatorCategoryVal, EfplFlightList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraftOperator ?operatorCategory (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraftOperator rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftOperator> .
-      ?aircraftOperator <http://www.aisa-project.eu/vocabulary/plain#operatorCategory>  ?_operatorCategory .
-        {
-          {
-            ?_operatorCategory rdf:value ?operatorCategoryValue .
-            FILTER ( NOT EXISTS {?_operatorCategory (aixm:uom | fixm:uom | plain:uom) ?operatorCategoryUoM})
-            BIND(concat(\'val:/:\',STR(?operatorCategoryValue),\':/:\',STR(DATATYPE(?operatorCategoryValue))) AS ?operatorCategory)
-          }
-		     UNION
-		     {
-            ?_operatorCategory
-              rdf:value ?operatorCategoryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operatorCategoryUoM .
-              BIND(concat(\'xval:/:\',STR(?operatorCategoryValue),\':/:\',STR(DATATYPE(?operatorCategoryValue)),\':/:\',?operatorCategoryUoM) AS ?operatorCategory)
-          }
-          UNION
-          {
-		       ?_operatorCategory  aixm:nilReason ?operatorCategoryNilReason .
-		       BIND(concat(\'nil:/:\',?operatorCategoryNilReason) AS ?operatorCategory)
-		     }
-          UNION
-          {
-            ?_operatorCategory  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operatorCategory)
-	         }
-      }
-      OPTIONAL {?aircraftOperator <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .}
-    }
-  }
-GROUP BY ?graph ?aircraftOperator ?operatorCategory
-
-      '
-,row(Graph,AircraftOperator,OperatorCategory,EfplFlightConcat),[]), convVal(OperatorCategory,OperatorCategoryVal), convert(EfplFlightConcat,EfplFlightList).
-
-% fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod?, Position?, TimeAtPosition?)
-
-fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethodVal, PositionVal, TimeAtPositionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?lastPositionReport ?determinationMethod ?position ?timeAtPosition
-WHERE
-  { GRAPH ?graph
-    {
-      ?lastPositionReport rdf:type fixm:LastPositionReport .
-      OPTIONAL { ?lastPositionReport fixm:determinationMethod ?_determinationMethod .
-        {
-          {
-            ?_determinationMethod rdf:value ?determinationMethodValue .
-            FILTER ( NOT EXISTS {?_determinationMethod (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM})
-            BIND(concat(\'val:/:\',STR(?determinationMethodValue),\':/:\',STR(DATATYPE(?determinationMethodValue))) AS ?determinationMethod)
-          }
-            UNION
-          {
-            ?_determinationMethod
-              rdf:value ?determinationMethodValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM .
-            BIND(concat(\'xval:/:\',STR(?determinationMethodValue),\':/:\',STR(DATATYPE(?determinationMethodValue)),\':/:\',?determinationMethodUoM) AS ?determinationMethod)
-          }
-            UNION
-          {
-           ?_determinationMethod  aixm:nilReason ?determinationMethodNilReason .
-           BIND(concat(\'nil:/:\',?determinationMethodNilReason) AS ?determinationMethod)
-          }
-          UNION
-          {
-		       ?_determinationMethod  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?determinationMethod)
-		     }
-        }
-      }
-      OPTIONAL {?lastPositionReport fixm:position ?position .}
-      OPTIONAL { ?lastPositionReport fixm:timeAtPosition ?_timeAtPosition .
-        {
-          {
-            ?_timeAtPosition rdf:value ?timeAtPositionValue .
-            FILTER ( NOT EXISTS {?_timeAtPosition (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM})
-            BIND(concat(\'val:/:\',STR(?timeAtPositionValue),\':/:\',STR(DATATYPE(?timeAtPositionValue))) AS ?timeAtPosition)
-          }
-            UNION
-          {
-            ?_timeAtPosition
-              rdf:value ?timeAtPositionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM .
-            BIND(concat(\'xval:/:\',STR(?timeAtPositionValue),\':/:\',STR(DATATYPE(?timeAtPositionValue)),\':/:\',?timeAtPositionUoM) AS ?timeAtPosition)
-          }
-            UNION
-          {
-           ?_timeAtPosition  aixm:nilReason ?timeAtPositionNilReason .
-           BIND(concat(\'nil:/:\',?timeAtPositionNilReason) AS ?timeAtPosition)
-          }
-          UNION
-          {
-		       ?_timeAtPosition  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeAtPosition)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,LastPositionReport,DeterminationMethod,Position,TimeAtPosition),[]), convVal(DeterminationMethod,DeterminationMethodVal), convVal(Position,PositionVal), convVal(TimeAtPosition,TimeAtPositionVal).
-
-% aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus?)
-
-aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatusVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?altimeterSourceStatus ?operationalStatus
-WHERE
-  { GRAPH ?graph
-    {
-      ?altimeterSourceStatus rdf:type aixm:AltimeterSourceStatus .
-      OPTIONAL { ?altimeterSourceStatus aixm:operationalStatus ?_operationalStatus .
-        {
-          {
-            ?_operationalStatus rdf:value ?operationalStatusValue .
-            FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
-            BIND(concat(\'val:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue))) AS ?operationalStatus)
-          }
-            UNION
-          {
-            ?_operationalStatus
-              rdf:value ?operationalStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
-            BIND(concat(\'xval:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue)),\':/:\',?operationalStatusUoM) AS ?operationalStatus)
-          }
-            UNION
-          {
-           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
-           BIND(concat(\'nil:/:\',?operationalStatusNilReason) AS ?operationalStatus)
-          }
-          UNION
-          {
-		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operationalStatus)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,AltimeterSourceStatus,OperationalStatus),[]), convVal(OperationalStatus,OperationalStatusVal).
-
-% fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules?)
-
-fixm_EfplRoute(Graph, EfplRoute, EfplFlightRulesVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplRoute ?efplFlightRules
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplRoute rdf:type fixm:EfplRoute .
-      OPTIONAL { ?efplRoute fixm:efplFlightRules ?_efplFlightRules .
-        {
-          {
-            ?_efplFlightRules rdf:value ?efplFlightRulesValue .
-            FILTER ( NOT EXISTS {?_efplFlightRules (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM})
-            BIND(concat(\'val:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue))) AS ?efplFlightRules)
-          }
-            UNION
-          {
-            ?_efplFlightRules
-              rdf:value ?efplFlightRulesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM .
-            BIND(concat(\'xval:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue)),\':/:\',?efplFlightRulesUoM) AS ?efplFlightRules)
-          }
-            UNION
-          {
-           ?_efplFlightRules  aixm:nilReason ?efplFlightRulesNilReason .
-           BIND(concat(\'nil:/:\',?efplFlightRulesNilReason) AS ?efplFlightRules)
-          }
-          UNION
-          {
-		       ?_efplFlightRules  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplFlightRules)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,EfplRoute,EfplFlightRules),[]), convVal(EfplFlightRules,EfplFlightRulesVal).
-
-% fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason?, CoordinationStatus?, NonStandardCommunicationReason?, ReleaseConditions?)
-
-fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReasonVal, CoordinationStatusVal, NonStandardCommunicationReasonVal, ReleaseConditionsVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?coordinationStatus ?abrogationReason ?coordinationStatus ?nonStandardCommunicationReason ?releaseConditions
-WHERE
-  { GRAPH ?graph
-    {
-      ?coordinationStatus rdf:type fixm:CoordinationStatus .
-      OPTIONAL { ?coordinationStatus fixm:abrogationReason ?_abrogationReason .
-        {
-          {
-            ?_abrogationReason rdf:value ?abrogationReasonValue .
-            FILTER ( NOT EXISTS {?_abrogationReason (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM})
-            BIND(concat(\'val:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue))) AS ?abrogationReason)
-          }
-            UNION
-          {
-            ?_abrogationReason
-              rdf:value ?abrogationReasonValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM .
-            BIND(concat(\'xval:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue)),\':/:\',?abrogationReasonUoM) AS ?abrogationReason)
-          }
-            UNION
-          {
-           ?_abrogationReason  aixm:nilReason ?abrogationReasonNilReason .
-           BIND(concat(\'nil:/:\',?abrogationReasonNilReason) AS ?abrogationReason)
-          }
-          UNION
-          {
-		       ?_abrogationReason  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?abrogationReason)
-		     }
-        }
-      }
-      OPTIONAL { ?coordinationStatus fixm:coordinationStatus ?_coordinationStatus .
-        {
-          {
-            ?_coordinationStatus rdf:value ?coordinationStatusValue .
-            FILTER ( NOT EXISTS {?_coordinationStatus (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM})
-            BIND(concat(\'val:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue))) AS ?coordinationStatus)
-          }
-            UNION
-          {
-            ?_coordinationStatus
-              rdf:value ?coordinationStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM .
-            BIND(concat(\'xval:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue)),\':/:\',?coordinationStatusUoM) AS ?coordinationStatus)
-          }
-            UNION
-          {
-           ?_coordinationStatus  aixm:nilReason ?coordinationStatusNilReason .
-           BIND(concat(\'nil:/:\',?coordinationStatusNilReason) AS ?coordinationStatus)
-          }
-          UNION
-          {
-		       ?_coordinationStatus  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?coordinationStatus)
-		     }
-        }
-      }
-      OPTIONAL { ?coordinationStatus fixm:nonStandardCommunicationReason ?_nonStandardCommunicationReason .
-        {
-          {
-            ?_nonStandardCommunicationReason rdf:value ?nonStandardCommunicationReasonValue .
-            FILTER ( NOT EXISTS {?_nonStandardCommunicationReason (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM})
-            BIND(concat(\'val:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue))) AS ?nonStandardCommunicationReason)
-          }
-            UNION
-          {
-            ?_nonStandardCommunicationReason
-              rdf:value ?nonStandardCommunicationReasonValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM .
-            BIND(concat(\'xval:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue)),\':/:\',?nonStandardCommunicationReasonUoM) AS ?nonStandardCommunicationReason)
-          }
-            UNION
-          {
-           ?_nonStandardCommunicationReason  aixm:nilReason ?nonStandardCommunicationReasonNilReason .
-           BIND(concat(\'nil:/:\',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
-          }
-          UNION
-          {
-		       ?_nonStandardCommunicationReason  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?nonStandardCommunicationReason)
-		     }
-        }
-      }
-      OPTIONAL { ?coordinationStatus fixm:releaseConditions ?_releaseConditions .
-        {
-          {
-            ?_releaseConditions rdf:value ?releaseConditionsValue .
-            FILTER ( NOT EXISTS {?_releaseConditions (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM})
-            BIND(concat(\'val:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue))) AS ?releaseConditions)
-          }
-            UNION
-          {
-            ?_releaseConditions
-              rdf:value ?releaseConditionsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM .
-            BIND(concat(\'xval:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue)),\':/:\',?releaseConditionsUoM) AS ?releaseConditions)
-          }
-            UNION
-          {
-           ?_releaseConditions  aixm:nilReason ?releaseConditionsNilReason .
-           BIND(concat(\'nil:/:\',?releaseConditionsNilReason) AS ?releaseConditions)
-          }
-          UNION
-          {
-		       ?_releaseConditions  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?releaseConditions)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,CoordinationStatus,AbrogationReason,CoordinationStatus,NonStandardCommunicationReason,ReleaseConditions),[]), convVal(AbrogationReason,AbrogationReasonVal), convVal(CoordinationStatus,CoordinationStatusVal), convVal(NonStandardCommunicationReason,NonStandardCommunicationReasonVal), convVal(ReleaseConditions,ReleaseConditionsVal).
-
-% fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude?, CrossingPoint?, CrossingSpeed?, CrossingTime?, Offtrack?, AltitudeInTransition?)
-
-fixm_BoundaryCrossing(Graph, BoundaryCrossing, AltitudeVal, CrossingPointVal, CrossingSpeedVal, CrossingTimeVal, OfftrackVal, AltitudeInTransitionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?boundaryCrossing ?altitude ?crossingPoint ?crossingSpeed ?crossingTime ?offtrack ?altitudeInTransition
-WHERE
-  { GRAPH ?graph
-    {
-      ?boundaryCrossing rdf:type fixm:BoundaryCrossing .
-      OPTIONAL { ?boundaryCrossing fixm:altitude ?_altitude .
-        {
-          {
-            ?_altitude rdf:value ?altitudeValue .
-            FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat(\'val:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue))) AS ?altitude)
-          }
-            UNION
-          {
-            ?_altitude
-              rdf:value ?altitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-            BIND(concat(\'xval:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue)),\':/:\',?altitudeUoM) AS ?altitude)
-          }
-            UNION
-          {
-           ?_altitude  aixm:nilReason ?altitudeNilReason .
-           BIND(concat(\'nil:/:\',?altitudeNilReason) AS ?altitude)
-          }
-          UNION
-          {
-		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitude)
-		     }
-        }
-      }
-      OPTIONAL {?boundaryCrossing fixm:crossingPoint ?crossingPoint .}
-      OPTIONAL { ?boundaryCrossing fixm:crossingSpeed ?_crossingSpeed .
-        {
-          {
-            ?_crossingSpeed rdf:value ?crossingSpeedValue .
-            FILTER ( NOT EXISTS {?_crossingSpeed (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?crossingSpeedValue),\':/:\',STR(DATATYPE(?crossingSpeedValue))) AS ?crossingSpeed)
-          }
-            UNION
-          {
-            ?_crossingSpeed
-              rdf:value ?crossingSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?crossingSpeedValue),\':/:\',STR(DATATYPE(?crossingSpeedValue)),\':/:\',?crossingSpeedUoM) AS ?crossingSpeed)
-          }
-            UNION
-          {
-           ?_crossingSpeed  aixm:nilReason ?crossingSpeedNilReason .
-           BIND(concat(\'nil:/:\',?crossingSpeedNilReason) AS ?crossingSpeed)
-          }
-          UNION
-          {
-		       ?_crossingSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?crossingSpeed)
-		     }
-        }
-      }
-      OPTIONAL { ?boundaryCrossing fixm:crossingTime ?_crossingTime .
-        {
-          {
-            ?_crossingTime rdf:value ?crossingTimeValue .
-            FILTER ( NOT EXISTS {?_crossingTime (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM})
-            BIND(concat(\'val:/:\',STR(?crossingTimeValue),\':/:\',STR(DATATYPE(?crossingTimeValue))) AS ?crossingTime)
-          }
-            UNION
-          {
-            ?_crossingTime
-              rdf:value ?crossingTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?crossingTimeValue),\':/:\',STR(DATATYPE(?crossingTimeValue)),\':/:\',?crossingTimeUoM) AS ?crossingTime)
-          }
-            UNION
-          {
-           ?_crossingTime  aixm:nilReason ?crossingTimeNilReason .
-           BIND(concat(\'nil:/:\',?crossingTimeNilReason) AS ?crossingTime)
-          }
-          UNION
-          {
-		       ?_crossingTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?crossingTime)
-		     }
-        }
-      }
-      OPTIONAL {?boundaryCrossing fixm:offtrack ?offtrack .}
-      OPTIONAL { ?boundaryCrossing fixm:altitudeInTransition ?_altitudeInTransition .
-        {
-          {
-            ?_altitudeInTransition rdf:value ?altitudeInTransitionValue .
-            FILTER ( NOT EXISTS {?_altitudeInTransition (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM})
-            BIND(concat(\'val:/:\',STR(?altitudeInTransitionValue),\':/:\',STR(DATATYPE(?altitudeInTransitionValue))) AS ?altitudeInTransition)
-          }
-            UNION
-          {
-            ?_altitudeInTransition
-              rdf:value ?altitudeInTransitionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM .
-            BIND(concat(\'xval:/:\',STR(?altitudeInTransitionValue),\':/:\',STR(DATATYPE(?altitudeInTransitionValue)),\':/:\',?altitudeInTransitionUoM) AS ?altitudeInTransition)
-          }
-            UNION
-          {
-           ?_altitudeInTransition  aixm:nilReason ?altitudeInTransitionNilReason .
-           BIND(concat(\'nil:/:\',?altitudeInTransitionNilReason) AS ?altitudeInTransition)
-          }
-          UNION
-          {
-		       ?_altitudeInTransition  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitudeInTransition)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,BoundaryCrossing,Altitude,CrossingPoint,CrossingSpeed,CrossingTime,Offtrack,AltitudeInTransition),[]), convVal(Altitude,AltitudeVal), convVal(CrossingPoint,CrossingPointVal), convVal(CrossingSpeed,CrossingSpeedVal), convVal(CrossingTime,CrossingTimeVal), convVal(Offtrack,OfftrackVal), convVal(AltitudeInTransition,AltitudeInTransitionVal).
-
-% plain_AirportHeliport(Graph, AirportHeliport, LocationIndicatorICAO, Designator, Navaid*, TransitionLevel, DesignatorIATA, Name, FieldElevation, MagneticVariation, TransitionAltitude)
-
-plain_AirportHeliport(Graph, AirportHeliport, LocationIndicatorICAOVal, DesignatorVal, NavaidList, TransitionLevelVal, DesignatorIATAVal, NameVal, FieldElevationVal, MagneticVariationVal, TransitionAltitudeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliport ?locationIndicatorICAO ?designator (GROUP_CONCAT(DISTINCT ?navaid;SEPARATOR=",") AS ?navaidConcat) ?transitionLevel ?designatorIATA ?name ?fieldElevation ?magneticVariation ?transitionAltitude
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliport rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirportHeliport> .
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#locationIndicatorICAO>  ?_locationIndicatorICAO .
-        {
-          {
-            ?_locationIndicatorICAO rdf:value ?locationIndicatorICAOValue .
-            FILTER ( NOT EXISTS {?_locationIndicatorICAO (aixm:uom | fixm:uom | plain:uom) ?locationIndicatorICAOUoM})
-            BIND(concat(\'val:/:\',STR(?locationIndicatorICAOValue),\':/:\',STR(DATATYPE(?locationIndicatorICAOValue))) AS ?locationIndicatorICAO)
-          }
-		     UNION
-		     {
-            ?_locationIndicatorICAO
-              rdf:value ?locationIndicatorICAOValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?locationIndicatorICAOUoM .
-              BIND(concat(\'xval:/:\',STR(?locationIndicatorICAOValue),\':/:\',STR(DATATYPE(?locationIndicatorICAOValue)),\':/:\',?locationIndicatorICAOUoM) AS ?locationIndicatorICAO)
-          }
-          UNION
-          {
-		       ?_locationIndicatorICAO  aixm:nilReason ?locationIndicatorICAONilReason .
-		       BIND(concat(\'nil:/:\',?locationIndicatorICAONilReason) AS ?locationIndicatorICAO)
-		     }
-          UNION
-          {
-            ?_locationIndicatorICAO  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?locationIndicatorICAO)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#designator>  ?_designator .
-        {
-          {
-            ?_designator rdf:value ?designatorValue .
-            FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat(\'val:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue))) AS ?designator)
-          }
-		     UNION
-		     {
-            ?_designator
-              rdf:value ?designatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue)),\':/:\',?designatorUoM) AS ?designator)
-          }
-          UNION
-          {
-		       ?_designator  aixm:nilReason ?designatorNilReason .
-		       BIND(concat(\'nil:/:\',?designatorNilReason) AS ?designator)
-		     }
-          UNION
-          {
-            ?_designator  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designator)
-	         }
-      }
-      OPTIONAL {?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#navaid> ?navaid .}
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#transitionLevel>  ?_transitionLevel .
-        {
-          {
-            ?_transitionLevel rdf:value ?transitionLevelValue .
-            FILTER ( NOT EXISTS {?_transitionLevel (aixm:uom | fixm:uom | plain:uom) ?transitionLevelUoM})
-            BIND(concat(\'val:/:\',STR(?transitionLevelValue),\':/:\',STR(DATATYPE(?transitionLevelValue))) AS ?transitionLevel)
-          }
-		     UNION
-		     {
-            ?_transitionLevel
-              rdf:value ?transitionLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?transitionLevelUoM .
-              BIND(concat(\'xval:/:\',STR(?transitionLevelValue),\':/:\',STR(DATATYPE(?transitionLevelValue)),\':/:\',?transitionLevelUoM) AS ?transitionLevel)
-          }
-          UNION
-          {
-		       ?_transitionLevel  aixm:nilReason ?transitionLevelNilReason .
-		       BIND(concat(\'nil:/:\',?transitionLevelNilReason) AS ?transitionLevel)
-		     }
-          UNION
-          {
-            ?_transitionLevel  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transitionLevel)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#designatorIATA>  ?_designatorIATA .
-        {
-          {
-            ?_designatorIATA rdf:value ?designatorIATAValue .
-            FILTER ( NOT EXISTS {?_designatorIATA (aixm:uom | fixm:uom | plain:uom) ?designatorIATAUoM})
-            BIND(concat(\'val:/:\',STR(?designatorIATAValue),\':/:\',STR(DATATYPE(?designatorIATAValue))) AS ?designatorIATA)
-          }
-		     UNION
-		     {
-            ?_designatorIATA
-              rdf:value ?designatorIATAValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorIATAUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorIATAValue),\':/:\',STR(DATATYPE(?designatorIATAValue)),\':/:\',?designatorIATAUoM) AS ?designatorIATA)
-          }
-          UNION
-          {
-		       ?_designatorIATA  aixm:nilReason ?designatorIATANilReason .
-		       BIND(concat(\'nil:/:\',?designatorIATANilReason) AS ?designatorIATA)
-		     }
-          UNION
-          {
-            ?_designatorIATA  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designatorIATA)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#fieldElevation>  ?_fieldElevation .
-        {
-          {
-            ?_fieldElevation rdf:value ?fieldElevationValue .
-            FILTER ( NOT EXISTS {?_fieldElevation (aixm:uom | fixm:uom | plain:uom) ?fieldElevationUoM})
-            BIND(concat(\'val:/:\',STR(?fieldElevationValue),\':/:\',STR(DATATYPE(?fieldElevationValue))) AS ?fieldElevation)
-          }
-		     UNION
-		     {
-            ?_fieldElevation
-              rdf:value ?fieldElevationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fieldElevationUoM .
-              BIND(concat(\'xval:/:\',STR(?fieldElevationValue),\':/:\',STR(DATATYPE(?fieldElevationValue)),\':/:\',?fieldElevationUoM) AS ?fieldElevation)
-          }
-          UNION
-          {
-		       ?_fieldElevation  aixm:nilReason ?fieldElevationNilReason .
-		       BIND(concat(\'nil:/:\',?fieldElevationNilReason) AS ?fieldElevation)
-		     }
-          UNION
-          {
-            ?_fieldElevation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fieldElevation)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#magneticVariation>  ?_magneticVariation .
-        {
-          {
-            ?_magneticVariation rdf:value ?magneticVariationValue .
-            FILTER ( NOT EXISTS {?_magneticVariation (aixm:uom | fixm:uom | plain:uom) ?magneticVariationUoM})
-            BIND(concat(\'val:/:\',STR(?magneticVariationValue),\':/:\',STR(DATATYPE(?magneticVariationValue))) AS ?magneticVariation)
-          }
-		     UNION
-		     {
-            ?_magneticVariation
-              rdf:value ?magneticVariationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?magneticVariationUoM .
-              BIND(concat(\'xval:/:\',STR(?magneticVariationValue),\':/:\',STR(DATATYPE(?magneticVariationValue)),\':/:\',?magneticVariationUoM) AS ?magneticVariation)
-          }
-          UNION
-          {
-		       ?_magneticVariation  aixm:nilReason ?magneticVariationNilReason .
-		       BIND(concat(\'nil:/:\',?magneticVariationNilReason) AS ?magneticVariation)
-		     }
-          UNION
-          {
-            ?_magneticVariation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?magneticVariation)
-	         }
-      }
-      ?airportHeliport <http://www.aisa-project.eu/vocabulary/plain#transitionAltitude>  ?_transitionAltitude .
-        {
-          {
-            ?_transitionAltitude rdf:value ?transitionAltitudeValue .
-            FILTER ( NOT EXISTS {?_transitionAltitude (aixm:uom | fixm:uom | plain:uom) ?transitionAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?transitionAltitudeValue),\':/:\',STR(DATATYPE(?transitionAltitudeValue))) AS ?transitionAltitude)
-          }
-		     UNION
-		     {
-            ?_transitionAltitude
-              rdf:value ?transitionAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?transitionAltitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?transitionAltitudeValue),\':/:\',STR(DATATYPE(?transitionAltitudeValue)),\':/:\',?transitionAltitudeUoM) AS ?transitionAltitude)
-          }
-          UNION
-          {
-		       ?_transitionAltitude  aixm:nilReason ?transitionAltitudeNilReason .
-		       BIND(concat(\'nil:/:\',?transitionAltitudeNilReason) AS ?transitionAltitude)
-		     }
-          UNION
-          {
-            ?_transitionAltitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transitionAltitude)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?airportHeliport ?locationIndicatorICAO ?designator ?transitionLevel ?designatorIATA ?name ?fieldElevation ?magneticVariation ?transitionAltitude
-
-      '
-,row(Graph,AirportHeliport,LocationIndicatorICAO,Designator,NavaidConcat,TransitionLevel,DesignatorIATA,Name,FieldElevation,MagneticVariation,TransitionAltitude),[]), convVal(LocationIndicatorICAO,LocationIndicatorICAOVal), convVal(Designator,DesignatorVal), convert(NavaidConcat,NavaidList), convVal(TransitionLevel,TransitionLevelVal), convVal(DesignatorIATA,DesignatorIATAVal), convVal(Name,NameVal), convVal(FieldElevation,FieldElevationVal), convVal(MagneticVariation,MagneticVariationVal), convVal(TransitionAltitude,TransitionAltitudeVal).
-
-% fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarks?, RemainingComCapability?, Contact?)
-
-fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarksVal, RemainingComCapabilityVal, ContactVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?radioCommunicationFailure ?radioFailureRemarks ?remainingComCapability ?contact
-WHERE
-  { GRAPH ?graph
-    {
-      ?radioCommunicationFailure rdf:type fixm:RadioCommunicationFailure .
-      OPTIONAL { ?radioCommunicationFailure fixm:radioFailureRemarks ?_radioFailureRemarks .
-        {
-          {
-            ?_radioFailureRemarks rdf:value ?radioFailureRemarksValue .
-            FILTER ( NOT EXISTS {?_radioFailureRemarks (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM})
-            BIND(concat(\'val:/:\',STR(?radioFailureRemarksValue),\':/:\',STR(DATATYPE(?radioFailureRemarksValue))) AS ?radioFailureRemarks)
-          }
-            UNION
-          {
-            ?_radioFailureRemarks
-              rdf:value ?radioFailureRemarksValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM .
-            BIND(concat(\'xval:/:\',STR(?radioFailureRemarksValue),\':/:\',STR(DATATYPE(?radioFailureRemarksValue)),\':/:\',?radioFailureRemarksUoM) AS ?radioFailureRemarks)
-          }
-            UNION
-          {
-           ?_radioFailureRemarks  aixm:nilReason ?radioFailureRemarksNilReason .
-           BIND(concat(\'nil:/:\',?radioFailureRemarksNilReason) AS ?radioFailureRemarks)
-          }
-          UNION
-          {
-		       ?_radioFailureRemarks  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?radioFailureRemarks)
-		     }
-        }
-      }
-      OPTIONAL { ?radioCommunicationFailure fixm:remainingComCapability ?_remainingComCapability .
-        {
-          {
-            ?_remainingComCapability rdf:value ?remainingComCapabilityValue .
-            FILTER ( NOT EXISTS {?_remainingComCapability (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM})
-            BIND(concat(\'val:/:\',STR(?remainingComCapabilityValue),\':/:\',STR(DATATYPE(?remainingComCapabilityValue))) AS ?remainingComCapability)
-          }
-            UNION
-          {
-            ?_remainingComCapability
-              rdf:value ?remainingComCapabilityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM .
-            BIND(concat(\'xval:/:\',STR(?remainingComCapabilityValue),\':/:\',STR(DATATYPE(?remainingComCapabilityValue)),\':/:\',?remainingComCapabilityUoM) AS ?remainingComCapability)
-          }
-            UNION
-          {
-           ?_remainingComCapability  aixm:nilReason ?remainingComCapabilityNilReason .
-           BIND(concat(\'nil:/:\',?remainingComCapabilityNilReason) AS ?remainingComCapability)
-          }
-          UNION
-          {
-		       ?_remainingComCapability  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?remainingComCapability)
-		     }
-        }
-      }
-      OPTIONAL {?radioCommunicationFailure fixm:contact ?contact .}
-    }
-  }
-
-      '
-,row(Graph,RadioCommunicationFailure,RadioFailureRemarks,RemainingComCapability,Contact),[]), convVal(RadioFailureRemarks,RadioFailureRemarksVal), convVal(RemainingComCapability,RemainingComCapabilityVal), convVal(Contact,ContactVal).
-
-% aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus?, Warning?, Usage*)
-
-aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatusVal, WarningVal, UsageList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?usage;SEPARATOR=",") AS ?usageConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliportAvailability rdf:type aixm:AirportHeliportAvailability .
-      OPTIONAL { ?airportHeliportAvailability aixm:operationalStatus ?_operationalStatus .
-        {
-          {
-            ?_operationalStatus rdf:value ?operationalStatusValue .
-            FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
-            BIND(concat(\'val:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue))) AS ?operationalStatus)
-          }
-            UNION
-          {
-            ?_operationalStatus
-              rdf:value ?operationalStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
-            BIND(concat(\'xval:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue)),\':/:\',?operationalStatusUoM) AS ?operationalStatus)
-          }
-            UNION
-          {
-           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
-           BIND(concat(\'nil:/:\',?operationalStatusNilReason) AS ?operationalStatus)
-          }
-          UNION
-          {
-		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operationalStatus)
-		     }
-        }
-      }
-      OPTIONAL { ?airportHeliportAvailability aixm:warning ?_warning .
-        {
-          {
-            ?_warning rdf:value ?warningValue .
-            FILTER ( NOT EXISTS {?_warning (aixm:uom | fixm:uom | plain:uom) ?warningUoM})
-            BIND(concat(\'val:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue))) AS ?warning)
-          }
-            UNION
-          {
-            ?_warning
-              rdf:value ?warningValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?warningUoM .
-            BIND(concat(\'xval:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue)),\':/:\',?warningUoM) AS ?warning)
-          }
-            UNION
-          {
-           ?_warning  aixm:nilReason ?warningNilReason .
-           BIND(concat(\'nil:/:\',?warningNilReason) AS ?warning)
-          }
-          UNION
-          {
-		       ?_warning  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?warning)
-		     }
-        }
-      }
-      OPTIONAL {?airportHeliportAvailability aixm:usage ?usage .}
-    }
-  }
-GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
-
-      '
-,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convVal(OperationalStatus,OperationalStatusVal), convVal(Warning,WarningVal), convert(UsageConcat,UsageList).
-
-% fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex?, TransportIndex?, FissileExceptedIndicator?, Category?, Radionuclide?)
-
-fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndexVal, TransportIndexVal, FissileExceptedIndicatorVal, CategoryVal, RadionuclideVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?radioactiveMaterial ?criticalitySafetyIndex ?transportIndex ?fissileExceptedIndicator ?category ?radionuclide
-WHERE
-  { GRAPH ?graph
-    {
-      ?radioactiveMaterial rdf:type fixm:RadioactiveMaterial .
-      OPTIONAL { ?radioactiveMaterial fixm:criticalitySafetyIndex ?_criticalitySafetyIndex .
-        {
-          {
-            ?_criticalitySafetyIndex rdf:value ?criticalitySafetyIndexValue .
-            FILTER ( NOT EXISTS {?_criticalitySafetyIndex (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM})
-            BIND(concat(\'val:/:\',STR(?criticalitySafetyIndexValue),\':/:\',STR(DATATYPE(?criticalitySafetyIndexValue))) AS ?criticalitySafetyIndex)
-          }
-            UNION
-          {
-            ?_criticalitySafetyIndex
-              rdf:value ?criticalitySafetyIndexValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM .
-            BIND(concat(\'xval:/:\',STR(?criticalitySafetyIndexValue),\':/:\',STR(DATATYPE(?criticalitySafetyIndexValue)),\':/:\',?criticalitySafetyIndexUoM) AS ?criticalitySafetyIndex)
-          }
-            UNION
-          {
-           ?_criticalitySafetyIndex  aixm:nilReason ?criticalitySafetyIndexNilReason .
-           BIND(concat(\'nil:/:\',?criticalitySafetyIndexNilReason) AS ?criticalitySafetyIndex)
-          }
-          UNION
-          {
-		       ?_criticalitySafetyIndex  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?criticalitySafetyIndex)
-		     }
-        }
-      }
-      OPTIONAL { ?radioactiveMaterial fixm:transportIndex ?_transportIndex .
-        {
-          {
-            ?_transportIndex rdf:value ?transportIndexValue .
-            FILTER ( NOT EXISTS {?_transportIndex (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM})
-            BIND(concat(\'val:/:\',STR(?transportIndexValue),\':/:\',STR(DATATYPE(?transportIndexValue))) AS ?transportIndex)
-          }
-            UNION
-          {
-            ?_transportIndex
-              rdf:value ?transportIndexValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM .
-            BIND(concat(\'xval:/:\',STR(?transportIndexValue),\':/:\',STR(DATATYPE(?transportIndexValue)),\':/:\',?transportIndexUoM) AS ?transportIndex)
-          }
-            UNION
-          {
-           ?_transportIndex  aixm:nilReason ?transportIndexNilReason .
-           BIND(concat(\'nil:/:\',?transportIndexNilReason) AS ?transportIndex)
-          }
-          UNION
-          {
-		       ?_transportIndex  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transportIndex)
-		     }
-        }
-      }
-      OPTIONAL { ?radioactiveMaterial fixm:fissileExceptedIndicator ?_fissileExceptedIndicator .
-        {
-          {
-            ?_fissileExceptedIndicator rdf:value ?fissileExceptedIndicatorValue .
-            FILTER ( NOT EXISTS {?_fissileExceptedIndicator (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM})
-            BIND(concat(\'val:/:\',STR(?fissileExceptedIndicatorValue),\':/:\',STR(DATATYPE(?fissileExceptedIndicatorValue))) AS ?fissileExceptedIndicator)
-          }
-            UNION
-          {
-            ?_fissileExceptedIndicator
-              rdf:value ?fissileExceptedIndicatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM .
-            BIND(concat(\'xval:/:\',STR(?fissileExceptedIndicatorValue),\':/:\',STR(DATATYPE(?fissileExceptedIndicatorValue)),\':/:\',?fissileExceptedIndicatorUoM) AS ?fissileExceptedIndicator)
-          }
-            UNION
-          {
-           ?_fissileExceptedIndicator  aixm:nilReason ?fissileExceptedIndicatorNilReason .
-           BIND(concat(\'nil:/:\',?fissileExceptedIndicatorNilReason) AS ?fissileExceptedIndicator)
-          }
-          UNION
-          {
-		       ?_fissileExceptedIndicator  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fissileExceptedIndicator)
-		     }
-        }
-      }
-      OPTIONAL { ?radioactiveMaterial fixm:category ?_category .
-        {
-          {
-            ?_category rdf:value ?categoryValue .
-            FILTER ( NOT EXISTS {?_category (aixm:uom | fixm:uom | plain:uom) ?categoryUoM})
-            BIND(concat(\'val:/:\',STR(?categoryValue),\':/:\',STR(DATATYPE(?categoryValue))) AS ?category)
-          }
-            UNION
-          {
-            ?_category
-              rdf:value ?categoryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?categoryUoM .
-            BIND(concat(\'xval:/:\',STR(?categoryValue),\':/:\',STR(DATATYPE(?categoryValue)),\':/:\',?categoryUoM) AS ?category)
-          }
-            UNION
-          {
-           ?_category  aixm:nilReason ?categoryNilReason .
-           BIND(concat(\'nil:/:\',?categoryNilReason) AS ?category)
-          }
-          UNION
-          {
-		       ?_category  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?category)
-		     }
-        }
-      }
-      OPTIONAL {?radioactiveMaterial fixm:radionuclide ?radionuclide .}
-    }
-  }
-
-      '
-,row(Graph,RadioactiveMaterial,CriticalitySafetyIndex,TransportIndex,FissileExceptedIndicator,Category,Radionuclide),[]), convVal(CriticalitySafetyIndex,CriticalitySafetyIndexVal), convVal(TransportIndex,TransportIndexVal), convVal(FissileExceptedIndicator,FissileExceptedIndicatorVal), convVal(Category,CategoryVal), convVal(Radionuclide,RadionuclideVal).
-
-% fixm_ControlElement(Graph, ControlElement)
-
-fixm_ControlElement(Graph, ControlElement) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?controlElement
-WHERE
-  { GRAPH ?graph
-    {
-      ?controlElement rdf:type fixm:ControlElement .
-    }
-  }
-
-      '
-,row(Graph,ControlElement),[]).
-
-% fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages?, QValue?)
-
-fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackagesVal, QValueVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?allPackedInOne ?numberOfPackages ?qValue
-WHERE
-  { GRAPH ?graph
-    {
-      ?allPackedInOne rdf:type fixm:AllPackedInOne .
-      OPTIONAL { ?allPackedInOne fixm:numberOfPackages ?_numberOfPackages .
-        {
-          {
-            ?_numberOfPackages rdf:value ?numberOfPackagesValue .
-            FILTER ( NOT EXISTS {?_numberOfPackages (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM})
-            BIND(concat(\'val:/:\',STR(?numberOfPackagesValue),\':/:\',STR(DATATYPE(?numberOfPackagesValue))) AS ?numberOfPackages)
-          }
-            UNION
-          {
-            ?_numberOfPackages
-              rdf:value ?numberOfPackagesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM .
-            BIND(concat(\'xval:/:\',STR(?numberOfPackagesValue),\':/:\',STR(DATATYPE(?numberOfPackagesValue)),\':/:\',?numberOfPackagesUoM) AS ?numberOfPackages)
-          }
-            UNION
-          {
-           ?_numberOfPackages  aixm:nilReason ?numberOfPackagesNilReason .
-           BIND(concat(\'nil:/:\',?numberOfPackagesNilReason) AS ?numberOfPackages)
-          }
-          UNION
-          {
-		       ?_numberOfPackages  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?numberOfPackages)
-		     }
-        }
-      }
-      OPTIONAL { ?allPackedInOne fixm:qValue ?_qValue .
-        {
-          {
-            ?_qValue rdf:value ?qValueValue .
-            FILTER ( NOT EXISTS {?_qValue (aixm:uom | fixm:uom | plain:uom) ?qValueUoM})
-            BIND(concat(\'val:/:\',STR(?qValueValue),\':/:\',STR(DATATYPE(?qValueValue))) AS ?qValue)
-          }
-            UNION
-          {
-            ?_qValue
-              rdf:value ?qValueValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?qValueUoM .
-            BIND(concat(\'xval:/:\',STR(?qValueValue),\':/:\',STR(DATATYPE(?qValueValue)),\':/:\',?qValueUoM) AS ?qValue)
-          }
-            UNION
-          {
-           ?_qValue  aixm:nilReason ?qValueNilReason .
-           BIND(concat(\'nil:/:\',?qValueNilReason) AS ?qValue)
-          }
-          UNION
-          {
-		       ?_qValue  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?qValue)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,AllPackedInOne,NumberOfPackages,QValue),[]), convVal(NumberOfPackages,NumberOfPackagesVal), convVal(QValue,QValueVal).
-
-% aixm_AltimeterSource(Graph, AltimeterSource, TimeSlice*)
-
-aixm_AltimeterSource(Graph, AltimeterSource, TimeSliceList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?altimeterSource (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?altimeterSource rdf:type aixm:AltimeterSource .
-      OPTIONAL {?altimeterSource aixm:timeSlice ?timeSlice .}
-    }
-  }
-GROUP BY ?graph ?altimeterSource
-
-      '
-,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
-
-% plain_DesignatedPoint(Graph, DesignatedPoint, Type, SignificantPoint*, Name, Designator)
-
-plain_DesignatedPoint(Graph, DesignatedPoint, TypeVal, SignificantPointList, NameVal, DesignatorVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?designatedPoint ?type (GROUP_CONCAT(DISTINCT ?significantPoint;SEPARATOR=",") AS ?significantPointConcat) ?name ?designator
-WHERE
-  { GRAPH ?graph
-    {
-      ?designatedPoint rdf:type <http://www.aisa-project.eu/vocabulary/plain#DesignatedPoint> .
-      ?designatedPoint <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
-      }
-      OPTIONAL {?designatedPoint <http://www.aisa-project.eu/vocabulary/plain#significantPoint> ?significantPoint .}
-      ?designatedPoint <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-      ?designatedPoint <http://www.aisa-project.eu/vocabulary/plain#designator>  ?_designator .
-        {
-          {
-            ?_designator rdf:value ?designatorValue .
-            FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat(\'val:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue))) AS ?designator)
-          }
-		     UNION
-		     {
-            ?_designator
-              rdf:value ?designatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue)),\':/:\',?designatorUoM) AS ?designator)
-          }
-          UNION
-          {
-		       ?_designator  aixm:nilReason ?designatorNilReason .
-		       BIND(concat(\'nil:/:\',?designatorNilReason) AS ?designator)
-		     }
-          UNION
-          {
-            ?_designator  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designator)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?designatedPoint ?type ?name ?designator
-
-      '
-,row(Graph,DesignatedPoint,Type,SignificantPointConcat,Name,Designator),[]), convVal(Type,TypeVal), convert(SignificantPointConcat,SignificantPointList), convVal(Name,NameVal), convVal(Designator,DesignatorVal).
-
-% fixm_DirectRouting(Graph, DirectRouting, From?, To?)
-
-fixm_DirectRouting(Graph, DirectRouting, FromVal, ToVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?directRouting ?from ?to
-WHERE
-  { GRAPH ?graph
-    {
-      ?directRouting rdf:type fixm:DirectRouting .
-      OPTIONAL {?directRouting fixm:from ?from .}
-      OPTIONAL {?directRouting fixm:to ?to .}
-    }
-  }
-
-      '
-,row(Graph,DirectRouting,From,To),[]), convVal(From,FromVal), convVal(To,ToVal).
-
-% fixm_TargetMultiTime(Graph, TargetMultiTime, Target?)
-
-fixm_TargetMultiTime(Graph, TargetMultiTime, TargetVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?targetMultiTime ?target
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:TargetMultiTime .
-  }
-  { GRAPH ?graph
-    {
-      ?targetMultiTime rdf:type ?SUBCLASS .
-      OPTIONAL {?targetMultiTime fixm:target ?target .}
-    }
-  }
-}
-
-      '
-,row(Graph,TargetMultiTime,Target),[]), convVal(Target,TargetVal).
-
-% plain_AircraftPairs(Graph, AircraftPairs, ConflictCode, FlightIdentification+, MinimumDistance, VarVerticalRate, VarGS, Conflict, SituationOfInterest, VarAltitude, ProbabilityOfSI, DistanceToMD, Screening, TimeToMD)
-
-plain_AircraftPairs(Graph, AircraftPairs, ConflictCodeVal, FlightIdentificationList, MinimumDistanceVal, VarVerticalRateVal, VarGSVal, ConflictVal, SituationOfInterestVal, VarAltitudeVal, ProbabilityOfSIVal, DistanceToMDVal, ScreeningVal, TimeToMDVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraftPairs ?conflictCode (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?minimumDistance ?varVerticalRate ?varGS ?conflict ?situationOfInterest ?varAltitude ?probabilityOfSI ?distanceToMD ?screening ?timeToMD
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraftPairs rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftPairs> .
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#conflictCode>  ?_conflictCode .
-        {
-          {
-            ?_conflictCode rdf:value ?conflictCodeValue .
-            FILTER ( NOT EXISTS {?_conflictCode (aixm:uom | fixm:uom | plain:uom) ?conflictCodeUoM})
-            BIND(concat(\'val:/:\',STR(?conflictCodeValue),\':/:\',STR(DATATYPE(?conflictCodeValue))) AS ?conflictCode)
-          }
-		     UNION
-		     {
-            ?_conflictCode
-              rdf:value ?conflictCodeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?conflictCodeUoM .
-              BIND(concat(\'xval:/:\',STR(?conflictCodeValue),\':/:\',STR(DATATYPE(?conflictCodeValue)),\':/:\',?conflictCodeUoM) AS ?conflictCode)
-          }
-          UNION
-          {
-		       ?_conflictCode  aixm:nilReason ?conflictCodeNilReason .
-		       BIND(concat(\'nil:/:\',?conflictCodeNilReason) AS ?conflictCode)
-		     }
-          UNION
-          {
-            ?_conflictCode  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?conflictCode)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#minimumDistance>  ?_minimumDistance .
-        {
-          {
-            ?_minimumDistance rdf:value ?minimumDistanceValue .
-            FILTER ( NOT EXISTS {?_minimumDistance (aixm:uom | fixm:uom | plain:uom) ?minimumDistanceUoM})
-            BIND(concat(\'val:/:\',STR(?minimumDistanceValue),\':/:\',STR(DATATYPE(?minimumDistanceValue))) AS ?minimumDistance)
-          }
-		     UNION
-		     {
-            ?_minimumDistance
-              rdf:value ?minimumDistanceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?minimumDistanceUoM .
-              BIND(concat(\'xval:/:\',STR(?minimumDistanceValue),\':/:\',STR(DATATYPE(?minimumDistanceValue)),\':/:\',?minimumDistanceUoM) AS ?minimumDistance)
-          }
-          UNION
-          {
-		       ?_minimumDistance  aixm:nilReason ?minimumDistanceNilReason .
-		       BIND(concat(\'nil:/:\',?minimumDistanceNilReason) AS ?minimumDistance)
-		     }
-          UNION
-          {
-            ?_minimumDistance  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?minimumDistance)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#varVerticalRate>  ?_varVerticalRate .
-        {
-          {
-            ?_varVerticalRate rdf:value ?varVerticalRateValue .
-            FILTER ( NOT EXISTS {?_varVerticalRate (aixm:uom | fixm:uom | plain:uom) ?varVerticalRateUoM})
-            BIND(concat(\'val:/:\',STR(?varVerticalRateValue),\':/:\',STR(DATATYPE(?varVerticalRateValue))) AS ?varVerticalRate)
-          }
-		     UNION
-		     {
-            ?_varVerticalRate
-              rdf:value ?varVerticalRateValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?varVerticalRateUoM .
-              BIND(concat(\'xval:/:\',STR(?varVerticalRateValue),\':/:\',STR(DATATYPE(?varVerticalRateValue)),\':/:\',?varVerticalRateUoM) AS ?varVerticalRate)
-          }
-          UNION
-          {
-		       ?_varVerticalRate  aixm:nilReason ?varVerticalRateNilReason .
-		       BIND(concat(\'nil:/:\',?varVerticalRateNilReason) AS ?varVerticalRate)
-		     }
-          UNION
-          {
-            ?_varVerticalRate  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?varVerticalRate)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#varGS>  ?_varGS .
-        {
-          {
-            ?_varGS rdf:value ?varGSValue .
-            FILTER ( NOT EXISTS {?_varGS (aixm:uom | fixm:uom | plain:uom) ?varGSUoM})
-            BIND(concat(\'val:/:\',STR(?varGSValue),\':/:\',STR(DATATYPE(?varGSValue))) AS ?varGS)
-          }
-		     UNION
-		     {
-            ?_varGS
-              rdf:value ?varGSValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?varGSUoM .
-              BIND(concat(\'xval:/:\',STR(?varGSValue),\':/:\',STR(DATATYPE(?varGSValue)),\':/:\',?varGSUoM) AS ?varGS)
-          }
-          UNION
-          {
-		       ?_varGS  aixm:nilReason ?varGSNilReason .
-		       BIND(concat(\'nil:/:\',?varGSNilReason) AS ?varGS)
-		     }
-          UNION
-          {
-            ?_varGS  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?varGS)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#conflict>  ?_conflict .
-        {
-          {
-            ?_conflict rdf:value ?conflictValue .
-            FILTER ( NOT EXISTS {?_conflict (aixm:uom | fixm:uom | plain:uom) ?conflictUoM})
-            BIND(concat(\'val:/:\',STR(?conflictValue),\':/:\',STR(DATATYPE(?conflictValue))) AS ?conflict)
-          }
-		     UNION
-		     {
-            ?_conflict
-              rdf:value ?conflictValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?conflictUoM .
-              BIND(concat(\'xval:/:\',STR(?conflictValue),\':/:\',STR(DATATYPE(?conflictValue)),\':/:\',?conflictUoM) AS ?conflict)
-          }
-          UNION
-          {
-		       ?_conflict  aixm:nilReason ?conflictNilReason .
-		       BIND(concat(\'nil:/:\',?conflictNilReason) AS ?conflict)
-		     }
-          UNION
-          {
-            ?_conflict  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?conflict)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#situationOfInterest>  ?_situationOfInterest .
-        {
-          {
-            ?_situationOfInterest rdf:value ?situationOfInterestValue .
-            FILTER ( NOT EXISTS {?_situationOfInterest (aixm:uom | fixm:uom | plain:uom) ?situationOfInterestUoM})
-            BIND(concat(\'val:/:\',STR(?situationOfInterestValue),\':/:\',STR(DATATYPE(?situationOfInterestValue))) AS ?situationOfInterest)
-          }
-		     UNION
-		     {
-            ?_situationOfInterest
-              rdf:value ?situationOfInterestValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?situationOfInterestUoM .
-              BIND(concat(\'xval:/:\',STR(?situationOfInterestValue),\':/:\',STR(DATATYPE(?situationOfInterestValue)),\':/:\',?situationOfInterestUoM) AS ?situationOfInterest)
-          }
-          UNION
-          {
-		       ?_situationOfInterest  aixm:nilReason ?situationOfInterestNilReason .
-		       BIND(concat(\'nil:/:\',?situationOfInterestNilReason) AS ?situationOfInterest)
-		     }
-          UNION
-          {
-            ?_situationOfInterest  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?situationOfInterest)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#varAltitude>  ?_varAltitude .
-        {
-          {
-            ?_varAltitude rdf:value ?varAltitudeValue .
-            FILTER ( NOT EXISTS {?_varAltitude (aixm:uom | fixm:uom | plain:uom) ?varAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?varAltitudeValue),\':/:\',STR(DATATYPE(?varAltitudeValue))) AS ?varAltitude)
-          }
-		     UNION
-		     {
-            ?_varAltitude
-              rdf:value ?varAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?varAltitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?varAltitudeValue),\':/:\',STR(DATATYPE(?varAltitudeValue)),\':/:\',?varAltitudeUoM) AS ?varAltitude)
-          }
-          UNION
-          {
-		       ?_varAltitude  aixm:nilReason ?varAltitudeNilReason .
-		       BIND(concat(\'nil:/:\',?varAltitudeNilReason) AS ?varAltitude)
-		     }
-          UNION
-          {
-            ?_varAltitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?varAltitude)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#probabilityOfSI>  ?_probabilityOfSI .
-        {
-          {
-            ?_probabilityOfSI rdf:value ?probabilityOfSIValue .
-            FILTER ( NOT EXISTS {?_probabilityOfSI (aixm:uom | fixm:uom | plain:uom) ?probabilityOfSIUoM})
-            BIND(concat(\'val:/:\',STR(?probabilityOfSIValue),\':/:\',STR(DATATYPE(?probabilityOfSIValue))) AS ?probabilityOfSI)
-          }
-		     UNION
-		     {
-            ?_probabilityOfSI
-              rdf:value ?probabilityOfSIValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?probabilityOfSIUoM .
-              BIND(concat(\'xval:/:\',STR(?probabilityOfSIValue),\':/:\',STR(DATATYPE(?probabilityOfSIValue)),\':/:\',?probabilityOfSIUoM) AS ?probabilityOfSI)
-          }
-          UNION
-          {
-		       ?_probabilityOfSI  aixm:nilReason ?probabilityOfSINilReason .
-		       BIND(concat(\'nil:/:\',?probabilityOfSINilReason) AS ?probabilityOfSI)
-		     }
-          UNION
-          {
-            ?_probabilityOfSI  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?probabilityOfSI)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#distanceToMD>  ?_distanceToMD .
-        {
-          {
-            ?_distanceToMD rdf:value ?distanceToMDValue .
-            FILTER ( NOT EXISTS {?_distanceToMD (aixm:uom | fixm:uom | plain:uom) ?distanceToMDUoM})
-            BIND(concat(\'val:/:\',STR(?distanceToMDValue),\':/:\',STR(DATATYPE(?distanceToMDValue))) AS ?distanceToMD)
-          }
-		     UNION
-		     {
-            ?_distanceToMD
-              rdf:value ?distanceToMDValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?distanceToMDUoM .
-              BIND(concat(\'xval:/:\',STR(?distanceToMDValue),\':/:\',STR(DATATYPE(?distanceToMDValue)),\':/:\',?distanceToMDUoM) AS ?distanceToMD)
-          }
-          UNION
-          {
-		       ?_distanceToMD  aixm:nilReason ?distanceToMDNilReason .
-		       BIND(concat(\'nil:/:\',?distanceToMDNilReason) AS ?distanceToMD)
-		     }
-          UNION
-          {
-            ?_distanceToMD  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?distanceToMD)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#screening>  ?_screening .
-        {
-          {
-            ?_screening rdf:value ?screeningValue .
-            FILTER ( NOT EXISTS {?_screening (aixm:uom | fixm:uom | plain:uom) ?screeningUoM})
-            BIND(concat(\'val:/:\',STR(?screeningValue),\':/:\',STR(DATATYPE(?screeningValue))) AS ?screening)
-          }
-		     UNION
-		     {
-            ?_screening
-              rdf:value ?screeningValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?screeningUoM .
-              BIND(concat(\'xval:/:\',STR(?screeningValue),\':/:\',STR(DATATYPE(?screeningValue)),\':/:\',?screeningUoM) AS ?screening)
-          }
-          UNION
-          {
-		       ?_screening  aixm:nilReason ?screeningNilReason .
-		       BIND(concat(\'nil:/:\',?screeningNilReason) AS ?screening)
-		     }
-          UNION
-          {
-            ?_screening  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?screening)
-	         }
-      }
-      ?aircraftPairs <http://www.aisa-project.eu/vocabulary/plain#timeToMD>  ?_timeToMD .
-        {
-          {
-            ?_timeToMD rdf:value ?timeToMDValue .
-            FILTER ( NOT EXISTS {?_timeToMD (aixm:uom | fixm:uom | plain:uom) ?timeToMDUoM})
-            BIND(concat(\'val:/:\',STR(?timeToMDValue),\':/:\',STR(DATATYPE(?timeToMDValue))) AS ?timeToMD)
-          }
-		     UNION
-		     {
-            ?_timeToMD
-              rdf:value ?timeToMDValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeToMDUoM .
-              BIND(concat(\'xval:/:\',STR(?timeToMDValue),\':/:\',STR(DATATYPE(?timeToMDValue)),\':/:\',?timeToMDUoM) AS ?timeToMD)
-          }
-          UNION
-          {
-		       ?_timeToMD  aixm:nilReason ?timeToMDNilReason .
-		       BIND(concat(\'nil:/:\',?timeToMDNilReason) AS ?timeToMD)
-		     }
-          UNION
-          {
-            ?_timeToMD  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeToMD)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?aircraftPairs ?conflictCode ?minimumDistance ?varVerticalRate ?varGS ?conflict ?situationOfInterest ?varAltitude ?probabilityOfSI ?distanceToMD ?screening ?timeToMD
-
-      '
-,row(Graph,AircraftPairs,ConflictCode,FlightIdentificationConcat,MinimumDistance,VarVerticalRate,VarGS,Conflict,SituationOfInterest,VarAltitude,ProbabilityOfSI,DistanceToMD,Screening,TimeToMD),[]), convVal(ConflictCode,ConflictCodeVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(MinimumDistance,MinimumDistanceVal), convVal(VarVerticalRate,VarVerticalRateVal), convVal(VarGS,VarGSVal), convVal(Conflict,ConflictVal), convVal(SituationOfInterest,SituationOfInterestVal), convVal(VarAltitude,VarAltitudeVal), convVal(ProbabilityOfSI,ProbabilityOfSIVal), convVal(DistanceToMD,DistanceToMDVal), convVal(Screening,ScreeningVal), convVal(TimeToMD,TimeToMDVal).
-
-% plain_EfplRoute(Graph, EfplRoute, RouteText, EfplFlightRules, EfplTrajectoryRoutePair*)
-
-plain_EfplRoute(Graph, EfplRoute, RouteTextVal, EfplFlightRulesVal, EfplTrajectoryRoutePairList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplRoute ?routeText ?efplFlightRules (GROUP_CONCAT(DISTINCT ?efplTrajectoryRoutePair;SEPARATOR=",") AS ?efplTrajectoryRoutePairConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplRoute rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplRoute> .
-      ?efplRoute <http://www.aisa-project.eu/vocabulary/plain#routeText>  ?_routeText .
-        {
-          {
-            ?_routeText rdf:value ?routeTextValue .
-            FILTER ( NOT EXISTS {?_routeText (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM})
-            BIND(concat(\'val:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue))) AS ?routeText)
-          }
-		     UNION
-		     {
-            ?_routeText
-              rdf:value ?routeTextValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM .
-              BIND(concat(\'xval:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue)),\':/:\',?routeTextUoM) AS ?routeText)
-          }
-          UNION
-          {
-		       ?_routeText  aixm:nilReason ?routeTextNilReason .
-		       BIND(concat(\'nil:/:\',?routeTextNilReason) AS ?routeText)
-		     }
-          UNION
-          {
-            ?_routeText  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?routeText)
-	         }
-      }
-      ?efplRoute <http://www.aisa-project.eu/vocabulary/plain#efplFlightRules>  ?_efplFlightRules .
-        {
-          {
-            ?_efplFlightRules rdf:value ?efplFlightRulesValue .
-            FILTER ( NOT EXISTS {?_efplFlightRules (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM})
-            BIND(concat(\'val:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue))) AS ?efplFlightRules)
-          }
-		     UNION
-		     {
-            ?_efplFlightRules
-              rdf:value ?efplFlightRulesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM .
-              BIND(concat(\'xval:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue)),\':/:\',?efplFlightRulesUoM) AS ?efplFlightRules)
-          }
-          UNION
-          {
-		       ?_efplFlightRules  aixm:nilReason ?efplFlightRulesNilReason .
-		       BIND(concat(\'nil:/:\',?efplFlightRulesNilReason) AS ?efplFlightRules)
-		     }
-          UNION
-          {
-            ?_efplFlightRules  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplFlightRules)
-	         }
-      }
-      OPTIONAL {?efplRoute <http://www.aisa-project.eu/vocabulary/plain#efplTrajectoryRoutePair> ?efplTrajectoryRoutePair .}
-    }
-  }
-GROUP BY ?graph ?efplRoute ?routeText ?efplFlightRules
-
-      '
-,row(Graph,EfplRoute,RouteText,EfplFlightRules,EfplTrajectoryRoutePairConcat),[]), convVal(RouteText,RouteTextVal), convVal(EfplFlightRules,EfplFlightRulesVal), convert(EfplTrajectoryRoutePairConcat,EfplTrajectoryRoutePairList).
-
-% fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome?, DepartureFix?, DepartureFixTime?, DepartureFleetPrioritization?, DepartureSlot?, EarliestOffBlockTime?, OffBlockReadyTime?, RunwayPositionAndTime?, StandardInstrumentDeparture?, StandPositionAndTime?, TakeoffAlternateAerodrome*, TakeoffWeight?, DepartureTimes?)
-
-fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodromeVal, DepartureFixVal, DepartureFixTimeVal, DepartureFleetPrioritizationVal, DepartureSlotVal, EarliestOffBlockTimeVal, OffBlockReadyTimeVal, RunwayPositionAndTimeVal, StandardInstrumentDepartureVal, StandPositionAndTimeVal, TakeoffAlternateAerodromeList, TakeoffWeightVal, DepartureTimesVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime (GROUP_CONCAT(DISTINCT ?takeoffAlternateAerodrome;SEPARATOR=",") AS ?takeoffAlternateAerodromeConcat) ?takeoffWeight ?departureTimes
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:FlightDeparture .
-  }
-  { GRAPH ?graph
-    {
-      ?flightDeparture rdf:type ?SUBCLASS .
-      OPTIONAL {?flightDeparture fixm:departureAerodrome ?departureAerodrome .}
-      OPTIONAL {?flightDeparture fixm:departureFix ?departureFix .}
-      OPTIONAL {?flightDeparture fixm:departureFixTime ?departureFixTime .}
-      OPTIONAL { ?flightDeparture fixm:departureFleetPrioritization ?_departureFleetPrioritization .
-        {
-          {
-            ?_departureFleetPrioritization rdf:value ?departureFleetPrioritizationValue .
-            FILTER ( NOT EXISTS {?_departureFleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM})
-            BIND(concat(\'val:/:\',STR(?departureFleetPrioritizationValue),\':/:\',STR(DATATYPE(?departureFleetPrioritizationValue))) AS ?departureFleetPrioritization)
-          }
-            UNION
-          {
-            ?_departureFleetPrioritization
-              rdf:value ?departureFleetPrioritizationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM .
-            BIND(concat(\'xval:/:\',STR(?departureFleetPrioritizationValue),\':/:\',STR(DATATYPE(?departureFleetPrioritizationValue)),\':/:\',?departureFleetPrioritizationUoM) AS ?departureFleetPrioritization)
-          }
-            UNION
-          {
-           ?_departureFleetPrioritization  aixm:nilReason ?departureFleetPrioritizationNilReason .
-           BIND(concat(\'nil:/:\',?departureFleetPrioritizationNilReason) AS ?departureFleetPrioritization)
-          }
-          UNION
-          {
-		       ?_departureFleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureFleetPrioritization)
-		     }
-        }
-      }
-      OPTIONAL { ?flightDeparture fixm:departureSlot ?_departureSlot .
-        {
-          {
-            ?_departureSlot rdf:value ?departureSlotValue .
-            FILTER ( NOT EXISTS {?_departureSlot (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM})
-            BIND(concat(\'val:/:\',STR(?departureSlotValue),\':/:\',STR(DATATYPE(?departureSlotValue))) AS ?departureSlot)
-          }
-            UNION
-          {
-            ?_departureSlot
-              rdf:value ?departureSlotValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM .
-            BIND(concat(\'xval:/:\',STR(?departureSlotValue),\':/:\',STR(DATATYPE(?departureSlotValue)),\':/:\',?departureSlotUoM) AS ?departureSlot)
-          }
-            UNION
-          {
-           ?_departureSlot  aixm:nilReason ?departureSlotNilReason .
-           BIND(concat(\'nil:/:\',?departureSlotNilReason) AS ?departureSlot)
-          }
-          UNION
-          {
-		       ?_departureSlot  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureSlot)
-		     }
-        }
-      }
-      OPTIONAL { ?flightDeparture fixm:earliestOffBlockTime ?_earliestOffBlockTime .
-        {
-          {
-            ?_earliestOffBlockTime rdf:value ?earliestOffBlockTimeValue .
-            FILTER ( NOT EXISTS {?_earliestOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM})
-            BIND(concat(\'val:/:\',STR(?earliestOffBlockTimeValue),\':/:\',STR(DATATYPE(?earliestOffBlockTimeValue))) AS ?earliestOffBlockTime)
-          }
-            UNION
-          {
-            ?_earliestOffBlockTime
-              rdf:value ?earliestOffBlockTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?earliestOffBlockTimeValue),\':/:\',STR(DATATYPE(?earliestOffBlockTimeValue)),\':/:\',?earliestOffBlockTimeUoM) AS ?earliestOffBlockTime)
-          }
-            UNION
-          {
-           ?_earliestOffBlockTime  aixm:nilReason ?earliestOffBlockTimeNilReason .
-           BIND(concat(\'nil:/:\',?earliestOffBlockTimeNilReason) AS ?earliestOffBlockTime)
-          }
-          UNION
-          {
-		       ?_earliestOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?earliestOffBlockTime)
-		     }
-        }
-      }
-      OPTIONAL {?flightDeparture fixm:offBlockReadyTime ?offBlockReadyTime .}
-      OPTIONAL {?flightDeparture fixm:runwayPositionAndTime ?runwayPositionAndTime .}
-      OPTIONAL { ?flightDeparture fixm:standardInstrumentDeparture ?_standardInstrumentDeparture .
-        {
-          {
-            ?_standardInstrumentDeparture rdf:value ?standardInstrumentDepartureValue .
-            FILTER ( NOT EXISTS {?_standardInstrumentDeparture (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM})
-            BIND(concat(\'val:/:\',STR(?standardInstrumentDepartureValue),\':/:\',STR(DATATYPE(?standardInstrumentDepartureValue))) AS ?standardInstrumentDeparture)
-          }
-            UNION
-          {
-            ?_standardInstrumentDeparture
-              rdf:value ?standardInstrumentDepartureValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM .
-            BIND(concat(\'xval:/:\',STR(?standardInstrumentDepartureValue),\':/:\',STR(DATATYPE(?standardInstrumentDepartureValue)),\':/:\',?standardInstrumentDepartureUoM) AS ?standardInstrumentDeparture)
-          }
-            UNION
-          {
-           ?_standardInstrumentDeparture  aixm:nilReason ?standardInstrumentDepartureNilReason .
-           BIND(concat(\'nil:/:\',?standardInstrumentDepartureNilReason) AS ?standardInstrumentDeparture)
-          }
-          UNION
-          {
-		       ?_standardInstrumentDeparture  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?standardInstrumentDeparture)
-		     }
-        }
-      }
-      OPTIONAL {?flightDeparture fixm:standPositionAndTime ?standPositionAndTime .}
-      OPTIONAL {?flightDeparture fixm:takeoffAlternateAerodrome ?takeoffAlternateAerodrome .}
-      OPTIONAL { ?flightDeparture fixm:takeoffWeight ?_takeoffWeight .
-        {
-          {
-            ?_takeoffWeight rdf:value ?takeoffWeightValue .
-            FILTER ( NOT EXISTS {?_takeoffWeight (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM})
-            BIND(concat(\'val:/:\',STR(?takeoffWeightValue),\':/:\',STR(DATATYPE(?takeoffWeightValue))) AS ?takeoffWeight)
-          }
-            UNION
-          {
-            ?_takeoffWeight
-              rdf:value ?takeoffWeightValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM .
-            BIND(concat(\'xval:/:\',STR(?takeoffWeightValue),\':/:\',STR(DATATYPE(?takeoffWeightValue)),\':/:\',?takeoffWeightUoM) AS ?takeoffWeight)
-          }
-            UNION
-          {
-           ?_takeoffWeight  aixm:nilReason ?takeoffWeightNilReason .
-           BIND(concat(\'nil:/:\',?takeoffWeightNilReason) AS ?takeoffWeight)
-          }
-          UNION
-          {
-		       ?_takeoffWeight  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?takeoffWeight)
-		     }
-        }
-      }
-      OPTIONAL {?flightDeparture fixm:departureTimes ?departureTimes .}
-    }
-  }
-}
-GROUP BY ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffWeight ?departureTimes
-
-      '
-,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convVal(DepartureAerodrome,DepartureAerodromeVal), convVal(DepartureFix,DepartureFixVal), convVal(DepartureFixTime,DepartureFixTimeVal), convVal(DepartureFleetPrioritization,DepartureFleetPrioritizationVal), convVal(DepartureSlot,DepartureSlotVal), convVal(EarliestOffBlockTime,EarliestOffBlockTimeVal), convVal(OffBlockReadyTime,OffBlockReadyTimeVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentDeparture,StandardInstrumentDepartureVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList), convVal(TakeoffWeight,TakeoffWeightVal), convVal(DepartureTimes,DepartureTimesVal).
-
-% fixm_AerodromeReference(Graph, AerodromeReference)
-
-fixm_AerodromeReference(Graph, AerodromeReference) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aerodromeReference
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:AerodromeReference .
-  }
-  { GRAPH ?graph
-    {
-      ?aerodromeReference rdf:type ?SUBCLASS .
-    }
-  }
-}
-
-      '
-,row(Graph,AerodromeReference),[]).
-
-% fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime?, TaxiTime?)
-
-fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTimeVal, TaxiTimeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplFlightDeparture ?estimatedOffBlockTime ?taxiTime
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplFlightDeparture rdf:type fixm:EfplFlightDeparture .
-      OPTIONAL { ?efplFlightDeparture fixm:estimatedOffBlockTime ?_estimatedOffBlockTime .
-        {
-          {
-            ?_estimatedOffBlockTime rdf:value ?estimatedOffBlockTimeValue .
-            FILTER ( NOT EXISTS {?_estimatedOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM})
-            BIND(concat(\'val:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue))) AS ?estimatedOffBlockTime)
-          }
-            UNION
-          {
-            ?_estimatedOffBlockTime
-              rdf:value ?estimatedOffBlockTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue)),\':/:\',?estimatedOffBlockTimeUoM) AS ?estimatedOffBlockTime)
-          }
-            UNION
-          {
-           ?_estimatedOffBlockTime  aixm:nilReason ?estimatedOffBlockTimeNilReason .
-           BIND(concat(\'nil:/:\',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
-          }
-          UNION
-          {
-		       ?_estimatedOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedOffBlockTime)
-		     }
-        }
-      }
-      OPTIONAL { ?efplFlightDeparture fixm:taxiTime ?_taxiTime .
-        {
-          {
-            ?_taxiTime rdf:value ?taxiTimeValue .
-            FILTER ( NOT EXISTS {?_taxiTime (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM})
-            BIND(concat(\'val:/:\',STR(?taxiTimeValue),\':/:\',STR(DATATYPE(?taxiTimeValue))) AS ?taxiTime)
-          }
-            UNION
-          {
-            ?_taxiTime
-              rdf:value ?taxiTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?taxiTimeValue),\':/:\',STR(DATATYPE(?taxiTimeValue)),\':/:\',?taxiTimeUoM) AS ?taxiTime)
-          }
-            UNION
-          {
-           ?_taxiTime  aixm:nilReason ?taxiTimeNilReason .
-           BIND(concat(\'nil:/:\',?taxiTimeNilReason) AS ?taxiTime)
-          }
-          UNION
-          {
-		       ?_taxiTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?taxiTime)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,EfplFlightDeparture,EstimatedOffBlockTime,TaxiTime),[]), convVal(EstimatedOffBlockTime,EstimatedOffBlockTimeVal), convVal(TaxiTime,TaxiTimeVal).
-
-% fixm_PostalAddress(Graph, PostalAddress, AdministrativeArea?, PostalCode?, DeliveryPoint?, CountryCode?, CountryName?, City?)
-
-fixm_PostalAddress(Graph, PostalAddress, AdministrativeAreaVal, PostalCodeVal, DeliveryPointVal, CountryCodeVal, CountryNameVal, CityVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?postalAddress ?administrativeArea ?postalCode ?deliveryPoint ?countryCode ?countryName ?city
-WHERE
-  { GRAPH ?graph
-    {
-      ?postalAddress rdf:type fixm:PostalAddress .
-      OPTIONAL { ?postalAddress fixm:administrativeArea ?_administrativeArea .
-        {
-          {
-            ?_administrativeArea rdf:value ?administrativeAreaValue .
-            FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
-            BIND(concat(\'val:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue))) AS ?administrativeArea)
-          }
-            UNION
-          {
-            ?_administrativeArea
-              rdf:value ?administrativeAreaValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
-            BIND(concat(\'xval:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue)),\':/:\',?administrativeAreaUoM) AS ?administrativeArea)
-          }
-            UNION
-          {
-           ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
-           BIND(concat(\'nil:/:\',?administrativeAreaNilReason) AS ?administrativeArea)
-          }
-          UNION
-          {
-		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?administrativeArea)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress fixm:postalCode ?_postalCode .
-        {
-          {
-            ?_postalCode rdf:value ?postalCodeValue .
-            FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
-            BIND(concat(\'val:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue))) AS ?postalCode)
-          }
-            UNION
-          {
-            ?_postalCode
-              rdf:value ?postalCodeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
-            BIND(concat(\'xval:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue)),\':/:\',?postalCodeUoM) AS ?postalCode)
-          }
-            UNION
-          {
-           ?_postalCode  aixm:nilReason ?postalCodeNilReason .
-           BIND(concat(\'nil:/:\',?postalCodeNilReason) AS ?postalCode)
-          }
-          UNION
-          {
-		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?postalCode)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress fixm:deliveryPoint ?_deliveryPoint .
-        {
-          {
-            ?_deliveryPoint rdf:value ?deliveryPointValue .
-            FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
-            BIND(concat(\'val:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue))) AS ?deliveryPoint)
-          }
-            UNION
-          {
-            ?_deliveryPoint
-              rdf:value ?deliveryPointValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
-            BIND(concat(\'xval:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue)),\':/:\',?deliveryPointUoM) AS ?deliveryPoint)
-          }
-            UNION
-          {
-           ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
-           BIND(concat(\'nil:/:\',?deliveryPointNilReason) AS ?deliveryPoint)
-          }
-          UNION
-          {
-		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?deliveryPoint)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress fixm:countryCode ?_countryCode .
-        {
-          {
-            ?_countryCode rdf:value ?countryCodeValue .
-            FILTER ( NOT EXISTS {?_countryCode (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM})
-            BIND(concat(\'val:/:\',STR(?countryCodeValue),\':/:\',STR(DATATYPE(?countryCodeValue))) AS ?countryCode)
-          }
-            UNION
-          {
-            ?_countryCode
-              rdf:value ?countryCodeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?countryCodeUoM .
-            BIND(concat(\'xval:/:\',STR(?countryCodeValue),\':/:\',STR(DATATYPE(?countryCodeValue)),\':/:\',?countryCodeUoM) AS ?countryCode)
-          }
-            UNION
-          {
-           ?_countryCode  aixm:nilReason ?countryCodeNilReason .
-           BIND(concat(\'nil:/:\',?countryCodeNilReason) AS ?countryCode)
-          }
-          UNION
-          {
-		       ?_countryCode  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?countryCode)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress fixm:countryName ?_countryName .
-        {
-          {
-            ?_countryName rdf:value ?countryNameValue .
-            FILTER ( NOT EXISTS {?_countryName (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM})
-            BIND(concat(\'val:/:\',STR(?countryNameValue),\':/:\',STR(DATATYPE(?countryNameValue))) AS ?countryName)
-          }
-            UNION
-          {
-            ?_countryName
-              rdf:value ?countryNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?countryNameUoM .
-            BIND(concat(\'xval:/:\',STR(?countryNameValue),\':/:\',STR(DATATYPE(?countryNameValue)),\':/:\',?countryNameUoM) AS ?countryName)
-          }
-            UNION
-          {
-           ?_countryName  aixm:nilReason ?countryNameNilReason .
-           BIND(concat(\'nil:/:\',?countryNameNilReason) AS ?countryName)
-          }
-          UNION
-          {
-		       ?_countryName  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?countryName)
-		     }
-        }
-      }
-      OPTIONAL { ?postalAddress fixm:city ?_city .
-        {
-          {
-            ?_city rdf:value ?cityValue .
-            FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
-            BIND(concat(\'val:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue))) AS ?city)
-          }
-            UNION
-          {
-            ?_city
-              rdf:value ?cityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
-            BIND(concat(\'xval:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue)),\':/:\',?cityUoM) AS ?city)
-          }
-            UNION
-          {
-           ?_city  aixm:nilReason ?cityNilReason .
-           BIND(concat(\'nil:/:\',?cityNilReason) AS ?city)
-          }
-          UNION
-          {
-		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?city)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,PostalAddress,AdministrativeArea,PostalCode,DeliveryPoint,CountryCode,CountryName,City),[]), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(DeliveryPoint,DeliveryPointVal), convVal(CountryCode,CountryCodeVal), convVal(CountryName,CountryNameVal), convVal(City,CityVal).
-
-% fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeed?, UpperSpeed?)
-
-fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeedVal, UpperSpeedVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?groundspeedRange ?lowerSpeed ?upperSpeed
-WHERE
-  { GRAPH ?graph
-    {
-      ?groundspeedRange rdf:type fixm:GroundspeedRange .
-      OPTIONAL { ?groundspeedRange fixm:lowerSpeed ?_lowerSpeed .
-        {
-          {
-            ?_lowerSpeed rdf:value ?lowerSpeedValue .
-            FILTER ( NOT EXISTS {?_lowerSpeed (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?lowerSpeedValue),\':/:\',STR(DATATYPE(?lowerSpeedValue))) AS ?lowerSpeed)
-          }
-            UNION
-          {
-            ?_lowerSpeed
-              rdf:value ?lowerSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?lowerSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?lowerSpeedValue),\':/:\',STR(DATATYPE(?lowerSpeedValue)),\':/:\',?lowerSpeedUoM) AS ?lowerSpeed)
-          }
-            UNION
-          {
-           ?_lowerSpeed  aixm:nilReason ?lowerSpeedNilReason .
-           BIND(concat(\'nil:/:\',?lowerSpeedNilReason) AS ?lowerSpeed)
-          }
-          UNION
-          {
-		       ?_lowerSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?lowerSpeed)
-		     }
-        }
-      }
-      OPTIONAL { ?groundspeedRange fixm:upperSpeed ?_upperSpeed .
-        {
-          {
-            ?_upperSpeed rdf:value ?upperSpeedValue .
-            FILTER ( NOT EXISTS {?_upperSpeed (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?upperSpeedValue),\':/:\',STR(DATATYPE(?upperSpeedValue))) AS ?upperSpeed)
-          }
-            UNION
-          {
-            ?_upperSpeed
-              rdf:value ?upperSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?upperSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?upperSpeedValue),\':/:\',STR(DATATYPE(?upperSpeedValue)),\':/:\',?upperSpeedUoM) AS ?upperSpeed)
-          }
-            UNION
-          {
-           ?_upperSpeed  aixm:nilReason ?upperSpeedNilReason .
-           BIND(concat(\'nil:/:\',?upperSpeedNilReason) AS ?upperSpeed)
-          }
-          UNION
-          {
-		       ?_upperSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?upperSpeed)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,GroundspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal).
-
-% fixm_Pointout(Graph, Pointout, OriginatingUnit?, ReceivingUnit*)
-
-fixm_Pointout(Graph, Pointout, OriginatingUnitVal, ReceivingUnitList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?pointout ?originatingUnit (GROUP_CONCAT(DISTINCT ?receivingUnit;SEPARATOR=",") AS ?receivingUnitConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?pointout rdf:type fixm:Pointout .
-      OPTIONAL {?pointout fixm:originatingUnit ?originatingUnit .}
-      OPTIONAL {?pointout fixm:receivingUnit ?receivingUnit .}
-    }
-  }
-GROUP BY ?graph ?pointout ?originatingUnit
-
-      '
-,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convVal(OriginatingUnit,OriginatingUnitVal), convert(ReceivingUnitConcat,ReceivingUnitList).
-
-% fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel?, EstimatedTime?, Constraint*)
-
-fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevelVal, EstimatedTimeVal, ConstraintList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime (GROUP_CONCAT(DISTINCT ?constraint;SEPARATOR=",") AS ?constraintConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?expandedRoutePoint rdf:type fixm:ExpandedRoutePoint .
-      OPTIONAL { ?expandedRoutePoint fixm:estimatedLevel ?_estimatedLevel .
-        {
-          {
-            ?_estimatedLevel rdf:value ?estimatedLevelValue .
-            FILTER ( NOT EXISTS {?_estimatedLevel (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM})
-            BIND(concat(\'val:/:\',STR(?estimatedLevelValue),\':/:\',STR(DATATYPE(?estimatedLevelValue))) AS ?estimatedLevel)
-          }
-            UNION
-          {
-            ?_estimatedLevel
-              rdf:value ?estimatedLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?estimatedLevelUoM .
-            BIND(concat(\'xval:/:\',STR(?estimatedLevelValue),\':/:\',STR(DATATYPE(?estimatedLevelValue)),\':/:\',?estimatedLevelUoM) AS ?estimatedLevel)
-          }
-            UNION
-          {
-           ?_estimatedLevel  aixm:nilReason ?estimatedLevelNilReason .
-           BIND(concat(\'nil:/:\',?estimatedLevelNilReason) AS ?estimatedLevel)
-          }
-          UNION
-          {
-		       ?_estimatedLevel  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedLevel)
-		     }
-        }
-      }
-      OPTIONAL { ?expandedRoutePoint fixm:estimatedTime ?_estimatedTime .
-        {
-          {
-            ?_estimatedTime rdf:value ?estimatedTimeValue .
-            FILTER ( NOT EXISTS {?_estimatedTime (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM})
-            BIND(concat(\'val:/:\',STR(?estimatedTimeValue),\':/:\',STR(DATATYPE(?estimatedTimeValue))) AS ?estimatedTime)
-          }
-            UNION
-          {
-            ?_estimatedTime
-              rdf:value ?estimatedTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?estimatedTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?estimatedTimeValue),\':/:\',STR(DATATYPE(?estimatedTimeValue)),\':/:\',?estimatedTimeUoM) AS ?estimatedTime)
-          }
-            UNION
-          {
-           ?_estimatedTime  aixm:nilReason ?estimatedTimeNilReason .
-           BIND(concat(\'nil:/:\',?estimatedTimeNilReason) AS ?estimatedTime)
-          }
-          UNION
-          {
-		       ?_estimatedTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedTime)
-		     }
-        }
-      }
-      OPTIONAL {?expandedRoutePoint fixm:constraint ?constraint .}
-    }
-  }
-GROUP BY ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime
-
-      '
-,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convVal(EstimatedLevel,EstimatedLevelVal), convVal(EstimatedTime,EstimatedTimeVal), convert(ConstraintConcat,ConstraintList).
-
-% plain_Aircraft(Graph, Aircraft, AircraftPerformance, AircraftQuantity, WakeTurbulence, Registration, EfplFlight*, AircraftAddress)
-
-plain_Aircraft(Graph, Aircraft, AircraftPerformanceVal, AircraftQuantityVal, WakeTurbulenceVal, RegistrationVal, EfplFlightList, AircraftAddressVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraft ?aircraftPerformance ?aircraftQuantity ?wakeTurbulence ?registration (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat) ?aircraftAddress
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraft rdf:type <http://www.aisa-project.eu/vocabulary/plain#Aircraft> .
-      ?aircraft <http://www.aisa-project.eu/vocabulary/plain#aircraftPerformance>  ?_aircraftPerformance .
-        {
-          {
-            ?_aircraftPerformance rdf:value ?aircraftPerformanceValue .
-            FILTER ( NOT EXISTS {?_aircraftPerformance (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue))) AS ?aircraftPerformance)
-          }
-		     UNION
-		     {
-            ?_aircraftPerformance
-              rdf:value ?aircraftPerformanceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM .
-              BIND(concat(\'xval:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue)),\':/:\',?aircraftPerformanceUoM) AS ?aircraftPerformance)
-          }
-          UNION
-          {
-		       ?_aircraftPerformance  aixm:nilReason ?aircraftPerformanceNilReason .
-		       BIND(concat(\'nil:/:\',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
-		     }
-          UNION
-          {
-            ?_aircraftPerformance  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftPerformance)
-	         }
-      }
-      ?aircraft <http://www.aisa-project.eu/vocabulary/plain#aircraftQuantity>  ?_aircraftQuantity .
-        {
-          {
-            ?_aircraftQuantity rdf:value ?aircraftQuantityValue .
-            FILTER ( NOT EXISTS {?_aircraftQuantity (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue))) AS ?aircraftQuantity)
-          }
-		     UNION
-		     {
-            ?_aircraftQuantity
-              rdf:value ?aircraftQuantityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM .
-              BIND(concat(\'xval:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue)),\':/:\',?aircraftQuantityUoM) AS ?aircraftQuantity)
-          }
-          UNION
-          {
-		       ?_aircraftQuantity  aixm:nilReason ?aircraftQuantityNilReason .
-		       BIND(concat(\'nil:/:\',?aircraftQuantityNilReason) AS ?aircraftQuantity)
-		     }
-          UNION
-          {
-            ?_aircraftQuantity  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftQuantity)
-	         }
-      }
-      ?aircraft <http://www.aisa-project.eu/vocabulary/plain#wakeTurbulence>  ?_wakeTurbulence .
-        {
-          {
-            ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
-            FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
-            BIND(concat(\'val:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue))) AS ?wakeTurbulence)
-          }
-		     UNION
-		     {
-            ?_wakeTurbulence
-              rdf:value ?wakeTurbulenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
-              BIND(concat(\'xval:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue)),\':/:\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
-          }
-          UNION
-          {
-		       ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
-		       BIND(concat(\'nil:/:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
-		     }
-          UNION
-          {
-            ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?wakeTurbulence)
-	         }
-      }
-      ?aircraft <http://www.aisa-project.eu/vocabulary/plain#registration>  ?_registration .
-        {
-          {
-            ?_registration rdf:value ?registrationValue .
-            FILTER ( NOT EXISTS {?_registration (aixm:uom | fixm:uom | plain:uom) ?registrationUoM})
-            BIND(concat(\'val:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue))) AS ?registration)
-          }
-		     UNION
-		     {
-            ?_registration
-              rdf:value ?registrationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?registrationUoM .
-              BIND(concat(\'xval:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue)),\':/:\',?registrationUoM) AS ?registration)
-          }
-          UNION
-          {
-		       ?_registration  aixm:nilReason ?registrationNilReason .
-		       BIND(concat(\'nil:/:\',?registrationNilReason) AS ?registration)
-		     }
-          UNION
-          {
-            ?_registration  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?registration)
-	         }
-      }
-      OPTIONAL {?aircraft <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .}
-      ?aircraft <http://www.aisa-project.eu/vocabulary/plain#aircraftAddress>  ?_aircraftAddress .
-        {
-          {
-            ?_aircraftAddress rdf:value ?aircraftAddressValue .
-            FILTER ( NOT EXISTS {?_aircraftAddress (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue))) AS ?aircraftAddress)
-          }
-		     UNION
-		     {
-            ?_aircraftAddress
-              rdf:value ?aircraftAddressValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM .
-              BIND(concat(\'xval:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue)),\':/:\',?aircraftAddressUoM) AS ?aircraftAddress)
-          }
-          UNION
-          {
-		       ?_aircraftAddress  aixm:nilReason ?aircraftAddressNilReason .
-		       BIND(concat(\'nil:/:\',?aircraftAddressNilReason) AS ?aircraftAddress)
-		     }
-          UNION
-          {
-            ?_aircraftAddress  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftAddress)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?aircraft ?aircraftPerformance ?aircraftQuantity ?wakeTurbulence ?registration ?aircraftAddress
-
-      '
-,row(Graph,Aircraft,AircraftPerformance,AircraftQuantity,WakeTurbulence,Registration,EfplFlightConcat,AircraftAddress),[]), convVal(AircraftPerformance,AircraftPerformanceVal), convVal(AircraftQuantity,AircraftQuantityVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(Registration,RegistrationVal), convert(EfplFlightConcat,EfplFlightList), convVal(AircraftAddress,AircraftAddressVal).
-
-% fixm_Dimensions(Graph, Dimensions, Height?, Length?, Width?)
-
-fixm_Dimensions(Graph, Dimensions, HeightVal, LengthVal, WidthVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?dimensions ?height ?length ?width
-WHERE
-  { GRAPH ?graph
-    {
-      ?dimensions rdf:type fixm:Dimensions .
-      OPTIONAL { ?dimensions fixm:height ?_height .
-        {
-          {
-            ?_height rdf:value ?heightValue .
-            FILTER ( NOT EXISTS {?_height (aixm:uom | fixm:uom | plain:uom) ?heightUoM})
-            BIND(concat(\'val:/:\',STR(?heightValue),\':/:\',STR(DATATYPE(?heightValue))) AS ?height)
-          }
-            UNION
-          {
-            ?_height
-              rdf:value ?heightValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?heightUoM .
-            BIND(concat(\'xval:/:\',STR(?heightValue),\':/:\',STR(DATATYPE(?heightValue)),\':/:\',?heightUoM) AS ?height)
-          }
-            UNION
-          {
-           ?_height  aixm:nilReason ?heightNilReason .
-           BIND(concat(\'nil:/:\',?heightNilReason) AS ?height)
-          }
-          UNION
-          {
-		       ?_height  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?height)
-		     }
-        }
-      }
-      OPTIONAL { ?dimensions fixm:length ?_length .
-        {
-          {
-            ?_length rdf:value ?lengthValue .
-            FILTER ( NOT EXISTS {?_length (aixm:uom | fixm:uom | plain:uom) ?lengthUoM})
-            BIND(concat(\'val:/:\',STR(?lengthValue),\':/:\',STR(DATATYPE(?lengthValue))) AS ?length)
-          }
-            UNION
-          {
-            ?_length
-              rdf:value ?lengthValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?lengthUoM .
-            BIND(concat(\'xval:/:\',STR(?lengthValue),\':/:\',STR(DATATYPE(?lengthValue)),\':/:\',?lengthUoM) AS ?length)
-          }
-            UNION
-          {
-           ?_length  aixm:nilReason ?lengthNilReason .
-           BIND(concat(\'nil:/:\',?lengthNilReason) AS ?length)
-          }
-          UNION
-          {
-		       ?_length  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?length)
-		     }
-        }
-      }
-      OPTIONAL { ?dimensions fixm:width ?_width .
-        {
-          {
-            ?_width rdf:value ?widthValue .
-            FILTER ( NOT EXISTS {?_width (aixm:uom | fixm:uom | plain:uom) ?widthUoM})
-            BIND(concat(\'val:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue))) AS ?width)
-          }
-            UNION
-          {
-            ?_width
-              rdf:value ?widthValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?widthUoM .
-            BIND(concat(\'xval:/:\',STR(?widthValue),\':/:\',STR(DATATYPE(?widthValue)),\':/:\',?widthUoM) AS ?width)
-          }
-            UNION
-          {
-           ?_width  aixm:nilReason ?widthNilReason .
-           BIND(concat(\'nil:/:\',?widthNilReason) AS ?width)
-          }
-          UNION
-          {
-		       ?_width  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?width)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,Dimensions,Height,Length,Width),[]), convVal(Height,HeightVal), convVal(Length,LengthVal), convVal(Width,WidthVal).
-
-% fixm_RouteSegment(Graph, RouteSegment, Airway?, RoutePoint?)
-
-fixm_RouteSegment(Graph, RouteSegment, AirwayVal, RoutePointVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?routeSegment ?airway ?routePoint
-WHERE
-  { GRAPH ?graph
-    {
-      ?routeSegment rdf:type fixm:RouteSegment .
-      OPTIONAL { ?routeSegment fixm:airway ?_airway .
-        {
-          {
-            ?_airway rdf:value ?airwayValue .
-            FILTER ( NOT EXISTS {?_airway (aixm:uom | fixm:uom | plain:uom) ?airwayUoM})
-            BIND(concat(\'val:/:\',STR(?airwayValue),\':/:\',STR(DATATYPE(?airwayValue))) AS ?airway)
-          }
-            UNION
-          {
-            ?_airway
-              rdf:value ?airwayValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?airwayUoM .
-            BIND(concat(\'xval:/:\',STR(?airwayValue),\':/:\',STR(DATATYPE(?airwayValue)),\':/:\',?airwayUoM) AS ?airway)
-          }
-            UNION
-          {
-           ?_airway  aixm:nilReason ?airwayNilReason .
-           BIND(concat(\'nil:/:\',?airwayNilReason) AS ?airway)
-          }
-          UNION
-          {
-		       ?_airway  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airway)
-		     }
-        }
-      }
-      OPTIONAL {?routeSegment fixm:routePoint ?routePoint .}
-    }
-  }
-
-      '
-,row(Graph,RouteSegment,Airway,RoutePoint),[]), convVal(Airway,AirwayVal), convVal(RoutePoint,RoutePointVal).
-
-% aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator?, Flight*, Aircraft*, Weather*, SubCondition*)
-
-aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperatorVal, FlightList, AircraftList, WeatherList, SubConditionList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?conditionCombination ?logicalOperator (GROUP_CONCAT(DISTINCT ?flight;SEPARATOR=",") AS ?flightConcat) (GROUP_CONCAT(DISTINCT ?aircraft;SEPARATOR=",") AS ?aircraftConcat) (GROUP_CONCAT(DISTINCT ?weather;SEPARATOR=",") AS ?weatherConcat) (GROUP_CONCAT(DISTINCT ?subCondition;SEPARATOR=",") AS ?subConditionConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?conditionCombination rdf:type aixm:ConditionCombination .
-      OPTIONAL { ?conditionCombination aixm:logicalOperator ?_logicalOperator .
-        {
-          {
-            ?_logicalOperator rdf:value ?logicalOperatorValue .
-            FILTER ( NOT EXISTS {?_logicalOperator (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM})
-            BIND(concat(\'val:/:\',STR(?logicalOperatorValue),\':/:\',STR(DATATYPE(?logicalOperatorValue))) AS ?logicalOperator)
-          }
-            UNION
-          {
-            ?_logicalOperator
-              rdf:value ?logicalOperatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?logicalOperatorUoM .
-            BIND(concat(\'xval:/:\',STR(?logicalOperatorValue),\':/:\',STR(DATATYPE(?logicalOperatorValue)),\':/:\',?logicalOperatorUoM) AS ?logicalOperator)
-          }
-            UNION
-          {
-           ?_logicalOperator  aixm:nilReason ?logicalOperatorNilReason .
-           BIND(concat(\'nil:/:\',?logicalOperatorNilReason) AS ?logicalOperator)
-          }
-          UNION
-          {
-		       ?_logicalOperator  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?logicalOperator)
-		     }
-        }
-      }
-      OPTIONAL {?conditionCombination aixm:flight ?flight .}
-      OPTIONAL {?conditionCombination aixm:aircraft ?aircraft .}
-      OPTIONAL {?conditionCombination aixm:weather ?weather .}
-      OPTIONAL {?conditionCombination aixm:subCondition ?subCondition .}
-    }
-  }
-GROUP BY ?graph ?conditionCombination ?logicalOperator
-
-      '
-,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convVal(LogicalOperator,LogicalOperatorVal), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList).
-
-% aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrder?, Type?, Extent*, Annotation*)
-
-aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrderVal, TypeVal, ExtentList, AnnotationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?surfaceContaminationLayer ?layerOrder ?type (GROUP_CONCAT(DISTINCT ?extent;SEPARATOR=",") AS ?extentConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?surfaceContaminationLayer rdf:type aixm:SurfaceContaminationLayer .
-      OPTIONAL { ?surfaceContaminationLayer aixm:layerOrder ?_layerOrder .
-        {
-          {
-            ?_layerOrder rdf:value ?layerOrderValue .
-            FILTER ( NOT EXISTS {?_layerOrder (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM})
-            BIND(concat(\'val:/:\',STR(?layerOrderValue),\':/:\',STR(DATATYPE(?layerOrderValue))) AS ?layerOrder)
-          }
-            UNION
-          {
-            ?_layerOrder
-              rdf:value ?layerOrderValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?layerOrderUoM .
-            BIND(concat(\'xval:/:\',STR(?layerOrderValue),\':/:\',STR(DATATYPE(?layerOrderValue)),\':/:\',?layerOrderUoM) AS ?layerOrder)
-          }
-            UNION
-          {
-           ?_layerOrder  aixm:nilReason ?layerOrderNilReason .
-           BIND(concat(\'nil:/:\',?layerOrderNilReason) AS ?layerOrder)
-          }
-          UNION
-          {
-		       ?_layerOrder  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?layerOrder)
-		     }
-        }
-      }
-      OPTIONAL { ?surfaceContaminationLayer aixm:type ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-            UNION
-          {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-            BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-            UNION
-          {
-           ?_type  aixm:nilReason ?typeNilReason .
-           BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-		     }
-        }
-      }
-      OPTIONAL {?surfaceContaminationLayer aixm:extent ?extent .}
-      OPTIONAL {?surfaceContaminationLayer aixm:annotation ?annotation .}
-    }
-  }
-GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
-
-      '
-,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convVal(LayerOrder,LayerOrderVal), convVal(Type,TypeVal), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList).
-
-% plain_Altitude(Graph, Altitude, Route+, AltitudeInterpretation, FlightLevel)
-
-plain_Altitude(Graph, Altitude, RouteList, AltitudeInterpretationVal, FlightLevelVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?altitude (GROUP_CONCAT(DISTINCT ?route;SEPARATOR=",") AS ?routeConcat) ?altitudeInterpretation ?flightLevel
-WHERE
-  { GRAPH ?graph
-    {
-      ?altitude rdf:type <http://www.aisa-project.eu/vocabulary/plain#Altitude> .
-      ?altitude <http://www.aisa-project.eu/vocabulary/plain#route> ?route .
-      ?altitude <http://www.aisa-project.eu/vocabulary/plain#altitudeInterpretation>  ?_altitudeInterpretation .
-        {
-          {
-            ?_altitudeInterpretation rdf:value ?altitudeInterpretationValue .
-            FILTER ( NOT EXISTS {?_altitudeInterpretation (aixm:uom | fixm:uom | plain:uom) ?altitudeInterpretationUoM})
-            BIND(concat(\'val:/:\',STR(?altitudeInterpretationValue),\':/:\',STR(DATATYPE(?altitudeInterpretationValue))) AS ?altitudeInterpretation)
-          }
-		     UNION
-		     {
-            ?_altitudeInterpretation
-              rdf:value ?altitudeInterpretationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altitudeInterpretationUoM .
-              BIND(concat(\'xval:/:\',STR(?altitudeInterpretationValue),\':/:\',STR(DATATYPE(?altitudeInterpretationValue)),\':/:\',?altitudeInterpretationUoM) AS ?altitudeInterpretation)
-          }
-          UNION
-          {
-		       ?_altitudeInterpretation  aixm:nilReason ?altitudeInterpretationNilReason .
-		       BIND(concat(\'nil:/:\',?altitudeInterpretationNilReason) AS ?altitudeInterpretation)
-		     }
-          UNION
-          {
-            ?_altitudeInterpretation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitudeInterpretation)
-	         }
-      }
-      ?altitude <http://www.aisa-project.eu/vocabulary/plain#flightLevel>  ?_flightLevel .
-        {
-          {
-            ?_flightLevel rdf:value ?flightLevelValue .
-            FILTER ( NOT EXISTS {?_flightLevel (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM})
-            BIND(concat(\'val:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue))) AS ?flightLevel)
-          }
-		     UNION
-		     {
-            ?_flightLevel
-              rdf:value ?flightLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightLevelUoM .
-              BIND(concat(\'xval:/:\',STR(?flightLevelValue),\':/:\',STR(DATATYPE(?flightLevelValue)),\':/:\',?flightLevelUoM) AS ?flightLevel)
-          }
-          UNION
-          {
-		       ?_flightLevel  aixm:nilReason ?flightLevelNilReason .
-		       BIND(concat(\'nil:/:\',?flightLevelNilReason) AS ?flightLevel)
-		     }
-          UNION
-          {
-            ?_flightLevel  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightLevel)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?altitude ?altitudeInterpretation ?flightLevel
-
-      '
-,row(Graph,Altitude,RouteConcat,AltitudeInterpretation,FlightLevel),[]), convert(RouteConcat,RouteList), convVal(AltitudeInterpretation,AltitudeInterpretationVal), convVal(FlightLevel,FlightLevelVal).
-
-% fixm_Organization(Graph, Organization, Name?, OtherOrganization?, Contact?)
-
-fixm_Organization(Graph, Organization, NameVal, OtherOrganizationVal, ContactVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?organization ?name ?otherOrganization ?contact
-WHERE
-  { GRAPH ?graph
-    {
-      ?organization rdf:type fixm:Organization .
-      OPTIONAL { ?organization fixm:name ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-            UNION
-          {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-            UNION
-          {
-           ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-		     }
-        }
-      }
-      OPTIONAL { ?organization fixm:otherOrganization ?_otherOrganization .
-        {
-          {
-            ?_otherOrganization rdf:value ?otherOrganizationValue .
-            FILTER ( NOT EXISTS {?_otherOrganization (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM})
-            BIND(concat(\'val:/:\',STR(?otherOrganizationValue),\':/:\',STR(DATATYPE(?otherOrganizationValue))) AS ?otherOrganization)
-          }
-            UNION
-          {
-            ?_otherOrganization
-              rdf:value ?otherOrganizationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?otherOrganizationUoM .
-            BIND(concat(\'xval:/:\',STR(?otherOrganizationValue),\':/:\',STR(DATATYPE(?otherOrganizationValue)),\':/:\',?otherOrganizationUoM) AS ?otherOrganization)
-          }
-            UNION
-          {
-           ?_otherOrganization  aixm:nilReason ?otherOrganizationNilReason .
-           BIND(concat(\'nil:/:\',?otherOrganizationNilReason) AS ?otherOrganization)
-          }
-          UNION
-          {
-		       ?_otherOrganization  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?otherOrganization)
-		     }
-        }
-      }
-      OPTIONAL {?organization fixm:contact ?contact .}
-    }
-  }
-
-      '
-,row(Graph,Organization,Name,OtherOrganization,Contact),[]), convVal(Name,NameVal), convVal(OtherOrganization,OtherOrganizationVal), convVal(Contact,ContactVal).
-
-% aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation?, GeoidUndulation?, VerticalDatum?, VerticalAccuracy?)
-
-aixm_ElevatedPoint(Graph, ElevatedPoint, ElevationVal, GeoidUndulationVal, VerticalDatumVal, VerticalAccuracyVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?elevatedPoint ?elevation ?geoidUndulation ?verticalDatum ?verticalAccuracy
-WHERE
-  { GRAPH ?graph
-    {
-      ?elevatedPoint rdf:type aixm:ElevatedPoint .
-      OPTIONAL { ?elevatedPoint aixm:elevation ?_elevation .
-        {
-          {
-            ?_elevation rdf:value ?elevationValue .
-            FILTER ( NOT EXISTS {?_elevation (aixm:uom | fixm:uom | plain:uom) ?elevationUoM})
-            BIND(concat(\'val:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue))) AS ?elevation)
-          }
-            UNION
-          {
-            ?_elevation
-              rdf:value ?elevationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?elevationUoM .
-            BIND(concat(\'xval:/:\',STR(?elevationValue),\':/:\',STR(DATATYPE(?elevationValue)),\':/:\',?elevationUoM) AS ?elevation)
-          }
-            UNION
-          {
-           ?_elevation  aixm:nilReason ?elevationNilReason .
-           BIND(concat(\'nil:/:\',?elevationNilReason) AS ?elevation)
-          }
-          UNION
-          {
-		       ?_elevation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?elevation)
-		     }
-        }
-      }
-      OPTIONAL { ?elevatedPoint aixm:geoidUndulation ?_geoidUndulation .
-        {
-          {
-            ?_geoidUndulation rdf:value ?geoidUndulationValue .
-            FILTER ( NOT EXISTS {?_geoidUndulation (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM})
-            BIND(concat(\'val:/:\',STR(?geoidUndulationValue),\':/:\',STR(DATATYPE(?geoidUndulationValue))) AS ?geoidUndulation)
-          }
-            UNION
-          {
-            ?_geoidUndulation
-              rdf:value ?geoidUndulationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?geoidUndulationUoM .
-            BIND(concat(\'xval:/:\',STR(?geoidUndulationValue),\':/:\',STR(DATATYPE(?geoidUndulationValue)),\':/:\',?geoidUndulationUoM) AS ?geoidUndulation)
-          }
-            UNION
-          {
-           ?_geoidUndulation  aixm:nilReason ?geoidUndulationNilReason .
-           BIND(concat(\'nil:/:\',?geoidUndulationNilReason) AS ?geoidUndulation)
-          }
-          UNION
-          {
-		       ?_geoidUndulation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?geoidUndulation)
-		     }
-        }
-      }
-      OPTIONAL { ?elevatedPoint aixm:verticalDatum ?_verticalDatum .
-        {
-          {
-            ?_verticalDatum rdf:value ?verticalDatumValue .
-            FILTER ( NOT EXISTS {?_verticalDatum (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM})
-            BIND(concat(\'val:/:\',STR(?verticalDatumValue),\':/:\',STR(DATATYPE(?verticalDatumValue))) AS ?verticalDatum)
-          }
-            UNION
-          {
-            ?_verticalDatum
-              rdf:value ?verticalDatumValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?verticalDatumUoM .
-            BIND(concat(\'xval:/:\',STR(?verticalDatumValue),\':/:\',STR(DATATYPE(?verticalDatumValue)),\':/:\',?verticalDatumUoM) AS ?verticalDatum)
-          }
-            UNION
-          {
-           ?_verticalDatum  aixm:nilReason ?verticalDatumNilReason .
-           BIND(concat(\'nil:/:\',?verticalDatumNilReason) AS ?verticalDatum)
-          }
-          UNION
-          {
-		       ?_verticalDatum  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalDatum)
-		     }
-        }
-      }
-      OPTIONAL { ?elevatedPoint aixm:verticalAccuracy ?_verticalAccuracy .
-        {
-          {
-            ?_verticalAccuracy rdf:value ?verticalAccuracyValue .
-            FILTER ( NOT EXISTS {?_verticalAccuracy (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM})
-            BIND(concat(\'val:/:\',STR(?verticalAccuracyValue),\':/:\',STR(DATATYPE(?verticalAccuracyValue))) AS ?verticalAccuracy)
-          }
-            UNION
-          {
-            ?_verticalAccuracy
-              rdf:value ?verticalAccuracyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?verticalAccuracyUoM .
-            BIND(concat(\'xval:/:\',STR(?verticalAccuracyValue),\':/:\',STR(DATATYPE(?verticalAccuracyValue)),\':/:\',?verticalAccuracyUoM) AS ?verticalAccuracy)
-          }
-            UNION
-          {
-           ?_verticalAccuracy  aixm:nilReason ?verticalAccuracyNilReason .
-           BIND(concat(\'nil:/:\',?verticalAccuracyNilReason) AS ?verticalAccuracy)
-          }
-          UNION
-          {
-		       ?_verticalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalAccuracy)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,ElevatedPoint,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal).
-
-% gml_Point(Graph, Point)
-
-gml_Point(Graph, Point) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?point
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* gml:Point .
-  }
-  { GRAPH ?graph
-    {
-      ?point rdf:type ?SUBCLASS .
-    }
-  }
-}
-
-      '
-,row(Graph,Point),[]).
-
-% plain_ConditionCombination(Graph, ConditionCombination, UsageCondition*)
-
-plain_ConditionCombination(Graph, ConditionCombination, UsageConditionList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?conditionCombination (GROUP_CONCAT(DISTINCT ?usageCondition;SEPARATOR=",") AS ?usageConditionConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?conditionCombination rdf:type <http://www.aisa-project.eu/vocabulary/plain#ConditionCombination> .
-      OPTIONAL {?conditionCombination <http://www.aisa-project.eu/vocabulary/plain#usageCondition> ?usageCondition .}
-    }
-  }
-GROUP BY ?graph ?conditionCombination
-
-      '
-,row(Graph,ConditionCombination,UsageConditionConcat),[]), convert(UsageConditionConcat,UsageConditionList).
-
-% plain_AircraftAction(Graph, AircraftAction, ExecutionOfRequests, FrequencyTransfer, FlightIdentification+, InitialCall)
-
-plain_AircraftAction(Graph, AircraftAction, ExecutionOfRequestsVal, FrequencyTransferVal, FlightIdentificationList, InitialCallVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?aircraftAction ?executionOfRequests ?frequencyTransfer (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?initialCall
-WHERE
-  { GRAPH ?graph
-    {
-      ?aircraftAction rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftAction> .
-      ?aircraftAction <http://www.aisa-project.eu/vocabulary/plain#executionOfRequests>  ?_executionOfRequests .
-        {
-          {
-            ?_executionOfRequests rdf:value ?executionOfRequestsValue .
-            FILTER ( NOT EXISTS {?_executionOfRequests (aixm:uom | fixm:uom | plain:uom) ?executionOfRequestsUoM})
-            BIND(concat(\'val:/:\',STR(?executionOfRequestsValue),\':/:\',STR(DATATYPE(?executionOfRequestsValue))) AS ?executionOfRequests)
-          }
-		     UNION
-		     {
-            ?_executionOfRequests
-              rdf:value ?executionOfRequestsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?executionOfRequestsUoM .
-              BIND(concat(\'xval:/:\',STR(?executionOfRequestsValue),\':/:\',STR(DATATYPE(?executionOfRequestsValue)),\':/:\',?executionOfRequestsUoM) AS ?executionOfRequests)
-          }
-          UNION
-          {
-		       ?_executionOfRequests  aixm:nilReason ?executionOfRequestsNilReason .
-		       BIND(concat(\'nil:/:\',?executionOfRequestsNilReason) AS ?executionOfRequests)
-		     }
-          UNION
-          {
-            ?_executionOfRequests  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?executionOfRequests)
-	         }
-      }
-      ?aircraftAction <http://www.aisa-project.eu/vocabulary/plain#frequencyTransfer>  ?_frequencyTransfer .
-        {
-          {
-            ?_frequencyTransfer rdf:value ?frequencyTransferValue .
-            FILTER ( NOT EXISTS {?_frequencyTransfer (aixm:uom | fixm:uom | plain:uom) ?frequencyTransferUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyTransferValue),\':/:\',STR(DATATYPE(?frequencyTransferValue))) AS ?frequencyTransfer)
-          }
-		     UNION
-		     {
-            ?_frequencyTransfer
-              rdf:value ?frequencyTransferValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyTransferUoM .
-              BIND(concat(\'xval:/:\',STR(?frequencyTransferValue),\':/:\',STR(DATATYPE(?frequencyTransferValue)),\':/:\',?frequencyTransferUoM) AS ?frequencyTransfer)
-          }
-          UNION
-          {
-		       ?_frequencyTransfer  aixm:nilReason ?frequencyTransferNilReason .
-		       BIND(concat(\'nil:/:\',?frequencyTransferNilReason) AS ?frequencyTransfer)
-		     }
-          UNION
-          {
-            ?_frequencyTransfer  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequencyTransfer)
-	         }
-      }
-      ?aircraftAction <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?aircraftAction <http://www.aisa-project.eu/vocabulary/plain#initialCall>  ?_initialCall .
-        {
-          {
-            ?_initialCall rdf:value ?initialCallValue .
-            FILTER ( NOT EXISTS {?_initialCall (aixm:uom | fixm:uom | plain:uom) ?initialCallUoM})
-            BIND(concat(\'val:/:\',STR(?initialCallValue),\':/:\',STR(DATATYPE(?initialCallValue))) AS ?initialCall)
-          }
-		     UNION
-		     {
-            ?_initialCall
-              rdf:value ?initialCallValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?initialCallUoM .
-              BIND(concat(\'xval:/:\',STR(?initialCallValue),\':/:\',STR(DATATYPE(?initialCallValue)),\':/:\',?initialCallUoM) AS ?initialCall)
-          }
-          UNION
-          {
-		       ?_initialCall  aixm:nilReason ?initialCallNilReason .
-		       BIND(concat(\'nil:/:\',?initialCallNilReason) AS ?initialCall)
-		     }
-          UNION
-          {
-            ?_initialCall  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialCall)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?aircraftAction ?executionOfRequests ?frequencyTransfer ?initialCall
-
-      '
-,row(Graph,AircraftAction,ExecutionOfRequests,FrequencyTransfer,FlightIdentificationConcat,InitialCall),[]), convVal(ExecutionOfRequests,ExecutionOfRequestsVal), convVal(FrequencyTransfer,FrequencyTransferVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(InitialCall,InitialCallVal).
-
-% plain_Trajectory(Graph, Trajectory, EfplTrajectoryRoutePair*)
-
-plain_Trajectory(Graph, Trajectory, EfplTrajectoryRoutePairList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?trajectory (GROUP_CONCAT(DISTINCT ?efplTrajectoryRoutePair;SEPARATOR=",") AS ?efplTrajectoryRoutePairConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?trajectory rdf:type <http://www.aisa-project.eu/vocabulary/plain#Trajectory> .
-      OPTIONAL {?trajectory <http://www.aisa-project.eu/vocabulary/plain#efplTrajectoryRoutePair> ?efplTrajectoryRoutePair .}
-    }
-  }
-GROUP BY ?graph ?trajectory
-
-      '
-,row(Graph,Trajectory,EfplTrajectoryRoutePairConcat),[]), convert(EfplTrajectoryRoutePairConcat,EfplTrajectoryRoutePairList).
-
-% fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfile*, DescentProfile*)
-
-fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfileList, DescentProfileList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?flightPerformanceData (GROUP_CONCAT(DISTINCT ?climbProfile;SEPARATOR=",") AS ?climbProfileConcat) (GROUP_CONCAT(DISTINCT ?descentProfile;SEPARATOR=",") AS ?descentProfileConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?flightPerformanceData rdf:type fixm:FlightPerformanceData .
-      OPTIONAL {?flightPerformanceData fixm:climbProfile ?climbProfile .}
-      OPTIONAL {?flightPerformanceData fixm:descentProfile ?descentProfile .}
-    }
-  }
-GROUP BY ?graph ?flightPerformanceData
-
-      '
-,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList).
-
-% fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePoint*)
-
-fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePointList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?expandedRoute (GROUP_CONCAT(DISTINCT ?routePoint;SEPARATOR=",") AS ?routePointConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?expandedRoute rdf:type fixm:ExpandedRoute .
-      OPTIONAL {?expandedRoute fixm:routePoint ?routePoint .}
-    }
-  }
-GROUP BY ?graph ?expandedRoute
-
-      '
-,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList).
-
-% plain_DirectRouting(Graph, DirectRouting, To, ClearedFlightInformation*, From)
-
-plain_DirectRouting(Graph, DirectRouting, ToVal, ClearedFlightInformationList, FromVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?directRouting ?to (GROUP_CONCAT(DISTINCT ?clearedFlightInformation;SEPARATOR=",") AS ?clearedFlightInformationConcat) ?from
-WHERE
-  { GRAPH ?graph
-    {
-      ?directRouting rdf:type <http://www.aisa-project.eu/vocabulary/plain#DirectRouting> .
-      ?directRouting <http://www.aisa-project.eu/vocabulary/plain#to>  ?_to .
-        {
-          {
-            ?_to rdf:value ?toValue .
-            FILTER ( NOT EXISTS {?_to (aixm:uom | fixm:uom | plain:uom) ?toUoM})
-            BIND(concat(\'val:/:\',STR(?toValue),\':/:\',STR(DATATYPE(?toValue))) AS ?to)
-          }
-		     UNION
-		     {
-            ?_to
-              rdf:value ?toValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?toUoM .
-              BIND(concat(\'xval:/:\',STR(?toValue),\':/:\',STR(DATATYPE(?toValue)),\':/:\',?toUoM) AS ?to)
-          }
-          UNION
-          {
-		       ?_to  aixm:nilReason ?toNilReason .
-		       BIND(concat(\'nil:/:\',?toNilReason) AS ?to)
-		     }
-          UNION
-          {
-            ?_to  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?to)
-	         }
-      }
-      OPTIONAL {?directRouting <http://www.aisa-project.eu/vocabulary/plain#clearedFlightInformation> ?clearedFlightInformation .}
-      ?directRouting <http://www.aisa-project.eu/vocabulary/plain#from>  ?_from .
-        {
-          {
-            ?_from rdf:value ?fromValue .
-            FILTER ( NOT EXISTS {?_from (aixm:uom | fixm:uom | plain:uom) ?fromUoM})
-            BIND(concat(\'val:/:\',STR(?fromValue),\':/:\',STR(DATATYPE(?fromValue))) AS ?from)
-          }
-		     UNION
-		     {
-            ?_from
-              rdf:value ?fromValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fromUoM .
-              BIND(concat(\'xval:/:\',STR(?fromValue),\':/:\',STR(DATATYPE(?fromValue)),\':/:\',?fromUoM) AS ?from)
-          }
-          UNION
-          {
-		       ?_from  aixm:nilReason ?fromNilReason .
-		       BIND(concat(\'nil:/:\',?fromNilReason) AS ?from)
-		     }
-          UNION
-          {
-            ?_from  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?from)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?directRouting ?to ?from
-
-      '
-,row(Graph,DirectRouting,To,ClearedFlightInformationConcat,From),[]), convVal(To,ToVal), convert(ClearedFlightInformationConcat,ClearedFlightInformationList), convVal(From,FromVal).
-
-% plain_CoordinationStatus(Graph, CoordinationStatus, CoordinationStatus, NonStandardCommunicationReason, ReleaseConditions, AbrogationReason)
-
-plain_CoordinationStatus(Graph, CoordinationStatus, CoordinationStatusVal, NonStandardCommunicationReasonVal, ReleaseConditionsVal, AbrogationReasonVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?coordinationStatus ?coordinationStatus ?nonStandardCommunicationReason ?releaseConditions ?abrogationReason
-WHERE
-  { GRAPH ?graph
-    {
-      ?coordinationStatus rdf:type <http://www.aisa-project.eu/vocabulary/plain#CoordinationStatus> .
-      ?coordinationStatus <http://www.aisa-project.eu/vocabulary/plain#coordinationStatus>  ?_coordinationStatus .
-        {
-          {
-            ?_coordinationStatus rdf:value ?coordinationStatusValue .
-            FILTER ( NOT EXISTS {?_coordinationStatus (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM})
-            BIND(concat(\'val:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue))) AS ?coordinationStatus)
-          }
-		     UNION
-		     {
-            ?_coordinationStatus
-              rdf:value ?coordinationStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM .
-              BIND(concat(\'xval:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue)),\':/:\',?coordinationStatusUoM) AS ?coordinationStatus)
-          }
-          UNION
-          {
-		       ?_coordinationStatus  aixm:nilReason ?coordinationStatusNilReason .
-		       BIND(concat(\'nil:/:\',?coordinationStatusNilReason) AS ?coordinationStatus)
-		     }
-          UNION
-          {
-            ?_coordinationStatus  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?coordinationStatus)
-	         }
-      }
-      ?coordinationStatus <http://www.aisa-project.eu/vocabulary/plain#nonStandardCommunicationReason>  ?_nonStandardCommunicationReason .
-        {
-          {
-            ?_nonStandardCommunicationReason rdf:value ?nonStandardCommunicationReasonValue .
-            FILTER ( NOT EXISTS {?_nonStandardCommunicationReason (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM})
-            BIND(concat(\'val:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue))) AS ?nonStandardCommunicationReason)
-          }
-		     UNION
-		     {
-            ?_nonStandardCommunicationReason
-              rdf:value ?nonStandardCommunicationReasonValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM .
-              BIND(concat(\'xval:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue)),\':/:\',?nonStandardCommunicationReasonUoM) AS ?nonStandardCommunicationReason)
-          }
-          UNION
-          {
-		       ?_nonStandardCommunicationReason  aixm:nilReason ?nonStandardCommunicationReasonNilReason .
-		       BIND(concat(\'nil:/:\',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
-		     }
-          UNION
-          {
-            ?_nonStandardCommunicationReason  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?nonStandardCommunicationReason)
-	         }
-      }
-      ?coordinationStatus <http://www.aisa-project.eu/vocabulary/plain#releaseConditions>  ?_releaseConditions .
-        {
-          {
-            ?_releaseConditions rdf:value ?releaseConditionsValue .
-            FILTER ( NOT EXISTS {?_releaseConditions (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM})
-            BIND(concat(\'val:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue))) AS ?releaseConditions)
-          }
-		     UNION
-		     {
-            ?_releaseConditions
-              rdf:value ?releaseConditionsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM .
-              BIND(concat(\'xval:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue)),\':/:\',?releaseConditionsUoM) AS ?releaseConditions)
-          }
-          UNION
-          {
-		       ?_releaseConditions  aixm:nilReason ?releaseConditionsNilReason .
-		       BIND(concat(\'nil:/:\',?releaseConditionsNilReason) AS ?releaseConditions)
-		     }
-          UNION
-          {
-            ?_releaseConditions  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?releaseConditions)
-	         }
-      }
-      ?coordinationStatus <http://www.aisa-project.eu/vocabulary/plain#abrogationReason>  ?_abrogationReason .
-        {
-          {
-            ?_abrogationReason rdf:value ?abrogationReasonValue .
-            FILTER ( NOT EXISTS {?_abrogationReason (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM})
-            BIND(concat(\'val:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue))) AS ?abrogationReason)
-          }
-		     UNION
-		     {
-            ?_abrogationReason
-              rdf:value ?abrogationReasonValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM .
-              BIND(concat(\'xval:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue)),\':/:\',?abrogationReasonUoM) AS ?abrogationReason)
-          }
-          UNION
-          {
-		       ?_abrogationReason  aixm:nilReason ?abrogationReasonNilReason .
-		       BIND(concat(\'nil:/:\',?abrogationReasonNilReason) AS ?abrogationReason)
-		     }
-          UNION
-          {
-            ?_abrogationReason  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?abrogationReason)
-	         }
-      }
-    }
-  }
-
-      '
-,row(Graph,CoordinationStatus,CoordinationStatus,NonStandardCommunicationReason,ReleaseConditions,AbrogationReason),[]), convVal(CoordinationStatus,CoordinationStatusVal), convVal(NonStandardCommunicationReason,NonStandardCommunicationReasonVal), convVal(ReleaseConditions,ReleaseConditionsVal), convVal(AbrogationReason,AbrogationReasonVal).
-
-% fixm_DeclarationText(Graph, DeclarationText, Compliance?, Consignor?, Shipper?)
-
-fixm_DeclarationText(Graph, DeclarationText, ComplianceVal, ConsignorVal, ShipperVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?declarationText ?compliance ?consignor ?shipper
-WHERE
-  { GRAPH ?graph
-    {
-      ?declarationText rdf:type fixm:DeclarationText .
-      OPTIONAL { ?declarationText fixm:compliance ?_compliance .
-        {
-          {
-            ?_compliance rdf:value ?complianceValue .
-            FILTER ( NOT EXISTS {?_compliance (aixm:uom | fixm:uom | plain:uom) ?complianceUoM})
-            BIND(concat(\'val:/:\',STR(?complianceValue),\':/:\',STR(DATATYPE(?complianceValue))) AS ?compliance)
-          }
-            UNION
-          {
-            ?_compliance
-              rdf:value ?complianceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?complianceUoM .
-            BIND(concat(\'xval:/:\',STR(?complianceValue),\':/:\',STR(DATATYPE(?complianceValue)),\':/:\',?complianceUoM) AS ?compliance)
-          }
-            UNION
-          {
-           ?_compliance  aixm:nilReason ?complianceNilReason .
-           BIND(concat(\'nil:/:\',?complianceNilReason) AS ?compliance)
-          }
-          UNION
-          {
-		       ?_compliance  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?compliance)
-		     }
-        }
-      }
-      OPTIONAL { ?declarationText fixm:consignor ?_consignor .
-        {
-          {
-            ?_consignor rdf:value ?consignorValue .
-            FILTER ( NOT EXISTS {?_consignor (aixm:uom | fixm:uom | plain:uom) ?consignorUoM})
-            BIND(concat(\'val:/:\',STR(?consignorValue),\':/:\',STR(DATATYPE(?consignorValue))) AS ?consignor)
-          }
-            UNION
-          {
-            ?_consignor
-              rdf:value ?consignorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?consignorUoM .
-            BIND(concat(\'xval:/:\',STR(?consignorValue),\':/:\',STR(DATATYPE(?consignorValue)),\':/:\',?consignorUoM) AS ?consignor)
-          }
-            UNION
-          {
-           ?_consignor  aixm:nilReason ?consignorNilReason .
-           BIND(concat(\'nil:/:\',?consignorNilReason) AS ?consignor)
-          }
-          UNION
-          {
-		       ?_consignor  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?consignor)
-		     }
-        }
-      }
-      OPTIONAL { ?declarationText fixm:shipper ?_shipper .
-        {
-          {
-            ?_shipper rdf:value ?shipperValue .
-            FILTER ( NOT EXISTS {?_shipper (aixm:uom | fixm:uom | plain:uom) ?shipperUoM})
-            BIND(concat(\'val:/:\',STR(?shipperValue),\':/:\',STR(DATATYPE(?shipperValue))) AS ?shipper)
-          }
-            UNION
-          {
-            ?_shipper
-              rdf:value ?shipperValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?shipperUoM .
-            BIND(concat(\'xval:/:\',STR(?shipperValue),\':/:\',STR(DATATYPE(?shipperValue)),\':/:\',?shipperUoM) AS ?shipper)
-          }
-            UNION
-          {
-           ?_shipper  aixm:nilReason ?shipperNilReason .
-           BIND(concat(\'nil:/:\',?shipperNilReason) AS ?shipper)
-          }
-          UNION
-          {
-		       ?_shipper  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipper)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,DeclarationText,Compliance,Consignor,Shipper),[]), convVal(Compliance,ComplianceVal), convVal(Consignor,ConsignorVal), convVal(Shipper,ShipperVal).
-
-% aixm_Meteorology(Graph, Meteorology, FlightConditions?, Visibility?, VisibilityInterpretation?, RunwayVisualRange?, RunwayVisualRangeInterpretation?, Annotation*)
-
-aixm_Meteorology(Graph, Meteorology, FlightConditionsVal, VisibilityVal, VisibilityInterpretationVal, RunwayVisualRangeVal, RunwayVisualRangeInterpretationVal, AnnotationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?meteorology rdf:type aixm:Meteorology .
-      OPTIONAL { ?meteorology aixm:flightConditions ?_flightConditions .
-        {
-          {
-            ?_flightConditions rdf:value ?flightConditionsValue .
-            FILTER ( NOT EXISTS {?_flightConditions (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM})
-            BIND(concat(\'val:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue))) AS ?flightConditions)
-          }
-            UNION
-          {
-            ?_flightConditions
-              rdf:value ?flightConditionsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightConditionsUoM .
-            BIND(concat(\'xval:/:\',STR(?flightConditionsValue),\':/:\',STR(DATATYPE(?flightConditionsValue)),\':/:\',?flightConditionsUoM) AS ?flightConditions)
-          }
-            UNION
-          {
-           ?_flightConditions  aixm:nilReason ?flightConditionsNilReason .
-           BIND(concat(\'nil:/:\',?flightConditionsNilReason) AS ?flightConditions)
-          }
-          UNION
-          {
-		       ?_flightConditions  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightConditions)
-		     }
-        }
-      }
-      OPTIONAL { ?meteorology aixm:visibility ?_visibility .
-        {
-          {
-            ?_visibility rdf:value ?visibilityValue .
-            FILTER ( NOT EXISTS {?_visibility (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM})
-            BIND(concat(\'val:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue))) AS ?visibility)
-          }
-            UNION
-          {
-            ?_visibility
-              rdf:value ?visibilityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?visibilityUoM .
-            BIND(concat(\'xval:/:\',STR(?visibilityValue),\':/:\',STR(DATATYPE(?visibilityValue)),\':/:\',?visibilityUoM) AS ?visibility)
-          }
-            UNION
-          {
-           ?_visibility  aixm:nilReason ?visibilityNilReason .
-           BIND(concat(\'nil:/:\',?visibilityNilReason) AS ?visibility)
-          }
-          UNION
-          {
-		       ?_visibility  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibility)
-		     }
-        }
-      }
-      OPTIONAL { ?meteorology aixm:visibilityInterpretation ?_visibilityInterpretation .
-        {
-          {
-            ?_visibilityInterpretation rdf:value ?visibilityInterpretationValue .
-            FILTER ( NOT EXISTS {?_visibilityInterpretation (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM})
-            BIND(concat(\'val:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue))) AS ?visibilityInterpretation)
-          }
-            UNION
-          {
-            ?_visibilityInterpretation
-              rdf:value ?visibilityInterpretationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?visibilityInterpretationUoM .
-            BIND(concat(\'xval:/:\',STR(?visibilityInterpretationValue),\':/:\',STR(DATATYPE(?visibilityInterpretationValue)),\':/:\',?visibilityInterpretationUoM) AS ?visibilityInterpretation)
-          }
-            UNION
-          {
-           ?_visibilityInterpretation  aixm:nilReason ?visibilityInterpretationNilReason .
-           BIND(concat(\'nil:/:\',?visibilityInterpretationNilReason) AS ?visibilityInterpretation)
-          }
-          UNION
-          {
-		       ?_visibilityInterpretation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?visibilityInterpretation)
-		     }
-        }
-      }
-      OPTIONAL { ?meteorology aixm:runwayVisualRange ?_runwayVisualRange .
-        {
-          {
-            ?_runwayVisualRange rdf:value ?runwayVisualRangeValue .
-            FILTER ( NOT EXISTS {?_runwayVisualRange (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM})
-            BIND(concat(\'val:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue))) AS ?runwayVisualRange)
-          }
-            UNION
-          {
-            ?_runwayVisualRange
-              rdf:value ?runwayVisualRangeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeUoM .
-            BIND(concat(\'xval:/:\',STR(?runwayVisualRangeValue),\':/:\',STR(DATATYPE(?runwayVisualRangeValue)),\':/:\',?runwayVisualRangeUoM) AS ?runwayVisualRange)
-          }
-            UNION
-          {
-           ?_runwayVisualRange  aixm:nilReason ?runwayVisualRangeNilReason .
-           BIND(concat(\'nil:/:\',?runwayVisualRangeNilReason) AS ?runwayVisualRange)
-          }
-          UNION
-          {
-		       ?_runwayVisualRange  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRange)
-		     }
-        }
-      }
-      OPTIONAL { ?meteorology aixm:runwayVisualRangeInterpretation ?_runwayVisualRangeInterpretation .
-        {
-          {
-            ?_runwayVisualRangeInterpretation rdf:value ?runwayVisualRangeInterpretationValue .
-            FILTER ( NOT EXISTS {?_runwayVisualRangeInterpretation (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM})
-            BIND(concat(\'val:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue))) AS ?runwayVisualRangeInterpretation)
-          }
-            UNION
-          {
-            ?_runwayVisualRangeInterpretation
-              rdf:value ?runwayVisualRangeInterpretationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?runwayVisualRangeInterpretationUoM .
-            BIND(concat(\'xval:/:\',STR(?runwayVisualRangeInterpretationValue),\':/:\',STR(DATATYPE(?runwayVisualRangeInterpretationValue)),\':/:\',?runwayVisualRangeInterpretationUoM) AS ?runwayVisualRangeInterpretation)
-          }
-            UNION
-          {
-           ?_runwayVisualRangeInterpretation  aixm:nilReason ?runwayVisualRangeInterpretationNilReason .
-           BIND(concat(\'nil:/:\',?runwayVisualRangeInterpretationNilReason) AS ?runwayVisualRangeInterpretation)
-          }
-          UNION
-          {
-		       ?_runwayVisualRangeInterpretation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayVisualRangeInterpretation)
-		     }
-        }
-      }
-      OPTIONAL {?meteorology aixm:annotation ?annotation .}
-    }
-  }
-GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
-
-      '
-,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convVal(FlightConditions,FlightConditionsVal), convVal(Visibility,VisibilityVal), convVal(VisibilityInterpretation,VisibilityInterpretationVal), convVal(RunwayVisualRange,RunwayVisualRangeVal), convVal(RunwayVisualRangeInterpretation,RunwayVisualRangeInterpretationVal), convert(AnnotationConcat,AnnotationList).
-
-% aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role?, TheOrganisationAuthority)
-
-aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, RoleVal, TheOrganisationAuthorityVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliportResponsibilityOrganisation ?role ?theOrganisationAuthority
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliportResponsibilityOrganisation rdf:type aixm:AirportHeliportResponsibilityOrganisation .
-      OPTIONAL { ?airportHeliportResponsibilityOrganisation aixm:role ?_role .
-        {
-          {
-            ?_role rdf:value ?roleValue .
-            FILTER ( NOT EXISTS {?_role (aixm:uom | fixm:uom | plain:uom) ?roleUoM})
-            BIND(concat(\'val:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue))) AS ?role)
-          }
-            UNION
-          {
-            ?_role
-              rdf:value ?roleValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?roleUoM .
-            BIND(concat(\'xval:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue)),\':/:\',?roleUoM) AS ?role)
-          }
-            UNION
-          {
-           ?_role  aixm:nilReason ?roleNilReason .
-           BIND(concat(\'nil:/:\',?roleNilReason) AS ?role)
-          }
-          UNION
-          {
-		       ?_role  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?role)
-		     }
-        }
-      }
-      ?airportHeliportResponsibilityOrganisation aixm:theOrganisationAuthority ?theOrganisationAuthority .
-    }
-  }
-
-      '
-,row(Graph,AirportHeliportResponsibilityOrganisation,Role,TheOrganisationAuthority),[]), convVal(Role,RoleVal), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal).
-
-% plain_Organization(Graph, Organization, AircraftOperator*, Name)
-
-plain_Organization(Graph, Organization, AircraftOperatorList, NameVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?organization (GROUP_CONCAT(DISTINCT ?aircraftOperator;SEPARATOR=",") AS ?aircraftOperatorConcat) ?name
-WHERE
-  { GRAPH ?graph
-    {
-      ?organization rdf:type <http://www.aisa-project.eu/vocabulary/plain#Organization> .
-      OPTIONAL {?organization <http://www.aisa-project.eu/vocabulary/plain#aircraftOperator> ?aircraftOperator .}
-      ?organization <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?organization ?name
-
-      '
-,row(Graph,Organization,AircraftOperatorConcat,Name),[]), convert(AircraftOperatorConcat,AircraftOperatorList), convVal(Name,NameVal).
-
-% fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, Position?, PositionAltitude?, PositionEstimatedTime?)
-
-fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, PositionVal, PositionAltitudeVal, PositionEstimatedTimeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?plannedReportingPosition ?position ?positionAltitude ?positionEstimatedTime
-WHERE
-  { GRAPH ?graph
-    {
-      ?plannedReportingPosition rdf:type fixm:PlannedReportingPosition .
-      OPTIONAL {?plannedReportingPosition fixm:position ?position .}
-      OPTIONAL { ?plannedReportingPosition fixm:positionAltitude ?_positionAltitude .
-        {
-          {
-            ?_positionAltitude rdf:value ?positionAltitudeValue .
-            FILTER ( NOT EXISTS {?_positionAltitude (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?positionAltitudeValue),\':/:\',STR(DATATYPE(?positionAltitudeValue))) AS ?positionAltitude)
-          }
-            UNION
-          {
-            ?_positionAltitude
-              rdf:value ?positionAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?positionAltitudeUoM .
-            BIND(concat(\'xval:/:\',STR(?positionAltitudeValue),\':/:\',STR(DATATYPE(?positionAltitudeValue)),\':/:\',?positionAltitudeUoM) AS ?positionAltitude)
-          }
-            UNION
-          {
-           ?_positionAltitude  aixm:nilReason ?positionAltitudeNilReason .
-           BIND(concat(\'nil:/:\',?positionAltitudeNilReason) AS ?positionAltitude)
-          }
-          UNION
-          {
-		       ?_positionAltitude  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?positionAltitude)
-		     }
-        }
-      }
-      OPTIONAL { ?plannedReportingPosition fixm:positionEstimatedTime ?_positionEstimatedTime .
-        {
-          {
-            ?_positionEstimatedTime rdf:value ?positionEstimatedTimeValue .
-            FILTER ( NOT EXISTS {?_positionEstimatedTime (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM})
-            BIND(concat(\'val:/:\',STR(?positionEstimatedTimeValue),\':/:\',STR(DATATYPE(?positionEstimatedTimeValue))) AS ?positionEstimatedTime)
-          }
-            UNION
-          {
-            ?_positionEstimatedTime
-              rdf:value ?positionEstimatedTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?positionEstimatedTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?positionEstimatedTimeValue),\':/:\',STR(DATATYPE(?positionEstimatedTimeValue)),\':/:\',?positionEstimatedTimeUoM) AS ?positionEstimatedTime)
-          }
-            UNION
-          {
-           ?_positionEstimatedTime  aixm:nilReason ?positionEstimatedTimeNilReason .
-           BIND(concat(\'nil:/:\',?positionEstimatedTimeNilReason) AS ?positionEstimatedTime)
-          }
-          UNION
-          {
-		       ?_positionEstimatedTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?positionEstimatedTime)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,PlannedReportingPosition,Position,PositionAltitude,PositionEstimatedTime),[]), convVal(Position,PositionVal), convVal(PositionAltitude,PositionAltitudeVal), convVal(PositionEstimatedTime,PositionEstimatedTimeVal).
-
-% fixm_SignificantPoint(Graph, SignificantPoint)
-
-fixm_SignificantPoint(Graph, SignificantPoint) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?significantPoint
-WHERE
-  { GRAPH ?graph
-    {
-      ?significantPoint rdf:type fixm:SignificantPoint .
-    }
-  }
-
-      '
-,row(Graph,SignificantPoint),[]).
-
-% fixm_SupplementalData(Graph, SupplementalData, FuelEndurance?, PersonsOnBoard?, PilotInCommand?)
-
-fixm_SupplementalData(Graph, SupplementalData, FuelEnduranceVal, PersonsOnBoardVal, PilotInCommandVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?supplementalData ?fuelEndurance ?personsOnBoard ?pilotInCommand
-WHERE
-  { GRAPH ?graph
-    {
-      ?supplementalData rdf:type fixm:SupplementalData .
-      OPTIONAL { ?supplementalData fixm:fuelEndurance ?_fuelEndurance .
-        {
-          {
-            ?_fuelEndurance rdf:value ?fuelEnduranceValue .
-            FILTER ( NOT EXISTS {?_fuelEndurance (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM})
-            BIND(concat(\'val:/:\',STR(?fuelEnduranceValue),\':/:\',STR(DATATYPE(?fuelEnduranceValue))) AS ?fuelEndurance)
-          }
-            UNION
-          {
-            ?_fuelEndurance
-              rdf:value ?fuelEnduranceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fuelEnduranceUoM .
-            BIND(concat(\'xval:/:\',STR(?fuelEnduranceValue),\':/:\',STR(DATATYPE(?fuelEnduranceValue)),\':/:\',?fuelEnduranceUoM) AS ?fuelEndurance)
-          }
-            UNION
-          {
-           ?_fuelEndurance  aixm:nilReason ?fuelEnduranceNilReason .
-           BIND(concat(\'nil:/:\',?fuelEnduranceNilReason) AS ?fuelEndurance)
-          }
-          UNION
-          {
-		       ?_fuelEndurance  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fuelEndurance)
-		     }
-        }
-      }
-      OPTIONAL { ?supplementalData fixm:personsOnBoard ?_personsOnBoard .
-        {
-          {
-            ?_personsOnBoard rdf:value ?personsOnBoardValue .
-            FILTER ( NOT EXISTS {?_personsOnBoard (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM})
-            BIND(concat(\'val:/:\',STR(?personsOnBoardValue),\':/:\',STR(DATATYPE(?personsOnBoardValue))) AS ?personsOnBoard)
-          }
-            UNION
-          {
-            ?_personsOnBoard
-              rdf:value ?personsOnBoardValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?personsOnBoardUoM .
-            BIND(concat(\'xval:/:\',STR(?personsOnBoardValue),\':/:\',STR(DATATYPE(?personsOnBoardValue)),\':/:\',?personsOnBoardUoM) AS ?personsOnBoard)
-          }
-            UNION
-          {
-           ?_personsOnBoard  aixm:nilReason ?personsOnBoardNilReason .
-           BIND(concat(\'nil:/:\',?personsOnBoardNilReason) AS ?personsOnBoard)
-          }
-          UNION
-          {
-		       ?_personsOnBoard  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?personsOnBoard)
-		     }
-        }
-      }
-      OPTIONAL {?supplementalData fixm:pilotInCommand ?pilotInCommand .}
-    }
-  }
-
-      '
-,row(Graph,SupplementalData,FuelEndurance,PersonsOnBoard,PilotInCommand),[]), convVal(FuelEndurance,FuelEnduranceVal), convVal(PersonsOnBoard,PersonsOnBoardVal), convVal(PilotInCommand,PilotInCommandVal).
-
-% plain_Datalink(Graph, Datalink, AssumedBySkyguide, FrequencyChange, FlightIdentification+, InitialCall, EquipmentDegradation)
-
-plain_Datalink(Graph, Datalink, AssumedBySkyguideVal, FrequencyChangeVal, FlightIdentificationList, InitialCallVal, EquipmentDegradationVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?datalink ?assumedBySkyguide ?frequencyChange (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?initialCall ?equipmentDegradation
-WHERE
-  { GRAPH ?graph
-    {
-      ?datalink rdf:type <http://www.aisa-project.eu/vocabulary/plain#Datalink> .
-      ?datalink <http://www.aisa-project.eu/vocabulary/plain#assumedBySkyguide>  ?_assumedBySkyguide .
-        {
-          {
-            ?_assumedBySkyguide rdf:value ?assumedBySkyguideValue .
-            FILTER ( NOT EXISTS {?_assumedBySkyguide (aixm:uom | fixm:uom | plain:uom) ?assumedBySkyguideUoM})
-            BIND(concat(\'val:/:\',STR(?assumedBySkyguideValue),\':/:\',STR(DATATYPE(?assumedBySkyguideValue))) AS ?assumedBySkyguide)
-          }
-		     UNION
-		     {
-            ?_assumedBySkyguide
-              rdf:value ?assumedBySkyguideValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?assumedBySkyguideUoM .
-              BIND(concat(\'xval:/:\',STR(?assumedBySkyguideValue),\':/:\',STR(DATATYPE(?assumedBySkyguideValue)),\':/:\',?assumedBySkyguideUoM) AS ?assumedBySkyguide)
-          }
-          UNION
-          {
-		       ?_assumedBySkyguide  aixm:nilReason ?assumedBySkyguideNilReason .
-		       BIND(concat(\'nil:/:\',?assumedBySkyguideNilReason) AS ?assumedBySkyguide)
-		     }
-          UNION
-          {
-            ?_assumedBySkyguide  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?assumedBySkyguide)
-	         }
-      }
-      ?datalink <http://www.aisa-project.eu/vocabulary/plain#frequencyChange>  ?_frequencyChange .
-        {
-          {
-            ?_frequencyChange rdf:value ?frequencyChangeValue .
-            FILTER ( NOT EXISTS {?_frequencyChange (aixm:uom | fixm:uom | plain:uom) ?frequencyChangeUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyChangeValue),\':/:\',STR(DATATYPE(?frequencyChangeValue))) AS ?frequencyChange)
-          }
-		     UNION
-		     {
-            ?_frequencyChange
-              rdf:value ?frequencyChangeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyChangeUoM .
-              BIND(concat(\'xval:/:\',STR(?frequencyChangeValue),\':/:\',STR(DATATYPE(?frequencyChangeValue)),\':/:\',?frequencyChangeUoM) AS ?frequencyChange)
-          }
-          UNION
-          {
-		       ?_frequencyChange  aixm:nilReason ?frequencyChangeNilReason .
-		       BIND(concat(\'nil:/:\',?frequencyChangeNilReason) AS ?frequencyChange)
-		     }
-          UNION
-          {
-            ?_frequencyChange  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequencyChange)
-	         }
-      }
-      ?datalink <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?datalink <http://www.aisa-project.eu/vocabulary/plain#initialCall>  ?_initialCall .
-        {
-          {
-            ?_initialCall rdf:value ?initialCallValue .
-            FILTER ( NOT EXISTS {?_initialCall (aixm:uom | fixm:uom | plain:uom) ?initialCallUoM})
-            BIND(concat(\'val:/:\',STR(?initialCallValue),\':/:\',STR(DATATYPE(?initialCallValue))) AS ?initialCall)
-          }
-		     UNION
-		     {
-            ?_initialCall
-              rdf:value ?initialCallValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?initialCallUoM .
-              BIND(concat(\'xval:/:\',STR(?initialCallValue),\':/:\',STR(DATATYPE(?initialCallValue)),\':/:\',?initialCallUoM) AS ?initialCall)
-          }
-          UNION
-          {
-		       ?_initialCall  aixm:nilReason ?initialCallNilReason .
-		       BIND(concat(\'nil:/:\',?initialCallNilReason) AS ?initialCall)
-		     }
-          UNION
-          {
-            ?_initialCall  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialCall)
-	         }
-      }
-      ?datalink <http://www.aisa-project.eu/vocabulary/plain#equipmentDegradation>  ?_equipmentDegradation .
-        {
-          {
-            ?_equipmentDegradation rdf:value ?equipmentDegradationValue .
-            FILTER ( NOT EXISTS {?_equipmentDegradation (aixm:uom | fixm:uom | plain:uom) ?equipmentDegradationUoM})
-            BIND(concat(\'val:/:\',STR(?equipmentDegradationValue),\':/:\',STR(DATATYPE(?equipmentDegradationValue))) AS ?equipmentDegradation)
-          }
-		     UNION
-		     {
-            ?_equipmentDegradation
-              rdf:value ?equipmentDegradationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?equipmentDegradationUoM .
-              BIND(concat(\'xval:/:\',STR(?equipmentDegradationValue),\':/:\',STR(DATATYPE(?equipmentDegradationValue)),\':/:\',?equipmentDegradationUoM) AS ?equipmentDegradation)
-          }
-          UNION
-          {
-		       ?_equipmentDegradation  aixm:nilReason ?equipmentDegradationNilReason .
-		       BIND(concat(\'nil:/:\',?equipmentDegradationNilReason) AS ?equipmentDegradation)
-		     }
-          UNION
-          {
-            ?_equipmentDegradation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?equipmentDegradation)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?datalink ?assumedBySkyguide ?frequencyChange ?initialCall ?equipmentDegradation
-
-      '
-,row(Graph,Datalink,AssumedBySkyguide,FrequencyChange,FlightIdentificationConcat,InitialCall,EquipmentDegradation),[]), convVal(AssumedBySkyguide,AssumedBySkyguideVal), convVal(FrequencyChange,FrequencyChangeVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(InitialCall,InitialCallVal), convVal(EquipmentDegradation,EquipmentDegradationVal).
-
-% plain_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, AirportHeliport*)
-
-plain_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, RoleVal, AirportHeliportList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airportHeliportResponsibilityOrganisation ?role (GROUP_CONCAT(DISTINCT ?airportHeliport;SEPARATOR=",") AS ?airportHeliportConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airportHeliportResponsibilityOrganisation rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirportHeliportResponsibilityOrganisation> .
-      ?airportHeliportResponsibilityOrganisation <http://www.aisa-project.eu/vocabulary/plain#role>  ?_role .
-        {
-          {
-            ?_role rdf:value ?roleValue .
-            FILTER ( NOT EXISTS {?_role (aixm:uom | fixm:uom | plain:uom) ?roleUoM})
-            BIND(concat(\'val:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue))) AS ?role)
-          }
-		     UNION
-		     {
-            ?_role
-              rdf:value ?roleValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?roleUoM .
-              BIND(concat(\'xval:/:\',STR(?roleValue),\':/:\',STR(DATATYPE(?roleValue)),\':/:\',?roleUoM) AS ?role)
-          }
-          UNION
-          {
-		       ?_role  aixm:nilReason ?roleNilReason .
-		       BIND(concat(\'nil:/:\',?roleNilReason) AS ?role)
-		     }
-          UNION
-          {
-            ?_role  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?role)
-	         }
-      }
-      OPTIONAL {?airportHeliportResponsibilityOrganisation <http://www.aisa-project.eu/vocabulary/plain#airportHeliport> ?airportHeliport .}
-    }
-  }
-GROUP BY ?graph ?airportHeliportResponsibilityOrganisation ?role
-
-      '
-,row(Graph,AirportHeliportResponsibilityOrganisation,Role,AirportHeliportConcat),[]), convVal(Role,RoleVal), convert(AirportHeliportConcat,AirportHeliportList).
-
-% fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensions?, DangerousGoodsPackage*, ShipmentUseIndicator?)
-
-fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensionsVal, DangerousGoodsPackageList, ShipmentUseIndicatorVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions (GROUP_CONCAT(DISTINCT ?dangerousGoodsPackage;SEPARATOR=",") AS ?dangerousGoodsPackageConcat) ?shipmentUseIndicator
-WHERE
-  { GRAPH ?graph
-    {
-      ?dangerousGoodsPackageGroup rdf:type fixm:DangerousGoodsPackageGroup .
-      OPTIONAL {?dangerousGoodsPackageGroup fixm:shipmentDimensions ?shipmentDimensions .}
-      OPTIONAL {?dangerousGoodsPackageGroup fixm:dangerousGoodsPackage ?dangerousGoodsPackage .}
-      OPTIONAL { ?dangerousGoodsPackageGroup fixm:shipmentUseIndicator ?_shipmentUseIndicator .
-        {
-          {
-            ?_shipmentUseIndicator rdf:value ?shipmentUseIndicatorValue .
-            FILTER ( NOT EXISTS {?_shipmentUseIndicator (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM})
-            BIND(concat(\'val:/:\',STR(?shipmentUseIndicatorValue),\':/:\',STR(DATATYPE(?shipmentUseIndicatorValue))) AS ?shipmentUseIndicator)
-          }
-            UNION
-          {
-            ?_shipmentUseIndicator
-              rdf:value ?shipmentUseIndicatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?shipmentUseIndicatorUoM .
-            BIND(concat(\'xval:/:\',STR(?shipmentUseIndicatorValue),\':/:\',STR(DATATYPE(?shipmentUseIndicatorValue)),\':/:\',?shipmentUseIndicatorUoM) AS ?shipmentUseIndicator)
-          }
-            UNION
-          {
-           ?_shipmentUseIndicator  aixm:nilReason ?shipmentUseIndicatorNilReason .
-           BIND(concat(\'nil:/:\',?shipmentUseIndicatorNilReason) AS ?shipmentUseIndicator)
-          }
-          UNION
-          {
-		       ?_shipmentUseIndicator  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipmentUseIndicator)
-		     }
-        }
-      }
-    }
-  }
-GROUP BY ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?shipmentUseIndicator
-
-      '
-,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convVal(ShipmentDimensions,ShipmentDimensionsVal), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList), convVal(ShipmentUseIndicator,ShipmentUseIndicatorVal).
-
-% plain_Time(Graph, Time, SequenceNumber, FlightIdentification+, TimeOfPrediction)
-
-plain_Time(Graph, Time, SequenceNumberVal, FlightIdentificationList, TimeOfPredictionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?time ?sequenceNumber (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?timeOfPrediction
-WHERE
-  { GRAPH ?graph
-    {
-      ?time rdf:type <http://www.aisa-project.eu/vocabulary/plain#Time> .
-      ?time <http://www.aisa-project.eu/vocabulary/plain#sequenceNumber>  ?_sequenceNumber .
-        {
-          {
-            ?_sequenceNumber rdf:value ?sequenceNumberValue .
-            FILTER ( NOT EXISTS {?_sequenceNumber (aixm:uom | fixm:uom | plain:uom) ?sequenceNumberUoM})
-            BIND(concat(\'val:/:\',STR(?sequenceNumberValue),\':/:\',STR(DATATYPE(?sequenceNumberValue))) AS ?sequenceNumber)
-          }
-		     UNION
-		     {
-            ?_sequenceNumber
-              rdf:value ?sequenceNumberValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?sequenceNumberUoM .
-              BIND(concat(\'xval:/:\',STR(?sequenceNumberValue),\':/:\',STR(DATATYPE(?sequenceNumberValue)),\':/:\',?sequenceNumberUoM) AS ?sequenceNumber)
-          }
-          UNION
-          {
-		       ?_sequenceNumber  aixm:nilReason ?sequenceNumberNilReason .
-		       BIND(concat(\'nil:/:\',?sequenceNumberNilReason) AS ?sequenceNumber)
-		     }
-          UNION
-          {
-            ?_sequenceNumber  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?sequenceNumber)
-	         }
-      }
-      ?time <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?time <http://www.aisa-project.eu/vocabulary/plain#timeOfPrediction>  ?_timeOfPrediction .
-        {
-          {
-            ?_timeOfPrediction rdf:value ?timeOfPredictionValue .
-            FILTER ( NOT EXISTS {?_timeOfPrediction (aixm:uom | fixm:uom | plain:uom) ?timeOfPredictionUoM})
-            BIND(concat(\'val:/:\',STR(?timeOfPredictionValue),\':/:\',STR(DATATYPE(?timeOfPredictionValue))) AS ?timeOfPrediction)
-          }
-		     UNION
-		     {
-            ?_timeOfPrediction
-              rdf:value ?timeOfPredictionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeOfPredictionUoM .
-              BIND(concat(\'xval:/:\',STR(?timeOfPredictionValue),\':/:\',STR(DATATYPE(?timeOfPredictionValue)),\':/:\',?timeOfPredictionUoM) AS ?timeOfPrediction)
-          }
-          UNION
-          {
-		       ?_timeOfPrediction  aixm:nilReason ?timeOfPredictionNilReason .
-		       BIND(concat(\'nil:/:\',?timeOfPredictionNilReason) AS ?timeOfPrediction)
-		     }
-          UNION
-          {
-            ?_timeOfPrediction  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeOfPrediction)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?time ?sequenceNumber ?timeOfPrediction
-
-      '
-,row(Graph,Time,SequenceNumber,FlightIdentificationConcat,TimeOfPrediction),[]), convVal(SequenceNumber,SequenceNumberVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(TimeOfPrediction,TimeOfPredictionVal).
-
-% fixm_OfftrackDistance(Graph, OfftrackDistance, Distance?, Direction?)
-
-fixm_OfftrackDistance(Graph, OfftrackDistance, DistanceVal, DirectionVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?offtrackDistance ?distance ?direction
-WHERE
-  { GRAPH ?graph
-    {
-      ?offtrackDistance rdf:type fixm:OfftrackDistance .
-      OPTIONAL { ?offtrackDistance fixm:distance ?_distance .
-        {
-          {
-            ?_distance rdf:value ?distanceValue .
-            FILTER ( NOT EXISTS {?_distance (aixm:uom | fixm:uom | plain:uom) ?distanceUoM})
-            BIND(concat(\'val:/:\',STR(?distanceValue),\':/:\',STR(DATATYPE(?distanceValue))) AS ?distance)
-          }
-            UNION
-          {
-            ?_distance
-              rdf:value ?distanceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?distanceUoM .
-            BIND(concat(\'xval:/:\',STR(?distanceValue),\':/:\',STR(DATATYPE(?distanceValue)),\':/:\',?distanceUoM) AS ?distance)
-          }
-            UNION
-          {
-           ?_distance  aixm:nilReason ?distanceNilReason .
-           BIND(concat(\'nil:/:\',?distanceNilReason) AS ?distance)
-          }
-          UNION
-          {
-		       ?_distance  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?distance)
-		     }
-        }
-      }
-      OPTIONAL { ?offtrackDistance fixm:direction ?_direction .
-        {
-          {
-            ?_direction rdf:value ?directionValue .
-            FILTER ( NOT EXISTS {?_direction (aixm:uom | fixm:uom | plain:uom) ?directionUoM})
-            BIND(concat(\'val:/:\',STR(?directionValue),\':/:\',STR(DATATYPE(?directionValue))) AS ?direction)
-          }
-            UNION
-          {
-            ?_direction
-              rdf:value ?directionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?directionUoM .
-            BIND(concat(\'xval:/:\',STR(?directionValue),\':/:\',STR(DATATYPE(?directionValue)),\':/:\',?directionUoM) AS ?direction)
-          }
-            UNION
-          {
-           ?_direction  aixm:nilReason ?directionNilReason .
-           BIND(concat(\'nil:/:\',?directionNilReason) AS ?direction)
-          }
-          UNION
-          {
-		       ?_direction  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?direction)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,OfftrackDistance,Distance,Direction),[]), convVal(Distance,DistanceVal), convVal(Direction,DirectionVal).
-
-% plain_Navaid(Graph, Navaid, SignificantPoint*, FlightChecked, Name, Type, Designator, Purpose)
-
-plain_Navaid(Graph, Navaid, SignificantPointList, FlightCheckedVal, NameVal, TypeVal, DesignatorVal, PurposeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?navaid (GROUP_CONCAT(DISTINCT ?significantPoint;SEPARATOR=",") AS ?significantPointConcat) ?flightChecked ?name ?type ?designator ?purpose
-WHERE
-  { GRAPH ?graph
-    {
-      ?navaid rdf:type <http://www.aisa-project.eu/vocabulary/plain#Navaid> .
-      OPTIONAL {?navaid <http://www.aisa-project.eu/vocabulary/plain#significantPoint> ?significantPoint .}
-      ?navaid <http://www.aisa-project.eu/vocabulary/plain#flightChecked>  ?_flightChecked .
-        {
-          {
-            ?_flightChecked rdf:value ?flightCheckedValue .
-            FILTER ( NOT EXISTS {?_flightChecked (aixm:uom | fixm:uom | plain:uom) ?flightCheckedUoM})
-            BIND(concat(\'val:/:\',STR(?flightCheckedValue),\':/:\',STR(DATATYPE(?flightCheckedValue))) AS ?flightChecked)
-          }
-		     UNION
-		     {
-            ?_flightChecked
-              rdf:value ?flightCheckedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightCheckedUoM .
-              BIND(concat(\'xval:/:\',STR(?flightCheckedValue),\':/:\',STR(DATATYPE(?flightCheckedValue)),\':/:\',?flightCheckedUoM) AS ?flightChecked)
-          }
-          UNION
-          {
-		       ?_flightChecked  aixm:nilReason ?flightCheckedNilReason .
-		       BIND(concat(\'nil:/:\',?flightCheckedNilReason) AS ?flightChecked)
-		     }
-          UNION
-          {
-            ?_flightChecked  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightChecked)
-	         }
-      }
-      ?navaid <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-      ?navaid <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
-      }
-      ?navaid <http://www.aisa-project.eu/vocabulary/plain#designator>  ?_designator .
-        {
-          {
-            ?_designator rdf:value ?designatorValue .
-            FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat(\'val:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue))) AS ?designator)
-          }
-		     UNION
-		     {
-            ?_designator
-              rdf:value ?designatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue)),\':/:\',?designatorUoM) AS ?designator)
-          }
-          UNION
-          {
-		       ?_designator  aixm:nilReason ?designatorNilReason .
-		       BIND(concat(\'nil:/:\',?designatorNilReason) AS ?designator)
-		     }
-          UNION
-          {
-            ?_designator  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designator)
-	         }
-      }
-      ?navaid <http://www.aisa-project.eu/vocabulary/plain#purpose>  ?_purpose .
-        {
-          {
-            ?_purpose rdf:value ?purposeValue .
-            FILTER ( NOT EXISTS {?_purpose (aixm:uom | fixm:uom | plain:uom) ?purposeUoM})
-            BIND(concat(\'val:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue))) AS ?purpose)
-          }
-		     UNION
-		     {
-            ?_purpose
-              rdf:value ?purposeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?purposeUoM .
-              BIND(concat(\'xval:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue)),\':/:\',?purposeUoM) AS ?purpose)
-          }
-          UNION
-          {
-		       ?_purpose  aixm:nilReason ?purposeNilReason .
-		       BIND(concat(\'nil:/:\',?purposeNilReason) AS ?purpose)
-		     }
-          UNION
-          {
-            ?_purpose  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?purpose)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?navaid ?flightChecked ?name ?type ?designator ?purpose
-
-      '
-,row(Graph,Navaid,SignificantPointConcat,FlightChecked,Name,Type,Designator,Purpose),[]), convert(SignificantPointConcat,SignificantPointList), convVal(FlightChecked,FlightCheckedVal), convVal(Name,NameVal), convVal(Type,TypeVal), convVal(Designator,DesignatorVal), convVal(Purpose,PurposeVal).
-
-% fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspace?, SpecialActivityAirspace?)
-
-fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspaceVal, SpecialActivityAirspaceVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?trajectoryChange ?constrainedAirspace ?specialActivityAirspace
-WHERE
-  { GRAPH ?graph
-    {
-      ?trajectoryChange rdf:type fixm:TrajectoryChange .
-      OPTIONAL { ?trajectoryChange fixm:constrainedAirspace ?_constrainedAirspace .
-        {
-          {
-            ?_constrainedAirspace rdf:value ?constrainedAirspaceValue .
-            FILTER ( NOT EXISTS {?_constrainedAirspace (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM})
-            BIND(concat(\'val:/:\',STR(?constrainedAirspaceValue),\':/:\',STR(DATATYPE(?constrainedAirspaceValue))) AS ?constrainedAirspace)
-          }
-            UNION
-          {
-            ?_constrainedAirspace
-              rdf:value ?constrainedAirspaceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?constrainedAirspaceUoM .
-            BIND(concat(\'xval:/:\',STR(?constrainedAirspaceValue),\':/:\',STR(DATATYPE(?constrainedAirspaceValue)),\':/:\',?constrainedAirspaceUoM) AS ?constrainedAirspace)
-          }
-            UNION
-          {
-           ?_constrainedAirspace  aixm:nilReason ?constrainedAirspaceNilReason .
-           BIND(concat(\'nil:/:\',?constrainedAirspaceNilReason) AS ?constrainedAirspace)
-          }
-          UNION
-          {
-		       ?_constrainedAirspace  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?constrainedAirspace)
-		     }
-        }
-      }
-      OPTIONAL { ?trajectoryChange fixm:specialActivityAirspace ?_specialActivityAirspace .
-        {
-          {
-            ?_specialActivityAirspace rdf:value ?specialActivityAirspaceValue .
-            FILTER ( NOT EXISTS {?_specialActivityAirspace (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM})
-            BIND(concat(\'val:/:\',STR(?specialActivityAirspaceValue),\':/:\',STR(DATATYPE(?specialActivityAirspaceValue))) AS ?specialActivityAirspace)
-          }
-            UNION
-          {
-            ?_specialActivityAirspace
-              rdf:value ?specialActivityAirspaceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?specialActivityAirspaceUoM .
-            BIND(concat(\'xval:/:\',STR(?specialActivityAirspaceValue),\':/:\',STR(DATATYPE(?specialActivityAirspaceValue)),\':/:\',?specialActivityAirspaceUoM) AS ?specialActivityAirspace)
-          }
-            UNION
-          {
-           ?_specialActivityAirspace  aixm:nilReason ?specialActivityAirspaceNilReason .
-           BIND(concat(\'nil:/:\',?specialActivityAirspaceNilReason) AS ?specialActivityAirspace)
-          }
-          UNION
-          {
-		       ?_specialActivityAirspace  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?specialActivityAirspace)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,TrajectoryChange,ConstrainedAirspace,SpecialActivityAirspace),[]), convVal(ConstrainedAirspace,ConstrainedAirspaceVal), convVal(SpecialActivityAirspace,SpecialActivityAirspaceVal).
-
-% fixm_Point4D(Graph, Point4D, Altitude?, Time?, PointRange?)
-
-fixm_Point4D(Graph, Point4D, AltitudeVal, TimeVal, PointRangeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?point4D ?altitude ?time ?pointRange
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:Point4D .
-  }
-  { GRAPH ?graph
-    {
-      ?point4D rdf:type ?SUBCLASS .
-      OPTIONAL { ?point4D fixm:altitude ?_altitude .
-        {
-          {
-            ?_altitude rdf:value ?altitudeValue .
-            FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
-            BIND(concat(\'val:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue))) AS ?altitude)
-          }
-            UNION
-          {
-            ?_altitude
-              rdf:value ?altitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
-            BIND(concat(\'xval:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue)),\':/:\',?altitudeUoM) AS ?altitude)
-          }
-            UNION
-          {
-           ?_altitude  aixm:nilReason ?altitudeNilReason .
-           BIND(concat(\'nil:/:\',?altitudeNilReason) AS ?altitude)
-          }
-          UNION
-          {
-		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitude)
-		     }
-        }
-      }
-      OPTIONAL { ?point4D fixm:time ?_time .
-        {
-          {
-            ?_time rdf:value ?timeValue .
-            FILTER ( NOT EXISTS {?_time (aixm:uom | fixm:uom | plain:uom) ?timeUoM})
-            BIND(concat(\'val:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue))) AS ?time)
-          }
-            UNION
-          {
-            ?_time
-              rdf:value ?timeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeUoM .
-            BIND(concat(\'xval:/:\',STR(?timeValue),\':/:\',STR(DATATYPE(?timeValue)),\':/:\',?timeUoM) AS ?time)
-          }
-            UNION
-          {
-           ?_time  aixm:nilReason ?timeNilReason .
-           BIND(concat(\'nil:/:\',?timeNilReason) AS ?time)
-          }
-          UNION
-          {
-		       ?_time  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?time)
-		     }
-        }
-      }
-      OPTIONAL {?point4D fixm:pointRange ?pointRange .}
-    }
-  }
-}
-
-      '
-,row(Graph,Point4D,Altitude,Time,PointRange),[]), convVal(Altitude,AltitudeVal), convVal(Time,TimeVal), convVal(PointRange,PointRangeVal).
-
-% fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficType?, DelayAtPoint?, FlightRules?, Point?, ClearanceLimit?)
-
-fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficTypeVal, DelayAtPointVal, FlightRulesVal, PointVal, ClearanceLimitVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?abstractRoutePoint ?airTrafficType ?delayAtPoint ?flightRules ?point ?clearanceLimit
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:AbstractRoutePoint .
-  }
-  { GRAPH ?graph
-    {
-      ?abstractRoutePoint rdf:type ?SUBCLASS .
-      OPTIONAL { ?abstractRoutePoint fixm:airTrafficType ?_airTrafficType .
-        {
-          {
-            ?_airTrafficType rdf:value ?airTrafficTypeValue .
-            FILTER ( NOT EXISTS {?_airTrafficType (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM})
-            BIND(concat(\'val:/:\',STR(?airTrafficTypeValue),\':/:\',STR(DATATYPE(?airTrafficTypeValue))) AS ?airTrafficType)
-          }
-            UNION
-          {
-            ?_airTrafficType
-              rdf:value ?airTrafficTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?airTrafficTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?airTrafficTypeValue),\':/:\',STR(DATATYPE(?airTrafficTypeValue)),\':/:\',?airTrafficTypeUoM) AS ?airTrafficType)
-          }
-            UNION
-          {
-           ?_airTrafficType  aixm:nilReason ?airTrafficTypeNilReason .
-           BIND(concat(\'nil:/:\',?airTrafficTypeNilReason) AS ?airTrafficType)
-          }
-          UNION
-          {
-		       ?_airTrafficType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airTrafficType)
-		     }
-        }
-      }
-      OPTIONAL { ?abstractRoutePoint fixm:delayAtPoint ?_delayAtPoint .
-        {
-          {
-            ?_delayAtPoint rdf:value ?delayAtPointValue .
-            FILTER ( NOT EXISTS {?_delayAtPoint (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM})
-            BIND(concat(\'val:/:\',STR(?delayAtPointValue),\':/:\',STR(DATATYPE(?delayAtPointValue))) AS ?delayAtPoint)
-          }
-            UNION
-          {
-            ?_delayAtPoint
-              rdf:value ?delayAtPointValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?delayAtPointUoM .
-            BIND(concat(\'xval:/:\',STR(?delayAtPointValue),\':/:\',STR(DATATYPE(?delayAtPointValue)),\':/:\',?delayAtPointUoM) AS ?delayAtPoint)
-          }
-            UNION
-          {
-           ?_delayAtPoint  aixm:nilReason ?delayAtPointNilReason .
-           BIND(concat(\'nil:/:\',?delayAtPointNilReason) AS ?delayAtPoint)
-          }
-          UNION
-          {
-		       ?_delayAtPoint  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?delayAtPoint)
-		     }
-        }
-      }
-      OPTIONAL { ?abstractRoutePoint fixm:flightRules ?_flightRules .
-        {
-          {
-            ?_flightRules rdf:value ?flightRulesValue .
-            FILTER ( NOT EXISTS {?_flightRules (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM})
-            BIND(concat(\'val:/:\',STR(?flightRulesValue),\':/:\',STR(DATATYPE(?flightRulesValue))) AS ?flightRules)
-          }
-            UNION
-          {
-            ?_flightRules
-              rdf:value ?flightRulesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightRulesUoM .
-            BIND(concat(\'xval:/:\',STR(?flightRulesValue),\':/:\',STR(DATATYPE(?flightRulesValue)),\':/:\',?flightRulesUoM) AS ?flightRules)
-          }
-            UNION
-          {
-           ?_flightRules  aixm:nilReason ?flightRulesNilReason .
-           BIND(concat(\'nil:/:\',?flightRulesNilReason) AS ?flightRules)
-          }
-          UNION
-          {
-		       ?_flightRules  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightRules)
-		     }
-        }
-      }
-      OPTIONAL {?abstractRoutePoint fixm:point ?point .}
-      OPTIONAL { ?abstractRoutePoint fixm:clearanceLimit ?_clearanceLimit .
-        {
-          {
-            ?_clearanceLimit rdf:value ?clearanceLimitValue .
-            FILTER ( NOT EXISTS {?_clearanceLimit (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM})
-            BIND(concat(\'val:/:\',STR(?clearanceLimitValue),\':/:\',STR(DATATYPE(?clearanceLimitValue))) AS ?clearanceLimit)
-          }
-            UNION
-          {
-            ?_clearanceLimit
-              rdf:value ?clearanceLimitValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?clearanceLimitUoM .
-            BIND(concat(\'xval:/:\',STR(?clearanceLimitValue),\':/:\',STR(DATATYPE(?clearanceLimitValue)),\':/:\',?clearanceLimitUoM) AS ?clearanceLimit)
-          }
-            UNION
-          {
-           ?_clearanceLimit  aixm:nilReason ?clearanceLimitNilReason .
-           BIND(concat(\'nil:/:\',?clearanceLimitNilReason) AS ?clearanceLimit)
-          }
-          UNION
-          {
-		       ?_clearanceLimit  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearanceLimit)
-		     }
-        }
-      }
-    }
-  }
-}
-
-      '
-,row(Graph,AbstractRoutePoint,AirTrafficType,DelayAtPoint,FlightRules,Point,ClearanceLimit),[]), convVal(AirTrafficType,AirTrafficTypeVal), convVal(DelayAtPoint,DelayAtPointVal), convVal(FlightRules,FlightRulesVal), convVal(Point,PointVal), convVal(ClearanceLimit,ClearanceLimitVal).
-
-% fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTime?, DeIcingTime?, GroundHandlingTime?, StartupTime?)
-
-fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTimeVal, DeIcingTimeVal, GroundHandlingTimeVal, StartupTimeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?departureActivityTimes ?boardingTime ?deIcingTime ?groundHandlingTime ?startupTime
-WHERE
-  { GRAPH ?graph
-    {
-      ?departureActivityTimes rdf:type fixm:DepartureActivityTimes .
-      OPTIONAL {?departureActivityTimes fixm:boardingTime ?boardingTime .}
-      OPTIONAL {?departureActivityTimes fixm:deIcingTime ?deIcingTime .}
-      OPTIONAL {?departureActivityTimes fixm:groundHandlingTime ?groundHandlingTime .}
-      OPTIONAL {?departureActivityTimes fixm:startupTime ?startupTime .}
-    }
-  }
-
-      '
-,row(Graph,DepartureActivityTimes,BoardingTime,DeIcingTime,GroundHandlingTime,StartupTime),[]), convVal(BoardingTime,BoardingTimeVal), convVal(DeIcingTime,DeIcingTimeVal), convVal(GroundHandlingTime,GroundHandlingTimeVal), convVal(StartupTime,StartupTimeVal).
-
-% plain_Waypoints(Graph, Waypoints, WaypointName, Route+, Longitude, Latitude)
-
-plain_Waypoints(Graph, Waypoints, WaypointNameVal, RouteList, LongitudeVal, LatitudeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?waypoints ?waypointName (GROUP_CONCAT(DISTINCT ?route;SEPARATOR=",") AS ?routeConcat) ?longitude ?latitude
-WHERE
-  { GRAPH ?graph
-    {
-      ?waypoints rdf:type <http://www.aisa-project.eu/vocabulary/plain#Waypoints> .
-      ?waypoints <http://www.aisa-project.eu/vocabulary/plain#waypointName>  ?_waypointName .
-        {
-          {
-            ?_waypointName rdf:value ?waypointNameValue .
-            FILTER ( NOT EXISTS {?_waypointName (aixm:uom | fixm:uom | plain:uom) ?waypointNameUoM})
-            BIND(concat(\'val:/:\',STR(?waypointNameValue),\':/:\',STR(DATATYPE(?waypointNameValue))) AS ?waypointName)
-          }
-		     UNION
-		     {
-            ?_waypointName
-              rdf:value ?waypointNameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?waypointNameUoM .
-              BIND(concat(\'xval:/:\',STR(?waypointNameValue),\':/:\',STR(DATATYPE(?waypointNameValue)),\':/:\',?waypointNameUoM) AS ?waypointName)
-          }
-          UNION
-          {
-		       ?_waypointName  aixm:nilReason ?waypointNameNilReason .
-		       BIND(concat(\'nil:/:\',?waypointNameNilReason) AS ?waypointName)
-		     }
-          UNION
-          {
-            ?_waypointName  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?waypointName)
-	         }
-      }
-      ?waypoints <http://www.aisa-project.eu/vocabulary/plain#route> ?route .
-      ?waypoints <http://www.aisa-project.eu/vocabulary/plain#longitude>  ?_longitude .
-        {
-          {
-            ?_longitude rdf:value ?longitudeValue .
-            FILTER ( NOT EXISTS {?_longitude (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM})
-            BIND(concat(\'val:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue))) AS ?longitude)
-          }
-		     UNION
-		     {
-            ?_longitude
-              rdf:value ?longitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?longitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?longitudeValue),\':/:\',STR(DATATYPE(?longitudeValue)),\':/:\',?longitudeUoM) AS ?longitude)
-          }
-          UNION
-          {
-		       ?_longitude  aixm:nilReason ?longitudeNilReason .
-		       BIND(concat(\'nil:/:\',?longitudeNilReason) AS ?longitude)
-		     }
-          UNION
-          {
-            ?_longitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?longitude)
-	         }
-      }
-      ?waypoints <http://www.aisa-project.eu/vocabulary/plain#latitude>  ?_latitude .
-        {
-          {
-            ?_latitude rdf:value ?latitudeValue .
-            FILTER ( NOT EXISTS {?_latitude (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM})
-            BIND(concat(\'val:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue))) AS ?latitude)
-          }
-		     UNION
-		     {
-            ?_latitude
-              rdf:value ?latitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?latitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?latitudeValue),\':/:\',STR(DATATYPE(?latitudeValue)),\':/:\',?latitudeUoM) AS ?latitude)
-          }
-          UNION
-          {
-		       ?_latitude  aixm:nilReason ?latitudeNilReason .
-		       BIND(concat(\'nil:/:\',?latitudeNilReason) AS ?latitude)
-		     }
-          UNION
-          {
-            ?_latitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?latitude)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?waypoints ?waypointName ?longitude ?latitude
-
-      '
-,row(Graph,Waypoints,WaypointName,RouteConcat,Longitude,Latitude),[]), convVal(WaypointName,WaypointNameVal), convert(RouteConcat,RouteList), convVal(Longitude,LongitudeVal), convVal(Latitude,LatitudeVal).
-
-% fixm_Flight(Graph, Flight, ControllingUnit?, Extensions*, FlightFiler?, Gufi?, Remarks?, AircraftDescription?, DangerousGoods*, RankedTrajectories*, RouteToRevisedDestination?, Negotiating?, Agreed?, Arrival?, Departure?, Emergency?, RadioCommunicationFailure?, EnRoute?, Operator?, EnRouteDiversion?, FlightType?, FlightStatus?, Originator?, SupplementalData?, FlightIdentification?, SpecialHandling*)
-
-fixm_Flight(Graph, Flight, ControllingUnitVal, ExtensionsList, FlightFilerVal, GufiVal, RemarksVal, AircraftDescriptionVal, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestinationVal, NegotiatingVal, AgreedVal, ArrivalVal, DepartureVal, EmergencyVal, RadioCommunicationFailureVal, EnRouteVal, OperatorVal, EnRouteDiversionVal, FlightTypeVal, FlightStatusVal, OriginatorVal, SupplementalDataVal, FlightIdentificationVal, SpecialHandlingList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?flight ?controllingUnit (GROUP_CONCAT(DISTINCT ?extensions;SEPARATOR=",") AS ?extensionsConcat) ?flightFiler ?gufi ?remarks ?aircraftDescription (GROUP_CONCAT(DISTINCT ?dangerousGoods;SEPARATOR=",") AS ?dangerousGoodsConcat) (GROUP_CONCAT(DISTINCT ?rankedTrajectories;SEPARATOR=",") AS ?rankedTrajectoriesConcat) ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification (GROUP_CONCAT(DISTINCT ?specialHandling;SEPARATOR=",") AS ?specialHandlingConcat)
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:Flight .
-  }
-  { GRAPH ?graph
-    {
-      ?flight rdf:type ?SUBCLASS .
-      OPTIONAL {?flight fixm:controllingUnit ?controllingUnit .}
-      OPTIONAL {?flight fixm:extensions ?extensions .}
-      OPTIONAL { ?flight fixm:flightFiler ?_flightFiler .
-        {
-          {
-            ?_flightFiler rdf:value ?flightFilerValue .
-            FILTER ( NOT EXISTS {?_flightFiler (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM})
-            BIND(concat(\'val:/:\',STR(?flightFilerValue),\':/:\',STR(DATATYPE(?flightFilerValue))) AS ?flightFiler)
-          }
-            UNION
-          {
-            ?_flightFiler
-              rdf:value ?flightFilerValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightFilerUoM .
-            BIND(concat(\'xval:/:\',STR(?flightFilerValue),\':/:\',STR(DATATYPE(?flightFilerValue)),\':/:\',?flightFilerUoM) AS ?flightFiler)
-          }
-            UNION
-          {
-           ?_flightFiler  aixm:nilReason ?flightFilerNilReason .
-           BIND(concat(\'nil:/:\',?flightFilerNilReason) AS ?flightFiler)
-          }
-          UNION
-          {
-		       ?_flightFiler  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightFiler)
-		     }
-        }
-      }
-      OPTIONAL { ?flight fixm:gufi ?_gufi .
-        {
-          {
-            ?_gufi rdf:value ?gufiValue .
-            FILTER ( NOT EXISTS {?_gufi (aixm:uom | fixm:uom | plain:uom) ?gufiUoM})
-            BIND(concat(\'val:/:\',STR(?gufiValue),\':/:\',STR(DATATYPE(?gufiValue))) AS ?gufi)
-          }
-            UNION
-          {
-            ?_gufi
-              rdf:value ?gufiValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?gufiUoM .
-            BIND(concat(\'xval:/:\',STR(?gufiValue),\':/:\',STR(DATATYPE(?gufiValue)),\':/:\',?gufiUoM) AS ?gufi)
-          }
-            UNION
-          {
-           ?_gufi  aixm:nilReason ?gufiNilReason .
-           BIND(concat(\'nil:/:\',?gufiNilReason) AS ?gufi)
-          }
-          UNION
-          {
-		       ?_gufi  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?gufi)
-		     }
-        }
-      }
-      OPTIONAL { ?flight fixm:remarks ?_remarks .
-        {
-          {
-            ?_remarks rdf:value ?remarksValue .
-            FILTER ( NOT EXISTS {?_remarks (aixm:uom | fixm:uom | plain:uom) ?remarksUoM})
-            BIND(concat(\'val:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue))) AS ?remarks)
-          }
-            UNION
-          {
-            ?_remarks
-              rdf:value ?remarksValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?remarksUoM .
-            BIND(concat(\'xval:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue)),\':/:\',?remarksUoM) AS ?remarks)
-          }
-            UNION
-          {
-           ?_remarks  aixm:nilReason ?remarksNilReason .
-           BIND(concat(\'nil:/:\',?remarksNilReason) AS ?remarks)
-          }
-          UNION
-          {
-		       ?_remarks  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?remarks)
-		     }
-        }
-      }
-      OPTIONAL {?flight fixm:aircraftDescription ?aircraftDescription .}
-      OPTIONAL {?flight fixm:dangerousGoods ?dangerousGoods .}
-      OPTIONAL {?flight fixm:rankedTrajectories ?rankedTrajectories .}
-      OPTIONAL {?flight fixm:routeToRevisedDestination ?routeToRevisedDestination .}
-      OPTIONAL {?flight fixm:negotiating ?negotiating .}
-      OPTIONAL {?flight fixm:agreed ?agreed .}
-      OPTIONAL {?flight fixm:arrival ?arrival .}
-      OPTIONAL {?flight fixm:departure ?departure .}
-      OPTIONAL {?flight fixm:emergency ?emergency .}
-      OPTIONAL {?flight fixm:radioCommunicationFailure ?radioCommunicationFailure .}
-      OPTIONAL {?flight fixm:enRoute ?enRoute .}
-      OPTIONAL {?flight fixm:operator ?operator .}
-      OPTIONAL {?flight fixm:enRouteDiversion ?enRouteDiversion .}
-      OPTIONAL { ?flight fixm:flightType ?_flightType .
-        {
-          {
-            ?_flightType rdf:value ?flightTypeValue .
-            FILTER ( NOT EXISTS {?_flightType (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM})
-            BIND(concat(\'val:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue))) AS ?flightType)
-          }
-            UNION
-          {
-            ?_flightType
-              rdf:value ?flightTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM .
-            BIND(concat(\'xval:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue)),\':/:\',?flightTypeUoM) AS ?flightType)
-          }
-            UNION
-          {
-           ?_flightType  aixm:nilReason ?flightTypeNilReason .
-           BIND(concat(\'nil:/:\',?flightTypeNilReason) AS ?flightType)
-          }
-          UNION
-          {
-		       ?_flightType  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightType)
-		     }
-        }
-      }
-      OPTIONAL {?flight fixm:flightStatus ?flightStatus .}
-      OPTIONAL { ?flight fixm:originator ?_originator .
-        {
-          {
-            ?_originator rdf:value ?originatorValue .
-            FILTER ( NOT EXISTS {?_originator (aixm:uom | fixm:uom | plain:uom) ?originatorUoM})
-            BIND(concat(\'val:/:\',STR(?originatorValue),\':/:\',STR(DATATYPE(?originatorValue))) AS ?originator)
-          }
-            UNION
-          {
-            ?_originator
-              rdf:value ?originatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?originatorUoM .
-            BIND(concat(\'xval:/:\',STR(?originatorValue),\':/:\',STR(DATATYPE(?originatorValue)),\':/:\',?originatorUoM) AS ?originator)
-          }
-            UNION
-          {
-           ?_originator  aixm:nilReason ?originatorNilReason .
-           BIND(concat(\'nil:/:\',?originatorNilReason) AS ?originator)
-          }
-          UNION
-          {
-		       ?_originator  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?originator)
-		     }
-        }
-      }
-      OPTIONAL {?flight fixm:supplementalData ?supplementalData .}
-      OPTIONAL {?flight fixm:flightIdentification ?flightIdentification .}
-      OPTIONAL { ?flight fixm:specialHandling ?_specialHandling .
-        {
-          {
-            ?_specialHandling rdf:value ?specialHandlingValue .
-            FILTER ( NOT EXISTS {?_specialHandling (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM})
-            BIND(concat(\'val:/:\',STR(?specialHandlingValue),\':/:\',STR(DATATYPE(?specialHandlingValue))) AS ?specialHandling)
-          }
-            UNION
-          {
-            ?_specialHandling
-              rdf:value ?specialHandlingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?specialHandlingUoM .
-            BIND(concat(\'xval:/:\',STR(?specialHandlingValue),\':/:\',STR(DATATYPE(?specialHandlingValue)),\':/:\',?specialHandlingUoM) AS ?specialHandling)
-          }
-            UNION
-          {
-           ?_specialHandling  aixm:nilReason ?specialHandlingNilReason .
-           BIND(concat(\'nil:/:\',?specialHandlingNilReason) AS ?specialHandling)
-          }
-          UNION
-          {
-		       ?_specialHandling  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?specialHandling)
-		     }
-        }
-      }
-    }
-  }
-}
-GROUP BY ?graph ?flight ?controllingUnit ?flightFiler ?gufi ?remarks ?aircraftDescription ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification
-
-      '
-,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convVal(ControllingUnit,ControllingUnitVal), convert(ExtensionsConcat,ExtensionsList), convVal(FlightFiler,FlightFilerVal), convVal(Gufi,GufiVal), convVal(Remarks,RemarksVal), convVal(AircraftDescription,AircraftDescriptionVal), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convVal(RouteToRevisedDestination,RouteToRevisedDestinationVal), convVal(Negotiating,NegotiatingVal), convVal(Agreed,AgreedVal), convVal(Arrival,ArrivalVal), convVal(Departure,DepartureVal), convVal(Emergency,EmergencyVal), convVal(RadioCommunicationFailure,RadioCommunicationFailureVal), convVal(EnRoute,EnRouteVal), convVal(Operator,OperatorVal), convVal(EnRouteDiversion,EnRouteDiversionVal), convVal(FlightType,FlightTypeVal), convVal(FlightStatus,FlightStatusVal), convVal(Originator,OriginatorVal), convVal(SupplementalData,SupplementalDataVal), convVal(FlightIdentification,FlightIdentificationVal), convert(SpecialHandlingConcat,SpecialHandlingList).
-
-% gml_Surface(Graph, Surface, Patch+)
-
-gml_Surface(Graph, Surface, PatchList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?patch;SEPARATOR=",") AS ?patchConcat)
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* gml:Surface .
-  }
-  { GRAPH ?graph
-    {
-      ?surface rdf:type ?SUBCLASS .
-      ?surface aixm:patch ?patch .
-    }
-  }
-}
-GROUP BY ?graph ?surface
-
-      '
-,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList).
-
-% fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevel?, ClearedSpeed?, Heading?, OfftrackClearance?, RateOfClimbDescend?, DirectRouting?)
-
-fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevelVal, ClearedSpeedVal, HeadingVal, OfftrackClearanceVal, RateOfClimbDescendVal, DirectRoutingVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?clearedFlightInformation ?clearedFlightLevel ?clearedSpeed ?heading ?offtrackClearance ?rateOfClimbDescend ?directRouting
-WHERE
-  { GRAPH ?graph
-    {
-      ?clearedFlightInformation rdf:type fixm:ClearedFlightInformation .
-      OPTIONAL { ?clearedFlightInformation fixm:clearedFlightLevel ?_clearedFlightLevel .
-        {
-          {
-            ?_clearedFlightLevel rdf:value ?clearedFlightLevelValue .
-            FILTER ( NOT EXISTS {?_clearedFlightLevel (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM})
-            BIND(concat(\'val:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue))) AS ?clearedFlightLevel)
-          }
-            UNION
-          {
-            ?_clearedFlightLevel
-              rdf:value ?clearedFlightLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM .
-            BIND(concat(\'xval:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue)),\':/:\',?clearedFlightLevelUoM) AS ?clearedFlightLevel)
-          }
-            UNION
-          {
-           ?_clearedFlightLevel  aixm:nilReason ?clearedFlightLevelNilReason .
-           BIND(concat(\'nil:/:\',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
-          }
-          UNION
-          {
-		       ?_clearedFlightLevel  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedFlightLevel)
-		     }
-        }
-      }
-      OPTIONAL { ?clearedFlightInformation fixm:clearedSpeed ?_clearedSpeed .
-        {
-          {
-            ?_clearedSpeed rdf:value ?clearedSpeedValue .
-            FILTER ( NOT EXISTS {?_clearedSpeed (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue))) AS ?clearedSpeed)
-          }
-            UNION
-          {
-            ?_clearedSpeed
-              rdf:value ?clearedSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue)),\':/:\',?clearedSpeedUoM) AS ?clearedSpeed)
-          }
-            UNION
-          {
-           ?_clearedSpeed  aixm:nilReason ?clearedSpeedNilReason .
-           BIND(concat(\'nil:/:\',?clearedSpeedNilReason) AS ?clearedSpeed)
-          }
-          UNION
-          {
-		       ?_clearedSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedSpeed)
-		     }
-        }
-      }
-      OPTIONAL { ?clearedFlightInformation fixm:heading ?_heading .
-        {
-          {
-            ?_heading rdf:value ?headingValue .
-            FILTER ( NOT EXISTS {?_heading (aixm:uom | fixm:uom | plain:uom) ?headingUoM})
-            BIND(concat(\'val:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue))) AS ?heading)
-          }
-            UNION
-          {
-            ?_heading
-              rdf:value ?headingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?headingUoM .
-            BIND(concat(\'xval:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue)),\':/:\',?headingUoM) AS ?heading)
-          }
-            UNION
-          {
-           ?_heading  aixm:nilReason ?headingNilReason .
-           BIND(concat(\'nil:/:\',?headingNilReason) AS ?heading)
-          }
-          UNION
-          {
-		       ?_heading  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?heading)
-		     }
-        }
-      }
-      OPTIONAL {?clearedFlightInformation fixm:offtrackClearance ?offtrackClearance .}
-      OPTIONAL { ?clearedFlightInformation fixm:rateOfClimbDescend ?_rateOfClimbDescend .
-        {
-          {
-            ?_rateOfClimbDescend rdf:value ?rateOfClimbDescendValue .
-            FILTER ( NOT EXISTS {?_rateOfClimbDescend (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM})
-            BIND(concat(\'val:/:\',STR(?rateOfClimbDescendValue),\':/:\',STR(DATATYPE(?rateOfClimbDescendValue))) AS ?rateOfClimbDescend)
-          }
-            UNION
-          {
-            ?_rateOfClimbDescend
-              rdf:value ?rateOfClimbDescendValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescendUoM .
-            BIND(concat(\'xval:/:\',STR(?rateOfClimbDescendValue),\':/:\',STR(DATATYPE(?rateOfClimbDescendValue)),\':/:\',?rateOfClimbDescendUoM) AS ?rateOfClimbDescend)
-          }
-            UNION
-          {
-           ?_rateOfClimbDescend  aixm:nilReason ?rateOfClimbDescendNilReason .
-           BIND(concat(\'nil:/:\',?rateOfClimbDescendNilReason) AS ?rateOfClimbDescend)
-          }
-          UNION
-          {
-		       ?_rateOfClimbDescend  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rateOfClimbDescend)
-		     }
-        }
-      }
-      OPTIONAL {?clearedFlightInformation fixm:directRouting ?directRouting .}
-    }
-  }
-
-      '
-,row(Graph,ClearedFlightInformation,ClearedFlightLevel,ClearedSpeed,Heading,OfftrackClearance,RateOfClimbDescend,DirectRouting),[]), convVal(ClearedFlightLevel,ClearedFlightLevelVal), convVal(ClearedSpeed,ClearedSpeedVal), convVal(Heading,HeadingVal), convVal(OfftrackClearance,OfftrackClearanceVal), convVal(RateOfClimbDescend,RateOfClimbDescendVal), convVal(DirectRouting,DirectRoutingVal).
-
-% plain_Route(Graph, Route, RouteText, Southbound, Routing, FlightIdentification+, RequestedAltitude, Westbound, Eastbound, Remarks, Northbound, AtsRoute, CoordinationPoint)
-
-plain_Route(Graph, Route, RouteTextVal, SouthboundVal, RoutingVal, FlightIdentificationList, RequestedAltitudeVal, WestboundVal, EastboundVal, RemarksVal, NorthboundVal, AtsRouteVal, CoordinationPointVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?route ?routeText ?southbound ?routing (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?requestedAltitude ?westbound ?eastbound ?remarks ?northbound ?atsRoute ?coordinationPoint
-WHERE
-  { GRAPH ?graph
-    {
-      ?route rdf:type <http://www.aisa-project.eu/vocabulary/plain#Route> .
-      ?route <http://www.aisa-project.eu/vocabulary/plain#routeText>  ?_routeText .
-        {
-          {
-            ?_routeText rdf:value ?routeTextValue .
-            FILTER ( NOT EXISTS {?_routeText (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM})
-            BIND(concat(\'val:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue))) AS ?routeText)
-          }
-		     UNION
-		     {
-            ?_routeText
-              rdf:value ?routeTextValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM .
-              BIND(concat(\'xval:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue)),\':/:\',?routeTextUoM) AS ?routeText)
-          }
-          UNION
-          {
-		       ?_routeText  aixm:nilReason ?routeTextNilReason .
-		       BIND(concat(\'nil:/:\',?routeTextNilReason) AS ?routeText)
-		     }
-          UNION
-          {
-            ?_routeText  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?routeText)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#southbound>  ?_southbound .
-        {
-          {
-            ?_southbound rdf:value ?southboundValue .
-            FILTER ( NOT EXISTS {?_southbound (aixm:uom | fixm:uom | plain:uom) ?southboundUoM})
-            BIND(concat(\'val:/:\',STR(?southboundValue),\':/:\',STR(DATATYPE(?southboundValue))) AS ?southbound)
-          }
-		     UNION
-		     {
-            ?_southbound
-              rdf:value ?southboundValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?southboundUoM .
-              BIND(concat(\'xval:/:\',STR(?southboundValue),\':/:\',STR(DATATYPE(?southboundValue)),\':/:\',?southboundUoM) AS ?southbound)
-          }
-          UNION
-          {
-		       ?_southbound  aixm:nilReason ?southboundNilReason .
-		       BIND(concat(\'nil:/:\',?southboundNilReason) AS ?southbound)
-		     }
-          UNION
-          {
-            ?_southbound  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?southbound)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#routing>  ?_routing .
-        {
-          {
-            ?_routing rdf:value ?routingValue .
-            FILTER ( NOT EXISTS {?_routing (aixm:uom | fixm:uom | plain:uom) ?routingUoM})
-            BIND(concat(\'val:/:\',STR(?routingValue),\':/:\',STR(DATATYPE(?routingValue))) AS ?routing)
-          }
-		     UNION
-		     {
-            ?_routing
-              rdf:value ?routingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?routingUoM .
-              BIND(concat(\'xval:/:\',STR(?routingValue),\':/:\',STR(DATATYPE(?routingValue)),\':/:\',?routingUoM) AS ?routing)
-          }
-          UNION
-          {
-		       ?_routing  aixm:nilReason ?routingNilReason .
-		       BIND(concat(\'nil:/:\',?routingNilReason) AS ?routing)
-		     }
-          UNION
-          {
-            ?_routing  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?routing)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?route <http://www.aisa-project.eu/vocabulary/plain#requestedAltitude>  ?_requestedAltitude .
-        {
-          {
-            ?_requestedAltitude rdf:value ?requestedAltitudeValue .
-            FILTER ( NOT EXISTS {?_requestedAltitude (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue))) AS ?requestedAltitude)
-          }
-		     UNION
-		     {
-            ?_requestedAltitude
-              rdf:value ?requestedAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM .
-              BIND(concat(\'xval:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue)),\':/:\',?requestedAltitudeUoM) AS ?requestedAltitude)
-          }
-          UNION
-          {
-		       ?_requestedAltitude  aixm:nilReason ?requestedAltitudeNilReason .
-		       BIND(concat(\'nil:/:\',?requestedAltitudeNilReason) AS ?requestedAltitude)
-		     }
-          UNION
-          {
-            ?_requestedAltitude  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?requestedAltitude)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#westbound>  ?_westbound .
-        {
-          {
-            ?_westbound rdf:value ?westboundValue .
-            FILTER ( NOT EXISTS {?_westbound (aixm:uom | fixm:uom | plain:uom) ?westboundUoM})
-            BIND(concat(\'val:/:\',STR(?westboundValue),\':/:\',STR(DATATYPE(?westboundValue))) AS ?westbound)
-          }
-		     UNION
-		     {
-            ?_westbound
-              rdf:value ?westboundValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?westboundUoM .
-              BIND(concat(\'xval:/:\',STR(?westboundValue),\':/:\',STR(DATATYPE(?westboundValue)),\':/:\',?westboundUoM) AS ?westbound)
-          }
-          UNION
-          {
-		       ?_westbound  aixm:nilReason ?westboundNilReason .
-		       BIND(concat(\'nil:/:\',?westboundNilReason) AS ?westbound)
-		     }
-          UNION
-          {
-            ?_westbound  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?westbound)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#eastbound>  ?_eastbound .
-        {
-          {
-            ?_eastbound rdf:value ?eastboundValue .
-            FILTER ( NOT EXISTS {?_eastbound (aixm:uom | fixm:uom | plain:uom) ?eastboundUoM})
-            BIND(concat(\'val:/:\',STR(?eastboundValue),\':/:\',STR(DATATYPE(?eastboundValue))) AS ?eastbound)
-          }
-		     UNION
-		     {
-            ?_eastbound
-              rdf:value ?eastboundValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?eastboundUoM .
-              BIND(concat(\'xval:/:\',STR(?eastboundValue),\':/:\',STR(DATATYPE(?eastboundValue)),\':/:\',?eastboundUoM) AS ?eastbound)
-          }
-          UNION
-          {
-		       ?_eastbound  aixm:nilReason ?eastboundNilReason .
-		       BIND(concat(\'nil:/:\',?eastboundNilReason) AS ?eastbound)
-		     }
-          UNION
-          {
-            ?_eastbound  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?eastbound)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#remarks>  ?_remarks .
-        {
-          {
-            ?_remarks rdf:value ?remarksValue .
-            FILTER ( NOT EXISTS {?_remarks (aixm:uom | fixm:uom | plain:uom) ?remarksUoM})
-            BIND(concat(\'val:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue))) AS ?remarks)
-          }
-		     UNION
-		     {
-            ?_remarks
-              rdf:value ?remarksValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?remarksUoM .
-              BIND(concat(\'xval:/:\',STR(?remarksValue),\':/:\',STR(DATATYPE(?remarksValue)),\':/:\',?remarksUoM) AS ?remarks)
-          }
-          UNION
-          {
-		       ?_remarks  aixm:nilReason ?remarksNilReason .
-		       BIND(concat(\'nil:/:\',?remarksNilReason) AS ?remarks)
-		     }
-          UNION
-          {
-            ?_remarks  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?remarks)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#northbound>  ?_northbound .
-        {
-          {
-            ?_northbound rdf:value ?northboundValue .
-            FILTER ( NOT EXISTS {?_northbound (aixm:uom | fixm:uom | plain:uom) ?northboundUoM})
-            BIND(concat(\'val:/:\',STR(?northboundValue),\':/:\',STR(DATATYPE(?northboundValue))) AS ?northbound)
-          }
-		     UNION
-		     {
-            ?_northbound
-              rdf:value ?northboundValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?northboundUoM .
-              BIND(concat(\'xval:/:\',STR(?northboundValue),\':/:\',STR(DATATYPE(?northboundValue)),\':/:\',?northboundUoM) AS ?northbound)
-          }
-          UNION
-          {
-		       ?_northbound  aixm:nilReason ?northboundNilReason .
-		       BIND(concat(\'nil:/:\',?northboundNilReason) AS ?northbound)
-		     }
-          UNION
-          {
-            ?_northbound  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?northbound)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#atsRoute>  ?_atsRoute .
-        {
-          {
-            ?_atsRoute rdf:value ?atsRouteValue .
-            FILTER ( NOT EXISTS {?_atsRoute (aixm:uom | fixm:uom | plain:uom) ?atsRouteUoM})
-            BIND(concat(\'val:/:\',STR(?atsRouteValue),\':/:\',STR(DATATYPE(?atsRouteValue))) AS ?atsRoute)
-          }
-		     UNION
-		     {
-            ?_atsRoute
-              rdf:value ?atsRouteValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?atsRouteUoM .
-              BIND(concat(\'xval:/:\',STR(?atsRouteValue),\':/:\',STR(DATATYPE(?atsRouteValue)),\':/:\',?atsRouteUoM) AS ?atsRoute)
-          }
-          UNION
-          {
-		       ?_atsRoute  aixm:nilReason ?atsRouteNilReason .
-		       BIND(concat(\'nil:/:\',?atsRouteNilReason) AS ?atsRoute)
-		     }
-          UNION
-          {
-            ?_atsRoute  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?atsRoute)
-	         }
-      }
-      ?route <http://www.aisa-project.eu/vocabulary/plain#coordinationPoint>  ?_coordinationPoint .
-        {
-          {
-            ?_coordinationPoint rdf:value ?coordinationPointValue .
-            FILTER ( NOT EXISTS {?_coordinationPoint (aixm:uom | fixm:uom | plain:uom) ?coordinationPointUoM})
-            BIND(concat(\'val:/:\',STR(?coordinationPointValue),\':/:\',STR(DATATYPE(?coordinationPointValue))) AS ?coordinationPoint)
-          }
-		     UNION
-		     {
-            ?_coordinationPoint
-              rdf:value ?coordinationPointValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?coordinationPointUoM .
-              BIND(concat(\'xval:/:\',STR(?coordinationPointValue),\':/:\',STR(DATATYPE(?coordinationPointValue)),\':/:\',?coordinationPointUoM) AS ?coordinationPoint)
-          }
-          UNION
-          {
-		       ?_coordinationPoint  aixm:nilReason ?coordinationPointNilReason .
-		       BIND(concat(\'nil:/:\',?coordinationPointNilReason) AS ?coordinationPoint)
-		     }
-          UNION
-          {
-            ?_coordinationPoint  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?coordinationPoint)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?route ?routeText ?southbound ?routing ?requestedAltitude ?westbound ?eastbound ?remarks ?northbound ?atsRoute ?coordinationPoint
-
-      '
-,row(Graph,Route,RouteText,Southbound,Routing,FlightIdentificationConcat,RequestedAltitude,Westbound,Eastbound,Remarks,Northbound,AtsRoute,CoordinationPoint),[]), convVal(RouteText,RouteTextVal), convVal(Southbound,SouthboundVal), convVal(Routing,RoutingVal), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(RequestedAltitude,RequestedAltitudeVal), convVal(Westbound,WestboundVal), convVal(Eastbound,EastboundVal), convVal(Remarks,RemarksVal), convVal(Northbound,NorthboundVal), convVal(AtsRoute,AtsRouteVal), convVal(CoordinationPoint,CoordinationPointVal).
-
-% fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoading?, AerodromeOfUnloading?, DangerousGoodsScreeningLocation?, DepartureCountry?, DestinationCountry?, OriginCountry?, ShipmentAuthorizations?, SubsidiaryHazardClassAndDivision?, SupplementaryInformation?, TransferAerodromes*, DeclarationText?, Consignee?, Shipper?)
-
-fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoadingVal, AerodromeOfUnloadingVal, DangerousGoodsScreeningLocationVal, DepartureCountryVal, DestinationCountryVal, OriginCountryVal, ShipmentAuthorizationsVal, SubsidiaryHazardClassAndDivisionVal, SupplementaryInformationVal, TransferAerodromesList, DeclarationTextVal, ConsigneeVal, ShipperVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation (GROUP_CONCAT(DISTINCT ?transferAerodromes;SEPARATOR=",") AS ?transferAerodromesConcat) ?declarationText ?consignee ?shipper
-WHERE
-  { GRAPH ?graph
-    {
-      ?shippingInformation rdf:type fixm:ShippingInformation .
-      OPTIONAL {?shippingInformation fixm:aerodromeOfLoading ?aerodromeOfLoading .}
-      OPTIONAL {?shippingInformation fixm:aerodromeOfUnloading ?aerodromeOfUnloading .}
-      OPTIONAL { ?shippingInformation fixm:dangerousGoodsScreeningLocation ?_dangerousGoodsScreeningLocation .
-        {
-          {
-            ?_dangerousGoodsScreeningLocation rdf:value ?dangerousGoodsScreeningLocationValue .
-            FILTER ( NOT EXISTS {?_dangerousGoodsScreeningLocation (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM})
-            BIND(concat(\'val:/:\',STR(?dangerousGoodsScreeningLocationValue),\':/:\',STR(DATATYPE(?dangerousGoodsScreeningLocationValue))) AS ?dangerousGoodsScreeningLocation)
-          }
-            UNION
-          {
-            ?_dangerousGoodsScreeningLocation
-              rdf:value ?dangerousGoodsScreeningLocationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?dangerousGoodsScreeningLocationUoM .
-            BIND(concat(\'xval:/:\',STR(?dangerousGoodsScreeningLocationValue),\':/:\',STR(DATATYPE(?dangerousGoodsScreeningLocationValue)),\':/:\',?dangerousGoodsScreeningLocationUoM) AS ?dangerousGoodsScreeningLocation)
-          }
-            UNION
-          {
-           ?_dangerousGoodsScreeningLocation  aixm:nilReason ?dangerousGoodsScreeningLocationNilReason .
-           BIND(concat(\'nil:/:\',?dangerousGoodsScreeningLocationNilReason) AS ?dangerousGoodsScreeningLocation)
-          }
-          UNION
-          {
-		       ?_dangerousGoodsScreeningLocation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?dangerousGoodsScreeningLocation)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:departureCountry ?_departureCountry .
-        {
-          {
-            ?_departureCountry rdf:value ?departureCountryValue .
-            FILTER ( NOT EXISTS {?_departureCountry (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM})
-            BIND(concat(\'val:/:\',STR(?departureCountryValue),\':/:\',STR(DATATYPE(?departureCountryValue))) AS ?departureCountry)
-          }
-            UNION
-          {
-            ?_departureCountry
-              rdf:value ?departureCountryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?departureCountryUoM .
-            BIND(concat(\'xval:/:\',STR(?departureCountryValue),\':/:\',STR(DATATYPE(?departureCountryValue)),\':/:\',?departureCountryUoM) AS ?departureCountry)
-          }
-            UNION
-          {
-           ?_departureCountry  aixm:nilReason ?departureCountryNilReason .
-           BIND(concat(\'nil:/:\',?departureCountryNilReason) AS ?departureCountry)
-          }
-          UNION
-          {
-		       ?_departureCountry  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureCountry)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:destinationCountry ?_destinationCountry .
-        {
-          {
-            ?_destinationCountry rdf:value ?destinationCountryValue .
-            FILTER ( NOT EXISTS {?_destinationCountry (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM})
-            BIND(concat(\'val:/:\',STR(?destinationCountryValue),\':/:\',STR(DATATYPE(?destinationCountryValue))) AS ?destinationCountry)
-          }
-            UNION
-          {
-            ?_destinationCountry
-              rdf:value ?destinationCountryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?destinationCountryUoM .
-            BIND(concat(\'xval:/:\',STR(?destinationCountryValue),\':/:\',STR(DATATYPE(?destinationCountryValue)),\':/:\',?destinationCountryUoM) AS ?destinationCountry)
-          }
-            UNION
-          {
-           ?_destinationCountry  aixm:nilReason ?destinationCountryNilReason .
-           BIND(concat(\'nil:/:\',?destinationCountryNilReason) AS ?destinationCountry)
-          }
-          UNION
-          {
-		       ?_destinationCountry  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?destinationCountry)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:originCountry ?_originCountry .
-        {
-          {
-            ?_originCountry rdf:value ?originCountryValue .
-            FILTER ( NOT EXISTS {?_originCountry (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM})
-            BIND(concat(\'val:/:\',STR(?originCountryValue),\':/:\',STR(DATATYPE(?originCountryValue))) AS ?originCountry)
-          }
-            UNION
-          {
-            ?_originCountry
-              rdf:value ?originCountryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?originCountryUoM .
-            BIND(concat(\'xval:/:\',STR(?originCountryValue),\':/:\',STR(DATATYPE(?originCountryValue)),\':/:\',?originCountryUoM) AS ?originCountry)
-          }
-            UNION
-          {
-           ?_originCountry  aixm:nilReason ?originCountryNilReason .
-           BIND(concat(\'nil:/:\',?originCountryNilReason) AS ?originCountry)
-          }
-          UNION
-          {
-		       ?_originCountry  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?originCountry)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:shipmentAuthorizations ?_shipmentAuthorizations .
-        {
-          {
-            ?_shipmentAuthorizations rdf:value ?shipmentAuthorizationsValue .
-            FILTER ( NOT EXISTS {?_shipmentAuthorizations (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM})
-            BIND(concat(\'val:/:\',STR(?shipmentAuthorizationsValue),\':/:\',STR(DATATYPE(?shipmentAuthorizationsValue))) AS ?shipmentAuthorizations)
-          }
-            UNION
-          {
-            ?_shipmentAuthorizations
-              rdf:value ?shipmentAuthorizationsValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?shipmentAuthorizationsUoM .
-            BIND(concat(\'xval:/:\',STR(?shipmentAuthorizationsValue),\':/:\',STR(DATATYPE(?shipmentAuthorizationsValue)),\':/:\',?shipmentAuthorizationsUoM) AS ?shipmentAuthorizations)
-          }
-            UNION
-          {
-           ?_shipmentAuthorizations  aixm:nilReason ?shipmentAuthorizationsNilReason .
-           BIND(concat(\'nil:/:\',?shipmentAuthorizationsNilReason) AS ?shipmentAuthorizations)
-          }
-          UNION
-          {
-		       ?_shipmentAuthorizations  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?shipmentAuthorizations)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:subsidiaryHazardClassAndDivision ?_subsidiaryHazardClassAndDivision .
-        {
-          {
-            ?_subsidiaryHazardClassAndDivision rdf:value ?subsidiaryHazardClassAndDivisionValue .
-            FILTER ( NOT EXISTS {?_subsidiaryHazardClassAndDivision (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM})
-            BIND(concat(\'val:/:\',STR(?subsidiaryHazardClassAndDivisionValue),\':/:\',STR(DATATYPE(?subsidiaryHazardClassAndDivisionValue))) AS ?subsidiaryHazardClassAndDivision)
-          }
-            UNION
-          {
-            ?_subsidiaryHazardClassAndDivision
-              rdf:value ?subsidiaryHazardClassAndDivisionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?subsidiaryHazardClassAndDivisionUoM .
-            BIND(concat(\'xval:/:\',STR(?subsidiaryHazardClassAndDivisionValue),\':/:\',STR(DATATYPE(?subsidiaryHazardClassAndDivisionValue)),\':/:\',?subsidiaryHazardClassAndDivisionUoM) AS ?subsidiaryHazardClassAndDivision)
-          }
-            UNION
-          {
-           ?_subsidiaryHazardClassAndDivision  aixm:nilReason ?subsidiaryHazardClassAndDivisionNilReason .
-           BIND(concat(\'nil:/:\',?subsidiaryHazardClassAndDivisionNilReason) AS ?subsidiaryHazardClassAndDivision)
-          }
-          UNION
-          {
-		       ?_subsidiaryHazardClassAndDivision  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?subsidiaryHazardClassAndDivision)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:supplementaryInformation ?_supplementaryInformation .
-        {
-          {
-            ?_supplementaryInformation rdf:value ?supplementaryInformationValue .
-            FILTER ( NOT EXISTS {?_supplementaryInformation (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM})
-            BIND(concat(\'val:/:\',STR(?supplementaryInformationValue),\':/:\',STR(DATATYPE(?supplementaryInformationValue))) AS ?supplementaryInformation)
-          }
-            UNION
-          {
-            ?_supplementaryInformation
-              rdf:value ?supplementaryInformationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?supplementaryInformationUoM .
-            BIND(concat(\'xval:/:\',STR(?supplementaryInformationValue),\':/:\',STR(DATATYPE(?supplementaryInformationValue)),\':/:\',?supplementaryInformationUoM) AS ?supplementaryInformation)
-          }
-            UNION
-          {
-           ?_supplementaryInformation  aixm:nilReason ?supplementaryInformationNilReason .
-           BIND(concat(\'nil:/:\',?supplementaryInformationNilReason) AS ?supplementaryInformation)
-          }
-          UNION
-          {
-		       ?_supplementaryInformation  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?supplementaryInformation)
-		     }
-        }
-      }
-      OPTIONAL { ?shippingInformation fixm:transferAerodromes ?_transferAerodromes .
-        {
-          {
-            ?_transferAerodromes rdf:value ?transferAerodromesValue .
-            FILTER ( NOT EXISTS {?_transferAerodromes (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM})
-            BIND(concat(\'val:/:\',STR(?transferAerodromesValue),\':/:\',STR(DATATYPE(?transferAerodromesValue))) AS ?transferAerodromes)
-          }
-            UNION
-          {
-            ?_transferAerodromes
-              rdf:value ?transferAerodromesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?transferAerodromesUoM .
-            BIND(concat(\'xval:/:\',STR(?transferAerodromesValue),\':/:\',STR(DATATYPE(?transferAerodromesValue)),\':/:\',?transferAerodromesUoM) AS ?transferAerodromes)
-          }
-            UNION
-          {
-           ?_transferAerodromes  aixm:nilReason ?transferAerodromesNilReason .
-           BIND(concat(\'nil:/:\',?transferAerodromesNilReason) AS ?transferAerodromes)
-          }
-          UNION
-          {
-		       ?_transferAerodromes  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transferAerodromes)
-		     }
-        }
-      }
-      OPTIONAL {?shippingInformation fixm:declarationText ?declarationText .}
-      OPTIONAL {?shippingInformation fixm:consignee ?consignee .}
-      OPTIONAL {?shippingInformation fixm:shipper ?shipper .}
-    }
-  }
-GROUP BY ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?declarationText ?consignee ?shipper
-
-      '
-,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convVal(AerodromeOfLoading,AerodromeOfLoadingVal), convVal(AerodromeOfUnloading,AerodromeOfUnloadingVal), convVal(DangerousGoodsScreeningLocation,DangerousGoodsScreeningLocationVal), convVal(DepartureCountry,DepartureCountryVal), convVal(DestinationCountry,DestinationCountryVal), convVal(OriginCountry,OriginCountryVal), convVal(ShipmentAuthorizations,ShipmentAuthorizationsVal), convVal(SubsidiaryHazardClassAndDivision,SubsidiaryHazardClassAndDivisionVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convert(TransferAerodromesConcat,TransferAerodromesList), convVal(DeclarationText,DeclarationTextVal), convVal(Consignee,ConsigneeVal), convVal(Shipper,ShipperVal).
-
-% fixm_DinghyColour(Graph, DinghyColour)
-
-fixm_DinghyColour(Graph, DinghyColour) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?dinghyColour
-WHERE
-  { GRAPH ?graph
-    {
-      ?dinghyColour rdf:type fixm:DinghyColour .
-    }
-  }
-
-      '
-,row(Graph,DinghyColour),[]).
-
-% fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequency?, AtnLogonParameters?, SendCpldcIndicator?, ConnectionStatus?, FrequencyUsage?, Fans1ALogonParameters?)
-
-fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequencyVal, AtnLogonParametersVal, SendCpldcIndicatorVal, ConnectionStatusVal, FrequencyUsageVal, Fans1ALogonParametersVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?cpdlcConnection ?receivingUnitFrequency ?atnLogonParameters ?sendCpldcIndicator ?connectionStatus ?frequencyUsage ?fans1ALogonParameters
-WHERE
-  { GRAPH ?graph
-    {
-      ?cpdlcConnection rdf:type fixm:CpdlcConnection .
-      OPTIONAL { ?cpdlcConnection fixm:receivingUnitFrequency ?_receivingUnitFrequency .
-        {
-          {
-            ?_receivingUnitFrequency rdf:value ?receivingUnitFrequencyValue .
-            FILTER ( NOT EXISTS {?_receivingUnitFrequency (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM})
-            BIND(concat(\'val:/:\',STR(?receivingUnitFrequencyValue),\':/:\',STR(DATATYPE(?receivingUnitFrequencyValue))) AS ?receivingUnitFrequency)
-          }
-            UNION
-          {
-            ?_receivingUnitFrequency
-              rdf:value ?receivingUnitFrequencyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?receivingUnitFrequencyUoM .
-            BIND(concat(\'xval:/:\',STR(?receivingUnitFrequencyValue),\':/:\',STR(DATATYPE(?receivingUnitFrequencyValue)),\':/:\',?receivingUnitFrequencyUoM) AS ?receivingUnitFrequency)
-          }
-            UNION
-          {
-           ?_receivingUnitFrequency  aixm:nilReason ?receivingUnitFrequencyNilReason .
-           BIND(concat(\'nil:/:\',?receivingUnitFrequencyNilReason) AS ?receivingUnitFrequency)
-          }
-          UNION
-          {
-		       ?_receivingUnitFrequency  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?receivingUnitFrequency)
-		     }
-        }
-      }
-      OPTIONAL { ?cpdlcConnection fixm:atnLogonParameters ?_atnLogonParameters .
-        {
-          {
-            ?_atnLogonParameters rdf:value ?atnLogonParametersValue .
-            FILTER ( NOT EXISTS {?_atnLogonParameters (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM})
-            BIND(concat(\'val:/:\',STR(?atnLogonParametersValue),\':/:\',STR(DATATYPE(?atnLogonParametersValue))) AS ?atnLogonParameters)
-          }
-            UNION
-          {
-            ?_atnLogonParameters
-              rdf:value ?atnLogonParametersValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?atnLogonParametersUoM .
-            BIND(concat(\'xval:/:\',STR(?atnLogonParametersValue),\':/:\',STR(DATATYPE(?atnLogonParametersValue)),\':/:\',?atnLogonParametersUoM) AS ?atnLogonParameters)
-          }
-            UNION
-          {
-           ?_atnLogonParameters  aixm:nilReason ?atnLogonParametersNilReason .
-           BIND(concat(\'nil:/:\',?atnLogonParametersNilReason) AS ?atnLogonParameters)
-          }
-          UNION
-          {
-		       ?_atnLogonParameters  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?atnLogonParameters)
-		     }
-        }
-      }
-      OPTIONAL { ?cpdlcConnection fixm:sendCpldcIndicator ?_sendCpldcIndicator .
-        {
-          {
-            ?_sendCpldcIndicator rdf:value ?sendCpldcIndicatorValue .
-            FILTER ( NOT EXISTS {?_sendCpldcIndicator (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM})
-            BIND(concat(\'val:/:\',STR(?sendCpldcIndicatorValue),\':/:\',STR(DATATYPE(?sendCpldcIndicatorValue))) AS ?sendCpldcIndicator)
-          }
-            UNION
-          {
-            ?_sendCpldcIndicator
-              rdf:value ?sendCpldcIndicatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?sendCpldcIndicatorUoM .
-            BIND(concat(\'xval:/:\',STR(?sendCpldcIndicatorValue),\':/:\',STR(DATATYPE(?sendCpldcIndicatorValue)),\':/:\',?sendCpldcIndicatorUoM) AS ?sendCpldcIndicator)
-          }
-            UNION
-          {
-           ?_sendCpldcIndicator  aixm:nilReason ?sendCpldcIndicatorNilReason .
-           BIND(concat(\'nil:/:\',?sendCpldcIndicatorNilReason) AS ?sendCpldcIndicator)
-          }
-          UNION
-          {
-		       ?_sendCpldcIndicator  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?sendCpldcIndicator)
-		     }
-        }
-      }
-      OPTIONAL { ?cpdlcConnection fixm:connectionStatus ?_connectionStatus .
-        {
-          {
-            ?_connectionStatus rdf:value ?connectionStatusValue .
-            FILTER ( NOT EXISTS {?_connectionStatus (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM})
-            BIND(concat(\'val:/:\',STR(?connectionStatusValue),\':/:\',STR(DATATYPE(?connectionStatusValue))) AS ?connectionStatus)
-          }
-            UNION
-          {
-            ?_connectionStatus
-              rdf:value ?connectionStatusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?connectionStatusUoM .
-            BIND(concat(\'xval:/:\',STR(?connectionStatusValue),\':/:\',STR(DATATYPE(?connectionStatusValue)),\':/:\',?connectionStatusUoM) AS ?connectionStatus)
-          }
-            UNION
-          {
-           ?_connectionStatus  aixm:nilReason ?connectionStatusNilReason .
-           BIND(concat(\'nil:/:\',?connectionStatusNilReason) AS ?connectionStatus)
-          }
-          UNION
-          {
-		       ?_connectionStatus  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?connectionStatus)
-		     }
-        }
-      }
-      OPTIONAL { ?cpdlcConnection fixm:frequencyUsage ?_frequencyUsage .
-        {
-          {
-            ?_frequencyUsage rdf:value ?frequencyUsageValue .
-            FILTER ( NOT EXISTS {?_frequencyUsage (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyUsageValue),\':/:\',STR(DATATYPE(?frequencyUsageValue))) AS ?frequencyUsage)
-          }
-            UNION
-          {
-            ?_frequencyUsage
-              rdf:value ?frequencyUsageValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyUsageUoM .
-            BIND(concat(\'xval:/:\',STR(?frequencyUsageValue),\':/:\',STR(DATATYPE(?frequencyUsageValue)),\':/:\',?frequencyUsageUoM) AS ?frequencyUsage)
-          }
-            UNION
-          {
-           ?_frequencyUsage  aixm:nilReason ?frequencyUsageNilReason .
-           BIND(concat(\'nil:/:\',?frequencyUsageNilReason) AS ?frequencyUsage)
-          }
-          UNION
-          {
-		       ?_frequencyUsage  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequencyUsage)
-		     }
-        }
-      }
-      OPTIONAL { ?cpdlcConnection fixm:fans1ALogonParameters ?_fans1ALogonParameters .
-        {
-          {
-            ?_fans1ALogonParameters rdf:value ?fans1ALogonParametersValue .
-            FILTER ( NOT EXISTS {?_fans1ALogonParameters (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM})
-            BIND(concat(\'val:/:\',STR(?fans1ALogonParametersValue),\':/:\',STR(DATATYPE(?fans1ALogonParametersValue))) AS ?fans1ALogonParameters)
-          }
-            UNION
-          {
-            ?_fans1ALogonParameters
-              rdf:value ?fans1ALogonParametersValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?fans1ALogonParametersUoM .
-            BIND(concat(\'xval:/:\',STR(?fans1ALogonParametersValue),\':/:\',STR(DATATYPE(?fans1ALogonParametersValue)),\':/:\',?fans1ALogonParametersUoM) AS ?fans1ALogonParameters)
-          }
-            UNION
-          {
-           ?_fans1ALogonParameters  aixm:nilReason ?fans1ALogonParametersNilReason .
-           BIND(concat(\'nil:/:\',?fans1ALogonParametersNilReason) AS ?fans1ALogonParameters)
-          }
-          UNION
-          {
-		       ?_fans1ALogonParameters  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fans1ALogonParameters)
-		     }
-        }
-      }
-    }
-  }
-
-      '
-,row(Graph,CpdlcConnection,ReceivingUnitFrequency,AtnLogonParameters,SendCpldcIndicator,ConnectionStatus,FrequencyUsage,Fans1ALogonParameters),[]), convVal(ReceivingUnitFrequency,ReceivingUnitFrequencyVal), convVal(AtnLogonParameters,AtnLogonParametersVal), convVal(SendCpldcIndicator,SendCpldcIndicatorVal), convVal(ConnectionStatus,ConnectionStatusVal), convVal(FrequencyUsage,FrequencyUsageVal), convVal(Fans1ALogonParameters,Fans1ALogonParametersVal).
-
-% fixm_Route(Graph, Route, AirfileRouteStartTime?, FlightDuration?, InitialCruisingSpeed?, InitialFlightRules?, RequestedAltitude?, RouteText?, EstimatedElapsedTime*, ExpandedRoute?, ClimbSchedule?, DescentSchedule?, Segment*)
-
-fixm_Route(Graph, Route, AirfileRouteStartTimeVal, FlightDurationVal, InitialCruisingSpeedVal, InitialFlightRulesVal, RequestedAltitudeVal, RouteTextVal, EstimatedElapsedTimeList, ExpandedRouteVal, ClimbScheduleVal, DescentScheduleVal, SegmentList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText (GROUP_CONCAT(DISTINCT ?estimatedElapsedTime;SEPARATOR=",") AS ?estimatedElapsedTimeConcat) ?expandedRoute ?climbSchedule ?descentSchedule (GROUP_CONCAT(DISTINCT ?segment;SEPARATOR=",") AS ?segmentConcat)
-WHERE
- {
-  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
-    ?SUBCLASS rdfs:subClassOf* fixm:Route .
-  }
-  { GRAPH ?graph
-    {
-      ?route rdf:type ?SUBCLASS .
-      OPTIONAL { ?route fixm:airfileRouteStartTime ?_airfileRouteStartTime .
-        {
-          {
-            ?_airfileRouteStartTime rdf:value ?airfileRouteStartTimeValue .
-            FILTER ( NOT EXISTS {?_airfileRouteStartTime (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM})
-            BIND(concat(\'val:/:\',STR(?airfileRouteStartTimeValue),\':/:\',STR(DATATYPE(?airfileRouteStartTimeValue))) AS ?airfileRouteStartTime)
-          }
-            UNION
-          {
-            ?_airfileRouteStartTime
-              rdf:value ?airfileRouteStartTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?airfileRouteStartTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?airfileRouteStartTimeValue),\':/:\',STR(DATATYPE(?airfileRouteStartTimeValue)),\':/:\',?airfileRouteStartTimeUoM) AS ?airfileRouteStartTime)
-          }
-            UNION
-          {
-           ?_airfileRouteStartTime  aixm:nilReason ?airfileRouteStartTimeNilReason .
-           BIND(concat(\'nil:/:\',?airfileRouteStartTimeNilReason) AS ?airfileRouteStartTime)
-          }
-          UNION
-          {
-		       ?_airfileRouteStartTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?airfileRouteStartTime)
-		     }
-        }
-      }
-      OPTIONAL { ?route fixm:flightDuration ?_flightDuration .
-        {
-          {
-            ?_flightDuration rdf:value ?flightDurationValue .
-            FILTER ( NOT EXISTS {?_flightDuration (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM})
-            BIND(concat(\'val:/:\',STR(?flightDurationValue),\':/:\',STR(DATATYPE(?flightDurationValue))) AS ?flightDuration)
-          }
-            UNION
-          {
-            ?_flightDuration
-              rdf:value ?flightDurationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightDurationUoM .
-            BIND(concat(\'xval:/:\',STR(?flightDurationValue),\':/:\',STR(DATATYPE(?flightDurationValue)),\':/:\',?flightDurationUoM) AS ?flightDuration)
-          }
-            UNION
-          {
-           ?_flightDuration  aixm:nilReason ?flightDurationNilReason .
-           BIND(concat(\'nil:/:\',?flightDurationNilReason) AS ?flightDuration)
-          }
-          UNION
-          {
-		       ?_flightDuration  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightDuration)
-		     }
-        }
-      }
-      OPTIONAL { ?route fixm:initialCruisingSpeed ?_initialCruisingSpeed .
-        {
-          {
-            ?_initialCruisingSpeed rdf:value ?initialCruisingSpeedValue .
-            FILTER ( NOT EXISTS {?_initialCruisingSpeed (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?initialCruisingSpeedValue),\':/:\',STR(DATATYPE(?initialCruisingSpeedValue))) AS ?initialCruisingSpeed)
-          }
-            UNION
-          {
-            ?_initialCruisingSpeed
-              rdf:value ?initialCruisingSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?initialCruisingSpeedUoM .
-            BIND(concat(\'xval:/:\',STR(?initialCruisingSpeedValue),\':/:\',STR(DATATYPE(?initialCruisingSpeedValue)),\':/:\',?initialCruisingSpeedUoM) AS ?initialCruisingSpeed)
-          }
-            UNION
-          {
-           ?_initialCruisingSpeed  aixm:nilReason ?initialCruisingSpeedNilReason .
-           BIND(concat(\'nil:/:\',?initialCruisingSpeedNilReason) AS ?initialCruisingSpeed)
-          }
-          UNION
-          {
-		       ?_initialCruisingSpeed  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialCruisingSpeed)
-		     }
-        }
-      }
-      OPTIONAL { ?route fixm:initialFlightRules ?_initialFlightRules .
-        {
-          {
-            ?_initialFlightRules rdf:value ?initialFlightRulesValue .
-            FILTER ( NOT EXISTS {?_initialFlightRules (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM})
-            BIND(concat(\'val:/:\',STR(?initialFlightRulesValue),\':/:\',STR(DATATYPE(?initialFlightRulesValue))) AS ?initialFlightRules)
-          }
-            UNION
-          {
-            ?_initialFlightRules
-              rdf:value ?initialFlightRulesValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?initialFlightRulesUoM .
-            BIND(concat(\'xval:/:\',STR(?initialFlightRulesValue),\':/:\',STR(DATATYPE(?initialFlightRulesValue)),\':/:\',?initialFlightRulesUoM) AS ?initialFlightRules)
-          }
-            UNION
-          {
-           ?_initialFlightRules  aixm:nilReason ?initialFlightRulesNilReason .
-           BIND(concat(\'nil:/:\',?initialFlightRulesNilReason) AS ?initialFlightRules)
-          }
-          UNION
-          {
-		       ?_initialFlightRules  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?initialFlightRules)
-		     }
-        }
-      }
-      OPTIONAL { ?route fixm:requestedAltitude ?_requestedAltitude .
-        {
-          {
-            ?_requestedAltitude rdf:value ?requestedAltitudeValue .
-            FILTER ( NOT EXISTS {?_requestedAltitude (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM})
-            BIND(concat(\'val:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue))) AS ?requestedAltitude)
-          }
-            UNION
-          {
-            ?_requestedAltitude
-              rdf:value ?requestedAltitudeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?requestedAltitudeUoM .
-            BIND(concat(\'xval:/:\',STR(?requestedAltitudeValue),\':/:\',STR(DATATYPE(?requestedAltitudeValue)),\':/:\',?requestedAltitudeUoM) AS ?requestedAltitude)
-          }
-            UNION
-          {
-           ?_requestedAltitude  aixm:nilReason ?requestedAltitudeNilReason .
-           BIND(concat(\'nil:/:\',?requestedAltitudeNilReason) AS ?requestedAltitude)
-          }
-          UNION
-          {
-		       ?_requestedAltitude  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?requestedAltitude)
-		     }
-        }
-      }
-      OPTIONAL { ?route fixm:routeText ?_routeText .
-        {
-          {
-            ?_routeText rdf:value ?routeTextValue .
-            FILTER ( NOT EXISTS {?_routeText (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM})
-            BIND(concat(\'val:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue))) AS ?routeText)
-          }
-            UNION
-          {
-            ?_routeText
-              rdf:value ?routeTextValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?routeTextUoM .
-            BIND(concat(\'xval:/:\',STR(?routeTextValue),\':/:\',STR(DATATYPE(?routeTextValue)),\':/:\',?routeTextUoM) AS ?routeText)
-          }
-            UNION
-          {
-           ?_routeText  aixm:nilReason ?routeTextNilReason .
-           BIND(concat(\'nil:/:\',?routeTextNilReason) AS ?routeText)
-          }
-          UNION
-          {
-		       ?_routeText  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?routeText)
-		     }
-        }
-      }
-      OPTIONAL {?route fixm:estimatedElapsedTime ?estimatedElapsedTime .}
-      OPTIONAL {?route fixm:expandedRoute ?expandedRoute .}
-      OPTIONAL {?route fixm:climbSchedule ?climbSchedule .}
-      OPTIONAL {?route fixm:descentSchedule ?descentSchedule .}
-      OPTIONAL {?route fixm:segment ?segment .}
-    }
-  }
-}
-GROUP BY ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?expandedRoute ?climbSchedule ?descentSchedule
-
-      '
-,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convVal(AirfileRouteStartTime,AirfileRouteStartTimeVal), convVal(FlightDuration,FlightDurationVal), convVal(InitialCruisingSpeed,InitialCruisingSpeedVal), convVal(InitialFlightRules,InitialFlightRulesVal), convVal(RequestedAltitude,RequestedAltitudeVal), convVal(RouteText,RouteTextVal), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convVal(ExpandedRoute,ExpandedRouteVal), convVal(ClimbSchedule,ClimbScheduleVal), convVal(DescentSchedule,DescentScheduleVal), convert(SegmentConcat,SegmentList).
-
-% fixm_Person(Graph, Person, Name?, Contact?)
-
-fixm_Person(Graph, Person, NameVal, ContactVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?person ?name ?contact
-WHERE
-  { GRAPH ?graph
-    {
-      ?person rdf:type fixm:Person .
-      OPTIONAL { ?person fixm:name ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-            UNION
-          {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-            BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-            UNION
-          {
-           ?_name  aixm:nilReason ?nameNilReason .
-           BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-		     }
-        }
-      }
-      OPTIONAL {?person fixm:contact ?contact .}
-    }
-  }
-
-      '
-,row(Graph,Person,Name,Contact),[]), convVal(Name,NameVal), convVal(Contact,ContactVal).
-
-% plain_EfplFlight(Graph, EfplFlight, FlightType)
-
-plain_EfplFlight(Graph, EfplFlight, FlightTypeVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplFlight ?flightType
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplFlight rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplFlight> .
-      ?efplFlight <http://www.aisa-project.eu/vocabulary/plain#flightType>  ?_flightType .
-        {
-          {
-            ?_flightType rdf:value ?flightTypeValue .
-            FILTER ( NOT EXISTS {?_flightType (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM})
-            BIND(concat(\'val:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue))) AS ?flightType)
-          }
-		     UNION
-		     {
-            ?_flightType
-              rdf:value ?flightTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightTypeUoM .
-              BIND(concat(\'xval:/:\',STR(?flightTypeValue),\':/:\',STR(DATATYPE(?flightTypeValue)),\':/:\',?flightTypeUoM) AS ?flightType)
-          }
-          UNION
-          {
-		       ?_flightType  aixm:nilReason ?flightTypeNilReason .
-		       BIND(concat(\'nil:/:\',?flightTypeNilReason) AS ?flightType)
-		     }
-          UNION
-          {
-            ?_flightType  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightType)
-	         }
-      }
-    }
-  }
-
-      '
-,row(Graph,EfplFlight,FlightType),[]), convVal(FlightType,FlightTypeVal).
-
-% fixm_EfplFlight(Graph, EfplFlight, IfplId?, TotalEstimatedElapsedTime?, AerodromesOfDestination?, EfplSpecialHandling?, EfplFiledTrajectory?, EfplAcceptedTrajectory?, OtherInformation?, FlightPerformanceData?)
-
-fixm_EfplFlight(Graph, EfplFlight, IfplIdVal, TotalEstimatedElapsedTimeVal, AerodromesOfDestinationVal, EfplSpecialHandlingVal, EfplFiledTrajectoryVal, EfplAcceptedTrajectoryVal, OtherInformationVal, FlightPerformanceDataVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?efplFlight ?ifplId ?totalEstimatedElapsedTime ?aerodromesOfDestination ?efplSpecialHandling ?efplFiledTrajectory ?efplAcceptedTrajectory ?otherInformation ?flightPerformanceData
-WHERE
-  { GRAPH ?graph
-    {
-      ?efplFlight rdf:type fixm:EfplFlight .
-      OPTIONAL { ?efplFlight fixm:ifplId ?_ifplId .
-        {
-          {
-            ?_ifplId rdf:value ?ifplIdValue .
-            FILTER ( NOT EXISTS {?_ifplId (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM})
-            BIND(concat(\'val:/:\',STR(?ifplIdValue),\':/:\',STR(DATATYPE(?ifplIdValue))) AS ?ifplId)
-          }
-            UNION
-          {
-            ?_ifplId
-              rdf:value ?ifplIdValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?ifplIdUoM .
-            BIND(concat(\'xval:/:\',STR(?ifplIdValue),\':/:\',STR(DATATYPE(?ifplIdValue)),\':/:\',?ifplIdUoM) AS ?ifplId)
-          }
-            UNION
-          {
-           ?_ifplId  aixm:nilReason ?ifplIdNilReason .
-           BIND(concat(\'nil:/:\',?ifplIdNilReason) AS ?ifplId)
-          }
-          UNION
-          {
-		       ?_ifplId  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?ifplId)
-		     }
-        }
-      }
-      OPTIONAL { ?efplFlight fixm:totalEstimatedElapsedTime ?_totalEstimatedElapsedTime .
-        {
-          {
-            ?_totalEstimatedElapsedTime rdf:value ?totalEstimatedElapsedTimeValue .
-            FILTER ( NOT EXISTS {?_totalEstimatedElapsedTime (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM})
-            BIND(concat(\'val:/:\',STR(?totalEstimatedElapsedTimeValue),\':/:\',STR(DATATYPE(?totalEstimatedElapsedTimeValue))) AS ?totalEstimatedElapsedTime)
-          }
-            UNION
-          {
-            ?_totalEstimatedElapsedTime
-              rdf:value ?totalEstimatedElapsedTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?totalEstimatedElapsedTimeUoM .
-            BIND(concat(\'xval:/:\',STR(?totalEstimatedElapsedTimeValue),\':/:\',STR(DATATYPE(?totalEstimatedElapsedTimeValue)),\':/:\',?totalEstimatedElapsedTimeUoM) AS ?totalEstimatedElapsedTime)
-          }
-            UNION
-          {
-           ?_totalEstimatedElapsedTime  aixm:nilReason ?totalEstimatedElapsedTimeNilReason .
-           BIND(concat(\'nil:/:\',?totalEstimatedElapsedTimeNilReason) AS ?totalEstimatedElapsedTime)
-          }
-          UNION
-          {
-		       ?_totalEstimatedElapsedTime  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?totalEstimatedElapsedTime)
-		     }
-        }
-      }
-      OPTIONAL {?efplFlight fixm:aerodromesOfDestination ?aerodromesOfDestination .}
-      OPTIONAL { ?efplFlight fixm:efplSpecialHandling ?_efplSpecialHandling .
-        {
-          {
-            ?_efplSpecialHandling rdf:value ?efplSpecialHandlingValue .
-            FILTER ( NOT EXISTS {?_efplSpecialHandling (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM})
-            BIND(concat(\'val:/:\',STR(?efplSpecialHandlingValue),\':/:\',STR(DATATYPE(?efplSpecialHandlingValue))) AS ?efplSpecialHandling)
-          }
-            UNION
-          {
-            ?_efplSpecialHandling
-              rdf:value ?efplSpecialHandlingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?efplSpecialHandlingUoM .
-            BIND(concat(\'xval:/:\',STR(?efplSpecialHandlingValue),\':/:\',STR(DATATYPE(?efplSpecialHandlingValue)),\':/:\',?efplSpecialHandlingUoM) AS ?efplSpecialHandling)
-          }
-            UNION
-          {
-           ?_efplSpecialHandling  aixm:nilReason ?efplSpecialHandlingNilReason .
-           BIND(concat(\'nil:/:\',?efplSpecialHandlingNilReason) AS ?efplSpecialHandling)
-          }
-          UNION
-          {
-		       ?_efplSpecialHandling  gml:indeterminatePosition ?indeterminatePosition .
-		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplSpecialHandling)
-		     }
-        }
-      }
-      OPTIONAL {?efplFlight fixm:efplFiledTrajectory ?efplFiledTrajectory .}
-      OPTIONAL {?efplFlight fixm:efplAcceptedTrajectory ?efplAcceptedTrajectory .}
-      OPTIONAL {?efplFlight fixm:otherInformation ?otherInformation .}
-      OPTIONAL {?efplFlight fixm:flightPerformanceData ?flightPerformanceData .}
-    }
-  }
-
-      '
-,row(Graph,EfplFlight,IfplId,TotalEstimatedElapsedTime,AerodromesOfDestination,EfplSpecialHandling,EfplFiledTrajectory,EfplAcceptedTrajectory,OtherInformation,FlightPerformanceData),[]), convVal(IfplId,IfplIdVal), convVal(TotalEstimatedElapsedTime,TotalEstimatedElapsedTimeVal), convVal(AerodromesOfDestination,AerodromesOfDestinationVal), convVal(EfplSpecialHandling,EfplSpecialHandlingVal), convVal(EfplFiledTrajectory,EfplFiledTrajectoryVal), convVal(EfplAcceptedTrajectory,EfplAcceptedTrajectoryVal), convVal(OtherInformation,OtherInformationVal), convVal(FlightPerformanceData,FlightPerformanceDataVal).
-
-% plain_TrafficSituation(Graph, TrafficSituation, FlightIdentification+, Sector)
-
-plain_TrafficSituation(Graph, TrafficSituation, FlightIdentificationList, SectorVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?trafficSituation (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?sector
-WHERE
-  { GRAPH ?graph
-    {
-      ?trafficSituation rdf:type <http://www.aisa-project.eu/vocabulary/plain#TrafficSituation> .
-      ?trafficSituation <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?trafficSituation <http://www.aisa-project.eu/vocabulary/plain#sector>  ?_sector .
-        {
-          {
-            ?_sector rdf:value ?sectorValue .
-            FILTER ( NOT EXISTS {?_sector (aixm:uom | fixm:uom | plain:uom) ?sectorUoM})
-            BIND(concat(\'val:/:\',STR(?sectorValue),\':/:\',STR(DATATYPE(?sectorValue))) AS ?sector)
-          }
-		     UNION
-		     {
-            ?_sector
-              rdf:value ?sectorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?sectorUoM .
-              BIND(concat(\'xval:/:\',STR(?sectorValue),\':/:\',STR(DATATYPE(?sectorValue)),\':/:\',?sectorUoM) AS ?sector)
-          }
-          UNION
-          {
-		       ?_sector  aixm:nilReason ?sectorNilReason .
-		       BIND(concat(\'nil:/:\',?sectorNilReason) AS ?sector)
-		     }
-          UNION
-          {
-            ?_sector  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?sector)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?trafficSituation ?sector
-
-      '
-,row(Graph,TrafficSituation,FlightIdentificationConcat,Sector),[]), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(Sector,SectorVal).
-
-% plain_IcaoAerodromeReference(Graph, IcaoAerodromeReference, AerodromesOfDestination*, Code, EfplFlightDeparture*)
-
-plain_IcaoAerodromeReference(Graph, IcaoAerodromeReference, AerodromesOfDestinationList, CodeVal, EfplFlightDepartureList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?icaoAerodromeReference (GROUP_CONCAT(DISTINCT ?aerodromesOfDestination;SEPARATOR=",") AS ?aerodromesOfDestinationConcat) ?code (GROUP_CONCAT(DISTINCT ?efplFlightDeparture;SEPARATOR=",") AS ?efplFlightDepartureConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?icaoAerodromeReference rdf:type <http://www.aisa-project.eu/vocabulary/plain#IcaoAerodromeReference> .
-      OPTIONAL {?icaoAerodromeReference <http://www.aisa-project.eu/vocabulary/plain#aerodromesOfDestination> ?aerodromesOfDestination .}
-      ?icaoAerodromeReference <http://www.aisa-project.eu/vocabulary/plain#code>  ?_code .
-        {
-          {
-            ?_code rdf:value ?codeValue .
-            FILTER ( NOT EXISTS {?_code (aixm:uom | fixm:uom | plain:uom) ?codeUoM})
-            BIND(concat(\'val:/:\',STR(?codeValue),\':/:\',STR(DATATYPE(?codeValue))) AS ?code)
-          }
-		     UNION
-		     {
-            ?_code
-              rdf:value ?codeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?codeUoM .
-              BIND(concat(\'xval:/:\',STR(?codeValue),\':/:\',STR(DATATYPE(?codeValue)),\':/:\',?codeUoM) AS ?code)
-          }
-          UNION
-          {
-		       ?_code  aixm:nilReason ?codeNilReason .
-		       BIND(concat(\'nil:/:\',?codeNilReason) AS ?code)
-		     }
-          UNION
-          {
-            ?_code  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?code)
-	         }
-      }
-      OPTIONAL {?icaoAerodromeReference <http://www.aisa-project.eu/vocabulary/plain#efplFlightDeparture> ?efplFlightDeparture .}
-    }
-  }
-GROUP BY ?graph ?icaoAerodromeReference ?code
-
-      '
-,row(Graph,IcaoAerodromeReference,AerodromesOfDestinationConcat,Code,EfplFlightDepartureConcat),[]), convert(AerodromesOfDestinationConcat,AerodromesOfDestinationList), convVal(Code,CodeVal), convert(EfplFlightDepartureConcat,EfplFlightDepartureList).
-
-% plain_ContactInformation(Graph, ContactInformation, Title, Name, UsageCondition*)
-
-plain_ContactInformation(Graph, ContactInformation, TitleVal, NameVal, UsageConditionList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?contactInformation ?title ?name (GROUP_CONCAT(DISTINCT ?usageCondition;SEPARATOR=",") AS ?usageConditionConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?contactInformation rdf:type <http://www.aisa-project.eu/vocabulary/plain#ContactInformation> .
-      ?contactInformation <http://www.aisa-project.eu/vocabulary/plain#title>  ?_title .
-        {
-          {
-            ?_title rdf:value ?titleValue .
-            FILTER ( NOT EXISTS {?_title (aixm:uom | fixm:uom | plain:uom) ?titleUoM})
-            BIND(concat(\'val:/:\',STR(?titleValue),\':/:\',STR(DATATYPE(?titleValue))) AS ?title)
-          }
-		     UNION
-		     {
-            ?_title
-              rdf:value ?titleValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?titleUoM .
-              BIND(concat(\'xval:/:\',STR(?titleValue),\':/:\',STR(DATATYPE(?titleValue)),\':/:\',?titleUoM) AS ?title)
-          }
-          UNION
-          {
-		       ?_title  aixm:nilReason ?titleNilReason .
-		       BIND(concat(\'nil:/:\',?titleNilReason) AS ?title)
-		     }
-          UNION
-          {
-            ?_title  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?title)
-	         }
-      }
-      ?contactInformation <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-      OPTIONAL {?contactInformation <http://www.aisa-project.eu/vocabulary/plain#usageCondition> ?usageCondition .}
-    }
-  }
-GROUP BY ?graph ?contactInformation ?title ?name
-
-      '
-,row(Graph,ContactInformation,Title,Name,UsageConditionConcat),[]), convVal(Title,TitleVal), convVal(Name,NameVal), convert(UsageConditionConcat,UsageConditionList).
-
-% plain_string(Graph, String, WhiteSpace)
-
-plain_string(Graph, String, WhiteSpaceVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?string ?whiteSpace
-WHERE
-  { GRAPH ?graph
-    {
-      ?string rdf:type <http://www.aisa-project.eu/vocabulary/plain#string> .
-      ?string <http://www.aisa-project.eu/vocabulary/plain#whiteSpace>  ?_whiteSpace .
-        {
-          {
-            ?_whiteSpace rdf:value ?whiteSpaceValue .
-            FILTER ( NOT EXISTS {?_whiteSpace (aixm:uom | fixm:uom | plain:uom) ?whiteSpaceUoM})
-            BIND(concat(\'val:/:\',STR(?whiteSpaceValue),\':/:\',STR(DATATYPE(?whiteSpaceValue))) AS ?whiteSpace)
-          }
-		     UNION
-		     {
-            ?_whiteSpace
-              rdf:value ?whiteSpaceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?whiteSpaceUoM .
-              BIND(concat(\'xval:/:\',STR(?whiteSpaceValue),\':/:\',STR(DATATYPE(?whiteSpaceValue)),\':/:\',?whiteSpaceUoM) AS ?whiteSpace)
-          }
-          UNION
-          {
-		       ?_whiteSpace  aixm:nilReason ?whiteSpaceNilReason .
-		       BIND(concat(\'nil:/:\',?whiteSpaceNilReason) AS ?whiteSpace)
-		     }
-          UNION
-          {
-            ?_whiteSpace  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?whiteSpace)
-	         }
-      }
-    }
-  }
-
-      '
-,row(Graph,String,WhiteSpace),[]), convVal(WhiteSpace,WhiteSpaceVal).
-
-% plain_ClearedFlightInformation(Graph, ClearedFlightInformation, RateOfClimbDescent, ClearedFlightLevel, ClearedSpeed, OfftrackClearance, Heading, FlightIdentification*)
-
-plain_ClearedFlightInformation(Graph, ClearedFlightInformation, RateOfClimbDescentVal, ClearedFlightLevelVal, ClearedSpeedVal, OfftrackClearanceVal, HeadingVal, FlightIdentificationList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?clearedFlightInformation ?rateOfClimbDescent ?clearedFlightLevel ?clearedSpeed ?offtrackClearance ?heading (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?clearedFlightInformation rdf:type <http://www.aisa-project.eu/vocabulary/plain#ClearedFlightInformation> .
-      ?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#rateOfClimbDescent>  ?_rateOfClimbDescent .
-        {
-          {
-            ?_rateOfClimbDescent rdf:value ?rateOfClimbDescentValue .
-            FILTER ( NOT EXISTS {?_rateOfClimbDescent (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescentUoM})
-            BIND(concat(\'val:/:\',STR(?rateOfClimbDescentValue),\':/:\',STR(DATATYPE(?rateOfClimbDescentValue))) AS ?rateOfClimbDescent)
-          }
-		     UNION
-		     {
-            ?_rateOfClimbDescent
-              rdf:value ?rateOfClimbDescentValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?rateOfClimbDescentUoM .
-              BIND(concat(\'xval:/:\',STR(?rateOfClimbDescentValue),\':/:\',STR(DATATYPE(?rateOfClimbDescentValue)),\':/:\',?rateOfClimbDescentUoM) AS ?rateOfClimbDescent)
-          }
-          UNION
-          {
-		       ?_rateOfClimbDescent  aixm:nilReason ?rateOfClimbDescentNilReason .
-		       BIND(concat(\'nil:/:\',?rateOfClimbDescentNilReason) AS ?rateOfClimbDescent)
-		     }
-          UNION
-          {
-            ?_rateOfClimbDescent  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rateOfClimbDescent)
-	         }
-      }
-      ?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#clearedFlightLevel>  ?_clearedFlightLevel .
-        {
-          {
-            ?_clearedFlightLevel rdf:value ?clearedFlightLevelValue .
-            FILTER ( NOT EXISTS {?_clearedFlightLevel (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM})
-            BIND(concat(\'val:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue))) AS ?clearedFlightLevel)
-          }
-		     UNION
-		     {
-            ?_clearedFlightLevel
-              rdf:value ?clearedFlightLevelValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?clearedFlightLevelUoM .
-              BIND(concat(\'xval:/:\',STR(?clearedFlightLevelValue),\':/:\',STR(DATATYPE(?clearedFlightLevelValue)),\':/:\',?clearedFlightLevelUoM) AS ?clearedFlightLevel)
-          }
-          UNION
-          {
-		       ?_clearedFlightLevel  aixm:nilReason ?clearedFlightLevelNilReason .
-		       BIND(concat(\'nil:/:\',?clearedFlightLevelNilReason) AS ?clearedFlightLevel)
-		     }
-          UNION
-          {
-            ?_clearedFlightLevel  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedFlightLevel)
-	         }
-      }
-      ?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#clearedSpeed>  ?_clearedSpeed .
-        {
-          {
-            ?_clearedSpeed rdf:value ?clearedSpeedValue .
-            FILTER ( NOT EXISTS {?_clearedSpeed (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue))) AS ?clearedSpeed)
-          }
-		     UNION
-		     {
-            ?_clearedSpeed
-              rdf:value ?clearedSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?clearedSpeedUoM .
-              BIND(concat(\'xval:/:\',STR(?clearedSpeedValue),\':/:\',STR(DATATYPE(?clearedSpeedValue)),\':/:\',?clearedSpeedUoM) AS ?clearedSpeed)
-          }
-          UNION
-          {
-		       ?_clearedSpeed  aixm:nilReason ?clearedSpeedNilReason .
-		       BIND(concat(\'nil:/:\',?clearedSpeedNilReason) AS ?clearedSpeed)
-		     }
-          UNION
-          {
-            ?_clearedSpeed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?clearedSpeed)
-	         }
-      }
-      ?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#offtrackClearance>  ?_offtrackClearance .
-        {
-          {
-            ?_offtrackClearance rdf:value ?offtrackClearanceValue .
-            FILTER ( NOT EXISTS {?_offtrackClearance (aixm:uom | fixm:uom | plain:uom) ?offtrackClearanceUoM})
-            BIND(concat(\'val:/:\',STR(?offtrackClearanceValue),\':/:\',STR(DATATYPE(?offtrackClearanceValue))) AS ?offtrackClearance)
-          }
-		     UNION
-		     {
-            ?_offtrackClearance
-              rdf:value ?offtrackClearanceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?offtrackClearanceUoM .
-              BIND(concat(\'xval:/:\',STR(?offtrackClearanceValue),\':/:\',STR(DATATYPE(?offtrackClearanceValue)),\':/:\',?offtrackClearanceUoM) AS ?offtrackClearance)
-          }
-          UNION
-          {
-		       ?_offtrackClearance  aixm:nilReason ?offtrackClearanceNilReason .
-		       BIND(concat(\'nil:/:\',?offtrackClearanceNilReason) AS ?offtrackClearance)
-		     }
-          UNION
-          {
-            ?_offtrackClearance  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?offtrackClearance)
-	         }
-      }
-      ?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#heading>  ?_heading .
-        {
-          {
-            ?_heading rdf:value ?headingValue .
-            FILTER ( NOT EXISTS {?_heading (aixm:uom | fixm:uom | plain:uom) ?headingUoM})
-            BIND(concat(\'val:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue))) AS ?heading)
-          }
-		     UNION
-		     {
-            ?_heading
-              rdf:value ?headingValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?headingUoM .
-              BIND(concat(\'xval:/:\',STR(?headingValue),\':/:\',STR(DATATYPE(?headingValue)),\':/:\',?headingUoM) AS ?heading)
-          }
-          UNION
-          {
-		       ?_heading  aixm:nilReason ?headingNilReason .
-		       BIND(concat(\'nil:/:\',?headingNilReason) AS ?heading)
-		     }
-          UNION
-          {
-            ?_heading  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?heading)
-	         }
-      }
-      OPTIONAL {?clearedFlightInformation <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-    }
-  }
-GROUP BY ?graph ?clearedFlightInformation ?rateOfClimbDescent ?clearedFlightLevel ?clearedSpeed ?offtrackClearance ?heading
-
-      '
-,row(Graph,ClearedFlightInformation,RateOfClimbDescent,ClearedFlightLevel,ClearedSpeed,OfftrackClearance,Heading,FlightIdentificationConcat),[]), convVal(RateOfClimbDescent,RateOfClimbDescentVal), convVal(ClearedFlightLevel,ClearedFlightLevelVal), convVal(ClearedSpeed,ClearedSpeedVal), convVal(OfftrackClearance,OfftrackClearanceVal), convVal(Heading,HeadingVal), convert(FlightIdentificationConcat,FlightIdentificationList).
 
 % fixm_AircraftPosition(Graph, AircraftPosition, Altitude?, Position?, PositionTime?, Track?, ActualSpeed?, NextPosition?, ReportSource?, FollowingPosition?)
 
@@ -17247,9 +8754,9 @@ WHERE
       '
 ,row(Graph,AircraftPosition,Altitude,Position,PositionTime,Track,ActualSpeed,NextPosition,ReportSource,FollowingPosition),[]), convVal(Altitude,AltitudeVal), convVal(Position,PositionVal), convVal(PositionTime,PositionTimeVal), convVal(Track,TrackVal), convVal(ActualSpeed,ActualSpeedVal), convVal(NextPosition,NextPositionVal), convVal(ReportSource,ReportSourceVal), convVal(FollowingPosition,FollowingPositionVal).
 
-% plain_NavaidEquipment(Graph, NavaidEquipment, NavaidComponent*, Designator, FlightChecked, Mobile, Name)
+% aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation?)
 
-plain_NavaidEquipment(Graph, NavaidEquipment, NavaidComponentList, DesignatorVal, FlightCheckedVal, MobileVal, NameVal) :-
+aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, OperationVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -17270,304 +8777,42 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?navaidEquipment (GROUP_CONCAT(DISTINCT ?navaidComponent;SEPARATOR=",") AS ?navaidComponentConcat) ?designator ?flightChecked ?mobile ?name
+SELECT ?graph ?airportHeliportUsage ?operation
 WHERE
   { GRAPH ?graph
     {
-      ?navaidEquipment rdf:type <http://www.aisa-project.eu/vocabulary/plain#NavaidEquipment> .
-      OPTIONAL {?navaidEquipment <http://www.aisa-project.eu/vocabulary/plain#navaidComponent> ?navaidComponent .}
-      ?navaidEquipment <http://www.aisa-project.eu/vocabulary/plain#designator>  ?_designator .
+      ?airportHeliportUsage rdf:type aixm:AirportHeliportUsage .
+      OPTIONAL { ?airportHeliportUsage aixm:operation ?_operation .
         {
           {
-            ?_designator rdf:value ?designatorValue .
-            FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat(\'val:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue))) AS ?designator)
+            ?_operation rdf:value ?operationValue .
+            FILTER ( NOT EXISTS {?_operation (aixm:uom | fixm:uom | plain:uom) ?operationUoM})
+            BIND(concat(\'val:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue))) AS ?operation)
           }
-		     UNION
-		     {
-            ?_designator
-              rdf:value ?designatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue)),\':/:\',?designatorUoM) AS ?designator)
+            UNION
+          {
+            ?_operation
+              rdf:value ?operationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?operationUoM .
+            BIND(concat(\'xval:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue)),\':/:\',?operationUoM) AS ?operation)
+          }
+            UNION
+          {
+           ?_operation  aixm:nilReason ?operationNilReason .
+           BIND(concat(\'nil:/:\',?operationNilReason) AS ?operation)
           }
           UNION
           {
-		       ?_designator  aixm:nilReason ?designatorNilReason .
-		       BIND(concat(\'nil:/:\',?designatorNilReason) AS ?designator)
+		       ?_operation  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operation)
 		     }
-          UNION
-          {
-            ?_designator  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designator)
-	         }
-      }
-      ?navaidEquipment <http://www.aisa-project.eu/vocabulary/plain#flightChecked>  ?_flightChecked .
-        {
-          {
-            ?_flightChecked rdf:value ?flightCheckedValue .
-            FILTER ( NOT EXISTS {?_flightChecked (aixm:uom | fixm:uom | plain:uom) ?flightCheckedUoM})
-            BIND(concat(\'val:/:\',STR(?flightCheckedValue),\':/:\',STR(DATATYPE(?flightCheckedValue))) AS ?flightChecked)
-          }
-		     UNION
-		     {
-            ?_flightChecked
-              rdf:value ?flightCheckedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?flightCheckedUoM .
-              BIND(concat(\'xval:/:\',STR(?flightCheckedValue),\':/:\',STR(DATATYPE(?flightCheckedValue)),\':/:\',?flightCheckedUoM) AS ?flightChecked)
-          }
-          UNION
-          {
-		       ?_flightChecked  aixm:nilReason ?flightCheckedNilReason .
-		       BIND(concat(\'nil:/:\',?flightCheckedNilReason) AS ?flightChecked)
-		     }
-          UNION
-          {
-            ?_flightChecked  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?flightChecked)
-	         }
-      }
-      ?navaidEquipment <http://www.aisa-project.eu/vocabulary/plain#mobile>  ?_mobile .
-        {
-          {
-            ?_mobile rdf:value ?mobileValue .
-            FILTER ( NOT EXISTS {?_mobile (aixm:uom | fixm:uom | plain:uom) ?mobileUoM})
-            BIND(concat(\'val:/:\',STR(?mobileValue),\':/:\',STR(DATATYPE(?mobileValue))) AS ?mobile)
-          }
-		     UNION
-		     {
-            ?_mobile
-              rdf:value ?mobileValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?mobileUoM .
-              BIND(concat(\'xval:/:\',STR(?mobileValue),\':/:\',STR(DATATYPE(?mobileValue)),\':/:\',?mobileUoM) AS ?mobile)
-          }
-          UNION
-          {
-		       ?_mobile  aixm:nilReason ?mobileNilReason .
-		       BIND(concat(\'nil:/:\',?mobileNilReason) AS ?mobile)
-		     }
-          UNION
-          {
-            ?_mobile  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?mobile)
-	         }
-      }
-      ?navaidEquipment <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
+        }
       }
     }
   }
-GROUP BY ?graph ?navaidEquipment ?designator ?flightChecked ?mobile ?name
 
       '
-,row(Graph,NavaidEquipment,NavaidComponentConcat,Designator,FlightChecked,Mobile,Name),[]), convert(NavaidComponentConcat,NavaidComponentList), convVal(Designator,DesignatorVal), convVal(FlightChecked,FlightCheckedVal), convVal(Mobile,MobileVal), convVal(Name,NameVal).
-
-% plain_Airspace(Graph, Airspace, LocalType, Type, UpperLowerSeparation, Name, Designator, ControlType, SignificantPointInAirspace+)
-
-plain_Airspace(Graph, Airspace, LocalTypeVal, TypeVal, UpperLowerSeparationVal, NameVal, DesignatorVal, ControlTypeVal, SignificantPointInAirspaceList) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?airspace ?localType ?type ?upperLowerSeparation ?name ?designator ?controlType (GROUP_CONCAT(DISTINCT ?significantPointInAirspace;SEPARATOR=",") AS ?significantPointInAirspaceConcat)
-WHERE
-  { GRAPH ?graph
-    {
-      ?airspace rdf:type <http://www.aisa-project.eu/vocabulary/plain#Airspace> .
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#localType>  ?_localType .
-        {
-          {
-            ?_localType rdf:value ?localTypeValue .
-            FILTER ( NOT EXISTS {?_localType (aixm:uom | fixm:uom | plain:uom) ?localTypeUoM})
-            BIND(concat(\'val:/:\',STR(?localTypeValue),\':/:\',STR(DATATYPE(?localTypeValue))) AS ?localType)
-          }
-		     UNION
-		     {
-            ?_localType
-              rdf:value ?localTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?localTypeUoM .
-              BIND(concat(\'xval:/:\',STR(?localTypeValue),\':/:\',STR(DATATYPE(?localTypeValue)),\':/:\',?localTypeUoM) AS ?localType)
-          }
-          UNION
-          {
-		       ?_localType  aixm:nilReason ?localTypeNilReason .
-		       BIND(concat(\'nil:/:\',?localTypeNilReason) AS ?localType)
-		     }
-          UNION
-          {
-            ?_localType  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?localType)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#upperLowerSeparation>  ?_upperLowerSeparation .
-        {
-          {
-            ?_upperLowerSeparation rdf:value ?upperLowerSeparationValue .
-            FILTER ( NOT EXISTS {?_upperLowerSeparation (aixm:uom | fixm:uom | plain:uom) ?upperLowerSeparationUoM})
-            BIND(concat(\'val:/:\',STR(?upperLowerSeparationValue),\':/:\',STR(DATATYPE(?upperLowerSeparationValue))) AS ?upperLowerSeparation)
-          }
-		     UNION
-		     {
-            ?_upperLowerSeparation
-              rdf:value ?upperLowerSeparationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?upperLowerSeparationUoM .
-              BIND(concat(\'xval:/:\',STR(?upperLowerSeparationValue),\':/:\',STR(DATATYPE(?upperLowerSeparationValue)),\':/:\',?upperLowerSeparationUoM) AS ?upperLowerSeparation)
-          }
-          UNION
-          {
-		       ?_upperLowerSeparation  aixm:nilReason ?upperLowerSeparationNilReason .
-		       BIND(concat(\'nil:/:\',?upperLowerSeparationNilReason) AS ?upperLowerSeparation)
-		     }
-          UNION
-          {
-            ?_upperLowerSeparation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?upperLowerSeparation)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#name>  ?_name .
-        {
-          {
-            ?_name rdf:value ?nameValue .
-            FILTER ( NOT EXISTS {?_name (aixm:uom | fixm:uom | plain:uom) ?nameUoM})
-            BIND(concat(\'val:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue))) AS ?name)
-          }
-		     UNION
-		     {
-            ?_name
-              rdf:value ?nameValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?nameUoM .
-              BIND(concat(\'xval:/:\',STR(?nameValue),\':/:\',STR(DATATYPE(?nameValue)),\':/:\',?nameUoM) AS ?name)
-          }
-          UNION
-          {
-		       ?_name  aixm:nilReason ?nameNilReason .
-		       BIND(concat(\'nil:/:\',?nameNilReason) AS ?name)
-		     }
-          UNION
-          {
-            ?_name  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?name)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#designator>  ?_designator .
-        {
-          {
-            ?_designator rdf:value ?designatorValue .
-            FILTER ( NOT EXISTS {?_designator (aixm:uom | fixm:uom | plain:uom) ?designatorUoM})
-            BIND(concat(\'val:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue))) AS ?designator)
-          }
-		     UNION
-		     {
-            ?_designator
-              rdf:value ?designatorValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?designatorUoM .
-              BIND(concat(\'xval:/:\',STR(?designatorValue),\':/:\',STR(DATATYPE(?designatorValue)),\':/:\',?designatorUoM) AS ?designator)
-          }
-          UNION
-          {
-		       ?_designator  aixm:nilReason ?designatorNilReason .
-		       BIND(concat(\'nil:/:\',?designatorNilReason) AS ?designator)
-		     }
-          UNION
-          {
-            ?_designator  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?designator)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#controlType>  ?_controlType .
-        {
-          {
-            ?_controlType rdf:value ?controlTypeValue .
-            FILTER ( NOT EXISTS {?_controlType (aixm:uom | fixm:uom | plain:uom) ?controlTypeUoM})
-            BIND(concat(\'val:/:\',STR(?controlTypeValue),\':/:\',STR(DATATYPE(?controlTypeValue))) AS ?controlType)
-          }
-		     UNION
-		     {
-            ?_controlType
-              rdf:value ?controlTypeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?controlTypeUoM .
-              BIND(concat(\'xval:/:\',STR(?controlTypeValue),\':/:\',STR(DATATYPE(?controlTypeValue)),\':/:\',?controlTypeUoM) AS ?controlType)
-          }
-          UNION
-          {
-		       ?_controlType  aixm:nilReason ?controlTypeNilReason .
-		       BIND(concat(\'nil:/:\',?controlTypeNilReason) AS ?controlType)
-		     }
-          UNION
-          {
-            ?_controlType  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?controlType)
-	         }
-      }
-      ?airspace <http://www.aisa-project.eu/vocabulary/plain#significantPointInAirspace> ?significantPointInAirspace .
-    }
-  }
-GROUP BY ?graph ?airspace ?localType ?type ?upperLowerSeparation ?name ?designator ?controlType
-
-      '
-,row(Graph,Airspace,LocalType,Type,UpperLowerSeparation,Name,Designator,ControlType,SignificantPointInAirspaceConcat),[]), convVal(LocalType,LocalTypeVal), convVal(Type,TypeVal), convVal(UpperLowerSeparation,UpperLowerSeparationVal), convVal(Name,NameVal), convVal(Designator,DesignatorVal), convVal(ControlType,ControlTypeVal), convert(SignificantPointInAirspaceConcat,SignificantPointInAirspaceList).
+,row(Graph,AirportHeliportUsage,Operation),[]), convVal(Operation,OperationVal).
 
 % aixm_Timesheet(Graph, Timesheet, TimeReference?, StartDate?, EndDate?, Day?, DayTil?, StartTime?, StartEvent?, StartTimeRelativeEvent?, StartEventInterpretation?, EndTime?, EndEvent?, EndTimeRelativeEvent?, EndEventInterpretation?, DaylightSavingAdjust?, Excluded?, Annotation*)
 
@@ -17995,9 +9240,9 @@ GROUP BY ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?star
       '
 ,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,AnnotationConcat),[]), convVal(TimeReference,TimeReferenceVal), convVal(StartDate,StartDateVal), convVal(EndDate,EndDateVal), convVal(Day,DayVal), convVal(DayTil,DayTilVal), convVal(StartTime,StartTimeVal), convVal(StartEvent,StartEventVal), convVal(StartTimeRelativeEvent,StartTimeRelativeEventVal), convVal(StartEventInterpretation,StartEventInterpretationVal), convVal(EndTime,EndTimeVal), convVal(EndEvent,EndEventVal), convVal(EndTimeRelativeEvent,EndTimeRelativeEventVal), convVal(EndEventInterpretation,EndEventInterpretationVal), convVal(DaylightSavingAdjust,DaylightSavingAdjustVal), convVal(Excluded,ExcludedVal), convert(AnnotationConcat,AnnotationList).
 
-% plain_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair, EfplFlight*)
+% gml_SurfacePatch(Graph, SurfacePatch)
 
-plain_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair, EfplFlightList) :-
+gml_SurfacePatch(Graph, SurfacePatch) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -18018,18 +9263,21 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?efplTrajectoryRoutePair (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat)
+SELECT ?graph ?surfacePatch
 WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* gml:SurfacePatch .
+  }
   { GRAPH ?graph
     {
-      ?efplTrajectoryRoutePair rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplTrajectoryRoutePair> .
-      OPTIONAL {?efplTrajectoryRoutePair <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .}
+      ?surfacePatch rdf:type ?SUBCLASS .
     }
   }
-GROUP BY ?graph ?efplTrajectoryRoutePair
+}
 
       '
-,row(Graph,EfplTrajectoryRoutePair,EfplFlightConcat),[]), convert(EfplFlightConcat,EfplFlightList).
+,row(Graph,SurfacePatch),[]).
 
 % fixm_MultiTime(Graph, MultiTime, Actual?, Estimated?)
 
@@ -18071,6 +9319,198 @@ WHERE
 
       '
 ,row(Graph,MultiTime,Actual,Estimated),[]), convVal(Actual,ActualVal), convVal(Estimated,EstimatedVal).
+
+% aixm_FlightCharacteristic(Graph, FlightCharacteristic, Type?, Rule?, Status?, Military?, Origin?, Purpose?, Annotation*)
+
+aixm_FlightCharacteristic(Graph, FlightCharacteristic, TypeVal, RuleVal, StatusVal, MilitaryVal, OriginVal, PurposeVal, AnnotationList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?flightCharacteristic rdf:type aixm:FlightCharacteristic .
+      OPTIONAL { ?flightCharacteristic aixm:type ?_type .
+        {
+          {
+            ?_type rdf:value ?typeValue .
+            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
+            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
+          }
+            UNION
+          {
+            ?_type
+              rdf:value ?typeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
+            BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
+          }
+            UNION
+          {
+           ?_type  aixm:nilReason ?typeNilReason .
+           BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
+          }
+          UNION
+          {
+		       ?_type  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
+		     }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:rule ?_rule .
+        {
+          {
+            ?_rule rdf:value ?ruleValue .
+            FILTER ( NOT EXISTS {?_rule (aixm:uom | fixm:uom | plain:uom) ?ruleUoM})
+            BIND(concat(\'val:/:\',STR(?ruleValue),\':/:\',STR(DATATYPE(?ruleValue))) AS ?rule)
+          }
+            UNION
+          {
+            ?_rule
+              rdf:value ?ruleValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?ruleUoM .
+            BIND(concat(\'xval:/:\',STR(?ruleValue),\':/:\',STR(DATATYPE(?ruleValue)),\':/:\',?ruleUoM) AS ?rule)
+          }
+            UNION
+          {
+           ?_rule  aixm:nilReason ?ruleNilReason .
+           BIND(concat(\'nil:/:\',?ruleNilReason) AS ?rule)
+          }
+          UNION
+          {
+		       ?_rule  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?rule)
+		     }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:status ?_status .
+        {
+          {
+            ?_status rdf:value ?statusValue .
+            FILTER ( NOT EXISTS {?_status (aixm:uom | fixm:uom | plain:uom) ?statusUoM})
+            BIND(concat(\'val:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue))) AS ?status)
+          }
+            UNION
+          {
+            ?_status
+              rdf:value ?statusValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?statusUoM .
+            BIND(concat(\'xval:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue)),\':/:\',?statusUoM) AS ?status)
+          }
+            UNION
+          {
+           ?_status  aixm:nilReason ?statusNilReason .
+           BIND(concat(\'nil:/:\',?statusNilReason) AS ?status)
+          }
+          UNION
+          {
+		       ?_status  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?status)
+		     }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:military ?_military .
+        {
+          {
+            ?_military rdf:value ?militaryValue .
+            FILTER ( NOT EXISTS {?_military (aixm:uom | fixm:uom | plain:uom) ?militaryUoM})
+            BIND(concat(\'val:/:\',STR(?militaryValue),\':/:\',STR(DATATYPE(?militaryValue))) AS ?military)
+          }
+            UNION
+          {
+            ?_military
+              rdf:value ?militaryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?militaryUoM .
+            BIND(concat(\'xval:/:\',STR(?militaryValue),\':/:\',STR(DATATYPE(?militaryValue)),\':/:\',?militaryUoM) AS ?military)
+          }
+            UNION
+          {
+           ?_military  aixm:nilReason ?militaryNilReason .
+           BIND(concat(\'nil:/:\',?militaryNilReason) AS ?military)
+          }
+          UNION
+          {
+		       ?_military  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?military)
+		     }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:origin ?_origin .
+        {
+          {
+            ?_origin rdf:value ?originValue .
+            FILTER ( NOT EXISTS {?_origin (aixm:uom | fixm:uom | plain:uom) ?originUoM})
+            BIND(concat(\'val:/:\',STR(?originValue),\':/:\',STR(DATATYPE(?originValue))) AS ?origin)
+          }
+            UNION
+          {
+            ?_origin
+              rdf:value ?originValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?originUoM .
+            BIND(concat(\'xval:/:\',STR(?originValue),\':/:\',STR(DATATYPE(?originValue)),\':/:\',?originUoM) AS ?origin)
+          }
+            UNION
+          {
+           ?_origin  aixm:nilReason ?originNilReason .
+           BIND(concat(\'nil:/:\',?originNilReason) AS ?origin)
+          }
+          UNION
+          {
+		       ?_origin  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?origin)
+		     }
+        }
+      }
+      OPTIONAL { ?flightCharacteristic aixm:purpose ?_purpose .
+        {
+          {
+            ?_purpose rdf:value ?purposeValue .
+            FILTER ( NOT EXISTS {?_purpose (aixm:uom | fixm:uom | plain:uom) ?purposeUoM})
+            BIND(concat(\'val:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue))) AS ?purpose)
+          }
+            UNION
+          {
+            ?_purpose
+              rdf:value ?purposeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?purposeUoM .
+            BIND(concat(\'xval:/:\',STR(?purposeValue),\':/:\',STR(DATATYPE(?purposeValue)),\':/:\',?purposeUoM) AS ?purpose)
+          }
+            UNION
+          {
+           ?_purpose  aixm:nilReason ?purposeNilReason .
+           BIND(concat(\'nil:/:\',?purposeNilReason) AS ?purpose)
+          }
+          UNION
+          {
+		       ?_purpose  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?purpose)
+		     }
+        }
+      }
+      OPTIONAL {?flightCharacteristic aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
+
+      '
+,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Rule,RuleVal), convVal(Status,StatusVal), convVal(Military,MilitaryVal), convVal(Origin,OriginVal), convVal(Purpose,PurposeVal), convert(AnnotationConcat,AnnotationList).
 
 % fixm_Provenance(Graph, Provenance, Timestamp?, Centre?, Source?, System?)
 
@@ -18209,6 +9649,357 @@ WHERE
 
       '
 ,row(Graph,Provenance,Timestamp,Centre,Source,System),[]), convVal(Timestamp,TimestampVal), convVal(Centre,CentreVal), convVal(Source,SourceVal), convVal(System,SystemVal).
+
+% aixm_AirportHeliport(Graph, AirportHeliport, TimeSlice*)
+
+aixm_AirportHeliport(Graph, AirportHeliport, TimeSliceList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?airportHeliport (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliport rdf:type aixm:AirportHeliport .
+      OPTIONAL {?airportHeliport aixm:timeSlice ?timeSlice .}
+    }
+  }
+GROUP BY ?graph ?airportHeliport
+
+      '
+,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
+
+% fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSetting?, PredictedAirspeed?, PredictedGroundspeed?, MetData?, Point?, TrajectoryChange*, TrajectoryChangeType*, ReferencePoint?)
+
+fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSettingVal, PredictedAirspeedVal, PredictedGroundspeedVal, MetDataVal, PointVal, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePointVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point (GROUP_CONCAT(DISTINCT ?trajectoryChange;SEPARATOR=",") AS ?trajectoryChangeConcat) (GROUP_CONCAT(DISTINCT ?trajectoryChangeType;SEPARATOR=",") AS ?trajectoryChangeTypeConcat) ?referencePoint
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:TrajectoryPoint .
+  }
+  { GRAPH ?graph
+    {
+      ?trajectoryPoint rdf:type ?SUBCLASS .
+      OPTIONAL { ?trajectoryPoint fixm:altimeterSetting ?_altimeterSetting .
+        {
+          {
+            ?_altimeterSetting rdf:value ?altimeterSettingValue .
+            FILTER ( NOT EXISTS {?_altimeterSetting (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM})
+            BIND(concat(\'val:/:\',STR(?altimeterSettingValue),\':/:\',STR(DATATYPE(?altimeterSettingValue))) AS ?altimeterSetting)
+          }
+            UNION
+          {
+            ?_altimeterSetting
+              rdf:value ?altimeterSettingValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?altimeterSettingUoM .
+            BIND(concat(\'xval:/:\',STR(?altimeterSettingValue),\':/:\',STR(DATATYPE(?altimeterSettingValue)),\':/:\',?altimeterSettingUoM) AS ?altimeterSetting)
+          }
+            UNION
+          {
+           ?_altimeterSetting  aixm:nilReason ?altimeterSettingNilReason .
+           BIND(concat(\'nil:/:\',?altimeterSettingNilReason) AS ?altimeterSetting)
+          }
+          UNION
+          {
+		       ?_altimeterSetting  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altimeterSetting)
+		     }
+        }
+      }
+      OPTIONAL { ?trajectoryPoint fixm:predictedAirspeed ?_predictedAirspeed .
+        {
+          {
+            ?_predictedAirspeed rdf:value ?predictedAirspeedValue .
+            FILTER ( NOT EXISTS {?_predictedAirspeed (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM})
+            BIND(concat(\'val:/:\',STR(?predictedAirspeedValue),\':/:\',STR(DATATYPE(?predictedAirspeedValue))) AS ?predictedAirspeed)
+          }
+            UNION
+          {
+            ?_predictedAirspeed
+              rdf:value ?predictedAirspeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?predictedAirspeedUoM .
+            BIND(concat(\'xval:/:\',STR(?predictedAirspeedValue),\':/:\',STR(DATATYPE(?predictedAirspeedValue)),\':/:\',?predictedAirspeedUoM) AS ?predictedAirspeed)
+          }
+            UNION
+          {
+           ?_predictedAirspeed  aixm:nilReason ?predictedAirspeedNilReason .
+           BIND(concat(\'nil:/:\',?predictedAirspeedNilReason) AS ?predictedAirspeed)
+          }
+          UNION
+          {
+		       ?_predictedAirspeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?predictedAirspeed)
+		     }
+        }
+      }
+      OPTIONAL { ?trajectoryPoint fixm:predictedGroundspeed ?_predictedGroundspeed .
+        {
+          {
+            ?_predictedGroundspeed rdf:value ?predictedGroundspeedValue .
+            FILTER ( NOT EXISTS {?_predictedGroundspeed (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM})
+            BIND(concat(\'val:/:\',STR(?predictedGroundspeedValue),\':/:\',STR(DATATYPE(?predictedGroundspeedValue))) AS ?predictedGroundspeed)
+          }
+            UNION
+          {
+            ?_predictedGroundspeed
+              rdf:value ?predictedGroundspeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?predictedGroundspeedUoM .
+            BIND(concat(\'xval:/:\',STR(?predictedGroundspeedValue),\':/:\',STR(DATATYPE(?predictedGroundspeedValue)),\':/:\',?predictedGroundspeedUoM) AS ?predictedGroundspeed)
+          }
+            UNION
+          {
+           ?_predictedGroundspeed  aixm:nilReason ?predictedGroundspeedNilReason .
+           BIND(concat(\'nil:/:\',?predictedGroundspeedNilReason) AS ?predictedGroundspeed)
+          }
+          UNION
+          {
+		       ?_predictedGroundspeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?predictedGroundspeed)
+		     }
+        }
+      }
+      OPTIONAL {?trajectoryPoint fixm:metData ?metData .}
+      OPTIONAL {?trajectoryPoint fixm:point ?point .}
+      OPTIONAL {?trajectoryPoint fixm:trajectoryChange ?trajectoryChange .}
+      OPTIONAL { ?trajectoryPoint fixm:trajectoryChangeType ?_trajectoryChangeType .
+        {
+          {
+            ?_trajectoryChangeType rdf:value ?trajectoryChangeTypeValue .
+            FILTER ( NOT EXISTS {?_trajectoryChangeType (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM})
+            BIND(concat(\'val:/:\',STR(?trajectoryChangeTypeValue),\':/:\',STR(DATATYPE(?trajectoryChangeTypeValue))) AS ?trajectoryChangeType)
+          }
+            UNION
+          {
+            ?_trajectoryChangeType
+              rdf:value ?trajectoryChangeTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?trajectoryChangeTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?trajectoryChangeTypeValue),\':/:\',STR(DATATYPE(?trajectoryChangeTypeValue)),\':/:\',?trajectoryChangeTypeUoM) AS ?trajectoryChangeType)
+          }
+            UNION
+          {
+           ?_trajectoryChangeType  aixm:nilReason ?trajectoryChangeTypeNilReason .
+           BIND(concat(\'nil:/:\',?trajectoryChangeTypeNilReason) AS ?trajectoryChangeType)
+          }
+          UNION
+          {
+		       ?_trajectoryChangeType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trajectoryChangeType)
+		     }
+        }
+      }
+      OPTIONAL {?trajectoryPoint fixm:referencePoint ?referencePoint .}
+    }
+  }
+}
+GROUP BY ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?referencePoint
+
+      '
+,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convVal(AltimeterSetting,AltimeterSettingVal), convVal(PredictedAirspeed,PredictedAirspeedVal), convVal(PredictedGroundspeed,PredictedGroundspeedVal), convVal(MetData,MetDataVal), convVal(Point,PointVal), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList), convVal(ReferencePoint,ReferencePointVal).
+
+% fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier?, DistanceFromTakeOff?, EfplEstimatedSpeed?, ElapsedTime?, GrossWeight?, TrajectoryPointType?, TrajectoryPointRole?, InboundSegment?)
+
+fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifierVal, DistanceFromTakeOffVal, EfplEstimatedSpeedVal, ElapsedTimeVal, GrossWeightVal, TrajectoryPointTypeVal, TrajectoryPointRoleVal, InboundSegmentVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?efplTrajectoryPoint ?aerodromeIdentifier ?distanceFromTakeOff ?efplEstimatedSpeed ?elapsedTime ?grossWeight ?trajectoryPointType ?trajectoryPointRole ?inboundSegment
+WHERE
+  { GRAPH ?graph
+    {
+      ?efplTrajectoryPoint rdf:type fixm:EfplTrajectoryPoint .
+      OPTIONAL {?efplTrajectoryPoint fixm:aerodromeIdentifier ?aerodromeIdentifier .}
+      OPTIONAL { ?efplTrajectoryPoint fixm:distanceFromTakeOff ?_distanceFromTakeOff .
+        {
+          {
+            ?_distanceFromTakeOff rdf:value ?distanceFromTakeOffValue .
+            FILTER ( NOT EXISTS {?_distanceFromTakeOff (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM})
+            BIND(concat(\'val:/:\',STR(?distanceFromTakeOffValue),\':/:\',STR(DATATYPE(?distanceFromTakeOffValue))) AS ?distanceFromTakeOff)
+          }
+            UNION
+          {
+            ?_distanceFromTakeOff
+              rdf:value ?distanceFromTakeOffValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?distanceFromTakeOffUoM .
+            BIND(concat(\'xval:/:\',STR(?distanceFromTakeOffValue),\':/:\',STR(DATATYPE(?distanceFromTakeOffValue)),\':/:\',?distanceFromTakeOffUoM) AS ?distanceFromTakeOff)
+          }
+            UNION
+          {
+           ?_distanceFromTakeOff  aixm:nilReason ?distanceFromTakeOffNilReason .
+           BIND(concat(\'nil:/:\',?distanceFromTakeOffNilReason) AS ?distanceFromTakeOff)
+          }
+          UNION
+          {
+		       ?_distanceFromTakeOff  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?distanceFromTakeOff)
+		     }
+        }
+      }
+      OPTIONAL { ?efplTrajectoryPoint fixm:efplEstimatedSpeed ?_efplEstimatedSpeed .
+        {
+          {
+            ?_efplEstimatedSpeed rdf:value ?efplEstimatedSpeedValue .
+            FILTER ( NOT EXISTS {?_efplEstimatedSpeed (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?efplEstimatedSpeedValue),\':/:\',STR(DATATYPE(?efplEstimatedSpeedValue))) AS ?efplEstimatedSpeed)
+          }
+            UNION
+          {
+            ?_efplEstimatedSpeed
+              rdf:value ?efplEstimatedSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?efplEstimatedSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?efplEstimatedSpeedValue),\':/:\',STR(DATATYPE(?efplEstimatedSpeedValue)),\':/:\',?efplEstimatedSpeedUoM) AS ?efplEstimatedSpeed)
+          }
+            UNION
+          {
+           ?_efplEstimatedSpeed  aixm:nilReason ?efplEstimatedSpeedNilReason .
+           BIND(concat(\'nil:/:\',?efplEstimatedSpeedNilReason) AS ?efplEstimatedSpeed)
+          }
+          UNION
+          {
+		       ?_efplEstimatedSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplEstimatedSpeed)
+		     }
+        }
+      }
+      OPTIONAL { ?efplTrajectoryPoint fixm:elapsedTime ?_elapsedTime .
+        {
+          {
+            ?_elapsedTime rdf:value ?elapsedTimeValue .
+            FILTER ( NOT EXISTS {?_elapsedTime (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM})
+            BIND(concat(\'val:/:\',STR(?elapsedTimeValue),\':/:\',STR(DATATYPE(?elapsedTimeValue))) AS ?elapsedTime)
+          }
+            UNION
+          {
+            ?_elapsedTime
+              rdf:value ?elapsedTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?elapsedTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?elapsedTimeValue),\':/:\',STR(DATATYPE(?elapsedTimeValue)),\':/:\',?elapsedTimeUoM) AS ?elapsedTime)
+          }
+            UNION
+          {
+           ?_elapsedTime  aixm:nilReason ?elapsedTimeNilReason .
+           BIND(concat(\'nil:/:\',?elapsedTimeNilReason) AS ?elapsedTime)
+          }
+          UNION
+          {
+		       ?_elapsedTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?elapsedTime)
+		     }
+        }
+      }
+      OPTIONAL { ?efplTrajectoryPoint fixm:grossWeight ?_grossWeight .
+        {
+          {
+            ?_grossWeight rdf:value ?grossWeightValue .
+            FILTER ( NOT EXISTS {?_grossWeight (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM})
+            BIND(concat(\'val:/:\',STR(?grossWeightValue),\':/:\',STR(DATATYPE(?grossWeightValue))) AS ?grossWeight)
+          }
+            UNION
+          {
+            ?_grossWeight
+              rdf:value ?grossWeightValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?grossWeightUoM .
+            BIND(concat(\'xval:/:\',STR(?grossWeightValue),\':/:\',STR(DATATYPE(?grossWeightValue)),\':/:\',?grossWeightUoM) AS ?grossWeight)
+          }
+            UNION
+          {
+           ?_grossWeight  aixm:nilReason ?grossWeightNilReason .
+           BIND(concat(\'nil:/:\',?grossWeightNilReason) AS ?grossWeight)
+          }
+          UNION
+          {
+		       ?_grossWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?grossWeight)
+		     }
+        }
+      }
+      OPTIONAL { ?efplTrajectoryPoint fixm:trajectoryPointType ?_trajectoryPointType .
+        {
+          {
+            ?_trajectoryPointType rdf:value ?trajectoryPointTypeValue .
+            FILTER ( NOT EXISTS {?_trajectoryPointType (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM})
+            BIND(concat(\'val:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue))) AS ?trajectoryPointType)
+          }
+            UNION
+          {
+            ?_trajectoryPointType
+              rdf:value ?trajectoryPointTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?trajectoryPointTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?trajectoryPointTypeValue),\':/:\',STR(DATATYPE(?trajectoryPointTypeValue)),\':/:\',?trajectoryPointTypeUoM) AS ?trajectoryPointType)
+          }
+            UNION
+          {
+           ?_trajectoryPointType  aixm:nilReason ?trajectoryPointTypeNilReason .
+           BIND(concat(\'nil:/:\',?trajectoryPointTypeNilReason) AS ?trajectoryPointType)
+          }
+          UNION
+          {
+		       ?_trajectoryPointType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?trajectoryPointType)
+		     }
+        }
+      }
+      OPTIONAL {?efplTrajectoryPoint fixm:trajectoryPointRole ?trajectoryPointRole .}
+      OPTIONAL {?efplTrajectoryPoint fixm:inboundSegment ?inboundSegment .}
+    }
+  }
+
+      '
+,row(Graph,EfplTrajectoryPoint,AerodromeIdentifier,DistanceFromTakeOff,EfplEstimatedSpeed,ElapsedTime,GrossWeight,TrajectoryPointType,TrajectoryPointRole,InboundSegment),[]), convVal(AerodromeIdentifier,AerodromeIdentifierVal), convVal(DistanceFromTakeOff,DistanceFromTakeOffVal), convVal(EfplEstimatedSpeed,EfplEstimatedSpeedVal), convVal(ElapsedTime,ElapsedTimeVal), convVal(GrossWeight,GrossWeightVal), convVal(TrajectoryPointType,TrajectoryPointTypeVal), convVal(TrajectoryPointRole,TrajectoryPointRoleVal), convVal(InboundSegment,InboundSegmentVal).
 
 % fixm_Temperatures(Graph, Temperatures, ControlTemperature?, EmergencyTemperature?, FlashpointTemperature?)
 
@@ -18407,6 +10198,107 @@ WHERE
 
       '
 ,row(Graph,TrajectorySegment,SegmentIdentifier,SegmentType),[]), convVal(SegmentIdentifier,SegmentIdentifierVal), convVal(SegmentType,SegmentTypeVal).
+
+% fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayName?, RunwayTime?)
+
+fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayNameVal, RunwayTimeVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?runwayPositionAndTime ?runwayName ?runwayTime
+WHERE
+  { GRAPH ?graph
+    {
+      ?runwayPositionAndTime rdf:type fixm:RunwayPositionAndTime .
+      OPTIONAL { ?runwayPositionAndTime fixm:runwayName ?_runwayName .
+        {
+          {
+            ?_runwayName rdf:value ?runwayNameValue .
+            FILTER ( NOT EXISTS {?_runwayName (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM})
+            BIND(concat(\'val:/:\',STR(?runwayNameValue),\':/:\',STR(DATATYPE(?runwayNameValue))) AS ?runwayName)
+          }
+            UNION
+          {
+            ?_runwayName
+              rdf:value ?runwayNameValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?runwayNameUoM .
+            BIND(concat(\'xval:/:\',STR(?runwayNameValue),\':/:\',STR(DATATYPE(?runwayNameValue)),\':/:\',?runwayNameUoM) AS ?runwayName)
+          }
+            UNION
+          {
+           ?_runwayName  aixm:nilReason ?runwayNameNilReason .
+           BIND(concat(\'nil:/:\',?runwayNameNilReason) AS ?runwayName)
+          }
+          UNION
+          {
+		       ?_runwayName  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?runwayName)
+		     }
+        }
+      }
+      OPTIONAL {?runwayPositionAndTime fixm:runwayTime ?runwayTime .}
+    }
+  }
+
+      '
+,row(Graph,RunwayPositionAndTime,RunwayName,RunwayTime),[]), convVal(RunwayName,RunwayNameVal), convVal(RunwayTime,RunwayTimeVal).
+
+% fixm_Feature(Graph, Feature, Provenance?)
+
+fixm_Feature(Graph, Feature, ProvenanceVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?feature ?provenance
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:Feature .
+  }
+  { GRAPH ?graph
+    {
+      ?feature rdf:type ?SUBCLASS .
+      OPTIONAL {?feature fixm:provenance ?provenance .}
+    }
+  }
+}
+
+      '
+,row(Graph,Feature,Provenance),[]), convVal(Provenance,ProvenanceVal).
 
 % fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentification?, MajorCarrierIdentifier?, MarketingCarrierFlightIdentifier*)
 
@@ -18634,9 +10526,9 @@ WHERE
       '
 ,row(Graph,LastContact,ContactFrequency,LastContactTime,LastContactUnit,Position),[]), convVal(ContactFrequency,ContactFrequencyVal), convVal(LastContactTime,LastContactTimeVal), convVal(LastContactUnit,LastContactUnitVal), convVal(Position,PositionVal).
 
-% plain_VOR(Graph, VOR, Frequency, NavaidEquipment*, Type)
+% fixm_ElapsedTimeLocation(Graph, ElapsedTimeLocation)
 
-plain_VOR(Graph, VOR, FrequencyVal, NavaidEquipmentList, TypeVal) :-
+fixm_ElapsedTimeLocation(Graph, ElapsedTimeLocation) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -18657,72 +10549,20 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?vOR ?frequency (GROUP_CONCAT(DISTINCT ?navaidEquipment;SEPARATOR=",") AS ?navaidEquipmentConcat) ?type
+SELECT ?graph ?elapsedTimeLocation
 WHERE
   { GRAPH ?graph
     {
-      ?vOR rdf:type <http://www.aisa-project.eu/vocabulary/plain#VOR> .
-      ?vOR <http://www.aisa-project.eu/vocabulary/plain#frequency>  ?_frequency .
-        {
-          {
-            ?_frequency rdf:value ?frequencyValue .
-            FILTER ( NOT EXISTS {?_frequency (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue))) AS ?frequency)
-          }
-		     UNION
-		     {
-            ?_frequency
-              rdf:value ?frequencyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM .
-              BIND(concat(\'xval:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue)),\':/:\',?frequencyUoM) AS ?frequency)
-          }
-          UNION
-          {
-		       ?_frequency  aixm:nilReason ?frequencyNilReason .
-		       BIND(concat(\'nil:/:\',?frequencyNilReason) AS ?frequency)
-		     }
-          UNION
-          {
-            ?_frequency  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequency)
-	         }
-      }
-      OPTIONAL {?vOR <http://www.aisa-project.eu/vocabulary/plain#navaidEquipment> ?navaidEquipment .}
-      ?vOR <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
-      }
+      ?elapsedTimeLocation rdf:type fixm:ElapsedTimeLocation .
     }
   }
-GROUP BY ?graph ?vOR ?frequency ?type
 
       '
-,row(Graph,VOR,Frequency,NavaidEquipmentConcat,Type),[]), convVal(Frequency,FrequencyVal), convert(NavaidEquipmentConcat,NavaidEquipmentList), convVal(Type,TypeVal).
+,row(Graph,ElapsedTimeLocation),[]).
 
-% plain_AircraftCharacteristic(Graph, AircraftCharacteristic, TypeAircraftICAO, Weight, Speed, ConditionCombination*, AircraftLandingCategory, VerticalSeparationCapability, WakeTurbulence)
+% aixm_Surface(Graph, Surface, HorizontalAccuracy?, Annotation*)
 
-plain_AircraftCharacteristic(Graph, AircraftCharacteristic, TypeAircraftICAOVal, WeightVal, SpeedVal, ConditionCombinationList, AircraftLandingCategoryVal, VerticalSeparationCapabilityVal, WakeTurbulenceVal) :-
+aixm_Surface(Graph, Surface, HorizontalAccuracyVal, AnnotationList) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -18743,172 +10583,53 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?aircraftCharacteristic ?typeAircraftICAO ?weight ?speed (GROUP_CONCAT(DISTINCT ?conditionCombination;SEPARATOR=",") AS ?conditionCombinationConcat) ?aircraftLandingCategory ?verticalSeparationCapability ?wakeTurbulence
+SELECT ?graph ?surface ?horizontalAccuracy (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
 WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* aixm:Surface .
+  }
   { GRAPH ?graph
     {
-      ?aircraftCharacteristic rdf:type <http://www.aisa-project.eu/vocabulary/plain#AircraftCharacteristic> .
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#typeAircraftICAO>  ?_typeAircraftICAO .
+      ?surface rdf:type ?SUBCLASS .
+      OPTIONAL { ?surface aixm:horizontalAccuracy ?_horizontalAccuracy .
         {
           {
-            ?_typeAircraftICAO rdf:value ?typeAircraftICAOValue .
-            FILTER ( NOT EXISTS {?_typeAircraftICAO (aixm:uom | fixm:uom | plain:uom) ?typeAircraftICAOUoM})
-            BIND(concat(\'val:/:\',STR(?typeAircraftICAOValue),\':/:\',STR(DATATYPE(?typeAircraftICAOValue))) AS ?typeAircraftICAO)
+            ?_horizontalAccuracy rdf:value ?horizontalAccuracyValue .
+            FILTER ( NOT EXISTS {?_horizontalAccuracy (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM})
+            BIND(concat(\'val:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue))) AS ?horizontalAccuracy)
           }
-		     UNION
-		     {
-            ?_typeAircraftICAO
-              rdf:value ?typeAircraftICAOValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeAircraftICAOUoM .
-              BIND(concat(\'xval:/:\',STR(?typeAircraftICAOValue),\':/:\',STR(DATATYPE(?typeAircraftICAOValue)),\':/:\',?typeAircraftICAOUoM) AS ?typeAircraftICAO)
+            UNION
+          {
+            ?_horizontalAccuracy
+              rdf:value ?horizontalAccuracyValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?horizontalAccuracyUoM .
+            BIND(concat(\'xval:/:\',STR(?horizontalAccuracyValue),\':/:\',STR(DATATYPE(?horizontalAccuracyValue)),\':/:\',?horizontalAccuracyUoM) AS ?horizontalAccuracy)
+          }
+            UNION
+          {
+           ?_horizontalAccuracy  aixm:nilReason ?horizontalAccuracyNilReason .
+           BIND(concat(\'nil:/:\',?horizontalAccuracyNilReason) AS ?horizontalAccuracy)
           }
           UNION
           {
-		       ?_typeAircraftICAO  aixm:nilReason ?typeAircraftICAONilReason .
-		       BIND(concat(\'nil:/:\',?typeAircraftICAONilReason) AS ?typeAircraftICAO)
+		       ?_horizontalAccuracy  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?horizontalAccuracy)
 		     }
-          UNION
-          {
-            ?_typeAircraftICAO  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?typeAircraftICAO)
-	         }
+        }
       }
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#weight>  ?_weight .
-        {
-          {
-            ?_weight rdf:value ?weightValue .
-            FILTER ( NOT EXISTS {?_weight (aixm:uom | fixm:uom | plain:uom) ?weightUoM})
-            BIND(concat(\'val:/:\',STR(?weightValue),\':/:\',STR(DATATYPE(?weightValue))) AS ?weight)
-          }
-		     UNION
-		     {
-            ?_weight
-              rdf:value ?weightValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?weightUoM .
-              BIND(concat(\'xval:/:\',STR(?weightValue),\':/:\',STR(DATATYPE(?weightValue)),\':/:\',?weightUoM) AS ?weight)
-          }
-          UNION
-          {
-		       ?_weight  aixm:nilReason ?weightNilReason .
-		       BIND(concat(\'nil:/:\',?weightNilReason) AS ?weight)
-		     }
-          UNION
-          {
-            ?_weight  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?weight)
-	         }
-      }
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#speed>  ?_speed .
-        {
-          {
-            ?_speed rdf:value ?speedValue .
-            FILTER ( NOT EXISTS {?_speed (aixm:uom | fixm:uom | plain:uom) ?speedUoM})
-            BIND(concat(\'val:/:\',STR(?speedValue),\':/:\',STR(DATATYPE(?speedValue))) AS ?speed)
-          }
-		     UNION
-		     {
-            ?_speed
-              rdf:value ?speedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?speedUoM .
-              BIND(concat(\'xval:/:\',STR(?speedValue),\':/:\',STR(DATATYPE(?speedValue)),\':/:\',?speedUoM) AS ?speed)
-          }
-          UNION
-          {
-		       ?_speed  aixm:nilReason ?speedNilReason .
-		       BIND(concat(\'nil:/:\',?speedNilReason) AS ?speed)
-		     }
-          UNION
-          {
-            ?_speed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?speed)
-	         }
-      }
-      OPTIONAL {?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#conditionCombination> ?conditionCombination .}
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#aircraftLandingCategory>  ?_aircraftLandingCategory .
-        {
-          {
-            ?_aircraftLandingCategory rdf:value ?aircraftLandingCategoryValue .
-            FILTER ( NOT EXISTS {?_aircraftLandingCategory (aixm:uom | fixm:uom | plain:uom) ?aircraftLandingCategoryUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftLandingCategoryValue),\':/:\',STR(DATATYPE(?aircraftLandingCategoryValue))) AS ?aircraftLandingCategory)
-          }
-		     UNION
-		     {
-            ?_aircraftLandingCategory
-              rdf:value ?aircraftLandingCategoryValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftLandingCategoryUoM .
-              BIND(concat(\'xval:/:\',STR(?aircraftLandingCategoryValue),\':/:\',STR(DATATYPE(?aircraftLandingCategoryValue)),\':/:\',?aircraftLandingCategoryUoM) AS ?aircraftLandingCategory)
-          }
-          UNION
-          {
-		       ?_aircraftLandingCategory  aixm:nilReason ?aircraftLandingCategoryNilReason .
-		       BIND(concat(\'nil:/:\',?aircraftLandingCategoryNilReason) AS ?aircraftLandingCategory)
-		     }
-          UNION
-          {
-            ?_aircraftLandingCategory  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftLandingCategory)
-	         }
-      }
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#verticalSeparationCapability>  ?_verticalSeparationCapability .
-        {
-          {
-            ?_verticalSeparationCapability rdf:value ?verticalSeparationCapabilityValue .
-            FILTER ( NOT EXISTS {?_verticalSeparationCapability (aixm:uom | fixm:uom | plain:uom) ?verticalSeparationCapabilityUoM})
-            BIND(concat(\'val:/:\',STR(?verticalSeparationCapabilityValue),\':/:\',STR(DATATYPE(?verticalSeparationCapabilityValue))) AS ?verticalSeparationCapability)
-          }
-		     UNION
-		     {
-            ?_verticalSeparationCapability
-              rdf:value ?verticalSeparationCapabilityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?verticalSeparationCapabilityUoM .
-              BIND(concat(\'xval:/:\',STR(?verticalSeparationCapabilityValue),\':/:\',STR(DATATYPE(?verticalSeparationCapabilityValue)),\':/:\',?verticalSeparationCapabilityUoM) AS ?verticalSeparationCapability)
-          }
-          UNION
-          {
-		       ?_verticalSeparationCapability  aixm:nilReason ?verticalSeparationCapabilityNilReason .
-		       BIND(concat(\'nil:/:\',?verticalSeparationCapabilityNilReason) AS ?verticalSeparationCapability)
-		     }
-          UNION
-          {
-            ?_verticalSeparationCapability  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalSeparationCapability)
-	         }
-      }
-      ?aircraftCharacteristic <http://www.aisa-project.eu/vocabulary/plain#wakeTurbulence>  ?_wakeTurbulence .
-        {
-          {
-            ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
-            FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
-            BIND(concat(\'val:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue))) AS ?wakeTurbulence)
-          }
-		     UNION
-		     {
-            ?_wakeTurbulence
-              rdf:value ?wakeTurbulenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
-              BIND(concat(\'xval:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue)),\':/:\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
-          }
-          UNION
-          {
-		       ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
-		       BIND(concat(\'nil:/:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
-		     }
-          UNION
-          {
-            ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?wakeTurbulence)
-	         }
-      }
+      OPTIONAL {?surface aixm:annotation ?annotation .}
     }
   }
-GROUP BY ?graph ?aircraftCharacteristic ?typeAircraftICAO ?weight ?speed ?aircraftLandingCategory ?verticalSeparationCapability ?wakeTurbulence
+}
+GROUP BY ?graph ?surface ?horizontalAccuracy
 
       '
-,row(Graph,AircraftCharacteristic,TypeAircraftICAO,Weight,Speed,ConditionCombinationConcat,AircraftLandingCategory,VerticalSeparationCapability,WakeTurbulence),[]), convVal(TypeAircraftICAO,TypeAircraftICAOVal), convVal(Weight,WeightVal), convVal(Speed,SpeedVal), convert(ConditionCombinationConcat,ConditionCombinationList), convVal(AircraftLandingCategory,AircraftLandingCategoryVal), convVal(VerticalSeparationCapability,VerticalSeparationCapabilityVal), convVal(WakeTurbulence,WakeTurbulenceVal).
+,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList).
 
-% plain_EfplFlightDeparture(Graph, EfplFlightDeparture, EfplFlight*, EstimatedOffBlockTime)
+% gml_TimePeriod(Graph, TimePeriod, BeginPosition, EndPosition)
 
-plain_EfplFlightDeparture(Graph, EfplFlightDeparture, EfplFlightList, EstimatedOffBlockTimeVal) :-
+gml_TimePeriod(Graph, TimePeriod, BeginPositionVal, EndPositionVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -18929,43 +10650,130 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?efplFlightDeparture (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat) ?estimatedOffBlockTime
+SELECT ?graph ?timePeriod ?beginPosition ?endPosition
 WHERE
   { GRAPH ?graph
     {
-      ?efplFlightDeparture rdf:type <http://www.aisa-project.eu/vocabulary/plain#EfplFlightDeparture> .
-      OPTIONAL {?efplFlightDeparture <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .}
-      ?efplFlightDeparture <http://www.aisa-project.eu/vocabulary/plain#estimatedOffBlockTime>  ?_estimatedOffBlockTime .
+      ?timePeriod rdf:type gml:TimePeriod .
+      ?timePeriod gml:beginPosition  ?_beginPosition .
         {
           {
-            ?_estimatedOffBlockTime rdf:value ?estimatedOffBlockTimeValue .
-            FILTER ( NOT EXISTS {?_estimatedOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM})
-            BIND(concat(\'val:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue))) AS ?estimatedOffBlockTime)
+            ?_beginPosition rdf:value ?beginPositionValue .
+            FILTER ( NOT EXISTS {?_beginPosition (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM})
+            BIND(concat(\'val:/:\',STR(?beginPositionValue),\':/:\',STR(DATATYPE(?beginPositionValue))) AS ?beginPosition)
           }
 		     UNION
 		     {
-            ?_estimatedOffBlockTime
-              rdf:value ?estimatedOffBlockTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM .
-              BIND(concat(\'xval:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue)),\':/:\',?estimatedOffBlockTimeUoM) AS ?estimatedOffBlockTime)
+            ?_beginPosition
+              rdf:value ?beginPositionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?beginPositionUoM .
+              BIND(concat(\'xval:/:\',STR(?beginPositionValue),\':/:\',STR(DATATYPE(?beginPositionValue)),\':/:\',?beginPositionUoM) AS ?beginPosition)
           }
           UNION
           {
-		       ?_estimatedOffBlockTime  aixm:nilReason ?estimatedOffBlockTimeNilReason .
-		       BIND(concat(\'nil:/:\',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
+		       ?_beginPosition  aixm:nilReason ?beginPositionNilReason .
+		       BIND(concat(\'nil:/:\',?beginPositionNilReason) AS ?beginPosition)
 		     }
           UNION
           {
-            ?_estimatedOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedOffBlockTime)
+            ?_beginPosition  gml:indeterminatePosition ?indeterminatePosition .
+            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?beginPosition)
+	         }
+      }
+      ?timePeriod gml:endPosition  ?_endPosition .
+        {
+          {
+            ?_endPosition rdf:value ?endPositionValue .
+            FILTER ( NOT EXISTS {?_endPosition (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM})
+            BIND(concat(\'val:/:\',STR(?endPositionValue),\':/:\',STR(DATATYPE(?endPositionValue))) AS ?endPosition)
+          }
+		     UNION
+		     {
+            ?_endPosition
+              rdf:value ?endPositionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?endPositionUoM .
+              BIND(concat(\'xval:/:\',STR(?endPositionValue),\':/:\',STR(DATATYPE(?endPositionValue)),\':/:\',?endPositionUoM) AS ?endPosition)
+          }
+          UNION
+          {
+		       ?_endPosition  aixm:nilReason ?endPositionNilReason .
+		       BIND(concat(\'nil:/:\',?endPositionNilReason) AS ?endPosition)
+		     }
+          UNION
+          {
+            ?_endPosition  gml:indeterminatePosition ?indeterminatePosition .
+            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endPosition)
 	         }
       }
     }
   }
-GROUP BY ?graph ?efplFlightDeparture ?estimatedOffBlockTime
 
       '
-,row(Graph,EfplFlightDeparture,EfplFlightConcat,EstimatedOffBlockTime),[]), convert(EfplFlightConcat,EfplFlightList), convVal(EstimatedOffBlockTime,EstimatedOffBlockTimeVal).
+,row(Graph,TimePeriod,BeginPosition,EndPosition),[]), convVal(BeginPosition,BeginPositionVal), convVal(EndPosition,EndPositionVal).
+
+% fixm_AircraftCapabilities(Graph, AircraftCapabilities, Survival?, Communication?, Navigation?, Surveillance?, StandardCapabilities?)
+
+fixm_AircraftCapabilities(Graph, AircraftCapabilities, SurvivalVal, CommunicationVal, NavigationVal, SurveillanceVal, StandardCapabilitiesVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?aircraftCapabilities ?survival ?communication ?navigation ?surveillance ?standardCapabilities
+WHERE
+  { GRAPH ?graph
+    {
+      ?aircraftCapabilities rdf:type fixm:AircraftCapabilities .
+      OPTIONAL {?aircraftCapabilities fixm:survival ?survival .}
+      OPTIONAL {?aircraftCapabilities fixm:communication ?communication .}
+      OPTIONAL {?aircraftCapabilities fixm:navigation ?navigation .}
+      OPTIONAL {?aircraftCapabilities fixm:surveillance ?surveillance .}
+      OPTIONAL { ?aircraftCapabilities fixm:standardCapabilities ?_standardCapabilities .
+        {
+          {
+            ?_standardCapabilities rdf:value ?standardCapabilitiesValue .
+            FILTER ( NOT EXISTS {?_standardCapabilities (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM})
+            BIND(concat(\'val:/:\',STR(?standardCapabilitiesValue),\':/:\',STR(DATATYPE(?standardCapabilitiesValue))) AS ?standardCapabilities)
+          }
+            UNION
+          {
+            ?_standardCapabilities
+              rdf:value ?standardCapabilitiesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?standardCapabilitiesUoM .
+            BIND(concat(\'xval:/:\',STR(?standardCapabilitiesValue),\':/:\',STR(DATATYPE(?standardCapabilitiesValue)),\':/:\',?standardCapabilitiesUoM) AS ?standardCapabilities)
+          }
+            UNION
+          {
+           ?_standardCapabilities  aixm:nilReason ?standardCapabilitiesNilReason .
+           BIND(concat(\'nil:/:\',?standardCapabilitiesNilReason) AS ?standardCapabilities)
+          }
+          UNION
+          {
+		       ?_standardCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?standardCapabilities)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,AircraftCapabilities,Survival,Communication,Navigation,Surveillance,StandardCapabilities),[]), convVal(Survival,SurvivalVal), convVal(Communication,CommunicationVal), convVal(Navigation,NavigationVal), convVal(Surveillance,SurveillanceVal), convVal(StandardCapabilities,StandardCapabilitiesVal).
 
 % fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeed?, SubsequentSpeed?)
 
@@ -19195,9 +11003,9 @@ GROUP BY ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?militar
       '
 ,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,AnnotationConcat,ContactConcat,RelatedOrganisationAuthorityConcat),[]), convVal(Name,NameVal), convVal(Designator,DesignatorVal), convVal(Type,TypeVal), convVal(Military,MilitaryVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList), convert(RelatedOrganisationAuthorityConcat,RelatedOrganisationAuthorityList).
 
-% plain_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation, AirportHeliportAvailability*)
+% fixm_EnRoute(Graph, EnRoute, AlternateAerodrome*, FleetPrioritization?, BoundaryCrossings*, CpdlcConnection?, BeaconCodeAssignment?, Cleared?, ControlElement*, Pointout?, Position?)
 
-plain_AirportHeliportUsage(Graph, AirportHeliportUsage, OperationVal, AirportHeliportAvailabilityList) :-
+fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritizationVal, BoundaryCrossingsList, CpdlcConnectionVal, BeaconCodeAssignmentVal, ClearedVal, ControlElementList, PointoutVal, PositionVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -19218,43 +11026,76 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airportHeliportUsage ?operation (GROUP_CONCAT(DISTINCT ?airportHeliportAvailability;SEPARATOR=",") AS ?airportHeliportAvailabilityConcat)
+SELECT ?graph ?enRoute (GROUP_CONCAT(DISTINCT ?alternateAerodrome;SEPARATOR=",") AS ?alternateAerodromeConcat) ?fleetPrioritization (GROUP_CONCAT(DISTINCT ?boundaryCrossings;SEPARATOR=",") AS ?boundaryCrossingsConcat) ?cpdlcConnection ?beaconCodeAssignment ?cleared (GROUP_CONCAT(DISTINCT ?controlElement;SEPARATOR=",") AS ?controlElementConcat) ?pointout ?position
 WHERE
   { GRAPH ?graph
     {
-      ?airportHeliportUsage rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirportHeliportUsage> .
-      ?airportHeliportUsage <http://www.aisa-project.eu/vocabulary/plain#operation>  ?_operation .
+      ?enRoute rdf:type fixm:EnRoute .
+      OPTIONAL {?enRoute fixm:alternateAerodrome ?alternateAerodrome .}
+      OPTIONAL { ?enRoute fixm:fleetPrioritization ?_fleetPrioritization .
         {
           {
-            ?_operation rdf:value ?operationValue .
-            FILTER ( NOT EXISTS {?_operation (aixm:uom | fixm:uom | plain:uom) ?operationUoM})
-            BIND(concat(\'val:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue))) AS ?operation)
+            ?_fleetPrioritization rdf:value ?fleetPrioritizationValue .
+            FILTER ( NOT EXISTS {?_fleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM})
+            BIND(concat(\'val:/:\',STR(?fleetPrioritizationValue),\':/:\',STR(DATATYPE(?fleetPrioritizationValue))) AS ?fleetPrioritization)
           }
-		     UNION
-		     {
-            ?_operation
-              rdf:value ?operationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?operationUoM .
-              BIND(concat(\'xval:/:\',STR(?operationValue),\':/:\',STR(DATATYPE(?operationValue)),\':/:\',?operationUoM) AS ?operation)
+            UNION
+          {
+            ?_fleetPrioritization
+              rdf:value ?fleetPrioritizationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?fleetPrioritizationUoM .
+            BIND(concat(\'xval:/:\',STR(?fleetPrioritizationValue),\':/:\',STR(DATATYPE(?fleetPrioritizationValue)),\':/:\',?fleetPrioritizationUoM) AS ?fleetPrioritization)
+          }
+            UNION
+          {
+           ?_fleetPrioritization  aixm:nilReason ?fleetPrioritizationNilReason .
+           BIND(concat(\'nil:/:\',?fleetPrioritizationNilReason) AS ?fleetPrioritization)
           }
           UNION
           {
-		       ?_operation  aixm:nilReason ?operationNilReason .
-		       BIND(concat(\'nil:/:\',?operationNilReason) AS ?operation)
+		       ?_fleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fleetPrioritization)
 		     }
+        }
+      }
+      OPTIONAL {?enRoute fixm:boundaryCrossings ?boundaryCrossings .}
+      OPTIONAL {?enRoute fixm:cpdlcConnection ?cpdlcConnection .}
+      OPTIONAL {?enRoute fixm:beaconCodeAssignment ?beaconCodeAssignment .}
+      OPTIONAL {?enRoute fixm:cleared ?cleared .}
+      OPTIONAL { ?enRoute fixm:controlElement ?_controlElement .
+        {
+          {
+            ?_controlElement rdf:value ?controlElementValue .
+            FILTER ( NOT EXISTS {?_controlElement (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM})
+            BIND(concat(\'val:/:\',STR(?controlElementValue),\':/:\',STR(DATATYPE(?controlElementValue))) AS ?controlElement)
+          }
+            UNION
+          {
+            ?_controlElement
+              rdf:value ?controlElementValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?controlElementUoM .
+            BIND(concat(\'xval:/:\',STR(?controlElementValue),\':/:\',STR(DATATYPE(?controlElementValue)),\':/:\',?controlElementUoM) AS ?controlElement)
+          }
+            UNION
+          {
+           ?_controlElement  aixm:nilReason ?controlElementNilReason .
+           BIND(concat(\'nil:/:\',?controlElementNilReason) AS ?controlElement)
+          }
           UNION
           {
-            ?_operation  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operation)
-	         }
+		       ?_controlElement  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?controlElement)
+		     }
+        }
       }
-      OPTIONAL {?airportHeliportUsage <http://www.aisa-project.eu/vocabulary/plain#airportHeliportAvailability> ?airportHeliportAvailability .}
+      OPTIONAL {?enRoute fixm:pointout ?pointout .}
+      OPTIONAL {?enRoute fixm:position ?position .}
     }
   }
-GROUP BY ?graph ?airportHeliportUsage ?operation
+GROUP BY ?graph ?enRoute ?fleetPrioritization ?cpdlcConnection ?beaconCodeAssignment ?cleared ?pointout ?position
 
       '
-,row(Graph,AirportHeliportUsage,Operation,AirportHeliportAvailabilityConcat),[]), convVal(Operation,OperationVal), convert(AirportHeliportAvailabilityConcat,AirportHeliportAvailabilityList).
+,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convVal(FleetPrioritization,FleetPrioritizationVal), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convVal(CpdlcConnection,CpdlcConnectionVal), convVal(BeaconCodeAssignment,BeaconCodeAssignmentVal), convVal(Cleared,ClearedVal), convert(ControlElementConcat,ControlElementList), convVal(Pointout,PointoutVal), convVal(Position,PositionVal).
 
 % fixm_FlightLevel(Graph, FlightLevel, Level?, Unit?)
 
@@ -19342,67 +11183,6 @@ WHERE
       '
 ,row(Graph,FlightLevel,Level,Unit),[]), convVal(Level,LevelVal), convVal(Unit,UnitVal).
 
-% plain_VerticalRate(Graph, VerticalRate, FlightIdentification*, VerticalRate)
-
-plain_VerticalRate(Graph, VerticalRate, FlightIdentificationList, VerticalRateVal) :-
-  sparql_query(
-      '
-PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
-PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
-PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
-PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
-PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
-PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
-PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
-PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX gml: <http://www.opengis.net/gml/3.2#>
-PREFIX file: <https://www.jena.com/plain#>
-PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX uuid: <uuid:>
-
-
-SELECT ?graph ?verticalRate (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?verticalRate
-WHERE
-  { GRAPH ?graph
-    {
-      ?verticalRate rdf:type <http://www.aisa-project.eu/vocabulary/plain#VerticalRate> .
-      OPTIONAL {?verticalRate <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .}
-      ?verticalRate <http://www.aisa-project.eu/vocabulary/plain#verticalRate>  ?_verticalRate .
-        {
-          {
-            ?_verticalRate rdf:value ?verticalRateValue .
-            FILTER ( NOT EXISTS {?_verticalRate (aixm:uom | fixm:uom | plain:uom) ?verticalRateUoM})
-            BIND(concat(\'val:/:\',STR(?verticalRateValue),\':/:\',STR(DATATYPE(?verticalRateValue))) AS ?verticalRate)
-          }
-		     UNION
-		     {
-            ?_verticalRate
-              rdf:value ?verticalRateValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?verticalRateUoM .
-              BIND(concat(\'xval:/:\',STR(?verticalRateValue),\':/:\',STR(DATATYPE(?verticalRateValue)),\':/:\',?verticalRateUoM) AS ?verticalRate)
-          }
-          UNION
-          {
-		       ?_verticalRate  aixm:nilReason ?verticalRateNilReason .
-		       BIND(concat(\'nil:/:\',?verticalRateNilReason) AS ?verticalRate)
-		     }
-          UNION
-          {
-            ?_verticalRate  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?verticalRate)
-	         }
-      }
-    }
-  }
-GROUP BY ?graph ?verticalRate ?verticalRate
-
-      '
-,row(Graph,VerticalRate,FlightIdentificationConcat,VerticalRate),[]), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(VerticalRate,VerticalRateVal).
-
 % fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistance*, OfftrackReason?)
 
 fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistanceList, OfftrackReasonVal) :-
@@ -19464,6 +11244,395 @@ GROUP BY ?graph ?lateralOfftrack ?offtrackReason
 
       '
 ,row(Graph,LateralOfftrack,OfftrackDistanceConcat,OfftrackReason),[]), convert(OfftrackDistanceConcat,OfftrackDistanceList), convVal(OfftrackReason,OfftrackReasonVal).
+
+% fixm_TemporalRange(Graph, TemporalRange, Earliest?, Latest?)
+
+fixm_TemporalRange(Graph, TemporalRange, EarliestVal, LatestVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?temporalRange ?earliest ?latest
+WHERE
+  { GRAPH ?graph
+    {
+      ?temporalRange rdf:type fixm:TemporalRange .
+      OPTIONAL { ?temporalRange fixm:earliest ?_earliest .
+        {
+          {
+            ?_earliest rdf:value ?earliestValue .
+            FILTER ( NOT EXISTS {?_earliest (aixm:uom | fixm:uom | plain:uom) ?earliestUoM})
+            BIND(concat(\'val:/:\',STR(?earliestValue),\':/:\',STR(DATATYPE(?earliestValue))) AS ?earliest)
+          }
+            UNION
+          {
+            ?_earliest
+              rdf:value ?earliestValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?earliestUoM .
+            BIND(concat(\'xval:/:\',STR(?earliestValue),\':/:\',STR(DATATYPE(?earliestValue)),\':/:\',?earliestUoM) AS ?earliest)
+          }
+            UNION
+          {
+           ?_earliest  aixm:nilReason ?earliestNilReason .
+           BIND(concat(\'nil:/:\',?earliestNilReason) AS ?earliest)
+          }
+          UNION
+          {
+		       ?_earliest  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?earliest)
+		     }
+        }
+      }
+      OPTIONAL { ?temporalRange fixm:latest ?_latest .
+        {
+          {
+            ?_latest rdf:value ?latestValue .
+            FILTER ( NOT EXISTS {?_latest (aixm:uom | fixm:uom | plain:uom) ?latestUoM})
+            BIND(concat(\'val:/:\',STR(?latestValue),\':/:\',STR(DATATYPE(?latestValue))) AS ?latest)
+          }
+            UNION
+          {
+            ?_latest
+              rdf:value ?latestValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?latestUoM .
+            BIND(concat(\'xval:/:\',STR(?latestValue),\':/:\',STR(DATATYPE(?latestValue)),\':/:\',?latestUoM) AS ?latest)
+          }
+            UNION
+          {
+           ?_latest  aixm:nilReason ?latestNilReason .
+           BIND(concat(\'nil:/:\',?latestNilReason) AS ?latest)
+          }
+          UNION
+          {
+		       ?_latest  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?latest)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,TemporalRange,Earliest,Latest),[]), convVal(Earliest,EarliestVal), convVal(Latest,LatestVal).
+
+% fixm_Aircraft(Graph, Aircraft, AircraftColours?, AircraftQuantity?, EngineType?, AircraftAddress?, Capabilities?, Registration?, AircraftType?, WakeTurbulence?, AircraftPerformance?)
+
+fixm_Aircraft(Graph, Aircraft, AircraftColoursVal, AircraftQuantityVal, EngineTypeVal, AircraftAddressVal, CapabilitiesVal, RegistrationVal, AircraftTypeVal, WakeTurbulenceVal, AircraftPerformanceVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?aircraft ?aircraftColours ?aircraftQuantity ?engineType ?aircraftAddress ?capabilities ?registration ?aircraftType ?wakeTurbulence ?aircraftPerformance
+WHERE
+  { GRAPH ?graph
+    {
+      ?aircraft rdf:type fixm:Aircraft .
+      OPTIONAL { ?aircraft fixm:aircraftColours ?_aircraftColours .
+        {
+          {
+            ?_aircraftColours rdf:value ?aircraftColoursValue .
+            FILTER ( NOT EXISTS {?_aircraftColours (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM})
+            BIND(concat(\'val:/:\',STR(?aircraftColoursValue),\':/:\',STR(DATATYPE(?aircraftColoursValue))) AS ?aircraftColours)
+          }
+            UNION
+          {
+            ?_aircraftColours
+              rdf:value ?aircraftColoursValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?aircraftColoursUoM .
+            BIND(concat(\'xval:/:\',STR(?aircraftColoursValue),\':/:\',STR(DATATYPE(?aircraftColoursValue)),\':/:\',?aircraftColoursUoM) AS ?aircraftColours)
+          }
+            UNION
+          {
+           ?_aircraftColours  aixm:nilReason ?aircraftColoursNilReason .
+           BIND(concat(\'nil:/:\',?aircraftColoursNilReason) AS ?aircraftColours)
+          }
+          UNION
+          {
+		       ?_aircraftColours  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftColours)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:aircraftQuantity ?_aircraftQuantity .
+        {
+          {
+            ?_aircraftQuantity rdf:value ?aircraftQuantityValue .
+            FILTER ( NOT EXISTS {?_aircraftQuantity (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM})
+            BIND(concat(\'val:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue))) AS ?aircraftQuantity)
+          }
+            UNION
+          {
+            ?_aircraftQuantity
+              rdf:value ?aircraftQuantityValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?aircraftQuantityUoM .
+            BIND(concat(\'xval:/:\',STR(?aircraftQuantityValue),\':/:\',STR(DATATYPE(?aircraftQuantityValue)),\':/:\',?aircraftQuantityUoM) AS ?aircraftQuantity)
+          }
+            UNION
+          {
+           ?_aircraftQuantity  aixm:nilReason ?aircraftQuantityNilReason .
+           BIND(concat(\'nil:/:\',?aircraftQuantityNilReason) AS ?aircraftQuantity)
+          }
+          UNION
+          {
+		       ?_aircraftQuantity  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftQuantity)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:engineType ?_engineType .
+        {
+          {
+            ?_engineType rdf:value ?engineTypeValue .
+            FILTER ( NOT EXISTS {?_engineType (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM})
+            BIND(concat(\'val:/:\',STR(?engineTypeValue),\':/:\',STR(DATATYPE(?engineTypeValue))) AS ?engineType)
+          }
+            UNION
+          {
+            ?_engineType
+              rdf:value ?engineTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?engineTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?engineTypeValue),\':/:\',STR(DATATYPE(?engineTypeValue)),\':/:\',?engineTypeUoM) AS ?engineType)
+          }
+            UNION
+          {
+           ?_engineType  aixm:nilReason ?engineTypeNilReason .
+           BIND(concat(\'nil:/:\',?engineTypeNilReason) AS ?engineType)
+          }
+          UNION
+          {
+		       ?_engineType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?engineType)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:aircraftAddress ?_aircraftAddress .
+        {
+          {
+            ?_aircraftAddress rdf:value ?aircraftAddressValue .
+            FILTER ( NOT EXISTS {?_aircraftAddress (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM})
+            BIND(concat(\'val:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue))) AS ?aircraftAddress)
+          }
+            UNION
+          {
+            ?_aircraftAddress
+              rdf:value ?aircraftAddressValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?aircraftAddressUoM .
+            BIND(concat(\'xval:/:\',STR(?aircraftAddressValue),\':/:\',STR(DATATYPE(?aircraftAddressValue)),\':/:\',?aircraftAddressUoM) AS ?aircraftAddress)
+          }
+            UNION
+          {
+           ?_aircraftAddress  aixm:nilReason ?aircraftAddressNilReason .
+           BIND(concat(\'nil:/:\',?aircraftAddressNilReason) AS ?aircraftAddress)
+          }
+          UNION
+          {
+		       ?_aircraftAddress  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftAddress)
+		     }
+        }
+      }
+      OPTIONAL {?aircraft fixm:capabilities ?capabilities .}
+      OPTIONAL { ?aircraft fixm:registration ?_registration .
+        {
+          {
+            ?_registration rdf:value ?registrationValue .
+            FILTER ( NOT EXISTS {?_registration (aixm:uom | fixm:uom | plain:uom) ?registrationUoM})
+            BIND(concat(\'val:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue))) AS ?registration)
+          }
+            UNION
+          {
+            ?_registration
+              rdf:value ?registrationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?registrationUoM .
+            BIND(concat(\'xval:/:\',STR(?registrationValue),\':/:\',STR(DATATYPE(?registrationValue)),\':/:\',?registrationUoM) AS ?registration)
+          }
+            UNION
+          {
+           ?_registration  aixm:nilReason ?registrationNilReason .
+           BIND(concat(\'nil:/:\',?registrationNilReason) AS ?registration)
+          }
+          UNION
+          {
+		       ?_registration  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?registration)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:aircraftType ?_aircraftType .
+        {
+          {
+            ?_aircraftType rdf:value ?aircraftTypeValue .
+            FILTER ( NOT EXISTS {?_aircraftType (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM})
+            BIND(concat(\'val:/:\',STR(?aircraftTypeValue),\':/:\',STR(DATATYPE(?aircraftTypeValue))) AS ?aircraftType)
+          }
+            UNION
+          {
+            ?_aircraftType
+              rdf:value ?aircraftTypeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?aircraftTypeUoM .
+            BIND(concat(\'xval:/:\',STR(?aircraftTypeValue),\':/:\',STR(DATATYPE(?aircraftTypeValue)),\':/:\',?aircraftTypeUoM) AS ?aircraftType)
+          }
+            UNION
+          {
+           ?_aircraftType  aixm:nilReason ?aircraftTypeNilReason .
+           BIND(concat(\'nil:/:\',?aircraftTypeNilReason) AS ?aircraftType)
+          }
+          UNION
+          {
+		       ?_aircraftType  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftType)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:wakeTurbulence ?_wakeTurbulence .
+        {
+          {
+            ?_wakeTurbulence rdf:value ?wakeTurbulenceValue .
+            FILTER ( NOT EXISTS {?_wakeTurbulence (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM})
+            BIND(concat(\'val:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue))) AS ?wakeTurbulence)
+          }
+            UNION
+          {
+            ?_wakeTurbulence
+              rdf:value ?wakeTurbulenceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?wakeTurbulenceUoM .
+            BIND(concat(\'xval:/:\',STR(?wakeTurbulenceValue),\':/:\',STR(DATATYPE(?wakeTurbulenceValue)),\':/:\',?wakeTurbulenceUoM) AS ?wakeTurbulence)
+          }
+            UNION
+          {
+           ?_wakeTurbulence  aixm:nilReason ?wakeTurbulenceNilReason .
+           BIND(concat(\'nil:/:\',?wakeTurbulenceNilReason) AS ?wakeTurbulence)
+          }
+          UNION
+          {
+		       ?_wakeTurbulence  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?wakeTurbulence)
+		     }
+        }
+      }
+      OPTIONAL { ?aircraft fixm:aircraftPerformance ?_aircraftPerformance .
+        {
+          {
+            ?_aircraftPerformance rdf:value ?aircraftPerformanceValue .
+            FILTER ( NOT EXISTS {?_aircraftPerformance (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM})
+            BIND(concat(\'val:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue))) AS ?aircraftPerformance)
+          }
+            UNION
+          {
+            ?_aircraftPerformance
+              rdf:value ?aircraftPerformanceValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?aircraftPerformanceUoM .
+            BIND(concat(\'xval:/:\',STR(?aircraftPerformanceValue),\':/:\',STR(DATATYPE(?aircraftPerformanceValue)),\':/:\',?aircraftPerformanceUoM) AS ?aircraftPerformance)
+          }
+            UNION
+          {
+           ?_aircraftPerformance  aixm:nilReason ?aircraftPerformanceNilReason .
+           BIND(concat(\'nil:/:\',?aircraftPerformanceNilReason) AS ?aircraftPerformance)
+          }
+          UNION
+          {
+		       ?_aircraftPerformance  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftPerformance)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,Aircraft,AircraftColours,AircraftQuantity,EngineType,AircraftAddress,Capabilities,Registration,AircraftType,WakeTurbulence,AircraftPerformance),[]), convVal(AircraftColours,AircraftColoursVal), convVal(AircraftQuantity,AircraftQuantityVal), convVal(EngineType,EngineTypeVal), convVal(AircraftAddress,AircraftAddressVal), convVal(Capabilities,CapabilitiesVal), convVal(Registration,RegistrationVal), convVal(AircraftType,AircraftTypeVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(AircraftPerformance,AircraftPerformanceVal).
+
+% fixm_OnlineContact(Graph, OnlineContact, Email?)
+
+fixm_OnlineContact(Graph, OnlineContact, EmailVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?onlineContact ?email
+WHERE
+  { GRAPH ?graph
+    {
+      ?onlineContact rdf:type fixm:OnlineContact .
+      OPTIONAL { ?onlineContact fixm:email ?_email .
+        {
+          {
+            ?_email rdf:value ?emailValue .
+            FILTER ( NOT EXISTS {?_email (aixm:uom | fixm:uom | plain:uom) ?emailUoM})
+            BIND(concat(\'val:/:\',STR(?emailValue),\':/:\',STR(DATATYPE(?emailValue))) AS ?email)
+          }
+            UNION
+          {
+            ?_email
+              rdf:value ?emailValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?emailUoM .
+            BIND(concat(\'xval:/:\',STR(?emailValue),\':/:\',STR(DATATYPE(?emailValue)),\':/:\',?emailUoM) AS ?email)
+          }
+            UNION
+          {
+           ?_email  aixm:nilReason ?emailNilReason .
+           BIND(concat(\'nil:/:\',?emailNilReason) AS ?email)
+          }
+          UNION
+          {
+		       ?_email  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?email)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,OnlineContact,Email),[]), convVal(Email,EmailVal).
 
 % fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTime?, ConstrainedAirspace?)
 
@@ -19551,9 +11720,9 @@ WHERE
       '
 ,row(Graph,AirspaceConstraint,AirspaceControlledEntryTime,ConstrainedAirspace),[]), convVal(AirspaceControlledEntryTime,AirspaceControlledEntryTimeVal), convVal(ConstrainedAirspace,ConstrainedAirspaceVal).
 
-% plain_SignificantPoint(Graph, SignificantPoint, SignificantPointInAirspace+)
+% fixm_TimeSequence(Graph, TimeSequence, Approval?, Begin?, End?, Ready?, Request?)
 
-plain_SignificantPoint(Graph, SignificantPoint, SignificantPointInAirspaceList) :-
+fixm_TimeSequence(Graph, TimeSequence, ApprovalVal, BeginVal, EndVal, ReadyVal, RequestVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -19574,18 +11743,81 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?significantPoint (GROUP_CONCAT(DISTINCT ?significantPointInAirspace;SEPARATOR=",") AS ?significantPointInAirspaceConcat)
+SELECT ?graph ?timeSequence ?approval ?begin ?end ?ready ?request
 WHERE
   { GRAPH ?graph
     {
-      ?significantPoint rdf:type <http://www.aisa-project.eu/vocabulary/plain#SignificantPoint> .
-      ?significantPoint <http://www.aisa-project.eu/vocabulary/plain#significantPointInAirspace> ?significantPointInAirspace .
+      ?timeSequence rdf:type fixm:TimeSequence .
+      OPTIONAL {?timeSequence fixm:approval ?approval .}
+      OPTIONAL {?timeSequence fixm:begin ?begin .}
+      OPTIONAL {?timeSequence fixm:end ?end .}
+      OPTIONAL {?timeSequence fixm:ready ?ready .}
+      OPTIONAL {?timeSequence fixm:request ?request .}
     }
   }
-GROUP BY ?graph ?significantPoint
 
       '
-,row(Graph,SignificantPoint,SignificantPointInAirspaceConcat),[]), convert(SignificantPointInAirspaceConcat,SignificantPointInAirspaceList).
+,row(Graph,TimeSequence,Approval,Begin,End,Ready,Request),[]), convVal(Approval,ApprovalVal), convVal(Begin,BeginVal), convVal(End,EndVal), convVal(Ready,ReadyVal), convVal(Request,RequestVal).
+
+% fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, ResponsibleAgent?)
+
+fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, ResponsibleAgentVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?additionalHandlingInformation ?responsibleAgent
+WHERE
+  { GRAPH ?graph
+    {
+      ?additionalHandlingInformation rdf:type fixm:AdditionalHandlingInformation .
+      OPTIONAL { ?additionalHandlingInformation fixm:responsibleAgent ?_responsibleAgent .
+        {
+          {
+            ?_responsibleAgent rdf:value ?responsibleAgentValue .
+            FILTER ( NOT EXISTS {?_responsibleAgent (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM})
+            BIND(concat(\'val:/:\',STR(?responsibleAgentValue),\':/:\',STR(DATATYPE(?responsibleAgentValue))) AS ?responsibleAgent)
+          }
+            UNION
+          {
+            ?_responsibleAgent
+              rdf:value ?responsibleAgentValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?responsibleAgentUoM .
+            BIND(concat(\'xval:/:\',STR(?responsibleAgentValue),\':/:\',STR(DATATYPE(?responsibleAgentValue)),\':/:\',?responsibleAgentUoM) AS ?responsibleAgent)
+          }
+            UNION
+          {
+           ?_responsibleAgent  aixm:nilReason ?responsibleAgentNilReason .
+           BIND(concat(\'nil:/:\',?responsibleAgentNilReason) AS ?responsibleAgent)
+          }
+          UNION
+          {
+		       ?_responsibleAgent  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?responsibleAgent)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,AdditionalHandlingInformation,ResponsibleAgent),[]), convVal(ResponsibleAgent,ResponsibleAgentVal).
 
 % fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifier?, Delegated?)
 
@@ -19677,6 +11909,252 @@ WHERE
 
       '
 ,row(Graph,AtcUnitReference,SectorIdentifier,Delegated),[]), convVal(SectorIdentifier,SectorIdentifierVal), convVal(Delegated,DelegatedVal).
+
+% fixm_Extension(Graph, Extension)
+
+fixm_Extension(Graph, Extension) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?extension
+WHERE
+  { GRAPH ?graph
+    {
+      ?extension rdf:type fixm:Extension .
+    }
+  }
+
+      '
+,row(Graph,Extension),[]).
+
+% fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilities?, SurveillanceCode*)
+
+fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilitiesVal, SurveillanceCodeList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities (GROUP_CONCAT(DISTINCT ?surveillanceCode;SEPARATOR=",") AS ?surveillanceCodeConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?surveillanceCapabilities rdf:type fixm:SurveillanceCapabilities .
+      OPTIONAL { ?surveillanceCapabilities fixm:otherSurveillanceCapabilities ?_otherSurveillanceCapabilities .
+        {
+          {
+            ?_otherSurveillanceCapabilities rdf:value ?otherSurveillanceCapabilitiesValue .
+            FILTER ( NOT EXISTS {?_otherSurveillanceCapabilities (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM})
+            BIND(concat(\'val:/:\',STR(?otherSurveillanceCapabilitiesValue),\':/:\',STR(DATATYPE(?otherSurveillanceCapabilitiesValue))) AS ?otherSurveillanceCapabilities)
+          }
+            UNION
+          {
+            ?_otherSurveillanceCapabilities
+              rdf:value ?otherSurveillanceCapabilitiesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?otherSurveillanceCapabilitiesUoM .
+            BIND(concat(\'xval:/:\',STR(?otherSurveillanceCapabilitiesValue),\':/:\',STR(DATATYPE(?otherSurveillanceCapabilitiesValue)),\':/:\',?otherSurveillanceCapabilitiesUoM) AS ?otherSurveillanceCapabilities)
+          }
+            UNION
+          {
+           ?_otherSurveillanceCapabilities  aixm:nilReason ?otherSurveillanceCapabilitiesNilReason .
+           BIND(concat(\'nil:/:\',?otherSurveillanceCapabilitiesNilReason) AS ?otherSurveillanceCapabilities)
+          }
+          UNION
+          {
+		       ?_otherSurveillanceCapabilities  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?otherSurveillanceCapabilities)
+		     }
+        }
+      }
+      OPTIONAL { ?surveillanceCapabilities fixm:surveillanceCode ?_surveillanceCode .
+        {
+          {
+            ?_surveillanceCode rdf:value ?surveillanceCodeValue .
+            FILTER ( NOT EXISTS {?_surveillanceCode (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM})
+            BIND(concat(\'val:/:\',STR(?surveillanceCodeValue),\':/:\',STR(DATATYPE(?surveillanceCodeValue))) AS ?surveillanceCode)
+          }
+            UNION
+          {
+            ?_surveillanceCode
+              rdf:value ?surveillanceCodeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?surveillanceCodeUoM .
+            BIND(concat(\'xval:/:\',STR(?surveillanceCodeValue),\':/:\',STR(DATATYPE(?surveillanceCodeValue)),\':/:\',?surveillanceCodeUoM) AS ?surveillanceCode)
+          }
+            UNION
+          {
+           ?_surveillanceCode  aixm:nilReason ?surveillanceCodeNilReason .
+           BIND(concat(\'nil:/:\',?surveillanceCodeNilReason) AS ?surveillanceCode)
+          }
+          UNION
+          {
+		       ?_surveillanceCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?surveillanceCode)
+		     }
+        }
+      }
+    }
+  }
+GROUP BY ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities
+
+      '
+,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convVal(OtherSurveillanceCapabilities,OtherSurveillanceCapabilitiesVal), convert(SurveillanceCodeConcat,SurveillanceCodeList).
+
+% fixm_Trajectory(Graph, Trajectory, TrajectoryPoint*)
+
+fixm_Trajectory(Graph, Trajectory, TrajectoryPointList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?trajectory (GROUP_CONCAT(DISTINCT ?trajectoryPoint;SEPARATOR=",") AS ?trajectoryPointConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?trajectory rdf:type fixm:Trajectory .
+      OPTIONAL {?trajectory fixm:trajectoryPoint ?trajectoryPoint .}
+    }
+  }
+GROUP BY ?graph ?trajectory
+
+      '
+,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList).
+
+% aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemote?, IsPrimary?, Availability*, Annotation*)
+
+aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemoteVal, IsPrimaryVal, AvailabilityList, AnnotationList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary (GROUP_CONCAT(DISTINCT ?availability;SEPARATOR=",") AS ?availabilityConcat) (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSourceTimeSlice rdf:type aixm:AltimeterSourceTimeSlice .
+      OPTIONAL { ?altimeterSourceTimeSlice aixm:isRemote ?_isRemote .
+        {
+          {
+            ?_isRemote rdf:value ?isRemoteValue .
+            FILTER ( NOT EXISTS {?_isRemote (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM})
+            BIND(concat(\'val:/:\',STR(?isRemoteValue),\':/:\',STR(DATATYPE(?isRemoteValue))) AS ?isRemote)
+          }
+            UNION
+          {
+            ?_isRemote
+              rdf:value ?isRemoteValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?isRemoteUoM .
+            BIND(concat(\'xval:/:\',STR(?isRemoteValue),\':/:\',STR(DATATYPE(?isRemoteValue)),\':/:\',?isRemoteUoM) AS ?isRemote)
+          }
+            UNION
+          {
+           ?_isRemote  aixm:nilReason ?isRemoteNilReason .
+           BIND(concat(\'nil:/:\',?isRemoteNilReason) AS ?isRemote)
+          }
+          UNION
+          {
+		       ?_isRemote  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?isRemote)
+		     }
+        }
+      }
+      OPTIONAL { ?altimeterSourceTimeSlice aixm:isPrimary ?_isPrimary .
+        {
+          {
+            ?_isPrimary rdf:value ?isPrimaryValue .
+            FILTER ( NOT EXISTS {?_isPrimary (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM})
+            BIND(concat(\'val:/:\',STR(?isPrimaryValue),\':/:\',STR(DATATYPE(?isPrimaryValue))) AS ?isPrimary)
+          }
+            UNION
+          {
+            ?_isPrimary
+              rdf:value ?isPrimaryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?isPrimaryUoM .
+            BIND(concat(\'xval:/:\',STR(?isPrimaryValue),\':/:\',STR(DATATYPE(?isPrimaryValue)),\':/:\',?isPrimaryUoM) AS ?isPrimary)
+          }
+            UNION
+          {
+           ?_isPrimary  aixm:nilReason ?isPrimaryNilReason .
+           BIND(concat(\'nil:/:\',?isPrimaryNilReason) AS ?isPrimary)
+          }
+          UNION
+          {
+		       ?_isPrimary  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?isPrimary)
+		     }
+        }
+      }
+      OPTIONAL {?altimeterSourceTimeSlice aixm:availability ?availability .}
+      OPTIONAL {?altimeterSourceTimeSlice aixm:annotation ?annotation .}
+    }
+  }
+GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
+
+      '
+,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convVal(IsRemote,IsRemoteVal), convVal(IsPrimary,IsPrimaryVal), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList).
 
 % aixm_Point(Graph, Point, HorizontalAccuracy?, Annotation*)
 
@@ -20327,6 +12805,170 @@ GROUP BY ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraf
       '
 ,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Engine,EngineVal), convVal(NumberEngine,NumberEngineVal), convVal(TypeAircraftICAO,TypeAircraftICAOVal), convVal(AircraftLandingCategory,AircraftLandingCategoryVal), convVal(WingSpan,WingSpanVal), convVal(WingSpanInterpretation,WingSpanInterpretationVal), convVal(ClassWingSpan,ClassWingSpanVal), convVal(Weight,WeightVal), convVal(WeightInterpretation,WeightInterpretationVal), convVal(Passengers,PassengersVal), convVal(PassengersInterpretation,PassengersInterpretationVal), convVal(Speed,SpeedVal), convVal(SpeedInterpretation,SpeedInterpretationVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(NavigationEquipment,NavigationEquipmentVal), convVal(NavigationSpecification,NavigationSpecificationVal), convVal(VerticalSeparationCapability,VerticalSeparationCapabilityVal), convVal(AntiCollisionAndSeparationEquipment,AntiCollisionAndSeparationEquipmentVal), convVal(CommunicationEquipment,CommunicationEquipmentVal), convVal(SurveillanceEquipment,SurveillanceEquipmentVal), convert(AnnotationConcat,AnnotationList).
 
+% aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint?, City?, AdministrativeArea?, PostalCode?, Country?)
+
+aixm_PostalAddress(Graph, PostalAddress, DeliveryPointVal, CityVal, AdministrativeAreaVal, PostalCodeVal, CountryVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?postalAddress ?deliveryPoint ?city ?administrativeArea ?postalCode ?country
+WHERE
+  { GRAPH ?graph
+    {
+      ?postalAddress rdf:type aixm:PostalAddress .
+      OPTIONAL { ?postalAddress aixm:deliveryPoint ?_deliveryPoint .
+        {
+          {
+            ?_deliveryPoint rdf:value ?deliveryPointValue .
+            FILTER ( NOT EXISTS {?_deliveryPoint (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM})
+            BIND(concat(\'val:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue))) AS ?deliveryPoint)
+          }
+            UNION
+          {
+            ?_deliveryPoint
+              rdf:value ?deliveryPointValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?deliveryPointUoM .
+            BIND(concat(\'xval:/:\',STR(?deliveryPointValue),\':/:\',STR(DATATYPE(?deliveryPointValue)),\':/:\',?deliveryPointUoM) AS ?deliveryPoint)
+          }
+            UNION
+          {
+           ?_deliveryPoint  aixm:nilReason ?deliveryPointNilReason .
+           BIND(concat(\'nil:/:\',?deliveryPointNilReason) AS ?deliveryPoint)
+          }
+          UNION
+          {
+		       ?_deliveryPoint  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?deliveryPoint)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:city ?_city .
+        {
+          {
+            ?_city rdf:value ?cityValue .
+            FILTER ( NOT EXISTS {?_city (aixm:uom | fixm:uom | plain:uom) ?cityUoM})
+            BIND(concat(\'val:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue))) AS ?city)
+          }
+            UNION
+          {
+            ?_city
+              rdf:value ?cityValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?cityUoM .
+            BIND(concat(\'xval:/:\',STR(?cityValue),\':/:\',STR(DATATYPE(?cityValue)),\':/:\',?cityUoM) AS ?city)
+          }
+            UNION
+          {
+           ?_city  aixm:nilReason ?cityNilReason .
+           BIND(concat(\'nil:/:\',?cityNilReason) AS ?city)
+          }
+          UNION
+          {
+		       ?_city  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?city)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:administrativeArea ?_administrativeArea .
+        {
+          {
+            ?_administrativeArea rdf:value ?administrativeAreaValue .
+            FILTER ( NOT EXISTS {?_administrativeArea (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM})
+            BIND(concat(\'val:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue))) AS ?administrativeArea)
+          }
+            UNION
+          {
+            ?_administrativeArea
+              rdf:value ?administrativeAreaValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?administrativeAreaUoM .
+            BIND(concat(\'xval:/:\',STR(?administrativeAreaValue),\':/:\',STR(DATATYPE(?administrativeAreaValue)),\':/:\',?administrativeAreaUoM) AS ?administrativeArea)
+          }
+            UNION
+          {
+           ?_administrativeArea  aixm:nilReason ?administrativeAreaNilReason .
+           BIND(concat(\'nil:/:\',?administrativeAreaNilReason) AS ?administrativeArea)
+          }
+          UNION
+          {
+		       ?_administrativeArea  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?administrativeArea)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:postalCode ?_postalCode .
+        {
+          {
+            ?_postalCode rdf:value ?postalCodeValue .
+            FILTER ( NOT EXISTS {?_postalCode (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM})
+            BIND(concat(\'val:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue))) AS ?postalCode)
+          }
+            UNION
+          {
+            ?_postalCode
+              rdf:value ?postalCodeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?postalCodeUoM .
+            BIND(concat(\'xval:/:\',STR(?postalCodeValue),\':/:\',STR(DATATYPE(?postalCodeValue)),\':/:\',?postalCodeUoM) AS ?postalCode)
+          }
+            UNION
+          {
+           ?_postalCode  aixm:nilReason ?postalCodeNilReason .
+           BIND(concat(\'nil:/:\',?postalCodeNilReason) AS ?postalCode)
+          }
+          UNION
+          {
+		       ?_postalCode  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?postalCode)
+		     }
+        }
+      }
+      OPTIONAL { ?postalAddress aixm:country ?_country .
+        {
+          {
+            ?_country rdf:value ?countryValue .
+            FILTER ( NOT EXISTS {?_country (aixm:uom | fixm:uom | plain:uom) ?countryUoM})
+            BIND(concat(\'val:/:\',STR(?countryValue),\':/:\',STR(DATATYPE(?countryValue))) AS ?country)
+          }
+            UNION
+          {
+            ?_country
+              rdf:value ?countryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?countryUoM .
+            BIND(concat(\'xval:/:\',STR(?countryValue),\':/:\',STR(DATATYPE(?countryValue)),\':/:\',?countryUoM) AS ?country)
+          }
+            UNION
+          {
+           ?_country  aixm:nilReason ?countryNilReason .
+           BIND(concat(\'nil:/:\',?countryNilReason) AS ?country)
+          }
+          UNION
+          {
+		       ?_country  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?country)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,PostalAddress,DeliveryPoint,City,AdministrativeArea,PostalCode,Country),[]), convVal(DeliveryPoint,DeliveryPointVal), convVal(City,CityVal), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(Country,CountryVal).
+
 % fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantity?, PackageDimensions?, PackingInstructionNumber?, ProductName?, ProperShippingName?, ReportableQuantity?, SupplementaryInformation?, TechnicalName?, TypeOfPackaging?, UnNumber?, DangerousGoodsLimitation?, ShipmentType?, AllPackedInOne?, CompatibilityGroup?, ShipmentDimensions?, MarinePollutantIndicator?, RadioactiveMaterials?, HazardClass?, PackingGroup?, Temperatures?, OverpackIndicator?, SubsidiaryHazardClass*)
 
 fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantityVal, PackageDimensionsVal, PackingInstructionNumberVal, ProductNameVal, ProperShippingNameVal, ReportableQuantityVal, SupplementaryInformationVal, TechnicalNameVal, TypeOfPackagingVal, UnNumberVal, DangerousGoodsLimitationVal, ShipmentTypeVal, AllPackedInOneVal, CompatibilityGroupVal, ShipmentDimensionsVal, MarinePollutantIndicatorVal, RadioactiveMaterialsVal, HazardClassVal, PackingGroupVal, TemperaturesVal, OverpackIndicatorVal, SubsidiaryHazardClassList) :-
@@ -20809,6 +13451,153 @@ GROUP BY ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimension
       '
 ,row(Graph,DangerousGoodsPackage,DangerousGoodsQuantity,PackageDimensions,PackingInstructionNumber,ProductName,ProperShippingName,ReportableQuantity,SupplementaryInformation,TechnicalName,TypeOfPackaging,UnNumber,DangerousGoodsLimitation,ShipmentType,AllPackedInOne,CompatibilityGroup,ShipmentDimensions,MarinePollutantIndicator,RadioactiveMaterials,HazardClass,PackingGroup,Temperatures,OverpackIndicator,SubsidiaryHazardClassConcat),[]), convVal(DangerousGoodsQuantity,DangerousGoodsQuantityVal), convVal(PackageDimensions,PackageDimensionsVal), convVal(PackingInstructionNumber,PackingInstructionNumberVal), convVal(ProductName,ProductNameVal), convVal(ProperShippingName,ProperShippingNameVal), convVal(ReportableQuantity,ReportableQuantityVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convVal(TechnicalName,TechnicalNameVal), convVal(TypeOfPackaging,TypeOfPackagingVal), convVal(UnNumber,UnNumberVal), convVal(DangerousGoodsLimitation,DangerousGoodsLimitationVal), convVal(ShipmentType,ShipmentTypeVal), convVal(AllPackedInOne,AllPackedInOneVal), convVal(CompatibilityGroup,CompatibilityGroupVal), convVal(ShipmentDimensions,ShipmentDimensionsVal), convVal(MarinePollutantIndicator,MarinePollutantIndicatorVal), convVal(RadioactiveMaterials,RadioactiveMaterialsVal), convVal(HazardClass,HazardClassVal), convVal(PackingGroup,PackingGroupVal), convVal(Temperatures,TemperaturesVal), convVal(OverpackIndicator,OverpackIndicatorVal), convert(SubsidiaryHazardClassConcat,SubsidiaryHazardClassList).
 
+% fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethod?, Position?, TimeAtPosition?)
+
+fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethodVal, PositionVal, TimeAtPositionVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?lastPositionReport ?determinationMethod ?position ?timeAtPosition
+WHERE
+  { GRAPH ?graph
+    {
+      ?lastPositionReport rdf:type fixm:LastPositionReport .
+      OPTIONAL { ?lastPositionReport fixm:determinationMethod ?_determinationMethod .
+        {
+          {
+            ?_determinationMethod rdf:value ?determinationMethodValue .
+            FILTER ( NOT EXISTS {?_determinationMethod (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM})
+            BIND(concat(\'val:/:\',STR(?determinationMethodValue),\':/:\',STR(DATATYPE(?determinationMethodValue))) AS ?determinationMethod)
+          }
+            UNION
+          {
+            ?_determinationMethod
+              rdf:value ?determinationMethodValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?determinationMethodUoM .
+            BIND(concat(\'xval:/:\',STR(?determinationMethodValue),\':/:\',STR(DATATYPE(?determinationMethodValue)),\':/:\',?determinationMethodUoM) AS ?determinationMethod)
+          }
+            UNION
+          {
+           ?_determinationMethod  aixm:nilReason ?determinationMethodNilReason .
+           BIND(concat(\'nil:/:\',?determinationMethodNilReason) AS ?determinationMethod)
+          }
+          UNION
+          {
+		       ?_determinationMethod  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?determinationMethod)
+		     }
+        }
+      }
+      OPTIONAL {?lastPositionReport fixm:position ?position .}
+      OPTIONAL { ?lastPositionReport fixm:timeAtPosition ?_timeAtPosition .
+        {
+          {
+            ?_timeAtPosition rdf:value ?timeAtPositionValue .
+            FILTER ( NOT EXISTS {?_timeAtPosition (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM})
+            BIND(concat(\'val:/:\',STR(?timeAtPositionValue),\':/:\',STR(DATATYPE(?timeAtPositionValue))) AS ?timeAtPosition)
+          }
+            UNION
+          {
+            ?_timeAtPosition
+              rdf:value ?timeAtPositionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?timeAtPositionUoM .
+            BIND(concat(\'xval:/:\',STR(?timeAtPositionValue),\':/:\',STR(DATATYPE(?timeAtPositionValue)),\':/:\',?timeAtPositionUoM) AS ?timeAtPosition)
+          }
+            UNION
+          {
+           ?_timeAtPosition  aixm:nilReason ?timeAtPositionNilReason .
+           BIND(concat(\'nil:/:\',?timeAtPositionNilReason) AS ?timeAtPosition)
+          }
+          UNION
+          {
+		       ?_timeAtPosition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeAtPosition)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,LastPositionReport,DeterminationMethod,Position,TimeAtPosition),[]), convVal(DeterminationMethod,DeterminationMethodVal), convVal(Position,PositionVal), convVal(TimeAtPosition,TimeAtPositionVal).
+
+% aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatus?)
+
+aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatusVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?altimeterSourceStatus ?operationalStatus
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSourceStatus rdf:type aixm:AltimeterSourceStatus .
+      OPTIONAL { ?altimeterSourceStatus aixm:operationalStatus ?_operationalStatus .
+        {
+          {
+            ?_operationalStatus rdf:value ?operationalStatusValue .
+            FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
+            BIND(concat(\'val:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue))) AS ?operationalStatus)
+          }
+            UNION
+          {
+            ?_operationalStatus
+              rdf:value ?operationalStatusValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
+            BIND(concat(\'xval:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue)),\':/:\',?operationalStatusUoM) AS ?operationalStatus)
+          }
+            UNION
+          {
+           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
+           BIND(concat(\'nil:/:\',?operationalStatusNilReason) AS ?operationalStatus)
+          }
+          UNION
+          {
+		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operationalStatus)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,AltimeterSourceStatus,OperationalStatus),[]), convVal(OperationalStatus,OperationalStatusVal).
+
 % fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeight?, NetWeight?, Volume?)
 
 fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeightVal, NetWeightVal, VolumeVal) :-
@@ -20921,9 +13710,9 @@ WHERE
       '
 ,row(Graph,DangerousGoodsDimensions,GrossWeight,NetWeight,Volume),[]), convVal(GrossWeight,GrossWeightVal), convVal(NetWeight,NetWeightVal), convVal(Volume,VolumeVal).
 
-% plain_Timesheet(Graph, Timesheet, Day, EndDate, EndTime, DaylightSavingAdjust, StartTime, AirspaceActivation*, StartDate, TimeReference, Excluded)
+% fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules?)
 
-plain_Timesheet(Graph, Timesheet, DayVal, EndDateVal, EndTimeVal, DaylightSavingAdjustVal, StartTimeVal, AirspaceActivationList, StartDateVal, TimeReferenceVal, ExcludedVal) :-
+fixm_EfplRoute(Graph, EfplRoute, EfplFlightRulesVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -20944,222 +13733,46 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?timesheet ?day ?endDate ?endTime ?daylightSavingAdjust ?startTime (GROUP_CONCAT(DISTINCT ?airspaceActivation;SEPARATOR=",") AS ?airspaceActivationConcat) ?startDate ?timeReference ?excluded
+SELECT ?graph ?efplRoute ?efplFlightRules
 WHERE
   { GRAPH ?graph
     {
-      ?timesheet rdf:type <http://www.aisa-project.eu/vocabulary/plain#Timesheet> .
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#day>  ?_day .
+      ?efplRoute rdf:type fixm:EfplRoute .
+      OPTIONAL { ?efplRoute fixm:efplFlightRules ?_efplFlightRules .
         {
           {
-            ?_day rdf:value ?dayValue .
-            FILTER ( NOT EXISTS {?_day (aixm:uom | fixm:uom | plain:uom) ?dayUoM})
-            BIND(concat(\'val:/:\',STR(?dayValue),\':/:\',STR(DATATYPE(?dayValue))) AS ?day)
+            ?_efplFlightRules rdf:value ?efplFlightRulesValue .
+            FILTER ( NOT EXISTS {?_efplFlightRules (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM})
+            BIND(concat(\'val:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue))) AS ?efplFlightRules)
           }
-		     UNION
-		     {
-            ?_day
-              rdf:value ?dayValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?dayUoM .
-              BIND(concat(\'xval:/:\',STR(?dayValue),\':/:\',STR(DATATYPE(?dayValue)),\':/:\',?dayUoM) AS ?day)
+            UNION
+          {
+            ?_efplFlightRules
+              rdf:value ?efplFlightRulesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?efplFlightRulesUoM .
+            BIND(concat(\'xval:/:\',STR(?efplFlightRulesValue),\':/:\',STR(DATATYPE(?efplFlightRulesValue)),\':/:\',?efplFlightRulesUoM) AS ?efplFlightRules)
+          }
+            UNION
+          {
+           ?_efplFlightRules  aixm:nilReason ?efplFlightRulesNilReason .
+           BIND(concat(\'nil:/:\',?efplFlightRulesNilReason) AS ?efplFlightRules)
           }
           UNION
           {
-		       ?_day  aixm:nilReason ?dayNilReason .
-		       BIND(concat(\'nil:/:\',?dayNilReason) AS ?day)
+		       ?_efplFlightRules  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?efplFlightRules)
 		     }
-          UNION
-          {
-            ?_day  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?day)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#endDate>  ?_endDate .
-        {
-          {
-            ?_endDate rdf:value ?endDateValue .
-            FILTER ( NOT EXISTS {?_endDate (aixm:uom | fixm:uom | plain:uom) ?endDateUoM})
-            BIND(concat(\'val:/:\',STR(?endDateValue),\':/:\',STR(DATATYPE(?endDateValue))) AS ?endDate)
-          }
-		     UNION
-		     {
-            ?_endDate
-              rdf:value ?endDateValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?endDateUoM .
-              BIND(concat(\'xval:/:\',STR(?endDateValue),\':/:\',STR(DATATYPE(?endDateValue)),\':/:\',?endDateUoM) AS ?endDate)
-          }
-          UNION
-          {
-		       ?_endDate  aixm:nilReason ?endDateNilReason .
-		       BIND(concat(\'nil:/:\',?endDateNilReason) AS ?endDate)
-		     }
-          UNION
-          {
-            ?_endDate  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endDate)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#endTime>  ?_endTime .
-        {
-          {
-            ?_endTime rdf:value ?endTimeValue .
-            FILTER ( NOT EXISTS {?_endTime (aixm:uom | fixm:uom | plain:uom) ?endTimeUoM})
-            BIND(concat(\'val:/:\',STR(?endTimeValue),\':/:\',STR(DATATYPE(?endTimeValue))) AS ?endTime)
-          }
-		     UNION
-		     {
-            ?_endTime
-              rdf:value ?endTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?endTimeUoM .
-              BIND(concat(\'xval:/:\',STR(?endTimeValue),\':/:\',STR(DATATYPE(?endTimeValue)),\':/:\',?endTimeUoM) AS ?endTime)
-          }
-          UNION
-          {
-		       ?_endTime  aixm:nilReason ?endTimeNilReason .
-		       BIND(concat(\'nil:/:\',?endTimeNilReason) AS ?endTime)
-		     }
-          UNION
-          {
-            ?_endTime  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?endTime)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#daylightSavingAdjust>  ?_daylightSavingAdjust .
-        {
-          {
-            ?_daylightSavingAdjust rdf:value ?daylightSavingAdjustValue .
-            FILTER ( NOT EXISTS {?_daylightSavingAdjust (aixm:uom | fixm:uom | plain:uom) ?daylightSavingAdjustUoM})
-            BIND(concat(\'val:/:\',STR(?daylightSavingAdjustValue),\':/:\',STR(DATATYPE(?daylightSavingAdjustValue))) AS ?daylightSavingAdjust)
-          }
-		     UNION
-		     {
-            ?_daylightSavingAdjust
-              rdf:value ?daylightSavingAdjustValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?daylightSavingAdjustUoM .
-              BIND(concat(\'xval:/:\',STR(?daylightSavingAdjustValue),\':/:\',STR(DATATYPE(?daylightSavingAdjustValue)),\':/:\',?daylightSavingAdjustUoM) AS ?daylightSavingAdjust)
-          }
-          UNION
-          {
-		       ?_daylightSavingAdjust  aixm:nilReason ?daylightSavingAdjustNilReason .
-		       BIND(concat(\'nil:/:\',?daylightSavingAdjustNilReason) AS ?daylightSavingAdjust)
-		     }
-          UNION
-          {
-            ?_daylightSavingAdjust  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?daylightSavingAdjust)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#startTime>  ?_startTime .
-        {
-          {
-            ?_startTime rdf:value ?startTimeValue .
-            FILTER ( NOT EXISTS {?_startTime (aixm:uom | fixm:uom | plain:uom) ?startTimeUoM})
-            BIND(concat(\'val:/:\',STR(?startTimeValue),\':/:\',STR(DATATYPE(?startTimeValue))) AS ?startTime)
-          }
-		     UNION
-		     {
-            ?_startTime
-              rdf:value ?startTimeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?startTimeUoM .
-              BIND(concat(\'xval:/:\',STR(?startTimeValue),\':/:\',STR(DATATYPE(?startTimeValue)),\':/:\',?startTimeUoM) AS ?startTime)
-          }
-          UNION
-          {
-		       ?_startTime  aixm:nilReason ?startTimeNilReason .
-		       BIND(concat(\'nil:/:\',?startTimeNilReason) AS ?startTime)
-		     }
-          UNION
-          {
-            ?_startTime  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?startTime)
-	         }
-      }
-      OPTIONAL {?timesheet <http://www.aisa-project.eu/vocabulary/plain#airspaceActivation> ?airspaceActivation .}
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#startDate>  ?_startDate .
-        {
-          {
-            ?_startDate rdf:value ?startDateValue .
-            FILTER ( NOT EXISTS {?_startDate (aixm:uom | fixm:uom | plain:uom) ?startDateUoM})
-            BIND(concat(\'val:/:\',STR(?startDateValue),\':/:\',STR(DATATYPE(?startDateValue))) AS ?startDate)
-          }
-		     UNION
-		     {
-            ?_startDate
-              rdf:value ?startDateValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?startDateUoM .
-              BIND(concat(\'xval:/:\',STR(?startDateValue),\':/:\',STR(DATATYPE(?startDateValue)),\':/:\',?startDateUoM) AS ?startDate)
-          }
-          UNION
-          {
-		       ?_startDate  aixm:nilReason ?startDateNilReason .
-		       BIND(concat(\'nil:/:\',?startDateNilReason) AS ?startDate)
-		     }
-          UNION
-          {
-            ?_startDate  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?startDate)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#timeReference>  ?_timeReference .
-        {
-          {
-            ?_timeReference rdf:value ?timeReferenceValue .
-            FILTER ( NOT EXISTS {?_timeReference (aixm:uom | fixm:uom | plain:uom) ?timeReferenceUoM})
-            BIND(concat(\'val:/:\',STR(?timeReferenceValue),\':/:\',STR(DATATYPE(?timeReferenceValue))) AS ?timeReference)
-          }
-		     UNION
-		     {
-            ?_timeReference
-              rdf:value ?timeReferenceValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?timeReferenceUoM .
-              BIND(concat(\'xval:/:\',STR(?timeReferenceValue),\':/:\',STR(DATATYPE(?timeReferenceValue)),\':/:\',?timeReferenceUoM) AS ?timeReference)
-          }
-          UNION
-          {
-		       ?_timeReference  aixm:nilReason ?timeReferenceNilReason .
-		       BIND(concat(\'nil:/:\',?timeReferenceNilReason) AS ?timeReference)
-		     }
-          UNION
-          {
-            ?_timeReference  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?timeReference)
-	         }
-      }
-      ?timesheet <http://www.aisa-project.eu/vocabulary/plain#excluded>  ?_excluded .
-        {
-          {
-            ?_excluded rdf:value ?excludedValue .
-            FILTER ( NOT EXISTS {?_excluded (aixm:uom | fixm:uom | plain:uom) ?excludedUoM})
-            BIND(concat(\'val:/:\',STR(?excludedValue),\':/:\',STR(DATATYPE(?excludedValue))) AS ?excluded)
-          }
-		     UNION
-		     {
-            ?_excluded
-              rdf:value ?excludedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?excludedUoM .
-              BIND(concat(\'xval:/:\',STR(?excludedValue),\':/:\',STR(DATATYPE(?excludedValue)),\':/:\',?excludedUoM) AS ?excluded)
-          }
-          UNION
-          {
-		       ?_excluded  aixm:nilReason ?excludedNilReason .
-		       BIND(concat(\'nil:/:\',?excludedNilReason) AS ?excluded)
-		     }
-          UNION
-          {
-            ?_excluded  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?excluded)
-	         }
+        }
       }
     }
   }
-GROUP BY ?graph ?timesheet ?day ?endDate ?endTime ?daylightSavingAdjust ?startTime ?startDate ?timeReference ?excluded
 
       '
-,row(Graph,Timesheet,Day,EndDate,EndTime,DaylightSavingAdjust,StartTime,AirspaceActivationConcat,StartDate,TimeReference,Excluded),[]), convVal(Day,DayVal), convVal(EndDate,EndDateVal), convVal(EndTime,EndTimeVal), convVal(DaylightSavingAdjust,DaylightSavingAdjustVal), convVal(StartTime,StartTimeVal), convert(AirspaceActivationConcat,AirspaceActivationList), convVal(StartDate,StartDateVal), convVal(TimeReference,TimeReferenceVal), convVal(Excluded,ExcludedVal).
+,row(Graph,EfplRoute,EfplFlightRules),[]), convVal(EfplFlightRules,EfplFlightRulesVal).
 
-% plain_AirspaceActivation(Graph, AirspaceActivation, Airspace*, Activity, Status)
+% fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReason?, CoordinationStatus?, NonStandardCommunicationReason?, ReleaseConditions?)
 
-plain_AirspaceActivation(Graph, AirspaceActivation, AirspaceList, ActivityVal, StatusVal) :-
+fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReasonVal, CoordinationStatusVal, NonStandardCommunicationReasonVal, ReleaseConditionsVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -21180,68 +13793,260 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?airspaceActivation (GROUP_CONCAT(DISTINCT ?airspace;SEPARATOR=",") AS ?airspaceConcat) ?activity ?status
+SELECT ?graph ?coordinationStatus ?abrogationReason ?coordinationStatus ?nonStandardCommunicationReason ?releaseConditions
 WHERE
   { GRAPH ?graph
     {
-      ?airspaceActivation rdf:type <http://www.aisa-project.eu/vocabulary/plain#AirspaceActivation> .
-      OPTIONAL {?airspaceActivation <http://www.aisa-project.eu/vocabulary/plain#airspace> ?airspace .}
-      ?airspaceActivation <http://www.aisa-project.eu/vocabulary/plain#activity>  ?_activity .
+      ?coordinationStatus rdf:type fixm:CoordinationStatus .
+      OPTIONAL { ?coordinationStatus fixm:abrogationReason ?_abrogationReason .
         {
           {
-            ?_activity rdf:value ?activityValue .
-            FILTER ( NOT EXISTS {?_activity (aixm:uom | fixm:uom | plain:uom) ?activityUoM})
-            BIND(concat(\'val:/:\',STR(?activityValue),\':/:\',STR(DATATYPE(?activityValue))) AS ?activity)
+            ?_abrogationReason rdf:value ?abrogationReasonValue .
+            FILTER ( NOT EXISTS {?_abrogationReason (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM})
+            BIND(concat(\'val:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue))) AS ?abrogationReason)
           }
-		     UNION
-		     {
-            ?_activity
-              rdf:value ?activityValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?activityUoM .
-              BIND(concat(\'xval:/:\',STR(?activityValue),\':/:\',STR(DATATYPE(?activityValue)),\':/:\',?activityUoM) AS ?activity)
+            UNION
+          {
+            ?_abrogationReason
+              rdf:value ?abrogationReasonValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?abrogationReasonUoM .
+            BIND(concat(\'xval:/:\',STR(?abrogationReasonValue),\':/:\',STR(DATATYPE(?abrogationReasonValue)),\':/:\',?abrogationReasonUoM) AS ?abrogationReason)
+          }
+            UNION
+          {
+           ?_abrogationReason  aixm:nilReason ?abrogationReasonNilReason .
+           BIND(concat(\'nil:/:\',?abrogationReasonNilReason) AS ?abrogationReason)
           }
           UNION
           {
-		       ?_activity  aixm:nilReason ?activityNilReason .
-		       BIND(concat(\'nil:/:\',?activityNilReason) AS ?activity)
+		       ?_abrogationReason  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?abrogationReason)
 		     }
-          UNION
-          {
-            ?_activity  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?activity)
-	         }
+        }
       }
-      ?airspaceActivation <http://www.aisa-project.eu/vocabulary/plain#status>  ?_status .
+      OPTIONAL { ?coordinationStatus fixm:coordinationStatus ?_coordinationStatus .
         {
           {
-            ?_status rdf:value ?statusValue .
-            FILTER ( NOT EXISTS {?_status (aixm:uom | fixm:uom | plain:uom) ?statusUoM})
-            BIND(concat(\'val:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue))) AS ?status)
+            ?_coordinationStatus rdf:value ?coordinationStatusValue .
+            FILTER ( NOT EXISTS {?_coordinationStatus (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM})
+            BIND(concat(\'val:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue))) AS ?coordinationStatus)
           }
-		     UNION
-		     {
-            ?_status
-              rdf:value ?statusValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?statusUoM .
-              BIND(concat(\'xval:/:\',STR(?statusValue),\':/:\',STR(DATATYPE(?statusValue)),\':/:\',?statusUoM) AS ?status)
+            UNION
+          {
+            ?_coordinationStatus
+              rdf:value ?coordinationStatusValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?coordinationStatusUoM .
+            BIND(concat(\'xval:/:\',STR(?coordinationStatusValue),\':/:\',STR(DATATYPE(?coordinationStatusValue)),\':/:\',?coordinationStatusUoM) AS ?coordinationStatus)
+          }
+            UNION
+          {
+           ?_coordinationStatus  aixm:nilReason ?coordinationStatusNilReason .
+           BIND(concat(\'nil:/:\',?coordinationStatusNilReason) AS ?coordinationStatus)
           }
           UNION
           {
-		       ?_status  aixm:nilReason ?statusNilReason .
-		       BIND(concat(\'nil:/:\',?statusNilReason) AS ?status)
+		       ?_coordinationStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?coordinationStatus)
 		     }
+        }
+      }
+      OPTIONAL { ?coordinationStatus fixm:nonStandardCommunicationReason ?_nonStandardCommunicationReason .
+        {
+          {
+            ?_nonStandardCommunicationReason rdf:value ?nonStandardCommunicationReasonValue .
+            FILTER ( NOT EXISTS {?_nonStandardCommunicationReason (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM})
+            BIND(concat(\'val:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue))) AS ?nonStandardCommunicationReason)
+          }
+            UNION
+          {
+            ?_nonStandardCommunicationReason
+              rdf:value ?nonStandardCommunicationReasonValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?nonStandardCommunicationReasonUoM .
+            BIND(concat(\'xval:/:\',STR(?nonStandardCommunicationReasonValue),\':/:\',STR(DATATYPE(?nonStandardCommunicationReasonValue)),\':/:\',?nonStandardCommunicationReasonUoM) AS ?nonStandardCommunicationReason)
+          }
+            UNION
+          {
+           ?_nonStandardCommunicationReason  aixm:nilReason ?nonStandardCommunicationReasonNilReason .
+           BIND(concat(\'nil:/:\',?nonStandardCommunicationReasonNilReason) AS ?nonStandardCommunicationReason)
+          }
           UNION
           {
-            ?_status  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?status)
-	         }
+		       ?_nonStandardCommunicationReason  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?nonStandardCommunicationReason)
+		     }
+        }
+      }
+      OPTIONAL { ?coordinationStatus fixm:releaseConditions ?_releaseConditions .
+        {
+          {
+            ?_releaseConditions rdf:value ?releaseConditionsValue .
+            FILTER ( NOT EXISTS {?_releaseConditions (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM})
+            BIND(concat(\'val:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue))) AS ?releaseConditions)
+          }
+            UNION
+          {
+            ?_releaseConditions
+              rdf:value ?releaseConditionsValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?releaseConditionsUoM .
+            BIND(concat(\'xval:/:\',STR(?releaseConditionsValue),\':/:\',STR(DATATYPE(?releaseConditionsValue)),\':/:\',?releaseConditionsUoM) AS ?releaseConditions)
+          }
+            UNION
+          {
+           ?_releaseConditions  aixm:nilReason ?releaseConditionsNilReason .
+           BIND(concat(\'nil:/:\',?releaseConditionsNilReason) AS ?releaseConditions)
+          }
+          UNION
+          {
+		       ?_releaseConditions  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?releaseConditions)
+		     }
+        }
       }
     }
   }
-GROUP BY ?graph ?airspaceActivation ?activity ?status
 
       '
-,row(Graph,AirspaceActivation,AirspaceConcat,Activity,Status),[]), convert(AirspaceConcat,AirspaceList), convVal(Activity,ActivityVal), convVal(Status,StatusVal).
+,row(Graph,CoordinationStatus,AbrogationReason,CoordinationStatus,NonStandardCommunicationReason,ReleaseConditions),[]), convVal(AbrogationReason,AbrogationReasonVal), convVal(CoordinationStatus,CoordinationStatusVal), convVal(NonStandardCommunicationReason,NonStandardCommunicationReasonVal), convVal(ReleaseConditions,ReleaseConditionsVal).
+
+% fixm_BoundaryCrossing(Graph, BoundaryCrossing, Altitude?, CrossingPoint?, CrossingSpeed?, CrossingTime?, Offtrack?, AltitudeInTransition?)
+
+fixm_BoundaryCrossing(Graph, BoundaryCrossing, AltitudeVal, CrossingPointVal, CrossingSpeedVal, CrossingTimeVal, OfftrackVal, AltitudeInTransitionVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?boundaryCrossing ?altitude ?crossingPoint ?crossingSpeed ?crossingTime ?offtrack ?altitudeInTransition
+WHERE
+  { GRAPH ?graph
+    {
+      ?boundaryCrossing rdf:type fixm:BoundaryCrossing .
+      OPTIONAL { ?boundaryCrossing fixm:altitude ?_altitude .
+        {
+          {
+            ?_altitude rdf:value ?altitudeValue .
+            FILTER ( NOT EXISTS {?_altitude (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM})
+            BIND(concat(\'val:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue))) AS ?altitude)
+          }
+            UNION
+          {
+            ?_altitude
+              rdf:value ?altitudeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?altitudeUoM .
+            BIND(concat(\'xval:/:\',STR(?altitudeValue),\':/:\',STR(DATATYPE(?altitudeValue)),\':/:\',?altitudeUoM) AS ?altitude)
+          }
+            UNION
+          {
+           ?_altitude  aixm:nilReason ?altitudeNilReason .
+           BIND(concat(\'nil:/:\',?altitudeNilReason) AS ?altitude)
+          }
+          UNION
+          {
+		       ?_altitude  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitude)
+		     }
+        }
+      }
+      OPTIONAL {?boundaryCrossing fixm:crossingPoint ?crossingPoint .}
+      OPTIONAL { ?boundaryCrossing fixm:crossingSpeed ?_crossingSpeed .
+        {
+          {
+            ?_crossingSpeed rdf:value ?crossingSpeedValue .
+            FILTER ( NOT EXISTS {?_crossingSpeed (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM})
+            BIND(concat(\'val:/:\',STR(?crossingSpeedValue),\':/:\',STR(DATATYPE(?crossingSpeedValue))) AS ?crossingSpeed)
+          }
+            UNION
+          {
+            ?_crossingSpeed
+              rdf:value ?crossingSpeedValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?crossingSpeedUoM .
+            BIND(concat(\'xval:/:\',STR(?crossingSpeedValue),\':/:\',STR(DATATYPE(?crossingSpeedValue)),\':/:\',?crossingSpeedUoM) AS ?crossingSpeed)
+          }
+            UNION
+          {
+           ?_crossingSpeed  aixm:nilReason ?crossingSpeedNilReason .
+           BIND(concat(\'nil:/:\',?crossingSpeedNilReason) AS ?crossingSpeed)
+          }
+          UNION
+          {
+		       ?_crossingSpeed  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?crossingSpeed)
+		     }
+        }
+      }
+      OPTIONAL { ?boundaryCrossing fixm:crossingTime ?_crossingTime .
+        {
+          {
+            ?_crossingTime rdf:value ?crossingTimeValue .
+            FILTER ( NOT EXISTS {?_crossingTime (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM})
+            BIND(concat(\'val:/:\',STR(?crossingTimeValue),\':/:\',STR(DATATYPE(?crossingTimeValue))) AS ?crossingTime)
+          }
+            UNION
+          {
+            ?_crossingTime
+              rdf:value ?crossingTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?crossingTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?crossingTimeValue),\':/:\',STR(DATATYPE(?crossingTimeValue)),\':/:\',?crossingTimeUoM) AS ?crossingTime)
+          }
+            UNION
+          {
+           ?_crossingTime  aixm:nilReason ?crossingTimeNilReason .
+           BIND(concat(\'nil:/:\',?crossingTimeNilReason) AS ?crossingTime)
+          }
+          UNION
+          {
+		       ?_crossingTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?crossingTime)
+		     }
+        }
+      }
+      OPTIONAL {?boundaryCrossing fixm:offtrack ?offtrack .}
+      OPTIONAL { ?boundaryCrossing fixm:altitudeInTransition ?_altitudeInTransition .
+        {
+          {
+            ?_altitudeInTransition rdf:value ?altitudeInTransitionValue .
+            FILTER ( NOT EXISTS {?_altitudeInTransition (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM})
+            BIND(concat(\'val:/:\',STR(?altitudeInTransitionValue),\':/:\',STR(DATATYPE(?altitudeInTransitionValue))) AS ?altitudeInTransition)
+          }
+            UNION
+          {
+            ?_altitudeInTransition
+              rdf:value ?altitudeInTransitionValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?altitudeInTransitionUoM .
+            BIND(concat(\'xval:/:\',STR(?altitudeInTransitionValue),\':/:\',STR(DATATYPE(?altitudeInTransitionValue)),\':/:\',?altitudeInTransitionUoM) AS ?altitudeInTransition)
+          }
+            UNION
+          {
+           ?_altitudeInTransition  aixm:nilReason ?altitudeInTransitionNilReason .
+           BIND(concat(\'nil:/:\',?altitudeInTransitionNilReason) AS ?altitudeInTransition)
+          }
+          UNION
+          {
+		       ?_altitudeInTransition  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?altitudeInTransition)
+		     }
+        }
+      }
+    }
+  }
+
+      '
+,row(Graph,BoundaryCrossing,Altitude,CrossingPoint,CrossingSpeed,CrossingTime,Offtrack,AltitudeInTransition),[]), convVal(Altitude,AltitudeVal), convVal(CrossingPoint,CrossingPointVal), convVal(CrossingSpeed,CrossingSpeedVal), convVal(CrossingTime,CrossingTimeVal), convVal(Offtrack,OfftrackVal), convVal(AltitudeInTransition,AltitudeInTransitionVal).
 
 % fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code?)
 
@@ -21302,6 +14107,181 @@ WHERE
 
       '
 ,row(Graph,IcaoAerodromeReference,Code),[]), convVal(Code,CodeVal).
+
+% fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarks?, RemainingComCapability?, Contact?)
+
+fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarksVal, RemainingComCapabilityVal, ContactVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?radioCommunicationFailure ?radioFailureRemarks ?remainingComCapability ?contact
+WHERE
+  { GRAPH ?graph
+    {
+      ?radioCommunicationFailure rdf:type fixm:RadioCommunicationFailure .
+      OPTIONAL { ?radioCommunicationFailure fixm:radioFailureRemarks ?_radioFailureRemarks .
+        {
+          {
+            ?_radioFailureRemarks rdf:value ?radioFailureRemarksValue .
+            FILTER ( NOT EXISTS {?_radioFailureRemarks (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM})
+            BIND(concat(\'val:/:\',STR(?radioFailureRemarksValue),\':/:\',STR(DATATYPE(?radioFailureRemarksValue))) AS ?radioFailureRemarks)
+          }
+            UNION
+          {
+            ?_radioFailureRemarks
+              rdf:value ?radioFailureRemarksValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?radioFailureRemarksUoM .
+            BIND(concat(\'xval:/:\',STR(?radioFailureRemarksValue),\':/:\',STR(DATATYPE(?radioFailureRemarksValue)),\':/:\',?radioFailureRemarksUoM) AS ?radioFailureRemarks)
+          }
+            UNION
+          {
+           ?_radioFailureRemarks  aixm:nilReason ?radioFailureRemarksNilReason .
+           BIND(concat(\'nil:/:\',?radioFailureRemarksNilReason) AS ?radioFailureRemarks)
+          }
+          UNION
+          {
+		       ?_radioFailureRemarks  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?radioFailureRemarks)
+		     }
+        }
+      }
+      OPTIONAL { ?radioCommunicationFailure fixm:remainingComCapability ?_remainingComCapability .
+        {
+          {
+            ?_remainingComCapability rdf:value ?remainingComCapabilityValue .
+            FILTER ( NOT EXISTS {?_remainingComCapability (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM})
+            BIND(concat(\'val:/:\',STR(?remainingComCapabilityValue),\':/:\',STR(DATATYPE(?remainingComCapabilityValue))) AS ?remainingComCapability)
+          }
+            UNION
+          {
+            ?_remainingComCapability
+              rdf:value ?remainingComCapabilityValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?remainingComCapabilityUoM .
+            BIND(concat(\'xval:/:\',STR(?remainingComCapabilityValue),\':/:\',STR(DATATYPE(?remainingComCapabilityValue)),\':/:\',?remainingComCapabilityUoM) AS ?remainingComCapability)
+          }
+            UNION
+          {
+           ?_remainingComCapability  aixm:nilReason ?remainingComCapabilityNilReason .
+           BIND(concat(\'nil:/:\',?remainingComCapabilityNilReason) AS ?remainingComCapability)
+          }
+          UNION
+          {
+		       ?_remainingComCapability  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?remainingComCapability)
+		     }
+        }
+      }
+      OPTIONAL {?radioCommunicationFailure fixm:contact ?contact .}
+    }
+  }
+
+      '
+,row(Graph,RadioCommunicationFailure,RadioFailureRemarks,RemainingComCapability,Contact),[]), convVal(RadioFailureRemarks,RadioFailureRemarksVal), convVal(RemainingComCapability,RemainingComCapabilityVal), convVal(Contact,ContactVal).
+
+% aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus?, Warning?, Usage*)
+
+aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatusVal, WarningVal, UsageList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?airportHeliportAvailability ?operationalStatus ?warning (GROUP_CONCAT(DISTINCT ?usage;SEPARATOR=",") AS ?usageConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?airportHeliportAvailability rdf:type aixm:AirportHeliportAvailability .
+      OPTIONAL { ?airportHeliportAvailability aixm:operationalStatus ?_operationalStatus .
+        {
+          {
+            ?_operationalStatus rdf:value ?operationalStatusValue .
+            FILTER ( NOT EXISTS {?_operationalStatus (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM})
+            BIND(concat(\'val:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue))) AS ?operationalStatus)
+          }
+            UNION
+          {
+            ?_operationalStatus
+              rdf:value ?operationalStatusValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?operationalStatusUoM .
+            BIND(concat(\'xval:/:\',STR(?operationalStatusValue),\':/:\',STR(DATATYPE(?operationalStatusValue)),\':/:\',?operationalStatusUoM) AS ?operationalStatus)
+          }
+            UNION
+          {
+           ?_operationalStatus  aixm:nilReason ?operationalStatusNilReason .
+           BIND(concat(\'nil:/:\',?operationalStatusNilReason) AS ?operationalStatus)
+          }
+          UNION
+          {
+		       ?_operationalStatus  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?operationalStatus)
+		     }
+        }
+      }
+      OPTIONAL { ?airportHeliportAvailability aixm:warning ?_warning .
+        {
+          {
+            ?_warning rdf:value ?warningValue .
+            FILTER ( NOT EXISTS {?_warning (aixm:uom | fixm:uom | plain:uom) ?warningUoM})
+            BIND(concat(\'val:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue))) AS ?warning)
+          }
+            UNION
+          {
+            ?_warning
+              rdf:value ?warningValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?warningUoM .
+            BIND(concat(\'xval:/:\',STR(?warningValue),\':/:\',STR(DATATYPE(?warningValue)),\':/:\',?warningUoM) AS ?warning)
+          }
+            UNION
+          {
+           ?_warning  aixm:nilReason ?warningNilReason .
+           BIND(concat(\'nil:/:\',?warningNilReason) AS ?warning)
+          }
+          UNION
+          {
+		       ?_warning  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?warning)
+		     }
+        }
+      }
+      OPTIONAL {?airportHeliportAvailability aixm:usage ?usage .}
+    }
+  }
+GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
+
+      '
+,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convVal(OperationalStatus,OperationalStatusVal), convVal(Warning,WarningVal), convert(UsageConcat,UsageList).
 
 % fixm_FlightArrival(Graph, FlightArrival, ApproachFix?, ApproachTime?, ArrivalAerodrome?, ArrivalAerodromeAlternate*, ArrivalAerodromeOriginal?, ArrivalFix?, ArrivalFixTime?, ArrivalFleetPrioritization?, ArrivalSequenceNumber?, EarliestInBlockTime?, FiledRevisedDestinationAerodrome?, FiledRevisedDestinationStar?, RunwayPositionAndTime?, StandardInstrumentArrival?, StandPositionAndTime?, LandingLimits?)
 
@@ -21504,6 +14484,145 @@ GROUP BY ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arr
       '
 ,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternateConcat,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]), convVal(ApproachFix,ApproachFixVal), convVal(ApproachTime,ApproachTimeVal), convVal(ArrivalAerodrome,ArrivalAerodromeVal), convert(ArrivalAerodromeAlternateConcat,ArrivalAerodromeAlternateList), convVal(ArrivalAerodromeOriginal,ArrivalAerodromeOriginalVal), convVal(ArrivalFix,ArrivalFixVal), convVal(ArrivalFixTime,ArrivalFixTimeVal), convVal(ArrivalFleetPrioritization,ArrivalFleetPrioritizationVal), convVal(ArrivalSequenceNumber,ArrivalSequenceNumberVal), convVal(EarliestInBlockTime,EarliestInBlockTimeVal), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal), convVal(FiledRevisedDestinationStar,FiledRevisedDestinationStarVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentArrival,StandardInstrumentArrivalVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convVal(LandingLimits,LandingLimitsVal).
 
+% fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndex?, TransportIndex?, FissileExceptedIndicator?, Category?, Radionuclide?)
+
+fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndexVal, TransportIndexVal, FissileExceptedIndicatorVal, CategoryVal, RadionuclideVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?radioactiveMaterial ?criticalitySafetyIndex ?transportIndex ?fissileExceptedIndicator ?category ?radionuclide
+WHERE
+  { GRAPH ?graph
+    {
+      ?radioactiveMaterial rdf:type fixm:RadioactiveMaterial .
+      OPTIONAL { ?radioactiveMaterial fixm:criticalitySafetyIndex ?_criticalitySafetyIndex .
+        {
+          {
+            ?_criticalitySafetyIndex rdf:value ?criticalitySafetyIndexValue .
+            FILTER ( NOT EXISTS {?_criticalitySafetyIndex (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM})
+            BIND(concat(\'val:/:\',STR(?criticalitySafetyIndexValue),\':/:\',STR(DATATYPE(?criticalitySafetyIndexValue))) AS ?criticalitySafetyIndex)
+          }
+            UNION
+          {
+            ?_criticalitySafetyIndex
+              rdf:value ?criticalitySafetyIndexValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?criticalitySafetyIndexUoM .
+            BIND(concat(\'xval:/:\',STR(?criticalitySafetyIndexValue),\':/:\',STR(DATATYPE(?criticalitySafetyIndexValue)),\':/:\',?criticalitySafetyIndexUoM) AS ?criticalitySafetyIndex)
+          }
+            UNION
+          {
+           ?_criticalitySafetyIndex  aixm:nilReason ?criticalitySafetyIndexNilReason .
+           BIND(concat(\'nil:/:\',?criticalitySafetyIndexNilReason) AS ?criticalitySafetyIndex)
+          }
+          UNION
+          {
+		       ?_criticalitySafetyIndex  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?criticalitySafetyIndex)
+		     }
+        }
+      }
+      OPTIONAL { ?radioactiveMaterial fixm:transportIndex ?_transportIndex .
+        {
+          {
+            ?_transportIndex rdf:value ?transportIndexValue .
+            FILTER ( NOT EXISTS {?_transportIndex (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM})
+            BIND(concat(\'val:/:\',STR(?transportIndexValue),\':/:\',STR(DATATYPE(?transportIndexValue))) AS ?transportIndex)
+          }
+            UNION
+          {
+            ?_transportIndex
+              rdf:value ?transportIndexValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?transportIndexUoM .
+            BIND(concat(\'xval:/:\',STR(?transportIndexValue),\':/:\',STR(DATATYPE(?transportIndexValue)),\':/:\',?transportIndexUoM) AS ?transportIndex)
+          }
+            UNION
+          {
+           ?_transportIndex  aixm:nilReason ?transportIndexNilReason .
+           BIND(concat(\'nil:/:\',?transportIndexNilReason) AS ?transportIndex)
+          }
+          UNION
+          {
+		       ?_transportIndex  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?transportIndex)
+		     }
+        }
+      }
+      OPTIONAL { ?radioactiveMaterial fixm:fissileExceptedIndicator ?_fissileExceptedIndicator .
+        {
+          {
+            ?_fissileExceptedIndicator rdf:value ?fissileExceptedIndicatorValue .
+            FILTER ( NOT EXISTS {?_fissileExceptedIndicator (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM})
+            BIND(concat(\'val:/:\',STR(?fissileExceptedIndicatorValue),\':/:\',STR(DATATYPE(?fissileExceptedIndicatorValue))) AS ?fissileExceptedIndicator)
+          }
+            UNION
+          {
+            ?_fissileExceptedIndicator
+              rdf:value ?fissileExceptedIndicatorValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?fissileExceptedIndicatorUoM .
+            BIND(concat(\'xval:/:\',STR(?fissileExceptedIndicatorValue),\':/:\',STR(DATATYPE(?fissileExceptedIndicatorValue)),\':/:\',?fissileExceptedIndicatorUoM) AS ?fissileExceptedIndicator)
+          }
+            UNION
+          {
+           ?_fissileExceptedIndicator  aixm:nilReason ?fissileExceptedIndicatorNilReason .
+           BIND(concat(\'nil:/:\',?fissileExceptedIndicatorNilReason) AS ?fissileExceptedIndicator)
+          }
+          UNION
+          {
+		       ?_fissileExceptedIndicator  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?fissileExceptedIndicator)
+		     }
+        }
+      }
+      OPTIONAL { ?radioactiveMaterial fixm:category ?_category .
+        {
+          {
+            ?_category rdf:value ?categoryValue .
+            FILTER ( NOT EXISTS {?_category (aixm:uom | fixm:uom | plain:uom) ?categoryUoM})
+            BIND(concat(\'val:/:\',STR(?categoryValue),\':/:\',STR(DATATYPE(?categoryValue))) AS ?category)
+          }
+            UNION
+          {
+            ?_category
+              rdf:value ?categoryValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?categoryUoM .
+            BIND(concat(\'xval:/:\',STR(?categoryValue),\':/:\',STR(DATATYPE(?categoryValue)),\':/:\',?categoryUoM) AS ?category)
+          }
+            UNION
+          {
+           ?_category  aixm:nilReason ?categoryNilReason .
+           BIND(concat(\'nil:/:\',?categoryNilReason) AS ?category)
+          }
+          UNION
+          {
+		       ?_category  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?category)
+		     }
+        }
+      }
+      OPTIONAL {?radioactiveMaterial fixm:radionuclide ?radionuclide .}
+    }
+  }
+
+      '
+,row(Graph,RadioactiveMaterial,CriticalitySafetyIndex,TransportIndex,FissileExceptedIndicator,Category,Radionuclide),[]), convVal(CriticalitySafetyIndex,CriticalitySafetyIndexVal), convVal(TransportIndex,TransportIndexVal), convVal(FissileExceptedIndicator,FissileExceptedIndicatorVal), convVal(Category,CategoryVal), convVal(Radionuclide,RadionuclideVal).
+
 % fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled?, Initial?)
 
 fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, ControlledVal, InitialVal) :-
@@ -21539,6 +14658,40 @@ WHERE
 
       '
 ,row(Graph,ExtendedMultiTime,Controlled,Initial),[]), convVal(Controlled,ControlledVal), convVal(Initial,InitialVal).
+
+% fixm_ControlElement(Graph, ControlElement)
+
+fixm_ControlElement(Graph, ControlElement) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?controlElement
+WHERE
+  { GRAPH ?graph
+    {
+      ?controlElement rdf:type fixm:ControlElement .
+    }
+  }
+
+      '
+,row(Graph,ControlElement),[]).
 
 % fixm_AerodromesOfDestination(Graph, AerodromesOfDestination, AerodromeOfDestination?, Alternate1?, Alternate2?, FiledRevisedDestinationAerodrome?)
 
@@ -21578,9 +14731,9 @@ WHERE
       '
 ,row(Graph,AerodromesOfDestination,AerodromeOfDestination,Alternate1,Alternate2,FiledRevisedDestinationAerodrome),[]), convVal(AerodromeOfDestination,AerodromeOfDestinationVal), convVal(Alternate1,Alternate1Val), convVal(Alternate2,Alternate2Val), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal).
 
-% plain_NDB(Graph, NDB, Frequency, NavaidEquipment*)
+% fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackages?, QValue?)
 
-plain_NDB(Graph, NDB, FrequencyVal, NavaidEquipmentList) :-
+fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackagesVal, QValueVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -21601,43 +14754,104 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?nDB ?frequency (GROUP_CONCAT(DISTINCT ?navaidEquipment;SEPARATOR=",") AS ?navaidEquipmentConcat)
+SELECT ?graph ?allPackedInOne ?numberOfPackages ?qValue
 WHERE
   { GRAPH ?graph
     {
-      ?nDB rdf:type <http://www.aisa-project.eu/vocabulary/plain#NDB> .
-      ?nDB <http://www.aisa-project.eu/vocabulary/plain#frequency>  ?_frequency .
+      ?allPackedInOne rdf:type fixm:AllPackedInOne .
+      OPTIONAL { ?allPackedInOne fixm:numberOfPackages ?_numberOfPackages .
         {
           {
-            ?_frequency rdf:value ?frequencyValue .
-            FILTER ( NOT EXISTS {?_frequency (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM})
-            BIND(concat(\'val:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue))) AS ?frequency)
+            ?_numberOfPackages rdf:value ?numberOfPackagesValue .
+            FILTER ( NOT EXISTS {?_numberOfPackages (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM})
+            BIND(concat(\'val:/:\',STR(?numberOfPackagesValue),\':/:\',STR(DATATYPE(?numberOfPackagesValue))) AS ?numberOfPackages)
           }
-		     UNION
-		     {
-            ?_frequency
-              rdf:value ?frequencyValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?frequencyUoM .
-              BIND(concat(\'xval:/:\',STR(?frequencyValue),\':/:\',STR(DATATYPE(?frequencyValue)),\':/:\',?frequencyUoM) AS ?frequency)
+            UNION
+          {
+            ?_numberOfPackages
+              rdf:value ?numberOfPackagesValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?numberOfPackagesUoM .
+            BIND(concat(\'xval:/:\',STR(?numberOfPackagesValue),\':/:\',STR(DATATYPE(?numberOfPackagesValue)),\':/:\',?numberOfPackagesUoM) AS ?numberOfPackages)
+          }
+            UNION
+          {
+           ?_numberOfPackages  aixm:nilReason ?numberOfPackagesNilReason .
+           BIND(concat(\'nil:/:\',?numberOfPackagesNilReason) AS ?numberOfPackages)
           }
           UNION
           {
-		       ?_frequency  aixm:nilReason ?frequencyNilReason .
-		       BIND(concat(\'nil:/:\',?frequencyNilReason) AS ?frequency)
+		       ?_numberOfPackages  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?numberOfPackages)
 		     }
+        }
+      }
+      OPTIONAL { ?allPackedInOne fixm:qValue ?_qValue .
+        {
+          {
+            ?_qValue rdf:value ?qValueValue .
+            FILTER ( NOT EXISTS {?_qValue (aixm:uom | fixm:uom | plain:uom) ?qValueUoM})
+            BIND(concat(\'val:/:\',STR(?qValueValue),\':/:\',STR(DATATYPE(?qValueValue))) AS ?qValue)
+          }
+            UNION
+          {
+            ?_qValue
+              rdf:value ?qValueValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?qValueUoM .
+            BIND(concat(\'xval:/:\',STR(?qValueValue),\':/:\',STR(DATATYPE(?qValueValue)),\':/:\',?qValueUoM) AS ?qValue)
+          }
+            UNION
+          {
+           ?_qValue  aixm:nilReason ?qValueNilReason .
+           BIND(concat(\'nil:/:\',?qValueNilReason) AS ?qValue)
+          }
           UNION
           {
-            ?_frequency  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?frequency)
-	         }
+		       ?_qValue  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?qValue)
+		     }
+        }
       }
-      OPTIONAL {?nDB <http://www.aisa-project.eu/vocabulary/plain#navaidEquipment> ?navaidEquipment .}
     }
   }
-GROUP BY ?graph ?nDB ?frequency
 
       '
-,row(Graph,NDB,Frequency,NavaidEquipmentConcat),[]), convVal(Frequency,FrequencyVal), convert(NavaidEquipmentConcat,NavaidEquipmentList).
+,row(Graph,AllPackedInOne,NumberOfPackages,QValue),[]), convVal(NumberOfPackages,NumberOfPackagesVal), convVal(QValue,QValueVal).
+
+% aixm_AltimeterSource(Graph, AltimeterSource, TimeSlice*)
+
+aixm_AltimeterSource(Graph, AltimeterSource, TimeSliceList) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?altimeterSource (GROUP_CONCAT(DISTINCT ?timeSlice;SEPARATOR=",") AS ?timeSliceConcat)
+WHERE
+  { GRAPH ?graph
+    {
+      ?altimeterSource rdf:type aixm:AltimeterSource .
+      OPTIONAL {?altimeterSource aixm:timeSlice ?timeSlice .}
+    }
+  }
+GROUP BY ?graph ?altimeterSource
+
+      '
+,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList).
 
 % fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarks?, DinghyInformation?, EmergencyRadioCode*, LifeJacketCode*, SurvivalEquipmentCode*)
 
@@ -21779,9 +14993,9 @@ GROUP BY ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformati
       '
 ,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCodeConcat,LifeJacketCodeConcat,SurvivalEquipmentCodeConcat),[]), convVal(SurvivalEquipmentRemarks,SurvivalEquipmentRemarksVal), convVal(DinghyInformation,DinghyInformationVal), convert(EmergencyRadioCodeConcat,EmergencyRadioCodeList), convert(LifeJacketCodeConcat,LifeJacketCodeList), convert(SurvivalEquipmentCodeConcat,SurvivalEquipmentCodeList).
 
-% plain_FlightIdentification(Graph, FlightIdentification, AircraftIdentification, EfplFlight+, Callsign)
+% fixm_DirectRouting(Graph, DirectRouting, From?, To?)
 
-plain_FlightIdentification(Graph, FlightIdentification, AircraftIdentificationVal, EfplFlightList, CallsignVal) :-
+fixm_DirectRouting(Graph, DirectRouting, FromVal, ToVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -21802,68 +15016,58 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?flightIdentification ?aircraftIdentification (GROUP_CONCAT(DISTINCT ?efplFlight;SEPARATOR=",") AS ?efplFlightConcat) ?callsign
+SELECT ?graph ?directRouting ?from ?to
 WHERE
   { GRAPH ?graph
     {
-      ?flightIdentification rdf:type <http://www.aisa-project.eu/vocabulary/plain#FlightIdentification> .
-      ?flightIdentification <http://www.aisa-project.eu/vocabulary/plain#aircraftIdentification>  ?_aircraftIdentification .
-        {
-          {
-            ?_aircraftIdentification rdf:value ?aircraftIdentificationValue .
-            FILTER ( NOT EXISTS {?_aircraftIdentification (aixm:uom | fixm:uom | plain:uom) ?aircraftIdentificationUoM})
-            BIND(concat(\'val:/:\',STR(?aircraftIdentificationValue),\':/:\',STR(DATATYPE(?aircraftIdentificationValue))) AS ?aircraftIdentification)
-          }
-		     UNION
-		     {
-            ?_aircraftIdentification
-              rdf:value ?aircraftIdentificationValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?aircraftIdentificationUoM .
-              BIND(concat(\'xval:/:\',STR(?aircraftIdentificationValue),\':/:\',STR(DATATYPE(?aircraftIdentificationValue)),\':/:\',?aircraftIdentificationUoM) AS ?aircraftIdentification)
-          }
-          UNION
-          {
-		       ?_aircraftIdentification  aixm:nilReason ?aircraftIdentificationNilReason .
-		       BIND(concat(\'nil:/:\',?aircraftIdentificationNilReason) AS ?aircraftIdentification)
-		     }
-          UNION
-          {
-            ?_aircraftIdentification  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?aircraftIdentification)
-	         }
-      }
-      ?flightIdentification <http://www.aisa-project.eu/vocabulary/plain#efplFlight> ?efplFlight .
-      ?flightIdentification <http://www.aisa-project.eu/vocabulary/plain#callsign>  ?_callsign .
-        {
-          {
-            ?_callsign rdf:value ?callsignValue .
-            FILTER ( NOT EXISTS {?_callsign (aixm:uom | fixm:uom | plain:uom) ?callsignUoM})
-            BIND(concat(\'val:/:\',STR(?callsignValue),\':/:\',STR(DATATYPE(?callsignValue))) AS ?callsign)
-          }
-		     UNION
-		     {
-            ?_callsign
-              rdf:value ?callsignValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?callsignUoM .
-              BIND(concat(\'xval:/:\',STR(?callsignValue),\':/:\',STR(DATATYPE(?callsignValue)),\':/:\',?callsignUoM) AS ?callsign)
-          }
-          UNION
-          {
-		       ?_callsign  aixm:nilReason ?callsignNilReason .
-		       BIND(concat(\'nil:/:\',?callsignNilReason) AS ?callsign)
-		     }
-          UNION
-          {
-            ?_callsign  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?callsign)
-	         }
-      }
+      ?directRouting rdf:type fixm:DirectRouting .
+      OPTIONAL {?directRouting fixm:from ?from .}
+      OPTIONAL {?directRouting fixm:to ?to .}
     }
   }
-GROUP BY ?graph ?flightIdentification ?aircraftIdentification ?callsign
 
       '
-,row(Graph,FlightIdentification,AircraftIdentification,EfplFlightConcat,Callsign),[]), convVal(AircraftIdentification,AircraftIdentificationVal), convert(EfplFlightConcat,EfplFlightList), convVal(Callsign,CallsignVal).
+,row(Graph,DirectRouting,From,To),[]), convVal(From,FromVal), convVal(To,ToVal).
+
+% fixm_TargetMultiTime(Graph, TargetMultiTime, Target?)
+
+fixm_TargetMultiTime(Graph, TargetMultiTime, TargetVal) :-
+  sparql_query(
+      '
+PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
+PREFIX s1: <https://github.com/aixm/donlon/blob/master/EA_AIP_DS_FULL_20170701.xml#>
+PREFIX g2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/>
+PREFIX fixm: <http://www.aisa-project.eu/vocabulary/fixm_3-0-1_sesar#>
+PREFIX aixm: <http://www.aisa-project.eu/vocabulary/aixm_5-1-1#>
+PREFIX plain: <http://www.aisa-project.eu/vocabulary/plain#>
+PREFIX g1: <https://github.com/aixm/donlon/blob/master/>
+PREFIX graph: <https://github.com/jku-win-dke/aisa/graphs/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX event: <http://www.aixm.aero/schema/5.1/event#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gml: <http://www.opengis.net/gml/3.2#>
+PREFIX file: <https://www.jena.com/plain#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX uuid: <uuid:>
+
+
+SELECT ?graph ?targetMultiTime ?target
+WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:TargetMultiTime .
+  }
+  { GRAPH ?graph
+    {
+      ?targetMultiTime rdf:type ?SUBCLASS .
+      OPTIONAL {?targetMultiTime fixm:target ?target .}
+    }
+  }
+}
+
+      '
+,row(Graph,TargetMultiTime,Target),[]), convVal(Target,TargetVal).
 
 % fixm_AircraftType(Graph, AircraftType)
 
@@ -21899,9 +15103,9 @@ WHERE
       '
 ,row(Graph,AircraftType),[]).
 
-% plain_Speed(Graph, Speed, FlightIdentification+, GroundSpeed)
+% fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodrome?, DepartureFix?, DepartureFixTime?, DepartureFleetPrioritization?, DepartureSlot?, EarliestOffBlockTime?, OffBlockReadyTime?, RunwayPositionAndTime?, StandardInstrumentDeparture?, StandPositionAndTime?, TakeoffAlternateAerodrome*, TakeoffWeight?, DepartureTimes?)
 
-plain_Speed(Graph, Speed, FlightIdentificationList, GroundSpeedVal) :-
+fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodromeVal, DepartureFixVal, DepartureFixTimeVal, DepartureFleetPrioritizationVal, DepartureSlotVal, EarliestOffBlockTimeVal, OffBlockReadyTimeVal, RunwayPositionAndTimeVal, StandardInstrumentDepartureVal, StandPositionAndTimeVal, TakeoffAlternateAerodromeList, TakeoffWeightVal, DepartureTimesVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -21922,47 +15126,164 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?speed (GROUP_CONCAT(DISTINCT ?flightIdentification;SEPARATOR=",") AS ?flightIdentificationConcat) ?groundSpeed
+SELECT ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime (GROUP_CONCAT(DISTINCT ?takeoffAlternateAerodrome;SEPARATOR=",") AS ?takeoffAlternateAerodromeConcat) ?takeoffWeight ?departureTimes
 WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:FlightDeparture .
+  }
   { GRAPH ?graph
     {
-      ?speed rdf:type <http://www.aisa-project.eu/vocabulary/plain#Speed> .
-      ?speed <http://www.aisa-project.eu/vocabulary/plain#flightIdentification> ?flightIdentification .
-      ?speed <http://www.aisa-project.eu/vocabulary/plain#groundSpeed>  ?_groundSpeed .
+      ?flightDeparture rdf:type ?SUBCLASS .
+      OPTIONAL {?flightDeparture fixm:departureAerodrome ?departureAerodrome .}
+      OPTIONAL {?flightDeparture fixm:departureFix ?departureFix .}
+      OPTIONAL {?flightDeparture fixm:departureFixTime ?departureFixTime .}
+      OPTIONAL { ?flightDeparture fixm:departureFleetPrioritization ?_departureFleetPrioritization .
         {
           {
-            ?_groundSpeed rdf:value ?groundSpeedValue .
-            FILTER ( NOT EXISTS {?_groundSpeed (aixm:uom | fixm:uom | plain:uom) ?groundSpeedUoM})
-            BIND(concat(\'val:/:\',STR(?groundSpeedValue),\':/:\',STR(DATATYPE(?groundSpeedValue))) AS ?groundSpeed)
+            ?_departureFleetPrioritization rdf:value ?departureFleetPrioritizationValue .
+            FILTER ( NOT EXISTS {?_departureFleetPrioritization (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM})
+            BIND(concat(\'val:/:\',STR(?departureFleetPrioritizationValue),\':/:\',STR(DATATYPE(?departureFleetPrioritizationValue))) AS ?departureFleetPrioritization)
           }
-		     UNION
-		     {
-            ?_groundSpeed
-              rdf:value ?groundSpeedValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?groundSpeedUoM .
-              BIND(concat(\'xval:/:\',STR(?groundSpeedValue),\':/:\',STR(DATATYPE(?groundSpeedValue)),\':/:\',?groundSpeedUoM) AS ?groundSpeed)
+            UNION
+          {
+            ?_departureFleetPrioritization
+              rdf:value ?departureFleetPrioritizationValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?departureFleetPrioritizationUoM .
+            BIND(concat(\'xval:/:\',STR(?departureFleetPrioritizationValue),\':/:\',STR(DATATYPE(?departureFleetPrioritizationValue)),\':/:\',?departureFleetPrioritizationUoM) AS ?departureFleetPrioritization)
+          }
+            UNION
+          {
+           ?_departureFleetPrioritization  aixm:nilReason ?departureFleetPrioritizationNilReason .
+           BIND(concat(\'nil:/:\',?departureFleetPrioritizationNilReason) AS ?departureFleetPrioritization)
           }
           UNION
           {
-		       ?_groundSpeed  aixm:nilReason ?groundSpeedNilReason .
-		       BIND(concat(\'nil:/:\',?groundSpeedNilReason) AS ?groundSpeed)
+		       ?_departureFleetPrioritization  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureFleetPrioritization)
 		     }
+        }
+      }
+      OPTIONAL { ?flightDeparture fixm:departureSlot ?_departureSlot .
+        {
+          {
+            ?_departureSlot rdf:value ?departureSlotValue .
+            FILTER ( NOT EXISTS {?_departureSlot (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM})
+            BIND(concat(\'val:/:\',STR(?departureSlotValue),\':/:\',STR(DATATYPE(?departureSlotValue))) AS ?departureSlot)
+          }
+            UNION
+          {
+            ?_departureSlot
+              rdf:value ?departureSlotValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?departureSlotUoM .
+            BIND(concat(\'xval:/:\',STR(?departureSlotValue),\':/:\',STR(DATATYPE(?departureSlotValue)),\':/:\',?departureSlotUoM) AS ?departureSlot)
+          }
+            UNION
+          {
+           ?_departureSlot  aixm:nilReason ?departureSlotNilReason .
+           BIND(concat(\'nil:/:\',?departureSlotNilReason) AS ?departureSlot)
+          }
           UNION
           {
-            ?_groundSpeed  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?groundSpeed)
-	         }
+		       ?_departureSlot  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?departureSlot)
+		     }
+        }
       }
+      OPTIONAL { ?flightDeparture fixm:earliestOffBlockTime ?_earliestOffBlockTime .
+        {
+          {
+            ?_earliestOffBlockTime rdf:value ?earliestOffBlockTimeValue .
+            FILTER ( NOT EXISTS {?_earliestOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM})
+            BIND(concat(\'val:/:\',STR(?earliestOffBlockTimeValue),\':/:\',STR(DATATYPE(?earliestOffBlockTimeValue))) AS ?earliestOffBlockTime)
+          }
+            UNION
+          {
+            ?_earliestOffBlockTime
+              rdf:value ?earliestOffBlockTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?earliestOffBlockTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?earliestOffBlockTimeValue),\':/:\',STR(DATATYPE(?earliestOffBlockTimeValue)),\':/:\',?earliestOffBlockTimeUoM) AS ?earliestOffBlockTime)
+          }
+            UNION
+          {
+           ?_earliestOffBlockTime  aixm:nilReason ?earliestOffBlockTimeNilReason .
+           BIND(concat(\'nil:/:\',?earliestOffBlockTimeNilReason) AS ?earliestOffBlockTime)
+          }
+          UNION
+          {
+		       ?_earliestOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?earliestOffBlockTime)
+		     }
+        }
+      }
+      OPTIONAL {?flightDeparture fixm:offBlockReadyTime ?offBlockReadyTime .}
+      OPTIONAL {?flightDeparture fixm:runwayPositionAndTime ?runwayPositionAndTime .}
+      OPTIONAL { ?flightDeparture fixm:standardInstrumentDeparture ?_standardInstrumentDeparture .
+        {
+          {
+            ?_standardInstrumentDeparture rdf:value ?standardInstrumentDepartureValue .
+            FILTER ( NOT EXISTS {?_standardInstrumentDeparture (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM})
+            BIND(concat(\'val:/:\',STR(?standardInstrumentDepartureValue),\':/:\',STR(DATATYPE(?standardInstrumentDepartureValue))) AS ?standardInstrumentDeparture)
+          }
+            UNION
+          {
+            ?_standardInstrumentDeparture
+              rdf:value ?standardInstrumentDepartureValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?standardInstrumentDepartureUoM .
+            BIND(concat(\'xval:/:\',STR(?standardInstrumentDepartureValue),\':/:\',STR(DATATYPE(?standardInstrumentDepartureValue)),\':/:\',?standardInstrumentDepartureUoM) AS ?standardInstrumentDeparture)
+          }
+            UNION
+          {
+           ?_standardInstrumentDeparture  aixm:nilReason ?standardInstrumentDepartureNilReason .
+           BIND(concat(\'nil:/:\',?standardInstrumentDepartureNilReason) AS ?standardInstrumentDeparture)
+          }
+          UNION
+          {
+		       ?_standardInstrumentDeparture  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?standardInstrumentDeparture)
+		     }
+        }
+      }
+      OPTIONAL {?flightDeparture fixm:standPositionAndTime ?standPositionAndTime .}
+      OPTIONAL {?flightDeparture fixm:takeoffAlternateAerodrome ?takeoffAlternateAerodrome .}
+      OPTIONAL { ?flightDeparture fixm:takeoffWeight ?_takeoffWeight .
+        {
+          {
+            ?_takeoffWeight rdf:value ?takeoffWeightValue .
+            FILTER ( NOT EXISTS {?_takeoffWeight (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM})
+            BIND(concat(\'val:/:\',STR(?takeoffWeightValue),\':/:\',STR(DATATYPE(?takeoffWeightValue))) AS ?takeoffWeight)
+          }
+            UNION
+          {
+            ?_takeoffWeight
+              rdf:value ?takeoffWeightValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?takeoffWeightUoM .
+            BIND(concat(\'xval:/:\',STR(?takeoffWeightValue),\':/:\',STR(DATATYPE(?takeoffWeightValue)),\':/:\',?takeoffWeightUoM) AS ?takeoffWeight)
+          }
+            UNION
+          {
+           ?_takeoffWeight  aixm:nilReason ?takeoffWeightNilReason .
+           BIND(concat(\'nil:/:\',?takeoffWeightNilReason) AS ?takeoffWeight)
+          }
+          UNION
+          {
+		       ?_takeoffWeight  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?takeoffWeight)
+		     }
+        }
+      }
+      OPTIONAL {?flightDeparture fixm:departureTimes ?departureTimes .}
     }
   }
-GROUP BY ?graph ?speed ?groundSpeed
+}
+GROUP BY ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffWeight ?departureTimes
 
       '
-,row(Graph,Speed,FlightIdentificationConcat,GroundSpeed),[]), convert(FlightIdentificationConcat,FlightIdentificationList), convVal(GroundSpeed,GroundSpeedVal).
+,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convVal(DepartureAerodrome,DepartureAerodromeVal), convVal(DepartureFix,DepartureFixVal), convVal(DepartureFixTime,DepartureFixTimeVal), convVal(DepartureFleetPrioritization,DepartureFleetPrioritizationVal), convVal(DepartureSlot,DepartureSlotVal), convVal(EarliestOffBlockTime,EarliestOffBlockTimeVal), convVal(OffBlockReadyTime,OffBlockReadyTimeVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentDeparture,StandardInstrumentDepartureVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList), convVal(TakeoffWeight,TakeoffWeightVal), convVal(DepartureTimes,DepartureTimesVal).
 
-% plain_UsageCondition(Graph, UsageCondition, PriorPermission, Type, AirportHeliportUsage*)
+% fixm_AerodromeReference(Graph, AerodromeReference)
 
-plain_UsageCondition(Graph, UsageCondition, PriorPermissionVal, TypeVal, AirportHeliportUsageList) :-
+fixm_AerodromeReference(Graph, AerodromeReference) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -21983,72 +15304,25 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?usageCondition ?priorPermission ?type (GROUP_CONCAT(DISTINCT ?airportHeliportUsage;SEPARATOR=",") AS ?airportHeliportUsageConcat)
+SELECT ?graph ?aerodromeReference
 WHERE
+ {
+  GRAPH <https://github.com/jku-win-dke/aisa/graphs/schema> {
+    ?SUBCLASS rdfs:subClassOf* fixm:AerodromeReference .
+  }
   { GRAPH ?graph
     {
-      ?usageCondition rdf:type <http://www.aisa-project.eu/vocabulary/plain#UsageCondition> .
-      ?usageCondition <http://www.aisa-project.eu/vocabulary/plain#priorPermission>  ?_priorPermission .
-        {
-          {
-            ?_priorPermission rdf:value ?priorPermissionValue .
-            FILTER ( NOT EXISTS {?_priorPermission (aixm:uom | fixm:uom | plain:uom) ?priorPermissionUoM})
-            BIND(concat(\'val:/:\',STR(?priorPermissionValue),\':/:\',STR(DATATYPE(?priorPermissionValue))) AS ?priorPermission)
-          }
-		     UNION
-		     {
-            ?_priorPermission
-              rdf:value ?priorPermissionValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?priorPermissionUoM .
-              BIND(concat(\'xval:/:\',STR(?priorPermissionValue),\':/:\',STR(DATATYPE(?priorPermissionValue)),\':/:\',?priorPermissionUoM) AS ?priorPermission)
-          }
-          UNION
-          {
-		       ?_priorPermission  aixm:nilReason ?priorPermissionNilReason .
-		       BIND(concat(\'nil:/:\',?priorPermissionNilReason) AS ?priorPermission)
-		     }
-          UNION
-          {
-            ?_priorPermission  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?priorPermission)
-	         }
-      }
-      ?usageCondition <http://www.aisa-project.eu/vocabulary/plain#type>  ?_type .
-        {
-          {
-            ?_type rdf:value ?typeValue .
-            FILTER ( NOT EXISTS {?_type (aixm:uom | fixm:uom | plain:uom) ?typeUoM})
-            BIND(concat(\'val:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue))) AS ?type)
-          }
-		     UNION
-		     {
-            ?_type
-              rdf:value ?typeValue ;
-              (aixm:uom | fixm:uom | plain:uom) ?typeUoM .
-              BIND(concat(\'xval:/:\',STR(?typeValue),\':/:\',STR(DATATYPE(?typeValue)),\':/:\',?typeUoM) AS ?type)
-          }
-          UNION
-          {
-		       ?_type  aixm:nilReason ?typeNilReason .
-		       BIND(concat(\'nil:/:\',?typeNilReason) AS ?type)
-		     }
-          UNION
-          {
-            ?_type  gml:indeterminatePosition ?indeterminatePosition .
-            BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?type)
-	         }
-      }
-      OPTIONAL {?usageCondition <http://www.aisa-project.eu/vocabulary/plain#airportHeliportUsage> ?airportHeliportUsage .}
+      ?aerodromeReference rdf:type ?SUBCLASS .
     }
   }
-GROUP BY ?graph ?usageCondition ?priorPermission ?type
+}
 
       '
-,row(Graph,UsageCondition,PriorPermission,Type,AirportHeliportUsageConcat),[]), convVal(PriorPermission,PriorPermissionVal), convVal(Type,TypeVal), convert(AirportHeliportUsageConcat,AirportHeliportUsageList).
+,row(Graph,AerodromeReference),[]).
 
-% plain_Surface(Graph, Surface, AirspaceVolume+)
+% fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime?, TaxiTime?)
 
-plain_Surface(Graph, Surface, AirspaceVolumeList) :-
+fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTimeVal, TaxiTimeVal) :-
   sparql_query(
       '
 PREFIX s2: <https://github.com/aixm/donlon/blob/master/digitalNOTAM/DN_AD.CLS_except_special_flights.xml#>
@@ -22069,18 +15343,68 @@ PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX uuid: <uuid:>
 
 
-SELECT ?graph ?surface (GROUP_CONCAT(DISTINCT ?airspaceVolume;SEPARATOR=",") AS ?airspaceVolumeConcat)
+SELECT ?graph ?efplFlightDeparture ?estimatedOffBlockTime ?taxiTime
 WHERE
   { GRAPH ?graph
     {
-      ?surface rdf:type <http://www.aisa-project.eu/vocabulary/plain#Surface> .
-      ?surface <http://www.aisa-project.eu/vocabulary/plain#airspaceVolume> ?airspaceVolume .
+      ?efplFlightDeparture rdf:type fixm:EfplFlightDeparture .
+      OPTIONAL { ?efplFlightDeparture fixm:estimatedOffBlockTime ?_estimatedOffBlockTime .
+        {
+          {
+            ?_estimatedOffBlockTime rdf:value ?estimatedOffBlockTimeValue .
+            FILTER ( NOT EXISTS {?_estimatedOffBlockTime (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM})
+            BIND(concat(\'val:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue))) AS ?estimatedOffBlockTime)
+          }
+            UNION
+          {
+            ?_estimatedOffBlockTime
+              rdf:value ?estimatedOffBlockTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?estimatedOffBlockTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?estimatedOffBlockTimeValue),\':/:\',STR(DATATYPE(?estimatedOffBlockTimeValue)),\':/:\',?estimatedOffBlockTimeUoM) AS ?estimatedOffBlockTime)
+          }
+            UNION
+          {
+           ?_estimatedOffBlockTime  aixm:nilReason ?estimatedOffBlockTimeNilReason .
+           BIND(concat(\'nil:/:\',?estimatedOffBlockTimeNilReason) AS ?estimatedOffBlockTime)
+          }
+          UNION
+          {
+		       ?_estimatedOffBlockTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?estimatedOffBlockTime)
+		     }
+        }
+      }
+      OPTIONAL { ?efplFlightDeparture fixm:taxiTime ?_taxiTime .
+        {
+          {
+            ?_taxiTime rdf:value ?taxiTimeValue .
+            FILTER ( NOT EXISTS {?_taxiTime (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM})
+            BIND(concat(\'val:/:\',STR(?taxiTimeValue),\':/:\',STR(DATATYPE(?taxiTimeValue))) AS ?taxiTime)
+          }
+            UNION
+          {
+            ?_taxiTime
+              rdf:value ?taxiTimeValue ;
+              (aixm:uom | fixm:uom | plain:uom) ?taxiTimeUoM .
+            BIND(concat(\'xval:/:\',STR(?taxiTimeValue),\':/:\',STR(DATATYPE(?taxiTimeValue)),\':/:\',?taxiTimeUoM) AS ?taxiTime)
+          }
+            UNION
+          {
+           ?_taxiTime  aixm:nilReason ?taxiTimeNilReason .
+           BIND(concat(\'nil:/:\',?taxiTimeNilReason) AS ?taxiTime)
+          }
+          UNION
+          {
+		       ?_taxiTime  gml:indeterminatePosition ?indeterminatePosition .
+		       BIND(concat(\'indeterminate:/:\',?indeterminatePosition) AS ?taxiTime)
+		     }
+        }
+      }
     }
   }
-GROUP BY ?graph ?surface
 
       '
-,row(Graph,Surface,AirspaceVolumeConcat),[]), convert(AirspaceVolumeConcat,AirspaceVolumeList).
+,row(Graph,EfplFlightDeparture,EstimatedOffBlockTime,TaxiTime),[]), convVal(EstimatedOffBlockTime,EstimatedOffBlockTimeVal), convVal(TaxiTime,TaxiTimeVal).
 
 % aixm_UsageCondition(Graph, UsageCondition, Type?, PriorPermission?, Selection?, Annotation*, Contact*)
 
@@ -22177,9 +15501,21 @@ GROUP BY ?graph ?usageCondition ?type ?priorPermission ?selection
       '
 ,row(Graph,UsageCondition,Type,PriorPermission,Selection,AnnotationConcat,ContactConcat),[]), convVal(Type,TypeVal), convVal(PriorPermission,PriorPermissionVal), convVal(Selection,SelectionVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList).
 
+fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, ConstraintList) :-
+  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList),
+  fixm_AbstractRoutePoint(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
+
 aixm_ElevatedSurface_Combined(Graph, ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
   aixm_ElevatedSurface(Graph, ElevatedSurface, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
   aixm_Surface_Combined(Graph,ElevatedSurface, PatchList, HorizontalAccuracy, AnnotationList) .
+
+aixm_ConditionCombination_Combined(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList) :-
+  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList),
+  aixm_PropertiesWithSchedule(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
+
+aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
+  aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
+  aixm_Point_Combined(Graph,ElevatedPoint, HorizontalAccuracy, AnnotationList) .
 
 fixm_EfplPoint4D_Combined(Graph, EfplPoint4D, PosList, SrsName, Altitude, Time, PointRange, Altitude, Time, PointRange, FlightLevel) :-
   fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevel),
@@ -22193,13 +15529,29 @@ fixm_RoutePoint_Combined(Graph, RoutePoint, AirTrafficType, DelayAtPoint, Flight
   fixm_RoutePoint(Graph, RoutePoint, ConstraintList),
   fixm_AbstractRoutePoint(Graph, RoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
 
+aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Role, TheOrganisationAuthority) :-
+  aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority),
+  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
+
 fixm_DangerousGoods_Combined(Graph, DangerousGoods, Provenance, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation) :-
   fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumber, OnboardLocation, HandlingInformation, AircraftLimitation, AirWayBill, Shipment, PackageGroupList, ShippingInformation),
   fixm_Feature(Graph, DangerousGoods, Provenance) .
 
+fixm_Point4D_Combined(Graph, Point4D, PosList, SrsName, Altitude, Time, PointRange) :-
+  fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange),
+  fixm_GeographicLocation(Graph, Point4D, PosList, SrsName) .
+
 fixm_FlightEmergency_Combined(Graph, FlightEmergency, Provenance, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact) :-
   fixm_FlightEmergency(Graph, FlightEmergency, ActionTaken, EmergencyDescription, Originator, OtherInformation, Phase, Contact),
   fixm_Feature(Graph, FlightEmergency, Provenance) .
+
+fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) :-
+  fixm_Flight(Graph, Flight, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList),
+  fixm_Feature(Graph, Flight, Provenance) .
+
+gml_Surface_Combined(Graph, Surface, PatchList) :-
+  gml_Surface(Graph, Surface, PatchList),
+  gml_SurfacePatch(Graph, Surface) .
 
 fixm_UnitBoundary_Combined(Graph, UnitBoundary, SectorIdentifier, Delegated, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator) :-
   fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnit, UpstreamUnit, BoundaryCrossingProposed, BoundaryCrossingCoordinated, Handoff, UnitBoundaryIndicator),
@@ -22212,6 +15564,14 @@ aixm_AirportHeliportContamination_Combined(Graph, AirportHeliportContamination, 
 aixm_TelephoneContact_Combined(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Voice, Facsimile) :-
   aixm_TelephoneContact(Graph, TelephoneContact, Voice, Facsimile),
   aixm_PropertiesWithSchedule(Graph, TelephoneContact, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
+
+fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) :-
+  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList),
+  fixm_Feature(Graph, Route, Provenance) .
+
+fixm_EfplFlight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
+  fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
+  fixm_Flight_Combined(Graph,EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) .
 
 fixm_FlightStatus_Combined(Graph, FlightStatus, Provenance, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended) :-
   fixm_FlightStatus(Graph, FlightStatus, AirborneHold, Airfile, Accepted, FlightCycle, MissedApproach, Suspended),
@@ -22229,6 +15589,10 @@ fixm_StructuredPostalAddress_Combined(Graph, StructuredPostalAddress, Name, Titl
   fixm_StructuredPostalAddress(Graph, StructuredPostalAddress),
   fixm_ContactInformation(Graph, StructuredPostalAddress, Name, Title, OnlineContact, PhoneFax, Address) .
 
+fixm_AircraftPosition_Combined(Graph, AircraftPosition, Provenance, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition) :-
+  fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition),
+  fixm_Feature(Graph, AircraftPosition, Provenance) .
+
 aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList, Operation) :-
   aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, Operation),
   aixm_UsageCondition(Graph, AirportHeliportUsage, Type, PriorPermission, Selection, AnnotationList, ContactList) .
@@ -22236,6 +15600,10 @@ aixm_AirportHeliportUsage_Combined(Graph, AirportHeliportUsage, Type, PriorPermi
 fixm_EfplTrajectoryPoint_Combined(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment) :-
   fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifier, DistanceFromTakeOff, EfplEstimatedSpeed, ElapsedTime, GrossWeight, TrajectoryPointType, TrajectoryPointRole, InboundSegment),
   fixm_TrajectoryPoint(Graph, EfplTrajectoryPoint, AltimeterSetting, PredictedAirspeed, PredictedGroundspeed, MetData, Point, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePoint) .
+
+fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, LastContactTime, LastContactUnit, Position) :-
+  fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastContactUnit, Position),
+  fixm_Feature(Graph, LastContact, Provenance) .
 
 aixm_Surface_Combined(Graph, Surface, PatchList, PatchList, HorizontalAccuracy, AnnotationList) :-
   aixm_Surface(Graph, Surface, HorizontalAccuracy, AnnotationList),
@@ -22253,6 +15621,10 @@ fixm_Extension_Combined(Graph, Extension, Provenance) :-
   fixm_Extension(Graph, Extension),
   fixm_Feature(Graph, Extension, Provenance) .
 
+aixm_Point_Combined(Graph, Point, HorizontalAccuracy, AnnotationList) :-
+  aixm_Point(Graph, Point, HorizontalAccuracy, AnnotationList),
+  gml_Point(Graph, Point) .
+
 aixm_PostalAddress_Combined(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, DeliveryPoint, City, AdministrativeArea, PostalCode, Country) :-
   aixm_PostalAddress(Graph, PostalAddress, DeliveryPoint, City, AdministrativeArea, PostalCode, Country),
   aixm_PropertiesWithSchedule(Graph, PostalAddress, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
@@ -22265,6 +15637,10 @@ fixm_EfplRoute_Combined(Graph, EfplRoute, Provenance, AirfileRouteStartTime, Fli
   fixm_EfplRoute(Graph, EfplRoute, EfplFlightRules),
   fixm_Route_Combined(Graph,EfplRoute, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) .
 
+fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
+  fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
+  fixm_AerodromeReference(Graph, IcaoAerodromeReference) .
+
 fixm_RadioCommunicationFailure_Combined(Graph, RadioCommunicationFailure, Provenance, RadioFailureRemarks, RemainingComCapability, Contact) :-
   fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarks, RemainingComCapability, Contact),
   fixm_Feature(Graph, RadioCommunicationFailure, Provenance) .
@@ -22272,6 +15648,14 @@ fixm_RadioCommunicationFailure_Combined(Graph, RadioCommunicationFailure, Proven
 aixm_AirportHeliportAvailability_Combined(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, OperationalStatus, Warning, UsageList) :-
   aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatus, Warning, UsageList),
   aixm_PropertiesWithSchedule(Graph, AirportHeliportAvailability, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
+
+fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
+  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
+  fixm_Feature(Graph, FlightArrival, Provenance) .
+
+fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target, Target, Controlled, Initial) :-
+  fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
+  fixm_TargetMultiTime_Combined(Graph,ExtendedMultiTime, Actual, Estimated, Target) .
 
 fixm_TargetMultiTime_Combined(Graph, TargetMultiTime, Actual, Estimated, Target) :-
   fixm_TargetMultiTime(Graph, TargetMultiTime, Target),
@@ -22284,64 +15668,4 @@ fixm_FlightDeparture_Combined(Graph, FlightDeparture, Provenance, DepartureAerod
 fixm_EfplFlightDeparture_Combined(Graph, EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes, EstimatedOffBlockTime, TaxiTime) :-
   fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTime, TaxiTime),
   fixm_FlightDeparture_Combined(Graph,EfplFlightDeparture, Provenance, DepartureAerodrome, DepartureFix, DepartureFixTime, DepartureFleetPrioritization, DepartureSlot, EarliestOffBlockTime, OffBlockReadyTime, RunwayPositionAndTime, StandardInstrumentDeparture, StandPositionAndTime, TakeoffAlternateAerodromeList, TakeoffWeight, DepartureTimes) .
-
-fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, ConstraintList) :-
-  fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList),
-  fixm_AbstractRoutePoint(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit) .
-
-aixm_ConditionCombination_Combined(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList) :-
-  aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperator, FlightList, AircraftList, WeatherList, SubConditionList),
-  aixm_PropertiesWithSchedule(Graph, ConditionCombination, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
-
-aixm_ElevatedPoint_Combined(Graph, ElevatedPoint, HorizontalAccuracy, AnnotationList, HorizontalAccuracy, AnnotationList, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy) :-
-  aixm_ElevatedPoint(Graph, ElevatedPoint, Elevation, GeoidUndulation, VerticalDatum, VerticalAccuracy),
-  aixm_Point_Combined(Graph,ElevatedPoint, HorizontalAccuracy, AnnotationList) .
-
-aixm_AirportHeliportResponsibilityOrganisation_Combined(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList, Role, TheOrganisationAuthority) :-
-  aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, Role, TheOrganisationAuthority),
-  aixm_PropertiesWithSchedule(Graph, AirportHeliportResponsibilityOrganisation, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) .
-
-fixm_Point4D_Combined(Graph, Point4D, PosList, SrsName, Altitude, Time, PointRange) :-
-  fixm_Point4D(Graph, Point4D, Altitude, Time, PointRange),
-  fixm_GeographicLocation(Graph, Point4D, PosList, SrsName) .
-
-fixm_Flight_Combined(Graph, Flight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) :-
-  fixm_Flight(Graph, Flight, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList),
-  fixm_Feature(Graph, Flight, Provenance) .
-
-gml_Surface_Combined(Graph, Surface, PatchList) :-
-  gml_Surface(Graph, Surface, PatchList),
-  gml_SurfacePatch(Graph, Surface) .
-
-fixm_Route_Combined(Graph, Route, Provenance, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList) :-
-  fixm_Route(Graph, Route, AirfileRouteStartTime, FlightDuration, InitialCruisingSpeed, InitialFlightRules, RequestedAltitude, RouteText, EstimatedElapsedTimeList, ExpandedRoute, ClimbSchedule, DescentSchedule, SegmentList),
-  fixm_Feature(Graph, Route, Provenance) .
-
-fixm_EfplFlight_Combined(Graph, EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData) :-
-  fixm_EfplFlight(Graph, EfplFlight, IfplId, TotalEstimatedElapsedTime, AerodromesOfDestination, EfplSpecialHandling, EfplFiledTrajectory, EfplAcceptedTrajectory, OtherInformation, FlightPerformanceData),
-  fixm_Flight_Combined(Graph,EfplFlight, Provenance, ControllingUnit, ExtensionsList, FlightFiler, Gufi, Remarks, AircraftDescription, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestination, Negotiating, Agreed, Arrival, Departure, Emergency, RadioCommunicationFailure, EnRoute, Operator, EnRouteDiversion, FlightType, FlightStatus, Originator, SupplementalData, FlightIdentification, SpecialHandlingList) .
-
-fixm_AircraftPosition_Combined(Graph, AircraftPosition, Provenance, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition) :-
-  fixm_AircraftPosition(Graph, AircraftPosition, Altitude, Position, PositionTime, Track, ActualSpeed, NextPosition, ReportSource, FollowingPosition),
-  fixm_Feature(Graph, AircraftPosition, Provenance) .
-
-fixm_LastContact_Combined(Graph, LastContact, Provenance, ContactFrequency, LastContactTime, LastContactUnit, Position) :-
-  fixm_LastContact(Graph, LastContact, ContactFrequency, LastContactTime, LastContactUnit, Position),
-  fixm_Feature(Graph, LastContact, Provenance) .
-
-aixm_Point_Combined(Graph, Point, HorizontalAccuracy, AnnotationList) :-
-  aixm_Point(Graph, Point, HorizontalAccuracy, AnnotationList),
-  gml_Point(Graph, Point) .
-
-fixm_IcaoAerodromeReference_Combined(Graph, IcaoAerodromeReference, Code) :-
-  fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, Code),
-  fixm_AerodromeReference(Graph, IcaoAerodromeReference) .
-
-fixm_FlightArrival_Combined(Graph, FlightArrival, Provenance, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits) :-
-  fixm_FlightArrival(Graph, FlightArrival, ApproachFix, ApproachTime, ArrivalAerodrome, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginal, ArrivalFix, ArrivalFixTime, ArrivalFleetPrioritization, ArrivalSequenceNumber, EarliestInBlockTime, FiledRevisedDestinationAerodrome, FiledRevisedDestinationStar, RunwayPositionAndTime, StandardInstrumentArrival, StandPositionAndTime, LandingLimits),
-  fixm_Feature(Graph, FlightArrival, Provenance) .
-
-fixm_ExtendedMultiTime_Combined(Graph, ExtendedMultiTime, Actual, Estimated, Target, Target, Controlled, Initial) :-
-  fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, Controlled, Initial),
-  fixm_TargetMultiTime_Combined(Graph,ExtendedMultiTime, Actual, Estimated, Target) .
 

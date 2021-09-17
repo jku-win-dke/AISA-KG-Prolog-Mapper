@@ -30,7 +30,9 @@ public final class GLOBAL {
 	public static final String FILEOUTPUT_PATH = "fileoutput";
 	public static final String FILEINPUT_PATH = "fileinput";
 	public static final String TEMPFILE_PATH_REPLICATE = FILEOUTPUT_PATH + "/tempreplicate.rdf";
-  
+	public static final String NAMED_GRAPH_FOLDER = FILEOUTPUT_PATH + "/_NG_";
+
+	
 	private final static String PREFIXES_FILE = "resources/prefixes.ttl";
 
 	/* load prefix mappings from PREFIXES_FILE and override it with hard-coded Namespace Prefixes */

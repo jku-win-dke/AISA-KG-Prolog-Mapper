@@ -1,10 +1,7 @@
-package at.jku.dke.aisa.kg.sample.prolog;
+package at.jku.dke.aisa.kg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import at.jku.dke.aisa.kg.AbstractInternalModule;
-import at.jku.dke.aisa.kg.InternalModule;
 
 public class PerformanceReport extends AbstractInternalModule implements InternalModule  {
 	

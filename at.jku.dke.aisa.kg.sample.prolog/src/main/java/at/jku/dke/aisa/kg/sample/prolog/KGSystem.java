@@ -2,7 +2,9 @@ package at.jku.dke.aisa.kg.sample.prolog;
 
 import at.jku.dke.aisa.kg.GLOBAL;
 import at.jku.dke.aisa.kg.KGModuleSystem;
+import at.jku.dke.aisa.kg.PerformanceReport;
 import at.jku.dke.aisa.kg.SchemaLoader;
+import at.jku.dke.aisa.kg.PrologModule;
 
 public class KGSystem {
 

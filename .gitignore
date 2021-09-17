@@ -27,3 +27,5 @@ at.jku.dke.aisa.mapperC/apache-jena-fuseki-3.16.0
 at.jku.dke.aisa.kg/target
 at.jku.dke.aisa.kg.sample.adsb/target
 at.jku.dke.aisa.kg.sample.prolog/target
+at.jku.dke.aisa.kg.sample.adsb/fileoutput
+at.jku.dke.aisa.kg.sample.prolog/fileoutput

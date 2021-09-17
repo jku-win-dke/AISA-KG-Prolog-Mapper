@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,13 +152,20 @@ public class KGModuleSystem {
 	
 	
 	/* should be called after finishing/committing a named graph */
-	public void copyFromKgToFileAndProlog(String graphIri, String ttlFile) {
+	public void copyFromKgToFileAndProlog(String graphIri, String graphName) {
 		
 		Model model = con.fetch(graphIri);		
 		model.setNsPrefixes(getPrefixes());
 		copyFromKgToProlog(model, graphIri);
 		
-		try(OutputStream fileOut = Files.newOutputStream(Paths.get(ttlFile))) {
+		Path namedGraphDir = Paths.get(GLOBAL.NAMED_GRAPH_FOLDER);
+		if(Files.notExists(namedGraphDir)) {
+			try { Files.createDirectory(namedGraphDir);
+			} catch (IOException e) { e.printStackTrace(); }
+		}
+
+		
+		try(OutputStream fileOut = Files.newOutputStream(namedGraphDir.resolve(graphName + ".ttl"))) {
 			RDFDataMgr.write(fileOut, model, Lang.TTL);
 		} catch (IOException e) { e.printStackTrace(); }
 
@@ -173,8 +181,6 @@ public class KGModuleSystem {
 	/** replicate a named graph from the KG in Prolog-RDF-DB
 	 * 
 	 *  it is assumed that the named graph is committed and does not change anymore
-	 *  
-	 *  also writes a copy in TTL format to the file system
 	 *  */
 	public void copyFromKgToProlog(Model model, String graphIri) {
 		
