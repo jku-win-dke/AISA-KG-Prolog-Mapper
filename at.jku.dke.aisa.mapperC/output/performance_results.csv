@@ -1,7 +1,7 @@
-Current time milliseconds;Mapping Variant;Number of data copies;Jena Fuseki connection establishment;Loading shacl schema files;Loading data files;Fetching shacl schema;Creating KnowledgeGraphClasses and KnowledgeGraphProperties;Creating facts file;Consult Program;Invoke run/0 in Prolog;Invoke save/0 in Prolog;Load saved results to Fuseki;Execution time in milliseconds
-1631792342267;C;1;1176;3094;51;2674;161;151;840;0;85;8247
-1631792352648;C;10;1192;3169;777;3363;91;70;586;0;85;9348
-1631792369440;C;100;1183;2934;4045;5981;91;78;936;69;116;15448
-1631792390997;C;200;1564;3050;6291;7367;90;81;1771;138;100;20452
-1631792418628;C;300;1130;3561;8860;9776;99;70;2415;217;207;26350
-1631792488418;C;1000;1212;2836;25156;23444;69;94;14128;1141;232;68327
+Current time milliseconds;Mapping Variant;Number of data copies;Jena Fuseki connection establishment;Loading shacl schema files;Loading data files;Fetching shacl schema;Fetching and writing data set;Creating KnowledgeGraphClasses and KnowledgeGraphProperties;Creating facts file;Consult Program;Invoke run/0 in Prolog;Invoke save/0 in Prolog;Load saved results to Fuseki;Execution time in milliseconds
+1632138347662;C;1;3945;1753;72;834;2042;97;82;611;6;74;26;9542
+1632138359603;C;10;3872;2018;519;836;2356;80;74;717;20;75;18;10585
+1632138377091;C;100;3944;1718;3091;883;4947;109;119;1033;150;85;9;16088
+1632138400064;C;200;3918;2026;6207;940;6251;78;64;1682;345;98;10;21619
+1632138428468;C;300;4130;1745;7732;902;9118;68;77;2555;524;150;17;27018
+1632138503962;C;1000;3903;1774;25902;1084;24250;78;62;13699;2723;235;24;73734

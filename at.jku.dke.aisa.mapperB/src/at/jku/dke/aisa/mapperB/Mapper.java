@@ -22,11 +22,11 @@ import org.apache.jena.shared.PrefixMapping;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 /**
- * The main task of the Mapper is to create SPARQL queries and Prolog facts.
+ * The main task of the Mapper is to create SPARQL queries and Prolog rules.
  * 
  * Takes shacl graph, parsed shacl shapes, prefixes and the graph name as input.
  * For each target shape as input a KnowledgeGraphClass is created and for each property of the shape a KnowledgeGraphProperty.
- * KnowledgeGraphClass and KnowledgeGraphProperty are used for easier creation of SPARQL queries and Prolog facts.
+ * KnowledgeGraphClass and KnowledgeGraphProperty are used for easier creation of SPARQL queries and Prolog rules.
  */
 public class Mapper {
 

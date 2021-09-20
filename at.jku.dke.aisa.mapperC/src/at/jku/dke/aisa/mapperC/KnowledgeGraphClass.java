@@ -18,7 +18,7 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 /**
  * Depicts a NodeShape of the shacl graph.
  * For each PropertyShape of the given shape, a KnowledgeGraphProperty is created which is linked to this KnowledgeGraphClass.
- * Creates the respective SPARQL query at creation time and the Prolog schema comment.
+ * Creates the respective Prolog schema comment.
  */
 public class KnowledgeGraphClass {
 
@@ -26,11 +26,8 @@ public class KnowledgeGraphClass {
 	public Shape rootShape;
 	public boolean isSuperClass;
 	public boolean isSubClass;
-	private KnowledgeGraphClass isSubClassOf;
 	private String graphName;
 	private List<KnowledgeGraphProperty> knowledgeGraphProperties = new ArrayList<>();
-	
-	private String sparqlQuery;
 	
 	// created by generateNamesTargetsPrefixes()
 	public String predicateName;
@@ -57,7 +54,6 @@ public class KnowledgeGraphClass {
 		this.nameOfTargetsWithShortPrefix = getNameOfTargetsWithPrefixShort();
 		
 		createProperties();
-		generateSPARQLQuery();
 	}
 	
 	/**
@@ -69,86 +65,6 @@ public class KnowledgeGraphClass {
 			KnowledgeGraphProperty knowledgeGraphProperty = new KnowledgeGraphProperty(this, property);
 			knowledgeGraphProperties.add(knowledgeGraphProperty);
 		}
-	}
-	
-	/**
-	 * Generates the SPARQL query of this KnowledgeGraphClass.
-	 */
-	private void generateSPARQLQuery() {
-		sparqlQuery = generateSelect() //
-					+ generateWhere();
-	}
-
-	/**
-	 * Returns the SPARQL query of this KnowledgeGraphClass.
-	 * 
-	 * @return
-	 */
-	public String getSPARQLQuery() {
-		return this.sparqlQuery;
-	}
-	
-	/**
-	 * Generates the select part of the SPARQL query.
-	 * 
-	 * @return
-	 */
-	private String generateSelect() {
-		String select = "SELECT ?graph ?" + predicateName;
-		for(KnowledgeGraphProperty property : knowledgeGraphProperties) {
-			select += " " + property.getSelectFragment();
-		}
-		select += '\n';
-		return select;
-	}
-	
-	/**
-	 * Generates the where part of the SPARQL query.
-	 * 
-	 * @return
-	 */
-	private String generateWhere() {
-		String where = "WHERE" + '\n';
-		if(isSuperClass) {
-			where += " {" + '\n';
-			where += "  GRAPH <" + graphName + "> {" +'\n'
-					+ "    ?SUBCLASS rdfs:subClassOf* " + nameOfTargetsWithShortPrefix + " ." + '\n'
-					+ "  }" + '\n';
-		}
-		
-		where += "  { GRAPH ?graph" + '\n';
-		where += "    {" + '\n';
-		
-		if(isSuperClass) {
-			where += "      ?" + predicateName + " " + getShapeType() + " ?SUBCLASS ." + '\n';
-		} else {
-			where += "      ?" + predicateName + " " + getShapeType() + " " + nameOfTargetsWithShortPrefix + " ." + '\n';
-		}
-		boolean groupByNeeded = false;
-		String groupBy = "";
-		for(KnowledgeGraphProperty knowledgeGraphPropery : knowledgeGraphProperties) {
-			where += knowledgeGraphPropery.getWhereFragment();
-			if(knowledgeGraphPropery.maxCount > 1 || knowledgeGraphPropery.maxCount == -1) {
-				groupByNeeded = true;
-			}
-			if(knowledgeGraphPropery.maxCount == 1) {
-				groupBy += " ?" + knowledgeGraphPropery.getName();
-			}
-		}
-		
-		where += "    }" + '\n';
-		where += "  }" + '\n';
-		
-		
-		if(isSuperClass) {
-			where += "}" + '\n';
-		}
-		
-		if(groupByNeeded) {
-			where += "GROUP BY ?graph ?" + predicateName + groupBy + '\n';
-		}
-
-		return where;
 	}
 
 	/**

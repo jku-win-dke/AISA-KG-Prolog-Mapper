@@ -27,7 +27,6 @@ public class KnowledgeGraphClass {
 	public Shape rootShape;
 	public boolean isSuperClass;
 	public boolean isSubClass;
-	private KnowledgeGraphClass isSubClassOf;
 	private String graphName;
 	private List<KnowledgeGraphProperty> knowledgeGraphProperties = new ArrayList<>();
 	

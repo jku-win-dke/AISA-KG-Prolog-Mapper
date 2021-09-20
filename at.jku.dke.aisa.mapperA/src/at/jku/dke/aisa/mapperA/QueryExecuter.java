@@ -66,17 +66,10 @@ public class QueryExecuter {
 	private void executeQuery(String query, KnowledgeGraphClass schemaForGeneratingFacts) {
 		try(QueryExecution queryExecution = fuseki.query(query)) {
 			ResultSet resultSet = queryExecution.execSelect();
-//			boolean printSchema = resultSet.hasNext();
-//			if(printSchema) {
-//				printWriter.println(schemaForGeneratingFacts.generateComment());
-//			}
 			while(resultSet.hasNext()) {
 				QuerySolution querySolution = resultSet.nextSolution();
 				printWriter.println(mapper.generateFact(querySolution, schemaForGeneratingFacts));
 			}
-//			if(printSchema) {
-//				printWriter.println();
-//			}
 		}
 	}
 }

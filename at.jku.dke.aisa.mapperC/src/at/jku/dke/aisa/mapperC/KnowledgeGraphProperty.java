@@ -24,9 +24,6 @@ public class KnowledgeGraphProperty {
 	private String nameOfPathWithShortPrefix;
 	public boolean isShaclClass;
 	
-	private String selectFragment;
-	private String whereFragment;
-	
 	/**
 	 * Takes the respective KnowledgeGraphClass and PropertyShape as input and creates all required variables for later use.
 	 * 
@@ -43,9 +40,6 @@ public class KnowledgeGraphProperty {
 		this.isList = maxCount != 1;
 		this.nameOfPathWithShortPrefix = getNameOfPathWithShortPrefix();
 		this.isShaclClass = checkIfPropertyIsShaclClass();
-		
-		createSelectFragment();
-		createWhereFragment();
 	}
 
 	/**
@@ -57,105 +51,6 @@ public class KnowledgeGraphProperty {
 	 */
 	public String getName() {
 		return this.name;
-	}
-	
-	/**
-	 * Creates select fragment, which is used later for SPARQL query generation.
-	 * 
-	 * e.g.: (GROUP_CONCAT(DISTINCT ?annotation;SEPARATOR=",") AS ?annotationConcat)
-	 */
-	private void createSelectFragment() {
-		if(maxCount > 1 || maxCount == -1) {
-			this.selectFragment = "(GROUP_CONCAT(DISTINCT ?" + name + ";SEPARATOR=\",\") AS ?" + name + "Concat)";
-		} else {
-			this.selectFragment = "?" + name;
-		}
-	}
-
-	/**
-	 * Returns the in the constructor created select fragment of the property.
-	 * 
-	 * @return
-	 */
-	public String getSelectFragment() {
-		return this.selectFragment;
-	}
-	
-	
-	/**
-	 * Creates the where fragment, which is used later for SPARQL query generation.
-	 * 
-	 * e.g.: OPTIONAL {?city aixm:annotation ?annotation .}
-	 */
-	private void createWhereFragment() {
-		if(isShaclClass && minCount == 1) {
-			whereFragment = "      ?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + " ?" + name + " ." + '\n';
-		} else if(isShaclClass && minCount == 0) {
-			whereFragment = "      OPTIONAL {?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + " ?" + name + " ." + "}" + '\n';
-		} else if(minCount == 1) {
-			whereFragment = "      ?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + "  ?_" + name + " ." + '\n' //
-					+ "        {" + '\n' //
-					+ "          {" + '\n' //
-					+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
-					+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
-					+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
-					+ "          }" + '\n' //
-					+ "		     UNION" + '\n' //
-					+ "		     {" + '\n' //
-					+ "            ?_" + name + "\n" //
-					+ "              rdf:value ?" + name + "Value ;" + '\n' //
-					+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
-					+ "              BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
-					+ "          }" + '\n' //
-					+ "          UNION" + '\n' //
-					+ "          {" + '\n' //
-					+ "		       ?_" + name + "  aixm:nilReason ?" + name + "NilReason ." + '\n'
-					+ "		       BIND(concat('nil:',?" + name + "NilReason) AS ?" + name + ")" + '\n' //
-					+ "		     }" + '\n' //
-					+ "          UNION" + '\n' //
-					+ "          {" + '\n' //
-					+ "		       ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
-					+ "		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?" + name + ")" + '\n' //
-					+ "		     }" + '\n' //
-					+ "      }" + '\n'; //
-		} else {
-			whereFragment = "      OPTIONAL { ?" + knowledgeGraphClass.predicateName + " " + nameOfPathWithShortPrefix + " ?_" + name + " ." + '\n' //
-							+ "        {" + '\n' //
-							+ "          {" + '\n' //
-							+ "            ?_" + name + " rdf:value ?" + name + "Value ." +'\n' //
-							+ "            FILTER ( NOT EXISTS {?_" + name + " (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM})" + '\n' //
-							+ "            BIND(concat('val:',?" + name + "Value) AS ?" + name + ")" + '\n' //
-							+ "          }" + '\n' //
-							+ "            UNION" + '\n' //
-							+ "          {" + '\n' //
-							+ "            ?_" + name + "\n" //
-							+ "              rdf:value ?" + name + "Value ;" + '\n' //
-							+ "              (aixm:uom | fixm:uom | plain:uom) ?" + name + "UoM ." + '\n' //
-							+ "            BIND(concat('xval:',STR(?" + name + "Value),':',?" + name + "UoM) AS ?" + name + ")" + '\n' //
-							+ "          }" + '\n' //
-							+ "            UNION" + '\n' //
-							+ "          {" + '\n' //
-							+ "           ?_" + name + "  aixm:nilReason ?" + name + "NilReason ." + '\n'
-							+ "           BIND(concat('nil:',?" + name + "NilReason) AS ?" + name + ")" + '\n' //
-							+ "          }" + '\n' //
-							+ "          UNION" + '\n' //
-							+ "          {" + '\n' //
-							+ "		       ?_" + name + "  gml:indeterminatePosition ?indeterminatePosition ." + '\n'
-							+ "		       BIND(concat('indeterminate:',?indeterminatePosition) AS ?" + name + ")" + '\n' //
-							+ "		     }" + '\n' //
-							+ "        }" + '\n' //
-							+ "      }" + '\n';
-
-		}
-	}
-	
-	/**
-	 * Returns the in the constructor created where fragment of the property.
-	 * 
-	 * @return
-	 */
-	public String getWhereFragment() {
-		return this.whereFragment;
 	}
 	
 	/**

@@ -24,11 +24,11 @@ import org.apache.jena.shared.PrefixMapping;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 /**
- * The main task of the Mapper is to create SPARQL queries and Prolog facts.
+ * The main task of the Mapper is to create Prolog rules.
  * 
  * Takes shacl graph, parsed shacl shapes, prefixes and the graph name as input.
  * For each target shape as input a KnowledgeGraphClass is created and for each property of the shape a KnowledgeGraphProperty.
- * KnowledgeGraphClass and KnowledgeGraphProperty are used for easier creation of SPARQL queries and Prolog facts.
+ * KnowledgeGraphClass and KnowledgeGraphProperty are used for easier creation of Prolog facts.
  */
 public class Mapper {
 
@@ -128,32 +128,6 @@ public class Mapper {
 	private String getPrefixMapping(Node node, Shape rootShape) {
 		String prefixMapping = node.toString(rootShape.getShapeGraph().getPrefixMapping());
 		return node.toString().equals(prefixMapping) ? "<" + node.toString() + ">" : prefixMapping;
-	}
-	
-	/**
-	 * Prints the sparql queries with the given PrintWriter.
-	 * @param printWriter
-	 */
-	public void generateSPARQLQueries(PrintWriter printWriter) {
-		for(KnowledgeGraphClass knowledgeGraphClass : knowledgeGraphClasses) {
-			printWriter.print(generatePrefixes());
-			printWriter.println(knowledgeGraphClass.getSPARQLQuery() + '\n');
-		}
-	}
-
-	/**
-	 * For each query the prefixes are generated.
-	 * 
-	 * e.g.: PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#>
-	 * 
-	 */
-	private String generatePrefixes() {
-		String prefixes = "";
-		for(Entry<String, String> entry : orderedPrefixes.entrySet()) {
-			prefixes += "PREFIX " + entry.getKey() + ": <" + entry.getValue() + ">" + '\n';
-		}
-		prefixes += '\n';
-		return prefixes;
 	}
 	
 	/**

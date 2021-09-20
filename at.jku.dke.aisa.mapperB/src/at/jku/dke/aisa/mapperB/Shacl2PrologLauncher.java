@@ -17,10 +17,16 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Main class to map shacl shapes and data to sparql queries and Prolog facts.
+ * 
+ * Generates a Prolog module from the RDFS/SHACL schema with the predicates that are linked to the respective SPARQL queries by means of Prolog rules.
+ * The SPARQL queries for filling the predicates are only executed from Prolog at runtime. The Mapping Generator produces a target Prolog schema (i.e., a set of target predicates), 
+ * schema-specific SPARQL Select Queries (one query per target predicate) and Prolog rules (one per target predicate) in which the queries are embedded. The Schema-aware Runtime System 
+ * invokes the Prolog program which in turn calls the Prolog rules with the embedded SPARQL queries.
+ * 
  * An additional prefix file is used for the prefix mapping of the facts.
  * 
  * Input files: shacl shapes, data and prefixes
- * Output files: sparql queries, Prolog facts
+ * Output files: Prolog rules with embedded SPARQL queries
  */
 public class Shacl2PrologLauncher {
 
@@ -52,15 +58,6 @@ public class Shacl2PrologLauncher {
 			data_copies = Integer.parseInt(args[0]);
 		}
 		System.out.println("Number of data copies: " + data_copies);
-		
-		// can be configured to start jena fuseki server otherwise just start jena fuseki manually
-//		ProcessBuilder builder = new ProcessBuilder("cmd", "/c", this.floraBatchFileInWorkingDir);
-//		builder.directory( new File(this.workingDir) );
-//		builder.redirectErrorStream(true); // so we can ignore the error stream
-// 		builder.start();
-//		Process process;
-//		process = builder.start();
-//		process.destroy();
 		
 		long startTime = System.currentTimeMillis();
 		
