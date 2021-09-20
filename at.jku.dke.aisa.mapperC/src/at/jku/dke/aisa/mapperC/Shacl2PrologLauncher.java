@@ -159,7 +159,7 @@ public class Shacl2PrologLauncher {
         System.out.println("Fetching shacl schema: " + (time_four - time_three));
         System.out.println("Fetching and writing data set: " + (time_five - time_four));
         System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_six - time_five));
-        System.out.println("Creating facts file: " + (time_seven - time_six));
+        System.out.println("Creating mapping rules: " + (time_seven - time_six));
         System.out.println("Consult Program: " + (time_eight - time_seven));
         System.out.println("Invoke run/0 in Prolog: " + (time_nine - time_eight));
         System.out.println("Invoke save/0 in Prolog: " + (time_ten - time_nine));
@@ -191,7 +191,7 @@ public class Shacl2PrologLauncher {
             			+ ";" + "Fetching shacl schema" //
             			+ ";" + "Fetching and writing data set"
             			+ ";" + "Creating KnowledgeGraphClasses and KnowledgeGraphProperties" //
-            			+ ";" + "Creating facts file" //
+            			+ ";" + "Creating mapping rules" //
             			+ ";" + "Consult Program" //
             			+ ";" + "Invoke run/0 in Prolog" //
             			+ ";" + "Invoke save/0 in Prolog" //
