@@ -252,7 +252,7 @@ WHERE
   }
 
       '
-,row(Graph,PostalAddress,AdministrativeArea,PostalCode,DeliveryPoint,CountryCode,CountryName,City),[]), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(DeliveryPoint,DeliveryPointVal), convVal(CountryCode,CountryCodeVal), convVal(CountryName,CountryNameVal), convVal(City,CityVal)
+,row(Graph,PostalAddress,AdministrativeArea,PostalCode,DeliveryPoint,CountryCode,CountryName,City),[]), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(DeliveryPoint,DeliveryPointVal), convVal(CountryCode,CountryCodeVal), convVal(CountryName,CountryNameVal), convVal(City,CityVal) )
 ,
 assertz( fixm_PostalAddress(Graph, PostalAddress, AdministrativeAreaVal, PostalCodeVal, DeliveryPointVal, CountryCodeVal, CountryNameVal, CityVal) )
 ),
@@ -367,7 +367,7 @@ WHERE
 GROUP BY ?graph ?navigationCapabilities ?otherNavigationCapabilities
 
       '
-,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCodeConcat,NavigationCodeConcat),[]), convVal(OtherNavigationCapabilities,OtherNavigationCapabilitiesVal), convert(PerformanceBasedCodeConcat,PerformanceBasedCodeList), convert(NavigationCodeConcat,NavigationCodeList)
+,row(Graph,NavigationCapabilities,OtherNavigationCapabilities,PerformanceBasedCodeConcat,NavigationCodeConcat),[]), convVal(OtherNavigationCapabilities,OtherNavigationCapabilitiesVal), convert(PerformanceBasedCodeConcat,PerformanceBasedCodeList), convert(NavigationCodeConcat,NavigationCodeList) )
 ,
 assertz( fixm_NavigationCapabilities(Graph, NavigationCapabilities, OtherNavigationCapabilitiesVal, PerformanceBasedCodeList, NavigationCodeList) )
 ),
@@ -455,7 +455,7 @@ WHERE
   }
 
       '
-,row(Graph,GroundspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal)
+,row(Graph,GroundspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal) )
 ,
 assertz( fixm_GroundspeedRange(Graph, GroundspeedRange, LowerSpeedVal, UpperSpeedVal) )
 ),
@@ -545,7 +545,7 @@ WHERE
 GROUP BY ?graph ?note ?propertyName ?purpose
 
       '
-,row(Graph,Note,PropertyName,Purpose,TranslatedNoteConcat),[]), convVal(PropertyName,PropertyNameVal), convVal(Purpose,PurposeVal), convert(TranslatedNoteConcat,TranslatedNoteList)
+,row(Graph,Note,PropertyName,Purpose,TranslatedNoteConcat),[]), convVal(PropertyName,PropertyNameVal), convVal(Purpose,PurposeVal), convert(TranslatedNoteConcat,TranslatedNoteList) )
 ,
 assertz( aixm_Note(Graph, Note, PropertyNameVal, PurposeVal, TranslatedNoteList) )
 ),
@@ -584,7 +584,7 @@ WHERE
 GROUP BY ?graph ?pointout ?originatingUnit
 
       '
-,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convVal(OriginatingUnit,OriginatingUnitVal), convert(ReceivingUnitConcat,ReceivingUnitList)
+,row(Graph,Pointout,OriginatingUnit,ReceivingUnitConcat),[]), convVal(OriginatingUnit,OriginatingUnitVal), convert(ReceivingUnitConcat,ReceivingUnitList) )
 ,
 assertz( fixm_Pointout(Graph, Pointout, OriginatingUnitVal, ReceivingUnitList) )
 ),
@@ -672,7 +672,7 @@ WHERE
   }
 
       '
-,row(Graph,VerticalRange,LowerBound,UpperBound),[]), convVal(LowerBound,LowerBoundVal), convVal(UpperBound,UpperBoundVal)
+,row(Graph,VerticalRange,LowerBound,UpperBound),[]), convVal(LowerBound,LowerBoundVal), convVal(UpperBound,UpperBoundVal) )
 ,
 assertz( fixm_VerticalRange(Graph, VerticalRange, LowerBoundVal, UpperBoundVal) )
 ),
@@ -762,7 +762,7 @@ WHERE
 GROUP BY ?graph ?expandedRoutePoint ?estimatedLevel ?estimatedTime
 
       '
-,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convVal(EstimatedLevel,EstimatedLevelVal), convVal(EstimatedTime,EstimatedTimeVal), convert(ConstraintConcat,ConstraintList)
+,row(Graph,ExpandedRoutePoint,EstimatedLevel,EstimatedTime,ConstraintConcat),[]), convVal(EstimatedLevel,EstimatedLevelVal), convVal(EstimatedTime,EstimatedTimeVal), convert(ConstraintConcat,ConstraintList) )
 ,
 assertz( fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevelVal, EstimatedTimeVal, ConstraintList) )
 ),
@@ -902,7 +902,7 @@ WHERE
   }
 
       '
-,row(Graph,ElevatedSurface,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal)
+,row(Graph,ElevatedSurface,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal) )
 ,
 assertz( aixm_ElevatedSurface(Graph, ElevatedSurface, ElevationVal, GeoidUndulationVal, VerticalDatumVal, VerticalAccuracyVal) )
 ),
@@ -1016,7 +1016,7 @@ WHERE
   }
 
       '
-,row(Graph,Dimensions,Height,Length,Width),[]), convVal(Height,HeightVal), convVal(Length,LengthVal), convVal(Width,WidthVal)
+,row(Graph,Dimensions,Height,Length,Width),[]), convVal(Height,HeightVal), convVal(Length,LengthVal), convVal(Width,WidthVal) )
 ,
 assertz( fixm_Dimensions(Graph, Dimensions, HeightVal, LengthVal, WidthVal) )
 ),
@@ -1105,7 +1105,7 @@ WHERE
   }
 
       '
-,row(Graph,StandPositionAndTime,StandName,StandTime,TerminalName),[]), convVal(StandName,StandNameVal), convVal(StandTime,StandTimeVal), convVal(TerminalName,TerminalNameVal)
+,row(Graph,StandPositionAndTime,StandName,StandTime,TerminalName),[]), convVal(StandName,StandNameVal), convVal(StandTime,StandTimeVal), convVal(TerminalName,TerminalNameVal) )
 ,
 assertz( fixm_StandPositionAndTime(Graph, StandPositionAndTime, StandNameVal, StandTimeVal, TerminalNameVal) )
 ),
@@ -1168,7 +1168,7 @@ WHERE
   }
 
       '
-,row(Graph,RouteSegment,Airway,RoutePoint),[]), convVal(Airway,AirwayVal), convVal(RoutePoint,RoutePointVal)
+,row(Graph,RouteSegment,Airway,RoutePoint),[]), convVal(Airway,AirwayVal), convVal(RoutePoint,RoutePointVal) )
 ,
 assertz( fixm_RouteSegment(Graph, RouteSegment, AirwayVal, RoutePointVal) )
 ),
@@ -1235,7 +1235,7 @@ WHERE
 GROUP BY ?graph ?conditionCombination ?logicalOperator
 
       '
-,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convVal(LogicalOperator,LogicalOperatorVal), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList)
+,row(Graph,ConditionCombination,LogicalOperator,FlightConcat,AircraftConcat,WeatherConcat,SubConditionConcat),[]), convVal(LogicalOperator,LogicalOperatorVal), convert(FlightConcat,FlightList), convert(AircraftConcat,AircraftList), convert(WeatherConcat,WeatherList), convert(SubConditionConcat,SubConditionList) )
 ,
 assertz( aixm_ConditionCombination(Graph, ConditionCombination, LogicalOperatorVal, FlightList, AircraftList, WeatherList, SubConditionList) )
 ),
@@ -1326,7 +1326,7 @@ WHERE
 GROUP BY ?graph ?surfaceContaminationLayer ?layerOrder ?type
 
       '
-,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convVal(LayerOrder,LayerOrderVal), convVal(Type,TypeVal), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList)
+,row(Graph,SurfaceContaminationLayer,LayerOrder,Type,ExtentConcat,AnnotationConcat),[]), convVal(LayerOrder,LayerOrderVal), convVal(Type,TypeVal), convert(ExtentConcat,ExtentList), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_SurfaceContaminationLayer(Graph, SurfaceContaminationLayer, LayerOrderVal, TypeVal, ExtentList, AnnotationList) )
 ),
@@ -1415,7 +1415,7 @@ WHERE
   }
 
       '
-,row(Graph,Organization,Name,OtherOrganization,Contact),[]), convVal(Name,NameVal), convVal(OtherOrganization,OtherOrganizationVal), convVal(Contact,ContactVal)
+,row(Graph,Organization,Name,OtherOrganization,Contact),[]), convVal(Name,NameVal), convVal(OtherOrganization,OtherOrganizationVal), convVal(Contact,ContactVal) )
 ,
 assertz( fixm_Organization(Graph, Organization, NameVal, OtherOrganizationVal, ContactVal) )
 ),
@@ -1480,7 +1480,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityAssociation ?type ?theOrganisationAuthority
 
       '
-,row(Graph,OrganisationAuthorityAssociation,Type,AnnotationConcat,TheOrganisationAuthority),[]), convVal(Type,TypeVal), convert(AnnotationConcat,AnnotationList), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal)
+,row(Graph,OrganisationAuthorityAssociation,Type,AnnotationConcat,TheOrganisationAuthority),[]), convVal(Type,TypeVal), convert(AnnotationConcat,AnnotationList), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal) )
 ,
 assertz( aixm_OrganisationAuthorityAssociation(Graph, OrganisationAuthorityAssociation, TypeVal, AnnotationList, TheOrganisationAuthorityVal) )
 ),
@@ -1620,7 +1620,7 @@ WHERE
   }
 
       '
-,row(Graph,ElevatedPoint,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal)
+,row(Graph,ElevatedPoint,Elevation,GeoidUndulation,VerticalDatum,VerticalAccuracy),[]), convVal(Elevation,ElevationVal), convVal(GeoidUndulation,GeoidUndulationVal), convVal(VerticalDatum,VerticalDatumVal), convVal(VerticalAccuracy,VerticalAccuracyVal) )
 ,
 assertz( aixm_ElevatedPoint(Graph, ElevatedPoint, ElevationVal, GeoidUndulationVal, VerticalDatumVal, VerticalAccuracyVal) )
 ),
@@ -1657,7 +1657,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplPoint4D,FlightLevel),[]), convVal(FlightLevel,FlightLevelVal)
+,row(Graph,EfplPoint4D,FlightLevel),[]), convVal(FlightLevel,FlightLevelVal) )
 ,
 assertz( fixm_EfplPoint4D(Graph, EfplPoint4D, FlightLevelVal) )
 ),
@@ -1745,7 +1745,7 @@ WHERE
   }
 
       '
-,row(Graph,AircraftOperator,OperatingOrganization,OperatorCategory),[]), convVal(OperatingOrganization,OperatingOrganizationVal), convVal(OperatorCategory,OperatorCategoryVal)
+,row(Graph,AircraftOperator,OperatingOrganization,OperatorCategory),[]), convVal(OperatingOrganization,OperatingOrganizationVal), convVal(OperatorCategory,OperatorCategoryVal) )
 ,
 assertz( fixm_AircraftOperator(Graph, AircraftOperator, OperatingOrganizationVal, OperatorCategoryVal) )
 ),
@@ -1786,7 +1786,7 @@ WHERE
 }
 
       '
-,row(Graph,Point),[])
+,row(Graph,Point),[]) )
 ,
 assertz( gml_Point(Graph, Point) )
 ),
@@ -1822,7 +1822,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplTrajectoryRoutePair),[])
+,row(Graph,EfplTrajectoryRoutePair),[]) )
 ,
 assertz( fixm_EfplTrajectoryRoutePair(Graph, EfplTrajectoryRoutePair) )
 ),
@@ -1860,7 +1860,7 @@ WHERE
 GROUP BY ?graph ?routePoint
 
       '
-,row(Graph,RoutePoint,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList)
+,row(Graph,RoutePoint,ConstraintConcat),[]), convert(ConstraintConcat,ConstraintList) )
 ,
 assertz( fixm_RoutePoint(Graph, RoutePoint, ConstraintList) )
 ),
@@ -1975,7 +1975,7 @@ WHERE
   }
 
       '
-,row(Graph,BeaconCodeAssignment,CurrentBeaconCode,PreviousBeaconCode,ReassignedBeaconCode,ReassigningUnit),[]), convVal(CurrentBeaconCode,CurrentBeaconCodeVal), convVal(PreviousBeaconCode,PreviousBeaconCodeVal), convVal(ReassignedBeaconCode,ReassignedBeaconCodeVal), convVal(ReassigningUnit,ReassigningUnitVal)
+,row(Graph,BeaconCodeAssignment,CurrentBeaconCode,PreviousBeaconCode,ReassignedBeaconCode,ReassigningUnit),[]), convVal(CurrentBeaconCode,CurrentBeaconCodeVal), convVal(PreviousBeaconCode,PreviousBeaconCodeVal), convVal(ReassignedBeaconCode,ReassignedBeaconCodeVal), convVal(ReassigningUnit,ReassigningUnitVal) )
 ,
 assertz( fixm_BeaconCodeAssignment(Graph, BeaconCodeAssignment, CurrentBeaconCodeVal, PreviousBeaconCodeVal, ReassignedBeaconCodeVal, ReassigningUnitVal) )
 ),
@@ -2014,7 +2014,7 @@ WHERE
 GROUP BY ?graph ?flightPerformanceData
 
       '
-,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList)
+,row(Graph,FlightPerformanceData,ClimbProfileConcat,DescentProfileConcat),[]), convert(ClimbProfileConcat,ClimbProfileList), convert(DescentProfileConcat,DescentProfileList) )
 ,
 assertz( fixm_FlightPerformanceData(Graph, FlightPerformanceData, ClimbProfileList, DescentProfileList) )
 ),
@@ -2052,7 +2052,7 @@ WHERE
 GROUP BY ?graph ?expandedRoute
 
       '
-,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList)
+,row(Graph,ExpandedRoute,RoutePointConcat),[]), convert(RoutePointConcat,RoutePointList) )
 ,
 assertz( fixm_ExpandedRoute(Graph, ExpandedRoute, RoutePointList) )
 ),
@@ -2114,7 +2114,7 @@ WHERE
   }
 
       '
-,row(Graph,RouteConstraintOrPreference,ConstraintType),[]), convVal(ConstraintType,ConstraintTypeVal)
+,row(Graph,RouteConstraintOrPreference,ConstraintType),[]), convVal(ConstraintType,ConstraintTypeVal) )
 ,
 assertz( fixm_RouteConstraintOrPreference(Graph, RouteConstraintOrPreference, ConstraintTypeVal) )
 ),
@@ -2228,7 +2228,7 @@ WHERE
   }
 
       '
-,row(Graph,DeclarationText,Compliance,Consignor,Shipper),[]), convVal(Compliance,ComplianceVal), convVal(Consignor,ConsignorVal), convVal(Shipper,ShipperVal)
+,row(Graph,DeclarationText,Compliance,Consignor,Shipper),[]), convVal(Compliance,ComplianceVal), convVal(Consignor,ConsignorVal), convVal(Shipper,ShipperVal) )
 ,
 assertz( fixm_DeclarationText(Graph, DeclarationText, ComplianceVal, ConsignorVal, ShipperVal) )
 ),
@@ -2316,7 +2316,7 @@ WHERE
   }
 
       '
-,row(Graph,EstimatedElapsedTime,ElapsedTime,Location),[]), convVal(ElapsedTime,ElapsedTimeVal), convVal(Location,LocationVal)
+,row(Graph,EstimatedElapsedTime,ElapsedTime,Location),[]), convVal(ElapsedTime,ElapsedTimeVal), convVal(Location,LocationVal) )
 ,
 assertz( fixm_EstimatedElapsedTime(Graph, EstimatedElapsedTime, ElapsedTimeVal, LocationVal) )
 ),
@@ -2379,7 +2379,7 @@ WHERE
   }
 
       '
-,row(Graph,ReportedTime,Provenance,Time),[]), convVal(Provenance,ProvenanceVal), convVal(Time,TimeVal)
+,row(Graph,ReportedTime,Provenance,Time),[]), convVal(Provenance,ProvenanceVal), convVal(Time,TimeVal) )
 ,
 assertz( fixm_ReportedTime(Graph, ReportedTime, ProvenanceVal, TimeVal) )
 ),
@@ -2473,7 +2473,7 @@ WHERE
 GROUP BY ?graph ?geographicLocation ?srsName
 
       '
-,row(Graph,GeographicLocation,PosConcat,SrsName),[]), convert(PosConcat,PosList), convVal(SrsName,SrsNameVal)
+,row(Graph,GeographicLocation,PosConcat,SrsName),[]), convert(PosConcat,PosList), convVal(SrsName,SrsNameVal) )
 ,
 assertz( fixm_GeographicLocation(Graph, GeographicLocation, PosList, SrsNameVal) )
 ),
@@ -2535,7 +2535,7 @@ WHERE
   }
 
       '
-,row(Graph,LinguisticNote,Note),[]), convVal(Note,NoteVal)
+,row(Graph,LinguisticNote,Note),[]), convVal(Note,NoteVal) )
 ,
 assertz( aixm_LinguisticNote(Graph, LinguisticNote, NoteVal) )
 ),
@@ -2703,7 +2703,7 @@ WHERE
 GROUP BY ?graph ?meteorology ?flightConditions ?visibility ?visibilityInterpretation ?runwayVisualRange ?runwayVisualRangeInterpretation
 
       '
-,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convVal(FlightConditions,FlightConditionsVal), convVal(Visibility,VisibilityVal), convVal(VisibilityInterpretation,VisibilityInterpretationVal), convVal(RunwayVisualRange,RunwayVisualRangeVal), convVal(RunwayVisualRangeInterpretation,RunwayVisualRangeInterpretationVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,Meteorology,FlightConditions,Visibility,VisibilityInterpretation,RunwayVisualRange,RunwayVisualRangeInterpretation,AnnotationConcat),[]), convVal(FlightConditions,FlightConditionsVal), convVal(Visibility,VisibilityVal), convVal(VisibilityInterpretation,VisibilityInterpretationVal), convVal(RunwayVisualRange,RunwayVisualRangeVal), convVal(RunwayVisualRangeInterpretation,RunwayVisualRangeInterpretationVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_Meteorology(Graph, Meteorology, FlightConditionsVal, VisibilityVal, VisibilityInterpretationVal, RunwayVisualRangeVal, RunwayVisualRangeInterpretationVal, AnnotationList) )
 ),
@@ -2742,7 +2742,7 @@ WHERE
   }
 
       '
-,row(Graph,PointRange,LateralRange,VerticalRange,TemporalRange),[]), convVal(LateralRange,LateralRangeVal), convVal(VerticalRange,VerticalRangeVal), convVal(TemporalRange,TemporalRangeVal)
+,row(Graph,PointRange,LateralRange,VerticalRange,TemporalRange),[]), convVal(LateralRange,LateralRangeVal), convVal(VerticalRange,VerticalRangeVal), convVal(TemporalRange,TemporalRangeVal) )
 ,
 assertz( fixm_PointRange(Graph, PointRange, LateralRangeVal, VerticalRangeVal, TemporalRangeVal) )
 ),
@@ -2806,7 +2806,7 @@ WHERE
 GROUP BY ?graph ?city ?name
 
       '
-,row(Graph,City,Name,AnnotationConcat),[]), convVal(Name,NameVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,City,Name,AnnotationConcat),[]), convVal(Name,NameVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_City(Graph, City, NameVal, AnnotationList) )
 ),
@@ -2869,7 +2869,7 @@ WHERE
   }
 
       '
-,row(Graph,AirportHeliportResponsibilityOrganisation,Role,TheOrganisationAuthority),[]), convVal(Role,RoleVal), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal)
+,row(Graph,AirportHeliportResponsibilityOrganisation,Role,TheOrganisationAuthority),[]), convVal(Role,RoleVal), convVal(TheOrganisationAuthority,TheOrganisationAuthorityVal) )
 ,
 assertz( aixm_AirportHeliportResponsibilityOrganisation(Graph, AirportHeliportResponsibilityOrganisation, RoleVal, TheOrganisationAuthorityVal) )
 ),
@@ -2957,7 +2957,7 @@ WHERE
   }
 
       '
-,row(Graph,AirspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal)
+,row(Graph,AirspeedRange,LowerSpeed,UpperSpeed),[]), convVal(LowerSpeed,LowerSpeedVal), convVal(UpperSpeed,UpperSpeedVal) )
 ,
 assertz( fixm_AirspeedRange(Graph, AirspeedRange, LowerSpeedVal, UpperSpeedVal) )
 ),
@@ -3072,7 +3072,7 @@ WHERE
   }
 
       '
-,row(Graph,RankedTrajectory,Identifier,MaximumAcceptableDelay,AssignedIndicator,RouteTrajectoryPair),[]), convVal(Identifier,IdentifierVal), convVal(MaximumAcceptableDelay,MaximumAcceptableDelayVal), convVal(AssignedIndicator,AssignedIndicatorVal), convVal(RouteTrajectoryPair,RouteTrajectoryPairVal)
+,row(Graph,RankedTrajectory,Identifier,MaximumAcceptableDelay,AssignedIndicator,RouteTrajectoryPair),[]), convVal(Identifier,IdentifierVal), convVal(MaximumAcceptableDelay,MaximumAcceptableDelayVal), convVal(AssignedIndicator,AssignedIndicatorVal), convVal(RouteTrajectoryPair,RouteTrajectoryPairVal) )
 ,
 assertz( fixm_RankedTrajectory(Graph, RankedTrajectory, IdentifierVal, MaximumAcceptableDelayVal, AssignedIndicatorVal, RouteTrajectoryPairVal) )
 ),
@@ -3342,7 +3342,7 @@ WHERE
   }
 
       '
-,row(Graph,TrajectoryPointRole,BottomOfClimb,BottomOfDescent,BoundaryPoint,FromGATToOAT,FromIFRToVFR,FromOATToGat,FromVFRToIFR,TopOfClimb,TopOfDescent),[]), convVal(BottomOfClimb,BottomOfClimbVal), convVal(BottomOfDescent,BottomOfDescentVal), convVal(BoundaryPoint,BoundaryPointVal), convVal(FromGATToOAT,FromGATToOATVal), convVal(FromIFRToVFR,FromIFRToVFRVal), convVal(FromOATToGat,FromOATToGatVal), convVal(FromVFRToIFR,FromVFRToIFRVal), convVal(TopOfClimb,TopOfClimbVal), convVal(TopOfDescent,TopOfDescentVal)
+,row(Graph,TrajectoryPointRole,BottomOfClimb,BottomOfDescent,BoundaryPoint,FromGATToOAT,FromIFRToVFR,FromOATToGat,FromVFRToIFR,TopOfClimb,TopOfDescent),[]), convVal(BottomOfClimb,BottomOfClimbVal), convVal(BottomOfDescent,BottomOfDescentVal), convVal(BoundaryPoint,BoundaryPointVal), convVal(FromGATToOAT,FromGATToOATVal), convVal(FromIFRToVFR,FromIFRToVFRVal), convVal(FromOATToGat,FromOATToGatVal), convVal(FromVFRToIFR,FromVFRToIFRVal), convVal(TopOfClimb,TopOfClimbVal), convVal(TopOfDescent,TopOfDescentVal) )
 ,
 assertz( fixm_TrajectoryPointRole(Graph, TrajectoryPointRole, BottomOfClimbVal, BottomOfDescentVal, BoundaryPointVal, FromGATToOATVal, FromIFRToVFRVal, FromOATToGatVal, FromVFRToIFRVal, TopOfClimbVal, TopOfDescentVal) )
 ),
@@ -3509,7 +3509,7 @@ WHERE
 GROUP BY ?graph ?communicationCapabilities ?otherCommunicationCapabilities ?otherDataLinkCapabilities ?selectiveCallingCode
 
       '
-,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCodeConcat,SelectiveCallingCode,CommunicationCodeConcat),[]), convVal(OtherCommunicationCapabilities,OtherCommunicationCapabilitiesVal), convVal(OtherDataLinkCapabilities,OtherDataLinkCapabilitiesVal), convert(DataLinkCodeConcat,DataLinkCodeList), convVal(SelectiveCallingCode,SelectiveCallingCodeVal), convert(CommunicationCodeConcat,CommunicationCodeList)
+,row(Graph,CommunicationCapabilities,OtherCommunicationCapabilities,OtherDataLinkCapabilities,DataLinkCodeConcat,SelectiveCallingCode,CommunicationCodeConcat),[]), convVal(OtherCommunicationCapabilities,OtherCommunicationCapabilitiesVal), convVal(OtherDataLinkCapabilities,OtherDataLinkCapabilitiesVal), convert(DataLinkCodeConcat,DataLinkCodeList), convVal(SelectiveCallingCode,SelectiveCallingCodeVal), convert(CommunicationCodeConcat,CommunicationCodeList) )
 ,
 assertz( fixm_CommunicationCapabilities(Graph, CommunicationCapabilities, OtherCommunicationCapabilitiesVal, OtherDataLinkCapabilitiesVal, DataLinkCodeList, SelectiveCallingCodeVal, CommunicationCodeList) )
 ),
@@ -3649,7 +3649,7 @@ WHERE
   }
 
       '
-,row(Graph,Dinghy,Quantity,TotalCapacity,Covered,Colour),[]), convVal(Quantity,QuantityVal), convVal(TotalCapacity,TotalCapacityVal), convVal(Covered,CoveredVal), convVal(Colour,ColourVal)
+,row(Graph,Dinghy,Quantity,TotalCapacity,Covered,Colour),[]), convVal(Quantity,QuantityVal), convVal(TotalCapacity,TotalCapacityVal), convVal(Covered,CoveredVal), convVal(Colour,ColourVal) )
 ,
 assertz( fixm_Dinghy(Graph, Dinghy, QuantityVal, TotalCapacityVal, CoveredVal, ColourVal) )
 ),
@@ -3742,7 +3742,7 @@ WHERE
 GROUP BY ?graph ?contactInformation ?name ?title
 
       '
-,row(Graph,ContactInformation,Name,Title,AnnotationConcat,NetworkNodeConcat,AddressConcat,PhoneFaxConcat),[]), convVal(Name,NameVal), convVal(Title,TitleVal), convert(AnnotationConcat,AnnotationList), convert(NetworkNodeConcat,NetworkNodeList), convert(AddressConcat,AddressList), convert(PhoneFaxConcat,PhoneFaxList)
+,row(Graph,ContactInformation,Name,Title,AnnotationConcat,NetworkNodeConcat,AddressConcat,PhoneFaxConcat),[]), convVal(Name,NameVal), convVal(Title,TitleVal), convert(AnnotationConcat,AnnotationList), convert(NetworkNodeConcat,NetworkNodeList), convert(AddressConcat,AddressList), convert(PhoneFaxConcat,PhoneFaxList) )
 ,
 assertz( aixm_ContactInformation(Graph, ContactInformation, NameVal, TitleVal, AnnotationList, NetworkNodeList, AddressList, PhoneFaxList) )
 ),
@@ -3831,7 +3831,7 @@ WHERE
   }
 
       '
-,row(Graph,PlannedReportingPosition,Position,PositionAltitude,PositionEstimatedTime),[]), convVal(Position,PositionVal), convVal(PositionAltitude,PositionAltitudeVal), convVal(PositionEstimatedTime,PositionEstimatedTimeVal)
+,row(Graph,PlannedReportingPosition,Position,PositionAltitude,PositionEstimatedTime),[]), convVal(Position,PositionVal), convVal(PositionAltitude,PositionAltitudeVal), convVal(PositionEstimatedTime,PositionEstimatedTimeVal) )
 ,
 assertz( fixm_PlannedReportingPosition(Graph, PlannedReportingPosition, PositionVal, PositionAltitudeVal, PositionEstimatedTimeVal) )
 ),
@@ -3867,7 +3867,7 @@ WHERE
   }
 
       '
-,row(Graph,SignificantPoint),[])
+,row(Graph,SignificantPoint),[]) )
 ,
 assertz( fixm_SignificantPoint(Graph, SignificantPoint) )
 ),
@@ -3956,7 +3956,7 @@ WHERE
   }
 
       '
-,row(Graph,SupplementalData,FuelEndurance,PersonsOnBoard,PilotInCommand),[]), convVal(FuelEndurance,FuelEnduranceVal), convVal(PersonsOnBoard,PersonsOnBoardVal), convVal(PilotInCommand,PilotInCommandVal)
+,row(Graph,SupplementalData,FuelEndurance,PersonsOnBoard,PilotInCommand),[]), convVal(FuelEndurance,FuelEnduranceVal), convVal(PersonsOnBoard,PersonsOnBoardVal), convVal(PilotInCommand,PilotInCommandVal) )
 ,
 assertz( fixm_SupplementalData(Graph, SupplementalData, FuelEnduranceVal, PersonsOnBoardVal, PilotInCommandVal) )
 ),
@@ -4126,7 +4126,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoods ?guidebookNumber ?onboardLocation ?handlingInformation ?aircraftLimitation ?airWayBill ?shipment ?shippingInformation
 
       '
-,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroupConcat,ShippingInformation),[]), convVal(GuidebookNumber,GuidebookNumberVal), convVal(OnboardLocation,OnboardLocationVal), convVal(HandlingInformation,HandlingInformationVal), convVal(AircraftLimitation,AircraftLimitationVal), convVal(AirWayBill,AirWayBillVal), convVal(Shipment,ShipmentVal), convert(PackageGroupConcat,PackageGroupList), convVal(ShippingInformation,ShippingInformationVal)
+,row(Graph,DangerousGoods,GuidebookNumber,OnboardLocation,HandlingInformation,AircraftLimitation,AirWayBill,Shipment,PackageGroupConcat,ShippingInformation),[]), convVal(GuidebookNumber,GuidebookNumberVal), convVal(OnboardLocation,OnboardLocationVal), convVal(HandlingInformation,HandlingInformationVal), convVal(AircraftLimitation,AircraftLimitationVal), convVal(AirWayBill,AirWayBillVal), convVal(Shipment,ShipmentVal), convert(PackageGroupConcat,PackageGroupList), convVal(ShippingInformation,ShippingInformationVal) )
 ,
 assertz( fixm_DangerousGoods(Graph, DangerousGoods, GuidebookNumberVal, OnboardLocationVal, HandlingInformationVal, AircraftLimitationVal, AirWayBillVal, ShipmentVal, PackageGroupList, ShippingInformationVal) )
 ),
@@ -4191,7 +4191,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoodsPackageGroup ?shipmentDimensions ?shipmentUseIndicator
 
       '
-,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convVal(ShipmentDimensions,ShipmentDimensionsVal), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList), convVal(ShipmentUseIndicator,ShipmentUseIndicatorVal)
+,row(Graph,DangerousGoodsPackageGroup,ShipmentDimensions,DangerousGoodsPackageConcat,ShipmentUseIndicator),[]), convVal(ShipmentDimensions,ShipmentDimensionsVal), convert(DangerousGoodsPackageConcat,DangerousGoodsPackageList), convVal(ShipmentUseIndicator,ShipmentUseIndicatorVal) )
 ,
 assertz( fixm_DangerousGoodsPackageGroup(Graph, DangerousGoodsPackageGroup, ShipmentDimensionsVal, DangerousGoodsPackageList, ShipmentUseIndicatorVal) )
 ),
@@ -4279,7 +4279,7 @@ WHERE
   }
 
       '
-,row(Graph,OfftrackDistance,Distance,Direction),[]), convVal(Distance,DistanceVal), convVal(Direction,DirectionVal)
+,row(Graph,OfftrackDistance,Distance,Direction),[]), convVal(Distance,DistanceVal), convVal(Direction,DirectionVal) )
 ,
 assertz( fixm_OfftrackDistance(Graph, OfftrackDistance, DistanceVal, DirectionVal) )
 ),
@@ -4318,7 +4318,7 @@ WHERE
   }
 
       '
-,row(Graph,Handoff,ReceivingUnit,TransferringUnit,CoordinationStatus),[]), convVal(ReceivingUnit,ReceivingUnitVal), convVal(TransferringUnit,TransferringUnitVal), convVal(CoordinationStatus,CoordinationStatusVal)
+,row(Graph,Handoff,ReceivingUnit,TransferringUnit,CoordinationStatus),[]), convVal(ReceivingUnit,ReceivingUnitVal), convVal(TransferringUnit,TransferringUnitVal), convVal(CoordinationStatus,CoordinationStatusVal) )
 ,
 assertz( fixm_Handoff(Graph, Handoff, ReceivingUnitVal, TransferringUnitVal, CoordinationStatusVal) )
 ),
@@ -4406,7 +4406,7 @@ WHERE
   }
 
       '
-,row(Graph,TrajectoryChange,ConstrainedAirspace,SpecialActivityAirspace),[]), convVal(ConstrainedAirspace,ConstrainedAirspaceVal), convVal(SpecialActivityAirspace,SpecialActivityAirspaceVal)
+,row(Graph,TrajectoryChange,ConstrainedAirspace,SpecialActivityAirspace),[]), convVal(ConstrainedAirspace,ConstrainedAirspaceVal), convVal(SpecialActivityAirspace,SpecialActivityAirspaceVal) )
 ,
 assertz( fixm_TrajectoryChange(Graph, TrajectoryChange, ConstrainedAirspaceVal, SpecialActivityAirspaceVal) )
 ),
@@ -4502,7 +4502,7 @@ WHERE
 }
 
       '
-,row(Graph,ContactInformation,Name,Title,OnlineContact,PhoneFax,Address),[]), convVal(Name,NameVal), convVal(Title,TitleVal), convVal(OnlineContact,OnlineContactVal), convVal(PhoneFax,PhoneFaxVal), convVal(Address,AddressVal)
+,row(Graph,ContactInformation,Name,Title,OnlineContact,PhoneFax,Address),[]), convVal(Name,NameVal), convVal(Title,TitleVal), convVal(OnlineContact,OnlineContactVal), convVal(PhoneFax,PhoneFaxVal), convVal(Address,AddressVal) )
 ,
 assertz( fixm_ContactInformation(Graph, ContactInformation, NameVal, TitleVal, OnlineContactVal, PhoneFaxVal, AddressVal) )
 ),
@@ -5224,7 +5224,7 @@ WHERE
 GROUP BY ?graph ?airportHeliportTimeSlice ?designator ?name ?locationIndicatorICAO ?designatorIATA ?type ?certifiedICAO ?privateUse ?controlType ?fieldElevation ?fieldElevationAccuracy ?verticalDatum ?magneticVariation ?magneticVariationAccuracy ?dateMagneticVariation ?magneticVariationChange ?referenceTemperature ?altimeterCheckLocation ?secondaryPowerSupply ?windDirectionIndicator ?landingDirectionIndicator ?transitionAltitude ?transitionLevel ?lowestTemperature ?abandoned ?certificationDate ?certificationExpirationDate ?ARP ?responsibleOrganisation ?aviationBoundary
 
       '
-,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,ContactConcat,AnnotationConcat,ARP,AltimeterSourceConcat,ContaminantConcat,ServedCityConcat,ResponsibleOrganisation,AviationBoundary,AvailabilityConcat),[]), convVal(Designator,DesignatorVal), convVal(Name,NameVal), convVal(LocationIndicatorICAO,LocationIndicatorICAOVal), convVal(DesignatorIATA,DesignatorIATAVal), convVal(Type,TypeVal), convVal(CertifiedICAO,CertifiedICAOVal), convVal(PrivateUse,PrivateUseVal), convVal(ControlType,ControlTypeVal), convVal(FieldElevation,FieldElevationVal), convVal(FieldElevationAccuracy,FieldElevationAccuracyVal), convVal(VerticalDatum,VerticalDatumVal), convVal(MagneticVariation,MagneticVariationVal), convVal(MagneticVariationAccuracy,MagneticVariationAccuracyVal), convVal(DateMagneticVariation,DateMagneticVariationVal), convVal(MagneticVariationChange,MagneticVariationChangeVal), convVal(ReferenceTemperature,ReferenceTemperatureVal), convVal(AltimeterCheckLocation,AltimeterCheckLocationVal), convVal(SecondaryPowerSupply,SecondaryPowerSupplyVal), convVal(WindDirectionIndicator,WindDirectionIndicatorVal), convVal(LandingDirectionIndicator,LandingDirectionIndicatorVal), convVal(TransitionAltitude,TransitionAltitudeVal), convVal(TransitionLevel,TransitionLevelVal), convVal(LowestTemperature,LowestTemperatureVal), convVal(Abandoned,AbandonedVal), convVal(CertificationDate,CertificationDateVal), convVal(CertificationExpirationDate,CertificationExpirationDateVal), convert(ContactConcat,ContactList), convert(AnnotationConcat,AnnotationList), convVal(ARP,ARPVal), convert(AltimeterSourceConcat,AltimeterSourceList), convert(ContaminantConcat,ContaminantList), convert(ServedCityConcat,ServedCityList), convVal(ResponsibleOrganisation,ResponsibleOrganisationVal), convVal(AviationBoundary,AviationBoundaryVal), convert(AvailabilityConcat,AvailabilityList)
+,row(Graph,AirportHeliportTimeSlice,Designator,Name,LocationIndicatorICAO,DesignatorIATA,Type,CertifiedICAO,PrivateUse,ControlType,FieldElevation,FieldElevationAccuracy,VerticalDatum,MagneticVariation,MagneticVariationAccuracy,DateMagneticVariation,MagneticVariationChange,ReferenceTemperature,AltimeterCheckLocation,SecondaryPowerSupply,WindDirectionIndicator,LandingDirectionIndicator,TransitionAltitude,TransitionLevel,LowestTemperature,Abandoned,CertificationDate,CertificationExpirationDate,ContactConcat,AnnotationConcat,ARP,AltimeterSourceConcat,ContaminantConcat,ServedCityConcat,ResponsibleOrganisation,AviationBoundary,AvailabilityConcat),[]), convVal(Designator,DesignatorVal), convVal(Name,NameVal), convVal(LocationIndicatorICAO,LocationIndicatorICAOVal), convVal(DesignatorIATA,DesignatorIATAVal), convVal(Type,TypeVal), convVal(CertifiedICAO,CertifiedICAOVal), convVal(PrivateUse,PrivateUseVal), convVal(ControlType,ControlTypeVal), convVal(FieldElevation,FieldElevationVal), convVal(FieldElevationAccuracy,FieldElevationAccuracyVal), convVal(VerticalDatum,VerticalDatumVal), convVal(MagneticVariation,MagneticVariationVal), convVal(MagneticVariationAccuracy,MagneticVariationAccuracyVal), convVal(DateMagneticVariation,DateMagneticVariationVal), convVal(MagneticVariationChange,MagneticVariationChangeVal), convVal(ReferenceTemperature,ReferenceTemperatureVal), convVal(AltimeterCheckLocation,AltimeterCheckLocationVal), convVal(SecondaryPowerSupply,SecondaryPowerSupplyVal), convVal(WindDirectionIndicator,WindDirectionIndicatorVal), convVal(LandingDirectionIndicator,LandingDirectionIndicatorVal), convVal(TransitionAltitude,TransitionAltitudeVal), convVal(TransitionLevel,TransitionLevelVal), convVal(LowestTemperature,LowestTemperatureVal), convVal(Abandoned,AbandonedVal), convVal(CertificationDate,CertificationDateVal), convVal(CertificationExpirationDate,CertificationExpirationDateVal), convert(ContactConcat,ContactList), convert(AnnotationConcat,AnnotationList), convVal(ARP,ARPVal), convert(AltimeterSourceConcat,AltimeterSourceList), convert(ContaminantConcat,ContaminantList), convert(ServedCityConcat,ServedCityList), convVal(ResponsibleOrganisation,ResponsibleOrganisationVal), convVal(AviationBoundary,AviationBoundaryVal), convert(AvailabilityConcat,AvailabilityList) )
 ,
 assertz( aixm_AirportHeliportTimeSlice(Graph, AirportHeliportTimeSlice, DesignatorVal, NameVal, LocationIndicatorICAOVal, DesignatorIATAVal, TypeVal, CertifiedICAOVal, PrivateUseVal, ControlTypeVal, FieldElevationVal, FieldElevationAccuracyVal, VerticalDatumVal, MagneticVariationVal, MagneticVariationAccuracyVal, DateMagneticVariationVal, MagneticVariationChangeVal, ReferenceTemperatureVal, AltimeterCheckLocationVal, SecondaryPowerSupplyVal, WindDirectionIndicatorVal, LandingDirectionIndicatorVal, TransitionAltitudeVal, TransitionLevelVal, LowestTemperatureVal, AbandonedVal, CertificationDateVal, CertificationExpirationDateVal, ContactList, AnnotationList, ARPVal, AltimeterSourceList, ContaminantList, ServedCityList, ResponsibleOrganisationVal, AviationBoundaryVal, AvailabilityList) )
 ),
@@ -5318,7 +5318,7 @@ WHERE
 }
 
       '
-,row(Graph,Point4D,Altitude,Time,PointRange),[]), convVal(Altitude,AltitudeVal), convVal(Time,TimeVal), convVal(PointRange,PointRangeVal)
+,row(Graph,Point4D,Altitude,Time,PointRange),[]), convVal(Altitude,AltitudeVal), convVal(Time,TimeVal), convVal(PointRange,PointRangeVal) )
 ,
 assertz( fixm_Point4D(Graph, Point4D, AltitudeVal, TimeVal, PointRangeVal) )
 ),
@@ -5464,7 +5464,7 @@ WHERE
 }
 
       '
-,row(Graph,AbstractRoutePoint,AirTrafficType,DelayAtPoint,FlightRules,Point,ClearanceLimit),[]), convVal(AirTrafficType,AirTrafficTypeVal), convVal(DelayAtPoint,DelayAtPointVal), convVal(FlightRules,FlightRulesVal), convVal(Point,PointVal), convVal(ClearanceLimit,ClearanceLimitVal)
+,row(Graph,AbstractRoutePoint,AirTrafficType,DelayAtPoint,FlightRules,Point,ClearanceLimit),[]), convVal(AirTrafficType,AirTrafficTypeVal), convVal(DelayAtPoint,DelayAtPointVal), convVal(FlightRules,FlightRulesVal), convVal(Point,PointVal), convVal(ClearanceLimit,ClearanceLimitVal) )
 ,
 assertz( fixm_AbstractRoutePoint(Graph, AbstractRoutePoint, AirTrafficTypeVal, DelayAtPointVal, FlightRulesVal, PointVal, ClearanceLimitVal) )
 ),
@@ -5580,7 +5580,7 @@ WHERE
 GROUP BY ?graph ?ridge ?side ?distance ?depth
 
       '
-,row(Graph,Ridge,Side,Distance,Depth,AnnotationConcat),[]), convVal(Side,SideVal), convVal(Distance,DistanceVal), convVal(Depth,DepthVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,Ridge,Side,Distance,Depth,AnnotationConcat),[]), convVal(Side,SideVal), convVal(Distance,DistanceVal), convVal(Depth,DepthVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_Ridge(Graph, Ridge, SideVal, DistanceVal, DepthVal, AnnotationList) )
 ),
@@ -5620,7 +5620,7 @@ WHERE
   }
 
       '
-,row(Graph,DepartureActivityTimes,BoardingTime,DeIcingTime,GroundHandlingTime,StartupTime),[]), convVal(BoardingTime,BoardingTimeVal), convVal(DeIcingTime,DeIcingTimeVal), convVal(GroundHandlingTime,GroundHandlingTimeVal), convVal(StartupTime,StartupTimeVal)
+,row(Graph,DepartureActivityTimes,BoardingTime,DeIcingTime,GroundHandlingTime,StartupTime),[]), convVal(BoardingTime,BoardingTimeVal), convVal(DeIcingTime,DeIcingTimeVal), convVal(GroundHandlingTime,GroundHandlingTimeVal), convVal(StartupTime,StartupTimeVal) )
 ,
 assertz( fixm_DepartureActivityTimes(Graph, DepartureActivityTimes, BoardingTimeVal, DeIcingTimeVal, GroundHandlingTimeVal, StartupTimeVal) )
 ),
@@ -5682,7 +5682,7 @@ WHERE
   }
 
       '
-,row(Graph,EnRouteDiversion,DiversionRecoveryInformation),[]), convVal(DiversionRecoveryInformation,DiversionRecoveryInformationVal)
+,row(Graph,EnRouteDiversion,DiversionRecoveryInformation),[]), convVal(DiversionRecoveryInformation,DiversionRecoveryInformationVal) )
 ,
 assertz( fixm_EnRouteDiversion(Graph, EnRouteDiversion, DiversionRecoveryInformationVal) )
 ),
@@ -5796,7 +5796,7 @@ WHERE
   }
 
       '
-,row(Graph,ActualSpeed,Calculated,PilotReported,Surveillance),[]), convVal(Calculated,CalculatedVal), convVal(PilotReported,PilotReportedVal), convVal(Surveillance,SurveillanceVal)
+,row(Graph,ActualSpeed,Calculated,PilotReported,Surveillance),[]), convVal(Calculated,CalculatedVal), convVal(PilotReported,PilotReportedVal), convVal(Surveillance,SurveillanceVal) )
 ,
 assertz( fixm_ActualSpeed(Graph, ActualSpeed, CalculatedVal, PilotReportedVal, SurveillanceVal) )
 ),
@@ -5938,7 +5938,7 @@ WHERE
   }
 
       '
-,row(Graph,FlightEmergency,ActionTaken,EmergencyDescription,Originator,OtherInformation,Phase,Contact),[]), convVal(ActionTaken,ActionTakenVal), convVal(EmergencyDescription,EmergencyDescriptionVal), convVal(Originator,OriginatorVal), convVal(OtherInformation,OtherInformationVal), convVal(Phase,PhaseVal), convVal(Contact,ContactVal)
+,row(Graph,FlightEmergency,ActionTaken,EmergencyDescription,Originator,OtherInformation,Phase,Contact),[]), convVal(ActionTaken,ActionTakenVal), convVal(EmergencyDescription,EmergencyDescriptionVal), convVal(Originator,OriginatorVal), convVal(OtherInformation,OtherInformationVal), convVal(Phase,PhaseVal), convVal(Contact,ContactVal) )
 ,
 assertz( fixm_FlightEmergency(Graph, FlightEmergency, ActionTakenVal, EmergencyDescriptionVal, OriginatorVal, OtherInformationVal, PhaseVal, ContactVal) )
 ),
@@ -6154,7 +6154,7 @@ WHERE
 GROUP BY ?graph ?flight ?controllingUnit ?flightFiler ?gufi ?remarks ?aircraftDescription ?routeToRevisedDestination ?negotiating ?agreed ?arrival ?departure ?emergency ?radioCommunicationFailure ?enRoute ?operator ?enRouteDiversion ?flightType ?flightStatus ?originator ?supplementalData ?flightIdentification
 
       '
-,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convVal(ControllingUnit,ControllingUnitVal), convert(ExtensionsConcat,ExtensionsList), convVal(FlightFiler,FlightFilerVal), convVal(Gufi,GufiVal), convVal(Remarks,RemarksVal), convVal(AircraftDescription,AircraftDescriptionVal), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convVal(RouteToRevisedDestination,RouteToRevisedDestinationVal), convVal(Negotiating,NegotiatingVal), convVal(Agreed,AgreedVal), convVal(Arrival,ArrivalVal), convVal(Departure,DepartureVal), convVal(Emergency,EmergencyVal), convVal(RadioCommunicationFailure,RadioCommunicationFailureVal), convVal(EnRoute,EnRouteVal), convVal(Operator,OperatorVal), convVal(EnRouteDiversion,EnRouteDiversionVal), convVal(FlightType,FlightTypeVal), convVal(FlightStatus,FlightStatusVal), convVal(Originator,OriginatorVal), convVal(SupplementalData,SupplementalDataVal), convVal(FlightIdentification,FlightIdentificationVal), convert(SpecialHandlingConcat,SpecialHandlingList)
+,row(Graph,Flight,ControllingUnit,ExtensionsConcat,FlightFiler,Gufi,Remarks,AircraftDescription,DangerousGoodsConcat,RankedTrajectoriesConcat,RouteToRevisedDestination,Negotiating,Agreed,Arrival,Departure,Emergency,RadioCommunicationFailure,EnRoute,Operator,EnRouteDiversion,FlightType,FlightStatus,Originator,SupplementalData,FlightIdentification,SpecialHandlingConcat),[]), convVal(ControllingUnit,ControllingUnitVal), convert(ExtensionsConcat,ExtensionsList), convVal(FlightFiler,FlightFilerVal), convVal(Gufi,GufiVal), convVal(Remarks,RemarksVal), convVal(AircraftDescription,AircraftDescriptionVal), convert(DangerousGoodsConcat,DangerousGoodsList), convert(RankedTrajectoriesConcat,RankedTrajectoriesList), convVal(RouteToRevisedDestination,RouteToRevisedDestinationVal), convVal(Negotiating,NegotiatingVal), convVal(Agreed,AgreedVal), convVal(Arrival,ArrivalVal), convVal(Departure,DepartureVal), convVal(Emergency,EmergencyVal), convVal(RadioCommunicationFailure,RadioCommunicationFailureVal), convVal(EnRoute,EnRouteVal), convVal(Operator,OperatorVal), convVal(EnRouteDiversion,EnRouteDiversionVal), convVal(FlightType,FlightTypeVal), convVal(FlightStatus,FlightStatusVal), convVal(Originator,OriginatorVal), convVal(SupplementalData,SupplementalDataVal), convVal(FlightIdentification,FlightIdentificationVal), convert(SpecialHandlingConcat,SpecialHandlingList) )
 ,
 assertz( fixm_Flight(Graph, Flight, ControllingUnitVal, ExtensionsList, FlightFilerVal, GufiVal, RemarksVal, AircraftDescriptionVal, DangerousGoodsList, RankedTrajectoriesList, RouteToRevisedDestinationVal, NegotiatingVal, AgreedVal, ArrivalVal, DepartureVal, EmergencyVal, RadioCommunicationFailureVal, EnRouteVal, OperatorVal, EnRouteDiversionVal, FlightTypeVal, FlightStatusVal, OriginatorVal, SupplementalDataVal, FlightIdentificationVal, SpecialHandlingList) )
 ),
@@ -6199,7 +6199,7 @@ WHERE
 GROUP BY ?graph ?propertiesWithSchedule
 
       '
-,row(Graph,PropertiesWithSchedule,AnnotationConcat,SpecialDateAuthorityConcat,TimeIntervalConcat),[]), convert(AnnotationConcat,AnnotationList), convert(SpecialDateAuthorityConcat,SpecialDateAuthorityList), convert(TimeIntervalConcat,TimeIntervalList)
+,row(Graph,PropertiesWithSchedule,AnnotationConcat,SpecialDateAuthorityConcat,TimeIntervalConcat),[]), convert(AnnotationConcat,AnnotationList), convert(SpecialDateAuthorityConcat,SpecialDateAuthorityList), convert(TimeIntervalConcat,TimeIntervalList) )
 ,
 assertz( aixm_PropertiesWithSchedule(Graph, PropertiesWithSchedule, AnnotationList, SpecialDateAuthorityList, TimeIntervalList) )
 ),
@@ -6242,7 +6242,7 @@ WHERE
 GROUP BY ?graph ?surface
 
       '
-,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList)
+,row(Graph,Surface,PatchConcat),[]), convert(PatchConcat,PatchList) )
 ,
 assertz( gml_Surface(Graph, Surface, PatchList) )
 ),
@@ -6384,7 +6384,7 @@ WHERE
   }
 
       '
-,row(Graph,ClearedFlightInformation,ClearedFlightLevel,ClearedSpeed,Heading,OfftrackClearance,RateOfClimbDescend,DirectRouting),[]), convVal(ClearedFlightLevel,ClearedFlightLevelVal), convVal(ClearedSpeed,ClearedSpeedVal), convVal(Heading,HeadingVal), convVal(OfftrackClearance,OfftrackClearanceVal), convVal(RateOfClimbDescend,RateOfClimbDescendVal), convVal(DirectRouting,DirectRoutingVal)
+,row(Graph,ClearedFlightInformation,ClearedFlightLevel,ClearedSpeed,Heading,OfftrackClearance,RateOfClimbDescend,DirectRouting),[]), convVal(ClearedFlightLevel,ClearedFlightLevelVal), convVal(ClearedSpeed,ClearedSpeedVal), convVal(Heading,HeadingVal), convVal(OfftrackClearance,OfftrackClearanceVal), convVal(RateOfClimbDescend,RateOfClimbDescendVal), convVal(DirectRouting,DirectRoutingVal) )
 ,
 assertz( fixm_ClearedFlightInformation(Graph, ClearedFlightInformation, ClearedFlightLevelVal, ClearedSpeedVal, HeadingVal, OfftrackClearanceVal, RateOfClimbDescendVal, DirectRoutingVal) )
 ),
@@ -6427,7 +6427,7 @@ WHERE
 }
 
       '
-,row(Graph,TrajectoryRoutePair,Trajectory,Route),[]), convVal(Trajectory,TrajectoryVal), convVal(Route,RouteVal)
+,row(Graph,TrajectoryRoutePair,Trajectory,Route),[]), convVal(Trajectory,TrajectoryVal), convVal(Route,RouteVal) )
 ,
 assertz( fixm_TrajectoryRoutePair(Graph, TrajectoryRoutePair, TrajectoryVal, RouteVal) )
 ),
@@ -6494,7 +6494,7 @@ WHERE
   }
 
       '
-,row(Graph,UnitBoundary,DownstreamUnit,UpstreamUnit,BoundaryCrossingProposed,BoundaryCrossingCoordinated,Handoff,UnitBoundaryIndicator),[]), convVal(DownstreamUnit,DownstreamUnitVal), convVal(UpstreamUnit,UpstreamUnitVal), convVal(BoundaryCrossingProposed,BoundaryCrossingProposedVal), convVal(BoundaryCrossingCoordinated,BoundaryCrossingCoordinatedVal), convVal(Handoff,HandoffVal), convVal(UnitBoundaryIndicator,UnitBoundaryIndicatorVal)
+,row(Graph,UnitBoundary,DownstreamUnit,UpstreamUnit,BoundaryCrossingProposed,BoundaryCrossingCoordinated,Handoff,UnitBoundaryIndicator),[]), convVal(DownstreamUnit,DownstreamUnitVal), convVal(UpstreamUnit,UpstreamUnitVal), convVal(BoundaryCrossingProposed,BoundaryCrossingProposedVal), convVal(BoundaryCrossingCoordinated,BoundaryCrossingCoordinatedVal), convVal(Handoff,HandoffVal), convVal(UnitBoundaryIndicator,UnitBoundaryIndicatorVal) )
 ,
 assertz( fixm_UnitBoundary(Graph, UnitBoundary, DownstreamUnitVal, UpstreamUnitVal, BoundaryCrossingProposedVal, BoundaryCrossingCoordinatedVal, HandoffVal, UnitBoundaryIndicatorVal) )
 ),
@@ -6799,7 +6799,7 @@ WHERE
 GROUP BY ?graph ?surfaceContamination ?observationTime ?depth ?frictionCoefficient ?frictionEstimation ?frictionDevice ?obscuredLights ?furtherClearanceTime ?furtherTotalClearance ?nextObservationTime ?proportion
 
       '
-,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidgeConcat,AnnotationConcat,LayerConcat),[]), convVal(ObservationTime,ObservationTimeVal), convVal(Depth,DepthVal), convVal(FrictionCoefficient,FrictionCoefficientVal), convVal(FrictionEstimation,FrictionEstimationVal), convVal(FrictionDevice,FrictionDeviceVal), convVal(ObscuredLights,ObscuredLightsVal), convVal(FurtherClearanceTime,FurtherClearanceTimeVal), convVal(FurtherTotalClearance,FurtherTotalClearanceVal), convVal(NextObservationTime,NextObservationTimeVal), convVal(Proportion,ProportionVal), convert(CriticalRidgeConcat,CriticalRidgeList), convert(AnnotationConcat,AnnotationList), convert(LayerConcat,LayerList)
+,row(Graph,SurfaceContamination,ObservationTime,Depth,FrictionCoefficient,FrictionEstimation,FrictionDevice,ObscuredLights,FurtherClearanceTime,FurtherTotalClearance,NextObservationTime,Proportion,CriticalRidgeConcat,AnnotationConcat,LayerConcat),[]), convVal(ObservationTime,ObservationTimeVal), convVal(Depth,DepthVal), convVal(FrictionCoefficient,FrictionCoefficientVal), convVal(FrictionEstimation,FrictionEstimationVal), convVal(FrictionDevice,FrictionDeviceVal), convVal(ObscuredLights,ObscuredLightsVal), convVal(FurtherClearanceTime,FurtherClearanceTimeVal), convVal(FurtherTotalClearance,FurtherTotalClearanceVal), convVal(NextObservationTime,NextObservationTimeVal), convVal(Proportion,ProportionVal), convert(CriticalRidgeConcat,CriticalRidgeList), convert(AnnotationConcat,AnnotationList), convert(LayerConcat,LayerList) )
 ,
 assertz( aixm_SurfaceContamination(Graph, SurfaceContamination, ObservationTimeVal, DepthVal, FrictionCoefficientVal, FrictionEstimationVal, FrictionDeviceVal, ObscuredLightsVal, FurtherClearanceTimeVal, FurtherTotalClearanceVal, NextObservationTimeVal, ProportionVal, CriticalRidgeList, AnnotationList, LayerList) )
 ),
@@ -6913,7 +6913,7 @@ WHERE
   }
 
       '
-,row(Graph,MeteorologicalData,Temperature,WindDirection,WindSpeed),[]), convVal(Temperature,TemperatureVal), convVal(WindDirection,WindDirectionVal), convVal(WindSpeed,WindSpeedVal)
+,row(Graph,MeteorologicalData,Temperature,WindDirection,WindSpeed),[]), convVal(Temperature,TemperatureVal), convVal(WindDirection,WindDirectionVal), convVal(WindSpeed,WindSpeedVal) )
 ,
 assertz( fixm_MeteorologicalData(Graph, MeteorologicalData, TemperatureVal, WindDirectionVal, WindSpeedVal) )
 ),
@@ -6951,7 +6951,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthority
 
       '
-,row(Graph,OrganisationAuthority,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList)
+,row(Graph,OrganisationAuthority,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList) )
 ,
 assertz( aixm_OrganisationAuthority(Graph, OrganisationAuthority, TimeSliceList) )
 ),
@@ -7039,7 +7039,7 @@ WHERE
   }
 
       '
-,row(Graph,TelephoneContact,Voice,Facimile),[]), convVal(Voice,VoiceVal), convVal(Facimile,FacimileVal)
+,row(Graph,TelephoneContact,Voice,Facimile),[]), convVal(Voice,VoiceVal), convVal(Facimile,FacimileVal) )
 ,
 assertz( fixm_TelephoneContact(Graph, TelephoneContact, VoiceVal, FacimileVal) )
 ),
@@ -7289,7 +7289,7 @@ WHERE
 GROUP BY ?graph ?shippingInformation ?aerodromeOfLoading ?aerodromeOfUnloading ?dangerousGoodsScreeningLocation ?departureCountry ?destinationCountry ?originCountry ?shipmentAuthorizations ?subsidiaryHazardClassAndDivision ?supplementaryInformation ?declarationText ?consignee ?shipper
 
       '
-,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convVal(AerodromeOfLoading,AerodromeOfLoadingVal), convVal(AerodromeOfUnloading,AerodromeOfUnloadingVal), convVal(DangerousGoodsScreeningLocation,DangerousGoodsScreeningLocationVal), convVal(DepartureCountry,DepartureCountryVal), convVal(DestinationCountry,DestinationCountryVal), convVal(OriginCountry,OriginCountryVal), convVal(ShipmentAuthorizations,ShipmentAuthorizationsVal), convVal(SubsidiaryHazardClassAndDivision,SubsidiaryHazardClassAndDivisionVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convert(TransferAerodromesConcat,TransferAerodromesList), convVal(DeclarationText,DeclarationTextVal), convVal(Consignee,ConsigneeVal), convVal(Shipper,ShipperVal)
+,row(Graph,ShippingInformation,AerodromeOfLoading,AerodromeOfUnloading,DangerousGoodsScreeningLocation,DepartureCountry,DestinationCountry,OriginCountry,ShipmentAuthorizations,SubsidiaryHazardClassAndDivision,SupplementaryInformation,TransferAerodromesConcat,DeclarationText,Consignee,Shipper),[]), convVal(AerodromeOfLoading,AerodromeOfLoadingVal), convVal(AerodromeOfUnloading,AerodromeOfUnloadingVal), convVal(DangerousGoodsScreeningLocation,DangerousGoodsScreeningLocationVal), convVal(DepartureCountry,DepartureCountryVal), convVal(DestinationCountry,DestinationCountryVal), convVal(OriginCountry,OriginCountryVal), convVal(ShipmentAuthorizations,ShipmentAuthorizationsVal), convVal(SubsidiaryHazardClassAndDivision,SubsidiaryHazardClassAndDivisionVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convert(TransferAerodromesConcat,TransferAerodromesList), convVal(DeclarationText,DeclarationTextVal), convVal(Consignee,ConsigneeVal), convVal(Shipper,ShipperVal) )
 ,
 assertz( fixm_ShippingInformation(Graph, ShippingInformation, AerodromeOfLoadingVal, AerodromeOfUnloadingVal, DangerousGoodsScreeningLocationVal, DepartureCountryVal, DestinationCountryVal, OriginCountryVal, ShipmentAuthorizationsVal, SubsidiaryHazardClassAndDivisionVal, SupplementaryInformationVal, TransferAerodromesList, DeclarationTextVal, ConsigneeVal, ShipperVal) )
 ),
@@ -7325,7 +7325,7 @@ WHERE
   }
 
       '
-,row(Graph,AirportHeliportContamination),[])
+,row(Graph,AirportHeliportContamination),[]) )
 ,
 assertz( aixm_AirportHeliportContamination(Graph, AirportHeliportContamination) )
 ),
@@ -7413,7 +7413,7 @@ WHERE
   }
 
       '
-,row(Graph,OtherInformation,ReplacementFlightPlanIndicator,RunwayVisualRange),[]), convVal(ReplacementFlightPlanIndicator,ReplacementFlightPlanIndicatorVal), convVal(RunwayVisualRange,RunwayVisualRangeVal)
+,row(Graph,OtherInformation,ReplacementFlightPlanIndicator,RunwayVisualRange),[]), convVal(ReplacementFlightPlanIndicator,ReplacementFlightPlanIndicatorVal), convVal(RunwayVisualRange,RunwayVisualRangeVal) )
 ,
 assertz( fixm_OtherInformation(Graph, OtherInformation, ReplacementFlightPlanIndicatorVal, RunwayVisualRangeVal) )
 ),
@@ -7449,7 +7449,7 @@ WHERE
   }
 
       '
-,row(Graph,DinghyColour),[])
+,row(Graph,DinghyColour),[]) )
 ,
 assertz( fixm_DinghyColour(Graph, DinghyColour) )
 ),
@@ -7641,7 +7641,7 @@ WHERE
   }
 
       '
-,row(Graph,CpdlcConnection,ReceivingUnitFrequency,AtnLogonParameters,SendCpldcIndicator,ConnectionStatus,FrequencyUsage,Fans1ALogonParameters),[]), convVal(ReceivingUnitFrequency,ReceivingUnitFrequencyVal), convVal(AtnLogonParameters,AtnLogonParametersVal), convVal(SendCpldcIndicator,SendCpldcIndicatorVal), convVal(ConnectionStatus,ConnectionStatusVal), convVal(FrequencyUsage,FrequencyUsageVal), convVal(Fans1ALogonParameters,Fans1ALogonParametersVal)
+,row(Graph,CpdlcConnection,ReceivingUnitFrequency,AtnLogonParameters,SendCpldcIndicator,ConnectionStatus,FrequencyUsage,Fans1ALogonParameters),[]), convVal(ReceivingUnitFrequency,ReceivingUnitFrequencyVal), convVal(AtnLogonParameters,AtnLogonParametersVal), convVal(SendCpldcIndicator,SendCpldcIndicatorVal), convVal(ConnectionStatus,ConnectionStatusVal), convVal(FrequencyUsage,FrequencyUsageVal), convVal(Fans1ALogonParameters,Fans1ALogonParametersVal) )
 ,
 assertz( fixm_CpdlcConnection(Graph, CpdlcConnection, ReceivingUnitFrequencyVal, AtnLogonParametersVal, SendCpldcIndicatorVal, ConnectionStatusVal, FrequencyUsageVal, Fans1ALogonParametersVal) )
 ),
@@ -7729,7 +7729,7 @@ WHERE
   }
 
       '
-,row(Graph,TelephoneContact,Voice,Facsimile),[]), convVal(Voice,VoiceVal), convVal(Facsimile,FacsimileVal)
+,row(Graph,TelephoneContact,Voice,Facsimile),[]), convVal(Voice,VoiceVal), convVal(Facsimile,FacsimileVal) )
 ,
 assertz( aixm_TelephoneContact(Graph, TelephoneContact, VoiceVal, FacsimileVal) )
 ),
@@ -7932,7 +7932,7 @@ WHERE
 GROUP BY ?graph ?route ?airfileRouteStartTime ?flightDuration ?initialCruisingSpeed ?initialFlightRules ?requestedAltitude ?routeText ?expandedRoute ?climbSchedule ?descentSchedule
 
       '
-,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convVal(AirfileRouteStartTime,AirfileRouteStartTimeVal), convVal(FlightDuration,FlightDurationVal), convVal(InitialCruisingSpeed,InitialCruisingSpeedVal), convVal(InitialFlightRules,InitialFlightRulesVal), convVal(RequestedAltitude,RequestedAltitudeVal), convVal(RouteText,RouteTextVal), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convVal(ExpandedRoute,ExpandedRouteVal), convVal(ClimbSchedule,ClimbScheduleVal), convVal(DescentSchedule,DescentScheduleVal), convert(SegmentConcat,SegmentList)
+,row(Graph,Route,AirfileRouteStartTime,FlightDuration,InitialCruisingSpeed,InitialFlightRules,RequestedAltitude,RouteText,EstimatedElapsedTimeConcat,ExpandedRoute,ClimbSchedule,DescentSchedule,SegmentConcat),[]), convVal(AirfileRouteStartTime,AirfileRouteStartTimeVal), convVal(FlightDuration,FlightDurationVal), convVal(InitialCruisingSpeed,InitialCruisingSpeedVal), convVal(InitialFlightRules,InitialFlightRulesVal), convVal(RequestedAltitude,RequestedAltitudeVal), convVal(RouteText,RouteTextVal), convert(EstimatedElapsedTimeConcat,EstimatedElapsedTimeList), convVal(ExpandedRoute,ExpandedRouteVal), convVal(ClimbSchedule,ClimbScheduleVal), convVal(DescentSchedule,DescentScheduleVal), convert(SegmentConcat,SegmentList) )
 ,
 assertz( fixm_Route(Graph, Route, AirfileRouteStartTimeVal, FlightDurationVal, InitialCruisingSpeedVal, InitialFlightRulesVal, RequestedAltitudeVal, RouteTextVal, EstimatedElapsedTimeList, ExpandedRouteVal, ClimbScheduleVal, DescentScheduleVal, SegmentList) )
 ),
@@ -7995,7 +7995,7 @@ WHERE
   }
 
       '
-,row(Graph,Person,Name,Contact),[]), convVal(Name,NameVal), convVal(Contact,ContactVal)
+,row(Graph,Person,Name,Contact),[]), convVal(Name,NameVal), convVal(Contact,ContactVal) )
 ,
 assertz( fixm_Person(Graph, Person, NameVal, ContactVal) )
 ),
@@ -8114,7 +8114,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplFlight,IfplId,TotalEstimatedElapsedTime,AerodromesOfDestination,EfplSpecialHandling,EfplFiledTrajectory,EfplAcceptedTrajectory,OtherInformation,FlightPerformanceData),[]), convVal(IfplId,IfplIdVal), convVal(TotalEstimatedElapsedTime,TotalEstimatedElapsedTimeVal), convVal(AerodromesOfDestination,AerodromesOfDestinationVal), convVal(EfplSpecialHandling,EfplSpecialHandlingVal), convVal(EfplFiledTrajectory,EfplFiledTrajectoryVal), convVal(EfplAcceptedTrajectory,EfplAcceptedTrajectoryVal), convVal(OtherInformation,OtherInformationVal), convVal(FlightPerformanceData,FlightPerformanceDataVal)
+,row(Graph,EfplFlight,IfplId,TotalEstimatedElapsedTime,AerodromesOfDestination,EfplSpecialHandling,EfplFiledTrajectory,EfplAcceptedTrajectory,OtherInformation,FlightPerformanceData),[]), convVal(IfplId,IfplIdVal), convVal(TotalEstimatedElapsedTime,TotalEstimatedElapsedTimeVal), convVal(AerodromesOfDestination,AerodromesOfDestinationVal), convVal(EfplSpecialHandling,EfplSpecialHandlingVal), convVal(EfplFiledTrajectory,EfplFiledTrajectoryVal), convVal(EfplAcceptedTrajectory,EfplAcceptedTrajectoryVal), convVal(OtherInformation,OtherInformationVal), convVal(FlightPerformanceData,FlightPerformanceDataVal) )
 ,
 assertz( fixm_EfplFlight(Graph, EfplFlight, IfplIdVal, TotalEstimatedElapsedTimeVal, AerodromesOfDestinationVal, EfplSpecialHandlingVal, EfplFiledTrajectoryVal, EfplAcceptedTrajectoryVal, OtherInformationVal, FlightPerformanceDataVal) )
 ),
@@ -8150,7 +8150,7 @@ WHERE
   }
 
       '
-,row(Graph,Originator),[])
+,row(Graph,Originator),[]) )
 ,
 assertz( fixm_Originator(Graph, Originator) )
 ),
@@ -8342,7 +8342,7 @@ WHERE
   }
 
       '
-,row(Graph,FlightStatus,AirborneHold,Airfile,Accepted,FlightCycle,MissedApproach,Suspended),[]), convVal(AirborneHold,AirborneHoldVal), convVal(Airfile,AirfileVal), convVal(Accepted,AcceptedVal), convVal(FlightCycle,FlightCycleVal), convVal(MissedApproach,MissedApproachVal), convVal(Suspended,SuspendedVal)
+,row(Graph,FlightStatus,AirborneHold,Airfile,Accepted,FlightCycle,MissedApproach,Suspended),[]), convVal(AirborneHold,AirborneHoldVal), convVal(Airfile,AirfileVal), convVal(Accepted,AcceptedVal), convVal(FlightCycle,FlightCycleVal), convVal(MissedApproach,MissedApproachVal), convVal(Suspended,SuspendedVal) )
 ,
 assertz( fixm_FlightStatus(Graph, FlightStatus, AirborneHoldVal, AirfileVal, AcceptedVal, FlightCycleVal, MissedApproachVal, SuspendedVal) )
 ),
@@ -8404,7 +8404,7 @@ WHERE
   }
 
       '
-,row(Graph,IdentifiedUnitReference,UnitIdentifier),[]), convVal(UnitIdentifier,UnitIdentifierVal)
+,row(Graph,IdentifiedUnitReference,UnitIdentifier),[]), convVal(UnitIdentifier,UnitIdentifierVal) )
 ,
 assertz( fixm_IdentifiedUnitReference(Graph, IdentifiedUnitReference, UnitIdentifierVal) )
 ),
@@ -8596,7 +8596,7 @@ WHERE
   }
 
       '
-,row(Graph,Radionuclide,PhysicalChemicalForm,RadionuclideId,RadionuclideName,LowDispersibleMaterialIndicator,Activity,SpecialFormIndicator),[]), convVal(PhysicalChemicalForm,PhysicalChemicalFormVal), convVal(RadionuclideId,RadionuclideIdVal), convVal(RadionuclideName,RadionuclideNameVal), convVal(LowDispersibleMaterialIndicator,LowDispersibleMaterialIndicatorVal), convVal(Activity,ActivityVal), convVal(SpecialFormIndicator,SpecialFormIndicatorVal)
+,row(Graph,Radionuclide,PhysicalChemicalForm,RadionuclideId,RadionuclideName,LowDispersibleMaterialIndicator,Activity,SpecialFormIndicator),[]), convVal(PhysicalChemicalForm,PhysicalChemicalFormVal), convVal(RadionuclideId,RadionuclideIdVal), convVal(RadionuclideName,RadionuclideNameVal), convVal(LowDispersibleMaterialIndicator,LowDispersibleMaterialIndicatorVal), convVal(Activity,ActivityVal), convVal(SpecialFormIndicator,SpecialFormIndicatorVal) )
 ,
 assertz( fixm_Radionuclide(Graph, Radionuclide, PhysicalChemicalFormVal, RadionuclideIdVal, RadionuclideNameVal, LowDispersibleMaterialIndicatorVal, ActivityVal, SpecialFormIndicatorVal) )
 ),
@@ -8736,7 +8736,7 @@ WHERE
   }
 
       '
-,row(Graph,OnlineContact,Network,Linkage,Protocol,EMail),[]), convVal(Network,NetworkVal), convVal(Linkage,LinkageVal), convVal(Protocol,ProtocolVal), convVal(EMail,EMailVal)
+,row(Graph,OnlineContact,Network,Linkage,Protocol,EMail),[]), convVal(Network,NetworkVal), convVal(Linkage,LinkageVal), convVal(Protocol,ProtocolVal), convVal(EMail,EMailVal) )
 ,
 assertz( aixm_OnlineContact(Graph, OnlineContact, NetworkVal, LinkageVal, ProtocolVal, EMailVal) )
 ),
@@ -8772,7 +8772,7 @@ WHERE
   }
 
       '
-,row(Graph,StructuredPostalAddress),[])
+,row(Graph,StructuredPostalAddress),[]) )
 ,
 assertz( fixm_StructuredPostalAddress(Graph, StructuredPostalAddress) )
 ),
@@ -8916,7 +8916,7 @@ WHERE
   }
 
       '
-,row(Graph,AircraftPosition,Altitude,Position,PositionTime,Track,ActualSpeed,NextPosition,ReportSource,FollowingPosition),[]), convVal(Altitude,AltitudeVal), convVal(Position,PositionVal), convVal(PositionTime,PositionTimeVal), convVal(Track,TrackVal), convVal(ActualSpeed,ActualSpeedVal), convVal(NextPosition,NextPositionVal), convVal(ReportSource,ReportSourceVal), convVal(FollowingPosition,FollowingPositionVal)
+,row(Graph,AircraftPosition,Altitude,Position,PositionTime,Track,ActualSpeed,NextPosition,ReportSource,FollowingPosition),[]), convVal(Altitude,AltitudeVal), convVal(Position,PositionVal), convVal(PositionTime,PositionTimeVal), convVal(Track,TrackVal), convVal(ActualSpeed,ActualSpeedVal), convVal(NextPosition,NextPositionVal), convVal(ReportSource,ReportSourceVal), convVal(FollowingPosition,FollowingPositionVal) )
 ,
 assertz( fixm_AircraftPosition(Graph, AircraftPosition, AltitudeVal, PositionVal, PositionTimeVal, TrackVal, ActualSpeedVal, NextPositionVal, ReportSourceVal, FollowingPositionVal) )
 ),
@@ -8978,7 +8978,7 @@ WHERE
   }
 
       '
-,row(Graph,AirportHeliportUsage,Operation),[]), convVal(Operation,OperationVal)
+,row(Graph,AirportHeliportUsage,Operation),[]), convVal(Operation,OperationVal) )
 ,
 assertz( aixm_AirportHeliportUsage(Graph, AirportHeliportUsage, OperationVal) )
 ),
@@ -9406,7 +9406,7 @@ WHERE
 GROUP BY ?graph ?timesheet ?timeReference ?startDate ?endDate ?day ?dayTil ?startTime ?startEvent ?startTimeRelativeEvent ?startEventInterpretation ?endTime ?endEvent ?endTimeRelativeEvent ?endEventInterpretation ?daylightSavingAdjust ?excluded
 
       '
-,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,AnnotationConcat),[]), convVal(TimeReference,TimeReferenceVal), convVal(StartDate,StartDateVal), convVal(EndDate,EndDateVal), convVal(Day,DayVal), convVal(DayTil,DayTilVal), convVal(StartTime,StartTimeVal), convVal(StartEvent,StartEventVal), convVal(StartTimeRelativeEvent,StartTimeRelativeEventVal), convVal(StartEventInterpretation,StartEventInterpretationVal), convVal(EndTime,EndTimeVal), convVal(EndEvent,EndEventVal), convVal(EndTimeRelativeEvent,EndTimeRelativeEventVal), convVal(EndEventInterpretation,EndEventInterpretationVal), convVal(DaylightSavingAdjust,DaylightSavingAdjustVal), convVal(Excluded,ExcludedVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,Timesheet,TimeReference,StartDate,EndDate,Day,DayTil,StartTime,StartEvent,StartTimeRelativeEvent,StartEventInterpretation,EndTime,EndEvent,EndTimeRelativeEvent,EndEventInterpretation,DaylightSavingAdjust,Excluded,AnnotationConcat),[]), convVal(TimeReference,TimeReferenceVal), convVal(StartDate,StartDateVal), convVal(EndDate,EndDateVal), convVal(Day,DayVal), convVal(DayTil,DayTilVal), convVal(StartTime,StartTimeVal), convVal(StartEvent,StartEventVal), convVal(StartTimeRelativeEvent,StartTimeRelativeEventVal), convVal(StartEventInterpretation,StartEventInterpretationVal), convVal(EndTime,EndTimeVal), convVal(EndEvent,EndEventVal), convVal(EndTimeRelativeEvent,EndTimeRelativeEventVal), convVal(EndEventInterpretation,EndEventInterpretationVal), convVal(DaylightSavingAdjust,DaylightSavingAdjustVal), convVal(Excluded,ExcludedVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_Timesheet(Graph, Timesheet, TimeReferenceVal, StartDateVal, EndDateVal, DayVal, DayTilVal, StartTimeVal, StartEventVal, StartTimeRelativeEventVal, StartEventInterpretationVal, EndTimeVal, EndEventVal, EndTimeRelativeEventVal, EndEventInterpretationVal, DaylightSavingAdjustVal, ExcludedVal, AnnotationList) )
 ),
@@ -9447,7 +9447,7 @@ WHERE
 }
 
       '
-,row(Graph,SurfacePatch),[])
+,row(Graph,SurfacePatch),[]) )
 ,
 assertz( gml_SurfacePatch(Graph, SurfacePatch) )
 ),
@@ -9490,7 +9490,7 @@ WHERE
 }
 
       '
-,row(Graph,MultiTime,Actual,Estimated),[]), convVal(Actual,ActualVal), convVal(Estimated,EstimatedVal)
+,row(Graph,MultiTime,Actual,Estimated),[]), convVal(Actual,ActualVal), convVal(Estimated,EstimatedVal) )
 ,
 assertz( fixm_MultiTime(Graph, MultiTime, ActualVal, EstimatedVal) )
 ),
@@ -9684,7 +9684,7 @@ WHERE
 GROUP BY ?graph ?flightCharacteristic ?type ?rule ?status ?military ?origin ?purpose
 
       '
-,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Rule,RuleVal), convVal(Status,StatusVal), convVal(Military,MilitaryVal), convVal(Origin,OriginVal), convVal(Purpose,PurposeVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,FlightCharacteristic,Type,Rule,Status,Military,Origin,Purpose,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Rule,RuleVal), convVal(Status,StatusVal), convVal(Military,MilitaryVal), convVal(Origin,OriginVal), convVal(Purpose,PurposeVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_FlightCharacteristic(Graph, FlightCharacteristic, TypeVal, RuleVal, StatusVal, MilitaryVal, OriginVal, PurposeVal, AnnotationList) )
 ),
@@ -9824,7 +9824,7 @@ WHERE
   }
 
       '
-,row(Graph,Provenance,Timestamp,Centre,Source,System),[]), convVal(Timestamp,TimestampVal), convVal(Centre,CentreVal), convVal(Source,SourceVal), convVal(System,SystemVal)
+,row(Graph,Provenance,Timestamp,Centre,Source,System),[]), convVal(Timestamp,TimestampVal), convVal(Centre,CentreVal), convVal(Source,SourceVal), convVal(System,SystemVal) )
 ,
 assertz( fixm_Provenance(Graph, Provenance, TimestampVal, CentreVal, SourceVal, SystemVal) )
 ),
@@ -9862,7 +9862,7 @@ WHERE
 GROUP BY ?graph ?airportHeliport
 
       '
-,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList)
+,row(Graph,AirportHeliport,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList) )
 ,
 assertz( aixm_AirportHeliport(Graph, AirportHeliport, TimeSliceList) )
 ),
@@ -10012,7 +10012,7 @@ WHERE
 GROUP BY ?graph ?trajectoryPoint ?altimeterSetting ?predictedAirspeed ?predictedGroundspeed ?metData ?point ?referencePoint
 
       '
-,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convVal(AltimeterSetting,AltimeterSettingVal), convVal(PredictedAirspeed,PredictedAirspeedVal), convVal(PredictedGroundspeed,PredictedGroundspeedVal), convVal(MetData,MetDataVal), convVal(Point,PointVal), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList), convVal(ReferencePoint,ReferencePointVal)
+,row(Graph,TrajectoryPoint,AltimeterSetting,PredictedAirspeed,PredictedGroundspeed,MetData,Point,TrajectoryChangeConcat,TrajectoryChangeTypeConcat,ReferencePoint),[]), convVal(AltimeterSetting,AltimeterSettingVal), convVal(PredictedAirspeed,PredictedAirspeedVal), convVal(PredictedGroundspeed,PredictedGroundspeedVal), convVal(MetData,MetDataVal), convVal(Point,PointVal), convert(TrajectoryChangeConcat,TrajectoryChangeList), convert(TrajectoryChangeTypeConcat,TrajectoryChangeTypeList), convVal(ReferencePoint,ReferencePointVal) )
 ,
 assertz( fixm_TrajectoryPoint(Graph, TrajectoryPoint, AltimeterSettingVal, PredictedAirspeedVal, PredictedGroundspeedVal, MetDataVal, PointVal, TrajectoryChangeList, TrajectoryChangeTypeList, ReferencePointVal) )
 ),
@@ -10181,7 +10181,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplTrajectoryPoint,AerodromeIdentifier,DistanceFromTakeOff,EfplEstimatedSpeed,ElapsedTime,GrossWeight,TrajectoryPointType,TrajectoryPointRole,InboundSegment),[]), convVal(AerodromeIdentifier,AerodromeIdentifierVal), convVal(DistanceFromTakeOff,DistanceFromTakeOffVal), convVal(EfplEstimatedSpeed,EfplEstimatedSpeedVal), convVal(ElapsedTime,ElapsedTimeVal), convVal(GrossWeight,GrossWeightVal), convVal(TrajectoryPointType,TrajectoryPointTypeVal), convVal(TrajectoryPointRole,TrajectoryPointRoleVal), convVal(InboundSegment,InboundSegmentVal)
+,row(Graph,EfplTrajectoryPoint,AerodromeIdentifier,DistanceFromTakeOff,EfplEstimatedSpeed,ElapsedTime,GrossWeight,TrajectoryPointType,TrajectoryPointRole,InboundSegment),[]), convVal(AerodromeIdentifier,AerodromeIdentifierVal), convVal(DistanceFromTakeOff,DistanceFromTakeOffVal), convVal(EfplEstimatedSpeed,EfplEstimatedSpeedVal), convVal(ElapsedTime,ElapsedTimeVal), convVal(GrossWeight,GrossWeightVal), convVal(TrajectoryPointType,TrajectoryPointTypeVal), convVal(TrajectoryPointRole,TrajectoryPointRoleVal), convVal(InboundSegment,InboundSegmentVal) )
 ,
 assertz( fixm_EfplTrajectoryPoint(Graph, EfplTrajectoryPoint, AerodromeIdentifierVal, DistanceFromTakeOffVal, EfplEstimatedSpeedVal, ElapsedTimeVal, GrossWeightVal, TrajectoryPointTypeVal, TrajectoryPointRoleVal, InboundSegmentVal) )
 ),
@@ -10295,7 +10295,7 @@ WHERE
   }
 
       '
-,row(Graph,Temperatures,ControlTemperature,EmergencyTemperature,FlashpointTemperature),[]), convVal(ControlTemperature,ControlTemperatureVal), convVal(EmergencyTemperature,EmergencyTemperatureVal), convVal(FlashpointTemperature,FlashpointTemperatureVal)
+,row(Graph,Temperatures,ControlTemperature,EmergencyTemperature,FlashpointTemperature),[]), convVal(ControlTemperature,ControlTemperatureVal), convVal(EmergencyTemperature,EmergencyTemperatureVal), convVal(FlashpointTemperature,FlashpointTemperatureVal) )
 ,
 assertz( fixm_Temperatures(Graph, Temperatures, ControlTemperatureVal, EmergencyTemperatureVal, FlashpointTemperatureVal) )
 ),
@@ -10383,7 +10383,7 @@ WHERE
   }
 
       '
-,row(Graph,TrajectorySegment,SegmentIdentifier,SegmentType),[]), convVal(SegmentIdentifier,SegmentIdentifierVal), convVal(SegmentType,SegmentTypeVal)
+,row(Graph,TrajectorySegment,SegmentIdentifier,SegmentType),[]), convVal(SegmentIdentifier,SegmentIdentifierVal), convVal(SegmentType,SegmentTypeVal) )
 ,
 assertz( fixm_TrajectorySegment(Graph, TrajectorySegment, SegmentIdentifierVal, SegmentTypeVal) )
 ),
@@ -10446,7 +10446,7 @@ WHERE
   }
 
       '
-,row(Graph,RunwayPositionAndTime,RunwayName,RunwayTime),[]), convVal(RunwayName,RunwayNameVal), convVal(RunwayTime,RunwayTimeVal)
+,row(Graph,RunwayPositionAndTime,RunwayName,RunwayTime),[]), convVal(RunwayName,RunwayNameVal), convVal(RunwayTime,RunwayTimeVal) )
 ,
 assertz( fixm_RunwayPositionAndTime(Graph, RunwayPositionAndTime, RunwayNameVal, RunwayTimeVal) )
 ),
@@ -10488,7 +10488,7 @@ WHERE
 }
 
       '
-,row(Graph,Feature,Provenance),[]), convVal(Provenance,ProvenanceVal)
+,row(Graph,Feature,Provenance),[]), convVal(Provenance,ProvenanceVal) )
 ,
 assertz( fixm_Feature(Graph, Feature, ProvenanceVal) )
 ),
@@ -10603,7 +10603,7 @@ WHERE
 GROUP BY ?graph ?flightIdentification ?aircraftIdentification ?majorCarrierIdentifier
 
       '
-,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifierConcat),[]), convVal(AircraftIdentification,AircraftIdentificationVal), convVal(MajorCarrierIdentifier,MajorCarrierIdentifierVal), convert(MarketingCarrierFlightIdentifierConcat,MarketingCarrierFlightIdentifierList)
+,row(Graph,FlightIdentification,AircraftIdentification,MajorCarrierIdentifier,MarketingCarrierFlightIdentifierConcat),[]), convVal(AircraftIdentification,AircraftIdentificationVal), convVal(MajorCarrierIdentifier,MajorCarrierIdentifierVal), convert(MarketingCarrierFlightIdentifierConcat,MarketingCarrierFlightIdentifierList) )
 ,
 assertz( fixm_FlightIdentification(Graph, FlightIdentification, AircraftIdentificationVal, MajorCarrierIdentifierVal, MarketingCarrierFlightIdentifierList) )
 ),
@@ -10718,7 +10718,7 @@ WHERE
   }
 
       '
-,row(Graph,LastContact,ContactFrequency,LastContactTime,LastContactUnit,Position),[]), convVal(ContactFrequency,ContactFrequencyVal), convVal(LastContactTime,LastContactTimeVal), convVal(LastContactUnit,LastContactUnitVal), convVal(Position,PositionVal)
+,row(Graph,LastContact,ContactFrequency,LastContactTime,LastContactUnit,Position),[]), convVal(ContactFrequency,ContactFrequencyVal), convVal(LastContactTime,LastContactTimeVal), convVal(LastContactUnit,LastContactUnitVal), convVal(Position,PositionVal) )
 ,
 assertz( fixm_LastContact(Graph, LastContact, ContactFrequencyVal, LastContactTimeVal, LastContactUnitVal, PositionVal) )
 ),
@@ -10754,7 +10754,7 @@ WHERE
   }
 
       '
-,row(Graph,ElapsedTimeLocation),[])
+,row(Graph,ElapsedTimeLocation),[]) )
 ,
 assertz( fixm_ElapsedTimeLocation(Graph, ElapsedTimeLocation) )
 ),
@@ -10823,7 +10823,7 @@ WHERE
 GROUP BY ?graph ?surface ?horizontalAccuracy
 
       '
-,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,Surface,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_Surface(Graph, Surface, HorizontalAccuracyVal, AnnotationList) )
 ),
@@ -10909,7 +10909,7 @@ WHERE
   }
 
       '
-,row(Graph,TimePeriod,BeginPosition,EndPosition),[]), convVal(BeginPosition,BeginPositionVal), convVal(EndPosition,EndPositionVal)
+,row(Graph,TimePeriod,BeginPosition,EndPosition),[]), convVal(BeginPosition,BeginPositionVal), convVal(EndPosition,EndPositionVal) )
 ,
 assertz( gml_TimePeriod(Graph, TimePeriod, BeginPositionVal, EndPositionVal) )
 ),
@@ -10975,7 +10975,7 @@ WHERE
   }
 
       '
-,row(Graph,AircraftCapabilities,Survival,Communication,Navigation,Surveillance,StandardCapabilities),[]), convVal(Survival,SurvivalVal), convVal(Communication,CommunicationVal), convVal(Navigation,NavigationVal), convVal(Surveillance,SurveillanceVal), convVal(StandardCapabilities,StandardCapabilitiesVal)
+,row(Graph,AircraftCapabilities,Survival,Communication,Navigation,Surveillance,StandardCapabilities),[]), convVal(Survival,SurvivalVal), convVal(Communication,CommunicationVal), convVal(Navigation,NavigationVal), convVal(Surveillance,SurveillanceVal), convVal(StandardCapabilities,StandardCapabilitiesVal) )
 ,
 assertz( fixm_AircraftCapabilities(Graph, AircraftCapabilities, SurvivalVal, CommunicationVal, NavigationVal, SurveillanceVal, StandardCapabilitiesVal) )
 ),
@@ -11063,7 +11063,7 @@ WHERE
   }
 
       '
-,row(Graph,SpeedSchedule,InitialSpeed,SubsequentSpeed),[]), convVal(InitialSpeed,InitialSpeedVal), convVal(SubsequentSpeed,SubsequentSpeedVal)
+,row(Graph,SpeedSchedule,InitialSpeed,SubsequentSpeed),[]), convVal(InitialSpeed,InitialSpeedVal), convVal(SubsequentSpeed,SubsequentSpeedVal) )
 ,
 assertz( fixm_SpeedSchedule(Graph, SpeedSchedule, InitialSpeedVal, SubsequentSpeedVal) )
 ),
@@ -11207,7 +11207,7 @@ WHERE
 GROUP BY ?graph ?organisationAuthorityTimeSlice ?name ?designator ?type ?military
 
       '
-,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,AnnotationConcat,ContactConcat,RelatedOrganisationAuthorityConcat),[]), convVal(Name,NameVal), convVal(Designator,DesignatorVal), convVal(Type,TypeVal), convVal(Military,MilitaryVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList), convert(RelatedOrganisationAuthorityConcat,RelatedOrganisationAuthorityList)
+,row(Graph,OrganisationAuthorityTimeSlice,Name,Designator,Type,Military,AnnotationConcat,ContactConcat,RelatedOrganisationAuthorityConcat),[]), convVal(Name,NameVal), convVal(Designator,DesignatorVal), convVal(Type,TypeVal), convVal(Military,MilitaryVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList), convert(RelatedOrganisationAuthorityConcat,RelatedOrganisationAuthorityList) )
 ,
 assertz( aixm_OrganisationAuthorityTimeSlice(Graph, OrganisationAuthorityTimeSlice, NameVal, DesignatorVal, TypeVal, MilitaryVal, AnnotationList, ContactList, RelatedOrganisationAuthorityList) )
 ),
@@ -11303,7 +11303,7 @@ WHERE
 GROUP BY ?graph ?enRoute ?fleetPrioritization ?cpdlcConnection ?beaconCodeAssignment ?cleared ?pointout ?position
 
       '
-,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convVal(FleetPrioritization,FleetPrioritizationVal), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convVal(CpdlcConnection,CpdlcConnectionVal), convVal(BeaconCodeAssignment,BeaconCodeAssignmentVal), convVal(Cleared,ClearedVal), convert(ControlElementConcat,ControlElementList), convVal(Pointout,PointoutVal), convVal(Position,PositionVal)
+,row(Graph,EnRoute,AlternateAerodromeConcat,FleetPrioritization,BoundaryCrossingsConcat,CpdlcConnection,BeaconCodeAssignment,Cleared,ControlElementConcat,Pointout,Position),[]), convert(AlternateAerodromeConcat,AlternateAerodromeList), convVal(FleetPrioritization,FleetPrioritizationVal), convert(BoundaryCrossingsConcat,BoundaryCrossingsList), convVal(CpdlcConnection,CpdlcConnectionVal), convVal(BeaconCodeAssignment,BeaconCodeAssignmentVal), convVal(Cleared,ClearedVal), convert(ControlElementConcat,ControlElementList), convVal(Pointout,PointoutVal), convVal(Position,PositionVal) )
 ,
 assertz( fixm_EnRoute(Graph, EnRoute, AlternateAerodromeList, FleetPrioritizationVal, BoundaryCrossingsList, CpdlcConnectionVal, BeaconCodeAssignmentVal, ClearedVal, ControlElementList, PointoutVal, PositionVal) )
 ),
@@ -11391,7 +11391,7 @@ WHERE
   }
 
       '
-,row(Graph,FlightLevel,Level,Unit),[]), convVal(Level,LevelVal), convVal(Unit,UnitVal)
+,row(Graph,FlightLevel,Level,Unit),[]), convVal(Level,LevelVal), convVal(Unit,UnitVal) )
 ,
 assertz( fixm_FlightLevel(Graph, FlightLevel, LevelVal, UnitVal) )
 ),
@@ -11455,7 +11455,7 @@ WHERE
 GROUP BY ?graph ?lateralOfftrack ?offtrackReason
 
       '
-,row(Graph,LateralOfftrack,OfftrackDistanceConcat,OfftrackReason),[]), convert(OfftrackDistanceConcat,OfftrackDistanceList), convVal(OfftrackReason,OfftrackReasonVal)
+,row(Graph,LateralOfftrack,OfftrackDistanceConcat,OfftrackReason),[]), convert(OfftrackDistanceConcat,OfftrackDistanceList), convVal(OfftrackReason,OfftrackReasonVal) )
 ,
 assertz( fixm_LateralOfftrack(Graph, LateralOfftrack, OfftrackDistanceList, OfftrackReasonVal) )
 ),
@@ -11543,7 +11543,7 @@ WHERE
   }
 
       '
-,row(Graph,TemporalRange,Earliest,Latest),[]), convVal(Earliest,EarliestVal), convVal(Latest,LatestVal)
+,row(Graph,TemporalRange,Earliest,Latest),[]), convVal(Earliest,EarliestVal), convVal(Latest,LatestVal) )
 ,
 assertz( fixm_TemporalRange(Graph, TemporalRange, EarliestVal, LatestVal) )
 ),
@@ -11788,7 +11788,7 @@ WHERE
   }
 
       '
-,row(Graph,Aircraft,AircraftColours,AircraftQuantity,EngineType,AircraftAddress,Capabilities,Registration,AircraftType,WakeTurbulence,AircraftPerformance),[]), convVal(AircraftColours,AircraftColoursVal), convVal(AircraftQuantity,AircraftQuantityVal), convVal(EngineType,EngineTypeVal), convVal(AircraftAddress,AircraftAddressVal), convVal(Capabilities,CapabilitiesVal), convVal(Registration,RegistrationVal), convVal(AircraftType,AircraftTypeVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(AircraftPerformance,AircraftPerformanceVal)
+,row(Graph,Aircraft,AircraftColours,AircraftQuantity,EngineType,AircraftAddress,Capabilities,Registration,AircraftType,WakeTurbulence,AircraftPerformance),[]), convVal(AircraftColours,AircraftColoursVal), convVal(AircraftQuantity,AircraftQuantityVal), convVal(EngineType,EngineTypeVal), convVal(AircraftAddress,AircraftAddressVal), convVal(Capabilities,CapabilitiesVal), convVal(Registration,RegistrationVal), convVal(AircraftType,AircraftTypeVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(AircraftPerformance,AircraftPerformanceVal) )
 ,
 assertz( fixm_Aircraft(Graph, Aircraft, AircraftColoursVal, AircraftQuantityVal, EngineTypeVal, AircraftAddressVal, CapabilitiesVal, RegistrationVal, AircraftTypeVal, WakeTurbulenceVal, AircraftPerformanceVal) )
 ),
@@ -11850,7 +11850,7 @@ WHERE
   }
 
       '
-,row(Graph,OnlineContact,Email),[]), convVal(Email,EmailVal)
+,row(Graph,OnlineContact,Email),[]), convVal(Email,EmailVal) )
 ,
 assertz( fixm_OnlineContact(Graph, OnlineContact, EmailVal) )
 ),
@@ -11938,7 +11938,7 @@ WHERE
   }
 
       '
-,row(Graph,AirspaceConstraint,AirspaceControlledEntryTime,ConstrainedAirspace),[]), convVal(AirspaceControlledEntryTime,AirspaceControlledEntryTimeVal), convVal(ConstrainedAirspace,ConstrainedAirspaceVal)
+,row(Graph,AirspaceConstraint,AirspaceControlledEntryTime,ConstrainedAirspace),[]), convVal(AirspaceControlledEntryTime,AirspaceControlledEntryTimeVal), convVal(ConstrainedAirspace,ConstrainedAirspaceVal) )
 ,
 assertz( fixm_AirspaceConstraint(Graph, AirspaceConstraint, AirspaceControlledEntryTimeVal, ConstrainedAirspaceVal) )
 ),
@@ -11979,7 +11979,7 @@ WHERE
   }
 
       '
-,row(Graph,TimeSequence,Approval,Begin,End,Ready,Request),[]), convVal(Approval,ApprovalVal), convVal(Begin,BeginVal), convVal(End,EndVal), convVal(Ready,ReadyVal), convVal(Request,RequestVal)
+,row(Graph,TimeSequence,Approval,Begin,End,Ready,Request),[]), convVal(Approval,ApprovalVal), convVal(Begin,BeginVal), convVal(End,EndVal), convVal(Ready,ReadyVal), convVal(Request,RequestVal) )
 ,
 assertz( fixm_TimeSequence(Graph, TimeSequence, ApprovalVal, BeginVal, EndVal, ReadyVal, RequestVal) )
 ),
@@ -12041,7 +12041,7 @@ WHERE
   }
 
       '
-,row(Graph,AdditionalHandlingInformation,ResponsibleAgent),[]), convVal(ResponsibleAgent,ResponsibleAgentVal)
+,row(Graph,AdditionalHandlingInformation,ResponsibleAgent),[]), convVal(ResponsibleAgent,ResponsibleAgentVal) )
 ,
 assertz( fixm_AdditionalHandlingInformation(Graph, AdditionalHandlingInformation, ResponsibleAgentVal) )
 ),
@@ -12134,7 +12134,7 @@ WHERE
 }
 
       '
-,row(Graph,AtcUnitReference,SectorIdentifier,Delegated),[]), convVal(SectorIdentifier,SectorIdentifierVal), convVal(Delegated,DelegatedVal)
+,row(Graph,AtcUnitReference,SectorIdentifier,Delegated),[]), convVal(SectorIdentifier,SectorIdentifierVal), convVal(Delegated,DelegatedVal) )
 ,
 assertz( fixm_AtcUnitReference(Graph, AtcUnitReference, SectorIdentifierVal, DelegatedVal) )
 ),
@@ -12170,7 +12170,7 @@ WHERE
   }
 
       '
-,row(Graph,Extension),[])
+,row(Graph,Extension),[]) )
 ,
 assertz( fixm_Extension(Graph, Extension) )
 ),
@@ -12259,7 +12259,7 @@ WHERE
 GROUP BY ?graph ?surveillanceCapabilities ?otherSurveillanceCapabilities
 
       '
-,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convVal(OtherSurveillanceCapabilities,OtherSurveillanceCapabilitiesVal), convert(SurveillanceCodeConcat,SurveillanceCodeList)
+,row(Graph,SurveillanceCapabilities,OtherSurveillanceCapabilities,SurveillanceCodeConcat),[]), convVal(OtherSurveillanceCapabilities,OtherSurveillanceCapabilitiesVal), convert(SurveillanceCodeConcat,SurveillanceCodeList) )
 ,
 assertz( fixm_SurveillanceCapabilities(Graph, SurveillanceCapabilities, OtherSurveillanceCapabilitiesVal, SurveillanceCodeList) )
 ),
@@ -12297,7 +12297,7 @@ WHERE
 GROUP BY ?graph ?trajectory
 
       '
-,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList)
+,row(Graph,Trajectory,TrajectoryPointConcat),[]), convert(TrajectoryPointConcat,TrajectoryPointList) )
 ,
 assertz( fixm_Trajectory(Graph, Trajectory, TrajectoryPointList) )
 ),
@@ -12388,7 +12388,7 @@ WHERE
 GROUP BY ?graph ?altimeterSourceTimeSlice ?isRemote ?isPrimary
 
       '
-,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convVal(IsRemote,IsRemoteVal), convVal(IsPrimary,IsPrimaryVal), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList)
+,row(Graph,AltimeterSourceTimeSlice,IsRemote,IsPrimary,AvailabilityConcat,AnnotationConcat),[]), convVal(IsRemote,IsRemoteVal), convVal(IsPrimary,IsPrimaryVal), convert(AvailabilityConcat,AvailabilityList), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_AltimeterSourceTimeSlice(Graph, AltimeterSourceTimeSlice, IsRemoteVal, IsPrimaryVal, AvailabilityList, AnnotationList) )
 ),
@@ -12457,7 +12457,7 @@ WHERE
 GROUP BY ?graph ?point ?horizontalAccuracy
 
       '
-,row(Graph,Point,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,Point,HorizontalAccuracy,AnnotationConcat),[]), convVal(HorizontalAccuracy,HorizontalAccuracyVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_Point(Graph, Point, HorizontalAccuracyVal, AnnotationList) )
 ),
@@ -13041,7 +13041,7 @@ WHERE
 GROUP BY ?graph ?aircraftCharacteristic ?type ?engine ?numberEngine ?typeAircraftICAO ?aircraftLandingCategory ?wingSpan ?wingSpanInterpretation ?classWingSpan ?weight ?weightInterpretation ?passengers ?passengersInterpretation ?speed ?speedInterpretation ?wakeTurbulence ?navigationEquipment ?navigationSpecification ?verticalSeparationCapability ?antiCollisionAndSeparationEquipment ?communicationEquipment ?surveillanceEquipment
 
       '
-,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Engine,EngineVal), convVal(NumberEngine,NumberEngineVal), convVal(TypeAircraftICAO,TypeAircraftICAOVal), convVal(AircraftLandingCategory,AircraftLandingCategoryVal), convVal(WingSpan,WingSpanVal), convVal(WingSpanInterpretation,WingSpanInterpretationVal), convVal(ClassWingSpan,ClassWingSpanVal), convVal(Weight,WeightVal), convVal(WeightInterpretation,WeightInterpretationVal), convVal(Passengers,PassengersVal), convVal(PassengersInterpretation,PassengersInterpretationVal), convVal(Speed,SpeedVal), convVal(SpeedInterpretation,SpeedInterpretationVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(NavigationEquipment,NavigationEquipmentVal), convVal(NavigationSpecification,NavigationSpecificationVal), convVal(VerticalSeparationCapability,VerticalSeparationCapabilityVal), convVal(AntiCollisionAndSeparationEquipment,AntiCollisionAndSeparationEquipmentVal), convVal(CommunicationEquipment,CommunicationEquipmentVal), convVal(SurveillanceEquipment,SurveillanceEquipmentVal), convert(AnnotationConcat,AnnotationList)
+,row(Graph,AircraftCharacteristic,Type,Engine,NumberEngine,TypeAircraftICAO,AircraftLandingCategory,WingSpan,WingSpanInterpretation,ClassWingSpan,Weight,WeightInterpretation,Passengers,PassengersInterpretation,Speed,SpeedInterpretation,WakeTurbulence,NavigationEquipment,NavigationSpecification,VerticalSeparationCapability,AntiCollisionAndSeparationEquipment,CommunicationEquipment,SurveillanceEquipment,AnnotationConcat),[]), convVal(Type,TypeVal), convVal(Engine,EngineVal), convVal(NumberEngine,NumberEngineVal), convVal(TypeAircraftICAO,TypeAircraftICAOVal), convVal(AircraftLandingCategory,AircraftLandingCategoryVal), convVal(WingSpan,WingSpanVal), convVal(WingSpanInterpretation,WingSpanInterpretationVal), convVal(ClassWingSpan,ClassWingSpanVal), convVal(Weight,WeightVal), convVal(WeightInterpretation,WeightInterpretationVal), convVal(Passengers,PassengersVal), convVal(PassengersInterpretation,PassengersInterpretationVal), convVal(Speed,SpeedVal), convVal(SpeedInterpretation,SpeedInterpretationVal), convVal(WakeTurbulence,WakeTurbulenceVal), convVal(NavigationEquipment,NavigationEquipmentVal), convVal(NavigationSpecification,NavigationSpecificationVal), convVal(VerticalSeparationCapability,VerticalSeparationCapabilityVal), convVal(AntiCollisionAndSeparationEquipment,AntiCollisionAndSeparationEquipmentVal), convVal(CommunicationEquipment,CommunicationEquipmentVal), convVal(SurveillanceEquipment,SurveillanceEquipmentVal), convert(AnnotationConcat,AnnotationList) )
 ,
 assertz( aixm_AircraftCharacteristic(Graph, AircraftCharacteristic, TypeVal, EngineVal, NumberEngineVal, TypeAircraftICAOVal, AircraftLandingCategoryVal, WingSpanVal, WingSpanInterpretationVal, ClassWingSpanVal, WeightVal, WeightInterpretationVal, PassengersVal, PassengersInterpretationVal, SpeedVal, SpeedInterpretationVal, WakeTurbulenceVal, NavigationEquipmentVal, NavigationSpecificationVal, VerticalSeparationCapabilityVal, AntiCollisionAndSeparationEquipmentVal, CommunicationEquipmentVal, SurveillanceEquipmentVal, AnnotationList) )
 ),
@@ -13207,7 +13207,7 @@ WHERE
   }
 
       '
-,row(Graph,PostalAddress,DeliveryPoint,City,AdministrativeArea,PostalCode,Country),[]), convVal(DeliveryPoint,DeliveryPointVal), convVal(City,CityVal), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(Country,CountryVal)
+,row(Graph,PostalAddress,DeliveryPoint,City,AdministrativeArea,PostalCode,Country),[]), convVal(DeliveryPoint,DeliveryPointVal), convVal(City,CityVal), convVal(AdministrativeArea,AdministrativeAreaVal), convVal(PostalCode,PostalCodeVal), convVal(Country,CountryVal) )
 ,
 assertz( aixm_PostalAddress(Graph, PostalAddress, DeliveryPointVal, CityVal, AdministrativeAreaVal, PostalCodeVal, CountryVal) )
 ),
@@ -13691,7 +13691,7 @@ WHERE
 GROUP BY ?graph ?dangerousGoodsPackage ?dangerousGoodsQuantity ?packageDimensions ?packingInstructionNumber ?productName ?properShippingName ?reportableQuantity ?supplementaryInformation ?technicalName ?typeOfPackaging ?unNumber ?dangerousGoodsLimitation ?shipmentType ?allPackedInOne ?compatibilityGroup ?shipmentDimensions ?marinePollutantIndicator ?radioactiveMaterials ?hazardClass ?packingGroup ?temperatures ?overpackIndicator
 
       '
-,row(Graph,DangerousGoodsPackage,DangerousGoodsQuantity,PackageDimensions,PackingInstructionNumber,ProductName,ProperShippingName,ReportableQuantity,SupplementaryInformation,TechnicalName,TypeOfPackaging,UnNumber,DangerousGoodsLimitation,ShipmentType,AllPackedInOne,CompatibilityGroup,ShipmentDimensions,MarinePollutantIndicator,RadioactiveMaterials,HazardClass,PackingGroup,Temperatures,OverpackIndicator,SubsidiaryHazardClassConcat),[]), convVal(DangerousGoodsQuantity,DangerousGoodsQuantityVal), convVal(PackageDimensions,PackageDimensionsVal), convVal(PackingInstructionNumber,PackingInstructionNumberVal), convVal(ProductName,ProductNameVal), convVal(ProperShippingName,ProperShippingNameVal), convVal(ReportableQuantity,ReportableQuantityVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convVal(TechnicalName,TechnicalNameVal), convVal(TypeOfPackaging,TypeOfPackagingVal), convVal(UnNumber,UnNumberVal), convVal(DangerousGoodsLimitation,DangerousGoodsLimitationVal), convVal(ShipmentType,ShipmentTypeVal), convVal(AllPackedInOne,AllPackedInOneVal), convVal(CompatibilityGroup,CompatibilityGroupVal), convVal(ShipmentDimensions,ShipmentDimensionsVal), convVal(MarinePollutantIndicator,MarinePollutantIndicatorVal), convVal(RadioactiveMaterials,RadioactiveMaterialsVal), convVal(HazardClass,HazardClassVal), convVal(PackingGroup,PackingGroupVal), convVal(Temperatures,TemperaturesVal), convVal(OverpackIndicator,OverpackIndicatorVal), convert(SubsidiaryHazardClassConcat,SubsidiaryHazardClassList)
+,row(Graph,DangerousGoodsPackage,DangerousGoodsQuantity,PackageDimensions,PackingInstructionNumber,ProductName,ProperShippingName,ReportableQuantity,SupplementaryInformation,TechnicalName,TypeOfPackaging,UnNumber,DangerousGoodsLimitation,ShipmentType,AllPackedInOne,CompatibilityGroup,ShipmentDimensions,MarinePollutantIndicator,RadioactiveMaterials,HazardClass,PackingGroup,Temperatures,OverpackIndicator,SubsidiaryHazardClassConcat),[]), convVal(DangerousGoodsQuantity,DangerousGoodsQuantityVal), convVal(PackageDimensions,PackageDimensionsVal), convVal(PackingInstructionNumber,PackingInstructionNumberVal), convVal(ProductName,ProductNameVal), convVal(ProperShippingName,ProperShippingNameVal), convVal(ReportableQuantity,ReportableQuantityVal), convVal(SupplementaryInformation,SupplementaryInformationVal), convVal(TechnicalName,TechnicalNameVal), convVal(TypeOfPackaging,TypeOfPackagingVal), convVal(UnNumber,UnNumberVal), convVal(DangerousGoodsLimitation,DangerousGoodsLimitationVal), convVal(ShipmentType,ShipmentTypeVal), convVal(AllPackedInOne,AllPackedInOneVal), convVal(CompatibilityGroup,CompatibilityGroupVal), convVal(ShipmentDimensions,ShipmentDimensionsVal), convVal(MarinePollutantIndicator,MarinePollutantIndicatorVal), convVal(RadioactiveMaterials,RadioactiveMaterialsVal), convVal(HazardClass,HazardClassVal), convVal(PackingGroup,PackingGroupVal), convVal(Temperatures,TemperaturesVal), convVal(OverpackIndicator,OverpackIndicatorVal), convert(SubsidiaryHazardClassConcat,SubsidiaryHazardClassList) )
 ,
 assertz( fixm_DangerousGoodsPackage(Graph, DangerousGoodsPackage, DangerousGoodsQuantityVal, PackageDimensionsVal, PackingInstructionNumberVal, ProductNameVal, ProperShippingNameVal, ReportableQuantityVal, SupplementaryInformationVal, TechnicalNameVal, TypeOfPackagingVal, UnNumberVal, DangerousGoodsLimitationVal, ShipmentTypeVal, AllPackedInOneVal, CompatibilityGroupVal, ShipmentDimensionsVal, MarinePollutantIndicatorVal, RadioactiveMaterialsVal, HazardClassVal, PackingGroupVal, TemperaturesVal, OverpackIndicatorVal, SubsidiaryHazardClassList) )
 ),
@@ -13780,7 +13780,7 @@ WHERE
   }
 
       '
-,row(Graph,LastPositionReport,DeterminationMethod,Position,TimeAtPosition),[]), convVal(DeterminationMethod,DeterminationMethodVal), convVal(Position,PositionVal), convVal(TimeAtPosition,TimeAtPositionVal)
+,row(Graph,LastPositionReport,DeterminationMethod,Position,TimeAtPosition),[]), convVal(DeterminationMethod,DeterminationMethodVal), convVal(Position,PositionVal), convVal(TimeAtPosition,TimeAtPositionVal) )
 ,
 assertz( fixm_LastPositionReport(Graph, LastPositionReport, DeterminationMethodVal, PositionVal, TimeAtPositionVal) )
 ),
@@ -13842,7 +13842,7 @@ WHERE
   }
 
       '
-,row(Graph,AltimeterSourceStatus,OperationalStatus),[]), convVal(OperationalStatus,OperationalStatusVal)
+,row(Graph,AltimeterSourceStatus,OperationalStatus),[]), convVal(OperationalStatus,OperationalStatusVal) )
 ,
 assertz( aixm_AltimeterSourceStatus(Graph, AltimeterSourceStatus, OperationalStatusVal) )
 ),
@@ -13956,7 +13956,7 @@ WHERE
   }
 
       '
-,row(Graph,DangerousGoodsDimensions,GrossWeight,NetWeight,Volume),[]), convVal(GrossWeight,GrossWeightVal), convVal(NetWeight,NetWeightVal), convVal(Volume,VolumeVal)
+,row(Graph,DangerousGoodsDimensions,GrossWeight,NetWeight,Volume),[]), convVal(GrossWeight,GrossWeightVal), convVal(NetWeight,NetWeightVal), convVal(Volume,VolumeVal) )
 ,
 assertz( fixm_DangerousGoodsDimensions(Graph, DangerousGoodsDimensions, GrossWeightVal, NetWeightVal, VolumeVal) )
 ),
@@ -14018,7 +14018,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplRoute,EfplFlightRules),[]), convVal(EfplFlightRules,EfplFlightRulesVal)
+,row(Graph,EfplRoute,EfplFlightRules),[]), convVal(EfplFlightRules,EfplFlightRulesVal) )
 ,
 assertz( fixm_EfplRoute(Graph, EfplRoute, EfplFlightRulesVal) )
 ),
@@ -14158,7 +14158,7 @@ WHERE
   }
 
       '
-,row(Graph,CoordinationStatus,AbrogationReason,CoordinationStatus,NonStandardCommunicationReason,ReleaseConditions),[]), convVal(AbrogationReason,AbrogationReasonVal), convVal(CoordinationStatus,CoordinationStatusVal), convVal(NonStandardCommunicationReason,NonStandardCommunicationReasonVal), convVal(ReleaseConditions,ReleaseConditionsVal)
+,row(Graph,CoordinationStatus,AbrogationReason,CoordinationStatus,NonStandardCommunicationReason,ReleaseConditions),[]), convVal(AbrogationReason,AbrogationReasonVal), convVal(CoordinationStatus,CoordinationStatusVal), convVal(NonStandardCommunicationReason,NonStandardCommunicationReasonVal), convVal(ReleaseConditions,ReleaseConditionsVal) )
 ,
 assertz( fixm_CoordinationStatus(Graph, CoordinationStatus, AbrogationReasonVal, CoordinationStatusVal, NonStandardCommunicationReasonVal, ReleaseConditionsVal) )
 ),
@@ -14300,7 +14300,7 @@ WHERE
   }
 
       '
-,row(Graph,BoundaryCrossing,Altitude,CrossingPoint,CrossingSpeed,CrossingTime,Offtrack,AltitudeInTransition),[]), convVal(Altitude,AltitudeVal), convVal(CrossingPoint,CrossingPointVal), convVal(CrossingSpeed,CrossingSpeedVal), convVal(CrossingTime,CrossingTimeVal), convVal(Offtrack,OfftrackVal), convVal(AltitudeInTransition,AltitudeInTransitionVal)
+,row(Graph,BoundaryCrossing,Altitude,CrossingPoint,CrossingSpeed,CrossingTime,Offtrack,AltitudeInTransition),[]), convVal(Altitude,AltitudeVal), convVal(CrossingPoint,CrossingPointVal), convVal(CrossingSpeed,CrossingSpeedVal), convVal(CrossingTime,CrossingTimeVal), convVal(Offtrack,OfftrackVal), convVal(AltitudeInTransition,AltitudeInTransitionVal) )
 ,
 assertz( fixm_BoundaryCrossing(Graph, BoundaryCrossing, AltitudeVal, CrossingPointVal, CrossingSpeedVal, CrossingTimeVal, OfftrackVal, AltitudeInTransitionVal) )
 ),
@@ -14362,7 +14362,7 @@ WHERE
   }
 
       '
-,row(Graph,IcaoAerodromeReference,Code),[]), convVal(Code,CodeVal)
+,row(Graph,IcaoAerodromeReference,Code),[]), convVal(Code,CodeVal) )
 ,
 assertz( fixm_IcaoAerodromeReference(Graph, IcaoAerodromeReference, CodeVal) )
 ),
@@ -14451,7 +14451,7 @@ WHERE
   }
 
       '
-,row(Graph,RadioCommunicationFailure,RadioFailureRemarks,RemainingComCapability,Contact),[]), convVal(RadioFailureRemarks,RadioFailureRemarksVal), convVal(RemainingComCapability,RemainingComCapabilityVal), convVal(Contact,ContactVal)
+,row(Graph,RadioCommunicationFailure,RadioFailureRemarks,RemainingComCapability,Contact),[]), convVal(RadioFailureRemarks,RadioFailureRemarksVal), convVal(RemainingComCapability,RemainingComCapabilityVal), convVal(Contact,ContactVal) )
 ,
 assertz( fixm_RadioCommunicationFailure(Graph, RadioCommunicationFailure, RadioFailureRemarksVal, RemainingComCapabilityVal, ContactVal) )
 ),
@@ -14541,7 +14541,7 @@ WHERE
 GROUP BY ?graph ?airportHeliportAvailability ?operationalStatus ?warning
 
       '
-,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convVal(OperationalStatus,OperationalStatusVal), convVal(Warning,WarningVal), convert(UsageConcat,UsageList)
+,row(Graph,AirportHeliportAvailability,OperationalStatus,Warning,UsageConcat),[]), convVal(OperationalStatus,OperationalStatusVal), convVal(Warning,WarningVal), convert(UsageConcat,UsageList) )
 ,
 assertz( aixm_AirportHeliportAvailability(Graph, AirportHeliportAvailability, OperationalStatusVal, WarningVal, UsageList) )
 ),
@@ -14744,7 +14744,7 @@ WHERE
 GROUP BY ?graph ?flightArrival ?approachFix ?approachTime ?arrivalAerodrome ?arrivalAerodromeOriginal ?arrivalFix ?arrivalFixTime ?arrivalFleetPrioritization ?arrivalSequenceNumber ?earliestInBlockTime ?filedRevisedDestinationAerodrome ?filedRevisedDestinationStar ?runwayPositionAndTime ?standardInstrumentArrival ?standPositionAndTime ?landingLimits
 
       '
-,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternateConcat,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]), convVal(ApproachFix,ApproachFixVal), convVal(ApproachTime,ApproachTimeVal), convVal(ArrivalAerodrome,ArrivalAerodromeVal), convert(ArrivalAerodromeAlternateConcat,ArrivalAerodromeAlternateList), convVal(ArrivalAerodromeOriginal,ArrivalAerodromeOriginalVal), convVal(ArrivalFix,ArrivalFixVal), convVal(ArrivalFixTime,ArrivalFixTimeVal), convVal(ArrivalFleetPrioritization,ArrivalFleetPrioritizationVal), convVal(ArrivalSequenceNumber,ArrivalSequenceNumberVal), convVal(EarliestInBlockTime,EarliestInBlockTimeVal), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal), convVal(FiledRevisedDestinationStar,FiledRevisedDestinationStarVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentArrival,StandardInstrumentArrivalVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convVal(LandingLimits,LandingLimitsVal)
+,row(Graph,FlightArrival,ApproachFix,ApproachTime,ArrivalAerodrome,ArrivalAerodromeAlternateConcat,ArrivalAerodromeOriginal,ArrivalFix,ArrivalFixTime,ArrivalFleetPrioritization,ArrivalSequenceNumber,EarliestInBlockTime,FiledRevisedDestinationAerodrome,FiledRevisedDestinationStar,RunwayPositionAndTime,StandardInstrumentArrival,StandPositionAndTime,LandingLimits),[]), convVal(ApproachFix,ApproachFixVal), convVal(ApproachTime,ApproachTimeVal), convVal(ArrivalAerodrome,ArrivalAerodromeVal), convert(ArrivalAerodromeAlternateConcat,ArrivalAerodromeAlternateList), convVal(ArrivalAerodromeOriginal,ArrivalAerodromeOriginalVal), convVal(ArrivalFix,ArrivalFixVal), convVal(ArrivalFixTime,ArrivalFixTimeVal), convVal(ArrivalFleetPrioritization,ArrivalFleetPrioritizationVal), convVal(ArrivalSequenceNumber,ArrivalSequenceNumberVal), convVal(EarliestInBlockTime,EarliestInBlockTimeVal), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal), convVal(FiledRevisedDestinationStar,FiledRevisedDestinationStarVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentArrival,StandardInstrumentArrivalVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convVal(LandingLimits,LandingLimitsVal) )
 ,
 assertz( fixm_FlightArrival(Graph, FlightArrival, ApproachFixVal, ApproachTimeVal, ArrivalAerodromeVal, ArrivalAerodromeAlternateList, ArrivalAerodromeOriginalVal, ArrivalFixVal, ArrivalFixTimeVal, ArrivalFleetPrioritizationVal, ArrivalSequenceNumberVal, EarliestInBlockTimeVal, FiledRevisedDestinationAerodromeVal, FiledRevisedDestinationStarVal, RunwayPositionAndTimeVal, StandardInstrumentArrivalVal, StandPositionAndTimeVal, LandingLimitsVal) )
 ),
@@ -14885,7 +14885,7 @@ WHERE
   }
 
       '
-,row(Graph,RadioactiveMaterial,CriticalitySafetyIndex,TransportIndex,FissileExceptedIndicator,Category,Radionuclide),[]), convVal(CriticalitySafetyIndex,CriticalitySafetyIndexVal), convVal(TransportIndex,TransportIndexVal), convVal(FissileExceptedIndicator,FissileExceptedIndicatorVal), convVal(Category,CategoryVal), convVal(Radionuclide,RadionuclideVal)
+,row(Graph,RadioactiveMaterial,CriticalitySafetyIndex,TransportIndex,FissileExceptedIndicator,Category,Radionuclide),[]), convVal(CriticalitySafetyIndex,CriticalitySafetyIndexVal), convVal(TransportIndex,TransportIndexVal), convVal(FissileExceptedIndicator,FissileExceptedIndicatorVal), convVal(Category,CategoryVal), convVal(Radionuclide,RadionuclideVal) )
 ,
 assertz( fixm_RadioactiveMaterial(Graph, RadioactiveMaterial, CriticalitySafetyIndexVal, TransportIndexVal, FissileExceptedIndicatorVal, CategoryVal, RadionuclideVal) )
 ),
@@ -14923,7 +14923,7 @@ WHERE
   }
 
       '
-,row(Graph,ExtendedMultiTime,Controlled,Initial),[]), convVal(Controlled,ControlledVal), convVal(Initial,InitialVal)
+,row(Graph,ExtendedMultiTime,Controlled,Initial),[]), convVal(Controlled,ControlledVal), convVal(Initial,InitialVal) )
 ,
 assertz( fixm_ExtendedMultiTime(Graph, ExtendedMultiTime, ControlledVal, InitialVal) )
 ),
@@ -14959,7 +14959,7 @@ WHERE
   }
 
       '
-,row(Graph,ControlElement),[])
+,row(Graph,ControlElement),[]) )
 ,
 assertz( fixm_ControlElement(Graph, ControlElement) )
 ),
@@ -14999,7 +14999,7 @@ WHERE
   }
 
       '
-,row(Graph,AerodromesOfDestination,AerodromeOfDestination,Alternate1,Alternate2,FiledRevisedDestinationAerodrome),[]), convVal(AerodromeOfDestination,AerodromeOfDestinationVal), convVal(Alternate1,Alternate1Val), convVal(Alternate2,Alternate2Val), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal)
+,row(Graph,AerodromesOfDestination,AerodromeOfDestination,Alternate1,Alternate2,FiledRevisedDestinationAerodrome),[]), convVal(AerodromeOfDestination,AerodromeOfDestinationVal), convVal(Alternate1,Alternate1Val), convVal(Alternate2,Alternate2Val), convVal(FiledRevisedDestinationAerodrome,FiledRevisedDestinationAerodromeVal) )
 ,
 assertz( fixm_AerodromesOfDestination(Graph, AerodromesOfDestination, AerodromeOfDestinationVal, Alternate1Val, Alternate2Val, FiledRevisedDestinationAerodromeVal) )
 ),
@@ -15087,7 +15087,7 @@ WHERE
   }
 
       '
-,row(Graph,AllPackedInOne,NumberOfPackages,QValue),[]), convVal(NumberOfPackages,NumberOfPackagesVal), convVal(QValue,QValueVal)
+,row(Graph,AllPackedInOne,NumberOfPackages,QValue),[]), convVal(NumberOfPackages,NumberOfPackagesVal), convVal(QValue,QValueVal) )
 ,
 assertz( fixm_AllPackedInOne(Graph, AllPackedInOne, NumberOfPackagesVal, QValueVal) )
 ),
@@ -15125,7 +15125,7 @@ WHERE
 GROUP BY ?graph ?altimeterSource
 
       '
-,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList)
+,row(Graph,AltimeterSource,TimeSliceConcat),[]), convert(TimeSliceConcat,TimeSliceList) )
 ,
 assertz( aixm_AltimeterSource(Graph, AltimeterSource, TimeSliceList) )
 ),
@@ -15267,7 +15267,7 @@ WHERE
 GROUP BY ?graph ?survivalCapabilities ?survivalEquipmentRemarks ?dinghyInformation
 
       '
-,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCodeConcat,LifeJacketCodeConcat,SurvivalEquipmentCodeConcat),[]), convVal(SurvivalEquipmentRemarks,SurvivalEquipmentRemarksVal), convVal(DinghyInformation,DinghyInformationVal), convert(EmergencyRadioCodeConcat,EmergencyRadioCodeList), convert(LifeJacketCodeConcat,LifeJacketCodeList), convert(SurvivalEquipmentCodeConcat,SurvivalEquipmentCodeList)
+,row(Graph,SurvivalCapabilities,SurvivalEquipmentRemarks,DinghyInformation,EmergencyRadioCodeConcat,LifeJacketCodeConcat,SurvivalEquipmentCodeConcat),[]), convVal(SurvivalEquipmentRemarks,SurvivalEquipmentRemarksVal), convVal(DinghyInformation,DinghyInformationVal), convert(EmergencyRadioCodeConcat,EmergencyRadioCodeList), convert(LifeJacketCodeConcat,LifeJacketCodeList), convert(SurvivalEquipmentCodeConcat,SurvivalEquipmentCodeList) )
 ,
 assertz( fixm_SurvivalCapabilities(Graph, SurvivalCapabilities, SurvivalEquipmentRemarksVal, DinghyInformationVal, EmergencyRadioCodeList, LifeJacketCodeList, SurvivalEquipmentCodeList) )
 ),
@@ -15305,7 +15305,7 @@ WHERE
   }
 
       '
-,row(Graph,DirectRouting,From,To),[]), convVal(From,FromVal), convVal(To,ToVal)
+,row(Graph,DirectRouting,From,To),[]), convVal(From,FromVal), convVal(To,ToVal) )
 ,
 assertz( fixm_DirectRouting(Graph, DirectRouting, FromVal, ToVal) )
 ),
@@ -15347,7 +15347,7 @@ WHERE
 }
 
       '
-,row(Graph,TargetMultiTime,Target),[]), convVal(Target,TargetVal)
+,row(Graph,TargetMultiTime,Target),[]), convVal(Target,TargetVal) )
 ,
 assertz( fixm_TargetMultiTime(Graph, TargetMultiTime, TargetVal) )
 ),
@@ -15383,7 +15383,7 @@ WHERE
   }
 
       '
-,row(Graph,AircraftType),[])
+,row(Graph,AircraftType),[]) )
 ,
 assertz( fixm_AircraftType(Graph, AircraftType) )
 ),
@@ -15563,7 +15563,7 @@ WHERE
 GROUP BY ?graph ?flightDeparture ?departureAerodrome ?departureFix ?departureFixTime ?departureFleetPrioritization ?departureSlot ?earliestOffBlockTime ?offBlockReadyTime ?runwayPositionAndTime ?standardInstrumentDeparture ?standPositionAndTime ?takeoffWeight ?departureTimes
 
       '
-,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convVal(DepartureAerodrome,DepartureAerodromeVal), convVal(DepartureFix,DepartureFixVal), convVal(DepartureFixTime,DepartureFixTimeVal), convVal(DepartureFleetPrioritization,DepartureFleetPrioritizationVal), convVal(DepartureSlot,DepartureSlotVal), convVal(EarliestOffBlockTime,EarliestOffBlockTimeVal), convVal(OffBlockReadyTime,OffBlockReadyTimeVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentDeparture,StandardInstrumentDepartureVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList), convVal(TakeoffWeight,TakeoffWeightVal), convVal(DepartureTimes,DepartureTimesVal)
+,row(Graph,FlightDeparture,DepartureAerodrome,DepartureFix,DepartureFixTime,DepartureFleetPrioritization,DepartureSlot,EarliestOffBlockTime,OffBlockReadyTime,RunwayPositionAndTime,StandardInstrumentDeparture,StandPositionAndTime,TakeoffAlternateAerodromeConcat,TakeoffWeight,DepartureTimes),[]), convVal(DepartureAerodrome,DepartureAerodromeVal), convVal(DepartureFix,DepartureFixVal), convVal(DepartureFixTime,DepartureFixTimeVal), convVal(DepartureFleetPrioritization,DepartureFleetPrioritizationVal), convVal(DepartureSlot,DepartureSlotVal), convVal(EarliestOffBlockTime,EarliestOffBlockTimeVal), convVal(OffBlockReadyTime,OffBlockReadyTimeVal), convVal(RunwayPositionAndTime,RunwayPositionAndTimeVal), convVal(StandardInstrumentDeparture,StandardInstrumentDepartureVal), convVal(StandPositionAndTime,StandPositionAndTimeVal), convert(TakeoffAlternateAerodromeConcat,TakeoffAlternateAerodromeList), convVal(TakeoffWeight,TakeoffWeightVal), convVal(DepartureTimes,DepartureTimesVal) )
 ,
 assertz( fixm_FlightDeparture(Graph, FlightDeparture, DepartureAerodromeVal, DepartureFixVal, DepartureFixTimeVal, DepartureFleetPrioritizationVal, DepartureSlotVal, EarliestOffBlockTimeVal, OffBlockReadyTimeVal, RunwayPositionAndTimeVal, StandardInstrumentDepartureVal, StandPositionAndTimeVal, TakeoffAlternateAerodromeList, TakeoffWeightVal, DepartureTimesVal) )
 ),
@@ -15604,7 +15604,7 @@ WHERE
 }
 
       '
-,row(Graph,AerodromeReference),[])
+,row(Graph,AerodromeReference),[]) )
 ,
 assertz( fixm_AerodromeReference(Graph, AerodromeReference) )
 ),
@@ -15692,7 +15692,7 @@ WHERE
   }
 
       '
-,row(Graph,EfplFlightDeparture,EstimatedOffBlockTime,TaxiTime),[]), convVal(EstimatedOffBlockTime,EstimatedOffBlockTimeVal), convVal(TaxiTime,TaxiTimeVal)
+,row(Graph,EfplFlightDeparture,EstimatedOffBlockTime,TaxiTime),[]), convVal(EstimatedOffBlockTime,EstimatedOffBlockTimeVal), convVal(TaxiTime,TaxiTimeVal) )
 ,
 assertz( fixm_EfplFlightDeparture(Graph, EfplFlightDeparture, EstimatedOffBlockTimeVal, TaxiTimeVal) )
 ),
@@ -15789,10 +15789,10 @@ WHERE
 GROUP BY ?graph ?usageCondition ?type ?priorPermission ?selection
 
       '
-,row(Graph,UsageCondition,Type,PriorPermission,Selection,AnnotationConcat,ContactConcat),[]), convVal(Type,TypeVal), convVal(PriorPermission,PriorPermissionVal), convVal(Selection,SelectionVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList)
+,row(Graph,UsageCondition,Type,PriorPermission,Selection,AnnotationConcat,ContactConcat),[]), convVal(Type,TypeVal), convVal(PriorPermission,PriorPermissionVal), convVal(Selection,SelectionVal), convert(AnnotationConcat,AnnotationList), convert(ContactConcat,ContactList) )
 ,
 assertz( aixm_UsageCondition(Graph, UsageCondition, TypeVal, PriorPermissionVal, SelectionVal, AnnotationList, ContactList) )
-)).
+).
 
 fixm_ExpandedRoutePoint_Combined(Graph, ExpandedRoutePoint, AirTrafficType, DelayAtPoint, FlightRules, Point, ClearanceLimit, EstimatedLevel, EstimatedTime, ConstraintList) :-
   fixm_ExpandedRoutePoint(Graph, ExpandedRoutePoint, EstimatedLevel, EstimatedTime, ConstraintList),

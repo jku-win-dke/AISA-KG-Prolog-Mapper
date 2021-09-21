@@ -119,14 +119,18 @@ public class Shacl2PrologLauncher {
 		new Query("consult('output/program.pl')").hasSolution();
 		
 		long time_seven = System.currentTimeMillis();
-		
-		new Query("run").hasSolution();
+
+		new Query("map").hasSolution();
 		
 		long time_eight = System.currentTimeMillis();
 		
+		new Query("run").hasSolution();
+		
+		long time_nine = System.currentTimeMillis();
+		
 		new Query("save").hasSolution();
 
-		long time_nine = System.currentTimeMillis();
+		long time_ten = System.currentTimeMillis();
 		
 		fuseki.load("http://ex.org/new", "output/output.ttl");
 
@@ -140,9 +144,10 @@ public class Shacl2PrologLauncher {
         System.out.println("Creating KnowledgeGraphClasses and KnowledgeGraphProperties: " + (time_five - time_four));
         System.out.println("Creating Prolog file with embedded SPARQL queries: " + (time_six - time_five));
         System.out.println("Consult Program: " + (time_seven - time_six));
-        System.out.println("Invoke run/0 in Prolog: " + (time_eight - time_seven));
-        System.out.println("Invoke save/0 in Prolog: " + (time_nine - time_eight));
-        System.out.println("Load saved results to Fuseki: " + (endTime - time_nine));
+        System.out.println("Invoke map/0 in Prolog " + (time_eight - time_seven));
+        System.out.println("Invoke run/0 in Prolog: " + (time_nine - time_eight));
+        System.out.println("Invoke save/0 in Prolog: " + (time_ten - time_nine));
+        System.out.println("Load saved results to Fuseki: " + (endTime - time_ten));
         System.out.println();
         System.out.println("Execution time in milliseconds: " + timeElapsed);        
         
@@ -170,6 +175,7 @@ public class Shacl2PrologLauncher {
             			+ ";" + "Creating KnowledgeGraphClasses and KnowledgeGraphProperties" //
             			+ ";" + "Creating Prolog file with embedded SPARQL queries" //
             			+ ";" + "Consult Program" //
+            			+ ";" + "Invoke map/0 in Prolog" //
             			+ ";" + "Invoke run/0 in Prolog" //
             			+ ";" + "Invoke save/0 in Prolog" //
             			+ ";" + "Load saved results to Fuseki" //
@@ -188,7 +194,8 @@ public class Shacl2PrologLauncher {
                		+ ";" + (time_seven - time_six)
                		+ ";" + (time_eight - time_seven)
                		+ ";" + (time_nine - time_eight)
-               		+ ";" + (endTime - time_nine)
+               		+ ";" + (time_ten - time_nine)
+               		+ ";" + (endTime - time_ten)
                		+ ";" + timeElapsed);
         } catch (FileNotFoundException e) {
 			String message = String.format("File %s could not be found.", PERFORMANCE__RESULTS_CSV);

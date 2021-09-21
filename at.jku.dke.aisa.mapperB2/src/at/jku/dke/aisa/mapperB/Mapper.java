@@ -516,13 +516,13 @@ public class Mapper {
 			printWriter.println(generatePrefixes());
 			printWriter.println(knowledgeGraphClasses.get(i).getSPARQLQuery());
 			printWriter.println("      '");
-			printWriter.println(knowledgeGraphClasses.get(i).getEndPartOfPrologRule());
+			printWriter.println(knowledgeGraphClasses.get(i).getEndPartOfPrologRule() + " )");
 			printWriter.println(",");
 			printWriter.println("assertz( " + knowledgeGraphClasses.get(i).generatePrologRule(null) + " )");
 			if(knowledgeGraphClasses.size()-1 > i) {
 				printWriter.println("),");
 			} else {
-				printWriter.println(")).");
+				printWriter.println(").");
 			}
 			printWriter.println();
 		}
