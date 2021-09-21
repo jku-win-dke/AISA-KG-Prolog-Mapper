@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false"> 
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+    <!-- encoders are  by default assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="STDOUT" />
+    <queueSize>1000</queueSize>
+  </appender>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+  </root>
+  
+  <logger name="at.jku.dke.aisa.mapperA" level="DEBUG" />
+  
+  <logger name="org.apache.jena" level="WARN"/>
+  
+  <logger name="org.apache.http" level="WARN"/>
+  
+</configuration>

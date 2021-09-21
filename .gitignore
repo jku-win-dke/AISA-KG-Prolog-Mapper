@@ -23,6 +23,7 @@ hs_err_pid*
 #folders to ignore
 at.jku.dke.aisa.mapperA/apache-jena-fuseki-3.16.0
 at.jku.dke.aisa.mapperB/apache-jena-fuseki-3.16.0
+at.jku.dke.aisa.mapperB2/apache-jena-fuseki-3.16.0
 at.jku.dke.aisa.mapperC/apache-jena-fuseki-3.16.0
 at.jku.dke.aisa.kg/target
 at.jku.dke.aisa.kg.sample.adsb/target
