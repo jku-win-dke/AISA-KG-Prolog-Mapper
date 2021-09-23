@@ -1,4 +1,4 @@
-% :- module(c,[]).
+:- module(c,[]).
 
 /* use the new RDF-DB library 
 https://www.swi-prolog.org/pldoc/man?section=semweb-rdf11 */
